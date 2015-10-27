@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+.navbar-brand {padding:8px;}
+.navbar-nav li a {padding-bottom:0px;}
+.navbar-inverse {background:#7a6253; opacity:0.9;}
+p {font-size:13px; margin-bottom:0px;}
+.btn-default {font-size:13px; background:white;}
+textarea {font-size:13px;}
+.form-control {font-size:13px;}
+.txt-common {font-size:13px;}
+
+#csatlatte-footer-copyright {font-size:13px; margin-top:15px;}

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="csatlatte.layout.main" template="/WEB-INF/layout/template/main.jsp">
+		<put-attribute name="title" value="수능라떼"/>
+		<put-attribute name="header" value="/WEB-INF/layout/attribute/header/main.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/layout/attribute/footer.jsp"/>
+	</definition>
+
+	<definition	name="csatlatte.layout.function1" template="/WEB-INF/layout/template/function1.jsp" extends="csatlatte.layout.main">
+		<put-attribute name="header" value="/WEB-INF/layout/attribute/header/function.jsp"/>
+	</definition>
+	
+	<definition name="csatlatte.layout.function2" template="/WEB-INF/layout/template/function2.jsp" extends="csatlatte.layout.function1"/>
+	
+	<definition name="csatlatte.layout.error" template="/WEB-INF/layout/template/error.jsp" extends="csatlatte.layout.function1"/>
+	
+	<definition name="/main" extends="csatlatte.layout.main">
+		<put-attribute name="head" value="/WEB-INF/view/main/head.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/main/content.jsp"/>
+	</definition>
+	
+	<definition name="/rating" extends="csatlatte.layout.function2">
+		<put-attribute name="head" value="/WEB-INF/view/rating/head.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/rating/content.jsp"/>
+	</definition>
+	
+	<definition name="/support" extends="csatlatte.layout.function2">
+		<put-attribute name="head" value="/WEB-INF/view/support/head.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/support/content.jsp"/>
+	</definition>
+	
+	<definition name="/support/question/write" extends="csatlatte.layout.function2">
+		<put-attribute name="head" value="/WEB-INF/view/support/question/write/head.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/support/question/write/content.jsp"/>
+	</definition>
+	
+	<definition name="/support/question/success" extends="csatlatte.layout.function2">
+		<put-attribute name="head" value="/WEB-INF/view/support/question/success/head.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/support/question/success/content.jsp"/>
+	</definition>
+	
+	<definition name="/support/question/fail" extends="csatlatte.layout.function2">
+		<put-attribute name="head" value="/WEB-INF/view/support/question/fail/head.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/support/question/fail/content.jsp"/>
+	</definition>
+	
+	<definition name="/manage/question/answer" extends="csatlatte.layout.function2">
+		<put-attribute name="head" value="/WEB-INF/view/manage/question/answer/head.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/manage/question/answer/content.jsp"/>
+	</definition>
+	
+	<definition name="/manage/question/answer/info" extends="csatlatte.layout.function2">
+		<put-attribute name="head" value="/WEB-INF/view/manage/question/answer/info/head.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/manage/question/answer/info/content.jsp"/>
+	</definition>
+	
+	<definition name="/myinfo/question/detail" extends="csatlatte.layout.function2">
+		<put-attribute name="head" value="/WEB-INF/view/myinfo/question/detail/head.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/myinfo/question/detail/content.jsp"/>
+	</definition>
+	
+	<definition name="/error/*" extends="csatlatte.layout.error">
+		<put-attribute name="content" value="/WEB-INF/view/error/{1}.jsp"/>
+	</definition>
+	
+	<definition name="/*" extends="csatlatte.layout.function1">
+		<put-attribute name="head" value="/WEB-INF/view/{1}/head.jsp"/>
+		<put-attribute name="lnb" value="/WEB-INF/view/{1}/lnb.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/{1}/content.jsp"/>
+	</definition>
+
+	<definition name="/*/*" extends="csatlatte.layout.function1">
+		<put-attribute name="head" value="/WEB-INF/view/{1}/{2}/head.jsp"/>
+		<put-attribute name="lnb" value="/WEB-INF/view/{1}/{2}/lnb.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/{1}/{2}/content.jsp"/>
+	</definition>
+
+	<definition name="/*/*/*" extends="csatlatte.layout.function1">
+		<put-attribute name="head" value="/WEB-INF/view/{1}/{2}/{3}/head.jsp"/>
+		<put-attribute name="lnb" value="/WEB-INF/view/{1}/{2}/{3}/lnb.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/{1}/{2}/{3}/content.jsp"/>
+	</definition>
+	
+</tiles-definitions>

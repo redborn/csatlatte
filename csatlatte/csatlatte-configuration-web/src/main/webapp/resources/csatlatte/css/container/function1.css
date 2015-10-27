@@ -1,0 +1,5 @@
+@CHARSET "UTF-8";
+
+body > div.container {padding:80px 0 20px; display:table;}
+.lnb {display:inline-block; width:300px; border:1px solid #ccc; border-radius:10px 0 0 10px; background-color:#e8e4e1; text-align:left; padding:16px; height:100%;  vertical-align:top; display:table-cell;}
+.content {display:inline-block; width:633px; border-top:1px solid #ccc; border-right:1px solid #ccc; border-bottom:1px solid #ccc; border-radius:0 10px 10px 0; text-align:left;  padding:16px; height:100%; vertical-align:top; display:table-cell;}

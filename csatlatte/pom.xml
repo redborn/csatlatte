@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.redborn.csatlatte</groupId>
+  <artifactId>csatlatte</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+  	<module>csatlatte-module-csat</module>
+  	<module>csatlatte-configuration-web</module>
+  	<module>csatlatte-service-web</module>
+  	<module>csatlatte-dataaccess-csat</module>
+  	<module>csatlatte-business-csat</module>
+  	<module>csatlatte-value</module>
+  	<module>csat-application-web</module>
+  	<module>csatlatte-application-web</module>
+  </modules>
+</project>
