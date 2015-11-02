@@ -1,0 +1,194 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<h5 class="manage-exam-title">모의고사 관리</h5>
+<select class="form-control">
+	<option>주관 교육청</option>
+	<option>모의고사</option>
+</select>
+<input type="text" class="form-control" placeholder="검색">
+<table class="table">
+	<thead>
+		<tr>
+			<th>연도</th>
+			<th>모의고사</th>
+			<th>주관교육청</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>2014년</td>
+			<td>7월 3학년 모의고사</td>
+			<td>서울특별시교육청</td>
+			<td><img alt="시험수정" data-toggle="modal" data-target="#manage-exam-modify" class="manage-exam-modify" src="<c:url value="/resources/csatlatte/images/btn/btn_modify.png"/>"></td>
+			<td><img alt="시험지우기" data-toggle="modal" data-target="#manage-exam-delete" class="manage-exam-delete" src="<c:url value="/resources/csatlatte/images/btn/btn_delete.png"/>"></td>
+		</tr>
+		<tr>
+			<td>2014년</td>
+			<td>7월 3학년 모의고사</td>
+			<td>서울특별시교육청</td>
+			<td><img alt="시험수정" data-toggle="modal" data-target="#manage-exam-modify" class="manage-exam-modify" src="<c:url value="/resources/csatlatte/images/btn/btn_modify.png"/>"></td>
+			<td><img alt="시험지우기" data-toggle="modal" data-target="#manage-exam-delete" class="manage-exam-delete" src="<c:url value="/resources/csatlatte/images/btn/btn_delete.png"/>"></td>
+		</tr>
+	</tbody>
+</table>
+<div class="manage-exam-btn-align">
+	<button class="btn btn-default manage-exam-add" data-toggle="modal" data-target="#manage-exam-add">모의고사 추가</button>
+</div>
+<nav>
+	<ul class="pagination">
+		<li>
+			<a href="#" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+		<li><a href="#">1</a></li>
+		<li><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li><a href="#">4</a></li>
+		<li><a href="#">5</a></li>
+		<li>
+			<a href="#" aria-label="Next">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</li>
+	</ul>
+</nav>
+<div class="modal fade" id="manage-exam-modify" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">모의고사 수정</h4>
+			</div>
+			<div class="modal-body">
+				<div class="manage-exam-info-content">
+					<label for="manage-exam-csat">수능</label>
+					<div class="manage-exam-info-content-value">
+						<select class="form-control" id="manage-exam-csat">
+							<option>2016학년도 대학수학능력시험</option>
+							<option>2015학년도 대학수학능력시험</option>
+							<option>2014학년도 대학수학능력시험</option>
+						</select>
+					</div>
+				</div>
+				<div class="manage-exam-info-content">
+					<label for="manage-exam-name">모의고사</label>
+					<div class="manage-exam-info-content-value">
+						<input type="text" class="form-control" id="manage-exam-name">
+					</div>
+				</div>
+				<div class="manage-exam-info-content">
+					<label for="manage-exam-eduoffice">주관 교육청</label>
+					<div class="manage-exam-info-content-value">
+						<select class="form-control" id="manage-exam-eduoffice">
+							<option>한국교육과정평가원</option>
+							<option>서울특별시교육청</option>
+						</select>
+					</div>
+				</div>
+				<div class="manage-exam-info-content">
+					<label for="manage-exam-student-grade">학년</label>
+					<div class="manage-exam-info-content-value">
+						<select class="form-control" id="manage-exam-student-grade">
+							<option>3학년</option>
+							<option>2학년</option>
+							<option>1학년</option>
+						</select>
+					</div>
+				</div>
+				<div class="manage-exam-info-content">
+					<label for="manage-exam-file">등급컷 업로드</label>
+					<div class="manage-exam-info-content-value">
+						<input type="file" id="manage-exam-file">
+					</div>
+				</div>
+				<div class="manage-exam-info-content">
+					<a href="#">등급컷 다운로드</a>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<img class="manage-exam-btn-cancel" data-dismiss="modal" src="<c:url value="/resources/csatlatte/images/btn/btn_cancel.png"/>">
+				<img class="manage-exam-btn-accept" src="<c:url value="/resources/csatlatte/images/btn/btn_accept.png"/>">
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="manage-exam-delete" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">모의고사 삭제</h4>
+			</div>
+			<div class="modal-body">
+				정말로 이 모의고사를 삭제하실거에요?
+			</div>
+			<div class="modal-footer">
+				<img class="manage-exam-btn-cancel" data-dismiss="modal" src="<c:url value="/resources/csatlatte/images/btn/btn_cancel.png"/>">
+				<img class="manage-exam-btn-accept" src="<c:url value="/resources/csatlatte/images/btn/btn_accept.png"/>">
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="manage-exam-add" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">모의고사 추가</h4>
+			</div>
+			<div class="modal-body">
+				<div class="manage-exam-info-content">
+					<label for="manage-exam-csat">수능</label>
+					<div class="manage-exam-info-content-value">
+						<select class="form-control" id="manage-exam-csat">
+							<option>2016학년도 대학수학능력시험</option>
+							<option>2015학년도 대학수학능력시험</option>
+							<option>2014학년도 대학수학능력시험</option>
+						</select>
+					</div>
+				</div>
+				<div class="manage-exam-info-content">
+					<label for="manage-exam-name">모의고사</label>
+					<div class="manage-exam-info-content-value">
+						<input type="text" class="form-control" id="manage-exam-name">
+					</div>
+				</div>
+				<div class="manage-exam-info-content">
+					<label for="manage-exam-eduoffice">주관 교육청</label>
+					<div class="manage-exam-info-content-value">
+						<select class="form-control" id="manage-exam-eduoffice">
+							<option>한국교육과정평가원</option>
+							<option>서울특별시교육청</option>
+						</select>
+					</div>
+				</div>
+				<div class="manage-exam-info-content">
+					<label for="manage-exam-student-grade">학년</label>
+					<div class="manage-exam-info-content-value">
+						<select class="form-control" id="manage-exam-student-grade">
+							<option>3학년</option>
+							<option>2학년</option>
+							<option>1학년</option>
+						</select>
+					</div>
+				</div>
+				<div class="manage-exam-info-content">
+					<label for="manage-exam-file">등급컷 업로드</label>
+					<div class="manage-exam-info-content-value">
+						<input type="file" id="manage-exam-file">
+					</div>
+				</div>
+				<div class="manage-exam-info-content">
+					<a href="#">등급컷 다운로드</a>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<img class="manage-exam-btn-cancel" data-dismiss="modal" src="<c:url value="/resources/csatlatte/images/btn/btn_cancel.png"/>">
+				<img class="manage-exam-btn-accept" src="<c:url value="/resources/csatlatte/images/btn/btn_accept.png"/>">
+			</div>
+		</div>
+	</div>
+</div>
