@@ -50,4 +50,9 @@ public class TilesName {
 	public static final String STATS_JOIN = "/stats/join";
 	public static final String STATS_CONNECTION = "/stats/connection";
 	public static final String STATS_COMMUNITY = "/stats/community";
+	
+	public static final String MANAGE_USER = "/manage/user";
+	public static final String MANAGE_EXAM = "/manage/exam";
+	public static final String MANAGE_COMMUNITY = "/manage/community";
+	public static final String MANAGE_QUESTION = "/manage/question";
 }
