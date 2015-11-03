@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
-<h5 class="manage-community-title">커뮤니티 관리</h5>
-<input type="text" class="form-control" placeholder="아이디 혹은 닉네임">
+<h4 class="manage-community-title">커뮤니티 관리</h4>
+<div class="manage-community-search">
+	<div class="col-lg-5"><input type="text" class="form-control" placeholder="아이디 혹은 닉네임"></div>
+</div>
 <table class="table">
 	<thead>
 		<tr>
-			<th>아이디</th>
-			<th>닉네임</th>
-			<th>내용</th>
-			<th>블라인드</th>
-			<th></th>
+			<th class="col-lg-2">아이디</th>
+			<th class="col-lg-2">닉네임</th>
+			<th class="col-lg-4">내용</th>
+			<th class="col-lg-2">블라인드</th>
+			<th class="col-lg-1"></th>
 		</tr>
 	</thead>
 	<tbody>

@@ -1,20 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
-<h5 class="manage-exam-title">모의고사 관리</h5>
-<select class="form-control">
-	<option>주관 교육청</option>
-	<option>모의고사</option>
-</select>
-<input type="text" class="form-control" placeholder="검색">
+<h4 class="manage-exam-title">모의고사 관리</h4>
+<div class="manage-exam-search">
+	<div class="col-lg-5"><input type="text" class="form-control" placeholder="아이디 혹은 닉네임"></div>
+</div>
 <table class="table">
 	<thead>
 		<tr>
-			<th>연도</th>
-			<th>모의고사</th>
-			<th>주관교육청</th>
-			<th></th>
-			<th></th>
+			<th class="col-lg-3">연도</th>
+			<th class="col-lg-4">모의고사</th>
+			<th class="col-lg-4">주관교육청</th>
+			<th class="col-lg-1"></th>
+			<th class="col-lg-1"></th>
 		</tr>
 	</thead>
 	<tbody>

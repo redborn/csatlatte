@@ -5,9 +5,10 @@
 	th {text-align:center;}
 	tr {text-align:center;}
 	label {display:inline-block; width:80px; text-align:right;}
-	.form-control {width:100px; display:inline-block;}
-	.btn-default {width:100%; display:block;}
 	.table {margin-top:15px;}
+	
+	.col-lg-5 {float:none; display:inline-block;}
+	.manage-user-search {text-align:right;}
 	
 	.manage-user-title {display:inline-block; width:380px;}
 	.manage-user-apply {width:50px; display:inline-block;}

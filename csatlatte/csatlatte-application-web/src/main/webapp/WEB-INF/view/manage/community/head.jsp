@@ -9,8 +9,8 @@
 	.manage-community-title {display:inline-block; width:380px;}
 	.manage-community-delete {cursor:pointer;}
 	
-	.form-control {width:200px; display:inline-block;}
-	.btn-default {width:100%; display:block;}
+	.col-lg-5 {float:none; display:inline-block;}
+	.manage-community-search {text-align:right;}
 	
 	.manage-community-btn-align {text-align:right;}
 	.manage-community-apply {width:50px; display:inline-block;}

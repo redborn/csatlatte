@@ -6,8 +6,8 @@
 	tr {text-align:center;}
 	.table {margin-top:15px;}
 	
-	.form-control {width:200px; display:inline-block;}
-	.btn-default {width:100%; display:block;}
+	.col-lg-4 {float:none; display:inline-block;}
+	.manage-community-search {text-align:right;}
 
 	.manage-question-title {display:inline-block; width:380px;}
 	.manage-question-yn h5 {display:inline-block;}
@@ -15,6 +15,7 @@
 	.manage-question-btn-cancel {cursor:pointer;}
 	.manage-question-btn-accept {cursor:pointer;}
 	.manage-question-content {cursor:pointer;}
+	.btn-group {margin-left:5px;}
 	
 	.modal-body h5 {display:inline-block;}
 	.manage-question-qna-title-content {display:inline-block; margin-left:10px;}

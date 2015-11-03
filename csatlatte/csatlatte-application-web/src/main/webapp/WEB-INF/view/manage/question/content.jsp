@@ -1,13 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
-<h5 class="manage-question-title">문의 관리</h5>
-<input type="text" class="form-control" placeholder="아이디 혹은 닉네임">
-<div class="manage-question-yn">
-	<h5>답변여부</h5>
-	<button class="btn btn-default">전체</button>
-	<button class="btn btn-default">대기</button>
-	<button class="btn btn-default">완료</button>
+<h4 class="manage-question-title">문의 관리</h4>
+<div class="row">
+	<div class="col-lg-7">
+		<div class="manage-question-yn">
+			<h5>답변여부</h5>
+			<div class="btn-group">
+				<button class="btn btn-default">전체</button>
+				<button class="btn btn-default">대기</button>
+				<button class="btn btn-default">완료</button>
+			</div>
+		</div>
+	</div>
+		<div class="col-lg-5">
+		<div class="manage-community-search">
+			<div class="col-lg-12"><input type="text" class="form-control" placeholder="아이디 혹은 닉네임"></div>
+		</div>
+	</div>
 </div>
 <table class="table">
 	<thead>

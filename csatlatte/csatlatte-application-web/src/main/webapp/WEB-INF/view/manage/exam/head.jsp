@@ -7,6 +7,9 @@
 	.table {margin-top:15px;}
 	label {width:80px; text-align:right; display:inline-block; margin-left:10px;}
 	
+	.col-lg-5 {float:none; display:inline-block;}
+	.manage-exam-search {text-align:right;}
+	
 	.manage-exam-info-content-value {margin-left:10px; display:inline-block; margin-top:5px;}
 	.manage-exam-info-content-value .form-control {width:auto;}
 
@@ -14,9 +17,6 @@
 	.manage-exam-modify {cursor:pointer;}
 	.manage-exam-delete {cursor:pointer;}
 	.manage-exam-btn-align {text-align:right;}
-	
-	.form-control {width:100px; display:inline-block;}
-	.btn-default {width:100%; display:block;}
 	
 	.manage-exam-add {width:100px; display:inline-block;}
 	

@@ -1,22 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<h5 class="manage-user-title">회원 관리</h5>
-<select class="form-control">
-	<option>아이디</option>
-	<option>닉네임</option>
-</select>
-<input type="text" class="form-control" placeholder="검색">
+<h4 class="manage-user-title">회원 관리</h4>
+<div class="manage-user-search">
+	<div class="col-lg-5"><input type="text" class="form-control" placeholder="아이디 혹은 닉네임"></div>
+</div>
 <table class="table">
 	<thead>
 		<tr>
-			<th>아이디</th>
-			<th>닉네임</th>
-			<th>접속횟수</th>
-			<th>차단</th>
-			<th>관리자권한</th>
-			<th>활동점수</th>
-			<th>성적평균</th>
+			<th class="col-lg-1">아이디</th>
+			<th class="col-lg-1">닉네임</th>
+			<th class="col-lg-1">접속횟수</th>
+			<th class="col-lg-1">차단</th>
+			<th class="col-lg-1">관리자권한</th>
+			<th class="col-lg-1">활동점수</th>
+			<th class="col-lg-1">성적평균</th>
 		</tr>
 	</thead>
 	<tbody>
