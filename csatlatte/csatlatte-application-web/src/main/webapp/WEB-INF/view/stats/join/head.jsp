@@ -2,11 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/layout/include/bootstrap/datepicker.jsp" %>
 <style>
-	h5 {display:inline-block;}
-	.input-group .form-control {margin-left:5px; display:inline-block; float:none; width:100px; height:30px;}
-	#stats-join-daily-chart {width:600px; height:400px; margin-top:15px; margin-left:15px;}
-	#stats-join-monthly-chart {width:600px; height:400px; margin-top:15px; margin-left:15px;}
-	#stats-join-annual-chart {width:600px; height:400px; margin-top:15px; margin-left:15px;}
+	h5 {display:inline-block; vertical-align:top;}
+	.form-control {margin-left:5px; display:inline-block; float:none; width:auto; height:30px;}
+	#stats-join-daily-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
+	#stats-join-monthly-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
+	#stats-join-annual-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
+	
+	.col-lg-6 {float:none; display:inline-block;}
+	#stats-join-daily-datepicker {width:auto;}
+	#stats-join-monthly-datepicker {width:auto;}
+	#stats-join-annual-datepicker {width:auto;}
+	.input-group {display:inline-block; margin-top:4px;}
+	.input-group-addon {width:auto;}
 	
 	.btn-default {width:100%; display:block;}
 </style>
@@ -44,15 +51,23 @@
 			[ '19', 137 ], [ '20', 148 ], [ '21', 189 ], [ '22', 112 ],
 			[ '23', 110 ], [ '24', 12 ] ]);
 
+		var statsJoinDailyView = new google.visualization.DataView(statsJoinDailyData);
+		statsJoinDailyView.setColumns([0,1, { 
+			calc: "stringify",
+			sourceColumn: 1,
+			type: "string",
+			role: "annotation" 
+		}]);
+		
 		var statsJoinDailyOptions = {
 			chartArea:{left:30,top:10,width:'90%',height:'80%'},
 			legend : {
 				position : 'none'
-			}
+			},
 		};
 		
 		var statsJoinDailyChart = new google.visualization.ColumnChart(document.getElementById('stats-join-daily-chart'));
-		statsJoinDailyChart.draw(statsJoinDailyData, statsJoinDailyOptions);
+		statsJoinDailyChart.draw(statsJoinDailyView, statsJoinDailyOptions);
 		
 		var statsJoinMonthlyData = google.visualization.arrayToDataTable([
 			[ '날짜', '신규가입자' ], [ '1', 165 ], [ '2', 165 ], [ '3', 157 ],
@@ -63,7 +78,15 @@
 			[ '20', 148 ], [ '21', 189 ], [ '22', 112 ], [ '23', 110 ], 
 			[ '24', 148 ], [ '25', 189 ], [ '26', 112 ], [ '27', 110 ], 
 			[ '28', 148 ], [ '29', 189 ], [ '30', 112 ]]);
-
+		
+		var statsJoinMonthlyView = new google.visualization.DataView(statsJoinMonthlyData);
+		statsJoinMonthlyView.setColumns([0,1, { 
+			calc: "stringify",
+			sourceColumn: 1,
+			type: "string",
+			role: "annotation" 
+		}]);
+		
 		var statsJoinMonthlyOptions = {
 			chartArea:{left:30,top:10,width:'90%',height:'80%'},
 			legend : {
@@ -72,7 +95,7 @@
 		};
 
 		var statsJoinMonthlyChart = new google.visualization.ColumnChart(document.getElementById('stats-join-monthly-chart'));
-		statsJoinMonthlyChart.draw(statsJoinMonthlyData, statsJoinMonthlyOptions);
+		statsJoinMonthlyChart.draw(statsJoinMonthlyView, statsJoinMonthlyOptions);
 
 		var statsJoinAnnualData = google.visualization.arrayToDataTable([
 			[ '날짜', '신규가입자' ], [ '1', 165 ], [ '2', 165 ], [ '3', 157 ],
@@ -80,6 +103,14 @@
 			[ '8', 101 ], [ '9', 193 ], [ '10', 124 ], [ '11', 163 ],
 			[ '12', 112 ]]);
 
+		var statsJoinAnnualView = new google.visualization.DataView(statsJoinAnnualData);
+		statsJoinAnnualView.setColumns([0,1, { 
+			calc: "stringify",
+			sourceColumn: 1,
+			type: "string",
+			role: "annotation" 
+		}]);
+		
 		var statsJoinAnnualOptions = {
 			chartArea:{left:30,top:10,width:'90%',height:'80%'},
 			legend : {
@@ -88,7 +119,7 @@
 		};
 
 		var statsJoinAnnualChart = new google.visualization.ColumnChart(document.getElementById('stats-join-annual-chart'));
-		statsJoinAnnualChart.draw(statsJoinAnnualData, statsJoinAnnualOptions);
+		statsJoinAnnualChart.draw(statsJoinAnnualView, statsJoinAnnualOptions);
 	};
 	google.setOnLoadCallback(drawChart);
 </script>
