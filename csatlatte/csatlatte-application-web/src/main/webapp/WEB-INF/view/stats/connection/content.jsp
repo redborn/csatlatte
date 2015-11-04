@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<h4>접속자 통계</h4>
 <h5>일간 접속자수</h5>
 <div class="col-lg-6">
 	<div class="input-group">

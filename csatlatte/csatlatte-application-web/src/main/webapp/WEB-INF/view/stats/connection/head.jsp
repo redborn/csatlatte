@@ -64,9 +64,15 @@
 		}]);
 
 		var statsConnectionDailyOptions = {
-			chartArea:{left:30,top:10,width:'90%',height:'80%'},
+			chartArea:{left:50,top:10,width:'90%',height:'80%'},
 			legend : {
 				position : 'none'
+			},
+			hAxis: {
+				title:'시간'
+			},
+			vAxis: {
+				title:'접속자 수'
 			}
 		};
 		
@@ -92,9 +98,15 @@
 		}]);
 
 		var statsConnectionMonthlyOptions = {
-			chartArea:{left:30,top:10,width:'90%',height:'80%'},
+			chartArea:{left:50,top:10,width:'90%',height:'80%'},
 			legend : {
 				position : 'none'
+			},
+			hAxis: {
+				title:'일'
+			},
+			vAxis: {
+				title:'접속자 수'
 			}
 		};
 
@@ -116,9 +128,15 @@
 		}]);
 
 		var statsConnectionAnnualOptions = {
-			chartArea:{left:30,top:10,width:'90%',height:'80%'},
+			chartArea:{left:50,top:10,width:'90%',height:'80%'},
 			legend : {
 				position : 'none'
+			},
+			hAxis: {
+				title:'월'
+			},
+			vAxis: {
+				title:'접속자 수'
 			}
 		};
 
