@@ -22,8 +22,8 @@
 		var tableMarginLeft = ($(window).width() - $('.table').width()) / 2;
 		$('.rating-animate-panel').css({"margin-left":tableMarginLeft + "px"});
 		
-		$(".rating-select-year-list").hide();
-		$(".rating-select-exam-list").hide();
+		$(".rating-select-year").hide();
+		$(".rating-select-exam").hide();
 		
 		var moveNextSlider = function (tableIndex) {
 			var willMoveLeft = -(tableIndex * 904);
@@ -40,15 +40,15 @@
 		}
 		
 		$('.rating-select-grade-resource').on("click", function () {
-			$('.rating-select-year-list').slideDown("fast");
-			if($('.rating-select-exam-list').not(":hidden")) {
-				$('.rating-select-exam-list').slideUp("fast");
+			$('.rating-select-year').slideDown("fast");
+			if($('.rating-select-exam').not(":hidden")) {
+				$('.rating-select-exam').slideUp("fast");
 			}
 			$('.rating-examcut').fadeTo(200,0);
 		});
 		
 		$('.rating-select-year-resource').on("click", function () {
-			$('.rating-select-exam-list').slideDown("fast");
+			$('.rating-select-exam').slideDown("fast");
 			$('.rating-examcut').fadeTo(200,0);
 		});
 		
