@@ -111,7 +111,7 @@
 		};
 
 		var statsCommunityMonthlyChart = new google.visualization.ColumnChart(document.getElementById('stats-community-monthly-chart'));
-		statsCommunityMonthlyChart.draw(statsCommunityMonthlyData, statsCommunityMonthlyOptions);
+		statsCommunityMonthlyChart.draw(statsCommunityMonthlyView, statsCommunityMonthlyOptions);
 
 		var statsCommunityAnnualData = google.visualization.arrayToDataTable([
 			[ '날짜', '커뮤니티 활성' ], [ '1', 165 ], [ '2', 165 ], [ '3', 157 ],
