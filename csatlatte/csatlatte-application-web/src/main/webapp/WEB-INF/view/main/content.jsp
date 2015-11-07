@@ -4,23 +4,46 @@
 <div class="main-picture">
 	<div class="main-title">"미래를 위한<br/>현명한 준비"</div>
 	<div class="main-login">
+	<%
+		String value = request.getParameter("key");
+		String manageKey = "ABC";
+		String userKey = "123";
+		
+		if (value == null) {
+			value = "";
+		}
+	%>
+	<%	
+		if (value.equals(manageKey)) {
+	%>
+		<img alt="프로필사진" class="main-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
+		<h4>어서오세요! 관리자님!</h4>
+		<a class="btn btn-default" href="<c:url value="/stats/join"/>">관리자 페이지</a>
+	<%
+		} else if (value.equals(userKey)) {
+	%>
+		<img alt="프로필사진" class="main-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
+		<h4>어서오세요! 회원님!</h4>
+	<%
+		} else {
+	%>
 		<form method="post" action='<c:url value="/login"/>'>
 			<div class="form-group">
 				<label for="main-input-id" class="sr-only">수능라떼 아이디</label>
-				<input type="text" class="form-control" placeholder="수능라떼 아이디" id="main-input-id"/>
+				<input type="text" name="id" class="form-control" placeholder="수능라떼 아이디" id="main-input-id"/>
 			</div>
 			<div class="form-group">
 				<label for="main-input-password" class="sr-only">수능라떼 비밀번호</label>
-				<input type="password" class="form-control" placeholder="수능라떼 비밀번호" id="main-input-password"/>
+				<input type="password" name="password" class="form-control" placeholder="수능라떼 비밀번호" id="main-input-password"/>
 			</div>
-			<div class="form-group">
+			<div class="form-group" id="main-maintain-login">
 				<input id="main-login-keep-status" type="checkbox"/>
 				<label for="main-login-keep-status">로그인 상태 유지</label>
 			</div>
 			<div class="form-group">
 				<input type="submit" class="btn btn-default" value="로그인"/>
 			</div>
-			<div class="form-group">
+			<div class="form-group" id="main-account">
 				<div class="main-join">
 					<a href="<c:url value="/join"/>">회원가입</a>
 				</div>
@@ -30,5 +53,8 @@
 				</div>
 			</div>
 		</form>
+	<%
+		}
+	 %>
 	</div>
 </div>
