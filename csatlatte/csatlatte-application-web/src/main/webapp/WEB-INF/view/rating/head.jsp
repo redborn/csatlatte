@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <style>
 	.panel {width:933px; margin:auto; overflow:hidden;}
 	.panel .panel-body {font-size:13px;}
@@ -15,6 +16,7 @@
 	.table thead tr th {vertical-align:middle;}
 	.rating-btn-next {cursor:pointer; position:absolute; top:55px; right:50px;}
 	.rating-btn-prev {cursor:pointer; position:absolute; top:55px; left:50px;}
+	.container-examcut {padding-left:0px; padding-right:0px; text-align:left; margin-bottom:30px;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -24,6 +26,8 @@
 		
 		$(".rating-select-year").hide();
 		$(".rating-select-exam").hide();
+		
+		$(".container-examcut").insertBefore($( "footer"));
 		
 		var moveNextSlider = function (tableIndex) {
 			var willMoveLeft = -(tableIndex * 904);
@@ -102,3 +106,116 @@
 		});
 	});
 </script>
+<div class="container-fluid container-examcut">
+	<div class="rating-examcut">
+		<div class="rating-animate-panel">
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th rowspan="2">과목</th>
+						<th colspan="3">1등급</th>
+						<th colspan="3">2등급</th>
+						<th colspan="3">3등급</th>
+					</tr>
+					<tr>
+						<th>원점수</th>
+						<th>표준점수</th>
+						<th>백분위</th>
+						<th>원점수</th>
+						<th>표준점수</th>
+						<th>백분위</th>
+						<th>원점수</th>
+						<th>표준점수</th>
+						<th>백분위</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>국어A</td>
+						<td>98</td>
+						<td>124</td>
+						<td>96</td>
+						<td>94</td>
+						<td>121</td>
+						<td>87</td>
+						<td>89</td>
+						<td>117</td>
+						<td>77</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th rowspan="2">과목</th>
+						<th colspan="3">4등급</th>
+						<th colspan="3">5등급</th>
+						<th colspan="3">6등급</th>
+					</tr>
+					<tr>
+						<th>원점수</th>
+						<th>표준점수</th>
+						<th>백분위</th>
+						<th>원점수</th>
+						<th>표준점수</th>
+						<th>백분위</th>
+						<th>원점수</th>
+						<th>표준점수</th>
+						<th>백분위</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>국어A</td>
+						<td>98</td>
+						<td>124</td>
+						<td>96</td>
+						<td>94</td>
+						<td>121</td>
+						<td>87</td>
+						<td>89</td>
+						<td>117</td>
+						<td>77</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<th rowspan="2">과목</th>
+						<th colspan="3">7등급</th>
+						<th colspan="3">8등급</th>
+						<th colspan="3">9등급</th>
+					</tr>
+					<tr>
+						<th>원점수</th>
+						<th>표준점수</th>
+						<th>백분위</th>
+						<th>원점수</th>
+						<th>표준점수</th>
+						<th>백분위</th>
+						<th>원점수</th>
+						<th>표준점수</th>
+						<th>백분위</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>국어A</td>
+						<td>98</td>
+						<td>124</td>
+						<td>96</td>
+						<td>94</td>
+						<td>121</td>
+						<td>87</td>
+						<td>89</td>
+						<td>117</td>
+						<td>77</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<img alt="왼쪽 보기" class="rating-btn-prev" src="<c:url value="/resources/csatlatte/images/btn/btn_left.png"/>">
+		<img alt="오른쪽 보기" class="rating-btn-next" src="<c:url value="/resources/csatlatte/images/btn/btn_right.png"/>">
+	</div>
+</div>
