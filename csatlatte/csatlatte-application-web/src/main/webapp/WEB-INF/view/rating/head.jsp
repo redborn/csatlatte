@@ -2,10 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <style>
+	h5 {margin-top:0px; margin-bottom:10px;}
 	.panel {width:933px; margin:auto; overflow:hidden;}
 	.panel .panel-body {font-size:13px;}
-	.rating-select-grade-list {margin-left:20px; margin-bottom:10px;}
-	.rating-select-year-list {margin-left:20px; margin-bottom:10px;}
+	.rating-select-grade-list {margin-left:20px; margin-bottom:20px;}
+	.rating-select-year-list {margin-left:20px; margin-bottom:20px;}
 	.rating-select-exam-list img {margin-left:20px; width:100px;}
 	.rating-examcut {position:relative; margin-top:30px; width:100%; min-width:933px; height:auto; background:#EEEEEE; padding-top:15px; padding-bottom:15px; overflow:hidden; display:none;}
 	.rating-examcut .rating-animate-panel {position:relative; width:4000px; height:auto; overflow:hidden;}
@@ -21,13 +22,124 @@
 <script>
 	$(document).ready(function () {
 		var tableIndex = 0;
+		var examcut = '<div class="container-fluid container-examcut">';
+		examcut += '	<div class="rating-examcut">';
+		examcut += '		<div class="rating-animate-panel">';
+		examcut += '			<table class="table table-hover table-bordered">';
+		examcut += '				<thead>';
+		examcut += '					<tr>';
+		examcut += '						<th rowspan="2">과목</th>';
+		examcut += '						<th colspan="3">1등급</th>';
+		examcut += '						<th colspan="3">2등급</th>';
+		examcut += '						<th colspan="3">3등급</th>';
+		examcut += '					</tr>';
+		examcut += '					<tr>';
+		examcut += '						<th>원점수</th>';
+		examcut += '						<th>표준점수</th>';
+		examcut += '						<th>백분위</th>';
+		examcut += '						<th>원점수</th>';
+		examcut += '						<th>표준점수</th>';
+		examcut += '						<th>백분위</th>';
+		examcut += '						<th>원점수</th>';
+		examcut += '						<th>표준점수</th>';
+		examcut += '						<th>백분위</th>';
+		examcut += '					</tr>';
+		examcut += '				</thead>';
+		examcut += '				<tbody>';
+		examcut += '					<tr>';
+		examcut += '						<td>국어A</td>';
+		examcut += '						<td>98</td>';
+		examcut += '						<td>124</td>';
+		examcut += '						<td>96</td>';
+		examcut += '						<td>94</td>';
+		examcut += '						<td>121</td>';
+		examcut += '						<td>87</td>';
+		examcut += '						<td>89</td>';
+		examcut += '						<td>117</td>';
+		examcut += '						<td>77</td>';
+		examcut += '					</tr>';
+		examcut += '				</tbody>';
+		examcut += '			</table>';
+		examcut += '			<table class="table table-hover table-bordered">';
+		examcut += '				<thead>';
+		examcut += '					<tr>';
+		examcut += '						<th rowspan="2">과목</th>';
+		examcut += '						<th colspan="3">4등급</th>';
+		examcut += '						<th colspan="3">5등급</th>';
+		examcut += '						<th colspan="3">6등급</th>';
+		examcut += '					</tr>';
+		examcut += '					<tr>';
+		examcut += '						<th>원점수</th>';
+		examcut += '						<th>표준점수</th>';
+		examcut += '						<th>백분위</th>';
+		examcut += '						<th>원점수</th>';
+		examcut += '						<th>표준점수</th>';
+		examcut += '						<th>백분위</th>';
+		examcut += '						<th>원점수</th>';
+		examcut += '						<th>표준점수</th>';
+		examcut += '						<th>백분위</th>';
+		examcut += '					</tr>';
+		examcut += '				</thead>';
+		examcut += '				<tbody>';
+		examcut += '					<tr>';
+		examcut += '						<td>국어A</td>';
+		examcut += '						<td>98</td>';
+		examcut += '						<td>124</td>';
+		examcut += '						<td>96</td>';
+		examcut += '						<td>94</td>';
+		examcut += '						<td>121</td>';
+		examcut += '						<td>87</td>';
+		examcut += '						<td>89</td>';
+		examcut += '						<td>117</td>';
+		examcut += '						<td>77</td>';
+		examcut += '					</tr>';
+		examcut += '				</tbody>';
+		examcut += '			</table>';
+		examcut += '			<table class="table table-hover table-bordered">';
+		examcut += '				<thead>';
+		examcut += '					<tr>';
+		examcut += '						<th rowspan="2">과목</th>';
+		examcut += '						<th colspan="3">7등급</th>';
+		examcut += '						<th colspan="3">8등급</th>';
+		examcut += '						<th colspan="3">9등급</th>';
+		examcut += '					</tr>';
+		examcut += '					<tr>';
+		examcut += '						<th>원점수</th>';
+		examcut += '						<th>표준점수</th>';
+		examcut += '						<th>백분위</th>';
+		examcut += '						<th>원점수</th>';
+		examcut += '						<th>표준점수</th>';
+		examcut += '						<th>백분위</th>';
+		examcut += '						<th>원점수</th>';
+		examcut += '						<th>표준점수</th>';
+		examcut += '						<th>백분위</th>';
+		examcut += '					</tr>';
+		examcut += '				</thead>';
+		examcut += '				<tbody>';
+		examcut += '					<tr>';
+		examcut += '						<td>국어A</td>';
+		examcut += '						<td>98</td>';
+		examcut += '						<td>124</td>';
+		examcut += '						<td>96</td>';
+		examcut += '						<td>94</td>';
+		examcut += '						<td>121</td>';
+		examcut += '						<td>87</td>';
+		examcut += '						<td>89</td>';
+		examcut += '						<td>117</td>';
+		examcut += '						<td>77</td>';
+		examcut += '					</tr>';
+		examcut += '				</tbody>';
+		examcut += '			</table>';
+		examcut += '		</div>';
+		examcut += '		<img alt="왼쪽 보기" class="rating-btn-prev" src="<c:url value="/resources/csatlatte/images/btn/btn_left.png"/>">';
+		examcut += '		<img alt="오른쪽 보기" class="rating-btn-next" src="<c:url value="/resources/csatlatte/images/btn/btn_right.png"/>">';
+		examcut += '	</div>';
+		examcut += '</div>';
 		var tableMarginLeft = ($(window).width() - $('.table').width()) / 2;
 		$('.rating-animate-panel').css({"margin-left":tableMarginLeft + "px"});
 		
 		$(".rating-select-year").hide();
 		$(".rating-select-exam").hide();
-		
-		$(".container-examcut").insertBefore($( "footer"));
 		
 		var moveNextSlider = function (tableIndex) {
 			var willMoveLeft = -(tableIndex * 904);
@@ -49,45 +161,55 @@
 				$('.rating-select-exam').slideUp("fast");
 			}
 			$('.rating-examcut').fadeTo(200,0);
+			setTimeout(function () {
+				$('.container-examcut').remove();
+			}, 200);
 		});
 		
 		$('.rating-select-year-resource').on("click", function () {
 			$('.rating-select-exam').slideDown("fast");
 			$('.rating-examcut').fadeTo(200,0);
+			setTimeout(function () {
+				$('.container-examcut').remove();
+			}, 200);
 		});
 		
 		$('.rating-select-exam-resource').on("click", function() {
 			$('.rating-examcut').fadeTo(0,0);
 			$('.rating-examcut').css({display:"none"});
-			selectExam = $(this).val();
-			if (selectExam != null) {
-				$('.rating-examcut').css({display:"block"});
+			$('.container-examcut').remove();
+			tableIndex = 0;
+			if (selectExam == 0) {
+				$(examcut).insertBefore($("footer"));
+				var tableMarginLeft = ($(window).width() - $('.table').width()) / 2;
+				$('.rating-animate-panel').css({"margin-left":tableMarginLeft + "px"});
+				
+				$('.table').each(function (index) {
+					$(this).fadeTo(0, 0.2);
+				});
+				$('.table').eq(0).fadeTo(600, 1);
+				
+				$('.rating-btn-next').on("click", function () {
+					if (tableIndex < 2) {
+						tableIndex = tableIndex + 1;
+						moveNextSlider(tableIndex);	
+					}
+				});
+				
+				$('.rating-btn-prev').on("click", function () {
+					if (tableIndex > 0) {
+						tableIndex = tableIndex - 1;
+						movePrevSlider(tableIndex);	
+					}
+				});
+				
 				$('.rating-examcut').fadeTo(500,1);
-			}
-		});
-		
-		$('.table').each(function (index) {
-			$(this).fadeTo(0, 0.2);
-		});
-		$('.table').eq(0).fadeTo(600, 1);
-		
-		$('.rating-btn-next').on("click", function () {
-			if (tableIndex < 2) {
-				tableIndex = tableIndex + 1;
-				moveNextSlider(tableIndex);	
-			}
-		});
-		
-		$('.rating-btn-prev').on("click", function () {
-			if (tableIndex > 0) {
-				tableIndex = tableIndex - 1;
-				movePrevSlider(tableIndex);	
 			}
 		});
 		
 		$(window).scroll(function () {
 			var moveBtn = $(window).scrollTop() + 20;
-			if ($(this).scrollTop() >= 400) {
+			if ($(this).scrollTop() >= 100) {
 				$('.rating-btn-prev').delay(0).animate({top:moveBtn + "px"},0);
 				$('.rating-btn-next').delay(0).animate({top:moveBtn + "px"},0);
 			} else {
@@ -106,116 +228,3 @@
 		});
 	});
 </script>
-<div class="container-fluid container-examcut">
-	<div class="rating-examcut">
-		<div class="rating-animate-panel">
-			<table class="table table-hover table-bordered">
-				<thead>
-					<tr>
-						<th rowspan="2">과목</th>
-						<th colspan="3">1등급</th>
-						<th colspan="3">2등급</th>
-						<th colspan="3">3등급</th>
-					</tr>
-					<tr>
-						<th>원점수</th>
-						<th>표준점수</th>
-						<th>백분위</th>
-						<th>원점수</th>
-						<th>표준점수</th>
-						<th>백분위</th>
-						<th>원점수</th>
-						<th>표준점수</th>
-						<th>백분위</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>국어A</td>
-						<td>98</td>
-						<td>124</td>
-						<td>96</td>
-						<td>94</td>
-						<td>121</td>
-						<td>87</td>
-						<td>89</td>
-						<td>117</td>
-						<td>77</td>
-					</tr>
-				</tbody>
-			</table>
-			<table class="table table-hover table-bordered">
-				<thead>
-					<tr>
-						<th rowspan="2">과목</th>
-						<th colspan="3">4등급</th>
-						<th colspan="3">5등급</th>
-						<th colspan="3">6등급</th>
-					</tr>
-					<tr>
-						<th>원점수</th>
-						<th>표준점수</th>
-						<th>백분위</th>
-						<th>원점수</th>
-						<th>표준점수</th>
-						<th>백분위</th>
-						<th>원점수</th>
-						<th>표준점수</th>
-						<th>백분위</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>국어A</td>
-						<td>98</td>
-						<td>124</td>
-						<td>96</td>
-						<td>94</td>
-						<td>121</td>
-						<td>87</td>
-						<td>89</td>
-						<td>117</td>
-						<td>77</td>
-					</tr>
-				</tbody>
-			</table>
-			<table class="table table-hover table-bordered">
-				<thead>
-					<tr>
-						<th rowspan="2">과목</th>
-						<th colspan="3">7등급</th>
-						<th colspan="3">8등급</th>
-						<th colspan="3">9등급</th>
-					</tr>
-					<tr>
-						<th>원점수</th>
-						<th>표준점수</th>
-						<th>백분위</th>
-						<th>원점수</th>
-						<th>표준점수</th>
-						<th>백분위</th>
-						<th>원점수</th>
-						<th>표준점수</th>
-						<th>백분위</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>국어A</td>
-						<td>98</td>
-						<td>124</td>
-						<td>96</td>
-						<td>94</td>
-						<td>121</td>
-						<td>87</td>
-						<td>89</td>
-						<td>117</td>
-						<td>77</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<img alt="왼쪽 보기" class="rating-btn-prev" src="<c:url value="/resources/csatlatte/images/btn/btn_left.png"/>">
-		<img alt="오른쪽 보기" class="rating-btn-next" src="<c:url value="/resources/csatlatte/images/btn/btn_right.png"/>">
-	</div>
-</div>
