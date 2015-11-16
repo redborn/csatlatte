@@ -7,14 +7,14 @@
 <mapper namespace="csat">
 
 	<resultMap type="CsatVo" id="CsatVoMap">
+		<result column="csat_seq" property="csatSequence"/>
 		<result column="csat_name" property="csatName"/>
-		<result column="exam_ymd" property="examYmd"/>
 	</resultMap>
 
 	<select id="selectListYear" resultMap="CsatVoMap">
-		SELECT csat_name,exam_ymd
+		SELECT csat_seq,csat_name
 		  FROM csat
-		 WHERE use_yn = 'y'
+		 WHERE use_yn = 'Y'
 		 ORDER BY csat_seq ASC 
 	</select>
 </mapper>

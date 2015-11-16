@@ -6,11 +6,13 @@
 
 <mapper namespace="exam">
 	<resultMap type="ExamVo" id="ExamVoMap">
+		<result column="csat_seq" property="csatSequence"/>
+		<result column="exam_seq" property="examSequence"/>
 		<result column="exam_name" property="examName"/>
 	</resultMap>
 
-	<select id="selectListExam" resultMap="ExamVoMap" parameterType="int">
-		SELECT exam_name
+	<select id="selectListExam" parameterType="int" resultMap="ExamVoMap">
+		SELECT csat_seq,exam_seq,exam_name
 		  FROM csat_exam
 		 WHERE csat_seq = #{csatSequence}
 		 ORDER BY exam_seq ASC 
