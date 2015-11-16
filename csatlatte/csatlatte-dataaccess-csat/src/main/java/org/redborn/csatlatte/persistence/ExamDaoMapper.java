@@ -5,7 +5,9 @@ import java.util.List;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.ExamVo;
 import org.redborn.csatlatte.persistence.ExamDao;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ExamDaoMapper extends SqlSessionDaoSupport implements ExamDao {
 
 	public List<ExamVo> selectListExam(int csatSequence) {
