@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="csat">
+
+	<resultMap type="CsatVo" id="CsatVoMap">
+		<result column="csat_name" property="csatName"/>
+		<result column="csat" property="csat"/>
+		<result column="use_yn" property="useYn"/>
+	</resultMap>
+
+	<select id="select" resultMap="string">
+		SELECT csat_name
+		  FROM csat
+		 WHERE use_yn = 'y'
+		 ORDER BY csat_seq ASC 
+	</select>
+</mapper>
