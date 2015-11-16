@@ -6,8 +6,8 @@ import org.redborn.csatlatte.domain.ExamVo;
 
 public interface ExamDao {
 	
-	public List<ExamVo> list(int csatSequence);
-	public int register(ExamVo examVo);
+	public List<ExamVo> selectListExam(int csatSequence);
+	public int insert(ExamVo examVo);
 	public int modify(ExamVo examVo);
 	public int delete(int examSequence);
 }

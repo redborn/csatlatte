@@ -6,8 +6,8 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 public class CsatDaoMapper extends SqlSessionDaoSupport implements CsatDao {
 
-	public List<CsatDao> yearList() {
-		return getSqlSession().selectList("csat.select");
+	public List<CsatDao> selectListYear() {
+		return getSqlSession().selectList("csat.selectListYear");
 	}
 	
 }

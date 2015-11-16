@@ -12,7 +12,7 @@
 		<result column="use_yn" property="useYn"/>
 	</resultMap>
 
-	<select id="select" resultMap="string">
+	<select id="selectListYear" resultMap="CsatVoMap">
 		SELECT csat_name
 		  FROM csat
 		 WHERE use_yn = 'y'

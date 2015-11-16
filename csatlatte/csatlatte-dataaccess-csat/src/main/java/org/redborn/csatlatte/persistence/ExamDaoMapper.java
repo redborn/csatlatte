@@ -8,11 +8,11 @@ import org.redborn.csatlatte.persistence.ExamDao;
 
 public class ExamDaoMapper extends SqlSessionDaoSupport implements ExamDao {
 
-	public List<ExamVo> list(int csatSequence) {
-		return getSqlSession().selectList("exam.select");
+	public List<ExamVo> selectListExam(int csatSequence) {
+		return getSqlSession().selectList("exam.selectListExam");
 	}
 
-	public int register(ExamVo examVo) {
+	public int insert(ExamVo examVo) {
 		return getSqlSession().insert("exam.insert");
 	}
 

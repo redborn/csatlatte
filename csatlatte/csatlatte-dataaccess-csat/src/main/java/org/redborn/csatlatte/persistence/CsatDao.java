@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface CsatDao {
 	
-	public List<CsatDao> yearList();
+	public List<CsatDao> selectListYear();
 }

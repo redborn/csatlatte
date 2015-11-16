@@ -7,12 +7,14 @@
 
 	<typeAliases>
 		<typeAlias  alias="TypeVo" type="org.redborn.csatlatte.domain.TypeVo"/>
-		<typeAlias	alias="ExamVo" type="org.redborn.csatlatte.domain.ExamVo" />
+		<typeAlias	alias="ExamVo" type="org.redborn.csatlatte.domain.ExamVo"/>
+		<typeAlias  alias="Csatvo" type="org.redborn.csatlatte.domain.CsatVo"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="org/redborn/csatlatte/persistence/faq/TypeMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/ExamMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/CsatMapper.xml"/>
 	</mappers>
 	
 </configuration>
