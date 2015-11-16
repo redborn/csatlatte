@@ -17,19 +17,19 @@ public class ExamServiceImpl implements ExamService {
 	@Autowired
 	private CsatDao csatDao;
 	
-	public List<CsatDao> selectListYear() {
+	public List<CsatDao> yearList() {
 		return csatDao.selectListYear();
 	}
 	
-	public List<ExamVo> selectListExam(int csatSequence) {
+	public List<ExamVo> list(int csatSequence) {
 		return examDao.selectListExam(csatSequence);
 	}
 
-	public int insert(ExamVo examVo) {
+	public int register(ExamVo examVo) {
 		return examDao.insert(examVo);
 	}
 
-	public int update(ExamVo examVo) {
+	public int modify(ExamVo examVo) {
 		return examDao.update(examVo);
 	}
 

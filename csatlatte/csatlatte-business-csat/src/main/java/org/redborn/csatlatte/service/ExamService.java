@@ -7,10 +7,10 @@ import org.redborn.csatlatte.persistence.CsatDao;
 
 public interface ExamService {
 
-	public List<CsatDao> selectListYear();
-	public List<ExamVo> selectListExam(int csatSequence);
-	public int insert(ExamVo examVo);
-	public int update(ExamVo examVo);
+	public List<CsatDao> yearList();
+	public List<ExamVo> list(int csatSequence);
+	public int register(ExamVo examVo);
+	public int modify(ExamVo examVo);
 	public int delete(int examSequence);
 	
 }
