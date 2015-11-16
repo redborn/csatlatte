@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="exam">
+
+	<resultMap type="ExamVo" id="ExamVoMap">
+		<result column="csat_seq" property="csatSequence"/>
+		<result column="exam_seq" property="examSequence"/>
+		<result column="exam_name" property="examName"/>
+	</resultMap>
+
+	<select id="selectListExam" parameterType="int" resultMap="ExamVoMap">
+		SELECT csat_seq,exam_seq,exam_name
+		  FROM csat_exam
+		 WHERE csat_seq = #{csatSequence}
+		 ORDER BY exam_seq ASC 
+	</select>
+	
+	<insert id="insert" parameterType="ExamVo">
+		INSERT INTO csat_exam
+		            (csat_seq,exam_seq,manage_seq,exam_name,exam_ymd)
+		     VALUES (#{csatSequence},
+		     		 #{examSequence}, 
+		     		 #{manageSequence},
+		     		 #{examSequence}, 
+		     		 #{examYmd}) 
+	</insert>
+	
+	<update id="update" parameterType="ExamVo">
+		UPDATE csat_exam
+		   SET csat_seq = #{csatSequence}, manage_seq = #{manageSequence},
+		       exam_name = #{examName}, exam_ymd = #{examYmd}, ys_seq = #{ysSequence}
+		 WHERE exam_seq = #{examSequence} 
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM csat_exam
+		 WHERE exam_seq = #{examSequence} 
+	</delete>
+	
+</mapper>
