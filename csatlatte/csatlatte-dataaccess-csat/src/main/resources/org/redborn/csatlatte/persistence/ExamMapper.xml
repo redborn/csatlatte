@@ -5,6 +5,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="exam">
+
 	<resultMap type="ExamVo" id="ExamVoMap">
 		<result column="csat_seq" property="csatSequence"/>
 		<result column="exam_seq" property="examSequence"/>
@@ -39,4 +40,5 @@
 		DELETE FROM csat_exam
 		 WHERE exam_seq = #{examSequence} 
 	</delete>
+	
 </mapper>

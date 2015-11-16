@@ -17,4 +17,5 @@
 		 WHERE use_yn = 'Y'
 		 ORDER BY csat_seq ASC 
 	</select>
+	
 </mapper>
