@@ -7,11 +7,6 @@
 <mapper namespace="exam">
 	<resultMap type="ExamVo" id="ExamVoMap">
 		<result column="exam_name" property="examName"/>
-		<result column="csat_seq" property="csatSequence"/>
-		<result column="exam_seq" property="examSequence"/>
-		<result column="manage_seq" property="manageSequence"/>
-		<result column="exam_ymd" property="examYmd"/>
-		<result column="ys_seq" property="ysSequence"/>
 	</resultMap>
 
 	<select id="selectListExam" resultMap="ExamVoMap" parameterType="int">
@@ -21,7 +16,7 @@
 		 ORDER BY exam_seq ASC 
 	</select>
 	
-	<insert id="insert" parameterType="Map">
+	<insert id="insert" parameterType="ExamVo">
 		INSERT INTO csat_exam
 		            (csat_seq,exam_seq,manage_seq,exam_name,exam_ymd)
 		     VALUES (#{csatSequence},
@@ -31,7 +26,7 @@
 		     		 #{examYmd}) 
 	</insert>
 	
-	<update id="update" parameterType="Map">
+	<update id="update" parameterType="ExamVo">
 		UPDATE csat_exam
 		   SET csat_seq = #{csatSequence}, manage_seq = #{manageSequence},
 		       exam_name = #{examName}, exam_ymd = #{examYmd}, ys_seq = #{ysSequence}

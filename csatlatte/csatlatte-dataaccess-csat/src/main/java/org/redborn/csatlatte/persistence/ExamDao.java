@@ -8,6 +8,6 @@ public interface ExamDao {
 	
 	public List<ExamVo> selectListExam(int csatSequence);
 	public int insert(ExamVo examVo);
-	public int modify(ExamVo examVo);
+	public int update(ExamVo examVo);
 	public int delete(int examSequence);
 }

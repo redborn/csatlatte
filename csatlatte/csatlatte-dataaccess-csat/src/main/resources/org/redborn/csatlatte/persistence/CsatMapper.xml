@@ -8,12 +8,11 @@
 
 	<resultMap type="CsatVo" id="CsatVoMap">
 		<result column="csat_name" property="csatName"/>
-		<result column="csat" property="csat"/>
-		<result column="use_yn" property="useYn"/>
+		<result column="exam_ymd" property="examYmd"/>
 	</resultMap>
 
 	<select id="selectListYear" resultMap="CsatVoMap">
-		SELECT csat_name
+		SELECT csat_name,exam_ymd
 		  FROM csat
 		 WHERE use_yn = 'y'
 		 ORDER BY csat_seq ASC 
