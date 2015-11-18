@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.StudentConnectionVo;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ConnectionDaoMapper extends SqlSessionDaoSupport implements ConnectionDao {
 
 	public List<StudentConnectionVo> selectListCountYmd(String ymd) {
