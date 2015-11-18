@@ -8,7 +8,7 @@
 	<typeAliases>
 		<typeAlias  alias="TypeVo" type="org.redborn.csatlatte.domain.TypeVo"/>
 		<typeAlias	alias="ExamVo" type="org.redborn.csatlatte.domain.ExamVo"/>
-		<typeAlias  alias="Csatvo" type="org.redborn.csatlatte.domain.CsatVo"/>
+		<typeAlias  alias="CsatVo" type="org.redborn.csatlatte.domain.CsatVo"/>
 	</typeAliases>
 	
 	<mappers>
