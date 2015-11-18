@@ -11,22 +11,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ScqsDaoMapper extends SqlSessionDaoSupport implements ScqsDao {
 
-	public int updateContent(int studentSequence, int scqsSequence, String content) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("studentSequence", studentSequence);
-		map.put("scqsSequence", scqsSequence);
-		map.put("content", content);
-		
-		return getSqlSession().update("student.scqs.updateContent", map);
+	public int updateContent(StudentScqsVo studentScqsVo) {
+		return getSqlSession().update("student.scqs.updateContent", studentScqsVo);
 	}
 
-	public int insert(int studentSequence, int scqsSequence, String content) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("studentSequence", studentSequence);
-		map.put("scqsSequence", scqsSequence);
-		map.put("content", content);
-		
-		return getSqlSession().insert("student.scqs.insert", map);
+	public int insert(StudentScqsVo studentScqsVo) {
+		return getSqlSession().insert("student.scqs.insert", studentScqsVo);
 	}
 
 	public String selectOne(int studentSequence) {

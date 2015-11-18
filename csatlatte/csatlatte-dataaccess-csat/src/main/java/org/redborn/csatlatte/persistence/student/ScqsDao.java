@@ -6,8 +6,8 @@ import org.redborn.csatlatte.domain.StudentScqsVo;
 
 public interface ScqsDao {
 
-	public int updateContent(int studentSequence, int scqsSequence, String content);
-	public int insert(int studentSequence, int scqsSequence, String content);
+	public int updateContent(StudentScqsVo studentScqsVo);
+	public int insert(StudentScqsVo studentScqsVo);
 	public String selectOne(int studentSequence);
 	
 	
