@@ -10,7 +10,7 @@
 		<typeAlias	alias="ExamVo" type="org.redborn.csatlatte.domain.ExamVo"/>
 		<typeAlias  alias="Csatvo" type="org.redborn.csatlatte.domain.CsatVo"/>
 		<typeAlias  alias="StudentVo" type="org.redborn.csatlatte.domain.StudentDao"/>
-		<typeAlias  alias="StudentScqsVo" type="org.redborn.csatlatte.domain.StudentScqsDao"/>
+		<typeAlias  alias="StudentSecurityQuestionVo" type="org.redborn.csatlatte.domain.StudentSecurityQuestionDao"/>
 		<typeAlias  alias="StudentConnectionVo" type="org.redborn.csatlatte.domain.StudentConnectionDao"/>
 	</typeAliases>
 	
@@ -19,7 +19,7 @@
 		<mapper resource="org/redborn/csatlatte/persistence/ExamMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/CsatMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/StudentMapper.xml"/>
-		<mapper resource="org/redborn/csatlatte/persistence/student/ScqsMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/student/SecurityQuestionMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/student/ConnectionMapper.xml"/>
 	</mappers>
 	

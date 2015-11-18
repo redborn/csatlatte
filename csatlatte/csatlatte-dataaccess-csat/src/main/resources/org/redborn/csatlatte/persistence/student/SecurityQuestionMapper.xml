@@ -4,18 +4,18 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="student.scqs">
+<mapper namespace="student.securityQuestion">
 
-	<update id="updateContent" parameterType="StudentScqsVo">
+	<update id="updateContent" parameterType="StudentSecurityQuestionVo">
 		UPDATE csat_student_scqs
 		   SET content = #{content}
 		 WHERE student_seq = #{studentSequence}
-		   AND scqs_seq = #{scqsSequence}
+		   AND scqs_seq = #{securityQuestionSequence}
 	</update>
 	
-	<insert id="insert" parameterType="StudentScqsVo">
+	<insert id="insert" parameterType="StudentSecurityQuestionVo">
 		INSERT INTO csat_student_scqs
-		     VALUES (#{studentSequence},#{scqsSequence},#{content}) 
+		     VALUES (#{studentSequence},#{securityQuestionSequence},#{content}) 
 	</insert>
 	
 	<select id="selectOne" parameterType="int" resultType="string">
