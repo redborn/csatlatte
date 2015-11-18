@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="student.scqs">
+
+	<update id="updateContent" parameterType="StudentScqsVo">
+		UPDATE csat_student_scqs
+		   SET content = #{content}
+		 WHERE student_seq = #{studentSequence}
+		   AND scqs_seq = #{scqsSequence}
+	</update>
+	
+	<insert id="insert" parameterType="StudentScqsVo">
+		INSERT INTO csat_student_scqs
+		     VALUES (#{studentSequence},#{scqsSequence},#{content}) 
+	</insert>
+	
+	<select id="selectOne" parameterType="int" resultType="string">
+		SELECT cs.content
+		  FROM csat_student_scqs css,csat_scqs cs
+		 WHERE css.scqs_seq = cs.scqs_seq
+		   AND css.student_seq = #{studentSequence}
+	</select>
+	
+</mapper>
