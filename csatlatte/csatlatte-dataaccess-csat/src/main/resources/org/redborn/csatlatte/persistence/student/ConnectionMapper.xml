@@ -10,6 +10,16 @@
 		<result column="hour" property="hour"/>
 		<result column="count_connection" property="countConnection"/>
 	</resultMap>
+	
+	<resultMap type="StudentConnectionYmVo" id="StudentConnectionYmVoMap">
+		<result column="day" property="day"/>
+		<result column="count_connection" property="countConnection"/>
+	</resultMap>
+
+	<resultMap type="StudentConnectionYearVo" id="StudentConnectionYearVoMap">
+		<result column="month" property="month"/>
+		<result column="count_connection" property="countConnection"/>
+	</resultMap>
 
 	<select id="selectListCountYmd" parameterType="String" resultMap="StudentConnectionYmdVoMap">
 		SELECT TO_CHAR(connection_date, 'hh') as hour,COUNT(student_seq) as count_connection
@@ -19,11 +29,6 @@
 		 GROUP BY TO_CHAR(connection_date, 'hh') 
 	</select>
 	
-	<resultMap type="StudentConnectionYmVo" id="StudentConnectionYmVoMap">
-		<result column="day" property="day"/>
-		<result column="count_connection" property="countConnection"/>
-	</resultMap>
-	
 	<select id="selectListCountYm" parameterType="String" resultMap="StudentConnectionYmVoMap">
 		SELECT TO_CHAR(connection_date, 'dd') AS day,
 		       COUNT(student_seq)         AS count_connection
@@ -31,11 +36,6 @@
 		WHERE  connection_date &lt;= TO_DATE(#{ym}, 'yyyymm') AND TO_DATE(#{ym}, 'yyyymm') &gt;= DATEADD(month, 1, connection_date)
 		GROUP BY TO_CHAR(connection_date, 'dd')
 	</select>
-	
-	<resultMap type="StudentConnectionYearVo" id="StudentConnectionYearVoMap">
-		<result column="month" property="month"/>
-		<result column="count_connection" property="countConnection"/>
-	</resultMap>
 	
 	<select id="selectListCountYear" parameterType="String" resultMap="StudentConnectionYearVoMap">
 		SELECT TO_CHAR(connection_date, 'mm') AS day,
