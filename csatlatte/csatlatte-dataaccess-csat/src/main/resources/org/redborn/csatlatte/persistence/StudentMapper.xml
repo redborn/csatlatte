@@ -60,7 +60,7 @@
 	</select>
 	
 	<select id="selectOneMaxStudentSequence" resultType="int">
-		SELECT IFNULL(MAX(student_seq) + 1, 0)
+		SELECT IFNULL(MAX(student_seq), 0) + 1
 		  FROM csat_student 
 	</select>
 	
@@ -81,23 +81,23 @@
 	</select>
 	
 	<select id="selectListCountYm" parameterType="String" resultMap="YmCountVoMap">
-		SELECT TO_CHAR(create_date, 'dd') AS day,
-		       COUNT(student_seq)         AS count_join
-		FROM   csat_student
-		WHERE  create_date &lt;= TO_DATE(#{ym}, 'yyyymm') AND TO_DATE(#{ym}, 'yyyymm') &gt;= DATEADD(month, 1, create_date)
-		GROUP BY TO_CHAR(create_date, 'dd')
+		SELECT TO_CHAR(create_date, 'dd') as day,COUNT(student_seq) as count_join
+		  FROM csat_student
+		 WHERE create_date &lt;= TO_DATE(#{ym}, 'yyyymm')
+		   AND TO_DATE(#{ym}, 'yyyymm') &gt;= DATEADD(month, 1, create_date)
+		 GROUP BY TO_CHAR(create_date, 'dd')
 	</select>
 	
 	<select id="selectListCountYear" parameterType="String" resultMap="YearCountVoMap">
-		SELECT TO_CHAR(create_date, 'mm') AS day,
-		       COUNT(student_seq)         AS count_join
-		FROM   csat_student
-		WHERE  create_date &lt;= TO_DATE(#{year}, 'yyyy') AND TO_DATE(#{year}, 'yyyy') &gt;= DATEADD(year, 1, create_date)
-		GROUP BY TO_CHAR(create_date, 'mm')
+		SELECT TO_CHAR(create_date, 'mm') as day,COUNT(student_seq) as count_join
+		  FROM csat_student
+		 WHERE create_date &lt;= TO_DATE(#{year}, 'yyyy')
+		   AND TO_DATE(#{year}, 'yyyy') &gt;= DATEADD(year, 1, create_date)
+		 GROUP BY TO_CHAR(create_date, 'mm')
 	</select>
 	
 	<insert id="insert" parameterType="StudentVo">
-	INSERT INTO csat_student
+		 INSERT INTO csat_student
 	     VALUES ( #{studentSequence}, #{studentId}, #{studentPassword}, #{nickname}, 
 	     		  #{photoCode}, # {photoName}, #{csatSequence},'Y', #{createDate}) 
 	</insert>
@@ -108,7 +108,7 @@
 		 WHERE student_seq = #{studentSequence}
 	</update>
 
-	<update id="updatePassword" parameterType="StudentVo">
+	<update id="updatePassword" parameterType="Map">
 		UPDATE csat_student
 		   SET student_password = #{newPassword}
 		 WHERE student_seq = #{studentSequence}
