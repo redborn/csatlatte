@@ -11,7 +11,7 @@
 		<result column="content" property="content"/>
 	</resultMap>
 
-	<select id="selectListYear" parameterType="int" resultMap="FaqVoMap">
+	<select id="selectList" parameterType="int" resultMap="FaqVoMap">
 		SELECT title,content
 		  FROM csat_faq
 		 WHERE use_yn = 'Y'
