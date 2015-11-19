@@ -6,18 +6,6 @@
 
 <mapper namespace="student">
 
-	<resultMap type="StudentVo" id="StudentVoMap">
-		<result column="hour" property="hour"/>
-		<result column="day" property="day"/>
-		<result column="month" property="month"/>
-		<result column="count_join" property="countJoin"/>
-		<result column="student_id" property="studentId"/>
-		<result column="nickname" property="nickname"/>
-		<result column="count_connection" property="countConnection"/>
-		<result column="use_yn" property="useYn"/>
-		<result column="avg_score" property="averageScore"/>
-	</resultMap>
-
 	<select id="selectOne" parameterType="StudentVo" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_student
@@ -52,6 +40,14 @@
 		SELECT MAX(student_seq) + 1
 		  FROM csat_student 
 	</select>
+
+	<resultMap type="StudentVo" id="StudentVoMap">
+		<result column="student_id" property="studentId"/>
+		<result column="nickname" property="nickname"/>
+		<result column="count_connection" property="countConnection"/>
+		<result column="use_yn" property="useYn"/>
+		<result column="avg_score" property="averageScore"/>
+	</resultMap>
 	
 	<select id="selectList" resultMap="StudentVoMap">
 		SELECT cs.student_id as student_id,cs.nickname as nickname,
@@ -61,7 +57,12 @@
 		    OR cs.student_seq = cess.student_seq
 	</select>
 	
-	<select id="selectListCountYmd" parameterType="String" resultMap="StudentVoMap">
+	<resultMap type="StudentJoinYmdVo" id="StudentJoinYmdVoMap">
+		<result column="hour" property="hour"/>
+		<result column="count_join" property="countJoin"/>
+	</resultMap>
+	
+	<select id="selectListCountYmd" parameterType="String" resultMap="StudentJoinYmdVoMap">
 		SELECT TO_CHAR(create_date, 'hh') as hour,COUNT(student_seq) as count_join
 		  FROM csat_student
 		 WHERE create_date &lt;= TO_DATE(#{ymd}, 'yyyymmdd')
@@ -69,14 +70,24 @@
 		 GROUP BY TO_CHAR(create_date, 'hh') 
 	</select>
 	
-	<select id="selectListCountYm" parameterType="String" resultMap="StudentVoMap">
+	<resultMap type="StudentJoinYmVo" id="StudentJoinYmVoMap">
+		<result column="day" property="day"/>
+		<result column="count_join" property="countJoin"/>
+	</resultMap>
+	
+	<select id="selectListCountYm" parameterType="String" resultMap="StudentJoinYmVoMap">
 		SELECT TO_CHAR(create_date, 'dd') as day,COUNT(student_seq) as count_join
 		  FROM csat_student
 		 WHERE TO_CHAR(create_date, 'yyyymm') = #{ym}
 		 GROUP BY TO_CHAR(create_date, 'dd') 
 	</select>
 	
-	<select id="selectListCountYear" parameterType="String" resultMap="StudentVoMap">
+	<resultMap type="StudentJoinYearVo" id="StudentJoinYearVoMap">
+		<result column="year" property="year"/>
+		<result column="count_join" property="countJoin"/>
+	</resultMap>
+	
+	<select id="selectListCountYear" parameterType="String" resultMap="StudentJoinYearVoMap">
 		SELECT TO_CHAR(create_date, 'mm') as month,COUNT(student_seq) as count_join
 		  FROM csat_student
 		 WHERE TO_CHAR(create_date, 'yyyy') = #{year}

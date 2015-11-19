@@ -11,6 +11,8 @@ public class StudentVo {
 	private int csatSequence;
 	private String useYn;
 	private String createDate;
+	private int countConnection;
+	private int averageScore;
 	
 	public int getStudentSequence() {
 		return studentSequence;
@@ -84,13 +86,31 @@ public class StudentVo {
 		this.createDate = createDate;
 	}
 	
+	public int getCountConnection() {
+		return countConnection;
+	}
+	
+	public void setCountConnection(int countConnection) {
+		this.countConnection = countConnection;
+	}
+	
+	public int getAverageScore() {
+		return averageScore;
+	}
+	
+	public void setAverageScore(int averageScore) {
+		this.averageScore = averageScore;
+	}
+	
 	@Override
 	public String toString() {
 		return "StudentVo [studentSequence=" + studentSequence + ", studentId="
-				+ studentId + ", studentPassword=" + studentPassword + ", nickname="
-				+ nickname + ", photoCode=" + photoCode + ", photoName="
-				+ photoName + ", csatSequence=" + csatSequence + ", useYn="
-				+ useYn + ", createDate=" + createDate + "]";
+				+ studentId + ", studentPassword=" + studentPassword
+				+ ", nickname=" + nickname + ", photoCode=" + photoCode
+				+ ", photoName=" + photoName + ", csatSequence=" + csatSequence
+				+ ", useYn=" + useYn + ", createDate=" + createDate
+				+ ", countConnection=" + countConnection + ", averageScore="
+				+ averageScore + "]";
 	}
 	
 }
