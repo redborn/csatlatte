@@ -6,7 +6,7 @@
 
 <mapper namespace="student.securityQuestion">
 
-	<select id="selectOne" parameterType="int" resultType="string">
+	<select id="selectOne" parameterType="int" resultType="String">
 		SELECT cs.content
 		  FROM csat_student_scqs css,csat_scqs cs
 		 WHERE css.scqs_seq = cs.scqs_seq
