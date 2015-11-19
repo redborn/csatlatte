@@ -12,18 +12,22 @@ import org.redborn.csatlatte.persistence.student.ConnectionDao;
 import org.redborn.csatlatte.persistence.student.SecurityQuestionDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 @Service
 public class StudentServiceImpl implements StudentService {
 
 	@Autowired
 	private StudentDao studentDao;
-	
 	@Autowired
 	private ConnectionDao connectionDao;
-	
 	@Autowired
 	private SecurityQuestionDao securityQuestionDao;
+	@Autowired
+	private PlatformTransactionManager transactionManager;
 	
 	public boolean changePassword(int studentSequence, String password, String newPassword) {
 		boolean result = false;
@@ -49,11 +53,20 @@ public class StudentServiceImpl implements StudentService {
 		int maxStudentSequence = studentDao.selectOneMaxStudentSequence();
 		studentVo.setStudentSequence(maxStudentSequence);
 		studentSecurityQuestionVo.setStudentSequence(maxStudentSequence);
-			
-		if (studentDao.insert(studentVo) == 1 && securityQuestionDao.insert(studentSecurityQuestionVo) == 1) {
-			return true;
+		
+		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
+		defaultTransactionDefinition.setName("Student Join Transaction");
+		defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		
+		TransactionStatus transactionStatus = transactionManager.getTransaction(defaultTransactionDefinition);
+		try {
+			if (studentDao.insert(studentVo) == 1 && securityQuestionDao.insert(studentSecurityQuestionVo) == 1) {
+				result = true;
+			}
+		} catch (RuntimeException e) {
+			transactionManager.rollback(transactionStatus);
 		}
-			
+		transactionManager.commit(transactionStatus);
 		return result;
 	}
 
