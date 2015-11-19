@@ -12,35 +12,35 @@ import org.springframework.stereotype.Repository;
 public class StudentDaoMapper extends SqlSessionDaoSupport implements StudentDao {
 
 	public int selectOne(String id, String password) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", id);
-		map.put("password", password);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		params.put("password", password);
 		
-		return getSqlSession().selectOne("student.selectOne", map);
+		return getSqlSession().selectOne("student.selectOne", params);
 	}
 	
 	public int selectOneCountPassword(int studentSequence, String password) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("studentSequence", studentSequence);
-		map.put("password",	password);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("studentSequence", studentSequence);
+		params.put("password",	password);
 		
-		return getSqlSession().selectOne("student.selectOneCountPassword", map);
+		return getSqlSession().selectOne("student.selectOneCountPassword", params);
 	}
 	
 	public int selectOneCountIsPassword(String id, String securityAnswer) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", id);
-		map.put("securityAnswer", securityAnswer);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", id);
+		params.put("securityAnswer", securityAnswer);
 		
-		return getSqlSession().selectOne("student.selectOneCountIsPassword", map);
+		return getSqlSession().selectOne("student.selectOneCountIsPassword", params);
 	}
 	
 	public String selectOneId(String nickname, String securityAnswer) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("nickname", nickname);
-		map.put("securityAnswer", securityAnswer);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("nickname", nickname);
+		params.put("securityAnswer", securityAnswer);
 		
-		return getSqlSession().selectOne("student.selectOneId", map);
+		return getSqlSession().selectOne("student.selectOneId", params);
 	}
 	
 	public int selectOneMaxStudentSequence() {
@@ -48,11 +48,11 @@ public class StudentDaoMapper extends SqlSessionDaoSupport implements StudentDao
 	}
 	
 	public List<StudentVo> selectList(String studentId, String nickname) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("studentId", studentId);
-		map.put("nickname", nickname);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("studentId", studentId);
+		params.put("nickname", nickname);
 		
-		return getSqlSession().selectList("student.selectList", map);
+		return getSqlSession().selectList("student.selectList", params);
 	}
 
 	public List<StudentVo> selectListCountYmd(String ymd) {
@@ -72,11 +72,11 @@ public class StudentDaoMapper extends SqlSessionDaoSupport implements StudentDao
 	}
 
 	public int updatePassword(int studentSequence, String newPassword) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("studentSequence", studentSequence);
-		map.put("newPassword", newPassword);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("studentSequence", studentSequence);
+		params.put("newPassword", newPassword);
 		
-		return getSqlSession().update("student.updatePassword", map);
+		return getSqlSession().update("student.updatePassword", params);
 	}
 
 	public int updateInformation(StudentVo studentVo) {
