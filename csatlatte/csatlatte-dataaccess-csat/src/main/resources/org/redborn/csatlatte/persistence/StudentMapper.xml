@@ -76,10 +76,11 @@
 	</resultMap>
 	
 	<select id="selectListCountYm" parameterType="String" resultMap="StudentJoinYmVoMap">
-		SELECT TO_CHAR(create_date, 'dd') as day,COUNT(student_seq) as count_join
-		  FROM csat_student
-		 WHERE TO_CHAR(create_date, 'yyyymm') = #{ym}
-		 GROUP BY TO_CHAR(create_date, 'dd') 
+		SELECT TO_CHAR(create_date, 'dd') AS day,
+		       COUNT(student_seq)         AS count_join
+		FROM   csat_student
+		WHERE  create_date &lt;= TO_DATE(#{ym}, 'yyyymm') AND TO_DATE(#{ym}, 'yyyymm') &gt;= DATEADD(month, 1, create_date)
+		GROUP BY TO_CHAR(create_date, 'dd')
 	</select>
 	
 	<resultMap type="StudentJoinYearVo" id="StudentJoinYearVoMap">
@@ -88,10 +89,11 @@
 	</resultMap>
 	
 	<select id="selectListCountYear" parameterType="String" resultMap="StudentJoinYearVoMap">
-		SELECT TO_CHAR(create_date, 'mm') as month,COUNT(student_seq) as count_join
-		  FROM csat_student
-		 WHERE TO_CHAR(create_date, 'yyyy') = #{year}
-		 GROUP BY TO_CHAR(create_date, 'mm') 
+		SELECT TO_CHAR(create_date, 'mm') AS day,
+		       COUNT(student_seq)         AS count_join
+		FROM   csat_student
+		WHERE  create_date &lt;= TO_DATE(#{year}, 'yyyy') AND TO_DATE(#{year}, 'yyyy') &gt;= DATEADD(year, 1, create_date)
+		GROUP BY TO_CHAR(create_date, 'mm')
 	</select>
 	
 	<insert id="insert" parameterType="StudentVo">

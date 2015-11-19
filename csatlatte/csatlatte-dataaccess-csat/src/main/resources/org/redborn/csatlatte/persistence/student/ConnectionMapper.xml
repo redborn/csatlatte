@@ -25,10 +25,11 @@
 	</resultMap>
 	
 	<select id="selectListCountYm" parameterType="String" resultMap="StudentConnectionYmVoMap">
-		SELECT TO_CHAR(connection_date, 'dd') as day,COUNT(student_seq) as count_connection
-		  FROM csat_student_connection
-		 WHERE TO_CHAR(connection_date, 'yyyymm') = #{ym}
-		 GROUP BY TO_CHAR(connection_date, 'dd') 
+		SELECT TO_CHAR(connection_date, 'dd') AS day,
+		       COUNT(student_seq)         AS count_connection
+		FROM   csat_student_connection
+		WHERE  connection_date &lt;= TO_DATE(#{ym}, 'yyyymm') AND TO_DATE(#{ym}, 'yyyymm') &gt;= DATEADD(month, 1, connection_date)
+		GROUP BY TO_CHAR(connection_date, 'dd')
 	</select>
 	
 	<resultMap type="StudentConnectionYearVo" id="StudentConnectionYearVoMap">
@@ -37,10 +38,11 @@
 	</resultMap>
 	
 	<select id="selectListCountYear" parameterType="String" resultMap="StudentConnectionYearVoMap">
-		SELECT TO_CHAR(connection_date, 'mm') as month,COUNT(student_seq) as count_connection
-		  FROM csat_student_connection
-		 WHERE TO_CHAR(connection_date, 'yyyy') = #{year}
-		 GROUP BY TO_CHAR(connection_date, 'mm') 
+		SELECT TO_CHAR(connection_date, 'mm') AS day,
+		       COUNT(student_seq)         AS count_connection
+		FROM   csat_student_connection
+		WHERE  connection_date &lt;= TO_DATE(#{year}, 'yyyy') AND TO_DATE(#{year}, 'yyyy') &gt;= DATEADD(year, 1, connection_date)
+		GROUP BY TO_CHAR(connection_date, 'mm')
 	</select>
 	
 </mapper>
