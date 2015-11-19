@@ -60,7 +60,7 @@
 	</select>
 	
 	<select id="selectOneMaxStudentSequence" resultType="int">
-		SELECT MAX(student_seq) + 1
+		SELECT IFNULL(MAX(student_seq) + 1, 0)
 		  FROM csat_student 
 	</select>
 	
