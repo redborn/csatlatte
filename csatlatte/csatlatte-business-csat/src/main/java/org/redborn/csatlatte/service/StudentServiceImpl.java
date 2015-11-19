@@ -37,23 +37,11 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	public boolean changeInformation(StudentVo studentVo) {
-		boolean result = false;
-		
-		if (studentDao.updateInformation(studentVo) == 1) {
-			result = true;
-		}
-		
-		return result;
+		return studentDao.updateInformation(studentVo) == 1;
 	}
 
 	public boolean changeSecurity(StudentSecurityQuestionVo studentSecurityQuestionVo) {
-		boolean result = false;
-		
-		if (securityQuestionDao.updateContent(studentSecurityQuestionVo) == 1) {
-			result = true;
-		}
-		
-		return result;
+		return securityQuestionDao.updateContent(studentSecurityQuestionVo) == 1;
 	}
 
 	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo) {
@@ -74,33 +62,15 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	public boolean isPassword(String id, String securityAnswer) {
-		boolean result = false;
-		
-		if (studentDao.selectOneCountIsPassword(id, securityAnswer) == 1) {
-			result = true;
-		}
-		
-		return result;
+		return studentDao.selectOneCountIsPassword(id, securityAnswer) == 1;
 	}
 
 	public boolean information(String id, String password) {
-		boolean result = false;
-		
-		if (studentDao.selectOne(id, password) == 1) {
-			result = true;
-		}
-		
-		return result;
+		return studentDao.selectOne(id, password) == 1;
 	}
 
 	public boolean lock(int studentSequence) {
-		boolean result = false;
-		
-		if (studentDao.updateUseYnN(studentSequence) == 1) {
-			result = true;
-		}
-		
-		return result;
+		return studentDao.updateUseYnN(studentSequence) == 1;
 	}
 
 	public List<YmdCountVo> dailyJoinCountList(String ymd) {
