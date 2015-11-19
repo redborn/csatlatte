@@ -6,12 +6,12 @@
 
 <mapper namespace="faq.type">
 
-	<resultMap type="TypeVo" id="TypeVoMap">
+	<resultMap type="FaqTypeVo" id="FaqTypeVoMap">
 		<result column="faq_type_seq" property="typeSequence"/>
 		<result column="description" property="description"/>
 	</resultMap>
 
-	<select id="select" resultMap="TypeVoMap">
+	<select id="selectList" resultMap="FaqTypeVoMap">
 		  SELECT faq_type_seq, description
 		    FROM csat_faq_type
 		ORDER BY faq_type_seq ASC

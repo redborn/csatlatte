@@ -1,6 +1,6 @@
 package org.redborn.csatlatte.domain;
 
-public class TypeVo {
+public class FaqTypeVo {
 
 	private int typeSequence;
 	private String description;

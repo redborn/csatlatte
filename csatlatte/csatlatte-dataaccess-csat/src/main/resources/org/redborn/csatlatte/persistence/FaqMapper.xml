@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="faq">
+
+	<resultMap type="FaqVo" id="FaqVoMap">
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+	</resultMap>
+
+	<select id="selectListYear" parameterType="int" resultMap="FaqVoMap">
+		SELECT title,content
+		  FROM csat_faq
+		 WHERE use_yn = 'Y'
+		   AND faq_type_seq = #{faqTypeSequence} 
+	  ORDER BY faq_seq ASC
+	</select>
+	
+</mapper>
