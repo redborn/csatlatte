@@ -18,28 +18,26 @@
 		<result column="avg_score" property="averageScore"/>
 	</resultMap>
 
+	<select id="selectOne" parameterType="StudentVo" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_student
+		 WHERE student_id = #{id}
+		   AND student_password = #{password} 
+	</select>
+
 	<select id="selectOneCountPassword" parameterType="StudentVo" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_student
 		 WHERE student_seq = #{studentSequence}
 		   AND student_password = #{password}
 	</select>
-
-	<update id="updatePassword" parameterType="StudentVo">
-		UPDATE csat_student
-		   SET student_password = #{newPassword}
-		 WHERE student_seq = #{studentSequence}
-	</update>
 	
-	<update id="updateInformation" parameterType="StudentVo">
-		UPDATE csat_student
-		   SET nickname = #{nickname}, photo_code = #{photoCode}, photo_name = #{photoName}, csat_seq = #{csatSequence}
-		 WHERE student_seq = #{studentSequence}
-	</update>
-	
-	<select id="selectOneMaxStudentSequence" resultType="int">
-		SELECT MAX(student_seq) + 1
-		  FROM csat_student 
+	<select id="selectOneCountIsPassword" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_student cs,csat_student_scqs css
+		 WHERE cs.student_seq = css.student_seq
+		   AND cs.student_id = #{id}
+		   AND css.content = #{securityAnswer}
 	</select>
 	
 	<select id="selectOneId" parameterType="Map" resultType="String">
@@ -50,26 +48,18 @@
 		   AND css.content = #{securityAnswer}
 	</select>
 	
-	<select id="selectOneCountPassword" parameterType="Map" resultType="int">
-		SELECT COUNT(*)
-		  FROM csat_student cs,csat_student_scqs css
-		 WHERE cs.student_seq = css.student_seq
-		   AND cs.student_id = #{id}
-		   AND css.content = #{securityAnswer}
+	<select id="selectOneMaxStudentSequence" resultType="int">
+		SELECT MAX(student_seq) + 1
+		  FROM csat_student 
 	</select>
 	
-	<select id="selectOne" parameterType="StudentVo" resultType="int">
-		SELECT COUNT(*)
-		  FROM csat_student
-		 WHERE student_id = #{id}
-		   AND student_password = #{password} 
+	<select id="selectList" resultMap="StudentVoMap">
+		SELECT cs.student_id as student_id,cs.nickname as nickname,
+			   COUNT(csc.student_seq) as count_connection,use_yn,AVG(cess.score) as avg_score
+		  FROM csat_student cs,csat_student_connection csc,csat_exam_student_score cess
+		 WHERE cs.student_seq = csc.student_seq
+		    OR cs.student_seq = cess.student_seq
 	</select>
-	
-	<update id="updateUseYnN" parameterType="int">
-		UPDATE csat_student
-		   SET use_yn = 'N'
-		 WHERE student_seq = #{studentSequence} 
-	</update>
 	
 	<select id="selectListCountYmd" parameterType="String" resultMap="StudentVoMap">
 		SELECT TO_CHAR(create_date, 'hh') as hour,COUNT(student_seq) as count_join
@@ -93,12 +83,28 @@
 		 GROUP BY TO_CHAR(create_date, 'mm') 
 	</select>
 	
-	<select id="selectList" resultMap="StudentVoMap">
-		SELECT cs.student_id as student_id,cs.nickname as nickname,
-			   COUNT(csc.student_seq) as count_connection,use_yn,AVG(cess.score) as avg_score
-		  FROM csat_student cs,csat_student_connection csc,csat_exam_student_score cess
-		 WHERE cs.student_seq = csc.student_seq
-		    OR cs.student_seq = cess.student_seq
-	</select>
+	<insert id="insert" parameterType="StudentVo">
+	INSERT INTO csat_student
+	     VALUES ( #{studentSequence}, #{studentId}, #{studentPassword}, #{nickname}, 
+	     		  #{photoCode}, # {photoName}, #{csatSequence},'Y', #{createDate}) 
+	</insert>
+	
+	<update id="updateInformation" parameterType="StudentVo">
+		UPDATE csat_student
+		   SET nickname = #{nickname}, photo_code = #{photoCode}, photo_name = #{photoName}, csat_seq = #{csatSequence}
+		 WHERE student_seq = #{studentSequence}
+	</update>
+
+	<update id="updatePassword" parameterType="StudentVo">
+		UPDATE csat_student
+		   SET student_password = #{newPassword}
+		 WHERE student_seq = #{studentSequence}
+	</update>
+	
+	<update id="updateUseYnN" parameterType="int">
+		UPDATE csat_student
+		   SET use_yn = 'N'
+		 WHERE student_seq = #{studentSequence} 
+	</update>
 	
 </mapper>
