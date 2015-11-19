@@ -14,6 +14,8 @@
 		<typeAlias  alias="YmCountVo" type="org.redborn.csatlatte.domain.YmCountVo"/>
 		<typeAlias  alias="YmdCountVo" type="org.redborn.csatlatte.domain.YmdCountVo"/>
 		<typeAlias  alias="YearCountVo" type="org.redborn.csatlatte.domain.YearCountVo"/>
+		<typeAlias  alias="FaqTypeVo" type="org.redborn.csatlatte.domain.FaqTypeVo"/>
+		<typeAlias  alias="FaqVo" type="org.redborn.csatlatte.domain.FaqVo"/>
 	</typeAliases>
 	
 	<mappers>
@@ -23,6 +25,7 @@
 		<mapper resource="org/redborn/csatlatte/persistence/StudentMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/student/SecurityQuestionMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/student/ConnectionMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/FaqMapper.xml"/>
 	</mappers>
 	
 </configuration>
