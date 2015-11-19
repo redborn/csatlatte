@@ -6,23 +6,23 @@
 
 <mapper namespace="student.securityQuestion">
 
-	<update id="updateContent" parameterType="StudentSecurityQuestionVo">
-		UPDATE csat_student_scqs
-		   SET content = #{content}
-		 WHERE student_seq = #{studentSequence}
-		   AND scqs_seq = #{securityQuestionSequence}
-	</update>
-	
-	<insert id="insert" parameterType="StudentSecurityQuestionVo">
-		INSERT INTO csat_student_scqs
-		     VALUES (#{studentSequence},#{securityQuestionSequence},#{content}) 
-	</insert>
-	
 	<select id="selectOne" parameterType="int" resultType="string">
 		SELECT cs.content
 		  FROM csat_student_scqs css,csat_scqs cs
 		 WHERE css.scqs_seq = cs.scqs_seq
 		   AND css.student_seq = #{studentSequence}
 	</select>
+	
+	<insert id="insert" parameterType="StudentSecurityQuestionVo">
+		INSERT INTO csat_student_scqs
+		     VALUES (#{studentSequence},#{securityQuestionSequence},#{content}) 
+	</insert>
+
+	<update id="updateContent" parameterType="StudentSecurityQuestionVo">
+		UPDATE csat_student_scqs
+		   SET content = #{content}
+		 WHERE student_seq = #{studentSequence}
+		   AND scqs_seq = #{securityQuestionSequence}
+	</update>
 	
 </mapper>
