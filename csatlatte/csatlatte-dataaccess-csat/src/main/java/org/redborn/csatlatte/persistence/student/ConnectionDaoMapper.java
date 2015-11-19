@@ -3,21 +3,23 @@ package org.redborn.csatlatte.persistence.student;
 import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.redborn.csatlatte.domain.StudentConnectionVo;
+import org.redborn.csatlatte.domain.StudentConnectionYearVo;
+import org.redborn.csatlatte.domain.StudentConnectionYmVo;
+import org.redborn.csatlatte.domain.StudentConnectionYmdVo;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class ConnectionDaoMapper extends SqlSessionDaoSupport implements ConnectionDao {
 
-	public List<StudentConnectionVo> selectListCountYmd(String ymd) {
+	public List<StudentConnectionYmdVo> selectListCountYmd(String ymd) {
 		return getSqlSession().selectList("student.connection.selectListCountYmd", ymd);
 	}
 
-	public List<StudentConnectionVo> selectListCountYm(String ym) {
+	public List<StudentConnectionYmVo> selectListCountYm(String ym) {
 		return getSqlSession().selectList("student.connection.selectListCountYm", ym);
 	}
 
-	public List<StudentConnectionVo> selectListCountYear(String year) {
+	public List<StudentConnectionYearVo> selectListCountYear(String year) {
 		return getSqlSession().selectList("student.connection.selectListCountYear", year);
 	}
 

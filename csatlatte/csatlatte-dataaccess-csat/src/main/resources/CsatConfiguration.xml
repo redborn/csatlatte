@@ -9,9 +9,11 @@
 		<typeAlias  alias="TypeVo" type="org.redborn.csatlatte.domain.TypeVo"/>
 		<typeAlias	alias="ExamVo" type="org.redborn.csatlatte.domain.ExamVo"/>
 		<typeAlias  alias="Csatvo" type="org.redborn.csatlatte.domain.CsatVo"/>
-		<typeAlias  alias="StudentVo" type="org.redborn.csatlatte.domain.StudentDao"/>
-		<typeAlias  alias="StudentSecurityQuestionVo" type="org.redborn.csatlatte.domain.StudentSecurityQuestionDao"/>
-		<typeAlias  alias="StudentConnectionVo" type="org.redborn.csatlatte.domain.StudentConnectionDao"/>
+		<typeAlias  alias="StudentVo" type="org.redborn.csatlatte.domain.StudentVo"/>
+		<typeAlias  alias="StudentSecurityQuestionVo" type="org.redborn.csatlatte.domain.StudentSecurityQuestionVo"/>
+		<typeAlias  alias="StudentConnectionYmdVo" type="org.redborn.csatlatte.domain.StudentConnectionYmdVo"/>
+		<typeAlias  alias="StudentConnectionYmVo" type="org.redborn.csatlatte.domain.StudentConnectionYmVo"/>
+		<typeAlias  alias="StudentConnectionYearVo" type="org.redborn.csatlatte.domain.StudentConnectionYearVo"/>
 	</typeAliases>
 	
 	<mappers>

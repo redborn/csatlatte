@@ -2,12 +2,14 @@ package org.redborn.csatlatte.persistence.student;
 
 import java.util.List;
 
-import org.redborn.csatlatte.domain.StudentConnectionVo;
+import org.redborn.csatlatte.domain.StudentConnectionYearVo;
+import org.redborn.csatlatte.domain.StudentConnectionYmVo;
+import org.redborn.csatlatte.domain.StudentConnectionYmdVo;
 
 public interface ConnectionDao {
 	
-	public List<StudentConnectionVo> selectListCountYmd(String ymd);
-	public List<StudentConnectionVo> selectListCountYm(String ym);
-	public List<StudentConnectionVo> selectListCountYear(String year);
+	public List<StudentConnectionYmdVo> selectListCountYmd(String ymd);
+	public List<StudentConnectionYmVo> selectListCountYm(String ym);
+	public List<StudentConnectionYearVo> selectListCountYear(String year);
 	
 }
