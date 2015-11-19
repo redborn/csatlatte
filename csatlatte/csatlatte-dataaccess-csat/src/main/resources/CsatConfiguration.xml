@@ -10,13 +10,10 @@
 		<typeAlias	alias="ExamVo" type="org.redborn.csatlatte.domain.ExamVo"/>
 		<typeAlias  alias="Csatvo" type="org.redborn.csatlatte.domain.CsatVo"/>
 		<typeAlias  alias="StudentVo" type="org.redborn.csatlatte.domain.StudentVo"/>
-		<typeAlias  alias="StudentJoinYmdVo" type="org.redborn.csatlatte.domain.StudentJoinYmdVo"/>
-		<typeAlias  alias="StudentJoinYmVo" type="org.redborn.csatlatte.domain.StudentJoinYmVo"/>
-		<typeAlias  alias="StudentJoinYearVo" type="org.redborn.csatlatte.domain.StudentJoinYearVo"/>
 		<typeAlias  alias="StudentSecurityQuestionVo" type="org.redborn.csatlatte.domain.StudentSecurityQuestionVo"/>
-		<typeAlias  alias="StudentConnectionYmdVo" type="org.redborn.csatlatte.domain.StudentConnectionYmdVo"/>
-		<typeAlias  alias="StudentConnectionYmVo" type="org.redborn.csatlatte.domain.StudentConnectionYmVo"/>
-		<typeAlias  alias="StudentConnectionYearVo" type="org.redborn.csatlatte.domain.StudentConnectionYearVo"/>
+		<typeAlias  alias="YmCountVo" type="org.redborn.csatlatte.domain.YmCountVo"/>
+		<typeAlias  alias="YmdCountVo" type="org.redborn.csatlatte.domain.YmdCountVo"/>
+		<typeAlias  alias="YearCountVo" type="org.redborn.csatlatte.domain.YearCountVo"/>
 	</typeAliases>
 	
 	<mappers>

@@ -6,22 +6,22 @@
 
 <mapper namespace="student.connection">
 	
-	<resultMap type="StudentConnectionYmdVo" id="StudentConnectionYmdVoMap">
+	<resultMap type="YmdCountVo" id="YmdCountVoMap">
 		<result column="hour" property="hour"/>
-		<result column="count_connection" property="countConnection"/>
+		<result column="count_connection" property="count"/>
 	</resultMap>
 	
-	<resultMap type="StudentConnectionYmVo" id="StudentConnectionYmVoMap">
+	<resultMap type="YmCountVo" id="YmCountVoMap">
 		<result column="day" property="day"/>
-		<result column="count_connection" property="countConnection"/>
+		<result column="count_connection" property="count"/>
 	</resultMap>
 
-	<resultMap type="StudentConnectionYearVo" id="StudentConnectionYearVoMap">
+	<resultMap type="YearCountVo" id="YearCountVoVoMap">
 		<result column="month" property="month"/>
-		<result column="count_connection" property="countConnection"/>
+		<result column="count_connection" property="count"/>
 	</resultMap>
 
-	<select id="selectListCountYmd" parameterType="String" resultMap="StudentConnectionYmdVoMap">
+	<select id="selectListCountYmd" parameterType="String" resultMap="YmdCountVoMap">
 		SELECT TO_CHAR(connection_date, 'hh') as hour,COUNT(student_seq) as count_connection
 		  FROM csat_student_connection
 		 WHERE connection_date &lt;= TO_DATE(#{ymd}, 'yyyymmdd')
@@ -29,7 +29,7 @@
 		 GROUP BY TO_CHAR(connection_date, 'hh') 
 	</select>
 	
-	<select id="selectListCountYm" parameterType="String" resultMap="StudentConnectionYmVoMap">
+	<select id="selectListCountYm" parameterType="String" resultMap="YmCountVoMap">
 		SELECT TO_CHAR(connection_date, 'dd') AS day,
 		       COUNT(student_seq)         AS count_connection
 		FROM   csat_student_connection
@@ -37,7 +37,7 @@
 		GROUP BY TO_CHAR(connection_date, 'dd')
 	</select>
 	
-	<select id="selectListCountYear" parameterType="String" resultMap="StudentConnectionYearVoMap">
+	<select id="selectListCountYear" parameterType="String" resultMap="YearCountVoMap">
 		SELECT TO_CHAR(connection_date, 'mm') AS day,
 		       COUNT(student_seq)         AS count_connection
 		FROM   csat_student_connection

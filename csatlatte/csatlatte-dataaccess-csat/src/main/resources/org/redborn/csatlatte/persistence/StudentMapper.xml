@@ -14,19 +14,19 @@
 		<result column="avg_score" property="averageScore"/>
 	</resultMap>
 	
-	<resultMap type="StudentJoinYmdVo" id="StudentJoinYmdVoMap">
+	<resultMap type="YmdCountVo" id="YmdCountVoMap">
 		<result column="hour" property="hour"/>
-		<result column="count_join" property="countJoin"/>
+		<result column="count_join" property="count"/>
 	</resultMap>
 	
-	<resultMap type="StudentJoinYmVo" id="StudentJoinYmVoMap">
+	<resultMap type="YmCountVo" id="YmCountVoMap">
 		<result column="day" property="day"/>
-		<result column="count_join" property="countJoin"/>
+		<result column="count_join" property="count"/>
 	</resultMap>
 	
-	<resultMap type="StudentJoinYearVo" id="StudentJoinYearVoMap">
+	<resultMap type="YearCountVo" id="YearCountVoMap">
 		<result column="year" property="year"/>
-		<result column="count_join" property="countJoin"/>
+		<result column="count_join" property="count"/>
 	</resultMap>
 
 	<select id="selectOne" parameterType="StudentVo" resultType="int">
@@ -72,7 +72,7 @@
 		    OR cs.student_seq = cess.student_seq
 	</select>
 	
-	<select id="selectListCountYmd" parameterType="String" resultMap="StudentJoinYmdVoMap">
+	<select id="selectListCountYmd" parameterType="String" resultMap="YmdCountVoMap">
 		SELECT TO_CHAR(create_date, 'hh') as hour,COUNT(student_seq) as count_join
 		  FROM csat_student
 		 WHERE create_date &lt;= TO_DATE(#{ymd}, 'yyyymmdd')
@@ -80,7 +80,7 @@
 		 GROUP BY TO_CHAR(create_date, 'hh') 
 	</select>
 	
-	<select id="selectListCountYm" parameterType="String" resultMap="StudentJoinYmVoMap">
+	<select id="selectListCountYm" parameterType="String" resultMap="YmCountVoMap">
 		SELECT TO_CHAR(create_date, 'dd') AS day,
 		       COUNT(student_seq)         AS count_join
 		FROM   csat_student
@@ -88,7 +88,7 @@
 		GROUP BY TO_CHAR(create_date, 'dd')
 	</select>
 	
-	<select id="selectListCountYear" parameterType="String" resultMap="StudentJoinYearVoMap">
+	<select id="selectListCountYear" parameterType="String" resultMap="YearCountVoMap">
 		SELECT TO_CHAR(create_date, 'mm') AS day,
 		       COUNT(student_seq)         AS count_join
 		FROM   csat_student
