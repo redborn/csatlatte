@@ -3,21 +3,20 @@ package org.redborn.csatlatte.domain;
 public class StudentConnectionYearVo {
 
 	private String month;
-	private String count_connection;
+	private int count_connection;
 	
 	public String getMonth() {
 		return month;
 	}
-	
 	public void setMonth(String month) {
 		this.month = month;
 	}
 	
-	public String getCount_connection() {
+	public int getCount_connection() {
 		return count_connection;
 	}
 	
-	public void setCount_connection(String count_connection) {
+	public void setCount_connection(int count_connection) {
 		this.count_connection = count_connection;
 	}
 	
