@@ -3,7 +3,7 @@ package org.redborn.csatlatte.domain;
 public class StudentConnectionYmdVo {
 
 	private String hour;
-	private int count_connection;
+	private int countConnection;
 	
 	public String getHour() {
 		return hour;
@@ -13,18 +13,18 @@ public class StudentConnectionYmdVo {
 		this.hour = hour;
 	}
 	
-	public int getCount_connection() {
-		return count_connection;
+	public int getCountConnection() {
+		return countConnection;
 	}
 	
-	public void setCount_connection(int count_connection) {
-		this.count_connection = count_connection;
+	public void setCountConnection(int countConnection) {
+		this.countConnection = countConnection;
 	}
 	
 	@Override
 	public String toString() {
-		return "StudentConnectionYmdVo [hour=" + hour + ", count_connection="
-				+ count_connection + "]";
+		return "StudentConnectionYmdVo [hour=" + hour + ", countConnection="
+				+ countConnection + "]";
 	}
 	
 }
