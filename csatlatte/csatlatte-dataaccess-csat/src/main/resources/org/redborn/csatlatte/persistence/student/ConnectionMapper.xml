@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="student.connection">
+	
+	<resultMap type="YmdCountVo" id="YmdCountVoMap">
+		<result column="hour" property="hour"/>
+		<result column="count_connection" property="count"/>
+	</resultMap>
+	
+	<resultMap type="YmCountVo" id="YmCountVoMap">
+		<result column="day" property="day"/>
+		<result column="count_connection" property="count"/>
+	</resultMap>
+
+	<resultMap type="YearCountVo" id="YearCountVoVoMap">
+		<result column="month" property="month"/>
+		<result column="count_connection" property="count"/>
+	</resultMap>
+
+	<select id="selectListCountYmd" parameterType="String" resultMap="YmdCountVoMap">
+		SELECT TO_CHAR(connection_date, 'hh') as hour,COUNT(student_seq) as count_connection
+		  FROM csat_student_connection
+		 WHERE connection_date &lt;= TO_DATE(#{ymd}, 'yyyymmdd')
+		   AND connection_date + 1 &gt; TO_DATE(#{ymd}, 'yyyymmdd')
+		 GROUP BY TO_CHAR(connection_date, 'hh') 
+	</select>
+	
+	<select id="selectListCountYm" parameterType="String" resultMap="YmCountVoMap">
+		SELECT TO_CHAR(connection_date, 'dd') as day,COUNT(student_seq) as count_connection
+		  FROM csat_student_connection
+		 WHERE connection_date &lt;= TO_DATE(#{ym}, 'yyyymm')
+		   AND TO_DATE(#{ym}, 'yyyymm') &gt;= DATEADD(month, 1, connection_date)
+		 GROUP BY TO_CHAR(connection_date, 'dd')
+	</select>
+	
+	<select id="selectListCountYear" parameterType="String" resultMap="YearCountVoMap">
+		SELECT TO_CHAR(connection_date, 'mm') as day,COUNT(student_seq) as count_connection
+		  FROM csat_student_connection
+		 WHERE connection_date &lt;= TO_DATE(#{year}, 'yyyy')
+		   AND TO_DATE(#{year}, 'yyyy') &gt;= DATEADD(year, 1, connection_date)
+		 GROUP BY TO_CHAR(connection_date, 'mm')
+	</select>
+	
+</mapper>
