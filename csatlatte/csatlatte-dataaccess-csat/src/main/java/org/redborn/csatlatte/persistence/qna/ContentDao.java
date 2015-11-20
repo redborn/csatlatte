@@ -4,7 +4,7 @@ import org.redborn.csatlatte.domain.QnaContentVo;
 
 public interface ContentDao {
 	
-	public String selectOne(int qnaSequence);
+	public String selectList(int qnaSequence);
 	public int insert(QnaContentVo qnaContentVo);
 	
 }

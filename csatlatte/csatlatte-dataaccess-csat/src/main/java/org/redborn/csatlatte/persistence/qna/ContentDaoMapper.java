@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ContentDaoMapper extends SqlSessionDaoSupport implements ContentDao {
 
-	public String selectOne(int qnaSequence) {
-		return getSqlSession().selectOne("qna.content.selectOne", qnaSequence);
+	public String selectList(int qnaSequence) {
+		return getSqlSession().selectOne("qna.content.selectList", qnaSequence);
 	}
 
 	public int insert(QnaContentVo qnaContentVo) {
