@@ -3,13 +3,13 @@ package org.redborn.csatlatte.persistence.faq;
 import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.redborn.csatlatte.domain.FaqTypeVo;
+import org.redborn.csatlatte.domain.TypeVo;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class TypeDaoMapper extends SqlSessionDaoSupport implements TypeDao {
 
-	public List<FaqTypeVo> selectList() {
+	public List<TypeVo> selectList() {
 		return getSqlSession().selectList("faq.type.selectList");
 	}
 
