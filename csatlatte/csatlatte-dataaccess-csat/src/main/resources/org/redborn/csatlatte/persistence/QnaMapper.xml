@@ -34,7 +34,7 @@
 	</select>
 	
 	<select id="selectOneMaxQnaSequence" resultType="int">
-		SELECT IFNULL(qna_seq, 0) + 1
+		SELECT IFNULL(MAX(qna_seq), 0) + 1
 		  FROM csat_qna 
 	</select>
 	
