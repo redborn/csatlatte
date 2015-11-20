@@ -46,7 +46,7 @@
 		 LIMIT #{begin}, 10
 		 WHERE cq.qna_seq = cqc.qna_seq
 		   AND cq.student_seq = cs.student_seq
-		   AND cs.student_id = '%#{search}%' OR cs.nickname = '%#{search}%'
+		   AND cs.student_id like CONCAT('%',#{search},'%') OR cs.nickname like CONCAT('%',#{search},'%')
 	</select>
 	
 	<select id="selectListForStudent" parameterType="Map" resultMap="QnaForStudentVoMap">
