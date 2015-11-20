@@ -13,7 +13,7 @@
 	</select>
 	
 	<insert id="insert" parameterType="QnaContentVo">
-		INSERT INTO csat_qna_content
+		INSERT INTO csat_qna_content(qna_seq, content_seq, content)
 		VALUES (#{qnaSequence}, #{contentSequence}, #{content}) 
 	</insert>
 	
