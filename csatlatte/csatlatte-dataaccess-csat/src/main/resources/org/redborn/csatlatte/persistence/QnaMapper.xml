@@ -58,7 +58,7 @@
 	</select>
 	
 	<insert id="insert" parameterType="QnaVo">
-		 INSERT INTO csat_qna
+		 INSERT INTO csat_qna(qna_seq, student_seq, write_date, use_yn)
 	     VALUES (#{qnaSequence}, #{studentSequence},NOW(),'Y') 
 	</insert>
 	
