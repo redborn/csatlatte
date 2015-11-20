@@ -16,6 +16,12 @@
 		<typeAlias  alias="YearCountVo" type="org.redborn.csatlatte.domain.YearCountVo"/>
 		<typeAlias  alias="FaqTypeVo" type="org.redborn.csatlatte.domain.FaqTypeVo"/>
 		<typeAlias  alias="FaqVo" type="org.redborn.csatlatte.domain.FaqVo"/>
+		<typeAlias  alias="QnaVo" type="org.redborn.csatlatte.domain.QnaVo"/>
+		<typeAlias  alias="QnaForStudentVo" type="org.redborn.csatlatte.domain.QnaForStudentVo"/>
+		<typeAlias  alias="QnaForManageVo" type="org.redborn.csatlatte.domain.QnaForManageVo"/>
+		<typeAlias  alias="QnaFileVo" type="org.redborn.csatlatte.domain.QnaFileVo"/>
+		<typeAlias  alias="QnaContentVo" type="org.redborn.csatlatte.domain.QnaContentVo"/>
+		<typeAlias  alias="QnaAnswerVo" type="org.redborn.csatlatte.domain.QnaAnswerVo"/>
 	</typeAliases>
 	
 	<mappers>
@@ -26,6 +32,10 @@
 		<mapper resource="org/redborn/csatlatte/persistence/student/SecurityQuestionMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/student/ConnectionMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/FaqMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/QnaMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/qna/FileMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/qna/ContentMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/qna/AnswerMapper.xml"/>
 	</mappers>
 	
 </configuration>
