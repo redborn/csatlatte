@@ -14,7 +14,7 @@
 	
 	<insert id="insert" parameterType="QnaContentVo">
 		INSERT INTO csat_qna_content(qna_seq, content_seq, content)
-		VALUES (#{qnaSequence}, #{contentSequence}, #{content}) 
+		VALUES (#{qnaSequence}, select IFNULL(MAX(content_seq),0) + 1 from csat_qna_content, #{content}) 
 	</insert>
 	
 </mapper>
