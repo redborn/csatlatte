@@ -65,7 +65,7 @@
 	<update id="updateUseYnN" parameterType="int">
 		UPDATE csat_qna
 		   SET use_yn = 'N'
-		 WHERE student_seq = #{studentSequence} 
+		 WHERE qna_seq = #{qnaSequence} 
 	</update>
 	
 </mapper>
