@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class QnaDaoMapper extends SqlSessionDaoSupport implements QnaDao {
 
-	public List<QnaVo> selectOne(int qnaSequence) {
-		return getSqlSession().selectOne("qna.selectOne", qnaSequence);
+	public List<QnaVo> selectList(int qnaSequence) {
+		return getSqlSession().selectOne("qna.selectList", qnaSequence);
 	}
 	
 	public int selectOneMaxQnaSequence() {

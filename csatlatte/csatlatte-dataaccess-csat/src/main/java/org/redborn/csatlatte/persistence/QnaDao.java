@@ -6,7 +6,7 @@ import org.redborn.csatlatte.domain.QnaVo;
 
 public interface QnaDao {
 
-	public List<QnaVo> selectOne(int qnaSequence);
+	public List<QnaVo> selectList(int qnaSequence);
 	public int selectOneMaxQnaSequence();
 	public List<QnaVo> selectListForManage(String search, int begin);
 	public List<QnaVo> selectListForStudent(int studentSequence, String search, int begin);
