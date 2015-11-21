@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.redborn.csatlatte.domain.QnaForManageVo;
+import org.redborn.csatlatte.domain.QnaForStudentVo;
 import org.redborn.csatlatte.domain.QnaVo;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +21,7 @@ public class QnaDaoMapper extends SqlSessionDaoSupport implements QnaDao {
 		return getSqlSession().selectOne("qna.selectOneMaxQnaSequence");
 	}
 
-	public List<QnaVo> selectListForManage(String search, int begin) {
+	public List<QnaForManageVo> selectListForManage(String search, int begin) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("search", search);
 		params.put("begin", begin);
@@ -27,7 +29,7 @@ public class QnaDaoMapper extends SqlSessionDaoSupport implements QnaDao {
 		return getSqlSession().selectList("qna.selectListForManage", params);
 	}
 
-	public List<QnaVo> selectListForStudent(int studentSequence, String search, int begin) {
+	public List<QnaForStudentVo> selectListForStudent(int studentSequence, String search, int begin) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("studentSequence", studentSequence);
 		params.put("search", search);
