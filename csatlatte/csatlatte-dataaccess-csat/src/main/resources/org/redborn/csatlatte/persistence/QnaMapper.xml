@@ -26,16 +26,16 @@
 		<result column="write_date" property="writeDate"/>
 	</resultMap>
 	
-	<select id="selectOneMaxQnaSequence" resultType="int">
-		SELECT IFNULL(MAX(qna_seq), 0) + 1
-		  FROM csat_qna 
-	</select>
-
-	<select id="selectList" parameterType="int" resultMap="QnaVoMap">
-		SELECT qna_seq,student_seq,write_date
+	<select id="selectOne" parameterType="int" resultMap="String">
+		SELECT write_date
 		  FROM csat_qna
 		 WHERE qna_seq = #{qnaSequence}
 		   AND use_yn = 'Y' 
+	</select>
+	
+	<select id="selectOneMaxQnaSequence" resultType="int">
+		SELECT IFNULL(MAX(qna_seq), 0) + 1
+		  FROM csat_qna 
 	</select>
 	
 	<select id="selectListForManage" parameterType="Map" resultMap="QnaForManageVoMap">

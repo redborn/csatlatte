@@ -7,14 +7,13 @@ import java.util.Map;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.QnaForManageVo;
 import org.redborn.csatlatte.domain.QnaForStudentVo;
-import org.redborn.csatlatte.domain.QnaVo;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class QnaDaoMapper extends SqlSessionDaoSupport implements QnaDao {
 
-	public List<QnaVo> selectList(int qnaSequence) {
-		return getSqlSession().selectOne("qna.selectList", qnaSequence);
+	public String selectOne(int qnaSequence) {
+		return getSqlSession().selectOne("qna.selectOne", qnaSequence);
 	}
 	
 	public int selectOneMaxQnaSequence() {
