@@ -19,8 +19,11 @@
 	</select>
 	
 	<insert id="insert" parameterType="QnaFileVo">
-		INSERT INTO csat_qna_file(qna_seq, file_seq, file_code, file_name)
-     	VALUES (#{qnaSequence}, select IFNULL(MAX(file_seq),0) + 1 from csat_qna_file, #{fileCode}, #{fileName})
+	INSERT INTO csat_qna_file
+	            (qna_seq,file_seq,file_code,file_name)
+	     VALUES (#{qnaSequence},(SELECT IFNULL(MAX(file_seq), 0) + 1
+	                                  FROM csat_qna_file
+	                                 WHERE qna_seq = #{qnaSequence}),#{fileCode},#{fileName}) 
 	</insert>
 	
 </mapper>
