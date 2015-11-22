@@ -6,7 +6,7 @@
 
 <mapper namespace="qna.content">
 
-	<select id="selectList" parameterType="int" resultType="QnaContentVo">
+	<select id="selectList" parameterType="int" resultType="String">
 		SELECT content
 		  FROM csat_qna_content
 		 WHERE qna_seq = #{qnaSequence} 
