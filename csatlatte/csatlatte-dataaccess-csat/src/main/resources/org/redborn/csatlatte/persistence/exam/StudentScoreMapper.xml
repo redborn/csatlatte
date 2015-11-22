@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="exam.studentScore">
+
+	<resultMap type="GradeVo" id="GradeVoMap">
+		<result column="section_seq" property="sectionSequence"/>
+		<result column="subject_seq" property="subjectSequence"/>
+		<result column="score" property="score"/>
+	</resultMap>
+	
+	<resultMap type="GradeRatingVo" id="GradeRatingVoMap">
+		<result column="section_seq" property="sectionSequence"/>
+		<result column="subject_seq" property="subjectSequence"/>
+		<result column="rating_code" property="rating"/>
+	</resultMap>
+	
+	<resultMap type="GradeStandardscoreVo" id="GradeStandardscoreVoMap">
+		<result column="section_seq" property="sectionSequence"/>
+		<result column="subject_seq" property="subjectSequence"/>
+		<result column="standard_score" property="standardscore"/>
+	</resultMap>
+
+	<select id="selectList" parameterType="GradeVo" resultMap="GradeVoMap">
+		SELECT section_seq,subject_seq,score
+		  FROM csat_exam_student_score
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq #{examSequence}
+		   AND student_seq = #{studentSequence} 	
+	</select>
+	
+	<select id="selectListRating" parameterType="GradeVo" resultMap="GradeRatingVoMap">
+		SELECT cess.section_seq as section_seq,cess.subject_seq as subject_seq,cerc.rating_code
+		  FROM csat_exam_student_score cess,csat_exam_rating_cut cerc
+		 WHERE cess.student_seq = #{studentSequence}
+		   AND cess.csat_seq = cerc.csat_seq
+		   AND cess.exam_seq = cerc.exam_seq
+		   AND cess.section_seq = cerc.section_seq
+		   AND cess.subject_seq = cerc.subject_seq
+		   AND cess.score >= cerc.raw_score
+		   AND cess.csat_seq = #{csatSequence}
+		   AND cess.exam_seq = #{examSequence} 
+		 GROUP BY MIN(cerc.raw_score)
+	</select>
+	
+	<select id="selectListStandardscore" parameterType="GradeVo" resultMap="GradeStandardscoreVoMap">
+		SELECT section_seq,subject_seq,
+			   ((cess.score - cea.avg) / cea.standard_deviation) * (IF(cess.section_seq >= 3, 10, 20) + (IF(cess.section_seq >= 3, 50, 100) as standard_score
+		  FROM csat_exam_student_score cess, csat_exam_avg cea 
+		 WHERE cess.student_seq = #{studentsequence}
+		   AND cess.csat_seq = #{csatsequence}
+		   AND cess.exam_seq = #{examsequence}
+		   AND cess.csat_seq = cea.csat_seq
+		   AND cess.exam_seq = cea.exam_seq
+		   AND cess.section_seq = cea.section_seq
+		   AND cess.subject_seq = cea.subject_seq
+	</select>
+
+	<insert id="insert" parameterType="GradeVo">
+		INSERT int csat_exam_student_score
+		       (student_seq,csat_seq,exam_seq,section_seq,subject_seq,score)
+		VALUES (#{studentSequence},#{csatSequence},#{examSequence},
+				#{sectionSequence},#{subjectSequence},#{score}) 
+	</insert>
+	
+	<update id="update" parameterType="GradeVo">
+		UPDATE csat_exam_student_score
+		   SET score = #{score}
+		 WHERE student_seq = #{studentSequence}
+		   AND csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence} 
+	</update>
+	
+	<delete id="delete" parameterType="GradeVo">
+		DELETE FROM csat_exam_student_score
+		 WHERE student_seq = #{studentSequence}
+		   AND csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence} 
+	</delete>
+	
+</mapper>
