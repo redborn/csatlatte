@@ -12,7 +12,7 @@
 		 WHERE qna_seq = #{qnaSequence} 
 	</select>
 	
-	<insert id="insert" parameterType="QnaContentVo">
+	<insert id="insert" parameterType="Map">
 		 INSERT INTO csat_qna_content
 	            (qna_seq,content_seq,content)
 	     VALUES (#{qnaSequence},(SELECT IFNULL(MAX(content_seq), 0) + 1

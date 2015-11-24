@@ -3,8 +3,6 @@ package org.redborn.csatlatte.service;
 import java.util.List;
 
 import org.redborn.csatlatte.domain.QnaAnswerVo;
-import org.redborn.csatlatte.domain.QnaContentVo;
-import org.redborn.csatlatte.domain.QnaDetailVo;
 import org.redborn.csatlatte.domain.QnaFileVo;
 import org.redborn.csatlatte.domain.QnaForManageVo;
 import org.redborn.csatlatte.domain.QnaForStudentVo;
@@ -28,13 +26,24 @@ public class QnaServiceImpl implements QnaService {
 	@Autowired
 	private AnswerDao answerDao;
 	
-	public QnaDetailVo detail(int qnaSequence) {
-		QnaDetailVo qnaDetailVo = new QnaDetailVo();
-		qnaDetailVo.setWriteDate(qnaDao.selectOne(qnaSequence));
-		qnaDetailVo.setContent(contentDao.selectList(qnaSequence));
-		qnaDetailVo.setFile(fileDao.selectList(qnaSequence));
+	public QnaVo detail(int qnaSequence) {
+		QnaVo qnaVo = new QnaVo();
 		
-		return qnaDetailVo;
+		List<String> contentList = contentDao.selectList(qnaSequence);
+		String content = null;
+		
+		if (contentList != null) {
+			int contentSize = contentList.size();
+			for (int index = 0; index < contentSize; index++) {
+					content += contentList.get(index);
+			}
+		}
+		
+		qnaVo.setContent(content);
+		qnaVo.setWriteDate(qnaDao.selectOne(qnaSequence));
+		qnaVo.setFile(fileDao.selectList(qnaSequence));
+		
+		return qnaVo;
 	}
 
 	public List<QnaForManageVo> list(String search, int pageNumber) {
@@ -49,14 +58,14 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDao.updateUseYnN(qnaSequence) == 1;
 	}
 
-	public boolean write(QnaVo qnaVo, QnaContentVo qnaContentVo, QnaFileVo qnaFileVo) {
+	public boolean write(QnaVo qnaVo, QnaFileVo qnaFileVo) {
 		boolean result = false;
 		int maxQnaSequence = qnaDao.selectOneMaxQnaSequence();
-		qnaContentVo.setQnaSequence(maxQnaSequence);
+		qnaVo.setQnaSequence(maxQnaSequence);
 		qnaFileVo.setQnaSequence(maxQnaSequence);
 		
 		if(qnaDao.insert(maxQnaSequence, qnaVo.getStudentSequence()) == 1
-				&& contentDao.insert(qnaContentVo) == 1
+				&& contentDao.insert(qnaVo.getQnaSequence(), qnaVo.getContent()) == 1
 				&& fileDao.insert(qnaFileVo) == 1) {
 			result = true;
 		}
