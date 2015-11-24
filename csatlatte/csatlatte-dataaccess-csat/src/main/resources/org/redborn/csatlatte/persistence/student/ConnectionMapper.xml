@@ -22,27 +22,27 @@
 	</resultMap>
 
 	<select id="selectListCountYmd" parameterType="String" resultMap="YmdCountVoMap">
-		SELECT TO_CHAR(connection_date, 'hh') as hour,COUNT(student_seq) as count_connection
+		SELECT DATE_FORMAT(connection_date, '%H') as hour,COUNT(student_seq) as count_connection
 		  FROM csat_student_connection
-		 WHERE connection_date &lt;= TO_DATE(#{ymd}, 'yyyymmdd')
-		   AND connection_date + 1 &gt; TO_DATE(#{ymd}, 'yyyymmdd')
-		 GROUP BY TO_CHAR(connection_date, 'hh') 
+		 WHERE connection_date &gt;= DATE_FORMAT(#{ymd}, '%Y-%m-%d')
+		   AND connection_date &lt; DATE_ADD(DATE_FORMAT(#{ymd}, '%Y-%m-%d'), INTERVAL 1 day)
+		 GROUP BY DATE_FORMAT(connection_date, '%H') 
 	</select>
 	
 	<select id="selectListCountYm" parameterType="String" resultMap="YmCountVoMap">
-		SELECT TO_CHAR(connection_date, 'dd') as day,COUNT(student_seq) as count_connection
+		SELECT DATE_FORMAT(connection_date, '%d') as day,COUNT(student_seq) as count_connection
 		  FROM csat_student_connection
-		 WHERE connection_date &lt;= TO_DATE(#{ym}, 'yyyymm')
-		   AND TO_DATE(#{ym}, 'yyyymm') &gt;= DATEADD(month, 1, connection_date)
-		 GROUP BY TO_CHAR(connection_date, 'dd')
+		 WHERE connection_date &gt;= DATE_FORMAT(CONCAT(#{ym},'01'), '%Y-%m-%d')
+		   AND connection_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{ym},'01'), '%Y-%m-%d'), INTERVAL 1 month)
+		 GROUP BY DATE_FORMAT(connection_date, '%d') 
 	</select>
 	
 	<select id="selectListCountYear" parameterType="String" resultMap="YearCountVoMap">
-		SELECT TO_CHAR(connection_date, 'mm') as day,COUNT(student_seq) as count_connection
+		SELECT DATE_FORMAT(connection_date, '%m') as month,COUNT(student_seq) as count_connection
 		  FROM csat_student_connection
-		 WHERE connection_date &lt;= TO_DATE(#{year}, 'yyyy')
-		   AND TO_DATE(#{year}, 'yyyy') &gt;= DATEADD(year, 1, connection_date)
-		 GROUP BY TO_CHAR(connection_date, 'mm')
+		 WHERE connection_date &gt;= DATE_FORMAT(CONCAT(#{year},'0101'), '%Y-%m-%d')
+		   AND connection_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{year},'0101'), '%Y-%m-%d'), INTERVAL 1 year)
+		 GROUP BY DATE_FORMAT(connection_date, '%m') 
 	</select>
 	
 </mapper>
