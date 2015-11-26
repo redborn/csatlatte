@@ -47,11 +47,11 @@ public class QnaServiceImpl implements QnaService {
 		return qnaVo;
 	}
 
-	public List<QnaForManageVo> list(String search, int pageNumber) {
+	public List<QnaForManageVo> listForManage(String search, int pageNumber) {
 		return qnaDao.selectListForManage(search, pageNumber);
 	}
 
-	public List<QnaForStudentVo> list(int studentSequence, int pageNumber) {
+	public List<QnaForStudentVo> listForStudent(int studentSequence, int pageNumber) {
 		return qnaDao.selectListForStudent(studentSequence, pageNumber);
 	}
 
