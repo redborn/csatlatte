@@ -14,7 +14,7 @@ public class FileDaoMapper extends SqlSessionDaoSupport implements FileDao {
 	}
 
 	public int insert(QnaFileVo qnaFileVo) {
-		return getSqlSession().insert("qna.file.selectList", qnaFileVo);
+		return getSqlSession().insert("qna.file.insert", qnaFileVo);
 	}
 
 }
