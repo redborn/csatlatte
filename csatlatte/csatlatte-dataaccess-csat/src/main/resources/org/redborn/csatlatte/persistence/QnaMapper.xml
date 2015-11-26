@@ -10,6 +10,7 @@
 		<result column="qna_seq" property="qnaSequence"/>
 		<result column="student_seq" property="studentSequence"/>
 		<result column="write_date" property="writeDate"/>
+		<result column="title" property="title"/>
 	</resultMap>
 	
 	<resultMap type="QnaForManageVo" id="QnaForManageVoMap">
@@ -26,8 +27,8 @@
 		<result column="write_date" property="writeDate"/>
 	</resultMap>
 	
-	<select id="selectOne" parameterType="int" resultType="String">
-		SELECT write_date
+	<select id="selectOne" parameterType="int" resultMap="QnaVoMap">
+		SELECT write_date, title
 		  FROM csat_qna
 		 WHERE qna_seq = #{qnaSequence}
 		   AND use_yn = 'Y' 
