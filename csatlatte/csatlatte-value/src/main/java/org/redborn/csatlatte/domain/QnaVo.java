@@ -10,6 +10,7 @@ public class QnaVo {
 	private Date writeDate;
 	private String content;
 	private List<QnaFileVo> file;
+	private String title;
 	
 	public int getQnaSequence() {
 		return qnaSequence;
@@ -51,11 +52,19 @@ public class QnaVo {
 		this.file = file;
 	}
 	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	@Override
 	public String toString() {
 		return "QnaVo [qnaSequence=" + qnaSequence + ", studentSequence="
 				+ studentSequence + ", writeDate=" + writeDate + ", content="
-				+ content + ", file=" + file + "]";
+				+ content + ", file=" + file + ", title=" + title + "]";
 	}
-	
+
 }
