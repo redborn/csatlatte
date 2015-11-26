@@ -40,7 +40,8 @@ public class QnaServiceImpl implements QnaService {
 		}
 		
 		qnaVo.setContent(content);
-		qnaVo.setWriteDate(qnaDao.selectOne(qnaSequence));
+		qnaVo.setTitle(qnaDao.selectOne(qnaSequence).getTitle());
+		qnaVo.setWriteDate(qnaDao.selectOne(qnaSequence).getWriteDate());
 		qnaVo.setFile(fileDao.selectList(qnaSequence));
 		
 		return qnaVo;
