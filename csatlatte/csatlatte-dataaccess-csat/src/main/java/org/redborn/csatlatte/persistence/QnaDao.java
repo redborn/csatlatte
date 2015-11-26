@@ -1,6 +1,5 @@
 package org.redborn.csatlatte.persistence;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.redborn.csatlatte.domain.QnaForManageVo;
