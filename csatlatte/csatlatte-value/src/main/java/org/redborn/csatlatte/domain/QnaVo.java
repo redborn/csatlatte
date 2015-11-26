@@ -1,12 +1,13 @@
 package org.redborn.csatlatte.domain;
 
+import java.sql.Date;
 import java.util.List;
 
 public class QnaVo {
 	
 	private int qnaSequence;
 	private int studentSequence;
-	private String writeDate;
+	private Date writeDate;
 	private String content;
 	private List<QnaFileVo> file;
 	
@@ -26,11 +27,11 @@ public class QnaVo {
 		this.studentSequence = studentSequence;
 	}
 	
-	public String getWriteDate() {
+	public Date getWriteDate() {
 		return writeDate;
 	}
 	
-	public void setWriteDate(String writeDate) {
+	public void setWriteDate(Date writeDate) {
 		this.writeDate = writeDate;
 	}
 	
