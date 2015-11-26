@@ -6,19 +6,18 @@
 
 <mapper namespace="qna.file">
 
-	<resultMap type="QnaFileVo" id="QnaFileVoMap">
-		<result column="file_seq" property="fileSequence"/>
+	<resultMap type="FileVo" id="FileVoMap">
 		<result column="file_code" property="fileCode"/>
 		<result column="file_name" property="fileName"/>
 	</resultMap>
 
-	<select id="selectList" parameterType="int" resultType="QnaFileVoMap">
-		SELECT file_seq,file_code,file_name
+	<select id="selectList" parameterType="int" resultType="FileVoMap">
+		SELECT file_code,file_name
 		  FROM csat_qna_file
 		 WHERE qna_seq = #{qnaSequence} 
 	</select>
 	
-	<insert id="insert" parameterType="QnaFileVo">
+	<insert id="insert" parameterType="Map">
 		 INSERT INTO csat_qna_file
 	            (qna_seq,file_seq,file_code,file_name)
 	     VALUES (#{qnaSequence},(SELECT IFNULL(MAX(file_seq), 0) + 1

@@ -1,9 +1,10 @@
 package org.redborn.csatlatte.service;
 
+import java.io.File;
 import java.util.List;
 
+import org.redborn.csatlatte.domain.FileVo;
 import org.redborn.csatlatte.domain.QnaAnswerVo;
-import org.redborn.csatlatte.domain.QnaFileVo;
 import org.redborn.csatlatte.domain.QnaForManageVo;
 import org.redborn.csatlatte.domain.QnaForStudentVo;
 import org.redborn.csatlatte.domain.QnaVo;
@@ -59,15 +60,39 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDao.updateUseYnN(qnaSequence) == 1;
 	}
 
-	public boolean write(QnaVo qnaVo, QnaFileVo qnaFileVo) {
+	public boolean write(QnaVo qnaVo, List<File> listFile) {
 		boolean result = false;
-		int maxQnaSequence = qnaDao.selectOneMaxQnaSequence();
-		qnaVo.setQnaSequence(maxQnaSequence);
-		qnaFileVo.setQnaSequence(maxQnaSequence);
 		
-		if(qnaDao.insert(maxQnaSequence, qnaVo.getStudentSequence()) == 1
-				&& contentDao.insert(qnaVo.getQnaSequence(), qnaVo.getContent()) == 1
-				&& fileDao.insert(qnaFileVo) == 1) {
+		int maxQnaSequence = qnaDao.selectOneMaxQnaSequence();
+		
+		String content = qnaVo.getContent();
+		int max = content.length() / 2000;
+		int beginIndex;
+		
+		int listFileSize = listFile.size();
+		FileVo fileVo = new FileVo();
+		
+		qnaVo.setQnaSequence(maxQnaSequence);
+		
+		if ((content.length() % 2000) != 0) {
+			max++;
+		}
+		
+		for (int index = 0; index < max; index++) {
+			beginIndex = 2000 * index; 
+			qnaVo.setContent(content.substring(beginIndex, beginIndex + 2000));
+			contentDao.insert(qnaVo.getQnaSequence(), qnaVo.getContent());
+		}
+		
+		for (int index = 0; index < listFileSize; index++) {
+			// fileVo = listFile.get(index);
+			
+			// file처리에 대한 교육을 마친 후 진행해야 함
+			// List<File>을 fileVo로 담는 방법을 모름
+			fileDao.insert(maxQnaSequence, fileVo);
+		}
+		
+		if(qnaDao.insert(maxQnaSequence, qnaVo.getStudentSequence()) == 1) {
 			result = true;
 		}
 		
