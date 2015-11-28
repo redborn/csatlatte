@@ -2,7 +2,6 @@ package org.redborn.csatlatte.persistence;
 
 import java.util.List;
 
-import org.redborn.csatlatte.domain.StudentInformationVo;
 import org.redborn.csatlatte.domain.StudentVo;
 import org.redborn.csatlatte.domain.YearCountVo;
 import org.redborn.csatlatte.domain.YmCountVo;
@@ -10,7 +9,7 @@ import org.redborn.csatlatte.domain.YmdCountVo;
 
 public interface StudentDao {
 	
-	public StudentInformationVo selectOne(String id, String password);
+	public StudentVo selectOne(String id, String password);
 	public int selectOneCountPassword(int studentSequence, String password);
 	public int selectOneCountIsPassword(String id, String securityAnswer);
 	public String selectOneId(String nickname, String securityAnswer);

@@ -14,7 +14,7 @@
 		<result column="avg_score" property="averageScore"/>
 	</resultMap>
 	
-	<resultMap type="StudentInformationVo" id="StudentInformationVoMap">
+	<resultMap type="StudentVo" id="StudentInformationVoMap">
 		<result column="student_id" property="studentId"/>
 		<result column="content" property="securityQuestionContent"/>
 		<result column="photo_code" property="photoCode"/>
