@@ -30,18 +30,20 @@ public class QnaServiceImpl implements QnaService {
 	public QnaVo detail(int qnaSequence) {
 		QnaVo qnaVo = qnaDao.selectOne(qnaSequence);
 		
-		List<String> contentList = contentDao.selectList(qnaSequence);
-		String content = null;
-		
-		if (contentList != null) {
-			int contentSize = contentList.size();
-			for (int index = 0; index < contentSize; index++) {
-					content += contentList.get(index);
+		if (qnaVo != null) {
+			List<String> contentList = contentDao.selectList(qnaSequence);
+			String content = null;
+			
+			if (contentList != null) {
+				int contentSize = contentList.size();
+				for (int index = 0; index < contentSize; index++) {
+						content += contentList.get(index);
+				}
 			}
+			
+			qnaVo.setContent(content);
+			qnaVo.setFile(fileDao.selectList(qnaSequence));
 		}
-		
-		qnaVo.setContent(content);
-		qnaVo.setFile(fileDao.selectList(qnaSequence));
 		
 		return qnaVo;
 	}
