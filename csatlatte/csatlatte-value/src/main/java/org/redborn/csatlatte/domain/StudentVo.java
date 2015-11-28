@@ -13,6 +13,8 @@ public class StudentVo {
 	private String createDate;
 	private int countConnection;
 	private int averageScore;
+	private String securityQuestionContent;
+	private String csatName;
 	
 	public int getStudentSequence() {
 		return studentSequence;
@@ -102,6 +104,22 @@ public class StudentVo {
 		this.averageScore = averageScore;
 	}
 	
+	public String getSecurityQuestionContent() {
+		return securityQuestionContent;
+	}
+
+	public void setSecurityQuestionContent(String securityQuestionContent) {
+		this.securityQuestionContent = securityQuestionContent;
+	}
+
+	public String getCsatName() {
+		return csatName;
+	}
+
+	public void setCsatName(String csatName) {
+		this.csatName = csatName;
+	}
+
 	@Override
 	public String toString() {
 		return "StudentVo [studentSequence=" + studentSequence + ", studentId="
@@ -110,7 +128,8 @@ public class StudentVo {
 				+ ", photoName=" + photoName + ", csatSequence=" + csatSequence
 				+ ", useYn=" + useYn + ", createDate=" + createDate
 				+ ", countConnection=" + countConnection + ", averageScore="
-				+ averageScore + "]";
+				+ averageScore + ", securityQuestionContent="
+				+ securityQuestionContent + ", csatName=" + csatName + "]";
 	}
 	
 }

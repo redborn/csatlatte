@@ -16,7 +16,7 @@ public interface StudentService {
 	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo);
 	public String findId(String nickname, String securityAnswer);
 	public boolean isPassword(String id, String securityAnswer);
-	public boolean information(String id, String password);
+	public StudentVo information(String id, String password);
 	public boolean lock(int studentSequence);
 	public List<YmdCountVo> dailyJoinCountList(String ymd);
 	public List<YmCountVo> monthlyJoinCountList(String ym);
@@ -24,7 +24,7 @@ public interface StudentService {
 	public List<YmdCountVo> dailyConnectionCount(String ymd);
 	public List<YmCountVo> monthlyConnectionCount(String ym);
 	public List<YearCountVo> annualConnectionCount(String year);
-	public List<StudentVo> userList(String studentId, String nickname);
+	public List<StudentVo> userList(String search, int pageNumber);
 	public String securityQuestion(int studentSequence);
 	
 }

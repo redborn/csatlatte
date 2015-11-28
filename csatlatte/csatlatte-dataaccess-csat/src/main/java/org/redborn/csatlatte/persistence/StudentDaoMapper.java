@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class StudentDaoMapper extends SqlSessionDaoSupport implements StudentDao {
 
-	public int selectOne(String id, String password) {
+	public StudentVo selectOne(String id, String password) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
 		params.put("password", password);
@@ -50,10 +50,10 @@ public class StudentDaoMapper extends SqlSessionDaoSupport implements StudentDao
 		return getSqlSession().selectOne("student.selectOneMaxStudentSequence");
 	}
 	
-	public List<StudentVo> selectList(String studentId, String nickname) {
+	public List<StudentVo> selectList(String search, int pageNumber) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("studentId", studentId);
-		params.put("nickname", nickname);
+		params.put("search", search);
+		params.put("pageNumber", pageNumber);
 		
 		return getSqlSession().selectList("student.selectList", params);
 	}

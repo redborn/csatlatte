@@ -78,8 +78,8 @@ public class StudentServiceImpl implements StudentService {
 		return studentDao.selectOneCountIsPassword(id, securityAnswer) == 1;
 	}
 
-	public boolean information(String id, String password) {
-		return studentDao.selectOne(id, password) == 1;
+	public StudentVo information(String id, String password) {
+		return studentDao.selectOne(id, password);
 	}
 
 	public boolean lock(int studentSequence) {
@@ -110,8 +110,8 @@ public class StudentServiceImpl implements StudentService {
 		return connectionDao.selectListCountYear(year);
 	}
 
-	public List<StudentVo> userList(String studentId, String nickname) {
-		return studentDao.selectList(studentId, nickname);
+	public List<StudentVo> userList(String search, int pageNumber) {
+		return studentDao.selectList(search, pageNumber);
 	}
 
 	public String securityQuestion(int studentSequence) {
