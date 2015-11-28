@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="qna.content">
+
+	<select id="selectList" parameterType="int" resultType="String">
+		SELECT content
+		  FROM csat_qna_content
+		 WHERE qna_seq = #{qnaSequence} 
+	</select>
+	
+	<insert id="insert" parameterType="Map">
+		 INSERT INTO csat_qna_content
+	            (qna_seq,content_seq,content)
+	     VALUES (#{qnaSequence},(SELECT IFNULL(MAX(content_seq), 0) + 1
+	                                  FROM csat_qna_content
+	                                 WHERE qna_seq = #{qnaSequence}), #{content}) 
+	</insert>
+	
+</mapper>
