@@ -8,6 +8,6 @@ import org.redborn.csatlatte.domain.SubjectVo;
 public interface RatingCutDao {
 	
 	public List<RatingCutScoreVo> list(int csatSequence, int examSequence);
-	public int insert(SubjectVo subjectVo, List<RatingCutScoreVo> ratingCutScoreVo);
+	public int insert(SubjectVo subjectVo, RatingCutScoreVo ratingCutScoreVo);
 	
 }
