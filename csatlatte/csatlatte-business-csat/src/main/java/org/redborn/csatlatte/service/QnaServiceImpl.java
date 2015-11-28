@@ -67,20 +67,21 @@ public class QnaServiceImpl implements QnaService {
 		
 		String content = qnaVo.getContent();
 		int max = content.length() / 2000;
-		int beginIndex;
+		int beginIndex = 0;
 		
 		int listFileSize = listFile.size();
 		FileVo fileVo = new FileVo();
 		
 		qnaVo.setQnaSequence(maxQnaSequence);
 		
-		if ((content.length() % 2000) != 0) {
-			max++;
-		}
-		
 		for (int index = 0; index < max; index++) {
 			beginIndex = 2000 * index; 
 			qnaVo.setContent(content.substring(beginIndex, beginIndex + 2000));
+			contentDao.insert(qnaVo.getQnaSequence(), qnaVo.getContent());
+		}
+		
+		if (content.length() % 2000 != 0) {
+			qnaVo.setContent(content.substring(max * 2000, content.length()));
 			contentDao.insert(qnaVo.getQnaSequence(), qnaVo.getContent());
 		}
 		
