@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.redborn.csatlatte.domain.StudentInformationVo;
 import org.redborn.csatlatte.domain.StudentVo;
 import org.redborn.csatlatte.domain.YearCountVo;
 import org.redborn.csatlatte.domain.YmCountVo;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class StudentDaoMapper extends SqlSessionDaoSupport implements StudentDao {
 
-	public int selectOne(String id, String password) {
+	public StudentInformationVo selectOne(String id, String password) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);
 		params.put("password", password);

@@ -14,6 +14,15 @@
 		<result column="avg_score" property="averageScore"/>
 	</resultMap>
 	
+	<resultMap type="StudentInformationVo" id="StudentInformationVoMap">
+		<result column="student_id" property="studentId"/>
+		<result column="content" property="securityQuestionContent"/>
+		<result column="photo_code" property="photoCode"/>
+		<result column="photo_name" property="photoName"/>
+		<result column="nickname" property="nickname"/>
+		<result column="csat_name" property="csatName"/>
+	</resultMap>
+	
 	<resultMap type="YmdCountVo" id="YmdCountVoMap">
 		<result column="hour" property="hour"/>
 		<result column="count_join" property="count"/>
@@ -29,14 +38,19 @@
 		<result column="count_join" property="count"/>
 	</resultMap>
 
-	<select id="selectOne" parameterType="StudentVo" resultType="int">
-		SELECT COUNT(*)
-		  FROM csat_student
-		 WHERE student_id = #{id}
-		   AND student_password = #{password} 
+	<select id="selectOne" parameterType="Map" resultType="StudentInfomationVoMap">
+		SELECT cs.student_id AS student_id,csc.content AS content,
+		       cs.photo_code AS photo_code,cs.photo_name AS photo_name,
+		       cs.nickname AS nickname,c.csat_name AS csat_name
+		  FROM csat_student cs,csat_student_scqs css,csat_scqs csc,csat c
+		 WHERE student_id = #{studentId}
+		   AND student_password = #{studentPassword}
+		   AND cs.student_seq = css.student_seq
+		   AND css.scqs_seq = csc.scqs_seq
+		   AND cs.csat_seq = c.csat_seq
 	</select>
 
-	<select id="selectOneCountPassword" parameterType="StudentVo" resultType="int">
+	<select id="selectOneCountPassword" parameterType="Map" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_student
 		 WHERE student_seq = #{studentSequence}
