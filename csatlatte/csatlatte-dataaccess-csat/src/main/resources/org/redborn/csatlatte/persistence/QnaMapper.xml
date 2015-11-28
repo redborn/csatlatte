@@ -13,6 +13,11 @@
 		<result column="title" property="title"/>
 	</resultMap>
 	
+	<resultMap type="QnaVo" id="QnaVoWriteDateAndTitleMap">
+		<result column="write_date" property="writeDate"/>
+		<result column="title" property="title"/>
+	</resultMap>
+	
 	<resultMap type="QnaForManageVo" id="QnaForManageVoMap">
 		<result column="qna_seq" property="qnaSequence"/>
 		<result column="student_id" property="studentId"/>
@@ -27,7 +32,7 @@
 		<result column="write_date" property="writeDate"/>
 	</resultMap>
 	
-	<select id="selectOne" parameterType="int" resultMap="QnaVoMap">
+	<select id="selectOne" parameterType="int" resultMap="QnaVoWriteDateAndTitleMap">
 		SELECT write_date, title
 		  FROM csat_qna
 		 WHERE qna_seq = #{qnaSequence}
