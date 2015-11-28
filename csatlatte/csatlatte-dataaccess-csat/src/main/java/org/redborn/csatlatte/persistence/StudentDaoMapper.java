@@ -50,10 +50,10 @@ public class StudentDaoMapper extends SqlSessionDaoSupport implements StudentDao
 		return getSqlSession().selectOne("student.selectOneMaxStudentSequence");
 	}
 	
-	public List<StudentVo> selectList(String search, int begin) {
+	public List<StudentVo> selectList(String search, int pageNumber) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("search", search);
-		params.put("begin", begin);
+		params.put("pageNumber", pageNumber);
 		
 		return getSqlSession().selectList("student.selectList", params);
 	}

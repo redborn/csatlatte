@@ -85,7 +85,7 @@
 		 WHERE cs.student_seq = csc.student_seq
 		   AND cs.student_seq = cess.student_seq
 		   AND (cs.student_id LIKE CONCAT('%',#{search},'%') OR cs.nickname LIKE CONCAT('%',#{search},'%'))
-		 LIMIT #{begin}, 10;
+		 LIMIT #{pageNumber}, 10;
 	</select>
 	
 	<select id="selectListCountYmd" parameterType="String" resultMap="YmdCountVoMap">
