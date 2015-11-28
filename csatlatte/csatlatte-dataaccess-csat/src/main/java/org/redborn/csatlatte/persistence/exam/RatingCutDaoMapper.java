@@ -21,8 +21,13 @@ public class RatingCutDaoMapper extends SqlSessionDaoSupport implements
 
 	public int insert(SubjectVo subjectVo, RatingCutScoreVo ratingCutScoreVo) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("subjectVo", subjectVo);
-		params.put("ratingCutScoreVo", ratingCutScoreVo);
+		params.put("csatSequence", subjectVo.getCsatSequence());
+		params.put("examSequence", subjectVo.getExamSequence());
+		params.put("sectionSequence", subjectVo.getSectionSequence());
+		params.put("subjectSequence", subjectVo.getSubjectSequence());
+		params.put("ratingCode", ratingCutScoreVo.getRatingCode());
+		params.put("rawScore", ratingCutScoreVo.getRawScore());
+		params.put("standardScore", ratingCutScoreVo.getStandardScore());
 		
 		return getSqlSession().insert("exam.ratingcut.insert", params);
 	}

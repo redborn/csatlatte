@@ -10,7 +10,10 @@ public class AverageDaoMapper extends SqlSessionDaoSupport implements AverageDao
 
 	public int insert(SubjectVo subjectVo, int average, int standardDeviation) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("subjectVo", subjectVo);
+		params.put("csatSequence", subjectVo.getCsatSequence());
+		params.put("examSequence", subjectVo.getExamSequence());
+		params.put("sectionSequence", subjectVo.getSectionSequence());
+		params.put("subjectSequence", subjectVo.getSubjectSequence());
 		params.put("average", average);
 		params.put("standardDeviation", standardDeviation);
 		
