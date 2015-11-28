@@ -8,7 +8,9 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.GradeRatingVo;
 import org.redborn.csatlatte.domain.GradeStandardscoreVo;
 import org.redborn.csatlatte.domain.GradeVo;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ScoreDaoMapper extends SqlSessionDaoSupport implements ScoreDao {
 
 	public int insert(GradeVo gradeVo) {
