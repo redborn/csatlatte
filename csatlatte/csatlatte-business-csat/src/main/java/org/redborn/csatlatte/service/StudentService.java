@@ -2,7 +2,6 @@ package org.redborn.csatlatte.service;
 
 import java.util.List;
 
-import org.redborn.csatlatte.domain.StudentInformationVo;
 import org.redborn.csatlatte.domain.StudentSecurityQuestionVo;
 import org.redborn.csatlatte.domain.StudentVo;
 import org.redborn.csatlatte.domain.YearCountVo;
@@ -17,7 +16,7 @@ public interface StudentService {
 	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo);
 	public String findId(String nickname, String securityAnswer);
 	public boolean isPassword(String id, String securityAnswer);
-	public StudentInformationVo information(String id, String password);
+	public StudentVo information(String id, String password);
 	public boolean lock(int studentSequence);
 	public List<YmdCountVo> dailyJoinCountList(String ymd);
 	public List<YmCountVo> monthlyJoinCountList(String ym);
