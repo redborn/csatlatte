@@ -2,11 +2,12 @@ package org.redborn.csatlatte.persistence.exam;
 
 import java.util.List;
 
-import org.redborn.csatlatte.domain.RatingCutVo;
+import org.redborn.csatlatte.domain.RatingCutScoreVo;
+import org.redborn.csatlatte.domain.SubjectVo;
 
 public interface RatingCutDao {
 	
-	public List<RatingCutVo> list(int csatSequence, int examSequence);
-	public int insert(RatingCutVo ratingCutVo);
+	public List<RatingCutScoreVo> list(int csatSequence, int examSequence);
+	public int insert(SubjectVo subjectVo, List<RatingCutScoreVo> ratingCutScoreVo);
 	
 }
