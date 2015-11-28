@@ -28,7 +28,7 @@ public class QnaServiceImpl implements QnaService {
 	private AnswerDao answerDao;
 	
 	public QnaVo detail(int qnaSequence) {
-		QnaVo qnaVo = new QnaVo();
+		QnaVo qnaVo = qnaDao.selectOne(qnaSequence);
 		
 		List<String> contentList = contentDao.selectList(qnaSequence);
 		String content = null;
@@ -41,8 +41,6 @@ public class QnaServiceImpl implements QnaService {
 		}
 		
 		qnaVo.setContent(content);
-		qnaVo.setTitle(qnaDao.selectOne(qnaSequence).getTitle());
-		qnaVo.setWriteDate(qnaDao.selectOne(qnaSequence).getWriteDate());
 		qnaVo.setFile(fileDao.selectList(qnaSequence));
 		
 		return qnaVo;
