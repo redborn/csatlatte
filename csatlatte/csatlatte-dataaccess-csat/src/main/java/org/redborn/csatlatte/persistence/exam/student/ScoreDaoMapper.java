@@ -14,11 +14,11 @@ import org.springframework.stereotype.Repository;
 public class ScoreDaoMapper extends SqlSessionDaoSupport implements ScoreDao {
 
 	public int insert(GradeVo gradeVo) {
-		return getSqlSession().insert("exam.studentScore.insert", gradeVo);
+		return getSqlSession().insert("exam.student.score.insert", gradeVo);
 	}
 
 	public int update(GradeVo gradeVo) {
-		return getSqlSession().update("exam.studentScore.update", gradeVo);
+		return getSqlSession().update("exam.student.score.update", gradeVo);
 	}
 
 	public int delete(int studentSequence, int csatSequence, int examSequence,
@@ -30,7 +30,7 @@ public class ScoreDaoMapper extends SqlSessionDaoSupport implements ScoreDao {
 		params.put("sectionSequence", sectionSequence);
 		params.put("subjectSequence", subjectSequence);
 		
-		return getSqlSession().delete("exam.studentScore.delete", params);
+		return getSqlSession().delete("exam.student.score.delete", params);
 	}
 
 	public List<GradeVo> selectList(int csatSequence, int examSequence, int studentSequence) {
@@ -39,7 +39,7 @@ public class ScoreDaoMapper extends SqlSessionDaoSupport implements ScoreDao {
 		params.put("examSequence", examSequence);
 		params.put("studentSequence", studentSequence);
 		
-		return getSqlSession().selectList("exam.studentScore.selectList", params);
+		return getSqlSession().selectList("exam.student.score.selectList", params);
 	}
 
 	public List<GradeRatingVo> selectListRating(int csatSequence, int examSequence, int studentSequence) {
@@ -49,7 +49,7 @@ public class ScoreDaoMapper extends SqlSessionDaoSupport implements ScoreDao {
 		params.put("studentSequence", studentSequence);
 		
 		
-		return getSqlSession().selectList("exam.studentScore.selectListRating", params);
+		return getSqlSession().selectList("exam.student.score.selectListRating", params);
 	}
 
 	public List<GradeStandardscoreVo> selectListStandardscore(int csatSequence, int examSequence, int studentSequence) {
@@ -58,7 +58,7 @@ public class ScoreDaoMapper extends SqlSessionDaoSupport implements ScoreDao {
 		params.put("examSequence", examSequence);
 		params.put("studentSequence", studentSequence);
 		
-		return getSqlSession().selectList("exam.studentScore.selectListStandardscore", params);
+		return getSqlSession().selectList("exam.student.score.selectListStandardscore", params);
 	}
 
 }
