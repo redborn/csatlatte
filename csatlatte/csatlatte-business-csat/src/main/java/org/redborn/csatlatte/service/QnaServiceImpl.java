@@ -72,17 +72,15 @@ public class QnaServiceImpl implements QnaService {
 		int listFileSize = listFile.size();
 		FileVo fileVo = new FileVo();
 		
-		qnaVo.setQnaSequence(maxQnaSequence);
+		qnaDao.insert(maxQnaSequence, qnaVo.getStudentSequence());
 		
 		for (int index = 0; index < max; index++) {
 			beginIndex = 2000 * index; 
-			qnaVo.setContent(content.substring(beginIndex, beginIndex + 2000));
-			contentDao.insert(qnaVo.getQnaSequence(), qnaVo.getContent());
+			contentDao.insert(maxQnaSequence, content.substring(beginIndex, beginIndex + 2000));
 		}
 		
 		if (content.length() % 2000 != 0) {
-			qnaVo.setContent(content.substring(max * 2000, content.length()));
-			contentDao.insert(qnaVo.getQnaSequence(), qnaVo.getContent());
+			contentDao.insert(maxQnaSequence, content.substring(max * 2000, content.length()));
 		}
 		
 		for (int index = 0; index < listFileSize; index++) {
@@ -91,10 +89,6 @@ public class QnaServiceImpl implements QnaService {
 			// file처리에 대한 교육을 마친 후 진행해야 함
 			// List<File>을 fileVo로 담는 방법을 모름
 			fileDao.insert(maxQnaSequence, fileVo);
-		}
-		
-		if(qnaDao.insert(maxQnaSequence, qnaVo.getStudentSequence()) == 1) {
-			result = true;
 		}
 		
 		return result;
