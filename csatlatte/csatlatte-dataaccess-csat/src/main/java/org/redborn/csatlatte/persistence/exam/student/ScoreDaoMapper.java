@@ -1,4 +1,4 @@
-package org.redborn.csatlatte.persistence.exam;
+package org.redborn.csatlatte.persistence.exam.student;
 
 import java.util.HashMap;
 import java.util.List;
