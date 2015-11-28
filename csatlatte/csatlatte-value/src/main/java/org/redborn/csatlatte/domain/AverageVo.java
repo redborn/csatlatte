@@ -1,14 +1,13 @@
 package org.redborn.csatlatte.domain;
 
-public class RatingCutVo {
+public class AverageVo {
 
 	private int csatSequence;
-	private int ratingCode;
 	private int examSequence;
 	private int sectionSequence;
 	private int subjectSequence;
-	private int rawScore;
-	private int standardScore;
+	private int average;
+	private int standardDeviation;
 	
 	public int getCsatSequence() {
 		return csatSequence;
@@ -16,14 +15,6 @@ public class RatingCutVo {
 	
 	public void setCsatSequence(int csatSequence) {
 		this.csatSequence = csatSequence;
-	}
-	
-	public int getRatingCode() {
-		return ratingCode;
-	}
-	
-	public void setRatingCode(int ratingCode) {
-		this.ratingCode = ratingCode;
 	}
 	
 	public int getExamSequence() {
@@ -50,29 +41,28 @@ public class RatingCutVo {
 		this.subjectSequence = subjectSequence;
 	}
 	
-	public int getRawScore() {
-		return rawScore;
+	public int getAverage() {
+		return average;
 	}
 	
-	public void setRawScore(int rawScore) {
-		this.rawScore = rawScore;
+	public void setAverage(int average) {
+		this.average = average;
 	}
 	
-	public int getStandardScore() {
-		return standardScore;
+	public int getStandardDeviation() {
+		return standardDeviation;
 	}
 	
-	public void setStandardScore(int standardScore) {
-		this.standardScore = standardScore;
+	public void setStandardDeviation(int standardDeviation) {
+		this.standardDeviation = standardDeviation;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "RatingCutVo [csatSequence=" + csatSequence + ", ratingCode="
-				+ ratingCode + ", examSequence=" + examSequence
-				+ ", sectionSequence=" + sectionSequence + ", subjectSequence="
-				+ subjectSequence + ", rawScore=" + rawScore
-				+ ", standardScore=" + standardScore + "]";
+		return "AverageVo [csatSequence=" + csatSequence + ", examSequence="
+				+ examSequence + ", sectionSequence=" + sectionSequence
+				+ ", subjectSequence=" + subjectSequence + ", average="
+				+ average + ", standardDeviation=" + standardDeviation + "]";
 	}
 	
 }

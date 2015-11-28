@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="csat.exam.ratingcut">
+
+	<resultMap type="RatingCutVo" id="RatingCutVoMap">
+		<result column="section_seq" property="sectionSequence"/>
+		<result column="subject_seq" property="subjectSequence"/>
+		<result column="raw_score" property="rawScore"/>
+		<result column="rating_code" property="ratingCode"/>
+		<result column="standard_score" property="standardScore"/>
+	</resultMap>
+
+	<select id="selectList" parameterType="Map" resultMap="RatingCutVo">
+		SELECT section_seq, subject_seq, raw_score, rating_code, standard_score
+		  FROM csat_exam_rating_cut
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</select>
+
+	<insert id="insert" parameterType="RatingCutVo">
+		INSERT INTO csat_exam_rating_cut
+		VALUES (#{csatSequence}, #{ratingCode}, #{examSequence}, 
+				#{sectionSequence}, #{subjectSequence}, #{rawScore}, #{standardScore}) 
+	</insert>
+	
+</mapper>
