@@ -6,7 +6,7 @@
 
 <mapper namespace="exam.average">
 
-	<insert id="insert" parameterType="AverageVo">
+	<insert id="insert" parameterType="Map">
 		INSERT INTO csat_exam_avg
 		VALUES (#{csatSequence}, #{examSequence}, #{sectionSequence}, #{subjectSequence} 
 				#{average}, #{standardDeviation}) 
