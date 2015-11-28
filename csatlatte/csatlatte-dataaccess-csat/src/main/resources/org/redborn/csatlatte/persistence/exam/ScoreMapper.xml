@@ -28,12 +28,12 @@
 		SELECT section_seq,subject_seq,score
 		  FROM csat_exam_student_score
 		 WHERE csat_seq = #{csatSequence}
-		   AND exam_seq #{examSequence}
+		   AND exam_seq = #{examSequence}
 		   AND student_seq = #{studentSequence} 	
 	</select>
 	
 	<select id="selectListRating" parameterType="GradeVo" resultMap="GradeRatingVoMap">
-		SELECT cess.section_seq as section_seq,cess.subject_seq as subject_seq,cerc.rating_code
+		SELECT cess.section_seq as section_seq,cess.subject_seq as subject_seq,MIN(cerc.rating_code) as rating_code
 		  FROM csat_exam_student_score cess,csat_exam_rating_cut cerc
 		 WHERE cess.student_seq = #{studentSequence}
 		   AND cess.csat_seq = cerc.csat_seq
@@ -42,13 +42,12 @@
 		   AND cess.subject_seq = cerc.subject_seq
 		   AND cess.score >= cerc.raw_score
 		   AND cess.csat_seq = #{csatSequence}
-		   AND cess.exam_seq = #{examSequence} 
-		 GROUP BY MIN(cerc.raw_score)
+		   AND cess.exam_seq = #{examSequence}
 	</select>
 	
 	<select id="selectListStandardscore" parameterType="GradeVo" resultMap="GradeStandardscoreVoMap">
-		SELECT section_seq,subject_seq,
-			   ((cess.score - cea.avg) / cea.standard_deviation) * (IF(cess.section_seq >= 3, 10, 20) + (IF(cess.section_seq >= 3, 50, 100) as standard_score
+		SELECT cess.section_seq as section_seq,cess.subject_seq as subject_seq,
+			   ((cess.score - cea.avg) / cea.standard_deviation) * IF(cess.section_seq = 1, 20, 10) + IF(cess.section_seq = 1, 100, 50) as standard_score
 		  FROM csat_exam_student_score cess, csat_exam_avg cea 
 		 WHERE cess.student_seq = #{studentsequence}
 		   AND cess.csat_seq = #{csatsequence}
@@ -60,7 +59,7 @@
 	</select>
 
 	<insert id="insert" parameterType="GradeVo">
-		INSERT int csat_exam_student_score
+		INSERT INTO csat_exam_student_score
 		       (student_seq,csat_seq,exam_seq,section_seq,subject_seq,score)
 		VALUES (#{studentSequence},#{csatSequence},#{examSequence},
 				#{sectionSequence},#{subjectSequence},#{score}) 
