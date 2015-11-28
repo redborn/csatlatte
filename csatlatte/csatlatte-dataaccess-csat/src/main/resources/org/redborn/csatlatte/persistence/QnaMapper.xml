@@ -7,13 +7,6 @@
 <mapper namespace="qna">
 
 	<resultMap type="QnaVo" id="QnaVoMap">
-		<result column="qna_seq" property="qnaSequence"/>
-		<result column="student_seq" property="studentSequence"/>
-		<result column="write_date" property="writeDate"/>
-		<result column="title" property="title"/>
-	</resultMap>
-	
-	<resultMap type="QnaVo" id="QnaVoWriteDateAndTitleMap">
 		<result column="write_date" property="writeDate"/>
 		<result column="title" property="title"/>
 	</resultMap>
@@ -32,7 +25,7 @@
 		<result column="write_date" property="writeDate"/>
 	</resultMap>
 	
-	<select id="selectOne" parameterType="int" resultMap="QnaVoWriteDateAndTitleMap">
+	<select id="selectOne" parameterType="int" resultMap="QnaVoMap">
 		SELECT write_date, title
 		  FROM csat_qna
 		 WHERE qna_seq = #{qnaSequence}
