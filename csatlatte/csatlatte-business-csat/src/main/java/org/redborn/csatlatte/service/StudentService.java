@@ -25,7 +25,7 @@ public interface StudentService {
 	public List<YmdCountVo> dailyConnectionCount(String ymd);
 	public List<YmCountVo> monthlyConnectionCount(String ym);
 	public List<YearCountVo> annualConnectionCount(String year);
-	public List<StudentVo> userList(String studentId, String nickname);
+	public List<StudentVo> userList(String search, int pageNumber);
 	public String securityQuestion(int studentSequence);
 	
 }

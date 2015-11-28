@@ -78,12 +78,14 @@
 		  FROM csat_student 
 	</select>
 	
-	<select id="selectList" resultMap="StudentVoMap">
+	<select id="selectList" parameterType="Map" resultMap="StudentVoMap">
 		SELECT cs.student_id as student_id,cs.nickname as nickname,
 			   COUNT(csc.student_seq) as count_connection,use_yn,AVG(cess.score) as avg_score
 		  FROM csat_student cs,csat_student_connection csc,csat_exam_student_score cess
 		 WHERE cs.student_seq = csc.student_seq
-		    OR cs.student_seq = cess.student_seq
+		   AND cs.student_seq = cess.student_seq
+		   AND (cs.student_id LIKE CONCAT('%',#{search},'%') OR cs.nickname LIKE CONCAT('%',#{search},'%'))
+		 LIMIT #{begin}, 10;
 	</select>
 	
 	<select id="selectListCountYmd" parameterType="String" resultMap="YmdCountVoMap">

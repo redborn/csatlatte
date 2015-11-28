@@ -111,8 +111,8 @@ public class StudentServiceImpl implements StudentService {
 		return connectionDao.selectListCountYear(year);
 	}
 
-	public List<StudentVo> userList(String studentId, String nickname) {
-		return studentDao.selectList(studentId, nickname);
+	public List<StudentVo> userList(String search, int pageNumber) {
+		return studentDao.selectList(search, pageNumber);
 	}
 
 	public String securityQuestion(int studentSequence) {
