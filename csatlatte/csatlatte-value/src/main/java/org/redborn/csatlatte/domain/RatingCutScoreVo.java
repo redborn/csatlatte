@@ -1,6 +1,6 @@
 package org.redborn.csatlatte.domain;
 
-public class RatingCutVo {
+public class RatingCutScoreVo {
 
 	private int ratingCode;
 	private int rawScore;
