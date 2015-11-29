@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.SubjectVo;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class AverageDaoMapper extends SqlSessionDaoSupport implements AverageDao {
 
 	public int insert(SubjectVo subjectVo, int average, int standardDeviation) {
