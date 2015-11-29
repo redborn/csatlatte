@@ -23,12 +23,10 @@ public class RatingCutServiceImpl implements RatingCutService {
 
 	public boolean register(SubjectVo subjectVo, int average, int standardDeviation, List<RatingCutScoreVo> ratingCutScoreVo) {
 		int max = ratingCutScoreVo.size();
-		boolean result = false;
+		boolean result = true;
 		
 		for (int index = 0; index < max; index++) {
-			if(ratingCutDao.insert(subjectVo, ratingCutScoreVo.get(index)) == 1) {
-				result = true;
-			} else {
+			if(ratingCutDao.insert(subjectVo, ratingCutScoreVo.get(index)) != 1) {
 				result = false;
 				break;
 			}
