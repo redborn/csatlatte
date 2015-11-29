@@ -7,9 +7,9 @@ import org.redborn.csatlatte.domain.SubjectVo;
 import org.redborn.csatlatte.persistence.exam.AverageDao;
 import org.redborn.csatlatte.persistence.exam.RatingCutDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-@Repository
+@Service
 public class RatingCutServiceImpl implements RatingCutService {
 
 	@Autowired
@@ -26,7 +26,9 @@ public class RatingCutServiceImpl implements RatingCutService {
 		boolean result = false;
 		
 		for (int index = 0; index < max; index++) {
-			ratingCutDao.insert(subjectVo, ratingCutScoreVo.get(index));
+			if(ratingCutDao.insert(subjectVo, ratingCutScoreVo.get(index)) != 1) {
+				return result;
+			}
 		}
 		
 		if (averageDao.insert(subjectVo, average, standardDeviation) == 1) {
