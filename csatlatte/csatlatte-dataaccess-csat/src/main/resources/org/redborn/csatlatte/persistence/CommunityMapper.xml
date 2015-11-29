@@ -19,5 +19,10 @@
 		   AND student_seq = #{studentSequence}
 	</select>
 	
+	<insert id="insert" parameterType="CommunityVo">
+		INSERT INTO csat_community
+		
+	</insert>
+	
 	
 </mapper>
