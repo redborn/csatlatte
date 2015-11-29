@@ -13,6 +13,21 @@
 		<result column="write_date" property="writeDate"/>
 	</resultMap>
 	
+	<resultMap type="YmdCountVo" id="YmdCountVoMap">
+		<result column="hour" property="hour"/>
+		<result column="count_write" property="count"/>
+	</resultMap>
+	
+	<resultMap type="YmCountVo" id="YmCountVoMap">
+		<result column="day" property="day"/>
+		<result column="count_write" property="count"/>
+	</resultMap>
+	
+	<resultMap type="YearCountVo" id="YearCountVoMap">
+		<result column="month" property="month"/>
+		<result column="count_write" property="count"/>
+	</resultMap>
+	
 	<select id="selectOne" parameterType="Map" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_community
@@ -20,14 +35,38 @@
 		   AND student_seq = #{studentSequence}
 	</select>
 	
-	<select id="selectList" resultType="CommunityVoMap">
+	<select id="selectOneCountYmd" parameterType="String" resultMap="YmdCountVoMap">
+		SELECT DATE_FORMAT(write_date, '%H') AS hour,COUNT(community_seq) AS count_write
+		  FROM csat_community
+		 WHERE write_date &gt;= DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s')
+		   AND write_date &lt; DATE_ADD(DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s'), INTERVAL 1 day)
+		 GROUP BY DATE_FORMAT(write_date, '%H');
+	</select>
+	
+	<select id="selectOneCountYm" parameterType="String" resultMap="YmCountVoMap">
+		SELECT DATE_FORMAT(write_date, '%d') AS day,COUNT(student_seq) AS count_write
+		  FROM csat_community
+		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d')
+		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d'), INTERVAL 1 month)
+		 GROUP BY DATE_FORMAT(write_date, '%d'); 
+	</select>
+	
+	<select id="selectOneCountYear" parameterType="String" resultMap="YearCountVoMap">
+		SELECT DATE_FORMAT(write_date, '%m') AS month,COUNT(student_seq) AS count_write
+		  FROM csat_community
+		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d')
+		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d'), INTERVAL 1 year)
+		 GROUP BY DATE_FORMAT(write_date, '%m'); 
+	</select>
+	
+	<select id="selectList" resultMap="CommunityVoMap">
 		SELECT cc.community_seq, cs.nickname, cc.content, cc.write_date
 		  FROM csat_community cc, csat_student cs
 		 WHERE cc.use_yn = 'Y'
 		   AND cc.student_seq = cs.student_seq
 	</select>
 	
-	<select id="selectListStudentText" parameterType="int" resultType="CommunityVoMap">
+	<select id="selectListStudentText" parameterType="int" resultMap="CommunityVoMap">
 		SELECT cc.community_seq, cs.nickname, cc.content, cc.write_date
 		  FROM csat_community cc, csat_student cs
 		 WHERE cc.use_yn = 'Y'
@@ -51,9 +90,5 @@
 		   SET use_yn = 'N'
 		 WHERE community_seq = #{communitySequence}
 	</update>
-	
-	
-	
-	
 	
 </mapper>
