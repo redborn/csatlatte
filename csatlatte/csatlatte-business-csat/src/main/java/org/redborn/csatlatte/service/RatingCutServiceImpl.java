@@ -28,7 +28,6 @@ public class RatingCutServiceImpl implements RatingCutService {
 		for (int index = 0; index < max; index++) {
 			if(ratingCutDao.insert(subjectVo, ratingCutScoreVo.get(index)) == 1) {
 				result = true;
-				continue;
 			} else {
 				result = false;
 				break;
