@@ -26,13 +26,17 @@ public class RatingCutServiceImpl implements RatingCutService {
 		boolean result = false;
 		
 		for (int index = 0; index < max; index++) {
-			if(ratingCutDao.insert(subjectVo, ratingCutScoreVo.get(index)) != 1) {
-				return result;
+			if(ratingCutDao.insert(subjectVo, ratingCutScoreVo.get(index)) == 1) {
+				result = true;
+				continue;
+			} else {
+				result = false;
+				break;
 			}
 		}
 		
-		if (averageDao.insert(subjectVo, average, standardDeviation) == 1) {
-			result = true;
+		if (result != true || averageDao.insert(subjectVo, average, standardDeviation) != 1) {
+			result = false;
 		}
 		
 		return result;
