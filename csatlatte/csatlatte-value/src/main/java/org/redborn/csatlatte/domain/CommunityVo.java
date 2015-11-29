@@ -4,8 +4,8 @@ public class CommunityVo {
 
 	private int communitySequence;
 	private String nickname;
-	private int content;
-	private int writeDate;
+	private String content;
+	private String writeDate;
 	
 	public int getCommunitySequence() {
 		return communitySequence;
@@ -23,19 +23,19 @@ public class CommunityVo {
 		this.nickname = nickname;
 	}
 	
-	public int getContent() {
+	public String getContent() {
 		return content;
 	}
 	
-	public void setContent(int content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 	
-	public int getWriteDate() {
+	public String getWriteDate() {
 		return writeDate;
 	}
 	
-	public void setWriteDate(int writeDate) {
+	public void setWriteDate(String writeDate) {
 		this.writeDate = writeDate;
 	}
 

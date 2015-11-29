@@ -4,8 +4,9 @@ public class CommentVo {
 	
 	private int communitySequence;
 	private int commentSequence;
-	private int studentSequence;
+	private String nickname;
 	private String content;
+	private String writeDate;
 	
 	public int getCommunitySequence() {
 		return communitySequence;
@@ -23,12 +24,12 @@ public class CommentVo {
 		this.commentSequence = commentSequence;
 	}
 	
-	public int getStudentSequence() {
-		return studentSequence;
+	public String getNickname() {
+		return nickname;
 	}
 	
-	public void setStudentSequence(int studentSequence) {
-		this.studentSequence = studentSequence;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
 	public String getContent() {
@@ -39,11 +40,20 @@ public class CommentVo {
 		this.content = content;
 	}
 	
+	public String getWriteDate() {
+		return writeDate;
+	}
+	
+	public void setWriteDate(String writeDate) {
+		this.writeDate = writeDate;
+	}
+	
 	@Override
 	public String toString() {
 		return "CommentVo [communitySequence=" + communitySequence
-				+ ", commentSequence=" + commentSequence + ", studentSequence="
-				+ studentSequence + ", content=" + content + "]";
+				+ ", commentSequence=" + commentSequence + ", nickname="
+				+ nickname + ", content=" + content + ", writeDate="
+				+ writeDate + "]";
 	}
 	
 }
