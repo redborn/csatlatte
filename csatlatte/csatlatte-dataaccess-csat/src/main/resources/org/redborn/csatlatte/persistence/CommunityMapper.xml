@@ -6,12 +6,13 @@
 
 <mapper namespace="community">
 
-	<resultMap type="ExamVo" id="ExamVoMap">
-		<result column="csat_seq" property="csatSequence"/>
-		<result column="exam_seq" property="examSequence"/>
-		<result column="exam_name" property="examName"/>
+	<resultMap type="CommunityVo" id="CommunityVoMap">
+		<result column="community_seq" property="communitySequence"/>
+		<result column="nickname" property="nickname"/>
+		<result column="content" property="content"/>
+		<result column="write_date" property="writeDate"/>
 	</resultMap>
-
+	
 	<select id="selectOne" parameterType="Map" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_community
@@ -19,10 +20,40 @@
 		   AND student_seq = #{studentSequence}
 	</select>
 	
-	<insert id="insert" parameterType="CommunityVo">
-		INSERT INTO csat_community
-		
+	<select id="selectList" resultType="CommunityVoMap">
+		SELECT cc.community_seq, cs.nickname, cc.content, cc.write_date
+		  FROM csat_community cc, csat_student cs
+		 WHERE cc.use_yn = 'Y'
+		   AND cc.student_seq = cs.student_seq
+	</select>
+	
+	<select id="selectListStudentText" parameterType="int" resultType="CommunityVoMap">
+		SELECT cc.community_seq, cs.nickname, cc.content, cc.write_date
+		  FROM csat_community cc, csat_student cs
+		 WHERE cc.use_yn = 'Y'
+		   AND cc.student_seq = cs.student_seq
+		   AND cc.student_seq = #{studentSequence}
+	</select>
+	
+	<insert id="insert" parameterType="Map">
+		INSERT INTO csat_community(community_type_seq, community_seq, student_seq, content, write_date, use_yn)
+		VALUES (1, (select IFNULL(max(cc.community_seq),0)+1 as community_seq from csat_community cc), #{studentSequence}, #{content}, NOW(), 'Y');		
 	</insert>
+	
+	<update id="update" parameterType="Map">
+		UPDATE csat_community
+		   SET content = #{content}
+		 WEHRE community_seq = #{communitySequence}
+	</update>
+	
+	<update id="updateUseYnN" parameterType="int">
+		UPDATE csat_community
+		   SET use_yn = 'N'
+		 WHERE community_seq = #{communitySequence}
+	</update>
+	
+	
+	
 	
 	
 </mapper>
