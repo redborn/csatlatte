@@ -6,12 +6,65 @@
 
 <mapper namespace="community.comment">
 	
+	<resultMap type="CommentVo" id="CommentVoMap">
+		<result column="comment_seq" property="commentSequence"/>
+		<result column="nickname" property="nickname"/>
+		<result column="content" property="content"/>
+		<result column="write_date" property="writeDate"/>
+	</resultMap>
+	
+	<resultMap type="YmdCountVo" id="YmdCountVoMap">
+		<result column="hour" property="hour"/>
+		<result column="count_write" property="count"/>
+	</resultMap>
+	
+	<resultMap type="YmCountVo" id="YmCountVoMap">
+		<result column="day" property="day"/>
+		<result column="count_write" property="count"/>
+	</resultMap>
+	
+	<resultMap type="YearCountVo" id="YearCountVoMap">
+		<result column="month" property="month"/>
+		<result column="count_write" property="count"/>
+	</resultMap>
+	
 	<select id="selectOne" parameterType="Map" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_community_comment
 		 WHERE community_seq = #{communitySequence}
 		   AND comment_seq = #{commentSequence}
 		   AND student_seq = #{studentSequence}
+	</select>
+	
+	<select id="selectOneCountYmd" parameterType="String" resultMap="YmdCountVoMap">
+		SELECT DATE_FORMAT(write_date, '%H') AS hour,COUNT(community_seq) AS count_write
+		  FROM csat_community_comment
+		 WHERE write_date &gt;= DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s')
+		   AND write_date &lt; DATE_ADD(DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s'), INTERVAL 1 day)
+		 GROUP BY DATE_FORMAT(write_date, '%H');
+	</select>
+	
+	<select id="selectOneCountYm" parameterType="String" resultMap="YmCountVoMap">
+		SELECT DATE_FORMAT(write_date, '%d') AS day,COUNT(student_seq) AS count_write
+		  FROM csat_community_comment
+		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d')
+		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d'), INTERVAL 1 month)
+		 GROUP BY DATE_FORMAT(write_date, '%d'); 
+	</select>
+	
+	<select id="selectOneCountYear" parameterType="String" resultMap="YearCountVoMap">
+		SELECT DATE_FORMAT(write_date, '%m') AS month,COUNT(student_seq) AS count_write
+		  FROM csat_community_comment
+		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d')
+		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d'), INTERVAL 1 year)
+		 GROUP BY DATE_FORMAT(write_date, '%m'); 
+	</select>
+	
+	<select id="selectList" resultMap="CommentVoMap">
+		SELECT ccc.comment_seq, cs.nickname, ccc.content, ccc.write_date
+		  FROM csat_community_comment ccc, csat_student cs
+		 WHERE cs.student_seq = ccc.student_seq
+		   AND ccc.use_yn = 'Y';
 	</select>
 	
 	<insert id="insert" parameterType="CommentVo">

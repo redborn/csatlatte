@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="community.report">
+	
+	<select id="selectOne" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_community_report
+		 WHERE community_type_seq = #{communityTypeSequence}
+		   AND community_seq = #{communitySequence}
+		   AND student_seq = #{studentSequence}
+	</select>
+	
+	<insert id="insert" parameterType="Map">
+		INSERT INTO csat_community_report(community_type_seq, community_seq, student_seq, report_type_seq, report_date)
+		VALUES (1, #{communitySequence}, #{studentSequence}, #{reportTypeSequence}, NOW())
+	</insert>
+	
+</mapper>
