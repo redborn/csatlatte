@@ -22,16 +22,16 @@ public class CommunityDaoMapper extends SqlSessionDaoSupport implements Communit
 		return getSqlSession().selectOne("community.selectOne", params);
 	}
 
-	public List<YmdCountVo> selectOneCountYmd(String ymd) {
-		return getSqlSession().selectOne("community.selectOneCountYmd", ymd);
+	public List<YmdCountVo> selectListCountYmd(String ymd) {
+		return getSqlSession().selectList("community.selectListCountYmd", ymd);
 	}
 
-	public List<YmCountVo> selectOneCountYm(String ym) {
-		return getSqlSession().selectOne("community.selectOneCountYm", ym);
+	public List<YmCountVo> selectListCountYm(String ym) {
+		return getSqlSession().selectList("community.selectListCountYm", ym);
 	}
 
-	public List<YearCountVo> selectOneCountYear(String year) {
-		return getSqlSession().selectOne("community.selectOneCountYear", year);
+	public List<YearCountVo> selectListCountYear(String year) {
+		return getSqlSession().selectList("community.selectListCountYear", year);
 	}
 
 	public List<CommunityVo> selectList() {
@@ -42,18 +42,18 @@ public class CommunityDaoMapper extends SqlSessionDaoSupport implements Communit
 		return getSqlSession().selectList("community.selectListStudentText", studentSequence);
 	}
 
-	public int insert(int studentSequence, String content) {
+	public int insert(CommunityVo communityVo) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("studentSequence", studentSequence);
-		params.put("content", content);
+		params.put("studentSequence", communityVo.getStudentSequence());
+		params.put("content", communityVo.getContent());
 		
 		return getSqlSession().insert("community.insert", params);
 	}
 
-	public int update(int communitySequence, String content) {
+	public int update(CommunityVo communityVo) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("communitySequence", communitySequence);
-		params.put("content", content);
+		params.put("communitySequence", communityVo.getCommunitySequence());
+		params.put("content", communityVo.getContent());
 		
 		return getSqlSession().update("community.update", params);
 	}
