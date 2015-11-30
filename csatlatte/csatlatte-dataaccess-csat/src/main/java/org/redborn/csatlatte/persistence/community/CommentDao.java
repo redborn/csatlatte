@@ -13,7 +13,7 @@ public interface CommentDao {
 	public List<YmdCountVo> selectListCountYmd(String ymd);
 	public List<YmCountVo> selectListCountYm(String ym);
 	public List<YearCountVo> selectListCountYear(String year);
-	public List<CommentVo> selectList();
+	public List<CommentVo> selectList(int communityTypeSequence, int communitySequence);
 	public int insert(CommentVo commentVo);
 	public int update(CommentVo commentVo);
 	public int updateUseYnN(int communitySequence, int commentSequence);

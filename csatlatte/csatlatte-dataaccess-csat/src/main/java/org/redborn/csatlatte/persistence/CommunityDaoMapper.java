@@ -34,8 +34,8 @@ public class CommunityDaoMapper extends SqlSessionDaoSupport implements Communit
 		return getSqlSession().selectList("community.selectListCountYear", year);
 	}
 
-	public List<CommunityVo> selectList() {
-		return getSqlSession().selectList("community.selectList");
+	public List<CommunityVo> selectList(int communityTypeSequence) {
+		return getSqlSession().selectList("community.selectList", communityTypeSequence);
 	}
 
 	public List<CommunityVo> selectListStudentText(int studentSequence) {
