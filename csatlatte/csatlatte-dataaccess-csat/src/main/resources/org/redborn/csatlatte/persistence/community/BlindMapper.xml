@@ -6,7 +6,7 @@
 
 <mapper namespace="community.blind">
 	
-	<select id="selectOne" parameterType="int" resultType="int">
+	<select id="selectOne" parameterType="Map" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_community_blind
 		 WHERE community_type_seq = #{communityTypeSequence} 
