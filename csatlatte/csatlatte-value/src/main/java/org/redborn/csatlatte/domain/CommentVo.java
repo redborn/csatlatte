@@ -56,13 +56,13 @@ public class CommentVo {
 	public void setWriteDate(String writeDate) {
 		this.writeDate = writeDate;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "CommentVo [communitySequence=" + communitySequence
-				+ ", commentSequence=" + commentSequence + ", nickname="
-				+ nickname + ", content=" + content + ", writeDate="
-				+ writeDate + "]";
+				+ ", commentSequence=" + commentSequence + ", studentSequence="
+				+ studentSequence + ", nickname=" + nickname + ", content="
+				+ content + ", writeDate=" + writeDate + "]";
 	}
 	
 }
