@@ -23,15 +23,15 @@ public class CommentDaoMapper extends SqlSessionDaoSupport implements CommentDao
 		return getSqlSession().selectOne("community.comment.selectOne", params);
 	}
 
-	public List<YmdCountVo> selectOneCountYmd(String ymd) {
+	public List<YmdCountVo> selectListCountYmd(String ymd) {
 		return getSqlSession().selectList("community.comment.selectListCountYmd", ymd);
 	}
 
-	public List<YmCountVo> selectOneCountYm(String ym) {
+	public List<YmCountVo> selectListCountYm(String ym) {
 		return getSqlSession().selectList("community.comment.selectListCountYm", ym);
 	}
 
-	public List<YearCountVo> selectOneCountYear(String year) {
+	public List<YearCountVo> selectListCountYear(String year) {
 		return getSqlSession().selectList("community.comment.selectListCountYear", year);
 	}
 
