@@ -7,8 +7,9 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 public class ReportDaoMapper extends SqlSessionDaoSupport implements ReportDao {
 
-	public int selectOne(int communitySequence, int commentSequence, int studentSequence) {
+	public int selectOne(int communityTypeSequence, int communitySequence, int commentSequence, int studentSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("communityTypeSequence", communityTypeSequence);
 		params.put("communitySequence", communitySequence);
 		params.put("commentSequence", commentSequence);
 		params.put("studentSequence", studentSequence);
@@ -16,8 +17,9 @@ public class ReportDaoMapper extends SqlSessionDaoSupport implements ReportDao {
 		return getSqlSession().selectOne("community.comment.report.selectOne", params);
 	}
 
-	public int insert(int communitySequence, int commentSequence, int studentSequence, int reportTypeSequence) {
+	public int insert(int communityTypeSequence, int communitySequence, int commentSequence, int studentSequence, int reportTypeSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("communityTypeSequence", communityTypeSequence);
 		params.put("communitySequence", communitySequence);
 		params.put("commentSequence", commentSequence);
 		params.put("studentSequence", studentSequence);
