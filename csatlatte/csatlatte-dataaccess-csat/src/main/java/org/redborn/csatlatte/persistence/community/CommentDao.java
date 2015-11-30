@@ -9,13 +9,13 @@ import org.redborn.csatlatte.domain.YmdCountVo;
 
 public interface CommentDao {
 
-	public int selectOne(int commentSequence, int studentSequence);
+	public int selectOne(int communitySequence, int commentSequence, int studentSequence);
 	public List<YmdCountVo> selectOneCountYmd(String ymd);
 	public List<YmCountVo> selectOneCountYm(String ym);
 	public List<YearCountVo> selectOneCountYear(String year);
 	public List<CommentVo> selectList();
-	public int insert(int communitySequence, int studentSequence, String content);
-	public int update(String content, int communitySequence, int commentSequence);
+	public int insert(CommentVo commentVo);
+	public int update(CommentVo commentVo);
 	public int updateUseYnN(int communitySequence, int commentSequence);
 	
 }
