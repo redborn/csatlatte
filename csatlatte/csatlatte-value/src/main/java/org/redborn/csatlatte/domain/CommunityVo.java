@@ -3,6 +3,7 @@ package org.redborn.csatlatte.domain;
 public class CommunityVo {
 
 	private int communitySequence;
+	private int studentSequence;
 	private String nickname;
 	private String content;
 	private String writeDate;
@@ -13,6 +14,14 @@ public class CommunityVo {
 	
 	public void setCommunitySequence(int communitySequence) {
 		this.communitySequence = communitySequence;
+	}
+	
+	public int getStudentSequence() {
+		return studentSequence;
+	}
+	
+	public void setStudentSequence(int studentSequence) {
+		this.studentSequence = studentSequence;
 	}
 	
 	public String getNickname() {
@@ -42,8 +51,9 @@ public class CommunityVo {
 	@Override
 	public String toString() {
 		return "CommunityVo [communitySequence=" + communitySequence
-				+ ", nickname=" + nickname + ", content=" + content
-				+ ", writeDate=" + writeDate + "]";
+				+ ", studentSequence=" + studentSequence + ", nickname="
+				+ nickname + ", content=" + content + ", writeDate="
+				+ writeDate + "]";
 	}
 	
 }
