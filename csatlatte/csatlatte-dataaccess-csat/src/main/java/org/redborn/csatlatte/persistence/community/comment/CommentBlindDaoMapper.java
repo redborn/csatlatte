@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.stereotype.Repository;
 
-public class BlindDaoMapper extends SqlSessionDaoSupport implements BlindDao {
+@Repository
+public class CommentBlindDaoMapper extends SqlSessionDaoSupport implements CommentBlindDao {
 
 	public int selectOne(int communityTypeSequence, int communitySequence, int commentSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();

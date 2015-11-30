@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.stereotype.Repository;
 
-public class ReportDaoMapper extends SqlSessionDaoSupport implements ReportDao {
+@Repository
+public class CommentReportDaoMapper extends SqlSessionDaoSupport implements CommentReportDao {
 
 	public int selectOne(int communityTypeSequence, int communitySequence, int commentSequence, int studentSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
