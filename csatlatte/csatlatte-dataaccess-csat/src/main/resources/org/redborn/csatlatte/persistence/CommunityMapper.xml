@@ -59,11 +59,12 @@
 		 GROUP BY DATE_FORMAT(write_date, '%m'); 
 	</select>
 	
-	<select id="selectList" resultMap="CommunityVoMap">
+	<select id="selectList" parameterType="int" resultMap="CommunityVoMap">
 		SELECT cc.community_seq, cs.nickname, cc.content, cc.write_date
 		  FROM csat_community cc, csat_student cs
 		 WHERE cc.use_yn = 'Y'
 		   AND cc.student_seq = cs.student_seq
+		   AND cc.community_type_seq = #{communityTypeSequence}
 	</select>
 	
 	<select id="selectListStudentText" parameterType="int" resultMap="CommunityVoMap">
