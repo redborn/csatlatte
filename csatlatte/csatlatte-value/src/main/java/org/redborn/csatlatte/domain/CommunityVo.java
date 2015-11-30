@@ -2,12 +2,21 @@ package org.redborn.csatlatte.domain;
 
 public class CommunityVo {
 
+	private int communityTypeSequence;
 	private int communitySequence;
 	private int studentSequence;
 	private String nickname;
 	private String content;
 	private String writeDate;
 	
+	public int getCommunityTypeSequence() {
+		return communityTypeSequence;
+	}
+
+	public void setCommunityTypeSequence(int communityTypeSequence) {
+		this.communityTypeSequence = communityTypeSequence;
+	}
+
 	public int getCommunitySequence() {
 		return communitySequence;
 	}
@@ -50,7 +59,8 @@ public class CommunityVo {
 
 	@Override
 	public String toString() {
-		return "CommunityVo [communitySequence=" + communitySequence
+		return "CommunityVo [communityTypeSequence=" + communityTypeSequence
+				+ ", communitySequence=" + communitySequence
 				+ ", studentSequence=" + studentSequence + ", nickname="
 				+ nickname + ", content=" + content + ", writeDate="
 				+ writeDate + "]";
