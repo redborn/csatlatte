@@ -23,16 +23,28 @@ public class CommunityDaoMapper extends SqlSessionDaoSupport implements Communit
 		return getSqlSession().selectOne("community.selectOne", params);
 	}
 
-	public List<YmdCountVo> selectListCountYmd(String ymd) {
-		return getSqlSession().selectList("community.selectListCountYmd", ymd);
+	public List<YmdCountVo> selectListCountYmd(int communityTypeSequence, String ymd) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("communityTypeSequence", communityTypeSequence);
+		params.put("ymd", ymd);
+		
+		return getSqlSession().selectList("community.selectListCountYmd", params);
 	}
 
-	public List<YmCountVo> selectListCountYm(String ym) {
-		return getSqlSession().selectList("community.selectListCountYm", ym);
+	public List<YmCountVo> selectListCountYm(int communityTypeSequence, String ym) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("communityTypeSequence", communityTypeSequence);
+		params.put("ym", ym);
+		
+		return getSqlSession().selectList("community.selectListCountYm", params);
 	}
 
-	public List<YearCountVo> selectListCountYear(String year) {
-		return getSqlSession().selectList("community.selectListCountYear", year);
+	public List<YearCountVo> selectListCountYear(int communityTypeSequence, String year) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("communityTypeSequence", communityTypeSequence);
+		params.put("year", year);
+		
+		return getSqlSession().selectList("community.selectListCountYear", params);
 	}
 
 	public List<CommunityVo> selectList(int communityTypeSequence) {
@@ -55,7 +67,11 @@ public class CommunityDaoMapper extends SqlSessionDaoSupport implements Communit
 		return getSqlSession().update("community.update", communityVo);
 	}
 
-	public int updateUseYnN(int communitySequence) {
+	public int updateUseYnN(int communityTypeSequence, int communitySequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("communityTypeSequence", communityTypeSequence);
+		params.put("communitySequence", communitySequence);
+		
 		return getSqlSession().update("community.updateUseYnN", communitySequence);
 	}
 

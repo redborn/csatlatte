@@ -36,27 +36,30 @@
 		   AND student_seq = #{studentSequence}
 	</select>
 	
-	<select id="selectListCountYmd" parameterType="String" resultMap="YmdCountVoMap">
+	<select id="selectListCountYmd" parameterType="Map" resultMap="YmdCountVoMap">
 		SELECT DATE_FORMAT(write_date, '%H') AS hour,COUNT(community_seq) AS count_write
 		  FROM csat_community
 		 WHERE write_date &gt;= DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s')
 		   AND write_date &lt; DATE_ADD(DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s'), INTERVAL 1 day)
+		   AND community_type_seq = #{communityTypeSequence}
 		 GROUP BY DATE_FORMAT(write_date, '%H');
 	</select>
 	
-	<select id="selectListCountYm" parameterType="String" resultMap="YmCountVoMap">
+	<select id="selectListCountYm" parameterType="Map" resultMap="YmCountVoMap">
 		SELECT DATE_FORMAT(write_date, '%d') AS day,COUNT(community_seq) AS count_write
 		  FROM csat_community
 		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d')
 		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d'), INTERVAL 1 month)
+		   AND community_type_seq = #{communityTypeSequence}
 		 GROUP BY DATE_FORMAT(write_date, '%d'); 
 	</select>
 	
-	<select id="selectListCountYear" parameterType="String" resultMap="YearCountVoMap">
+	<select id="selectListCountYear" parameterType="Map" resultMap="YearCountVoMap">
 		SELECT DATE_FORMAT(write_date, '%m') AS month,COUNT(community_seq) AS count_write
 		  FROM csat_community
 		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d')
 		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d'), INTERVAL 1 year)
+		   AND community_type_seq = #{communityTypeSequence}
 		 GROUP BY DATE_FORMAT(write_date, '%m'); 
 	</select>
 	
@@ -85,13 +88,15 @@
 	<update id="update" parameterType="CommunityVo">
 		UPDATE csat_community
 		   SET content = #{content}
-		 WEHRE community_seq = #{communitySequence}
+		 WEHRE community_type_seq = #{communityTypeSequence} 
+		   AND community_seq = #{communitySequence}
 	</update>
 	
-	<update id="updateUseYnN" parameterType="int">
+	<update id="updateUseYnN" parameterType="Map">
 		UPDATE csat_community
 		   SET use_yn = 'N'
-		 WHERE community_seq = #{communitySequence}
+		 WHERE community_type_seq = #{communityTypeSequence} 
+		   AND community_seq = #{communitySequence}
 	</update>
 	
 </mapper>
