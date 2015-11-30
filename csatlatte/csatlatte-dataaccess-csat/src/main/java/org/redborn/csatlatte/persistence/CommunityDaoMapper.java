@@ -14,8 +14,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CommunityDaoMapper extends SqlSessionDaoSupport implements CommunityDao {
 
-	public int selectOne(int communitySequence, int studentSequence) {
+	public int selectOne(int communityTypeSequence, int communitySequence, int studentSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("communityTypeSequence", communityTypeSequence);
 		params.put("communitySequence", communitySequence);
 		params.put("studentSequence", studentSequence);
 		
@@ -38,8 +39,12 @@ public class CommunityDaoMapper extends SqlSessionDaoSupport implements Communit
 		return getSqlSession().selectList("community.selectList", communityTypeSequence);
 	}
 
-	public List<CommunityVo> selectListStudentText(int studentSequence) {
-		return getSqlSession().selectList("community.selectListStudentText", studentSequence);
+	public List<CommunityVo> selectListStudentText(int communityTypeSequence, int studentSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("communityTypeSequence", communityTypeSequence);
+		params.put("studentSequence", studentSequence);
+		
+		return getSqlSession().selectList("community.selectListStudentText", params);
 	}
 
 	public int insert(CommunityVo communityVo) {

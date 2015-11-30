@@ -31,7 +31,8 @@
 	<select id="selectOne" parameterType="Map" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_community
-		 WHERE community_seq = #{communitySequence}
+		 WHERE community_type_seq = #{communityTypeSequence}
+		   AND community_seq = #{communitySequence}
 		   AND student_seq = #{studentSequence}
 	</select>
 	
@@ -67,12 +68,13 @@
 		   AND cc.community_type_seq = #{communityTypeSequence}
 	</select>
 	
-	<select id="selectListStudentText" parameterType="int" resultMap="CommunityVoMap">
+	<select id="selectListStudentText" parameterType="Map" resultMap="CommunityVoMap">
 		SELECT cc.community_seq, cs.nickname, cc.content, cc.write_date
 		  FROM csat_community cc, csat_student cs
 		 WHERE cc.use_yn = 'Y'
 		   AND cc.student_seq = cs.student_seq
 		   AND cc.student_seq = #{studentSequence}
+		   AND cc.community_type_seq = #{communityTypeSequence}
 	</select>
 	
 	<insert id="insert" parameterType="CommunityVo">
