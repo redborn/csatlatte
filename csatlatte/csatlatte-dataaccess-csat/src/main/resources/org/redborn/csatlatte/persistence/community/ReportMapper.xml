@@ -16,7 +16,7 @@
 	
 	<insert id="insert" parameterType="Map">
 		INSERT INTO csat_community_report(community_type_seq, community_seq, student_seq, report_type_seq, report_date)
-		VALUES (1, #{communitySequence}, #{studentSequence}, #{reportTypeSequence}, NOW())
+		VALUES (#{communityTypeSequence}, #{communitySequence}, #{studentSequence}, #{reportTypeSequence}, NOW())
 	</insert>
 	
 </mapper>
