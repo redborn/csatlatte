@@ -74,12 +74,12 @@
 		   AND cc.student_seq = #{studentSequence}
 	</select>
 	
-	<insert id="insert" parameterType="Map">
+	<insert id="insert" parameterType="CommunityVo">
 		INSERT INTO csat_community(community_type_seq, community_seq, student_seq, content, write_date, use_yn)
-		VALUES (1, (select IFNULL(max(cc.community_seq),0)+1 as community_seq from csat_community cc), #{studentSequence}, #{content}, NOW(), 'Y');		
+		VALUES (#{communityTypeSequence}, (select IFNULL(max(cc.community_seq),0)+1 as community_seq from csat_community cc), #{studentSequence}, #{content}, NOW(), 'Y');		
 	</insert>
 	
-	<update id="update" parameterType="Map">
+	<update id="update" parameterType="CommunityVo">
 		UPDATE csat_community
 		   SET content = #{content}
 		 WEHRE community_seq = #{communitySequence}
