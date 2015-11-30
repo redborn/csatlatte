@@ -24,16 +24,28 @@ public class CommentDaoMapper extends SqlSessionDaoSupport implements CommentDao
 		return getSqlSession().selectOne("community.comment.selectOne", params);
 	}
 
-	public List<YmdCountVo> selectListCountYmd(String ymd) {
-		return getSqlSession().selectList("community.comment.selectListCountYmd", ymd);
+	public List<YmdCountVo> selectListCountYmd(int communityTypeSequence, String ymd) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("communityTypeSequence", communityTypeSequence);
+		params.put("ymd", ymd);
+		
+		return getSqlSession().selectList("community.comment.selectListCountYmd", params);
 	}
 
-	public List<YmCountVo> selectListCountYm(String ym) {
-		return getSqlSession().selectList("community.comment.selectListCountYm", ym);
+	public List<YmCountVo> selectListCountYm(int communityTypeSequence, String ym) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("communityTypeSequence", communityTypeSequence);
+		params.put("ym", ym);
+		
+		return getSqlSession().selectList("community.comment.selectListCountYm", params);
 	}
 
-	public List<YearCountVo> selectListCountYear(String year) {
-		return getSqlSession().selectList("community.comment.selectListCountYear", year);
+	public List<YearCountVo> selectListCountYear(int communityTypeSequence, String year) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("communityTypeSequence", communityTypeSequence);
+		params.put("year", year);
+		
+		return getSqlSession().selectList("community.comment.selectListCountYear", params);
 	}
 
 	public List<CommentVo> selectList(int communitySequence, int communityTypeSequence) {
@@ -52,8 +64,9 @@ public class CommentDaoMapper extends SqlSessionDaoSupport implements CommentDao
 		return getSqlSession().update("community.comment.update", commentVo);
 	}
 
-	public int updateUseYnN(int communitySequence, int commentSequence) {
+	public int updateUseYnN(int communityTypeSequence, int communitySequence, int commentSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("communityTypeSequence", communityTypeSequence);
 		params.put("communitySequence", communitySequence);
 		params.put("commentSequence", commentSequence);
 		
