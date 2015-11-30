@@ -41,7 +41,7 @@
 		  FROM csat_community_comment
 		 WHERE write_date &gt;= DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s')
 		   AND write_date &lt; DATE_ADD(DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s'), INTERVAL 1 day)
-		 GROUP BY DATE_FORMAT(write_date, '%H');
+		 GROUP BY DATE_FORMAT(write_date, '%H')
 	</select>
 	
 	<select id="selectListCountYm" parameterType="String" resultMap="YmCountVoMap">
@@ -49,7 +49,7 @@
 		  FROM csat_community_comment
 		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d')
 		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d'), INTERVAL 1 month)
-		 GROUP BY DATE_FORMAT(write_date, '%d'); 
+		 GROUP BY DATE_FORMAT(write_date, '%d') 
 	</select>
 	
 	<select id="selectListCountYear" parameterType="String" resultMap="YearCountVoMap">
@@ -57,19 +57,21 @@
 		  FROM csat_community_comment
 		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d')
 		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d'), INTERVAL 1 year)
-		 GROUP BY DATE_FORMAT(write_date, '%m'); 
+		 GROUP BY DATE_FORMAT(write_date, '%m') 
 	</select>
 	
-	<select id="selectList" resultMap="CommentVoMap">
+	<select id="selectList" parameterType="Map" resultMap="CommentVoMap">
 		SELECT ccc.comment_seq, cs.nickname, ccc.content, ccc.write_date
 		  FROM csat_community_comment ccc, csat_student cs
 		 WHERE cs.student_seq = ccc.student_seq
-		   AND ccc.use_yn = 'Y';
+		   AND ccc.use_yn = 'Y'
+		   AND ccc.community_type_seq = #{communityTypeSequence}
+		   AND ccc.community_seq = #{communitySequence}
 	</select>
 	
 	<insert id="insert" parameterType="CommentVo">
 		INSERT INTO csat_community_comment(community_type_seq, community_seq, comment_seq, student_seq, content, write_date, use_yn)
-		VALUES (#{communityTypeSequence, #{communitySequence}, (select IFNULL(max(ccc.comment_seq),0)+1 as comment_seq from csat_community_comment ccc)), #{studentSequence}, #{content}, NOW(), 'Y')	
+		VALUES (#{communityTypeSequence}, #{communitySequence}, (select IFNULL(max(ccc.comment_seq),0)+1 as comment_seq from csat_community_comment ccc)), #{studentSequence}, #{content}, NOW(), 'Y')	
 	</insert>
 	
 	<update id="update" parameterType="CommentVo">
