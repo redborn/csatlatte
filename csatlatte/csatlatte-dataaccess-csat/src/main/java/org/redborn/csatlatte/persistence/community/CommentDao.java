@@ -9,7 +9,7 @@ import org.redborn.csatlatte.domain.YmdCountVo;
 
 public interface CommentDao {
 
-	public int selectOne(int communitySequence, int commentSequence, int studentSequence);
+	public int selectOne(int communityTypeSequence, int communitySequence, int commentSequence, int studentSequence);
 	public List<YmdCountVo> selectListCountYmd(String ymd);
 	public List<YmCountVo> selectListCountYm(String ym);
 	public List<YearCountVo> selectListCountYear(String year);

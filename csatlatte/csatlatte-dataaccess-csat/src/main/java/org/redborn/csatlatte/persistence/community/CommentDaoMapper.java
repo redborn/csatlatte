@@ -14,8 +14,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CommentDaoMapper extends SqlSessionDaoSupport implements CommentDao {
 
-	public int selectOne(int communitySequence, int commentSequence, int studentSequence) {
+	public int selectOne(int communityTypeSequence, int communitySequence, int commentSequence, int studentSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("communityTypeSequence", communityTypeSequence);
 		params.put("communitySequence", communitySequence);
 		params.put("commentSequence", commentSequence);
 		params.put("studentSequence", studentSequence);
