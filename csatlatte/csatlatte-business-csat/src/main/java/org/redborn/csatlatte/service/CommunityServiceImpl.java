@@ -109,12 +109,12 @@ public class CommunityServiceImpl implements CommunityService {
 			int sumCount = 0;
 			
 			if (communityActiveIndex < communityActiveIndexMax && communityActive.get(communityActiveIndex).getHour() == index) {
-				sumCount += communityActive.get(index).getCount();
+				sumCount += communityActive.get(communityActiveIndex).getCount();
 				communityActiveIndex++;
 			}
 			
 			if (commentActiveIndex < commentActiveIndexMax && commentActive.get(commentActiveIndex).getHour() == index) {
-				sumCount += commentActive.get(index).getCount();
+				sumCount += commentActive.get(commentActiveIndex).getCount();
 				commentActiveIndex++;
 			}
 			
@@ -128,13 +128,71 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	public List<YmCountVo> monthlyActive(int communityTypeSequence, String ym) {
-		// TODO Auto-generated method stub
-		return null;
+		List<YmCountVo> communityActive = communityDao.selectListCountYm(communityTypeSequence, ym);
+		List<YmCountVo> commentActive = commentDao.selectListCountYm(communityTypeSequence, ym);
+		List<YmCountVo> resultActive = new ArrayList<YmCountVo>();
+		
+		int communityActiveIndex = 0;
+		int commentActiveIndex = 0;
+		int communityActiveIndexMax = communityActive.size();
+		int commentActiveIndexMax = commentActive.size();
+		
+		for (int index = 1; index <= 31; index++) {
+			YmCountVo ymCountVo = new YmCountVo();
+			
+			int sumCount = 0;
+			
+			if (communityActiveIndex < communityActiveIndexMax && communityActive.get(communityActiveIndex).getDay() == index) {
+				sumCount += communityActive.get(communityActiveIndex).getCount();
+				communityActiveIndex++;
+			}
+			
+			if (commentActiveIndex < commentActiveIndexMax && commentActive.get(commentActiveIndex).getDay() == index) {
+				sumCount += commentActive.get(commentActiveIndex).getCount();
+				commentActiveIndex++;
+			}
+			
+			ymCountVo.setDay(index);
+			ymCountVo.setCount(sumCount);
+			
+			resultActive.add(ymCountVo);
+		}
+		
+		return resultActive;
 	}
 
 	public List<YearCountVo> annualActive(int communityTypeSequence, String year) {
-		// TODO Auto-generated method stub
-		return null;
+		List<YearCountVo> communityActive = communityDao.selectListCountYear(communityTypeSequence, year);
+		List<YearCountVo> commentActive = commentDao.selectListCountYear(communityTypeSequence, year);
+		List<YearCountVo> resultActive = new ArrayList<YearCountVo>();
+		
+		int communityActiveIndex = 0;
+		int commentActiveIndex = 0;
+		int communityActiveIndexMax = communityActive.size();
+		int commentActiveIndexMax = commentActive.size();
+		
+		for (int index = 1; index <= 12; index++) {
+			YearCountVo yearCountVo = new YearCountVo();
+			
+			int sumCount = 0;
+			
+			if (communityActiveIndex < communityActiveIndexMax && communityActive.get(communityActiveIndex).getMonth() == index) {
+				sumCount += communityActive.get(communityActiveIndex).getCount();
+				communityActiveIndex++;
+			}
+			
+			if (commentActiveIndex < commentActiveIndexMax && commentActive.get(commentActiveIndex).getMonth() == index) {
+				sumCount += commentActive.get(commentActiveIndex).getCount();
+				commentActiveIndex++;
+			}
+			
+			yearCountVo.setMonth(index);
+			yearCountVo.setCount(sumCount);
+			
+			resultActive.add(yearCountVo);
+		}
+		
+		return resultActive;
 	}
 
 }
