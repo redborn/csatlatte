@@ -1,5 +1,6 @@
 package org.redborn.csatlatte.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.redborn.csatlatte.domain.CommentVo;
@@ -33,15 +34,8 @@ public class CommunityServiceImpl implements CommunityService {
 	private CommentReportDao commentReportDao;
 	
 	public boolean blind(int communityTypeSequence, int communitySequence, String content) {
-		boolean result = false;
-		
-		if (blindDao.selectOne(communityTypeSequence, communitySequence) == 0) {
-			if (blindDao.insert(communityTypeSequence, communitySequence, content) == 1) {
-				result = true;
-			}
-		}
-		
-		return result;
+		return blindDao.selectOne(communityTypeSequence, communitySequence) == 0 
+				&& blindDao.insert(communityTypeSequence, communitySequence, content) == 1;
 	}
 
 	public boolean write(CommunityVo communityVo) {
@@ -49,39 +43,18 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	public boolean modify(CommunityVo communityVo) {
-		boolean result = false;
-		
-		if (communityDao.selectOne(communityVo.getCommunityTypeSequence(), communityVo.getCommunitySequence(), communityVo.getStudentSequence()) == 1) {
-			if (communityDao.update(communityVo) == 1) {
-				result = true;
-			}
-		}
-		
-		return result;
+		return communityDao.selectOne(communityVo.getCommunityTypeSequence(), communityVo.getCommunitySequence(), communityVo.getStudentSequence()) == 1 
+				&& communityDao.update(communityVo) == 1;
 	}
 
 	public boolean delete(int communityTypeSequence, int communitySequence, int studentSequence) {
-		boolean result = false;
-		
-		if (communityDao.selectOne(communityTypeSequence, communitySequence, studentSequence) == 1) {
-			if (communityDao.updateUseYnN(communityTypeSequence, communitySequence) == 1) {
-				result = true;
-			}
-		}
-		
-		return result;
+		return communityDao.selectOne(communityTypeSequence, communitySequence, studentSequence) == 1 
+				&& communityDao.updateUseYnN(communityTypeSequence, communitySequence) == 1;
 	}
 
 	public boolean blindComment(int communityTypeSequence, int communitySequence, int commentSequence, String content) {
-		boolean result = false;
-		
-		if (commentBlindDao.selectOne(communityTypeSequence, communitySequence, commentSequence) == 0) {
-			if (commentBlindDao.insert(communityTypeSequence, communitySequence, commentSequence, content) == 1) {
-				result = true;
-			}
-		}
-		
-		return result;
+		return commentBlindDao.selectOne(communityTypeSequence, communitySequence, commentSequence) == 0 
+				&& commentBlindDao.insert(communityTypeSequence, communitySequence, commentSequence, content) == 1;
 	}
 
 	public boolean writeComment(CommentVo commentVo) {
@@ -89,27 +62,13 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	public boolean modifyComment(CommentVo commentVo) {
-		boolean result = false;
-		
-		if (commentDao.selectOne(commentVo.getCommunityTypeSequence(), commentVo.getCommunitySequence(), commentVo.getCommentSequence(), commentVo.getStudentSequence()) == 1) {
-			if (commentDao.update(commentVo) == 1) {
-				result = true;
-			}
-		}
-		
-		return result;
+		return commentDao.selectOne(commentVo.getCommunityTypeSequence(), commentVo.getCommunitySequence(), commentVo.getCommentSequence(), commentVo.getStudentSequence()) == 1
+				&& commentDao.update(commentVo) == 1;
 	}
 
 	public boolean deleteComment(CommentVo commentVo) {
-		boolean result = false;
-		
-		if (commentDao.selectOne(commentVo.getCommunityTypeSequence(), commentVo.getCommunitySequence(), commentVo.getCommentSequence(), commentVo.getStudentSequence()) == 1) {
-			if (commentDao.updateUseYnN(commentVo.getCommunityTypeSequence(), commentVo.getCommunitySequence(), commentVo.getCommentSequence()) == 1) {
-				result = true;
-			}
-		}
-		
-		return result;
+		return commentDao.selectOne(commentVo.getCommunityTypeSequence(), commentVo.getCommunitySequence(), commentVo.getCommentSequence(), commentVo.getStudentSequence()) == 1 
+				&& commentDao.updateUseYnN(commentVo.getCommunityTypeSequence(), commentVo.getCommunitySequence(), commentVo.getCommentSequence()) == 1;
 	}
 
 	public List<CommunityVo> list(int communityTypeSequence) {
@@ -125,66 +84,36 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	public boolean report(int studentSequence, int communityTypeSequence, int communitySequence, int reportTypeSequence) {
-		boolean result = false;
-		
-		if (reportDao.selectOne(communitySequence, studentSequence) == 0) {
-			if (reportDao.insert(communityTypeSequence, communitySequence, studentSequence, reportTypeSequence) == 1) {
-				result = true;
-			}
-		}
-		
-		return result;
+		return reportDao.selectOne(communitySequence, studentSequence) == 0
+				&& reportDao.insert(communityTypeSequence, communitySequence, studentSequence, reportTypeSequence) == 1;
 	}
 
 	public boolean reportComment(int studentSequence, int communityTypeSequence, int communitySequence, int commentSequence, int reportTypeSequence) {
-		boolean result = false;
-		
-		if (commentReportDao.selectOne(communityTypeSequence, communitySequence, commentSequence, studentSequence) == 0) {
-			if (commentReportDao.insert(communityTypeSequence, communitySequence, commentSequence, studentSequence, reportTypeSequence) == 1) {
-				result = true;
-			}
-		}
-		
-		return result;
+		return commentReportDao.selectOne(communityTypeSequence, communitySequence, commentSequence, studentSequence) == 0
+				&& commentReportDao.insert(communityTypeSequence, communitySequence, commentSequence, studentSequence, reportTypeSequence) == 1;
 	}
 
 	public List<YmdCountVo> dailyActive(int communityTypeSequence, String ymd) {
 		List<YmdCountVo> communityActive = communityDao.selectListCountYmd(communityTypeSequence, ymd);
 		List<YmdCountVo> commentActive = commentDao.selectListCountYmd(communityTypeSequence, ymd);
-		List<YmdCountVo> resultActive = null;
+		List<YmdCountVo> resultActive = new ArrayList<YmdCountVo>();
 		
 		for (int index = 0; index <= 23; index++) {
-			YmdCountVo initializationVo = new YmdCountVo();
-			String hour = Integer.toString(index);
+			YmdCountVo ymdCountVo = new YmdCountVo();
 			int sumCount = 0;
 			
-			initializationVo.setHour(hour);
-			initializationVo.setCount(0);
-			
-			resultActive.add(initializationVo);
-			
-			if (Integer.parseInt(communityActive.get(index).getHour()) == index) {
-				YmdCountVo ymdCountVo = new YmdCountVo();
-				
-				sumCount = communityActive.get(index).getCount();
-				
-				ymdCountVo.setHour(hour);
-				ymdCountVo.setCount(sumCount);
-				
-				resultActive.set(index, ymdCountVo);
+			if (communityActive.get(index).getHour() == index) {
+				sumCount += communityActive.get(index).getCount();
 			}
 			
-			if (Integer.parseInt(commentActive.get(index).getHour()) == index) {
-				YmdCountVo ymdCountVo = new YmdCountVo();
-				
+			if (commentActive.get(index).getHour() == index) {
 				sumCount += commentActive.get(index).getCount();
-				
-				ymdCountVo.setHour(hour);
-				ymdCountVo.setCount(sumCount);
-				
-				resultActive.set(index, ymdCountVo);
 			}
 			
+			ymdCountVo.setHour(index);
+			ymdCountVo.setCount(sumCount);
+			
+			resultActive.add(ymdCountVo);
 		}
 		
 		return resultActive;
