@@ -1,6 +1,5 @@
 package org.redborn.csatlatte.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.redborn.csatlatte.domain.CommentVo;
@@ -225,7 +224,7 @@ public class CommunityServiceImpl implements CommunityService {
 			}
 		}
 		
-		return null;
+		return resultActive;
 	}
 
 	public List<YmCountVo> monthlyActive(int communityTypeSequence, String ym) {
