@@ -98,16 +98,24 @@ public class CommunityServiceImpl implements CommunityService {
 		List<YmdCountVo> commentActive = commentDao.selectListCountYmd(communityTypeSequence, ymd);
 		List<YmdCountVo> resultActive = new ArrayList<YmdCountVo>();
 		
+		int communityActiveIndex = 0;
+		int commentActiveIndex = 0;
+		int communityActiveIndexMax = communityActive.size();
+		int commentActiveIndexMax = commentActive.size();
+		
 		for (int index = 0; index <= 23; index++) {
 			YmdCountVo ymdCountVo = new YmdCountVo();
+			
 			int sumCount = 0;
 			
-			if (communityActive.get(index).getHour() == index) {
+			if (communityActiveIndex < communityActiveIndexMax && communityActive.get(communityActiveIndex).getHour() == index) {
 				sumCount += communityActive.get(index).getCount();
+				communityActiveIndex++;
 			}
 			
-			if (commentActive.get(index).getHour() == index) {
+			if (commentActiveIndex < commentActiveIndexMax && commentActive.get(commentActiveIndex).getHour() == index) {
 				sumCount += commentActive.get(index).getCount();
+				commentActiveIndex++;
 			}
 			
 			ymdCountVo.setHour(index);
