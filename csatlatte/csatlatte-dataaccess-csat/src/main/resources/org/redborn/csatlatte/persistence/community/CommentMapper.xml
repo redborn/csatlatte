@@ -38,7 +38,7 @@
 	</select>
 	
 	<select id="selectListCountYmd" parameterType="Map" resultMap="YmdCountVoMap">
-		SELECT DATE_FORMAT(write_date, '%H') AS hour,COUNT(comment_seq) AS count_write
+		SELECT CAST(DATE_FORMAT(write_date, '%H') AS SIGNED) AS hour,COUNT(comment_seq) AS count_write
 		  FROM csat_community_comment
 		 WHERE write_date &gt;= DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s')
 		   AND write_date &lt; DATE_ADD(DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s'), INTERVAL 1 day)
@@ -47,7 +47,7 @@
 	</select>
 	
 	<select id="selectListCountYm" parameterType="Map" resultMap="YmCountVoMap">
-		SELECT DATE_FORMAT(write_date, '%d') AS day,COUNT(comment_seq) AS count_write
+		SELECT CAST(DATE_FORMAT(write_date, '%d') AS SIGNED) AS day,COUNT(comment_seq) AS count_write
 		  FROM csat_community_comment
 		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d')
 		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d'), INTERVAL 1 month)
@@ -56,7 +56,7 @@
 	</select>
 	
 	<select id="selectListCountYear" parameterType="Map" resultMap="YearCountVoMap">
-		SELECT DATE_FORMAT(write_date, '%m') AS month,COUNT(comment_seq) AS count_write
+		SELECT CAST(DATE_FORMAT(write_date, '%m') AS SIGNED) AS month,COUNT(comment_seq) AS count_write
 		  FROM csat_community_comment
 		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d')
 		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d'), INTERVAL 1 year)
