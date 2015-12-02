@@ -153,75 +153,34 @@ public class CommunityServiceImpl implements CommunityService {
 		List<YmdCountVo> commentActive = commentDao.selectListCountYmd(communityTypeSequence, ymd);
 		List<YmdCountVo> resultActive = null;
 		
-		int maxCommunityActiveSize = communityActive.size();
-		int maxCommentActiveSize = commentActive.size();
+		for (int index = 0; index < 23; index++) {
+			YmdCountVo ymdCountVo = new YmdCountVo();
+			
+			ymdCountVo.setHour(Integer.toString(index));
+			
+			resultActive.add(ymdCountVo);
+		}
 		
-		int index = 0;
-		int index2 = 0;
-		
-		while (index >= maxCommunityActiveSize && index2 >= maxCommentActiveSize) {
-			if (index == maxCommunityActiveSize && index2 < maxCommentActiveSize) {
+		for (int index = 0; index < 23; index++) {
+			
+			if (Integer.parseInt(communityActive.get(index).getHour()) == index) {
 				YmdCountVo ymdCountVo = new YmdCountVo();
 				
-				String hour = commentActive.get(index2).getHour();
-				int count = commentActive.get(index2).getCount();
+				ymdCountVo.setHour(communityActive.get(index).getHour());
+				ymdCountVo.setCount(resultActive.get(index).getCount() + communityActive.get(index).getCount());
 				
-				ymdCountVo.setHour(hour);
-				ymdCountVo.setCount(count);
-				
-				resultActive.add(ymdCountVo);
-				
-				index2++;
-			} else if (index2 == maxCommentActiveSize && index < maxCommunityActiveSize) {
-				YmdCountVo ymdCountVo = new YmdCountVo();
-				
-				String hour = communityActive.get(index).getHour();
-				int count = communityActive.get(index).getCount();
-				
-				ymdCountVo.setHour(hour);
-				ymdCountVo.setCount(count);
-				
-				resultActive.add(ymdCountVo);
-				
-				index++;
-			} else if (communityActive.get(index).getHour() == commentActive.get(index2).getHour()) {
-				YmdCountVo ymdCountVo = new YmdCountVo();
-				
-				String hour = communityActive.get(index).getHour();
-				int count = communityActive.get(index).getCount() + commentActive.get(index2).getCount();
-				
-				ymdCountVo.setHour(hour);
-				ymdCountVo.setCount(count);
-				
-				resultActive.add(ymdCountVo);
-				
-				index++;
-				index2++;
-			} else if (Integer.parseInt(communityActive.get(index).getHour()) > Integer.parseInt(commentActive.get(index2).getHour())) {
-				YmdCountVo ymdCountVo = new YmdCountVo();
-				
-				String hour = commentActive.get(index2).getHour();
-				int count = commentActive.get(index2).getCount();
-				
-				ymdCountVo.setHour(hour);
-				ymdCountVo.setCount(count);
-				
-				resultActive.add(ymdCountVo);
-				
-				index2++;
-			} else if (Integer.parseInt(communityActive.get(index).getHour()) < Integer.parseInt(commentActive.get(index2).getHour())) {
-				YmdCountVo ymdCountVo = new YmdCountVo();
-				
-				String hour = communityActive.get(index).getHour();
-				int count = communityActive.get(index).getCount();
-				
-				ymdCountVo.setHour(hour);
-				ymdCountVo.setCount(count);
-				
-				resultActive.add(ymdCountVo);
-				
-				index++;
+				resultActive.set(index, ymdCountVo);
 			}
+			
+			if (Integer.parseInt(commentActive.get(index).getHour()) == index) {
+				YmdCountVo ymdCountVo = new YmdCountVo();
+				
+				ymdCountVo.setHour(commentActive.get(index).getHour());
+				ymdCountVo.setCount(resultActive.get(index).getCount() + commentActive.get(index).getCount());
+				
+				resultActive.set(index, ymdCountVo);
+			}
+			
 		}
 		
 		return resultActive;
