@@ -22,7 +22,7 @@
 	</resultMap>
 
 	<select id="selectListCountYmd" parameterType="String" resultMap="YmdCountVoMap">
-		SELECT DATE_FORMAT(connection_date, '%H') as hour,COUNT(student_seq) as count_connection
+		SELECT CAST(DATE_FORMAT(connection_date, '%H') AS SIGNED) as hour,COUNT(student_seq) as count_connection
 		  FROM csat_student_connection
 		 WHERE connection_date &gt;= DATE_FORMAT(#{ymd}, '%Y-%m-%d')
 		   AND connection_date &lt; DATE_ADD(DATE_FORMAT(#{ymd}, '%Y-%m-%d'), INTERVAL 1 day)
@@ -30,7 +30,7 @@
 	</select>
 	
 	<select id="selectListCountYm" parameterType="String" resultMap="YmCountVoMap">
-		SELECT DATE_FORMAT(connection_date, '%d') as day,COUNT(student_seq) as count_connection
+		SELECT CAST(DATE_FORMAT(connection_date, '%d') AS SIGNED) as day,COUNT(student_seq) as count_connection
 		  FROM csat_student_connection
 		 WHERE connection_date &gt;= DATE_FORMAT(CONCAT(#{ym},'01'), '%Y-%m-%d')
 		   AND connection_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{ym},'01'), '%Y-%m-%d'), INTERVAL 1 month)
@@ -38,7 +38,7 @@
 	</select>
 	
 	<select id="selectListCountYear" parameterType="String" resultMap="YearCountVoMap">
-		SELECT DATE_FORMAT(connection_date, '%m') as month,COUNT(student_seq) as count_connection
+		SELECT CAST(DATE_FORMAT(connection_date, '%m') AS SIGNED) as month,COUNT(student_seq) as count_connection
 		  FROM csat_student_connection
 		 WHERE connection_date &gt;= DATE_FORMAT(CONCAT(#{year},'0101'), '%Y-%m-%d')
 		   AND connection_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{year},'0101'), '%Y-%m-%d'), INTERVAL 1 year)
