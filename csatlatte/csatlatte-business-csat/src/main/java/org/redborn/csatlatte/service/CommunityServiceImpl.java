@@ -20,17 +20,17 @@ import org.springframework.stereotype.Service;
 public class CommunityServiceImpl implements CommunityService {
 	
 	@Autowired
-	CommunityDao communityDao;
+	private CommunityDao communityDao;
 	@Autowired
-	CommentDao commentDao;
+	private CommentDao commentDao;
 	@Autowired
-	BlindDao blindDao;
+	private BlindDao blindDao;
 	@Autowired
-	CommentBlindDao commentBlindDao;
+	private CommentBlindDao commentBlindDao;
 	@Autowired
-	ReportDao reportDao;
+	private ReportDao reportDao;
 	@Autowired
-	CommentReportDao commentReportDao;
+	private CommentReportDao commentReportDao;
 	
 	public boolean blind(int communityTypeSequence, int communitySequence, String content) {
 		boolean result = false;
@@ -153,21 +153,23 @@ public class CommunityServiceImpl implements CommunityService {
 		List<YmdCountVo> commentActive = commentDao.selectListCountYmd(communityTypeSequence, ymd);
 		List<YmdCountVo> resultActive = null;
 		
-		for (int index = 0; index < 23; index++) {
-			YmdCountVo ymdCountVo = new YmdCountVo();
+		for (int index = 0; index <= 23; index++) {
+			YmdCountVo initializationVo = new YmdCountVo();
+			String hour = Integer.toString(index);
+			int sumCount = 0;
 			
-			ymdCountVo.setHour(Integer.toString(index));
+			initializationVo.setHour(hour);
+			initializationVo.setCount(0);
 			
-			resultActive.add(ymdCountVo);
-		}
-		
-		for (int index = 0; index < 23; index++) {
+			resultActive.add(initializationVo);
 			
 			if (Integer.parseInt(communityActive.get(index).getHour()) == index) {
 				YmdCountVo ymdCountVo = new YmdCountVo();
 				
-				ymdCountVo.setHour(communityActive.get(index).getHour());
-				ymdCountVo.setCount(resultActive.get(index).getCount() + communityActive.get(index).getCount());
+				sumCount = communityActive.get(index).getCount();
+				
+				ymdCountVo.setHour(hour);
+				ymdCountVo.setCount(sumCount);
 				
 				resultActive.set(index, ymdCountVo);
 			}
@@ -175,8 +177,10 @@ public class CommunityServiceImpl implements CommunityService {
 			if (Integer.parseInt(commentActive.get(index).getHour()) == index) {
 				YmdCountVo ymdCountVo = new YmdCountVo();
 				
-				ymdCountVo.setHour(commentActive.get(index).getHour());
-				ymdCountVo.setCount(resultActive.get(index).getCount() + commentActive.get(index).getCount());
+				sumCount += commentActive.get(index).getCount();
+				
+				ymdCountVo.setHour(hour);
+				ymdCountVo.setCount(sumCount);
 				
 				resultActive.set(index, ymdCountVo);
 			}
