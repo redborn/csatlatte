@@ -2,13 +2,13 @@ package org.redborn.csatlatte.domain;
 
 public class YearCountVo {
 
-	private String year;
+	private int year;
 	private int count;
 	
-	public String getYear() {
+	public int getYear() {
 		return year;
 	}
-	public void setYear(String year) {
+	public void setYear(int year) {
 		this.year = year;
 	}
 	
