@@ -13,11 +13,10 @@
 	</select>
 	
 	<insert id="insert" parameterType="Map">
-		 INSERT INTO csat_qna_content
-	            (qna_seq,content_seq,content)
-	     VALUES (#{qnaSequence},(SELECT IFNULL(MAX(content_seq), 0) + 1
-	                                  FROM csat_qna_content
-	                                 WHERE qna_seq = #{qnaSequence}), #{content}) 
+		 INSERT INTO csat_qna_content (qna_seq,content_seq,content)
+	     VALUES (#{qnaSequence}, (SELECT IFNULL(MAX(cqc.content_seq), 0) + 1
+	                                FROM csat_qna_content cqc
+	                               WHERE cqc.qna_seq = #{qnaSequence}), #{content}) 
 	</insert>
 	
 </mapper>
