@@ -1,6 +1,7 @@
 package org.redborn.csatlatte.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.redborn.csatlatte.domain.CommentVo;
@@ -108,12 +109,12 @@ public class CommunityServiceImpl implements CommunityService {
 			
 			int sumCount = 0;
 			
-			if (communityActiveIndex < communityActiveIndexMax && communityActive.get(communityActiveIndex).getHour() == index) {
+			if (communityActive != null && communityActiveIndex < communityActiveIndexMax && communityActive.get(communityActiveIndex).getHour() == index) {
 				sumCount += communityActive.get(communityActiveIndex).getCount();
 				communityActiveIndex++;
 			}
 			
-			if (commentActiveIndex < commentActiveIndexMax && commentActive.get(commentActiveIndex).getHour() == index) {
+			if (commentActive != null && commentActiveIndex < commentActiveIndexMax && commentActive.get(commentActiveIndex).getHour() == index) {
 				sumCount += commentActive.get(commentActiveIndex).getCount();
 				commentActiveIndex++;
 			}
@@ -137,17 +138,22 @@ public class CommunityServiceImpl implements CommunityService {
 		int communityActiveIndexMax = communityActive.size();
 		int commentActiveIndexMax = commentActive.size();
 		
-		for (int index = 1; index <= 31; index++) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Integer.parseInt(ym.substring(0, 4)), Integer.parseInt(ym.substring(5, 6)) - 1, 1);
+		
+		int monthMaxDay = calendar.getActualMaximum(Calendar.DATE);
+		
+		for (int index = 1; index <= monthMaxDay; index++) {
 			YmCountVo ymCountVo = new YmCountVo();
 			
 			int sumCount = 0;
 			
-			if (communityActiveIndex < communityActiveIndexMax && communityActive.get(communityActiveIndex).getDay() == index) {
+			if (communityActive != null && communityActiveIndex < communityActiveIndexMax && communityActive.get(communityActiveIndex).getDay() == index) {
 				sumCount += communityActive.get(communityActiveIndex).getCount();
 				communityActiveIndex++;
 			}
 			
-			if (commentActiveIndex < commentActiveIndexMax && commentActive.get(commentActiveIndex).getDay() == index) {
+			if (commentActive != null && commentActiveIndex < commentActiveIndexMax && commentActive.get(commentActiveIndex).getDay() == index) {
 				sumCount += commentActive.get(commentActiveIndex).getCount();
 				commentActiveIndex++;
 			}
@@ -176,12 +182,12 @@ public class CommunityServiceImpl implements CommunityService {
 			
 			int sumCount = 0;
 			
-			if (communityActiveIndex < communityActiveIndexMax && communityActive.get(communityActiveIndex).getMonth() == index) {
+			if (communityActive != null && communityActiveIndex < communityActiveIndexMax && communityActive.get(communityActiveIndex).getMonth() == index) {
 				sumCount += communityActive.get(communityActiveIndex).getCount();
 				communityActiveIndex++;
 			}
 			
-			if (commentActiveIndex < commentActiveIndexMax && commentActive.get(commentActiveIndex).getMonth() == index) {
+			if (commentActive != null && commentActiveIndex < commentActiveIndexMax && commentActive.get(commentActiveIndex).getMonth() == index) {
 				sumCount += commentActive.get(commentActiveIndex).getCount();
 				commentActiveIndex++;
 			}
