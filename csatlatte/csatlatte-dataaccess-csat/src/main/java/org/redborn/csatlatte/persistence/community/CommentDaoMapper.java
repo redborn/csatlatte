@@ -6,9 +6,7 @@ import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.CommentVo;
-import org.redborn.csatlatte.domain.YearCountVo;
-import org.redborn.csatlatte.domain.YmCountVo;
-import org.redborn.csatlatte.domain.YmdCountVo;
+import org.redborn.csatlatte.domain.CountVo;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -24,7 +22,7 @@ public class CommentDaoMapper extends SqlSessionDaoSupport implements CommentDao
 		return getSqlSession().selectOne("community.comment.selectOne", params);
 	}
 
-	public List<YmdCountVo> selectListCountYmd(int communityTypeSequence, String ymd) {
+	public List<CountVo> selectListCountYmd(int communityTypeSequence, String ymd) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("communityTypeSequence", communityTypeSequence);
 		params.put("ymd", ymd);
@@ -32,7 +30,7 @@ public class CommentDaoMapper extends SqlSessionDaoSupport implements CommentDao
 		return getSqlSession().selectList("community.comment.selectListCountYmd", params);
 	}
 
-	public List<YmCountVo> selectListCountYm(int communityTypeSequence, String ym) {
+	public List<CountVo> selectListCountYm(int communityTypeSequence, String ym) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("communityTypeSequence", communityTypeSequence);
 		params.put("ym", ym);
@@ -40,7 +38,7 @@ public class CommentDaoMapper extends SqlSessionDaoSupport implements CommentDao
 		return getSqlSession().selectList("community.comment.selectListCountYm", params);
 	}
 
-	public List<YearCountVo> selectListCountYear(int communityTypeSequence, String year) {
+	public List<CountVo> selectListCountYear(int communityTypeSequence, String year) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("communityTypeSequence", communityTypeSequence);
 		params.put("year", year);

@@ -6,9 +6,7 @@ import java.util.List;
 
 import org.redborn.csatlatte.domain.CommentVo;
 import org.redborn.csatlatte.domain.CommunityVo;
-import org.redborn.csatlatte.domain.YearCountVo;
-import org.redborn.csatlatte.domain.YmCountVo;
-import org.redborn.csatlatte.domain.YmdCountVo;
+import org.redborn.csatlatte.domain.CountVo;
 import org.redborn.csatlatte.persistence.CommunityDao;
 import org.redborn.csatlatte.persistence.community.BlindDao;
 import org.redborn.csatlatte.persistence.community.CommentDao;
@@ -93,112 +91,57 @@ public class CommunityServiceImpl implements CommunityService {
 		return commentReportDao.selectOne(communityTypeSequence, communitySequence, commentSequence, studentSequence) == 0
 				&& commentReportDao.insert(communityTypeSequence, communitySequence, commentSequence, studentSequence, reportTypeSequence) == 1;
 	}
-
-	public List<YmdCountVo> dailyActive(int communityTypeSequence, String ymd) {
-		List<YmdCountVo> communityActive = communityDao.selectListCountYmd(communityTypeSequence, ymd);
-		List<YmdCountVo> commentActive = commentDao.selectListCountYmd(communityTypeSequence, ymd);
-		List<YmdCountVo> resultActive = new ArrayList<YmdCountVo>();
+	
+	private List<CountVo> margeCountVoList(List<CountVo> communityYmdCountVos, List<CountVo> commentYmdCountVos, int begin, int end) {
+		List<CountVo> ymdCountVos = new ArrayList<CountVo>();
 		
-		int communityActiveIndex = 0;
-		int commentActiveIndex = 0;
-		int communityActiveIndexMax = communityActive.size();
-		int commentActiveIndexMax = commentActive.size();
+		int communityYmdCountVosIndex = 0;
+		int commentYmdCountVosIndex = 0;
+		int communityYmdCountVosSize = communityYmdCountVos != null ? communityYmdCountVos.size() : 0;
+		int commentYmdCountVosSize = commentYmdCountVos != null ? commentYmdCountVos.size() : 0;
 		
-		for (int index = 0; index <= 23; index++) {
-			YmdCountVo ymdCountVo = new YmdCountVo();
+		for (int index = begin; index <= end; index++) {
+			CountVo ymdCountVo = new CountVo();
 			
 			int sumCount = 0;
 			
-			if (communityActive != null && communityActiveIndex < communityActiveIndexMax && communityActive.get(communityActiveIndex).getHour() == index) {
-				sumCount += communityActive.get(communityActiveIndex).getCount();
-				communityActiveIndex++;
+			if (communityYmdCountVosIndex < communityYmdCountVosSize) {
+				CountVo communityCountVo = communityYmdCountVos.get(communityYmdCountVosIndex);
+				if (communityCountVo.getKey() == index) {
+					sumCount = communityCountVo.getCount();
+					communityYmdCountVosIndex++;
+				}
 			}
 			
-			if (commentActive != null && commentActiveIndex < commentActiveIndexMax && commentActive.get(commentActiveIndex).getHour() == index) {
-				sumCount += commentActive.get(commentActiveIndex).getCount();
-				commentActiveIndex++;
+			if (commentYmdCountVosIndex < commentYmdCountVosSize) {
+				CountVo commentCountVo = commentYmdCountVos.get(commentYmdCountVosIndex);
+				if (commentCountVo.getKey() == index) {
+					sumCount += commentCountVo.getCount();
+					commentYmdCountVosIndex++;
+				}
 			}
 			
-			ymdCountVo.setHour(index);
+			ymdCountVo.setKey(index);
 			ymdCountVo.setCount(sumCount);
 			
-			resultActive.add(ymdCountVo);
+			ymdCountVos.add(ymdCountVo);
 		}
 		
-		return resultActive;
+		return ymdCountVos;
 	}
 
-	public List<YmCountVo> monthlyActive(int communityTypeSequence, String ym) {
-		List<YmCountVo> communityActive = communityDao.selectListCountYm(communityTypeSequence, ym);
-		List<YmCountVo> commentActive = commentDao.selectListCountYm(communityTypeSequence, ym);
-		List<YmCountVo> resultActive = new ArrayList<YmCountVo>();
-		
-		int communityActiveIndex = 0;
-		int commentActiveIndex = 0;
-		int communityActiveIndexMax = communityActive.size();
-		int commentActiveIndexMax = commentActive.size();
-		
+	public List<CountVo> dailyActive(int communityTypeSequence, String ymd) {
+		return margeCountVoList(communityDao.selectListCountYmd(communityTypeSequence, ymd), commentDao.selectListCountYmd(communityTypeSequence, ymd), 0, 23);
+	}
+
+	public List<CountVo> monthlyActive(int communityTypeSequence, String ym) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Integer.parseInt(ym.substring(0, 4)), Integer.parseInt(ym.substring(5, 6)) - 1, 1);
-		
-		int monthMaxDay = calendar.getActualMaximum(Calendar.DATE);
-		
-		for (int index = 1; index <= monthMaxDay; index++) {
-			YmCountVo ymCountVo = new YmCountVo();
-			
-			int sumCount = 0;
-			
-			if (communityActive != null && communityActiveIndex < communityActiveIndexMax && communityActive.get(communityActiveIndex).getDay() == index) {
-				sumCount += communityActive.get(communityActiveIndex).getCount();
-				communityActiveIndex++;
-			}
-			
-			if (commentActive != null && commentActiveIndex < commentActiveIndexMax && commentActive.get(commentActiveIndex).getDay() == index) {
-				sumCount += commentActive.get(commentActiveIndex).getCount();
-				commentActiveIndex++;
-			}
-			
-			ymCountVo.setDay(index);
-			ymCountVo.setCount(sumCount);
-			
-			resultActive.add(ymCountVo);
-		}
-		
-		return resultActive;
+		return margeCountVoList(communityDao.selectListCountYm(communityTypeSequence, ym), commentDao.selectListCountYm(communityTypeSequence, ym), 1, calendar.getActualMaximum(Calendar.DATE));
 	}
 
-	public List<YearCountVo> annualActive(int communityTypeSequence, String year) {
-		List<YearCountVo> communityActive = communityDao.selectListCountYear(communityTypeSequence, year);
-		List<YearCountVo> commentActive = commentDao.selectListCountYear(communityTypeSequence, year);
-		List<YearCountVo> resultActive = new ArrayList<YearCountVo>();
-		
-		int communityActiveIndex = 0;
-		int commentActiveIndex = 0;
-		int communityActiveIndexMax = communityActive.size();
-		int commentActiveIndexMax = commentActive.size();
-		
-		for (int index = 1; index <= 12; index++) {
-			YearCountVo yearCountVo = new YearCountVo();
-			
-			int sumCount = 0;
-			
-			if (communityActive != null && communityActiveIndex < communityActiveIndexMax && communityActive.get(communityActiveIndex).getMonth() == index) {
-				sumCount += communityActive.get(communityActiveIndex).getCount();
-				communityActiveIndex++;
-			}
-			
-			if (commentActive != null && commentActiveIndex < commentActiveIndexMax && commentActive.get(commentActiveIndex).getMonth() == index) {
-				sumCount += commentActive.get(commentActiveIndex).getCount();
-				commentActiveIndex++;
-			}
-			
-			yearCountVo.setMonth(index);
-			yearCountVo.setCount(sumCount);
-			
-			resultActive.add(yearCountVo);
-		}
-		
-		return resultActive;
+	public List<CountVo> annualActive(int communityTypeSequence, String year) {
+		return margeCountVoList(communityDao.selectListCountYear(communityTypeSequence, year), commentDao.selectListCountYear(communityTypeSequence, year), 1, 12);
 	}
 
 }

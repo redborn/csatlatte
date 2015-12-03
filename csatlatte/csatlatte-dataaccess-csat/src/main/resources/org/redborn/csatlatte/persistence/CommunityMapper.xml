@@ -13,18 +13,18 @@
 		<result column="write_date" property="writeDate"/>
 	</resultMap>
 	
-	<resultMap type="YmdCountVo" id="YmdCountVoMap">
-		<result column="hour" property="hour"/>
+	<resultMap type="CountVo" id="YmdCountVoMap">
+		<result column="hour" property="key"/>
 		<result column="count_write" property="count"/>
 	</resultMap>
 	
-	<resultMap type="YmCountVo" id="YmCountVoMap">
-		<result column="day" property="day"/>
+	<resultMap type="CountVo" id="YmCountVoMap">
+		<result column="day" property="key"/>
 		<result column="count_write" property="count"/>
 	</resultMap>
 	
-	<resultMap type="YearCountVo" id="YearCountVoMap">
-		<result column="month" property="month"/>
+	<resultMap type="CountVo" id="YearCountVoMap">
+		<result column="month" property="key"/>
 		<result column="count_write" property="count"/>
 	</resultMap>
 	
