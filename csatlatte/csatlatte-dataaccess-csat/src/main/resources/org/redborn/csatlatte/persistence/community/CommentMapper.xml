@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="community.comment">
+	
+	<resultMap type="CommentVo" id="CommentVoMap">
+		<result column="comment_seq" property="commentSequence"/>
+		<result column="nickname" property="nickname"/>
+		<result column="content" property="content"/>
+		<result column="write_date" property="writeDate"/>
+	</resultMap>
+	
+	<resultMap type="CountVo" id="YmdCountVoMap">
+		<result column="hour" property="key"/>
+		<result column="count_write" property="count"/>
+	</resultMap>
+	
+	<resultMap type="CountVo" id="YmCountVoMap">
+		<result column="day" property="key"/>
+		<result column="count_write" property="count"/>
+	</resultMap>
+	
+	<resultMap type="CountVo" id="YearCountVoMap">
+		<result column="month" property="key"/>
+		<result column="count_write" property="count"/>
+	</resultMap>
+	
+	<select id="selectOne" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_community_comment
+		 WHERE community_type_seq = #{communityTypeSequence}
+		   AND community_seq = #{communitySequence}
+		   AND comment_seq = #{commentSequence}
+		   AND student_seq = #{studentSequence}
+	</select>
+	
+	<select id="selectListCountYmd" parameterType="Map" resultMap="YmdCountVoMap">
+		SELECT CAST(DATE_FORMAT(write_date, '%H') AS SIGNED) AS hour,COUNT(comment_seq) AS count_write
+		  FROM csat_community_comment
+		 WHERE write_date &gt;= DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s')
+		   AND write_date &lt; DATE_ADD(DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s'), INTERVAL 1 day)
+		   AND community_type_seq = #{communityTypeSequence}
+		 GROUP BY DATE_FORMAT(write_date, '%H')
+	</select>
+	
+	<select id="selectListCountYm" parameterType="Map" resultMap="YmCountVoMap">
+		SELECT CAST(DATE_FORMAT(write_date, '%d') AS SIGNED) AS day,COUNT(comment_seq) AS count_write
+		  FROM csat_community_comment
+		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d')
+		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d'), INTERVAL 1 month)
+		   AND community_type_seq = #{communityTypeSequence}
+		 GROUP BY DATE_FORMAT(write_date, '%d') 
+	</select>
+	
+	<select id="selectListCountYear" parameterType="Map" resultMap="YearCountVoMap">
+		SELECT CAST(DATE_FORMAT(write_date, '%m') AS SIGNED) AS month,COUNT(comment_seq) AS count_write
+		  FROM csat_community_comment
+		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d')
+		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d'), INTERVAL 1 year)
+		   AND community_type_seq = #{communityTypeSequence}
+		 GROUP BY DATE_FORMAT(write_date, '%m') 
+	</select>
+	
+	<select id="selectList" parameterType="Map" resultMap="CommentVoMap">
+		SELECT ccc.comment_seq, cs.nickname, ccc.content, ccc.write_date
+		  FROM csat_community_comment ccc, csat_student cs
+		 WHERE cs.student_seq = ccc.student_seq
+		   AND ccc.use_yn = 'Y'
+		   AND ccc.community_type_seq = #{communityTypeSequence}
+		   AND ccc.community_seq = #{communitySequence}
+	</select>
+	
+	<insert id="insert" parameterType="CommentVo">
+		INSERT INTO csat_community_comment(community_type_seq, community_seq, comment_seq, student_seq, content, write_date, use_yn)
+		VALUES (#{communityTypeSequence}, #{communitySequence}, (select IFNULL(max(ccc.comment_seq),0)+1 as comment_seq from csat_community_comment ccc)), #{studentSequence}, #{content}, NOW(), 'Y')	
+	</insert>
+	
+	<update id="update" parameterType="CommentVo">
+		UPDATE csat_community_comment
+		   SET content = #{content}
+		 WHERE community_seq = #{communitySequence}
+		   AND comment_seq = #{commentSequence}
+		   AND community_type_seq = #{communityTypeSequence}
+		   AND use_yn = 'Y'
+	</update>
+	
+	<update id="updateUseYnN" parameterType="Map">
+		UPDATE csat_community_comment
+		   SET use_yn = 'N'
+		 WHERE community_seq = #{communitySequence}
+		   AND comment_seq = #{commentSequence}
+		   AND community_type_seq = #{communityTypeSequence}
+	</update>
+	
+</mapper>

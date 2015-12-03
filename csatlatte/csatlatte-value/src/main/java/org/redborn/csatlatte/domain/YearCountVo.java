@@ -2,14 +2,14 @@ package org.redborn.csatlatte.domain;
 
 public class YearCountVo {
 
-	private String year;
+	private int month;
 	private int count;
 	
-	public String getYear() {
-		return year;
+	public int getMonth() {
+		return month;
 	}
-	public void setYear(String year) {
-		this.year = year;
+	public void setMonth(int month) {
+		this.month = month;
 	}
 	
 	public int getCount() {
@@ -22,7 +22,7 @@ public class YearCountVo {
 	
 	@Override
 	public String toString() {
-		return "StudentYearVo [year=" + year + ", count=" + count
+		return "StudentYearVo [month=" + month + ", count=" + count
 				+ "]";
 	}
 	

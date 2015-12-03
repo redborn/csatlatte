@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="community">
+
+	<resultMap type="CommunityVo" id="CommunityVoMap">
+		<result column="community_seq" property="communitySequence"/>
+		<result column="nickname" property="nickname"/>
+		<result column="content" property="content"/>
+		<result column="write_date" property="writeDate"/>
+	</resultMap>
+	
+	<resultMap type="CountVo" id="YmdCountVoMap">
+		<result column="hour" property="key"/>
+		<result column="count_write" property="count"/>
+	</resultMap>
+	
+	<resultMap type="CountVo" id="YmCountVoMap">
+		<result column="day" property="key"/>
+		<result column="count_write" property="count"/>
+	</resultMap>
+	
+	<resultMap type="CountVo" id="YearCountVoMap">
+		<result column="month" property="key"/>
+		<result column="count_write" property="count"/>
+	</resultMap>
+	
+	<select id="selectOne" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_community
+		 WHERE community_type_seq = #{communityTypeSequence}
+		   AND community_seq = #{communitySequence}
+		   AND student_seq = #{studentSequence}
+	</select>
+	
+	<select id="selectListCountYmd" parameterType="Map" resultMap="YmdCountVoMap">
+		SELECT CAST(DATE_FORMAT(write_date, '%H') AS SIGNED) AS hour,COUNT(community_seq) AS count_write
+		  FROM csat_community
+		 WHERE write_date &gt;= DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s')
+		   AND write_date &lt; DATE_ADD(DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s'), INTERVAL 1 day)
+		   AND community_type_seq = #{communityTypeSequence}
+		 GROUP BY DATE_FORMAT(write_date, '%H')
+	</select>
+	
+	<select id="selectListCountYm" parameterType="Map" resultMap="YmCountVoMap">
+		SELECT CAST(DATE_FORMAT(write_date, '%d') AS SIGNED) AS day,COUNT(community_seq) AS count_write
+		  FROM csat_community
+		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d')
+		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d'), INTERVAL 1 month)
+		   AND community_type_seq = #{communityTypeSequence}
+		 GROUP BY DATE_FORMAT(write_date, '%d')
+	</select>
+	
+	<select id="selectListCountYear" parameterType="Map" resultMap="YearCountVoMap">
+		SELECT CAST(DATE_FORMAT(write_date, '%m') AS SIGNED) AS month,COUNT(community_seq) AS count_write
+		  FROM csat_community
+		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d')
+		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d'), INTERVAL 1 year)
+		   AND community_type_seq = #{communityTypeSequence}
+		 GROUP BY DATE_FORMAT(write_date, '%m')
+	</select>
+	
+	<select id="selectList" parameterType="int" resultMap="CommunityVoMap">
+		SELECT cc.community_seq, cs.nickname, cc.content, cc.write_date
+		  FROM csat_community cc, csat_student cs
+		 WHERE cc.use_yn = 'Y'
+		   AND cc.student_seq = cs.student_seq
+		   AND cc.community_type_seq = #{communityTypeSequence}
+	</select>
+	
+	<select id="selectListStudentText" parameterType="Map" resultMap="CommunityVoMap">
+		SELECT cc.community_seq, cs.nickname, cc.content, cc.write_date
+		  FROM csat_community cc, csat_student cs
+		 WHERE cc.use_yn = 'Y'
+		   AND cc.student_seq = cs.student_seq
+		   AND cc.student_seq = #{studentSequence}
+		   AND cc.community_type_seq = #{communityTypeSequence}
+	</select>
+	
+	<insert id="insert" parameterType="CommunityVo">
+		INSERT INTO csat_community(community_type_seq, community_seq, student_seq, content, write_date, use_yn)
+		VALUES (#{communityTypeSequence}, (select IFNULL(max(cc.community_seq),0)+1 as community_seq from csat_community cc), #{studentSequence}, #{content}, NOW(), 'Y');		
+	</insert>
+	
+	<update id="update" parameterType="CommunityVo">
+		UPDATE csat_community
+		   SET content = #{content}
+		 WEHRE community_type_seq = #{communityTypeSequence} 
+		   AND community_seq = #{communitySequence}
+	</update>
+	
+	<update id="updateUseYnN" parameterType="Map">
+		UPDATE csat_community
+		   SET use_yn = 'N'
+		 WHERE community_type_seq = #{communityTypeSequence} 
+		   AND community_seq = #{communitySequence}
+	</update>
+	
+</mapper>

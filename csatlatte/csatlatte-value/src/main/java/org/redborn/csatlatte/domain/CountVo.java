@@ -1,28 +1,29 @@
 package org.redborn.csatlatte.domain;
 
-public class YmCountVo {
+public class CountVo {
 
-	private int day;
+	private int key;
 	private int count;
-	
-	public int getDay() {
-		return day;
+
+	public int getKey() {
+		return key;
 	}
-	public void setDay(int day) {
-		this.day = day;
+
+	public void setKey(int key) {
+		this.key = key;
 	}
-	
+
 	public int getCount() {
 		return count;
 	}
-	
+
 	public void setCount(int count) {
 		this.count = count;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "StudentYmVo [day=" + day + ", count=" + count + "]";
+		return "CountVo [key=" + key + ", count=" + count + "]";
 	}
-	
+
 }

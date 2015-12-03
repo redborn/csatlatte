@@ -2,13 +2,13 @@ package org.redborn.csatlatte.domain;
 
 public class YmdCountVo {
 
-	private String hour;
+	private int hour;
 	private int count;
 	
-	public String getHour() {
+	public int getHour() {
 		return hour;
 	}
-	public void setHour(String hour) {
+	public void setHour(int hour) {
 		this.hour = hour;
 	}
 	
