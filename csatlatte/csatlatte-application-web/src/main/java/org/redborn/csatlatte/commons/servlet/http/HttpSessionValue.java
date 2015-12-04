@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class HttpSessionValue {
 	
-	private final static String USER_SEQUENCE = "userSequence";
+	private final static String STUDENT_SEQUENCE = "studentSequence";
 	private final static String NICKNAME = "nickName";
 	private final static String RULE_SEQUENCE = "ruleSequence";
 	public final static int STUDENT = 1;
@@ -16,19 +16,19 @@ public class HttpSessionValue {
 	@Autowired
 	private HttpSession session;
 	
-	public void setUser(int userSequence, String nickname, int ruleSequence) {
-		this.session.setAttribute(USER_SEQUENCE, userSequence);
+	public void setUser(int studentSequence, String nickname, int ruleSequence) {
+		this.session.setAttribute(STUDENT_SEQUENCE, studentSequence);
 		this.session.setAttribute(NICKNAME, nickname);
 		this.session.setAttribute(RULE_SEQUENCE, ruleSequence);
 	}
 	
-	public int getUserSequence() {
-		return getUserSequence(this.session);
+	public int getStudentSequence() {
+		return getStudentSequence(this.session);
 	}
 	
-	public static int getUserSequence(HttpSession session) {
-		Integer userSequence = (Integer) session.getAttribute(USER_SEQUENCE);
-		return userSequence != null ? userSequence : 0;
+	public static int getStudentSequence(HttpSession session) {
+		Integer studentSequence = (Integer) session.getAttribute(STUDENT_SEQUENCE);
+		return studentSequence != null ? studentSequence : 0;
 	}
 	
 	public int getRuleSequence() {
