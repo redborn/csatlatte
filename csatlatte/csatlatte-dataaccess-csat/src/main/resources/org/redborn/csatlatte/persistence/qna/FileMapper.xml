@@ -11,7 +11,7 @@
 		<result column="file_name" property="fileName"/>
 	</resultMap>
 
-	<select id="selectList" parameterType="int" resultType="FileVoMap">
+	<select id="selectList" parameterType="int" resultMap="FileVoMap">
 		SELECT file_code,file_name
 		  FROM csat_qna_file
 		 WHERE qna_seq = #{qnaSequence} 
