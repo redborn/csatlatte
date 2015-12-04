@@ -43,6 +43,7 @@
     <context:component-scan base-package="org.redborn.csatlatte.persistence" name-generator="org.redborn.csatlatte.commons.spring.beans.factory.support.CsatBeanNameGenerator"/>
     <context:component-scan base-package="org.redborn.csatlatte.service" name-generator="org.redborn.csatlatte.commons.spring.beans.factory.support.CsatBeanNameGenerator"/>
 	<context:component-scan base-package="org.redborn.csatlatte.controller" name-generator="org.redborn.csatlatte.commons.spring.beans.factory.support.CsatBeanNameGenerator"/>
+	<context:component-scan base-package="org.redborn.csatlatte.commons.servlet.http" name-generator="org.redborn.csatlatte.commons.spring.beans.factory.support.CsatBeanNameGenerator"/>
 	
 	<!-- etc -->
 	<mvc:annotation-driven/>
