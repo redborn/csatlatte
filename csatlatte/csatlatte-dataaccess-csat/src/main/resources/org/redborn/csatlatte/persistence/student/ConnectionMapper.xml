@@ -16,7 +16,7 @@
 		<result column="count_connection" property="count"/>
 	</resultMap>
 
-	<resultMap type="YearCountVo" id="YearCountVoVoMap">
+	<resultMap type="YearCountVo" id="YearCountVoMap">
 		<result column="month" property="month"/>
 		<result column="count_connection" property="count"/>
 	</resultMap>
