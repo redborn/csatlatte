@@ -89,27 +89,27 @@
 	</select>
 	
 	<select id="selectListCountYmd" parameterType="String" resultMap="YmdCountVoMap">
-		SELECT TO_CHAR(create_date, 'hh') as hour,COUNT(student_seq) as count_join
+		SELECT CAST(DATE_FORMAT(create_date, '%H') AS SIGNED) AS hour,COUNT(student_seq) AS count_join
 		  FROM csat_student
-		 WHERE create_date &lt;= TO_DATE(#{ymd}, 'yyyymmdd')
-		   AND create_date + 1 &gt; TO_DATE(#{ymd}, 'yyyymmdd')
-		 GROUP BY TO_CHAR(create_date, 'hh') 
+		 WHERE create_date &gt;= DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s')
+		   AND create_date &lt; DATE_ADD(DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s'), INTERVAL 1 day)
+		 GROUP BY DATE_FORMAT(create_date, '%H'); 
 	</select>
 	
 	<select id="selectListCountYm" parameterType="String" resultMap="YmCountVoMap">
-		SELECT TO_CHAR(create_date, 'dd') as day,COUNT(student_seq) as count_join
+		SELECT CAST(DATE_FORMAT(create_date, '%d') AS SIGNED) AS day,COUNT(student_seq) AS count_join
 		  FROM csat_student
-		 WHERE create_date &lt;= TO_DATE(#{ym}, 'yyyymm')
-		   AND TO_DATE(#{ym}, 'yyyymm') &gt;= DATEADD(month, 1, create_date)
-		 GROUP BY TO_CHAR(create_date, 'dd')
+		 WHERE create_date &gt;= DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d')
+		   AND create_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d'), INTERVAL 1 month)
+		 GROUP BY DATE_FORMAT(create_date, '%d'); 
 	</select>
 	
 	<select id="selectListCountYear" parameterType="String" resultMap="YearCountVoMap">
-		SELECT TO_CHAR(create_date, 'mm') as day,COUNT(student_seq) as count_join
+		SELECT CAST(DATE_FORMAT(create_date, '%m') AS SIGNED) AS year,COUNT(student_seq) AS count_join
 		  FROM csat_student
-		 WHERE create_date &lt;= TO_DATE(#{year}, 'yyyy')
-		   AND TO_DATE(#{year}, 'yyyy') &gt;= DATEADD(year, 1, create_date)
-		 GROUP BY TO_CHAR(create_date, 'mm')
+		 WHERE create_date &gt;= DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d')
+		   AND create_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d'), INTERVAL 1 year)
+		 GROUP BY DATE_FORMAT(create_date, '%m'); 
 	</select>
 	
 	<insert id="insert" parameterType="StudentVo">

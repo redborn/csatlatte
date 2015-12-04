@@ -20,9 +20,8 @@
 
 	<update id="updateContent" parameterType="StudentSecurityQuestionVo">
 		UPDATE csat_student_scqs
-		   SET content = #{content}
+		   SET content = #{content}, scqs_seq = #{securityQuestionSequence}
 		 WHERE student_seq = #{studentSequence}
-		   AND scqs_seq = #{securityQuestionSequence}
 	</update>
 	
 </mapper>
