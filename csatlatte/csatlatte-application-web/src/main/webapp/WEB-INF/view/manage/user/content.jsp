@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <h4 class="manage-user-title">회원 관리</h4>
 <div class="manage-user-search">
 	<div class="col-lg-5"><input type="text" class="form-control" placeholder="아이디 혹은 닉네임"></div>
@@ -12,30 +13,21 @@
 			<th class="col-lg-1">닉네임</th>
 			<th class="col-lg-1">접속횟수</th>
 			<th class="col-lg-1">차단</th>
-			<th class="col-lg-1">관리자권한</th>
 			<th class="col-lg-1">활동점수</th>
 			<th class="col-lg-1">성적평균</th>
 		</tr>
 	</thead>
 	<tbody>
+	<c:forEach items="${userList}" var="userList">
 		<tr>
-			<td><div data-toggle="modal" class="manage-user-id" data-target="#manage-user-id">test</div></td>
-			<td>테스트</td>
-			<td>7</td>
-			<td><input type="checkbox"></td>
-			<td><input type="checkbox"></td>
-			<td>32</td>
-			<td>2</td>
+			<td><div data-toggle="modal" class="manage-user-id" data-target="#manage-user-id">${userList.studentId}</div></td>
+			<td>${userList.nickname}</td>
+			<td>${userList.countConnection}</td>
+			<td><input type="checkbox" <c:if test="${userList.useYn eq 'N'}">checked</c:if>></td>
+			<td>${userList.activityScore}</td>
+			<td>${userList.averageScore}</td>
 		</tr>
-		<tr>
-			<td><div data-toggle="modal" class="manage-user-id" data-target="#manage-user-id">test</div></td>
-			<td>테스트</td>
-			<td>7</td>
-			<td><input type="checkbox"></td>
-			<td><input type="checkbox"></td>
-			<td>32</td>
-			<td>2</td>
-		</tr>
+	</c:forEach>
 	</tbody>
 </table>
 <div class="manage-user-apply-align">
