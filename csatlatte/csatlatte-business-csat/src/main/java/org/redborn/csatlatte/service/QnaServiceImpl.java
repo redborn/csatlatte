@@ -48,8 +48,8 @@ public class QnaServiceImpl implements QnaService {
 		return qnaVo;
 	}
 
-	public List<QnaForManageVo> listForManage(String search, int pageNumber) {
-		return qnaDao.selectListForManage(search, pageNumber);
+	public List<QnaForManageVo> listForManage(String search, int pageNumber, String useYn) {
+		return qnaDao.selectListForManage(search, pageNumber, useYn);
 	}
 
 	public List<QnaForStudentVo> listForStudent(int studentSequence, int pageNumber) {
