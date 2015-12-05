@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <style>
 	html {height:100%;}
 	body {height:100%; margin:0;}
@@ -23,3 +24,35 @@
 	
 	.main-profile-picture {width:120px; border-radius:4px; border:1px solid white;}
 </style>
+<session:isGuest>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#main-form").find("input[name='id']").focus();
+		
+		$("#main-form").on("submit", function() {
+			var result = false;
+			
+			var makeTooltip = function($selector, title, placement) {
+				$selector.tooltip({
+					title : title,
+					placement : placement
+				});
+				$selector.focus();
+				setTimeout(function() {
+					$selector.tooltip("hide");
+				}, 5000);
+			};
+			
+			if ($.trim($(this).find("input[name='id']").val()) === "") {
+				makeTooltip($(this).find("input[name='id']"), "아이디를 입력하세요.", "bottom");
+			} else if ($.trim($(this).find("input[name='password']").val()) === "") {
+				makeTooltip($(this).find("input[name='password']"), "비밀번호를 입력하세요.", "bottom");
+			} else {
+				result = true;
+			}
+			
+			return result;
+		});
+	});
+</script>
+</session:isGuest>

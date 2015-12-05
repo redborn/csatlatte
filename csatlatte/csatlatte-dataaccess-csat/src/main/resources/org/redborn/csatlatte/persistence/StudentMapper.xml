@@ -43,8 +43,8 @@
 		       cs.photo_code AS photo_code,cs.photo_name AS photo_name,
 		       cs.nickname AS nickname,c.csat_name AS csat_name
 		  FROM csat_student cs,csat_student_scqs css,csat_scqs csc,csat c
-		 WHERE student_id = #{studentId}
-		   AND student_password = #{studentPassword}
+		 WHERE student_id = #{id}
+		   AND student_password = #{password}
 		   AND cs.student_seq = css.student_seq
 		   AND css.scqs_seq = csc.scqs_seq
 		   AND cs.csat_seq = c.csat_seq
