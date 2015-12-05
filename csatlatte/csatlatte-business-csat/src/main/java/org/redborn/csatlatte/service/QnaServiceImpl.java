@@ -3,7 +3,6 @@ package org.redborn.csatlatte.service;
 import java.io.File;
 import java.util.List;
 
-import org.redborn.csatlatte.domain.FileVo;
 import org.redborn.csatlatte.domain.QnaAnswerVo;
 import org.redborn.csatlatte.domain.QnaForManageVo;
 import org.redborn.csatlatte.domain.QnaForStudentVo;
@@ -69,10 +68,10 @@ public class QnaServiceImpl implements QnaService {
 		int max = content.length() / 2000;
 		int beginIndex = 0;
 		
-		int listFileSize = listFile.size();
-		FileVo fileVo = new FileVo();
+		//int listFileSize = listFile.size();
+		//FileVo fileVo = new FileVo();
 		
-		qnaDao.insert(maxQnaSequence, qnaVo.getStudentSequence());
+		qnaDao.insert(maxQnaSequence, qnaVo.getStudentSequence(), qnaVo.getTitle());
 		
 		for (int index = 0; index < max; index++) {
 			beginIndex = 2000 * index; 
@@ -83,13 +82,13 @@ public class QnaServiceImpl implements QnaService {
 			contentDao.insert(maxQnaSequence, content.substring(max * 2000, content.length()));
 		}
 		
-		for (int index = 0; index < listFileSize; index++) {
+		//for (int index = 0; index < listFileSize; index++) {
 			// fileVo = listFile.get(index);
 			
 			// file처리에 대한 교육을 마친 후 진행해야 함
 			// List<File>을 fileVo로 담는 방법을 모름
-			fileDao.insert(maxQnaSequence, fileVo);
-		}
+			//fileDao.insert(maxQnaSequence, fileVo);
+		//}
 		
 		return result;
 	}
