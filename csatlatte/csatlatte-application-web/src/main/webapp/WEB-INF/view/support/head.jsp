@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
+	.form-control {width:20%; float:none;}
 	.panel {width:933px; margin:auto;}
 	.dropdown {display:inline;}
 	.panel-heading {background:white;}
@@ -12,10 +14,12 @@
 </style>
 <script>
 	$(document).ready(function () {
-		$(".support-question").each(function (index) {
-			$(this).on("click", function () {
-				$(".support-answer").eq(index).slideToggle("fast");
-			});
+		$(".support-question").on("click", function () {
+			$(".support-answer").eq($(".support-question").index($(this))).slideToggle("fast");
+		});
+		
+		$("#support-category").on("change", function() {
+			$(location).attr('href', '<c:url value="/support?faqTypeSequence="/>' + $(this).val());
 		});
 	});
 </script>
