@@ -1,5 +1,6 @@
 package org.redborn.csatlatte.controller.web.support;
 
+import org.redborn.csatlatte.commons.servlet.http.HttpSessionValue;
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.redborn.csatlatte.domain.QnaVo;
 import org.redborn.csatlatte.service.QnaService;
@@ -24,6 +25,8 @@ public class Question {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private QnaService qnaService;
+	@Autowired
+	private HttpSessionValue httpSessionValue;
 	/**
 	 * 문의 제목, 내용을 입력하는 페이지입니다.
 	 */
@@ -45,8 +48,9 @@ public class Question {
 		QnaVo qnaVo = new QnaVo();
 		qnaVo.setTitle(title);
 		qnaVo.setContent(content);
+		qnaVo.setStudentSequence(httpSessionValue.getStudentSequence());
 		logger.info("support question write");
-		// qnaService.write(qnaVo, null);
+		qnaService.write(qnaVo, null);
 		return TilesName.SUPPORT_QUESTION_SUCCESS;
 	}
 }
