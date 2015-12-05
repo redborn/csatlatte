@@ -12,6 +12,7 @@ public interface CommunityDao {
 	public List<CountVo> selectListCountYm(int communityTypeSequence, String ym);
 	public List<CountVo> selectListCountYear(int communityTypeSequence, String year);
 	public List<CommunityVo> selectList(int communityTypeSequence);
+	public List<CommunityVo> selectListForManage(int communityTypeSequence, String search, int pageNumber);
 	public List<CommunityVo> selectListStudentText(int communityTypeSequence, int studentSequence);
 	public int insert(CommunityVo communityVo);
 	public int update(CommunityVo communityVo);

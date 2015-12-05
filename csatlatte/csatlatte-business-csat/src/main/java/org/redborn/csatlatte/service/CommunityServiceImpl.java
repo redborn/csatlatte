@@ -73,6 +73,10 @@ public class CommunityServiceImpl implements CommunityService {
 	public List<CommunityVo> list(int communityTypeSequence) {
 		return communityDao.selectList(communityTypeSequence);
 	}
+	
+	public List<CommunityVo> list(int communityTypeSequence, String search, int pageNumber) {
+		return communityDao.selectListForManage(communityTypeSequence, search, pageNumber);
+	}
 
 	public List<CommunityVo> list(int communityTypeSequence, int studentSequence) {
 		return communityDao.selectListStudentText(communityTypeSequence, studentSequence);

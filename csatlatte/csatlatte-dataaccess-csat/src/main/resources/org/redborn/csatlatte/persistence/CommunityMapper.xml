@@ -13,6 +13,15 @@
 		<result column="write_date" property="writeDate"/>
 	</resultMap>
 	
+	<resultMap type="CommunityVo" id="CommunityVoManageMap">
+		<result column="community_seq" property="communitySequence"/>
+		<result column="student_id" property="studentId"/>
+		<result column="nickname" property="nickname"/>
+		<result column="content" property="content"/>
+		<result column="write_date" property="writeDate"/>
+		<result column="blind" property="blind"/>
+	</resultMap>
+	
 	<resultMap type="CountVo" id="YmdCountVoMap">
 		<result column="hour" property="key"/>
 		<result column="count_write" property="count"/>
@@ -69,6 +78,16 @@
 		 WHERE cc.use_yn = 'Y'
 		   AND cc.student_seq = cs.student_seq
 		   AND cc.community_type_seq = #{communityTypeSequence}
+	</select>
+	
+	<select id="selectListForManage" parameterType="Map" resultMap="CommunityVoManageMap">
+		SELECT cc.community_seq, cs.student_id, cs.nickname, cc.content, cc.write_date, COUNT(ccb.community_seq) as blind
+		  FROM csat_community cc LEFT OUTER JOIN csat_community_blind ccb ON cc.community_seq = ccb.community_seq, csat_student cs
+		 WHERE cc.use_yn = 'Y'
+		   AND cc.student_seq = cs.student_seq
+		   AND cc.community_type_seq = #{communityTypeSequence}
+		   AND (cs.student_id LIKE CONCAT('%',#{search},'%') OR cs.nickname LIKE CONCAT('%',#{search},'%'))
+		 LIMIT #{pageNumber}, 10
 	</select>
 	
 	<select id="selectListStudentText" parameterType="Map" resultMap="CommunityVoMap">
