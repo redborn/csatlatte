@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <h4 class="manage-question-title">문의 관리</h4>
 <div class="row">
 	<div class="col-lg-7">
 		<div class="manage-question-yn">
 			<h5>답변여부</h5>
 			<div class="btn-group">
-				<button class="btn btn-default">전체</button>
-				<button class="btn btn-default">대기</button>
-				<button class="btn btn-default">완료</button>
+				<button id="manage-question-all" class="btn btn-default <c:if test="${param.useYn == null}">active</c:if>">전체</button>
+				<button id="manage-question-standby" class="btn btn-default <c:if test="${param.useYn eq 'Y'}">active</c:if>">대기</button>
+				<button id="manage-question-success" class="btn btn-default <c:if test="${param.useYn eq 'N'}">active</c:if>">완료</button>
 			</div>
 		</div>
 	</div>
@@ -30,20 +31,15 @@
 		</tr>
 	</thead>
 	<tbody>
+	<c:forEach items="${list}" var="list">
 		<tr>
-			<td>test</td>
-			<td>테스트</td>
-			<td><div class="manage-question-content" data-toggle="modal" data-target="#manage-question-answer-view">이것은 내용입니다.</div></td>
-			<td>2015-03-22</td>
-			<td>O</td>
+			<td>${list.studentId}</td>
+			<td>${list.nickname}</td>
+			<td><div class="manage-question-content" data-toggle="modal" data-target="#manage-question-answer-view">${list.title}</div></td>
+			<td>${list.writeDate}</td>
+			<td><c:choose><c:when test="${list.useYn eq 'Y'}">X</c:when><c:otherwise>O</c:otherwise></c:choose></td>
 		</tr>
-		<tr>
-			<td>test</td>
-			<td>테스트</td>
-			<td><div class="manage-question-content" data-toggle="modal" data-target="#manage-question-answer">이것은 내용입니다.</div></td>
-			<td>2015-03-22</td>
-			<td>X</td>
-		</tr>
+	</c:forEach>
 	</tbody>
 </table>
 <nav>
