@@ -1,24 +1,26 @@
 package org.redborn.csatlatte.controller.web;
 
+import org.redborn.csatlatte.commons.servlet.http.HttpSessionValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/login")
-public class Login {
+@RequestMapping("/logout")
+public class Logout {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	@Autowired
+	HttpSessionValue httpSessionValue;
 
-	/**
-	 * 사용자 등록에 필요한 정보를 입력하는 페이지입니다.
-	 */
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(method=RequestMethod.GET)
 	public String get() {
-		logger.info("login");
+		logger.info(new StringBuilder("logout. ID is ").append(httpSessionValue.getId()).toString());;
+		httpSessionValue.invalidate();
 		return "redirect:/main";
 	}
-
+	
 }

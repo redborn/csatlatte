@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
+<%@ include file="/WEB-INF/layout/include/jquery/form.jsp" %>
 <style>
 	html {height:100%;}
 	body {height:100%; margin:0;}
@@ -23,3 +24,56 @@
 	
 	.main-profile-picture {width:120px; border-radius:4px; border:1px solid white;}
 </style>
+<session:isGuest>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#main-form").find("input[name='id']").focus();
+		
+		$("#main-form").ajaxForm({
+			dataType : "json",
+			beforeSubmit : function(arr, $form, options) {
+				var result = false;
+				var makeTooltip = function($selector, title, placement) {
+					$selector.tooltip({
+						title : title,
+						placement : placement
+					});
+					$selector.focus();
+					setTimeout(function() {
+						$selector.tooltip("hide");
+					}, 5000);
+				};
+				
+				if ($.trim($form.find("input[name='id']").val()) === "") {
+					makeTooltip($form.find("input[name='id']"), "아이디를 입력하세요.", "bottom");
+				} else if ($.trim($form.find("input[name='password']").val()) === "") {
+					makeTooltip($form.find("input[name='password']"), "비밀번호를 입력하세요.", "bottom");
+				} else {
+					result = true;
+				}
+				return result;
+			},
+			success : function(data, statusText, xhr, $form) {
+				if (data.result) {
+					location.reload();
+				} else {
+					$form.find("input[name='password']").val("").focus();
+					$(".main-login").animate({
+						right : "120px" 
+					}, 70).animate({
+						right : "85px" 
+					}, 70).animate({
+						right : "110px" 
+					}, 60).animate({
+						right : "95px" 
+					}, 60).animate({
+						right : "95px" 
+					}, 50).animate({
+						right : "100px" 
+					}, 50);
+				}
+			}
+		});
+	});
+</script>
+</session:isGuest>

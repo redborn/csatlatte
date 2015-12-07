@@ -15,8 +15,9 @@ import org.springframework.stereotype.Service;
 public class HttpSessionValue {
 	
 	private final static String STUDENT_SEQUENCE = "studentSequence";
-	private final static String NICKNAME = "nickName";
+	private final static String NICKNAME = "nickname";
 	private final static String RULE_SEQUENCE = "ruleSequence";
+	private final static String ID = "id";
 	public final static int STUDENT = 1;
 	public final static int ADMINISTRATOR = 2;
 	@Autowired
@@ -29,10 +30,15 @@ public class HttpSessionValue {
 	 * @param nickname 닉네임
 	 * @param ruleSequence 규칙 일련번호
 	 */
-	public void setUser(int studentSequence, String nickname, int ruleSequence) {
+	public void setUser(String id, int studentSequence, String nickname, int ruleSequence) {
+		this.session.setAttribute(ID, id);
 		this.session.setAttribute(STUDENT_SEQUENCE, studentSequence);
 		this.session.setAttribute(NICKNAME, nickname);
 		this.session.setAttribute(RULE_SEQUENCE, ruleSequence);
+	}
+	
+	public String getId() {
+		return (String) this.session.getAttribute(ID);
 	}
 	
 	/**
