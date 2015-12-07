@@ -16,6 +16,8 @@ public class ContentDaoMapper extends SqlSessionDaoSupport implements ContentDao
 
 	public int insert(int qnaSequence, String content) {
 		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("qnaSequence", qnaSequence);
+		params.put("content", content);
 		
 		return getSqlSession().insert("qna.content.insert", params);
 	}

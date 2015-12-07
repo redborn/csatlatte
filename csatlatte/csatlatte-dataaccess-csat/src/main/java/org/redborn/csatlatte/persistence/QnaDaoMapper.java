@@ -37,10 +37,11 @@ public class QnaDaoMapper extends SqlSessionDaoSupport implements QnaDao {
 		return getSqlSession().selectList("qna.selectListForStudent", params);
 	}
 	
-	public int insert(int qnaSequence, int studentSequence) {
+	public int insert(int qnaSequence, int studentSequence, String title) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("qnaSequence", qnaSequence);
 		params.put("studentSequence", studentSequence);
+		params.put("title", title);
 		
 		return getSqlSession().insert("qna.insert", params);
 	}
