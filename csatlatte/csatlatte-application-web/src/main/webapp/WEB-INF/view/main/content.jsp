@@ -4,9 +4,9 @@
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <div class="main-picture">
 	<div class="main-title">"미래를 위한<br/>현명한 준비"</div>
-	<div class="main-login">
 	<session:isGuest>
-		<form id="main-form" method="post" action='<c:url value="/login"/>'>
+	<div class="main-login">
+		<form id="main-form" method="post" action='<c:url value="/data/login"/>'>
 			<div class="form-group">
 				<label for="main-input-id" class="sr-only">수능라떼 아이디</label>
 				<input type="text" name="id" class="form-control" placeholder="수능라떼 아이디" id="main-input-id"/>
@@ -32,15 +32,19 @@
 				</div>
 			</div>
 		</form>
+	</div>
 	</session:isGuest>
 	<session:isStudent>
+	<div class="main-login">
 		<img alt="프로필사진" class="main-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
 		<h4>어서오세요! 회원님!</h4>
+	</div>
 	</session:isStudent>
 	<session:isAdministrator>
+	<div class="main-login">
 		<img alt="프로필사진" class="main-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
 		<h4>어서오세요! 관리자님!</h4>
 		<a class="btn btn-default" href="<c:url value="/stats/join"/>">관리자 페이지</a>
-	</session:isAdministrator>
 	</div>
+	</session:isAdministrator>
 </div>
