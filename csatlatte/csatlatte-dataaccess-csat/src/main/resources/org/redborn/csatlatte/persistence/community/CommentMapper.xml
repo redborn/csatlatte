@@ -10,7 +10,7 @@
 		<result column="comment_seq" property="commentSequence"/>
 		<result column="nickname" property="nickname"/>
 		<result column="content" property="content"/>
-		<result column="write_date" property="writeDate"/>
+		<result column="write_ymdhms" property="writeYmdhms"/>
 	</resultMap>
 	
 	<resultMap type="CountVo" id="YmdCountVoMap">
@@ -65,7 +65,7 @@
 	</select>
 	
 	<select id="selectList" parameterType="Map" resultMap="CommentVoMap">
-		SELECT ccc.comment_seq, cs.nickname, ccc.content, ccc.write_date
+		SELECT ccc.comment_seq, cs.nickname, ccc.content, DATE_FORMAT(ccc.write_date, '%Y%m%d%H%i%s') AS write_ymdhms
 		  FROM csat_community_comment ccc, csat_student cs
 		 WHERE cs.student_seq = ccc.student_seq
 		   AND ccc.use_yn = 'Y'
