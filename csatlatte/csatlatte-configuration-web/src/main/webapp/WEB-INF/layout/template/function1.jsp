@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@ include file="/WEB-INF/layout/include/contextpath.jsp" %>
 <%@ include file="/WEB-INF/layout/include/csatlatte.jsp" %>
 <%@ include file="/WEB-INF/layout/include/jquery.jsp" %>
 <%@ include file="/WEB-INF/layout/include/bootstrap.jsp" %>
