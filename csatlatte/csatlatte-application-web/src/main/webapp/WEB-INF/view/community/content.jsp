@@ -56,6 +56,7 @@
 	</div>
 </div>
 
+
 <div class="modal fade" id="community-text-detail" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
