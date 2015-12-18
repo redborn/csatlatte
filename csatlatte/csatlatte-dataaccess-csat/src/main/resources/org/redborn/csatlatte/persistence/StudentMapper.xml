@@ -12,6 +12,7 @@
 		<result column="count_connection" property="countConnection"/>
 		<result column="use_yn" property="useYn"/>
 		<result column="avg_score" property="averageScore"/>
+		<result column="activity_score" property="activityScore"/>
 	</resultMap>
 	
 	<resultMap type="StudentVo" id="StudentInformationVoMap">
@@ -80,10 +81,9 @@
 	
 	<select id="selectList" parameterType="Map" resultMap="StudentVoMap">
 		SELECT cs.student_id as student_id,cs.nickname as nickname,
-			   COUNT(csc.student_seq) as count_connection,use_yn,AVG(cess.score) as avg_score
-		  FROM csat_student cs,csat_student_connection csc,csat_exam_student_score cess
+			   COUNT(csc.student_seq) as count_connection,cs.use_yn,IFNULL(AVG(cess.score),0) as avg_score,IFNULL(COUNT(cc.student_seq),0) + IFNULL(COUNT(ccc.student_seq),0) as activity_score
+		  FROM csat_student cs LEFT OUTER JOIN csat_exam_student_score cess ON cs.student_seq = cess.student_seq LEFT OUTER JOIN csat_community cc ON cs.student_seq = cc.student_seq LEFT OUTER JOIN csat_community_comment ccc ON cs.student_seq = ccc.student_seq, csat_student_connection csc
 		 WHERE cs.student_seq = csc.student_seq
-		   AND cs.student_seq = cess.student_seq
 		   AND (cs.student_id LIKE CONCAT('%',#{search},'%') OR cs.nickname LIKE CONCAT('%',#{search},'%'))
 		 LIMIT #{pageNumber}, 10
 	</select>
@@ -93,7 +93,7 @@
 		  FROM csat_student
 		 WHERE create_date &gt;= DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s')
 		   AND create_date &lt; DATE_ADD(DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s'), INTERVAL 1 day)
-		 GROUP BY DATE_FORMAT(create_date, '%H'); 
+		 GROUP BY DATE_FORMAT(create_date, '%H')
 	</select>
 	
 	<select id="selectListCountYm" parameterType="String" resultMap="YmCountVoMap">
@@ -101,7 +101,7 @@
 		  FROM csat_student
 		 WHERE create_date &gt;= DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d')
 		   AND create_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d'), INTERVAL 1 month)
-		 GROUP BY DATE_FORMAT(create_date, '%d'); 
+		 GROUP BY DATE_FORMAT(create_date, '%d')
 	</select>
 	
 	<select id="selectListCountYear" parameterType="String" resultMap="YearCountVoMap">
@@ -109,7 +109,7 @@
 		  FROM csat_student
 		 WHERE create_date &gt;= DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d')
 		   AND create_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d'), INTERVAL 1 year)
-		 GROUP BY DATE_FORMAT(create_date, '%m'); 
+		 GROUP BY DATE_FORMAT(create_date, '%m')
 	</select>
 	
 	<insert id="insert" parameterType="StudentVo">

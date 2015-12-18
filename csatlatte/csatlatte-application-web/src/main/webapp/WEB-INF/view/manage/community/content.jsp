@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <h4 class="manage-community-title">커뮤니티 관리</h4>
 <div class="manage-community-search">
 	<div class="col-lg-5"><input type="text" class="form-control" placeholder="아이디 혹은 닉네임"></div>
@@ -16,20 +17,15 @@
 		</tr>
 	</thead>
 	<tbody>
+	<c:forEach items="${list}" var="list">
 		<tr>
-			<td><div data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">test</div></td>
-			<td>테스트</td>
-			<td><div data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail">이것은 내용입니다...</div></td>
-			<td><input type="checkbox"></td>
+			<td><div data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">${list.studentId}</div></td>
+			<td>${list.nickname}</td>
+			<td><div data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail">${list.content}</div></td>
+			<td><input type="checkbox" <c:if test="${list.blind eq 1}">checked</c:if>></td>
 			<td><img alt="글지우기" data-toggle="modal" data-target="#manage-community-delete" class="manage-community-delete" src="<c:url value="/resources/csatlatte/images/btn/btn_delete.png"/>"></td>
 		</tr>
-		<tr>
-			<td><div data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">test</div></td>
-			<td>테스트</td>
-			<td><div data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail">이것은 내용입니다...</div></td>
-			<td><input type="checkbox"></td>
-			<td><img alt="글지우기" data-toggle="modal" data-target="#manage-community-delete" class="manage-community-delete" src="<c:url value="/resources/csatlatte/images/btn/btn_delete.png"/>"></td>
-		</tr>
+	</c:forEach>
 	</tbody>
 </table>
 <div class="manage-community-btn-align">

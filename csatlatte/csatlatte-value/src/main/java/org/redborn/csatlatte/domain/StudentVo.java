@@ -13,6 +13,7 @@ public class StudentVo {
 	private String createDate;
 	private int countConnection;
 	private int averageScore;
+	private int activityScore;
 	private String securityQuestionContent;
 	private String csatName;
 	
@@ -104,6 +105,14 @@ public class StudentVo {
 		this.averageScore = averageScore;
 	}
 	
+	public int getActivityScore() {
+		return activityScore;
+	}
+	
+	public void setActivityScore(int activityScore) {
+		this.activityScore = activityScore;
+	}
+	
 	public String getSecurityQuestionContent() {
 		return securityQuestionContent;
 	}
@@ -128,8 +137,9 @@ public class StudentVo {
 				+ ", photoName=" + photoName + ", csatSequence=" + csatSequence
 				+ ", useYn=" + useYn + ", createDate=" + createDate
 				+ ", countConnection=" + countConnection + ", averageScore="
-				+ averageScore + ", securityQuestionContent="
-				+ securityQuestionContent + ", csatName=" + csatName + "]";
+				+ averageScore + ", activityScore=" + activityScore
+				+ ", securityQuestionContent=" + securityQuestionContent
+				+ ", csatName=" + csatName + "]";
 	}
 	
 }
