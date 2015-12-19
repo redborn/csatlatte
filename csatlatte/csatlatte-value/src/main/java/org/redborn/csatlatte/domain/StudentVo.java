@@ -13,9 +13,11 @@ public class StudentVo {
 	private String createDate;
 	private int countConnection;
 	private int averageScore;
-	private int activityScore;
 	private String securityQuestionContent;
 	private String csatName;
+	private int countCommunity;
+	private int countComment;
+	private String lastConnection;
 	
 	public int getStudentSequence() {
 		return studentSequence;
@@ -105,14 +107,6 @@ public class StudentVo {
 		this.averageScore = averageScore;
 	}
 	
-	public int getActivityScore() {
-		return activityScore;
-	}
-	
-	public void setActivityScore(int activityScore) {
-		this.activityScore = activityScore;
-	}
-	
 	public String getSecurityQuestionContent() {
 		return securityQuestionContent;
 	}
@@ -129,6 +123,30 @@ public class StudentVo {
 		this.csatName = csatName;
 	}
 
+	public int getCountCommunity() {
+		return countCommunity;
+	}
+
+	public void setCountCommunity(int countCommunity) {
+		this.countCommunity = countCommunity;
+	}
+
+	public int getCountComment() {
+		return countComment;
+	}
+
+	public void setCountComment(int countComment) {
+		this.countComment = countComment;
+	}
+
+	public String getLastConnection() {
+		return lastConnection;
+	}
+
+	public void setLastConnection(String lastConnection) {
+		this.lastConnection = lastConnection;
+	}
+
 	@Override
 	public String toString() {
 		return "StudentVo [studentSequence=" + studentSequence + ", studentId="
@@ -137,9 +155,10 @@ public class StudentVo {
 				+ ", photoName=" + photoName + ", csatSequence=" + csatSequence
 				+ ", useYn=" + useYn + ", createDate=" + createDate
 				+ ", countConnection=" + countConnection + ", averageScore="
-				+ averageScore + ", activityScore=" + activityScore
-				+ ", securityQuestionContent=" + securityQuestionContent
-				+ ", csatName=" + csatName + "]";
+				+ averageScore + ", securityQuestionContent="
+				+ securityQuestionContent + ", csatName=" + csatName
+				+ ", countCommunity=" + countCommunity + ", countComment="
+				+ countComment + ", lastConnection=" + lastConnection + "]";
 	}
-	
+
 }
