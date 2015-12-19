@@ -26,5 +26,6 @@ public interface StudentService {
 	public List<YearCountVo> annualConnectionCount(String year);
 	public List<StudentVo> userList(String search, int pageNumber);
 	public String securityQuestion(int studentSequence);
+	public int amountStudent();
 	
 }
