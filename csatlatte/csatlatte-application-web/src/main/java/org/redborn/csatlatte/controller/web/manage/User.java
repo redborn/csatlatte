@@ -34,7 +34,7 @@ public class User {
 		logger.info("manage user view");
 		
 		int beginPageNumber;
-		beginPageNumber = (pageNumber * 10) - 10 + 1;
+		beginPageNumber = (pageNumber * 10) - 10;
 		
 		Pagination pagination = new Pagination(pageNumber, studentService.amountStudent());
 		
