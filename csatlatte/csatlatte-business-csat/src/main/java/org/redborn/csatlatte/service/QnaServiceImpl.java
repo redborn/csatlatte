@@ -97,5 +97,9 @@ public class QnaServiceImpl implements QnaService {
 	public boolean answer(QnaAnswerVo qnaAnswerVo) {
 		return answerDao.insert(qnaAnswerVo) == 1;
 	}
+	
+	public int amountQuestion() {
+		return qnaDao.selectOneMaxQnaSequence() - 1;
+	}
 
 }

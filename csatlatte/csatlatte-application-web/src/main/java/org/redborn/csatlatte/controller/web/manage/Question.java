@@ -1,5 +1,7 @@
 package org.redborn.csatlatte.controller.web.manage;
 
+import org.redborn.csatlatte.commons.pagination.BootstrapPaginationWriter;
+import org.redborn.csatlatte.commons.pagination.Pagination;
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.redborn.csatlatte.service.QnaService;
 import org.slf4j.Logger;
@@ -27,10 +29,16 @@ public class Question {
 	 * 문의목록을 조회하는 페이지입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
-	public String get(Model model, @RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="0") int pageNumber,
+	public String get(Model model, @RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber,
 			@RequestParam(value="useYn",required=false,defaultValue="") String useYn) {
 		logger.info("manage question view");
-		model.addAttribute("list", qnaService.listForManage(search, pageNumber, useYn));
+		
+		int beginPageNumber = (pageNumber * 10) - 10;
+		
+		Pagination pagination = new Pagination(pageNumber, qnaService.amountQuestion());
+		
+		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/question", "pageNumber"));
+		model.addAttribute("list", qnaService.listForManage(search, beginPageNumber, useYn));
 		return TilesName.MANAGE_QUESTION;
 	}
 }

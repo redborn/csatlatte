@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
 <h4 class="manage-question-title">문의 관리</h4>
 <div class="row">
 	<div class="col-lg-7">
@@ -43,23 +44,7 @@
 	</tbody>
 </table>
 <nav>
-	<ul class="pagination">
-		<li>
-			<a href="#" aria-label="Previous">
-				<span aria-hidden="true">&laquo;</span>
-			</a>
-		</li>
-		<li><a href="#">1</a></li>
-		<li><a href="#">2</a></li>
-		<li><a href="#">3</a></li>
-		<li><a href="#">4</a></li>
-		<li><a href="#">5</a></li>
-		<li>
-			<a href="#" aria-label="Next">
-				<span aria-hidden="true">&raquo;</span>
-			</a>
-		</li>
-	</ul>
+	<pagination:writer value="${paginationWriter}"/>
 </nav>
 <div class="modal fade" id="manage-question-answer-view" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
@@ -82,32 +67,6 @@
 				<div class="manage-question-qna-answer-content">
 					답변내용은 이렇습니다.
 				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="manage-question-answer" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				답변하기
-			</div>
-			<div class="modal-body">
-				<div class="manage-question-qna-title">
-					<h5>문의제목</h5>
-					<div class="manage-question-qna-title-content">이것은 내용입니다.</div>
-				</div>
-				<div class="manage-question-qna-content">
-					문의내용은 이렇습니다.
-				</div>
-				<div class="manage-question-qna-answer">
-					<h5>답변내용</h5>
-					<textarea rows="5" class="form-control" placeholder="여기에 답변 내용을 입력해주세요."></textarea>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<img class="manage-question-btn-cancel" data-dismiss="modal" src="<c:url value="/resources/csatlatte/images/btn/btn_cancel.png"/>">
-				<img class="manage-question-btn-accept" src="<c:url value="/resources/csatlatte/images/btn/btn_accept.png"/>">
 			</div>
 		</div>
 	</div>
