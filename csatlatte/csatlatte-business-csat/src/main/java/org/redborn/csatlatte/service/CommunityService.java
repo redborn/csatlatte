@@ -7,6 +7,8 @@ import org.redborn.csatlatte.domain.CommunityVo;
 import org.redborn.csatlatte.domain.CountVo;
 
 public interface CommunityService {
+	
+	public static final int COMMUNITY = 1;
 
 	public boolean blind(int communityTypeSequence, int communitySequence, String content);
 	public boolean write(CommunityVo communityVo);
