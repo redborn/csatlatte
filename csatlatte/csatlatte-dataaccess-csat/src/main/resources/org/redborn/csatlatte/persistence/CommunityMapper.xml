@@ -45,6 +45,11 @@
 		   AND student_seq = #{studentSequence}
 	</select>
 	
+	<select id="selectOneAmountCommunity" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_community
+	</select>
+	
 	<select id="selectListCountYmd" parameterType="Map" resultMap="YmdCountVoMap">
 		SELECT CAST(DATE_FORMAT(write_date, '%H') AS SIGNED) AS hour,COUNT(community_seq) AS count_write
 		  FROM csat_community

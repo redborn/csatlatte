@@ -11,12 +11,33 @@
 		<result column="exam_seq" property="examSequence"/>
 		<result column="exam_name" property="examName"/>
 	</resultMap>
+	
+	<resultMap type="ExamVo" id="ExamVoForManageMap">
+		<result column="year" property="year" />
+		<result column="exam_name" property="examName" />
+		<result column="manage_name" property="manageName" />
+	</resultMap>
+
+	<select id="selectOne" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_exam
+	</select>
 
 	<select id="selectListExam" parameterType="int" resultMap="ExamVoMap">
 		SELECT csat_seq,exam_seq,exam_name
 		  FROM csat_exam
 		 WHERE csat_seq = #{csatSequence}
 		 ORDER BY exam_seq ASC 
+	</select>
+	
+	<select id="selectListExamForManage" parameterType="Map" resultMap="ExamVoForManageMap">
+		SELECT DATE_FORMAT(ce.exam_ymd, '%Y') AS year,ce.exam_name,cm.manage_name
+		  FROM csat_exam ce,csat_manage cm
+		 WHERE ce.manage_seq = cm.manage_seq
+		   AND ( ce.exam_name LIKE CONCAT('%', #{search}, '%')
+		          OR cm.manage_name LIKE CONCAT('%', #{search}, '%') )
+		 ORDER BY year
+		 LIMIT #{pageNumber}, 10 
 	</select>
 	
 	<insert id="insert" parameterType="ExamVo">
