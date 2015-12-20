@@ -36,7 +36,7 @@
 		<tr>
 			<td>${list.studentId}</td>
 			<td>${list.nickname}</td>
-			<td><div class="manage-question-content" data-toggle="modal" data-target="#manage-question-answer-view">${list.title}</div></td>
+			<td><div class="manage-question-content" data-toggle="modal" data-target="#manage-question-answer-view${list.qnaSequence}">${list.title}</div></td>
 			<td>${list.writeDate}</td>
 			<td><c:choose><c:when test="${list.useYn eq 'Y'}">X</c:when><c:otherwise>O</c:otherwise></c:choose></td>
 		</tr>
@@ -46,7 +46,8 @@
 <nav>
 	<pagination:writer value="${paginationWriter}"/>
 </nav>
-<div class="modal fade" id="manage-question-answer-view" tabindex="-1" role="dialog">
+<c:forEach items="${list}" var="list">
+<div class="modal fade" id="manage-question-answer-view${list.qnaSequence}" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -56,10 +57,10 @@
 			<div class="modal-body">
 				<div class="manage-question-qna-title">
 					<h5>문의제목</h5>
-					<div class="manage-question-qna-title-content">이것은 내용입니다.</div>
+					<div class="manage-question-qna-title-content">${list.title}</div>
 				</div>
 				<div class="manage-question-qna-content">
-					문의내용은 이렇습니다.
+					${list.content}
 				</div>
 				<div class="manage-question-qna-answer">
 					<h5>답변내용</h5>
@@ -71,3 +72,4 @@
 		</div>
 	</div>
 </div>
+</c:forEach>
