@@ -1,5 +1,7 @@
 package org.redborn.csatlatte.controller.web.manage;
 
+import org.redborn.csatlatte.commons.pagination.BootstrapPaginationWriter;
+import org.redborn.csatlatte.commons.pagination.Pagination;
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.redborn.csatlatte.service.CommunityService;
 import org.slf4j.Logger;
@@ -28,9 +30,15 @@ public class Community {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model, @RequestParam(value="communityTypeSequence",required=false,defaultValue="1") int communityTypeSequence,
-			@RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="0") int pageNumber) {
+			@RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
 		logger.info("manage community view");
-		model.addAttribute("list", communityService.list(communityTypeSequence, search, pageNumber));
+		
+		int beginPageNumber = (pageNumber * 10) - 10;
+		
+		Pagination pagination = new Pagination(pageNumber, communityService.amountCommunity());
+		
+		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/community", "pageNumber"));
+		model.addAttribute("list", communityService.list(communityTypeSequence, search, beginPageNumber));
 		return TilesName.MANAGE_COMMUNITY;
 	}
 }
