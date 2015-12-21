@@ -22,7 +22,7 @@
 		<tr>
 			<td><div data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">${list.studentId}</div></td>
 			<td>${list.nickname}</td>
-			<td><div data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail">${list.content}</div></td>
+			<td><div data-toggle="modal" data-target="#manage-community-text-detail${list.communitySequence}" class="manage-community-text-detail">${list.content}</div></td>
 			<td><input type="checkbox" <c:if test="${list.blind eq 1}">checked</c:if>></td>
 			<td><img alt="글지우기" data-toggle="modal" data-target="#manage-community-delete" class="manage-community-delete" src="<c:url value="/resources/csatlatte/images/btn/btn_delete.png"/>"></td>
 		</tr>
@@ -86,7 +86,8 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="manage-community-text-detail" role="dialog">
+<c:forEach items="${list}" var="list">
+<div class="modal fade" id="manage-community-text-detail${list.communitySequence}" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -94,8 +95,8 @@
 				<div class="community-text">
 					<img alt="프로필사진" class="community-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
 					<div class="community-user-info">
-						<div class="community-name"><strong>닉네임</strong></div>
-						<div class="community-calender">2015-09-20 11:52:37</div>
+						<div class="community-name"><strong>${list.nickname}</strong></div>
+						<div class="community-calender">${list.writeDate}</div>
 					</div>
 				<div class="dropdown">
 					<img class="dropdown-toggle" id="community-text-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" alt="글메뉴" src="<c:url value="/resources/csatlatte/images/btn/btn_menu.png"/>">
@@ -108,7 +109,7 @@
 				</div>
 			</div>
 			<div class="modal-body">
-				<div class="community-content">글 내용</div>
+				<div class="community-content">${list.content}</div>
 			</div>
 			<div class="modal-footer">
 				<div class="community-text">
@@ -136,3 +137,4 @@
 		</div>
 	</div>
 </div>
+</c:forEach>
