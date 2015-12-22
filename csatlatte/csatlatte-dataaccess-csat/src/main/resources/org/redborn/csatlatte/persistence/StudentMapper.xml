@@ -54,6 +54,41 @@
 		   AND cs.csat_seq = c.csat_seq
 	</select>
 
+	<select id="selectOneDetail" parameterType="int" resultMap="StudentVoMap">
+		SELECT cs.student_seq,cs.student_id,cs.nickname,cs.use_yn,cc.count_community,
+		       ccc.count_comment,cess.avg_score,csc.count_connection,csc.last_connection
+		  FROM csat_student cs
+		       LEFT OUTER JOIN (SELECT cs.student_seq,COUNT(cc.community_seq) AS
+		                                              count_community
+		                          FROM csat_student cs
+		                               LEFT OUTER JOIN csat_community cc
+		                                            ON cs.student_seq = cc.student_seq
+		                         GROUP BY cs.student_seq) cc
+		                    ON cs.student_seq = cc.student_seq
+		       LEFT OUTER JOIN (SELECT cs.student_seq,COUNT(ccc.comment_seq) AS
+		                                              count_comment
+		                          FROM csat_student cs
+		                               LEFT OUTER JOIN csat_community_comment ccc
+		                                            ON cs.student_seq = ccc.student_seq
+		                         GROUP BY cs.student_seq) ccc
+		                    ON cs.student_seq = ccc.student_seq
+		       LEFT OUTER JOIN (SELECT cs.student_seq,AVG(cess.score) AS avg_score
+		                          FROM csat_student cs
+		                               LEFT OUTER JOIN csat_exam_student_score cess
+		                                            ON cs.student_seq = cess.student_seq
+		                         GROUP BY cs.student_seq) cess
+		                    ON cs.student_seq = cess.student_seq
+		       LEFT OUTER JOIN (SELECT csc.student_seq,COUNT(csc.connection_seq) AS
+		                                               count_connection,
+		                       DATE_FORMAT(MAX(csc.connection_date), '%Y-%m-%d %H:%i:%s'
+		                       ) AS
+		                       last_connection
+		                          FROM csat_student_connection csc
+		                         GROUP BY csc.student_seq) csc
+		                    ON cs.student_seq = csc.student_seq
+		 WHERE cs.student_seq = #{studentSequence};
+	</select> 
+
 	<select id="selectOneCountPassword" parameterType="Map" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_student

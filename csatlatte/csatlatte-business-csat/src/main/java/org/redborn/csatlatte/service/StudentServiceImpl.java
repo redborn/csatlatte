@@ -81,6 +81,10 @@ public class StudentServiceImpl implements StudentService {
 	public StudentVo information(String id, String password) {
 		return studentDao.selectOne(id, password);
 	}
+	
+	public StudentVo information(int studentSequence) {
+		return studentDao.selectOneDetail(studentSequence);
+	}
 
 	public boolean lock(int studentSequence) {
 		return studentDao.updateUseYnN(studentSequence) == 1;
