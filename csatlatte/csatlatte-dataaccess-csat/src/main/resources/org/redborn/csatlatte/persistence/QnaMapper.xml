@@ -17,6 +17,8 @@
 		<result column="nickname" property="nickname"/>
 		<result column="content" property="content"/>
 		<result column="write_date" property="writeDate"/>
+		<result column="use_yn" property="useYn"/>
+		<result column="title" property="title"/>
 	</resultMap>
 	
 	<resultMap type="QnaForStudentVo" id="QnaForStudentVoMap">
@@ -39,13 +41,14 @@
 	
 	<select id="selectListForManage" parameterType="Map" resultMap="QnaForManageVoMap">
 		SELECT cq.qna_seq as qna_seq,cs.student_id as student_id,
-			   cs.nickname as nickname,cqc.content as content,
-			   cq.write_date as write_date
+			   cs.nickname as nickname,cqc.content as content,cq.title,
+			   cq.write_date as write_date,cq.use_yn
 		  FROM csat_qna cq,csat_qna_content cqc,csat_student cs
 		 WHERE cq.qna_seq = cqc.qna_seq
 		   AND cq.student_seq = cs.student_seq
-		   AND cs.student_id like CONCAT('%',#{search},'%') OR cs.nickname like CONCAT('%',#{search},'%')
-		 LIMIT #{begin}, 10
+		   AND cq.use_yn like CONCAT ('%',#{useYn},'%')
+		   AND (cs.student_id like CONCAT('%',#{search},'%') OR cs.nickname like CONCAT('%',#{search},'%'))
+		 LIMIT #{pageNumber}, 10
 	</select>
 	
 	<select id="selectListForStudent" parameterType="Map" resultMap="QnaForStudentVoMap">
@@ -53,7 +56,7 @@
 		  FROM csat_qna cq,csat_qna_content cqc
 		 WHERE cq.qna_seq = cqc.qna_seq
 		   AND cq.student_seq = #{studentSequence}
-		 LIMIT #{begin}, 10 
+		 LIMIT #{pageNumber}, 10 
 	</select>
 	
 	<insert id="insert" parameterType="QnaVo">

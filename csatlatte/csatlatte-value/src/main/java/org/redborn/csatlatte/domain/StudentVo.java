@@ -15,6 +15,9 @@ public class StudentVo {
 	private int averageScore;
 	private String securityQuestionContent;
 	private String csatName;
+	private int countCommunity;
+	private int countComment;
+	private String lastConnection;
 	
 	public int getStudentSequence() {
 		return studentSequence;
@@ -120,6 +123,30 @@ public class StudentVo {
 		this.csatName = csatName;
 	}
 
+	public int getCountCommunity() {
+		return countCommunity;
+	}
+
+	public void setCountCommunity(int countCommunity) {
+		this.countCommunity = countCommunity;
+	}
+
+	public int getCountComment() {
+		return countComment;
+	}
+
+	public void setCountComment(int countComment) {
+		this.countComment = countComment;
+	}
+
+	public String getLastConnection() {
+		return lastConnection;
+	}
+
+	public void setLastConnection(String lastConnection) {
+		this.lastConnection = lastConnection;
+	}
+
 	@Override
 	public String toString() {
 		return "StudentVo [studentSequence=" + studentSequence + ", studentId="
@@ -129,7 +156,9 @@ public class StudentVo {
 				+ ", useYn=" + useYn + ", createDate=" + createDate
 				+ ", countConnection=" + countConnection + ", averageScore="
 				+ averageScore + ", securityQuestionContent="
-				+ securityQuestionContent + ", csatName=" + csatName + "]";
+				+ securityQuestionContent + ", csatName=" + csatName
+				+ ", countCommunity=" + countCommunity + ", countComment="
+				+ countComment + ", lastConnection=" + lastConnection + "]";
 	}
-	
+
 }

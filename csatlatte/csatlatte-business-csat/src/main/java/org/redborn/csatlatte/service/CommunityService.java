@@ -10,6 +10,7 @@ public interface CommunityService {
 	
 	public static final int COMMUNITY = 1;
 
+	public int amountCommunity();
 	public boolean blind(int communityTypeSequence, int communitySequence, String content);
 	public boolean write(CommunityVo communityVo);
 	public boolean modify(CommunityVo communityVo);
@@ -19,6 +20,7 @@ public interface CommunityService {
 	public boolean modifyComment(CommentVo commentVo);
 	public boolean deleteComment(CommentVo commentVo);
 	public List<CommunityVo> list(int communityTypeSequence);
+	public List<CommunityVo> list(int communityTypeSequence, String search, int pageNumber);
 	public List<CommunityVo> list(int communityTypeSequence, int studentSequence);
 	public List<CommentVo> commentList(int communityTypeSequence, int communitySequence);
 	public boolean report(int studentSequence,int communityTypeSequence, int communitySequence, int reportTypeSequence);

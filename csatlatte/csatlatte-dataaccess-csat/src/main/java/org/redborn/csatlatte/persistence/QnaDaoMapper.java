@@ -21,18 +21,19 @@ public class QnaDaoMapper extends SqlSessionDaoSupport implements QnaDao {
 		return getSqlSession().selectOne("qna.selectOneMaxQnaSequence");
 	}
 
-	public List<QnaForManageVo> selectListForManage(String search, int begin) {
+	public List<QnaForManageVo> selectListForManage(String search, int pageNumber, String useYn) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("search", search);
-		params.put("begin", begin);
+		params.put("pageNumber", pageNumber);
+		params.put("useYn", useYn);
 		
 		return getSqlSession().selectList("qna.selectListForManage", params);
 	}
 
-	public List<QnaForStudentVo> selectListForStudent(int studentSequence, int begin) {
+	public List<QnaForStudentVo> selectListForStudent(int studentSequence, int pageNumber) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("studentSequence", studentSequence);
-		params.put("begin", begin);
+		params.put("pageNumber", pageNumber);
 		
 		return getSqlSession().selectList("qna.selectListForStudent", params);
 	}

@@ -20,6 +20,10 @@ public class CommunityDaoMapper extends SqlSessionDaoSupport implements Communit
 		
 		return getSqlSession().selectOne("community.selectOne", params);
 	}
+	
+	public int selectOneAmountCommunity() {
+		return getSqlSession().selectOne("community.selectOneAmountCommunity");
+	}
 
 	public List<CountVo> selectListCountYmd(int communityTypeSequence, String ymd) {
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -47,6 +51,15 @@ public class CommunityDaoMapper extends SqlSessionDaoSupport implements Communit
 
 	public List<CommunityVo> selectList(int communityTypeSequence) {
 		return getSqlSession().selectList("community.selectList", communityTypeSequence);
+	}
+	
+	public List<CommunityVo> selectListForManage(int communityTypeSequence, String search, int pageNumber) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("communityTypeSequence", communityTypeSequence);
+		params.put("search", search);
+		params.put("pageNumber", pageNumber);
+		
+		return getSqlSession().selectList("community.selectListForManage", params);
 	}
 
 	public List<CommunityVo> selectListStudentText(int communityTypeSequence, int studentSequence) {

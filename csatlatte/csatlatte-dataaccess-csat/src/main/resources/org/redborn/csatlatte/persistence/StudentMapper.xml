@@ -7,11 +7,16 @@
 <mapper namespace="student">
 
 	<resultMap type="StudentVo" id="StudentVoMap">
-		<result column="student_id" property="studentId"/>
-		<result column="nickname" property="nickname"/>
-		<result column="count_connection" property="countConnection"/>
-		<result column="use_yn" property="useYn"/>
-		<result column="avg_score" property="averageScore"/>
+		<result column="student_seq" property="studentSequence" />
+		<result column="student_id" property="studentId" />
+		<result column="nickname" property="nickname" />
+		<result column="use_yn" property="useYn" />
+		<result column="count_community" property="countCommunity" />
+		<result column="count_comment" property="countComment" />
+		<result column="avg_score" property="averageScore" />
+		<result column="count_connection" property="countConnection" />
+		<result column="last_connection" property="lastConnection" />
+		<result column="create_date" property="createDate" />
 	</resultMap>
 	
 	<resultMap type="StudentVo" id="StudentInformationVoMap">
@@ -50,6 +55,41 @@
 		   AND cs.csat_seq = c.csat_seq
 	</select>
 
+	<select id="selectOneDetail" parameterType="int" resultMap="StudentVoMap">
+		SELECT cs.student_seq,cs.student_id,cs.nickname,cs.use_yn,cc.count_community,
+		       ccc.count_comment,cess.avg_score,csc.count_connection,csc.last_connection,date_format(cs.create_date, '%Y-%m-%d %H:%i:%s') as create_date
+		  FROM csat_student cs
+		       LEFT OUTER JOIN (SELECT cs.student_seq,COUNT(cc.community_seq) AS
+		                                              count_community
+		                          FROM csat_student cs
+		                               LEFT OUTER JOIN csat_community cc
+		                                            ON cs.student_seq = cc.student_seq
+		                         GROUP BY cs.student_seq) cc
+		                    ON cs.student_seq = cc.student_seq
+		       LEFT OUTER JOIN (SELECT cs.student_seq,COUNT(ccc.comment_seq) AS
+		                                              count_comment
+		                          FROM csat_student cs
+		                               LEFT OUTER JOIN csat_community_comment ccc
+		                                            ON cs.student_seq = ccc.student_seq
+		                         GROUP BY cs.student_seq) ccc
+		                    ON cs.student_seq = ccc.student_seq
+		       LEFT OUTER JOIN (SELECT cs.student_seq,AVG(cess.score) AS avg_score
+		                          FROM csat_student cs
+		                               LEFT OUTER JOIN csat_exam_student_score cess
+		                                            ON cs.student_seq = cess.student_seq
+		                         GROUP BY cs.student_seq) cess
+		                    ON cs.student_seq = cess.student_seq
+		       LEFT OUTER JOIN (SELECT csc.student_seq,COUNT(csc.connection_seq) AS
+		                                               count_connection,
+		                       DATE_FORMAT(MAX(csc.connection_date), '%Y-%m-%d %H:%i:%s'
+		                       ) AS
+		                       last_connection
+		                          FROM csat_student_connection csc
+		                         GROUP BY csc.student_seq) csc
+		                    ON cs.student_seq = csc.student_seq
+		 WHERE cs.student_seq = #{studentSequence};
+	</select> 
+
 	<select id="selectOneCountPassword" parameterType="Map" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_student
@@ -79,13 +119,40 @@
 	</select>
 	
 	<select id="selectList" parameterType="Map" resultMap="StudentVoMap">
-		SELECT cs.student_id as student_id,cs.nickname as nickname,
-			   COUNT(csc.student_seq) as count_connection,use_yn,AVG(cess.score) as avg_score
-		  FROM csat_student cs,csat_student_connection csc,csat_exam_student_score cess
-		 WHERE cs.student_seq = csc.student_seq
-		   AND cs.student_seq = cess.student_seq
-		   AND (cs.student_id LIKE CONCAT('%',#{search},'%') OR cs.nickname LIKE CONCAT('%',#{search},'%'))
-		 LIMIT #{pageNumber}, 10
+		SELECT cs.student_seq,cs.student_id,cs.nickname,cs.use_yn,cc.count_community,
+		       ccc.count_comment,cess.avg_score,csc.count_connection,csc.last_connection
+		  FROM csat_student cs
+		       LEFT OUTER JOIN (SELECT cs.student_seq,COUNT(cc.community_seq) AS
+		                                              count_community
+		                          FROM csat_student cs
+		                               LEFT OUTER JOIN csat_community cc
+		                                            ON cs.student_seq = cc.student_seq
+		                         GROUP BY cs.student_seq) cc
+		                    ON cs.student_seq = cc.student_seq
+		       LEFT OUTER JOIN (SELECT cs.student_seq,COUNT(ccc.comment_seq) AS
+		                                              count_comment
+		                          FROM csat_student cs
+		                               LEFT OUTER JOIN csat_community_comment ccc
+		                                            ON cs.student_seq = ccc.student_seq
+		                         GROUP BY cs.student_seq) ccc
+		                    ON cs.student_seq = ccc.student_seq
+		       LEFT OUTER JOIN (SELECT cs.student_seq,AVG(cess.score) AS avg_score
+		                          FROM csat_student cs
+		                               LEFT OUTER JOIN csat_exam_student_score cess
+		                                            ON cs.student_seq = cess.student_seq
+		                         GROUP BY cs.student_seq) cess
+		                    ON cs.student_seq = cess.student_seq
+		       LEFT OUTER JOIN (SELECT csc.student_seq,COUNT(csc.connection_seq) AS
+		                                               count_connection,
+		                       DATE_FORMAT(MAX(csc.connection_date), '%Y-%m-%d %H:%i:%s'
+		                       ) AS
+		                       last_connection
+		                          FROM csat_student_connection csc
+		                         GROUP BY csc.student_seq) csc
+		                    ON cs.student_seq = csc.student_seq
+		 WHERE ( student_id LIKE CONCAT('%', #{search}, '%')
+		      OR nickname LIKE CONCAT('%', #{search}, '%') )
+		 LIMIT #{pageNumber}, 10; 
 	</select>
 	
 	<select id="selectListCountYmd" parameterType="String" resultMap="YmdCountVoMap">
@@ -93,7 +160,7 @@
 		  FROM csat_student
 		 WHERE create_date &gt;= DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s')
 		   AND create_date &lt; DATE_ADD(DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s'), INTERVAL 1 day)
-		 GROUP BY DATE_FORMAT(create_date, '%H'); 
+		 GROUP BY DATE_FORMAT(create_date, '%H')
 	</select>
 	
 	<select id="selectListCountYm" parameterType="String" resultMap="YmCountVoMap">
@@ -101,7 +168,7 @@
 		  FROM csat_student
 		 WHERE create_date &gt;= DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d')
 		   AND create_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d'), INTERVAL 1 month)
-		 GROUP BY DATE_FORMAT(create_date, '%d'); 
+		 GROUP BY DATE_FORMAT(create_date, '%d')
 	</select>
 	
 	<select id="selectListCountYear" parameterType="String" resultMap="YearCountVoMap">
@@ -109,7 +176,7 @@
 		  FROM csat_student
 		 WHERE create_date &gt;= DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d')
 		   AND create_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d'), INTERVAL 1 year)
-		 GROUP BY DATE_FORMAT(create_date, '%m'); 
+		 GROUP BY DATE_FORMAT(create_date, '%m')
 	</select>
 	
 	<insert id="insert" parameterType="StudentVo">

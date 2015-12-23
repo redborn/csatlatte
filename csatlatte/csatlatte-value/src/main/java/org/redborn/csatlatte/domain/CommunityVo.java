@@ -5,9 +5,11 @@ public class CommunityVo {
 	private int communityTypeSequence;
 	private int communitySequence;
 	private int studentSequence;
+	private String studentId;
 	private String nickname;
 	private String content;
 	private String writeYmdhms;
+	private int blind;
 
 	public int getCommunityTypeSequence() {
 		return communityTypeSequence;
@@ -31,6 +33,14 @@ public class CommunityVo {
 
 	public void setStudentSequence(int studentSequence) {
 		this.studentSequence = studentSequence;
+	}
+
+	public String getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
 	}
 
 	public String getNickname() {
@@ -57,13 +67,35 @@ public class CommunityVo {
 		this.writeYmdhms = writeYmdhms;
 	}
 
+	public int getBlind() {
+		return blind;
+	}
+
+	public void setBlind(int blind) {
+		this.blind = blind;
+	}
+
 	@Override
 	public String toString() {
-		return "CommunityVo [communityTypeSequence=" + communityTypeSequence
-				+ ", communitySequence=" + communitySequence
-				+ ", studentSequence=" + studentSequence + ", nickname="
-				+ nickname + ", content=" + content + ", writeYmdhms="
-				+ writeYmdhms + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("CommunityVo [communityTypeSequence=");
+		builder.append(communityTypeSequence);
+		builder.append(", communitySequence=");
+		builder.append(communitySequence);
+		builder.append(", studentSequence=");
+		builder.append(studentSequence);
+		builder.append(", studentId=");
+		builder.append(studentId);
+		builder.append(", nickname=");
+		builder.append(nickname);
+		builder.append(", content=");
+		builder.append(content);
+		builder.append(", writeYmdhms=");
+		builder.append(writeYmdhms);
+		builder.append(", blind=");
+		builder.append(blind);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

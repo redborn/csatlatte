@@ -8,8 +8,6 @@ import org.redborn.csatlatte.persistence.CsatDao;
 import org.redborn.csatlatte.persistence.ExamDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.stereotype.Service;
-import org.springframework.stereotype.Service;
 
 @Service
 public class ExamServiceImpl implements ExamService {
@@ -27,6 +25,10 @@ public class ExamServiceImpl implements ExamService {
 	public List<ExamVo> list(int csatSequence) {
 		return examDao.selectListExam(csatSequence);
 	}
+	
+	public List<ExamVo> listForManage(int pageNumber, String search) {
+		return examDao.selectListExamForManage(pageNumber, search);
+	}
 
 	public int register(ExamVo examVo) {
 		return examDao.insert(examVo);
@@ -38,6 +40,10 @@ public class ExamServiceImpl implements ExamService {
 
 	public int delete(int examSequence) {
 		return examDao.delete(examSequence);
+	}
+	
+	public int amountExam() {
+		return examDao.selectOne();
 	}
 
 }

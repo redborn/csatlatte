@@ -32,6 +32,10 @@ public class CommunityServiceImpl implements CommunityService {
 	@Autowired
 	private CommentReportDao commentReportDao;
 	
+	public int amountCommunity() {
+		return communityDao.selectOneAmountCommunity();
+	}
+	
 	public boolean blind(int communityTypeSequence, int communitySequence, String content) {
 		return blindDao.selectOne(communityTypeSequence, communitySequence) == 0 
 				&& blindDao.insert(communityTypeSequence, communitySequence, content) == 1;
@@ -72,6 +76,10 @@ public class CommunityServiceImpl implements CommunityService {
 
 	public List<CommunityVo> list(int communityTypeSequence) {
 		return communityDao.selectList(communityTypeSequence);
+	}
+	
+	public List<CommunityVo> list(int communityTypeSequence, String search, int pageNumber) {
+		return communityDao.selectListForManage(communityTypeSequence, search, pageNumber);
 	}
 
 	public List<CommunityVo> list(int communityTypeSequence, int studentSequence) {

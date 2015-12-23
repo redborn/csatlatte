@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 	nav {text-align:center;}
 	th {text-align:center;}
@@ -24,3 +25,18 @@
 	textarea {resize:none; border:none; padding-top:5px;}
 	textarea.form-control {display:block; width:100%; height:150px;}
 </style>
+<script>
+	$(document).ready(function () {
+		$("#manage-question-all").on("click", function () {
+			$(location).attr('href', '<c:url value="/manage/question"/>');
+		});
+		
+		$("#manage-question-standby").on("click", function () {
+			$(location).attr('href', '<c:url value="/manage/question?useYn=Y"/>');
+		});
+		
+		$("#manage-question-success").on("click", function () {
+			$(location).attr('href', '<c:url value="/manage/question?useYn=N"/>');
+		});
+	});
+</script>
