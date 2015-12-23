@@ -33,12 +33,9 @@ public class Community {
 			@RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
 		logger.info("manage community view");
 		
-		int beginPageNumber = (pageNumber * 10) - 10;
-		
 		Pagination pagination = new Pagination(pageNumber, communityService.amountCommunity());
 		
 		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/community", "pageNumber"));
-		model.addAttribute("list", communityService.list(communityTypeSequence, search, beginPageNumber));
 		return TilesName.MANAGE_COMMUNITY;
 	}
 }
