@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
 <h4 class="manage-exam-title">모의고사 관리</h4>
 <div class="manage-exam-search">
 	<div class="col-lg-5"><input type="text" class="form-control" placeholder="아이디 혹은 닉네임"></div>
@@ -16,43 +18,22 @@
 		</tr>
 	</thead>
 	<tbody>
+	<c:forEach items="${list}" var="list">
 		<tr>
-			<td>2014년</td>
-			<td>7월 3학년 모의고사</td>
-			<td>서울특별시교육청</td>
+			<td>${list.year}</td>
+			<td>${list.examName}</td>
+			<td><div class="manage-question-content" data-toggle="modal" data-target="#manage-question-answer-view">${list.manageName}</div></td>
 			<td><img alt="시험수정" data-toggle="modal" data-target="#manage-exam-modify" class="manage-exam-modify" src="<c:url value="/resources/csatlatte/images/btn/btn_modify.png"/>"></td>
 			<td><img alt="시험지우기" data-toggle="modal" data-target="#manage-exam-delete" class="manage-exam-delete" src="<c:url value="/resources/csatlatte/images/btn/btn_delete.png"/>"></td>
 		</tr>
-		<tr>
-			<td>2014년</td>
-			<td>7월 3학년 모의고사</td>
-			<td>서울특별시교육청</td>
-			<td><img alt="시험수정" data-toggle="modal" data-target="#manage-exam-modify" class="manage-exam-modify" src="<c:url value="/resources/csatlatte/images/btn/btn_modify.png"/>"></td>
-			<td><img alt="시험지우기" data-toggle="modal" data-target="#manage-exam-delete" class="manage-exam-delete" src="<c:url value="/resources/csatlatte/images/btn/btn_delete.png"/>"></td>
-		</tr>
+	</c:forEach>
 	</tbody>
 </table>
 <div class="manage-exam-btn-align">
 	<button class="btn btn-default manage-exam-add" data-toggle="modal" data-target="#manage-exam-add">모의고사 추가</button>
 </div>
 <nav>
-	<ul class="pagination">
-		<li>
-			<a href="#" aria-label="Previous">
-				<span aria-hidden="true">&laquo;</span>
-			</a>
-		</li>
-		<li><a href="#">1</a></li>
-		<li><a href="#">2</a></li>
-		<li><a href="#">3</a></li>
-		<li><a href="#">4</a></li>
-		<li><a href="#">5</a></li>
-		<li>
-			<a href="#" aria-label="Next">
-				<span aria-hidden="true">&raquo;</span>
-			</a>
-		</li>
-	</ul>
+	<pagination:writer value="${paginationWriter}"/>
 </nav>
 <div class="modal fade" id="manage-exam-modify" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">

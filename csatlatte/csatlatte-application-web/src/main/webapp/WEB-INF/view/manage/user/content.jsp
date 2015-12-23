@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
 <h4 class="manage-user-title">회원 관리</h4>
 <div class="manage-user-search">
 	<div class="col-lg-5"><input type="text" class="form-control" placeholder="아이디 혹은 닉네임"></div>
@@ -34,21 +35,7 @@
 	<input type="submit" class="btn btn-default manage-user-apply" value="적용">
 </div>
 <nav>
-	<ul class="pagination">
-		<li>
-			<a href="<c:url value="/manage/user?beginPageNumber=${selectedPageNumber - 1}&pageNumber=${(selectedPageNumber - 1) * 10 - 10}"/>" aria-label="Previous">
-				<span aria-hidden="true">&laquo;</span>
-			</a>
-		</li>
-		<c:forEach var="index" begin="${beginPageNumber}" end="${endPageNumber}" step="1">
-			<li><a href="<c:url value="/manage/user?beginPageNumber=${index}&pageNumber=${index * 10 - 10}"/>">${index}</a></li>
-		</c:forEach>
-		<li>
-			<a href="<c:url value="/manage/user?beginPageNumber=${selectedPageNumber + 1}&pageNumber=${(selectedPageNumber + 1) * 10 - 10}"/>" aria-label="Next">
-				<span aria-hidden="true">&raquo;</span>
-			</a>
-		</li>
-	</ul>
+	<pagination:writer value="${paginationWriter}"/>
 </nav>
 <c:forEach items="${userList}" var="userList">
 <div class="modal fade" id="manage-user-id${userList.studentSequence}" tabindex="-1" role="dialog">

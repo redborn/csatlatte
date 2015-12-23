@@ -32,6 +32,10 @@ public class CommunityServiceImpl implements CommunityService {
 	@Autowired
 	private CommentReportDao commentReportDao;
 	
+	public int amountCommunity() {
+		return communityDao.selectOneAmountCommunity();
+	}
+	
 	public boolean blind(int communityTypeSequence, int communitySequence, String content) {
 		return blindDao.selectOne(communityTypeSequence, communitySequence) == 0 
 				&& blindDao.insert(communityTypeSequence, communitySequence, content) == 1;

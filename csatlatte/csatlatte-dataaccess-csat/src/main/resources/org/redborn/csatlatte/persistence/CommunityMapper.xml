@@ -20,6 +20,7 @@
 		<result column="content" property="content"/>
 		<result column="write_date" property="writeDate"/>
 		<result column="blind" property="blind"/>
+		<result column="student_seq" property="studentSequence"/>
 	</resultMap>
 	
 	<resultMap type="CountVo" id="YmdCountVoMap">
@@ -43,6 +44,11 @@
 		 WHERE community_type_seq = #{communityTypeSequence}
 		   AND community_seq = #{communitySequence}
 		   AND student_seq = #{studentSequence}
+	</select>
+	
+	<select id="selectOneAmountCommunity" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_community
 	</select>
 	
 	<select id="selectListCountYmd" parameterType="Map" resultMap="YmdCountVoMap">
@@ -81,13 +87,19 @@
 	</select>
 	
 	<select id="selectListForManage" parameterType="Map" resultMap="CommunityVoManageMap">
-		SELECT cc.community_seq, cs.student_id, cs.nickname, cc.content, cc.write_date, COUNT(ccb.community_seq) as blind
-		  FROM csat_community cc LEFT OUTER JOIN csat_community_blind ccb ON cc.community_seq = ccb.community_seq, csat_student cs
-		 WHERE cc.use_yn = 'Y'
-		   AND cc.student_seq = cs.student_seq
+		SELECT cc.community_seq,cs.student_id,cs.nickname,cc.content,cc.write_date,
+		       IFNULL(ccb.blind, 0) AS blind, cs.student_seq
+		  FROM csat_community cc
+		       LEFT OUTER JOIN (SELECT ccb.community_seq,COUNT(ccb.community_seq) AS
+		                                                 blind
+		                          FROM csat_community_blind ccb
+		                         GROUP BY ccb.community_seq) ccb
+		                    ON cc.community_seq = ccb.community_seq,csat_student cs
+		 WHERE cc.student_seq = cs.student_seq
 		   AND cc.community_type_seq = #{communityTypeSequence}
-		   AND (cs.student_id LIKE CONCAT('%',#{search},'%') OR cs.nickname LIKE CONCAT('%',#{search},'%'))
-		 LIMIT #{pageNumber}, 10
+		   AND ( cs.student_id LIKE CONCAT('%', #{search}, '%')
+		          OR cs.nickname LIKE CONCAT('%', #{search}, '%') )
+		 LIMIT #{pageNumber}, 10; 
 	</select>
 	
 	<select id="selectListStudentText" parameterType="Map" resultMap="CommunityVoMap">

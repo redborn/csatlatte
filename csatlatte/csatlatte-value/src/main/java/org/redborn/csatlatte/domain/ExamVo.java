@@ -6,8 +6,10 @@ public class ExamVo {
 	private int examSequence;
 	private int manageSequence;
 	private int ysSequence;
-	private String examName;
 	private String ymd;
+	private String year;
+	private String examName;
+	private String manageName;
 	
 	public int getCsatSequence() {
 		return csatSequence;
@@ -57,10 +59,29 @@ public class ExamVo {
 		this.ymd = ymd;
 	}
 
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getManageName() {
+		return manageName;
+	}
+
+	public void setManageName(String manageName) {
+		this.manageName = manageName;
+	}
+
 	@Override
 	public String toString() {
-		return "ExamVo [examSequence=" + examSequence + ", examName="
-				+ examName + " ymd=" + ymd + "]";
+		return "ExamVo [csatSequence=" + csatSequence + ", examSequence="
+				+ examSequence + ", manageSequence=" + manageSequence
+				+ ", ysSequence=" + ysSequence + ", ymd=" + ymd + ", year="
+				+ year + ", examName=" + examName + ", manageName="
+				+ manageName + "]";
 	}
 
 }
