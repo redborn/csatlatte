@@ -16,6 +16,7 @@
 		<result column="avg_score" property="averageScore" />
 		<result column="count_connection" property="countConnection" />
 		<result column="last_connection" property="lastConnection" />
+		<result column="create_date" property="createDate" />
 	</resultMap>
 	
 	<resultMap type="StudentVo" id="StudentInformationVoMap">
@@ -56,7 +57,7 @@
 
 	<select id="selectOneDetail" parameterType="int" resultMap="StudentVoMap">
 		SELECT cs.student_seq,cs.student_id,cs.nickname,cs.use_yn,cc.count_community,
-		       ccc.count_comment,cess.avg_score,csc.count_connection,csc.last_connection
+		       ccc.count_comment,cess.avg_score,csc.count_connection,csc.last_connection,date_format(cs.create_date, '%Y-%m-%d %H:%i:%s') as create_date
 		  FROM csat_student cs
 		       LEFT OUTER JOIN (SELECT cs.student_seq,COUNT(cc.community_seq) AS
 		                                              count_community
