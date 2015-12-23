@@ -39,12 +39,15 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
+		
+		var lastCommunitySequence;
+		
 		var format = function(ymdhms) {
 			return ymdhms.substring(0, 4) + "-" + ymdhms.substring(4, 6) + "-" + ymdhms.substring(6, 8) + " " + ymdhms.substring(8, 10) + ":" + ymdhms.substring(10, 12) + ":" + ymdhms.substring(12, 14);
 		};
 		
 		var makeCommunityHtml = function(community) {
-			var html = '<div class="panel panel-default">';
+			var html = '<div class="panel panel-default" id="community-' +  community.communitySequence + '" style="display:none;">';
 			html += '	<div class="panel-body">';
 			html += '		<div class="community-text">';
 			html += '			<img alt="프로필사진" class="community-profile-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png">';
@@ -94,6 +97,25 @@
 			return html;
 		};
 		
+		var makeComments = function(communitySequence) {
+			$.ajax(contextPath + "/data/community/comment.json", {
+				dataType : "json",
+				type : "GET",
+				data : {
+					communitySequence : communitySequence
+				},
+				success : function(data) {
+					if (data.list != null) {
+						var commentList =  data.list;
+						var commentListLength = commentList.length;
+						for (var index = 0; index < commentListLength; index++) {
+							$(makeCommentHtml(commentList[index])).insertBefore($("#community-comment-" + communitySequence + " .community-comment"));
+						}
+					}
+				}
+			});
+		};
+
 		$.ajax(contextPath + "/data/community.json", {
 			dataType : "json",
 			type : "GET",
@@ -102,29 +124,21 @@
 					var communityList = data.list;
 					var communityListLength = communityList.length;
 					for (var index = 0; index < communityListLength; index++) {
-						
 						var community = communityList[index];
 						$(".content").append(makeCommunityHtml(community));
-
-						$.ajax(contextPath + "/data/community/comment.json", {
-							dataType : "json",
-							type : "GET",
-							data : {
-								communitySequence : community.communitySequence
-							},
-							success : function(data) {
-								if (data.list != null) {
-									var commentList =  data.list;
-									var commentListLength = commentList.length;
-									for (var index = 0; index < commentListLength; index++) {
-										$(makeCommentHtml(commentList[index])).insertBefore($("#community-comment-" + community.communitySequence + " .community-comment"));
-									}
-								}
+						makeComments(community.communitySequence);
+					}
+					var slideDown = function(index) {
+						$("#community-" + communityList[index].communitySequence).slideDown("fast", function() {
+							if (++index < communityListLength) {
+								slideDown(index);
 							}
 						});
-					}
+					};
+					slideDown(0);
+					lastCommunitySequence = communityList[communityListLength - 1].communitySequence;
 				}
 			}
-		})
+		});
 	});
 </script>

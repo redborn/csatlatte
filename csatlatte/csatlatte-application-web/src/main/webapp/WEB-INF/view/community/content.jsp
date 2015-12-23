@@ -12,51 +12,6 @@
 		<input type="submit" class="btn btn-default" value="게시">
 	</div>
 </div>
-<div class="panel panel-default">
-	<div class="panel-body">
-		<div class="community-text">
-			<img alt="프로필사진" class="community-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
-			<div class="community-user-info">
-				<div class="community-name"><strong>닉네임</strong></div>
-				<div class="community-calender">2015-09-20 11:52:37</div>
-			</div>
-			<div class="dropdown">
-				<img class="dropdown-toggle" id="community-text-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" alt="글메뉴" src="<c:url value="/resources/csatlatte/images/btn/btn_menu.png"/>">
-				<ul class="dropdown-menu" aria-labelledby="community-text-menu">
-					<li><div class="dropdown-menu-resource" data-toggle="modal" data-target="#community-text-modify"><img alt="글수정" src="<c:url value="/resources/csatlatte/images/ico/ico_text_modify.png"/>"> | 글을 수정하고 싶어요.</div></li>	
-					<li><div class="dropdown-menu-resource" data-toggle="modal" data-target="#community-text-delete"><img alt="글삭제" src="<c:url value="/resources/csatlatte/images/ico/ico_text_delete.png"/>"> | 글을 삭제할레요.</div></li>
-					<li><div class="dropdown-menu-resource" data-toggle="modal" data-target="#community-text-report"><img alt="신고하기" src="<c:url value="/resources/csatlatte/images/ico/ico_report.png"/>"> | 신고하기</div></li>
-				</ul>
-			</div>
-		</div>
-		<div class="community-content">글 내용</div>
-	</div>
-	<div class="panel-footer panel-comment">
-		<div class="community-text">
-			<img alt="프로필사진" class="community-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
-			<div class="community-user-info">
-				<div class="community-name"><strong>닉네임</strong></div>
-				<div class="community-comment-content">내용</div>
-				<div class="community-calender">2015-09-20 12:00:12</div>
-			</div>
-			<div class="dropdown">
-				<img class="dropdown-toggle" id="community-text-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" alt="글메뉴" src="<c:url value="/resources/csatlatte/images/btn/btn_menu.png"/>">
-				<ul class="dropdown-menu" aria-labelledby="community-text-menu">
-					<li><div class="dropdown-menu-resource">test1</div></li>
-					<li><div class="dropdown-menu-resource">test1</div></li>	
-					<li><div class="dropdown-menu-resource">test1</div></li>
-					<li><div class="dropdown-menu-resource">test1</div></li>
-				</ul>
-			</div>
-		</div>
-		<div class="community-comment">
-			<img alt="프로필사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
-			<input type="text" class="form-control" placeholder="댓글을 입력해주세요.">
-		</div>
-	</div>
-</div>
-
-
 <div class="modal fade" id="community-text-detail" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
