@@ -18,7 +18,7 @@
 		<result column="student_id" property="studentId"/>
 		<result column="nickname" property="nickname"/>
 		<result column="content" property="content"/>
-		<result column="write_date" property="writeDate"/>
+		<result column="write_ymdhms" property="writeYmdhms"/>
 		<result column="blind" property="blind"/>
 		<result column="student_seq" property="studentSequence"/>
 	</resultMap>
