@@ -27,6 +27,11 @@
 		<put-attribute name="content" value="/WEB-INF/view/rating/content.jsp"/>
 	</definition>
 	
+	<definition name="/community" extends="csatlatte.layout.function2">
+		<put-attribute name="head" value="/WEB-INF/view/community/head.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/community/content.jsp"/>
+	</definition>
+	
 	<definition name="/support" extends="csatlatte.layout.function2">
 		<put-attribute name="head" value="/WEB-INF/view/support/head.jsp"/>
 		<put-attribute name="content" value="/WEB-INF/view/support/content.jsp"/>
