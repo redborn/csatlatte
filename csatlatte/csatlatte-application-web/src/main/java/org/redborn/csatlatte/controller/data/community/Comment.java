@@ -1,5 +1,7 @@
 package org.redborn.csatlatte.controller.data.community;
 
+import org.redborn.csatlatte.commons.servlet.http.HttpSessionValue;
+import org.redborn.csatlatte.domain.CommentVo;
 import org.redborn.csatlatte.service.CommunityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +19,24 @@ public class Comment {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private CommunityService communityService;
+	@Autowired
+	private HttpSessionValue httpSessionValue;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model, @RequestParam(value="communitySequence",required=true) int communitySequence) {
-		logger.info(new StringBuilder("data community comment list... comment is ").append(communitySequence).toString());
+		logger.info(new StringBuilder("data community comment list... community is ").append(communitySequence).toString());
 		model.addAttribute("list", communityService.commentList(CommunityService.COMMUNITY, communitySequence));
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public void post(Model model, @RequestParam(value="communitySequence",required=true) int communitySequence, @RequestParam(value="content",required=true) String content) {
+		logger.info(new StringBuilder("data community comment write... community is ").append(communitySequence).toString());
+		CommentVo commentVo = new CommentVo();
+		commentVo.setCommunityTypeSequence(CommunityService.COMMUNITY);
+		commentVo.setCommunitySequence(communitySequence);
+		commentVo.setStudentSequence(httpSessionValue.getStudentSequence());
+		commentVo.setContent(content);
+		model.addAttribute("result", communityService.writeComment(commentVo));
 	}
 
 }
