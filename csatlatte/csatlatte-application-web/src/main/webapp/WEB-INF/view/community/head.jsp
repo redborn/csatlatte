@@ -6,14 +6,17 @@
 	.community-write-text {padding:0;}
 	.community-write-text textarea {width:100%; resize:none; border:none; padding-top:5px;}
 	
-	.community-profile-picture {width:34px; height:34px; border-radius:5px; border:1px solid #7a6253; vertical-align:top;}
+	.community-picture {width:34px; height:34px; border-radius:5px; border:1px solid #7a6253; vertical-align:top;}
+	.community-comment-picture {width:34px; height:34px; border-radius:5px; border:1px solid #7a6253; vertical-align:top; position:absolute;}
 	
+	.community-text .communuty-text-info {display:inline-block; margin-left:3px;}
 	.community-text .community-name {font-size:12px; display:inline;}
 	.community-text .community-calender {font-size:12px; color:gray;}
-	.community-text .community-comment-content {font-size:13px; display:inline;}
-	
-	.community-comment {position:relative; margin-top:5px; height:40px;}
-	.community-comment .form-control {margin-top:3px; width:530px; display:inline-block; float:none;}
+	.community-text .community-dropdown {display:inline-block; vertical-align:top; text-align:right; float:right;}
+	.community-text .community-dropdown ul {margin-left:-150px;}
+	.community-text .community-text-content {padding-top:15px;}
+	.community-text .community-text-comment-info {padding-left:44px; display:inline-block; width:100%;}
+	.community-text .community-text-comment-write-div {padding-left:44px;}
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -24,29 +27,30 @@ $(document).ready(function() {
 	};
 	
 	var makeCommunityHtml = function(community) {
-		var html = '<div class="panel panel-default" id="community-' +  community.communitySequence + '">';
+		var html = '<div class="panel panel-default community-text" id="community-' +  community.communitySequence + '">';
 		html += '	<div class="panel-body">';
-		html += '		<div class="community-text">';
-		html += '			<img alt="프로필사진" class="community-profile-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png">';
-		html += '			<div class="community-user-info">';
-		html += '				<div class="community-name"><strong>' + community.nickname + '</strong></div>';
-		html += '				<div class="community-calender">' + format(community.writeYmdhms) + '</div>';
-		html += '			</div>';
+		html += '		<div class="community-dropdown">';
 		html += '			<div class="dropdown">';
-		html += '				<img class="dropdown-toggle" id="community-text-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" alt="글메뉴" src="' + contextPath +  '/resources/csatlatte/images/btn/btn_menu.png">';
+		html += '				<a id="community-text-menu" href="#" class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-menu-down"></span></a>';
 		html += '				<ul class="dropdown-menu" aria-labelledby="community-text-menu">';
-		html += '					<li><div class="dropdown-menu-resource" data-toggle="modal" data-target="#community-text-modify"><img alt="글수정" src="' + contextPath +  '/resources/csatlatte/images/ico/ico_text_modify.png""> | 글을 수정하고 싶어요.</div></li>	';
-		html += '					<li><div class="dropdown-menu-resource" data-toggle="modal" data-target="#community-text-delete"><img alt="글삭제" src="' + contextPath +  '/resources/csatlatte/images/ico/ico_text_delete.png"> | 글을 삭제할레요.</div></li>';
-		html += '					<li><div class="dropdown-menu-resource" data-toggle="modal" data-target="#community-text-report"><img alt="신고하기" src="' + contextPath +  '/resources/csatlatte/images/ico/ico_report.png"> | 신고하기</div></li>';
+		html += '					<li><a href="#"><span class="glyphicon glyphicon-pencil"></span> 글을 수정하고 싶어요.</a></li>';
+		html += '					<li><a href="#"><span class="glyphicon glyphicon-trash"></span> 글을 삭제할래요.</a></li>';
+		html += '					<li><a href="#"><span class="glyphicon glyphicon-bell"></span> 신고하기</a></li>';
 		html += '				</ul>';
 		html += '			</div>';
 		html += '		</div>';
-		html += '		<div class="community-content">' + community.content + '</div>';
+		html += '		<img alt="프로필사진" class="community-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png">';
+		html += '		<div class="communuty-text-info">';
+		html += '			<div class="community-name"><strong>' + community.nickname + '</strong></div>';
+		html += '			<div class="community-calender">' + format(community.writeYmdhms) + '</div>';
+		html += '		</div>';
+		html += '		<div class="community-text-content">' + community.content + '</div>';
 		html += '	</div>';
-		html += '	<div class="panel-footer panel-comment" id="community-comment-' + community.communitySequence + '">';
-		html += '		<div class="community-comment">';
-		html += '			<img alt="프로필사진" class="community-profile-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png">';
-		html += '			<input type="text" class="form-control" placeholder="댓글을 입력해주세요.">';
+		html += '	<div class="panel-footer community-text-comment-write">';
+		html += '		<img alt="프로필사진" class="community-comment-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png"/>';
+		html += '		<div class="community-text-comment-write-div">';
+		html += '			<label for="community-text-comment-write-input" class="sr-only">댓글을 입력하세요.</label>';
+		html += '			<input id="community-text-comment-write-input" type="text" class="form-control" placeholder="댓글을 입력하세요." maxlength="140"/>';
 		html += '		</div>';
 		html += '	</div>';
 		html += '</div>';
@@ -54,23 +58,25 @@ $(document).ready(function() {
 	};
 	
 	var makeCommentHtml = function(comment) {
-		var html = '		<div class="community-text">';
-		html += '			<img alt="프로필사진" class="community-profile-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png">';
-		html += '			<div class="community-user-info">';
-		html += '				<div class="community-name"><strong>' + comment.nickname + '</strong></div>';
-		html += '				<div class="community-comment-content">' + comment.content + '</div>';
-		html += '				<div class="community-calender">' + format(comment.writeYmdhms) + '</div>';
-		html += '			</div>';
+		var html = '<div class="panel-footer community-text-comment">';
+		html += '	<img alt="프로필사진" class="community-comment-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png"/>';
+		html += '	<div class="community-text-comment-info">';
+		html += '		<div class="community-dropdown">';
 		html += '			<div class="dropdown">';
-		html += '				<img class="dropdown-toggle" id="community-text-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" alt="글메뉴" src="' + contextPath +  '/resources/csatlatte/images/btn/btn_menu.png">';
+		html += '				<a id="community-text-menu" href="#" class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-menu-down"></span></a>';
 		html += '				<ul class="dropdown-menu" aria-labelledby="community-text-menu">';
-		html += '					<li><div class="dropdown-menu-resource">test1</div></li>';
-		html += '					<li><div class="dropdown-menu-resource">test1</div></li>	';
-		html += '					<li><div class="dropdown-menu-resource">test1</div></li>';
-		html += '					<li><div class="dropdown-menu-resource">test1</div></li>';
+		html += '					<li><a href="#"><span class="glyphicon glyphicon-pencil"></span> 글을 수정하고 싶어요.</a></li>';
+		html += '					<li><a href="#"><span class="glyphicon glyphicon-trash"></span> 글을 삭제할래요.</a></li>';
+		html += '					<li><a href="#"><span class="glyphicon glyphicon-bell"></span> 신고하기</a></li>';
 		html += '				</ul>';
 		html += '			</div>';
 		html += '		</div>';
+		html += '		<div class="community-name">';
+		html += '			<strong>' + comment.nickname + '</strong> ' + comment.content;
+		html += '		</div>';
+		html += '		<div class="community-calender">' + format(comment.writeYmdhms) + '</div>';
+		html += '	</div>';
+		html += '</div>';
 		return html;
 	};
 	
@@ -86,7 +92,7 @@ $(document).ready(function() {
 					var commentList =  data.list;
 					var commentListLength = commentList.length;
 					for (var index = 0; index < commentListLength; index++) {
-						$(makeCommentHtml(commentList[index])).insertBefore($("#community-comment-" + communitySequence + " .community-comment"));
+						$(makeCommentHtml(commentList[index])).insertBefore($("#community-" + communitySequence + " .community-text-comment-write"));
 					}
 				}
 			}
