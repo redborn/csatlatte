@@ -87,8 +87,13 @@
 		<if test="start > 0">
 		   AND cc.community_seq &lt;= #{start}
 		</if>
+		<if test="end > 0">
+		   AND cc.community_seq &gt;= #{end}
+		</if>
 		 ORDER BY community_seq DESC
+		<if test="limit > 0">
 		 LIMIT 0, #{limit}
+		</if>
 	</select>
 	
 	<select id="selectListForManage" parameterType="Map" resultMap="CommunityVoManageMap">
