@@ -75,7 +75,7 @@
 	
 	<insert id="insert" parameterType="CommentVo">
 		INSERT INTO csat_community_comment(community_type_seq, community_seq, comment_seq, student_seq, content, write_date, use_yn)
-		VALUES (#{communityTypeSequence}, #{communitySequence}, (select IFNULL(max(ccc.comment_seq),0)+1 as comment_seq from csat_community_comment ccc)), #{studentSequence}, #{content}, NOW(), 'Y')	
+		VALUES (#{communityTypeSequence}, #{communitySequence}, (SELECT IFNULL(max(ccc.comment_seq),0)+1 as comment_seq FROM csat_community_comment ccc WHERE ccc.community_type_seq = #{communityTypeSequence} AND community_seq = #{communitySequence}), #{studentSequence}, #{content}, NOW(), 'Y')	
 	</insert>
 	
 	<update id="update" parameterType="CommentVo">
