@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 커뮤니티 controller 입니다.
@@ -25,9 +26,9 @@ public class Community {
 	private CommunityService communityService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public void get(Model model) {
+	public void get(Model model, @RequestParam(value="start",required=false,defaultValue="-1") int start, @RequestParam(value="limit",required=false,defaultValue="10") int limit) {
 		logger.info("data community list");
-		model.addAttribute("list", communityService.list(CommunityService.COMMUNITY));
+		model.addAttribute("list", communityService.list(CommunityService.COMMUNITY, start, limit));
 	}
 	
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.GET)

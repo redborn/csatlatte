@@ -84,6 +84,11 @@
 		 WHERE cc.use_yn = 'Y'
 		   AND cc.student_seq = cs.student_seq
 		   AND cc.community_type_seq = #{communityTypeSequence}
+		<if test="start > 0">
+		   AND cc.community_seq &lt;= #{start}
+		</if>
+		 ORDER BY community_seq DESC
+		 LIMIT 0, #{limit}
 	</select>
 	
 	<select id="selectListForManage" parameterType="Map" resultMap="CommunityVoManageMap">
