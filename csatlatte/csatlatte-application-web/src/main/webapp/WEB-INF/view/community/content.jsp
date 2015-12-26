@@ -20,10 +20,10 @@
 					<h3 class="panel-title">글 작성</h3>
 				</div>
 				<div class="panel-body community-write-text">
-					<textarea rows="5" class="form-control" placeholder="무슨일이 있으셨나요?" maxlength="140"></textarea>
+					<textarea id="community-write-content" rows="5" class="form-control" placeholder="무슨일이 있으셨나요?" maxlength="140"></textarea>
 				</div>
 				<div class="panel-footer community-write-btn">
-					<input type="submit" class="btn btn-default" value="게시"/>
+					<input id="community-write-submit" type="submit" class="btn btn-default" value="게시" disabled="disabled"/>
 				</div>
 			</div>
 			<!-- 
