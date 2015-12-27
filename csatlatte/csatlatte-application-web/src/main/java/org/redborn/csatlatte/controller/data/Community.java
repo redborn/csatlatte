@@ -51,4 +51,10 @@ public class Community {
 		model.addAttribute("result", communityService.write(communityVo));
 	}
 	
+	@RequestMapping(value="{communitySequence}",method=RequestMethod.DELETE)
+	public void delete(Model model, @PathVariable int communitySequence) {
+		logger.info(new StringBuilder("data community delete... community is ").append(communitySequence).toString());
+		model.addAttribute("result", communityService.delete(CommunityService.COMMUNITY, communitySequence, httpSessionValue.getStudentSequence()));
+	}
+	
 }
