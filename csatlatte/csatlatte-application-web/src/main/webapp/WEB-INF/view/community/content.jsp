@@ -26,18 +26,11 @@
 					<input id="community-write-submit" type="submit" class="btn btn-default" value="게시" disabled="disabled"/>
 				</div>
 			</div>
-			<!-- 
+			
 			<div class="panel panel-default community-text">
 				<div class="panel-body">
-					<div class="community-dropdown">
-						<div class="dropdown">
-							<a id="community-text-menu" href="#" class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-menu-down"></span></a>
-							<ul class="dropdown-menu" aria-labelledby="community-text-menu">
-								<li><a href="#"><span class="glyphicon glyphicon-pencil"></span> 글을 수정하고 싶어요.</a></li>
-								<li><a href="#"><span class="glyphicon glyphicon-trash"></span> 글을 삭제할래요.</a></li>
-								<li><a href="#"><span class="glyphicon glyphicon-bell"></span> 신고하기</a></li>
-							</ul>
-						</div>
+					<div class="community-action">
+						<a href="#"><span class="glyphicon glyphicon-bell"></span></a> <a href="#"><span class="glyphicon glyphicon-remove"></span></a>
 					</div>
 					<img alt="프로필사진" class="community-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>"/>
 					<div class="communuty-text-info">
@@ -94,7 +87,7 @@
 					</div>
 				</div>
 			</div>
-			 -->
+			
 		</div>
 	</div>
 </div>

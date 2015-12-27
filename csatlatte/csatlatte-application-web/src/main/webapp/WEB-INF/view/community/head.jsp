@@ -13,8 +13,7 @@
 	.community-text .community-name {font-size:12px; display:inline;}
 	.community-text .community-name strong, .community-text  .community-name xmp {display:inline-block;}
 	.community-text .community-calender {font-size:12px; color:gray;}
-	.community-text .community-dropdown {display:inline-block; vertical-align:top; text-align:right; float:right;}
-	.community-text .community-dropdown ul {margin-left:-150px;}
+	.community-text .community-action {display:inline-block; vertical-align:top; text-align:right; float:right;}
 	.community-text .community-text-content {padding-top:15px;}
 	.community-text .community-text-comment-info {padding-left:44px; display:inline-block; width:100%;}
 	.community-text .community-text-comment-write-div {padding-left:44px;}
@@ -34,15 +33,8 @@ $(document).ready(function() {
 		}
 		var html = '<div class="panel panel-default community-text" id="community-' +  community.communitySequence + '" ' + (!show ? "style='display:none;'" : '') + '>';
 		html += '	<div class="panel-body">';
-		html += '		<div class="community-dropdown">';
-		html += '			<div class="dropdown">';
-		html += '				<a id="community-text-menu" href="#" class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-menu-down"></span></a>';
-		html += '				<ul class="dropdown-menu" aria-labelledby="community-text-menu">';
-		html += '					<li><a href="#"><span class="glyphicon glyphicon-pencil"></span> 글을 수정하고 싶어요.</a></li>';
-		html += '					<li><a href="#"><span class="glyphicon glyphicon-trash"></span> 글을 삭제할래요.</a></li>';
-		html += '					<li><a href="#"><span class="glyphicon glyphicon-bell"></span> 신고하기</a></li>';
-		html += '				</ul>';
-		html += '			</div>';
+		html += '		<div class="community-action">';
+		html += '			<a href="#"><span class="glyphicon glyphicon-bell"></span></a> <a class="community-delete" href="#"><span class="glyphicon glyphicon-remove"></span></a>';
 		html += '		</div>';
 		html += '		<img alt="프로필사진" class="community-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png">';
 		html += '		<div class="communuty-text-info">';
@@ -129,6 +121,28 @@ $(document).ready(function() {
 		});
 	}
 	
+	var addCommunityDeleteEvent = function(communitySequence) {
+		$("#community-" + communitySequence + " .community-delete").on("click", function() {
+			alert(communitySequence);
+			$.ajax(contextPath + "/data/community/" + communitySequence + ".json", {
+				dataType : "json",
+				type : "DELETE",
+				data : {
+					_method : "DELETE"
+				},
+				success : function(data) {
+					alert(data.result);
+					if (data.result) {
+						$("#community-" + communitySequence).slideUp("normal", function() {
+							$(this).remove();
+						});
+					}
+				}
+			});
+			return false;
+		});
+	};
+	
 	var addCommentWriteEvent = function(communitySequence) {
 		$("#community-text-comment-write-input-" + communitySequence).on("keyup", function(event) {
 			var $this = $(this);
@@ -141,13 +155,20 @@ $(document).ready(function() {
 						content : $(this).val()
 					},
 					success : function(data) {
-						refreshComment(communitySequence);
-						$this.val("");
+						if (data.result) {
+							refreshComment(communitySequence);
+							$this.val("");
+						}
 					}
 				});
 			}
 		});
-	}
+	};
+	
+	var addCommunityAndCommentEvent = function(communitySequence) {
+		addCommunityDeleteEvent(communitySequence);
+		addCommentWriteEvent(communitySequence);
+	};
 	
 	var ajaxCommunity = function(data, callback) {
 		$.ajax(contextPath + "/data/community.json", {
@@ -174,7 +195,7 @@ $(document).ready(function() {
 					var community = communityList[index];
 					$(".community-list").append(makeCommunityHtml(community));
 					makeComment(community.communitySequence);
-					addCommentWriteEvent(community.communitySequence);
+					addCommunityAndCommentEvent(community.communitySequence);
 				}
 				if (start === -1) {
 					firstCommunitySequence = communityList[0].communitySequence;
@@ -199,7 +220,7 @@ $(document).ready(function() {
 					if ($("#community-" + community.communitySequence).length == 0) {
 						$("#community-" + firstCommunitySequence).before(makeCommunityHtml(community, false));
 						makeComment(community.communitySequence);
-						addCommentWriteEvent(community.communitySequence);
+						addCommunityAndCommentEvent(community.communitySequence);
 						$("#community-" + community.communitySequence).slideDown();
 					}
 				}
