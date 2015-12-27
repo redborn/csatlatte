@@ -88,7 +88,7 @@ public class CommunityDaoMapper extends SqlSessionDaoSupport implements Communit
 		params.put("communityTypeSequence", communityTypeSequence);
 		params.put("communitySequence", communitySequence);
 		
-		return getSqlSession().update("community.updateUseYnN", communitySequence);
+		return getSqlSession().update("community.updateUseYnN", params);
 	}
 
 }
