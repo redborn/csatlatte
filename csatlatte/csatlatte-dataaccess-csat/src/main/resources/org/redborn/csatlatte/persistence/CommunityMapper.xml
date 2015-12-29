@@ -8,6 +8,7 @@
 
 	<resultMap type="CommunityVo" id="CommunityVoMap">
 		<result column="community_seq" property="communitySequence"/>
+		<result column="student_seq" property="studentSequence"/>
 		<result column="nickname" property="nickname"/>
 		<result column="content" property="content"/>
 		<result column="write_ymdhms" property="writeYmdhms"/>
@@ -79,7 +80,7 @@
 	</select>
 	
 	<select id="selectList" parameterType="int" resultMap="CommunityVoMap">
-		SELECT cc.community_seq, cs.nickname, cc.content, DATE_FORMAT(cc.write_date, '%Y%m%d%H%i%s') AS write_ymdhms
+		SELECT cc.community_seq,cc.student_seq,cs.nickname,cc.content,DATE_FORMAT(cc.write_date, '%Y%m%d%H%i%s') AS write_ymdhms
 		  FROM csat_community cc, csat_student cs
 		 WHERE cc.use_yn = 'Y'
 		   AND cc.student_seq = cs.student_seq
@@ -113,7 +114,7 @@
 	</select>
 	
 	<select id="selectListStudentText" parameterType="Map" resultMap="CommunityVoMap">
-		SELECT cc.community_seq, cs.nickname, cc.content, cc.write_date
+		SELECT cc.community_seq,cc.student_seq,cs.nickname,cc.content,DATE_FORMAT(cc.write_date, '%Y%m%d%H%i%s') AS write_ymdhms
 		  FROM csat_community cc, csat_student cs
 		 WHERE cc.use_yn = 'Y'
 		   AND cc.student_seq = cs.student_seq
