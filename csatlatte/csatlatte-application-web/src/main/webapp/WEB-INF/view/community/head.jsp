@@ -17,6 +17,7 @@
 	.community-text .community-text-content {padding-top:15px;}
 	.community-text .community-text-comment-info {padding-left:44px; display:inline-block; width:100%;}
 	.community-text .community-text-comment-write-div {padding-left:44px;}
+	.community-text xmp {white-space: pre-wrap; word-break: break-all;}
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
