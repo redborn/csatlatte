@@ -31,7 +31,6 @@
 		SELECT write_date, title
 		  FROM csat_qna
 		 WHERE qna_seq = #{qnaSequence}
-		   AND use_yn = 'Y' 
 	</select>
 	
 	<select id="selectOneMaxQnaSequence" resultType="int">
