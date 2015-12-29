@@ -53,10 +53,16 @@
 			html += '	<td>' + question.qnaSequence + '</td>';
 			html += '	<td>' + question.studentId + '</td>';
 			html += '	<td>' + question.nickname + '</td>';
-			html += '	<td>' + question.title + '</td>';
+			html += '	<td><div id="'+ question.qnaSequence +'"data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view">' + question.title + '</div></td>';
 			html += '	<td>' + question.writeDate + '</td>';
 			html += '	<td>' + question.useYn + '</td>';
 			html += '</tr>';
+			return html;
+		}
+		
+		var makeQuestionDetailView = function(question) {
+			var html = '';
+			html += '내용 : ' + question.content;
 			return html;
 		}
 		
@@ -75,6 +81,20 @@
 						question = questionList[index];
 						$("#table-content").append(makeQuestionDataRow(question));
 					}
+					$(".manage-question-answer-view").on("click", function () {
+						var qnaSequence = $(this).attr("id");
+						$.ajax("<c:url value="/data/question.json"/>", {
+							dataType : "json",
+							type : "GET",
+							data : {qnaSequence : qnaSequence},
+							success : function(qnaData) {
+								if (qnaData.detail != null) {
+									question = qnaData.detail;
+									$("#manage-question-detail").append(makeQuestionDetailView(question));
+								}
+							}
+						});
+					});
 				}
 			}
 		});

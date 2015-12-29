@@ -45,7 +45,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				답변하기
 			</div>
-			<div class="modal-body">
+			<div class="modal-body" id="manage-question-detail">
 			</div>
 		</div>
 	</div>
