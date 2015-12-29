@@ -14,6 +14,6 @@ public interface CommentDao {
 	public List<CommentVo> selectList(int communityTypeSequence, int communitySequence);
 	public int insert(CommentVo commentVo);
 	public int update(CommentVo commentVo);
-	public int updateUseYnN(int communityTypeSequence, int communitySequence, int commentSequence);
+	public int updateUseYnN(int communityTypeSequence, int communitySequence, int commentSequence, int studentSequence);
 	
 }

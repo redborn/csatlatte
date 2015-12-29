@@ -18,7 +18,7 @@ public interface CommunityService {
 	public boolean blindComment(int communityTypeSequence, int communitySequence, int commentSequence, String content);
 	public boolean writeComment(CommentVo commentVo);
 	public boolean modifyComment(CommentVo commentVo);
-	public boolean deleteComment(CommentVo commentVo);
+	public boolean deleteComment(int communityTypeSequence, int communitySequence, int commentSequence, int studentSequence);
 	public List<CommunityVo> list(int communityTypeSequence, int start, int end, int limit);
 	public List<CommunityVo> list(int communityTypeSequence, String search, int pageNumber);
 	public List<CommunityVo> list(int communityTypeSequence, int studentSequence);

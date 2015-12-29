@@ -90,9 +90,10 @@
 	<update id="updateUseYnN" parameterType="Map">
 		UPDATE csat_community_comment
 		   SET use_yn = 'N'
-		 WHERE community_seq = #{communitySequence}
+		 WHERE community_type_seq = #{communityTypeSequence}
+		   AND community_seq = #{communitySequence}
 		   AND comment_seq = #{commentSequence}
-		   AND community_type_seq = #{communityTypeSequence}
+		   AND student_seq = #{studentSequence}
 	</update>
 	
 </mapper>
