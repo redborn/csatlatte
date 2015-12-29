@@ -222,6 +222,5 @@
 			$('.manage-community-student-information').remove();
 		});
 		
-		
 	});
 </script>
