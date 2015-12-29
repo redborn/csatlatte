@@ -32,12 +32,12 @@ public class QnaServiceImpl implements QnaService {
 		
 		if (qnaVo != null) {
 			List<String> contentList = contentDao.selectList(qnaSequence);
-			String content = null;
+			String content = "";
 			
 			if (contentList != null) {
 				int contentSize = contentList.size();
 				for (int index = 0; index < contentSize; index++) {
-						content += contentList.get(index);
+					content += contentList.get(index);
 				}
 			}
 			
