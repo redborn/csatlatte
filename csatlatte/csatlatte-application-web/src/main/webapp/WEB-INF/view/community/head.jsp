@@ -34,7 +34,11 @@ $(document).ready(function() {
 		var html = '<div class="panel panel-default community-text" id="community-' +  community.communitySequence + '" ' + (!show ? "style='display:none;'" : '') + '>';
 		html += '	<div class="panel-body">';
 		html += '		<div class="community-action">';
-		html += '			<a href="#"><span class="glyphicon glyphicon-bell"></span></a> <a class="community-delete" href="#"><span class="glyphicon glyphicon-remove"></span></a>';
+		if (studentSequence !== community.studentSequence) {
+			html += '			<a href="#"><span class="glyphicon glyphicon-bell"></span></a>';
+		} else {
+			html += '			<a class="community-delete" href="#"><span class="glyphicon glyphicon-remove"></span></a>';
+		}
 		html += '		</div>';
 		html += '		<img alt="프로필사진" class="community-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png">';
 		html += '		<div class="communuty-text-info">';
@@ -61,14 +65,13 @@ $(document).ready(function() {
 		var html = '<div class="panel-footer community-text-comment" id="community-comment-' + communitySequence + '-' + comment.commentSequence + '" ' + (!show ? "style='display:none;'" : '') + '>';
 		html += '	<img alt="프로필사진" class="community-comment-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png"/>';
 		html += '	<div class="community-text-comment-info">';
-		html += '		<div class="community-dropdown">';
+		html += '		<div class="community-action">';
 		html += '			<div class="dropdown">';
-		html += '				<a id="community-text-menu" href="#" class="dropdown-toggle"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-menu-down"></span></a>';
-		html += '				<ul class="dropdown-menu" aria-labelledby="community-text-menu">';
-		html += '					<li><a href="#"><span class="glyphicon glyphicon-pencil"></span> 글을 수정하고 싶어요.</a></li>';
-		html += '					<li><a href="#"><span class="glyphicon glyphicon-trash"></span> 글을 삭제할래요.</a></li>';
-		html += '					<li><a href="#"><span class="glyphicon glyphicon-bell"></span> 신고하기</a></li>';
-		html += '				</ul>';
+		if (studentSequence !== comment.studentSequence) {
+			html += '			<a href="#"><span class="glyphicon glyphicon-bell"></span></a>';
+		} else {
+			html += '			<a class="community-comment-delete" href="#"><span class="glyphicon glyphicon-remove"></span></a>';
+		}
 		html += '			</div>';
 		html += '		</div>';
 		html += '		<div class="community-name">';
@@ -93,7 +96,7 @@ $(document).ready(function() {
 		});
 	}
 	
-	var makeComment = function(communitySequence) {
+	var makeComment = function(communitySequence, callback) {
 		ajaxComment(communitySequence, function(data) {
 			if (data.list != null) {
 				var commentList =  data.list;
@@ -101,6 +104,9 @@ $(document).ready(function() {
 				for (var index = 0; index < commentListLength; index++) {
 					$(makeCommentHtml(communitySequence, commentList[index])).insertBefore($("#community-" + communitySequence + " .community-text-comment-write"));
 				}
+			}
+			if (callback) {
+				callback(communitySequence);
 			}
 		});
 	};
@@ -115,6 +121,7 @@ $(document).ready(function() {
 					if ($("#community-comment-" + communitySequence + "-" + comment.commentSequence).length === 0) {
 						$(makeCommentHtml(communitySequence, comment, false)).insertBefore($("#community-" + communitySequence + " .community-text-comment-write"));
 						$("#community-comment-" + communitySequence + "-" + comment.commentSequence).slideDown("fast");
+						addCommentDeleteEvent(communitySequence, comment.commentSequence);
 					}
 				}
 			}
@@ -123,7 +130,6 @@ $(document).ready(function() {
 	
 	var addCommunityDeleteEvent = function(communitySequence) {
 		$("#community-" + communitySequence + " .community-delete").on("click", function() {
-			alert(communitySequence);
 			$.ajax(contextPath + "/data/community/" + communitySequence + ".json", {
 				dataType : "json",
 				type : "DELETE",
@@ -131,7 +137,6 @@ $(document).ready(function() {
 					_method : "DELETE"
 				},
 				success : function(data) {
-					alert(data.result);
 					if (data.result) {
 						$("#community-" + communitySequence).slideUp("normal", function() {
 							$(this).remove();
@@ -165,9 +170,37 @@ $(document).ready(function() {
 		});
 	};
 	
+	var addCommentsDeleteEvent = function(communitySequence) {
+		$("#community-" + communitySequence + " .community-text-comment").each(function() {
+			var id = $(this).attr("id");
+			addCommentDeleteEvent(communitySequence, id.substring(id.lastIndexOf("-") + 1));
+		});
+	};
+	
+	var addCommentDeleteEvent = function(communitySequence, commentSequence) {
+		$("#community-comment-" + communitySequence + "-" + commentSequence + " .community-comment-delete").on("click", function() {
+			$.ajax(contextPath + "/data/community/comment/" + communitySequence + "/" + commentSequence +  ".json", {
+				dataType : "json",
+				type : "DELETE",
+				data : {
+					_method : "DELETE"
+				},
+				success : function(data) {
+					if (data.result) { 
+						$("#community-comment-" + communitySequence + "-" + commentSequence).slideUp("fast", function() {
+							$(this).remove();
+						});
+					}
+				}
+			});
+			return false;
+		});
+	};
+	
 	var addCommunityAndCommentEvent = function(communitySequence) {
 		addCommunityDeleteEvent(communitySequence);
 		addCommentWriteEvent(communitySequence);
+		addCommentsDeleteEvent(communitySequence);
 	};
 	
 	var ajaxCommunity = function(data, callback) {
@@ -194,8 +227,9 @@ $(document).ready(function() {
 				for (var index = 0; index < communityListLength; index++) {
 					var community = communityList[index];
 					$(".community-list").append(makeCommunityHtml(community));
-					makeComment(community.communitySequence);
-					addCommunityAndCommentEvent(community.communitySequence);
+					makeComment(community.communitySequence, function(communitySequence) {
+						addCommunityAndCommentEvent(communitySequence);
+					});
 				}
 				if (start === -1) {
 					firstCommunitySequence = communityList[0].communitySequence;
@@ -219,9 +253,10 @@ $(document).ready(function() {
 					var community = communityList[index];
 					if ($("#community-" + community.communitySequence).length == 0) {
 						$("#community-" + firstCommunitySequence).before(makeCommunityHtml(community, false));
-						makeComment(community.communitySequence);
-						addCommunityAndCommentEvent(community.communitySequence);
-						$("#community-" + community.communitySequence).slideDown();
+						makeComment(community.communitySequence, function(communitySequence) {
+							addCommunityAndCommentEvent(communitySequence);
+							$("#community-" + communitySequence).slideDown();
+						});
 					}
 				}
 				firstCommunitySequence = communityList[0].communitySequence;
