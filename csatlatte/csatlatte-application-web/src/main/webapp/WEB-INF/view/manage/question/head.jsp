@@ -27,16 +27,116 @@
 </style>
 <script>
 	$(document).ready(function () {
+		
+		var pageNumber = null;
+		var search = null;
+		var useYn = null;
+		
+		var getUrlParameter = function getUrlParameter(sParam) {
+		    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+		        sURLVariables = sPageURL.split('&'),
+		        sParameterName,
+		        i;
+
+		    for (i = 0; i < sURLVariables.length; i++) {
+		        sParameterName = sURLVariables[i].split('=');
+
+		        if (sParameterName[0] === sParam) {
+		            return sParameterName[1] === undefined ? true : sParameterName[1];
+		        }
+		    }
+		};
+		
+		var makeQuestionDataRow = function(question) {
+			var html = '';
+			html += '<tr class="manage-question-data-row">';
+			html += '	<td>' + question.qnaSequence + '</td>';
+			html += '	<td>' + question.studentId + '</td>';
+			html += '	<td>' + question.nickname + '</td>';
+			html += '	<td>' + question.title + '</td>';
+			html += '	<td>' + question.writeDate + '</td>';
+			html += '	<td>' + question.useYn + '</td>';
+			html += '</tr>';
+			return html;
+		}
+		
+		pageNumber = getUrlParameter('pageNumber');
+		search = getUrlParameter('search');
+		
+		$.ajax("<c:url value="/data/manage/question.json"/>", {
+			dataType : "json",
+			type : "GET",
+			data : {pageNumber : pageNumber, search : search, useYn : useYn},
+			success : function(data) {
+				if (data.list != null) {
+					questionList = data.list;
+					questionListLength = questionList.length;
+					for (index = 0; index < questionListLength; index++) {
+						question = questionList[index];
+						$("#table-content").append(makeQuestionDataRow(question));
+					}
+				}
+			}
+		});
+		
 		$("#manage-question-all").on("click", function () {
-			$(location).attr('href', '<c:url value="/manage/question"/>');
+			$('.manage-question-data-row').remove();
+			useYn = null;
+			$.ajax("<c:url value="/data/manage/question.json"/>", {
+				dataType : "json",
+				type : "GET",
+				data : {pageNumber : pageNumber, search : search, useYn : useYn},
+				success : function(data) {
+					if (data.list != null) {
+						questionList = data.list;
+						questionListLength = questionList.length;
+						for (index = 0; index < questionListLength; index++) {
+							question = questionList[index];
+							$("#table-content").append(makeQuestionDataRow(question));
+						}
+					}
+				}
+			});
 		});
 		
 		$("#manage-question-standby").on("click", function () {
-			$(location).attr('href', '<c:url value="/manage/question?useYn=Y"/>');
+			$('.manage-question-data-row').remove();
+			useYn = "Y";
+			$.ajax("<c:url value="/data/manage/question.json"/>", {
+				dataType : "json",
+				type : "GET",
+				data : {pageNumber : pageNumber, search : search, useYn : useYn},
+				success : function(data) {
+					if (data.list != null) {
+						questionList = data.list;
+						questionListLength = questionList.length;
+						for (index = 0; index < questionListLength; index++) {
+							question = questionList[index];
+							$("#table-content").append(makeQuestionDataRow(question));
+						}
+					}
+				}
+			});
 		});
 		
 		$("#manage-question-success").on("click", function () {
-			$(location).attr('href', '<c:url value="/manage/question?useYn=N"/>');
+			$('.manage-question-data-row').remove();
+			useYn = "N";
+			$.ajax("<c:url value="/data/manage/question.json"/>", {
+				dataType : "json",
+				type : "GET",
+				data : {pageNumber : pageNumber, search : search, useYn : useYn},
+				success : function(data) {
+					if (data.list != null) {
+						questionList = data.list;
+						questionListLength = questionList.length;
+						for (index = 0; index < questionListLength; index++) {
+							question = questionList[index];
+							$("#table-content").append(makeQuestionDataRow(question));
+						}
+					}
+				}
+			});
 		});
 	});
 </script>
