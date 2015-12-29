@@ -252,7 +252,7 @@ $(document).ready(function() {
 				for (var index = 0; index < communityListLength; index++) {
 					var community = communityList[index];
 					if ($("#community-" + community.communitySequence).length == 0) {
-						$("#community-" + firstCommunitySequence).before(makeCommunityHtml(community, false));
+						$(".community-text:first").before(makeCommunityHtml(community, false));
 						makeComment(community.communitySequence, function(communitySequence) {
 							addCommunityAndCommentEvent(communitySequence);
 							$("#community-" + communitySequence).slideDown();
