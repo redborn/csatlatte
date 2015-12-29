@@ -20,6 +20,7 @@
 	</resultMap>
 	
 	<resultMap type="StudentVo" id="StudentInformationVoMap">
+		<result column="student_seq" property="studentSequence"/>
 		<result column="student_id" property="studentId"/>
 		<result column="content" property="securityQuestionContent"/>
 		<result column="photo_code" property="photoCode"/>
@@ -44,7 +45,7 @@
 	</resultMap>
 
 	<select id="selectOne" parameterType="Map" resultMap="StudentInformationVoMap">
-		SELECT cs.student_id AS student_id,csc.content AS content,
+		SELECT cs.student_seq,cs.student_id AS student_id,csc.content AS content,
 		       cs.photo_code AS photo_code,cs.photo_name AS photo_name,
 		       cs.nickname AS nickname,c.csat_name AS csat_name
 		  FROM csat_student cs,csat_student_scqs css,csat_scqs csc,csat c
