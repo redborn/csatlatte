@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +38,12 @@ public class Comment {
 		commentVo.setStudentSequence(httpSessionValue.getStudentSequence());
 		commentVo.setContent(content);
 		model.addAttribute("result", communityService.writeComment(commentVo));
+	}
+	
+	@RequestMapping(value="{communitySequence}/{commentSequence}",method=RequestMethod.DELETE)
+	public void delete(Model model, @PathVariable(value="communitySequence") int communitySequence, @PathVariable(value="commentSequence") int commentSequence) {
+		logger.info(new StringBuilder("data community comment delete... community is ").append(communitySequence).append("... and comment is ").append(commentSequence).toString());
+		model.addAttribute("result", communityService.deleteComment(CommunityService.COMMUNITY, communitySequence, commentSequence, httpSessionValue.getStudentSequence()));
 	}
 
 }
