@@ -46,8 +46,8 @@
 <script>
 	$(document).ready(function () {
 		
-		var target;
-		var pageNumber;
+		var target = null;
+		var pageNumber = null;
 		var search = null;
 		
 		var getUrlParameter = function getUrlParameter(sParam) {
@@ -66,11 +66,12 @@
 		};
 		
 		var makeCommunityDataRow = function(community) {
-			var html;
+			var html = '';
 			html += '<tr>';
+			html += '	<td>' + community.communitySequence + '</td>';
 			html += '	<td><div id="'+ community.studentSequence +'"data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">' + community.studentId + '</div></td>';
 			html += '	<td>' + community.nickname + '</td>';
-			html += '	<td><div id="' + community.communitySequence + '"data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail">' + community.content + '</div></td>';
+			html += '	<td><div id="' + community.communitySequence + '"data-toggle="modal" data-target="#manage-community-text-detail' + community.communitySequence + '" class="manage-community-text-detail">' + community.content + '</div></td>';
 			html += '	<td><input type="checkbox" name="blindCheck" value="'+ community.communitySequence + '"';
 			if (community.blind == 1) {
 				html += ' checked';
@@ -80,32 +81,71 @@
 			return html;
 		};
 		
-		var makeStudentInformation = function (student) {
-			var html;
-			html += '<div class="manage-community-student-information">';
-			html += '<img class="manage-community-picture" alt="회원사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
-			html += '<div class="manage-community-info">';
-			html +=	'	<div class="manage-community-info-content">';
-			html += '		<label>아이디</label>';
-			html += '		<div class="manage-community-info-content-value">' + student.studentId + '</div>';
-			html += '	</div>';
-			html += '	<div class="manage-community-info-content">';
-			html += '		<label>가입일</label>';
-			html += '		<div class="manage-community-info-content-value">' + student.createDate + '</div>';
-			html += '	</div>';
-			html += '	<div class="manage-community-info-content">';
-			html += '		<label>최근 접속일</label>';
-			html += '		<div class="manage-community-info-content-value">' + student.lastConnection + '</div>';
-			html += '	</div>';
-			html += '		<div class="manage-community-info-content">';
-			html += '		<label>활동점수 내역</label>';
-			html += '		<div class="manage-community-info-content-value">게시글 ' + student.countCommunity + '개, 댓글 ' + student.countComment + '개</div>';
-			html += '	</div>';
-			html += '	<div class="manage-community-info-content">';
-			html += '		<label>성적평균</label>';
-			html += '		<div class="manage-community-info-content-value">' + student.averageScore + '</div>';
+		var makeCommunityDetail = function(community) {
+			var html = '';
+			html += '<div class="modal fade" id="manage-community-text-detail' + community.communitySequence + '" role="dialog">';
+			html += '	<div class="modal-dialog" role="document">';
+			html += '		<div class="modal-content">';
+			html += '			<div class="modal-header">';
+			html += '				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+			html += '				<div class="community-text">';
+			html += '					<img alt="프로필사진" class="community-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
+			html += '					<div class="community-user-info">';
+			html += '						<div class="community-name"><strong>' + community.nickname + '</strong></div>';
+			html += '						<div class="community-calender">' + community.writeYmdhms + '</div>';
+			html += '					</div>';
+			html += '				</div>';
+			html += '			</div>';
+			html += '			<div class="modal-body">';
+			html += '				<div class="community-content">' + community.content + '</div>';
+			html += '			</div>';
+			html += '			<div id="comment-area' + community.communitySequence + '" class="modal-footer">';
+			html += '			</div>';
+			html += '		</div>';
 			html += '	</div>';
 			html += '</div>';
+			return html;
+		}
+		
+		var makeCommunityDetailComment = function(comment) {
+			var html = '';
+			html += '<div class="community-text">';
+			html += '	<img alt="프로필사진" class="community-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
+			html += '	<div class="community-user-info">';
+			html += '		<div class="community-name"><strong>' + comment.nickname + '</strong></div>';
+			html += '		<div class="community-comment-content">' + comment.content + '</div>';
+			html += '		<div class="community-calender">' + comment.writeYmdhms + '</div>';
+			html += '	</div>';
+			html += '</div>';
+			return html;
+		}
+		
+		var makeStudentInformation = function (student) {
+			var html = '';
+			html += '<div class="manage-community-student-information">';
+			html += '	<img class="manage-community-picture" alt="회원사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
+			html += '	<div class="manage-community-info">';
+			html +=	'		<div class="manage-community-info-content">';
+			html += '			<label>아이디</label>';
+			html += '			<div class="manage-community-info-content-value">' + student.studentId + '</div>';
+			html += '		</div>';
+			html += '		<div class="manage-community-info-content">';
+			html += '			<label>가입일</label>';
+			html += '			<div class="manage-community-info-content-value">' + student.createDate + '</div>';
+			html += '		</div>';
+			html += '		<div class="manage-community-info-content">';
+			html += '			<label>최근 접속일</label>';
+			html += '			<div class="manage-community-info-content-value">' + student.lastConnection + '</div>';
+			html += '		</div>';
+			html += '			<div class="manage-community-info-content">';
+			html += '			<label>활동점수 내역</label>';
+			html += '			<div class="manage-community-info-content-value">게시글 ' + student.countCommunity + '개, 댓글 ' + student.countComment + '개</div>';
+			html += '		</div>';
+			html += '		<div class="manage-community-info-content">';
+			html += '			<label>성적평균</label>';
+			html += '			<div class="manage-community-info-content-value">' + student.averageScore + '</div>';
+			html += '		</div>';
+			html += '	</div>'; 
 			html += '</div>';
 			return html;
 		}
@@ -124,7 +164,24 @@
 					for (var index = 0; index < communityListLength; index++) {
 						var community = communityList[index];
 						$("#table-content").append(makeCommunityDataRow(community));
+						$("#manage-community-text-detail-area").append(makeCommunityDetail(community));
+						$.ajax("<c:url value="/data/community/comment"/>", {
+							dataType : "json",
+							type : "GET",
+							data : {communitySequence : community.communitySequence},
+							success : function(commentData) {
+								if (commentData.list != null) {
+									var commentList = commentData.list;
+									var commentListLength = commentList.length;
+									for (var index = 0; index < commentListLength; index++) {
+										var comment = commentList[index];
+										$("#comment-area" + community.communitySequence).append(makeCommunityDetailComment(comment));
+									}
+								}
+							}
+						});
 					}
+					
 					$('.manage-community-id').on("click", function () {
 						var studentSequence = $(this).attr("id");
 						
@@ -164,5 +221,7 @@
 		$('#manage-community-id').on('hidden.bs.modal', function () {
 			$('.manage-community-student-information').remove();
 		});
+		
+		
 	});
 </script>

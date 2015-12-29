@@ -10,6 +10,7 @@
 <table class="table">
 	<thead>
 		<tr>
+			<th class="col-lg-2">번호</th>
 			<th class="col-lg-2">아이디</th>
 			<th class="col-lg-2">닉네임</th>
 			<th class="col-lg-4">내용</th>
@@ -53,36 +54,4 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="manage-community-text-detail" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<div class="community-text">
-					<img alt="프로필사진" class="community-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
-					<div class="community-user-info">
-						<div class="community-name"><strong>이름</strong></div>
-						<div class="community-calender">작성일</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-body">
-				<div class="community-content">글내용</div>
-			</div>
-			<div class="modal-footer">
-				<div class="community-text">
-					<img alt="프로필사진" class="community-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
-					<div class="community-user-info">
-						<div class="community-name"><strong>닉네임</strong></div>
-						<div class="community-comment-content">내용</div>
-						<div class="community-calender">2015-09-20 12:00:12</div>
-					</div>
-				</div>
-				<div class="community-comment">
-					<img alt="프로필사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
-					<input type="text" class="form-control" placeholder="댓글을 입력해주세요.">
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+<div id="manage-community-text-detail-area"></div>
