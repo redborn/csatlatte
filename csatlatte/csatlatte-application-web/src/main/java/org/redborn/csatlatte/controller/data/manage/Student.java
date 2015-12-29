@@ -24,5 +24,12 @@ public class Student {
 		
 		model.addAttribute("information", studentService.information(studentSequence));
 	}
+	
+	@RequestMapping(method=RequestMethod.PUT)
+	public void put(@RequestParam(value="studentSequence",required=true) int studentSequence) {
+		logger.info("data student update to useYn");
+		
+		studentService.lock(studentSequence);
+	}
 
 }

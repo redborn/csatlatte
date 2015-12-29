@@ -21,7 +21,7 @@ public class Student {
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber,
 			@RequestParam(value="search",required=false,defaultValue="") String search) {
-		logger.info("data manage student view");
+		logger.info("data student view");
 		
 		int beginPageNumber = (pageNumber * 10) - 10;
 		

@@ -44,18 +44,48 @@
 		    }
 		};
 		
+		var makeStudentInformation = function (student) {
+			var html = '';
+			html += '<div class="manage-user-student-information">';
+			html += '	<img class="manage-user-picture" alt="회원사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
+			html += '	<div class="manage-user-info">';
+			html +=	'		<div class="manage-user-info-content">';
+			html += '			<label>아이디</label>';
+			html += '			<div class="manage-user-info-content-value">' + student.studentId + '</div>';
+			html += '		</div>';
+			html += '		<div class="manage-user-info-content">';
+			html += '			<label>가입일</label>';
+			html += '			<div class="manage-user-info-content-value">' + student.createDate + '</div>';
+			html += '		</div>';
+			html += '		<div class="manage-user-info-content">';
+			html += '			<label>최근 접속일</label>';
+			html += '			<div class="manage-user-info-content-value">' + student.lastConnection + '</div>';
+			html += '		</div>';
+			html += '			<div class="manage-user-info-content">';
+			html += '			<label>활동점수 내역</label>';
+			html += '			<div class="manage-user-info-content-value">게시글 ' + student.countCommunity + '개, 댓글 ' + student.countComment + '개</div>';
+			html += '		</div>';
+			html += '		<div class="manage-user-info-content">';
+			html += '			<label>성적평균</label>';
+			html += '			<div class="manage-user-info-content-value">' + student.averageScore + '</div>';
+			html += '		</div>';
+			html += '	</div>'; 
+			html += '</div>';
+			return html;
+		}
+		
 		var makeStudentDataRow = function(student) {
 			var html = '';
 			html += '<tr>';
 			html += '	<td>' + student.studentSequence + '</td>';
-			html += '	<td>' + student.studentId + '</td>';
+			html += '	<td><div id="'+ student.studentSequence +'"data-toggle="modal" data-target="#manage-user-id" class="manage-user-id">' + student.studentId + '</div></td>';
 			html += '	<td>' + student.nickname + '</td>';
 			html += '	<td>' + student.countConnection + '</td>';
 			html += '	<td><input type="checkbox" name="blindCheck" value="'+ student.studentSequence + '"';
 			if (student.useYn == 'N') {
 				html += ' checked';
 			}
-			html += '	</td>';
+			html += '></td>';
 			html += '	<td>' + (student.countCommunity + student.countComment) + '</td>';
 			html += '	<td>' + student.averageScore + '</td>';
 			html += '<tr>';
@@ -77,9 +107,44 @@
 						var student = studentList[index];
 						$("#table-content").append(makeStudentDataRow(student));
 					}
+					$('.manage-user-id').on("click", function () {
+						var studentSequence = $(this).attr("id");
+						
+						$.ajax("<c:url value="/data/manage/student.json"/>", {
+							dataType : "json",
+							type : "GET",
+							data : {studentSequence : studentSequence},
+							success : function(data) {
+								if (data.information != null) {
+									var studentInformation = data.information;
+									$('#manage-user-student-information').append(makeStudentInformation(studentInformation));
+								}
+							}
+						});
+					});
 				}
 			}
 		});
 		
+		$('.manage-user-apply').on("click", function () {
+			$("input[type=checkbox]:checked").each(function () {
+				var target = $(this).val();
+				if (target != null) {
+					$.ajax("<c:url value="/data/manage/student.json"/>", {
+						dataType : "json",
+						type : "PUT",
+						data : {studentSequence : target},
+						success : function() {
+							
+						}
+					});
+				}
+			});
+			alert("처리가 완료되었습니다.");
+		});
+		
+		$('#manage-user-id').on('hidden.bs.modal', function () {
+			$('.manage-user-student-information').remove();
+		});
 	});
 </script>

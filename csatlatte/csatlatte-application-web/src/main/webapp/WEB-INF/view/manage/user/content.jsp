@@ -28,40 +28,15 @@
 <nav>
 	<pagination:writer value="${paginationWriter}"/>
 </nav>
-<!-- <c:forEach items="${userList}" var="userList">
-<div class="modal fade" id="manage-user-id${userList.studentSequence}" tabindex="-1" role="dialog">
+<div class="modal fade" id="manage-user-id" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">회원정보</h4>
 			</div>
-			<div class="modal-body">
-				<img class="manage-user-picture" alt="회원사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
-				<div class="manage-user-info">
-					<div class="manage-user-info-content">
-						<label>아이디</label>
-						<div class="manage-user-info-content-value">${userList.studentId}</div>
-					</div>
-					<div class="manage-user-info-content">
-						<label>가입일</label>
-						<div class="manage-user-info-content-value">${userList.createDate}</div>
-					</div>
-					<div class="manage-user-info-content">
-						<label>최근 접속일</label>
-						<div class="manage-user-info-content-value">${userList.lastConnection}</div>
-					</div>
-					<div class="manage-user-info-content">
-						<label>활동점수 내역</label>
-						<div class="manage-user-info-content-value">게시글 ${userList.countCommunity}개, 댓글 ${userList.countComment}개</div>
-					</div>
-					<div class="manage-user-info-content">
-						<label>성적평균</label>
-						<div class="manage-user-info-content-value">${userList.averageScore}점</div>
-					</div>
-				</div>
+			<div class="modal-body" id="manage-user-student-information">
 			</div>
 		</div>
 	</div>
 </div>
-</c:forEach> -->
