@@ -35,4 +35,9 @@
 		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.NicknameTag</tag-class>
 		<body-content>JSP</body-content>
 	</tag>
+	<tag>
+		<name>studentSequence</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.StudentSequenceTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
 </taglib>

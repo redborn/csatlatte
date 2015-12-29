@@ -49,8 +49,13 @@ public class CommunityDaoMapper extends SqlSessionDaoSupport implements Communit
 		return getSqlSession().selectList("community.selectListCountYear", params);
 	}
 
-	public List<CommunityVo> selectList(int communityTypeSequence) {
-		return getSqlSession().selectList("community.selectList", communityTypeSequence);
+	public List<CommunityVo> selectList(int communityTypeSequence, int start, int end, int limit) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("communityTypeSequence", communityTypeSequence);
+		params.put("start", start);
+		params.put("end", end);
+		params.put("limit", limit);
+		return getSqlSession().selectList("community.selectList", params);
 	}
 	
 	public List<CommunityVo> selectListForManage(int communityTypeSequence, String search, int pageNumber) {
@@ -83,7 +88,7 @@ public class CommunityDaoMapper extends SqlSessionDaoSupport implements Communit
 		params.put("communityTypeSequence", communityTypeSequence);
 		params.put("communitySequence", communitySequence);
 		
-		return getSqlSession().update("community.updateUseYnN", communitySequence);
+		return getSqlSession().update("community.updateUseYnN", params);
 	}
 
 }

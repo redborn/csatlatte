@@ -1,4 +1,4 @@
 @CHARSET "UTF-8";
 
 html {position:relative; min-height:100%;}
-body {margin:auto; text-align:center; font-family:'Malgun Gothic';}
+body,xmp {margin:auto; font-family:'Malgun Gothic';}

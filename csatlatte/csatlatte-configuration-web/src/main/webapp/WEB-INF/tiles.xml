@@ -14,6 +14,7 @@
 	</definition>
 	
 	<definition name="csatlatte.layout.function2" template="/WEB-INF/layout/template/function2.jsp" extends="csatlatte.layout.function1"/>
+	<definition name="csatlatte.layout.function3" template="/WEB-INF/layout/template/function3.jsp" extends="csatlatte.layout.function2"/>
 	
 	<definition name="csatlatte.layout.error" template="/WEB-INF/layout/template/error.jsp" extends="csatlatte.layout.function1"/>
 	
@@ -25,6 +26,11 @@
 	<definition name="/rating" extends="csatlatte.layout.function2">
 		<put-attribute name="head" value="/WEB-INF/view/rating/head.jsp"/>
 		<put-attribute name="content" value="/WEB-INF/view/rating/content.jsp"/>
+	</definition>
+	
+	<definition name="/community" extends="csatlatte.layout.function3">
+		<put-attribute name="head" value="/WEB-INF/view/community/head.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/community/content.jsp"/>
 	</definition>
 	
 	<definition name="/support" extends="csatlatte.layout.function2">

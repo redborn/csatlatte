@@ -69,13 +69,12 @@ public class CommunityServiceImpl implements CommunityService {
 				&& commentDao.update(commentVo) == 1;
 	}
 
-	public boolean deleteComment(CommentVo commentVo) {
-		return commentDao.selectOne(commentVo.getCommunityTypeSequence(), commentVo.getCommunitySequence(), commentVo.getCommentSequence(), commentVo.getStudentSequence()) == 1 
-				&& commentDao.updateUseYnN(commentVo.getCommunityTypeSequence(), commentVo.getCommunitySequence(), commentVo.getCommentSequence()) == 1;
+	public boolean deleteComment(int communityTypeSequence, int communitySequence, int commentSequence, int studentSequence) {
+		return commentDao.updateUseYnN(communityTypeSequence,communitySequence, commentSequence, studentSequence) == 1;
 	}
 
-	public List<CommunityVo> list(int communityTypeSequence) {
-		return communityDao.selectList(communityTypeSequence);
+	public List<CommunityVo> list(int communityTypeSequence, int start, int end, int limit) {
+		return communityDao.selectList(communityTypeSequence, start, end, limit);
 	}
 	
 	public List<CommunityVo> list(int communityTypeSequence, String search, int pageNumber) {
