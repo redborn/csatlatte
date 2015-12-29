@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 	nav {text-align:center;}
 	th {text-align:center;}
@@ -22,3 +23,63 @@
 	.manage-user-info-content {text-align:left; margin-left:40px; margin-top:5px;}
 	.manage-user-info-content-value {margin-left:10px; display:inline-block;}
 </style>
+<script>
+	$(document).ready(function () {
+		
+		var pageNumber = null;
+		var search = null;
+		
+		var getUrlParameter = function getUrlParameter(sParam) {
+		    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+		        sURLVariables = sPageURL.split('&'),
+		        sParameterName,
+		        i;
+
+		    for (i = 0; i < sURLVariables.length; i++) {
+		        sParameterName = sURLVariables[i].split('=');
+
+		        if (sParameterName[0] === sParam) {
+		            return sParameterName[1] === undefined ? true : sParameterName[1];
+		        }
+		    }
+		};
+		
+		var makeStudentDataRow = function(student) {
+			var html = '';
+			html += '<tr>';
+			html += '	<td>' + student.studentSequence + '</td>';
+			html += '	<td>' + student.studentId + '</td>';
+			html += '	<td>' + student.nickname + '</td>';
+			html += '	<td>' + student.countConnection + '</td>';
+			html += '	<td><input type="checkbox" name="blindCheck" value="'+ student.studentSequence + '"';
+			if (student.useYn == 'N') {
+				html += ' checked';
+			}
+			html += '	</td>';
+			html += '	<td>' + (student.countCommunity + student.countComment) + '</td>';
+			html += '	<td>' + student.averageScore + '</td>';
+			html += '<tr>';
+			return html;
+		}
+		
+		pageNumber = getUrlParameter('pageNumber');
+		search = getUrlParameter('search');
+		
+		$.ajax("<c:url value="/data/student.json"/>", {
+			dataType : "json",
+			type : "GET",
+			data : {pageNumber : pageNumber, search : search},
+			success : function(data) {
+				if (data.userList != null) {
+					var studentList = data.userList;
+					var studentListLength = studentList.length;
+					for (var index = 0; index < studentListLength; index++) {
+						var student = studentList[index];
+						$("#table-content").append(makeStudentDataRow(student));
+					}
+				}
+			}
+		});
+		
+	});
+</script>

@@ -10,6 +10,7 @@
 <table class="table">
 	<thead>
 		<tr>
+			<th class="col-lg-1">번호</th>
 			<th class="col-lg-1">아이디</th>
 			<th class="col-lg-1">닉네임</th>
 			<th class="col-lg-1">접속횟수</th>
@@ -18,17 +19,7 @@
 			<th class="col-lg-1">성적평균</th>
 		</tr>
 	</thead>
-	<tbody>
-	<c:forEach items="${userList}" var="userList">
-		<tr>
-			<td><div data-toggle="modal" class="manage-user-id" data-target="#manage-user-id${userList.studentSequence}">${userList.studentId}</div></td>
-			<td>${userList.nickname}</td>
-			<td>${userList.countConnection}</td>
-			<td><input type="checkbox" <c:if test="${userList.useYn eq 'N'}">checked</c:if>></td>
-			<td>${userList.countCommunity + userList.countComment}</td>
-			<td>${userList.averageScore}</td>
-		</tr>
-	</c:forEach>
+	<tbody id="table-content">
 	</tbody>
 </table>
 <div class="manage-user-apply-align">
@@ -37,7 +28,7 @@
 <nav>
 	<pagination:writer value="${paginationWriter}"/>
 </nav>
-<c:forEach items="${userList}" var="userList">
+<!-- <c:forEach items="${userList}" var="userList">
 <div class="modal fade" id="manage-user-id${userList.studentSequence}" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -73,4 +64,4 @@
 		</div>
 	</div>
 </div>
-</c:forEach>
+</c:forEach> -->
