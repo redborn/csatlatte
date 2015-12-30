@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/layout/include/student.jsp" %>
+<%@ include file="/WEB-INF/layout/include/jquery/form.jsp" %>
 <style>
 	.community-write-btn {text-align:right;}
 	.community-write-text {padding:0;}
@@ -36,9 +37,9 @@ $(document).ready(function() {
 		html += '	<div class="panel-body">';
 		html += '		<div class="community-action">';
 		if (studentSequence === community.studentSequence) {
-			html += '			<a class="community-delete" href="#"><span class="glyphicon glyphicon-remove"></span></a>';
+			html += '			<button type="button" class="community-delete btn btn-default close"><span class="glyphicon glyphicon-remove"></span></button>';
 		} else if (studentSequence !== 0) {
-			html += '			<a href="#"><span class="glyphicon glyphicon-bell"></span></a>';
+			html += '			<button type="button" class="community-report btn btn-default close"><span class="glyphicon glyphicon-bell"></span></button>';
 		}
 		html += '		</div>';
 		html += '		<img alt="프로필사진" class="community-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png">';
@@ -69,9 +70,9 @@ $(document).ready(function() {
 		html += '		<div class="community-action">';
 		html += '			<div class="dropdown">';
 		if (studentSequence === comment.studentSequence) {
-			html += '			<a class="community-comment-delete" href="#"><span class="glyphicon glyphicon-remove"></span></a>';
+			html += '			<button type="button" class="community-comment-delete btn btn-default close"><span class="glyphicon glyphicon-remove"></span></button>';
 		} else if (studentSequence !== 0) {
-			html += '			<a href="#"><span class="glyphicon glyphicon-bell"></span></a>';
+			html += '			<button type="button" class="btn btn-default close"><span class="glyphicon glyphicon-bell"></span></button>';
 		}
 		html += '			</div>';
 		html += '		</div>';
@@ -145,9 +146,19 @@ $(document).ready(function() {
 					}
 				}
 			});
-			return false;
 		});
 	};
+	
+	
+	var addCommunityReportEvent = function(communitySequence) {
+		$("#community-" + communitySequence + " .community-report").on("click", function() {
+			$("#community-report").modal("show");
+			console.log($("#community-report-form").attr("action"));
+			var action = $("#community-report-form").attr("action");
+			console.log(action.substring(0, action.lastIndexOf("/") + 1) + communitySequence + ".json");
+			$("#community-report-form").attr("action", action.substring(0, action.lastIndexOf("/") + 1) + communitySequence + ".json");
+		});
+	}
 	
 	var addCommentWriteEvent = function(communitySequence) {
 		$("#community-text-comment-write-input-" + communitySequence).on("keyup", function(event) {
@@ -200,6 +211,7 @@ $(document).ready(function() {
 	
 	var addCommunityAndCommentEvent = function(communitySequence) {
 		addCommunityDeleteEvent(communitySequence);
+		addCommunityReportEvent(communitySequence);
 		addCommentWriteEvent(communitySequence);
 		addCommentsDeleteEvent(communitySequence);
 	};
@@ -301,6 +313,21 @@ $(document).ready(function() {
 				}
 			}
 		});
+	});
+	
+	$("#community-report-form").ajaxForm({
+		dataType : "json",
+		success : function(data) {
+			if (data.result) {
+				var action = $("#community-report-form").attr("action");
+				$("#community-" + action.substring(action.lastIndexOf("/") + 1, action.lastIndexOf(".")) + " .community-report").fadeOut("normal", function() {
+					$(this).remove();
+				});
+				$("#community-report").modal("hide");
+			} else {
+				// 실패 처리..
+			}
+		}
 	});
 
 	makeCommunityAndComments();

@@ -29,3 +29,33 @@
 		</div>
 	</div>
 </div>
+<div id="community-report" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<form id="community-report-form" action="<c:url value="/data/community/report/"/>" method="post">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+					<h4 class="modal-title">신고하기</h4>
+				</div>
+				<div class="modal-body">
+						<div class="radio">
+							<label>
+								<input type="radio" name="reportTypeSequence" value="1" checked="checked"/>
+								신고1
+							</label>
+						</div>
+						<div class="radio">
+							<label>
+								<input type="radio" name="reportTypeSequence" value="2"/>
+								신고2
+							</label>
+						</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					<button id="community-report-submit" type="submit" class="btn btn-primary">확인</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
