@@ -35,10 +35,10 @@ $(document).ready(function() {
 		var html = '<div class="panel panel-default community-text" id="community-' +  community.communitySequence + '" ' + (!show ? "style='display:none;'" : '') + '>';
 		html += '	<div class="panel-body">';
 		html += '		<div class="community-action">';
-		if (studentSequence !== community.studentSequence) {
-			html += '			<a href="#"><span class="glyphicon glyphicon-bell"></span></a>';
-		} else {
+		if (studentSequence === community.studentSequence) {
 			html += '			<a class="community-delete" href="#"><span class="glyphicon glyphicon-remove"></span></a>';
+		} else if (studentSequence !== 0) {
+			html += '			<a href="#"><span class="glyphicon glyphicon-bell"></span></a>';
 		}
 		html += '		</div>';
 		html += '		<img alt="프로필사진" class="community-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png">';
@@ -68,10 +68,10 @@ $(document).ready(function() {
 		html += '	<div class="community-text-comment-info">';
 		html += '		<div class="community-action">';
 		html += '			<div class="dropdown">';
-		if (studentSequence !== comment.studentSequence) {
-			html += '			<a href="#"><span class="glyphicon glyphicon-bell"></span></a>';
-		} else {
+		if (studentSequence === comment.studentSequence) {
 			html += '			<a class="community-comment-delete" href="#"><span class="glyphicon glyphicon-remove"></span></a>';
+		} else if (studentSequence !== 0) {
+			html += '			<a href="#"><span class="glyphicon glyphicon-bell"></span></a>';
 		}
 		html += '			</div>';
 		html += '		</div>';
