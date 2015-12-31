@@ -72,7 +72,7 @@ $(document).ready(function() {
 		if (studentSequence === comment.studentSequence) {
 			html += '			<button type="button" class="community-comment-delete btn btn-default close"><span class="glyphicon glyphicon-remove"></span></button>';
 		} else if (studentSequence !== 0) {
-			html += '			<button type="button" class="btn btn-default close"><span class="glyphicon glyphicon-bell"></span></button>';
+			html += '			<button type="button" class="community-comment-report btn btn-default close"><span class="glyphicon glyphicon-bell"></span></button>';
 		}
 		html += '			</div>';
 		html += '		</div>';
@@ -143,6 +143,8 @@ $(document).ready(function() {
 						$("#community-" + communitySequence).slideUp("normal", function() {
 							$(this).remove();
 						});
+					} else {
+						// 실패 처리..
 					}
 				}
 			});
@@ -153,9 +155,7 @@ $(document).ready(function() {
 	var addCommunityReportEvent = function(communitySequence) {
 		$("#community-" + communitySequence + " .community-report").on("click", function() {
 			$("#community-report").modal("show");
-			console.log($("#community-report-form").attr("action"));
 			var action = $("#community-report-form").attr("action");
-			console.log(action.substring(0, action.lastIndexOf("/") + 1) + communitySequence + ".json");
 			$("#community-report-form").attr("action", action.substring(0, action.lastIndexOf("/") + 1) + communitySequence + ".json");
 		});
 	}
@@ -175,6 +175,8 @@ $(document).ready(function() {
 						if (data.result) {
 							refreshComment(communitySequence);
 							$this.val("");
+						} else {
+							// 실패 처리..
 						}
 					}
 				});
@@ -202,6 +204,8 @@ $(document).ready(function() {
 						$("#community-comment-" + communitySequence + "-" + commentSequence).slideUp("fast", function() {
 							$(this).remove();
 						});
+					} else {
+						// 실패 처리..
 					}
 				}
 			});
@@ -209,11 +213,27 @@ $(document).ready(function() {
 		});
 	};
 	
+	var addCommentsReportEvent = function(communitySequence) {
+		$("#community-" + communitySequence + " .community-text-comment").each(function() {
+			var id = $(this).attr("id");
+			addCommentReportEvent(communitySequence, id.substring(id.lastIndexOf("-") + 1));
+		});
+	};
+	
+	var addCommentReportEvent = function(communitySequence, commentSequence) {
+		$("#community-comment-" + communitySequence + "-" + commentSequence + " .community-comment-report").on("click", function() {
+			$("#community-comment-report").modal("show");
+			var action = $("#community-comment-report-form").attr("action");
+			$("#community-comment-report-form").attr("action", action.substring(0, action.lastIndexOf("report/") + 7) + communitySequence + "/" + commentSequence + ".json");
+		});
+	}
+	
 	var addCommunityAndCommentEvent = function(communitySequence) {
 		addCommunityDeleteEvent(communitySequence);
 		addCommunityReportEvent(communitySequence);
 		addCommentWriteEvent(communitySequence);
 		addCommentsDeleteEvent(communitySequence);
+		addCommentsReportEvent(communitySequence);
 	};
 	
 	var ajaxCommunity = function(data, callback) {
@@ -310,6 +330,8 @@ $(document).ready(function() {
 					$("#community-write-submit").attr("disabled", true);
 					$("#community-write-content").val("");
 					refreshCommunityAndComment();
+				} else {
+					// 실패 처리..
 				}
 			}
 		});
@@ -324,6 +346,24 @@ $(document).ready(function() {
 					$(this).remove();
 				});
 				$("#community-report").modal("hide");
+			} else {
+				// 실패 처리..
+			}
+		}
+	});
+	
+	$("#community-comment-report-form").ajaxForm({
+		dataType : "json",
+		success : function(data) {
+			if (data.result) {
+				var action = $("#community-comment-report-form").attr("action");
+				var commentSequence = action.substring(action.lastIndexOf("/") + 1, action.lastIndexOf("."));
+				action = action.substring(0, action.lastIndexOf("/"));
+				var communitySequence = action.substring(action.lastIndexOf("/") + 1);
+				$("#community-comment-" + communitySequence + "-" + commentSequence + " .community-comment-report").fadeOut("normal", function() {
+					$(this).remove();
+				});
+				$("#community-comment-report").modal("hide");
 			} else {
 				// 실패 처리..
 			}
