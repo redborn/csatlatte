@@ -5,6 +5,7 @@ import java.util.List;
 import org.redborn.csatlatte.domain.CommentVo;
 import org.redborn.csatlatte.domain.CommunityVo;
 import org.redborn.csatlatte.domain.CountVo;
+import org.redborn.csatlatte.domain.TypeVo;
 
 public interface CommunityService {
 	
@@ -23,6 +24,7 @@ public interface CommunityService {
 	public List<CommunityVo> list(int communityTypeSequence, String search, int pageNumber);
 	public List<CommunityVo> list(int communityTypeSequence, int studentSequence);
 	public List<CommentVo> commentList(int communityTypeSequence, int communitySequence);
+	public List<TypeVo> reportTypeList();
 	public boolean report(int studentSequence,int communityTypeSequence, int communitySequence, int reportTypeSequence);
 	public boolean reportComment(int studentSequence,int communityTypeSequence, int communitySequence, int commentSequence, int reportTypeSequence);
 	public List<CountVo> dailyActive(int communityTypeSequence, String ymd);

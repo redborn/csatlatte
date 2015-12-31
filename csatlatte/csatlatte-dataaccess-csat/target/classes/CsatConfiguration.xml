@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<typeAliases>
+		<typeAlias alias="CommentVo" type="org.redborn.csatlatte.domain.CommentVo"/>
+		<typeAlias alias="CommunityVo" type="org.redborn.csatlatte.domain.CommunityVo"/>
+		<typeAlias alias="CountVo" type="org.redborn.csatlatte.domain.CountVo"/>
+		<typeAlias alias="CsatVo" type="org.redborn.csatlatte.domain.CsatVo"/>
+		<typeAlias alias="ExamVo" type="org.redborn.csatlatte.domain.ExamVo"/>
+		<typeAlias alias="FaqVo" type="org.redborn.csatlatte.domain.FaqVo"/>
+		<typeAlias alias="FileVo" type="org.redborn.csatlatte.domain.FileVo"/>
+		<typeAlias alias="GradeRatingVo" type="org.redborn.csatlatte.domain.GradeRatingVo"/>
+		<typeAlias alias="GradeStandardscoreVo" type="org.redborn.csatlatte.domain.GradeStandardscoreVo"/>
+		<typeAlias alias="GradeVo" type="org.redborn.csatlatte.domain.GradeVo"/>
+		<typeAlias alias="QnaAnswerVo" type="org.redborn.csatlatte.domain.QnaAnswerVo"/>
+		<typeAlias alias="QnaContentVo" type="org.redborn.csatlatte.domain.QnaContentVo"/>
+		<typeAlias alias="QnaForManageVo" type="org.redborn.csatlatte.domain.QnaForManageVo"/>
+		<typeAlias alias="QnaForStudentVo" type="org.redborn.csatlatte.domain.QnaForStudentVo"/>
+		<typeAlias alias="QnaVo" type="org.redborn.csatlatte.domain.QnaVo"/>
+		<typeAlias alias="StudentSecurityQuestionVo" type="org.redborn.csatlatte.domain.StudentSecurityQuestionVo"/>
+		<typeAlias alias="StudentVo" type="org.redborn.csatlatte.domain.StudentVo"/>
+		<typeAlias alias="TypeVo" type="org.redborn.csatlatte.domain.TypeVo"/>
+		<typeAlias alias="YearCountVo" type="org.redborn.csatlatte.domain.YearCountVo"/>
+		<typeAlias alias="YmCountVo" type="org.redborn.csatlatte.domain.YmCountVo"/>
+		<typeAlias alias="YmdCountVo" type="org.redborn.csatlatte.domain.YmdCountVo"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="org/redborn/csatlatte/persistence/CommunityMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/CsatMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/ExamMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/FaqMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/QnaMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/StudentMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/report/Type.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/student/ConnectionMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/student/SecurityQuestionMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/qna/AnswerMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/qna/ContentMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/qna/FileMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/faq/TypeMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/exam/student/ScoreMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/community/BlindMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/community/CommentMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/community/ReportMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/community/comment/BlindMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/community/comment/ReportMapper.xml"/>
+	</mappers>
+	
+</configuration>

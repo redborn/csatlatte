@@ -7,12 +7,14 @@ import java.util.List;
 import org.redborn.csatlatte.domain.CommentVo;
 import org.redborn.csatlatte.domain.CommunityVo;
 import org.redborn.csatlatte.domain.CountVo;
+import org.redborn.csatlatte.domain.TypeVo;
 import org.redborn.csatlatte.persistence.CommunityDao;
 import org.redborn.csatlatte.persistence.community.BlindDao;
 import org.redborn.csatlatte.persistence.community.CommentDao;
 import org.redborn.csatlatte.persistence.community.ReportDao;
 import org.redborn.csatlatte.persistence.community.comment.CommentBlindDao;
 import org.redborn.csatlatte.persistence.community.comment.CommentReportDao;
+import org.redborn.csatlatte.persistence.report.TypeDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,8 @@ public class CommunityServiceImpl implements CommunityService {
 	private ReportDao reportDao;
 	@Autowired
 	private CommentReportDao commentReportDao;
+	@Autowired
+	private TypeDao typeDao;
 	
 	public int amountCommunity() {
 		return communityDao.selectOneAmountCommunity();
@@ -87,6 +91,10 @@ public class CommunityServiceImpl implements CommunityService {
 
 	public List<CommentVo> commentList(int communityTypeSequence, int communitySequence) {
 		return commentDao.selectList(communityTypeSequence, communitySequence);
+	}
+
+	public List<TypeVo> reportTypeList() {
+		return typeDao.selectList();
 	}
 
 	public boolean report(int studentSequence, int communityTypeSequence, int communitySequence, int reportTypeSequence) {
