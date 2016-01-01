@@ -26,7 +26,7 @@ public class Comment {
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model, @RequestParam(value="communitySequence",required=true) int communitySequence) {
 		logger.info(new StringBuilder("data community comment list... community is ").append(communitySequence).toString());
-		model.addAttribute("list", communityService.commentList(CommunityService.COMMUNITY, communitySequence));
+		model.addAttribute("list", communityService.commentList(CommunityService.COMMUNITY, communitySequence, httpSessionValue.getStudentSequence()));
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
