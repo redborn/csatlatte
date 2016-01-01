@@ -1,5 +1,6 @@
 package org.redborn.csatlatte.controller.data.manage;
 
+import org.redborn.csatlatte.domain.QnaAnswerVo;
 import org.redborn.csatlatte.service.QnaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +23,37 @@ public class Question {
 	public void get(Model model, @RequestParam(value="search",required=false,defaultValue="") String search,
 			@RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber,
 			@RequestParam(value="useYn",required=false,defaultValue="") String useYn) {
-		logger.info("data manage question view");
+		logger.info("data manage question get view");
 		
 		int beginPageNumber = (pageNumber * 10) - 10;
 		
 		model.addAttribute("list", qnaService.listForManage(search, beginPageNumber, useYn));
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public void post(@RequestParam(value="answerContent",required=true) String answerContent,
+			@RequestParam(value="qnaSequence",required=true) int qnaSequence) {
+		logger.info("data manage question post insert");
+		
+		QnaAnswerVo qnaAnswerVo = new QnaAnswerVo();
+		
+		String content = answerContent;
+		int max = content.length() / 2000;
+		int beginIndex = 0;
+		
+		qnaAnswerVo.setQnaSequence(qnaSequence);
+		
+		for (int index = 0; index < max; index++) {
+			beginIndex = 2000 * index;
+			qnaAnswerVo.setContent(content.substring(beginIndex, beginIndex + 2000));
+			qnaService.answer(qnaAnswerVo);
+		}
+		
+		if (content.length() % 2000 != 0) {
+			qnaAnswerVo.setContent(content.substring(max * 2000, content.length()));
+			qnaService.answer(qnaAnswerVo);
+		}
+		
+		qnaService.delete(qnaSequence);
 	}
 }

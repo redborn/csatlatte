@@ -9,6 +9,7 @@ public class QnaVo {
 	private int studentSequence;
 	private Date writeDate;
 	private String content;
+	private String answerContent;
 	private String title;
 	private List<FileVo> file;
 	
@@ -42,6 +43,14 @@ public class QnaVo {
 	
 	public void setContent(String content) {
 		this.content = content;
+	}
+	
+	public String getAnswerContent() {
+		return answerContent;
+	}
+	
+	public void setAnswerContent(String answerContent) {
+		this.answerContent = answerContent;
 	}
 	
 	public String getTitle() {

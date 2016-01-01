@@ -22,8 +22,12 @@
 	.manage-question-qna-title-content {display:inline-block; margin-left:10px;}
 	.manage-question-qna-answer {margin-top:10px;}
 	
-	textarea {resize:none; border:none; padding-top:5px;}
+	textarea {resize:none; border:none; padding-top:5px; margin-bottom:10px;}
 	textarea.form-control {display:block; width:100%; height:150px;}
+	
+	.manage-question-detail {text-align:right;}
+	.manage-question-detail-content {text-align:left; margin-bottom:15px;}
+	.manage-question-detail-answer {text-align:left;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -31,6 +35,7 @@
 		var pageNumber = null;
 		var search = null;
 		var useYn = null;
+		var target = null;
 		
 		var getUrlParameter = function getUrlParameter(sParam) {
 		    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -53,7 +58,7 @@
 			html += '	<td>' + question.qnaSequence + '</td>';
 			html += '	<td>' + question.studentId + '</td>';
 			html += '	<td>' + question.nickname + '</td>';
-			html += '	<td><div id="'+ question.qnaSequence +'"data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view">' + question.title + '</div></td>';
+			html += '	<td><div id="'+ question.qnaSequence +'" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view">' + question.title + '</div></td>';
 			html += '	<td>' + question.writeDate + '</td>';
 			html += '	<td>' + question.useYn + '</td>';
 			html += '</tr>';
@@ -62,7 +67,18 @@
 		
 		var makeQuestionDetailView = function(question) {
 			var html = '';
-			html += '내용 : ' + question.content;
+			html += '<div class="manage-question-detail">';
+			html += '	<div class="manage-question-detail-content">';
+			html += '		<div><b>질문제목</b> : ' + question.title + '</div>';
+			html += '		<div><b>질문내용</b> : ' + question.content + '</div>';
+			html += '	</div>';
+			if (question.answerContent != "") {
+				html += '<div class="manage-question-detail-answer"><b>답변내용</b> : ' + question.answerContent + '</div>';
+			} else {
+				html += '<textarea class="form-control manage-question-answer-textarea" placeholder="답변이 완료되지 않은 문의입니다. 답변을 입력해주세요."/>';
+				html += '<input type="submit" class="btn btn-primary manage-question-answer-accept" value="답변완료">';
+			}
+			html += '</div>';
 			return html;
 		}
 		
@@ -80,9 +96,12 @@
 					for (index = 0; index < questionListLength; index++) {
 						question = questionList[index];
 						$("#table-content").append(makeQuestionDataRow(question));
+						console.log("데이터가 추가되었습니다."	);
 					}
 					$(".manage-question-answer-view").on("click", function () {
+						console.log("manage-question-answer-view 클릭 했습니다.");
 						var qnaSequence = $(this).attr("id");
+						target = qnaSequence;
 						$.ajax("<c:url value="/data/question.json"/>", {
 							dataType : "json",
 							type : "GET",
@@ -92,6 +111,17 @@
 									question = qnaData.detail;
 									$("#manage-question-detail").append(makeQuestionDetailView(question));
 								}
+								$(".manage-question-answer-accept").on("click", function () {
+								var answerContent = $('.manage-question-answer-textarea').val();
+									$.ajax("<c:url value="/data/manage/question.json"/>", {
+										dataType : "json",
+										type : "POST",
+										data : {qnaSequence : target, answerContent : answerContent},
+										success : function() {
+											alert("답변이 완료되었습니다.");
+										}
+									});
+								});
 							}
 						});
 					});
@@ -114,6 +144,20 @@
 							question = questionList[index];
 							$("#table-content").append(makeQuestionDataRow(question));
 						}
+						$(".manage-question-answer-view").on("click", function () {
+							var qnaSequence = $(this).attr("id");
+							$.ajax("<c:url value="/data/question.json"/>", {
+								dataType : "json",
+								type : "GET",
+								data : {qnaSequence : qnaSequence},
+								success : function(qnaData) {
+									if (qnaData.detail != null) {
+										question = qnaData.detail;
+										$("#manage-question-detail").append(makeQuestionDetailView(question));
+									}
+								}
+							});
+						});
 					}
 				}
 			});
@@ -134,6 +178,20 @@
 							question = questionList[index];
 							$("#table-content").append(makeQuestionDataRow(question));
 						}
+						$(".manage-question-answer-view").on("click", function () {
+							var qnaSequence = $(this).attr("id");
+							$.ajax("<c:url value="/data/question.json"/>", {
+								dataType : "json",
+								type : "GET",
+								data : {qnaSequence : qnaSequence},
+								success : function(qnaData) {
+									if (qnaData.detail != null) {
+										question = qnaData.detail;
+										$("#manage-question-detail").append(makeQuestionDetailView(question));
+									}
+								}
+							});
+						});
 					}
 				}
 			});
@@ -154,9 +212,28 @@
 							question = questionList[index];
 							$("#table-content").append(makeQuestionDataRow(question));
 						}
+						$(".manage-question-answer-view").on("click", function () {
+							var qnaSequence = $(this).attr("id");
+							$.ajax("<c:url value="/data/question.json"/>", {
+								dataType : "json",
+								type : "GET",
+								data : {qnaSequence : qnaSequence},
+								success : function(qnaData) {
+									if (qnaData.detail != null) {
+										question = qnaData.detail;
+										$("#manage-question-detail").append(makeQuestionDetailView(question));
+									}
+								}
+							});
+						});
 					}
 				}
 			});
 		});
+		
+		$('#manage-question-answer-view').on('hidden.bs.modal', function () {
+			$('.manage-question-detail').remove();
+		});
+		
 	});
 </script>
