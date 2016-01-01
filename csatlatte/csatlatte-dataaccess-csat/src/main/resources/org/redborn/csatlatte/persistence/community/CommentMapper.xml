@@ -12,6 +12,7 @@
 		<result column="nickname" property="nickname"/>
 		<result column="content" property="content"/>
 		<result column="report" property="report" typeHandler="org.redborn.csatlatte.commons.mybatis.BooleanTypeHandler"/>
+		<result column="blind" property="blind" typeHandler="org.redborn.csatlatte.commons.mybatis.BooleanTypeHandler"/>
 		<result column="write_ymdhms" property="writeYmdhms"/>
 	</resultMap>
 	
@@ -67,9 +68,11 @@
 	</select>
 	
 	<select id="selectList" parameterType="Map" resultMap="CommentVoMap">
-		SELECT ccc.comment_seq,ccc.student_seq,cs.nickname,ccc.content,
+		SELECT ccc.comment_seq,ccc.student_seq,cs.nickname,
+			   IF (IFNULL(cccb.community_type_seq, 0) = 0, ccc.content, NULL) AS content,
 		       DATE_FORMAT(ccc.write_date, '%Y%m%d%H%i%s') AS write_ymdhms,
-		       IF (IFNULL(cccr.community_type_seq, 0) = 0, 0, 1) AS report
+		       IF (IFNULL(cccr.community_type_seq, 0) = 0, 0, 1) AS report,
+		       IF (IFNULL(cccb.community_type_seq, 0) = 0, 0, 1) AS blind
 		  FROM csat_community_comment ccc
 		       INNER JOIN csat_student cs
 		               ON cs.student_seq = ccc.student_seq
@@ -81,6 +84,13 @@
 		                    ON ccc.community_type_seq = cccr.community_type_seq
 		                       AND ccc.community_seq = cccr.community_seq
 		                       AND ccc.comment_seq = cccr.comment_seq
+		       LEFT OUTER JOIN (SELECT community_type_seq,community_seq,comment_seq
+		                          FROM csat_community_comment_blind
+		                         WHERE community_type_seq = #{communityTypeSequence}
+		                           AND community_seq = #{communitySequence}) cccb
+		                    ON ccc.community_type_seq = cccb.community_type_seq
+		                       AND ccc.community_seq = cccb.community_seq
+		                       AND ccc.comment_seq = cccb.comment_seq
 		 WHERE ccc.use_yn = 'Y'
 		   AND ccc.community_type_seq = #{communityTypeSequence}
 		   AND ccc.community_seq = #{communitySequence}
