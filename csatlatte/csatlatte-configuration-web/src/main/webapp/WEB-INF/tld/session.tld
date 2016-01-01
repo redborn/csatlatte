@@ -16,8 +16,8 @@
 		<body-content>JSP</body-content>
 	</tag>
 	<tag>
-		<name>isAdministrator</name>
-		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.IsAdministratorTag</tag-class>
+		<name>isManager</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.IsManagerTag</tag-class>
 		<body-content>JSP</body-content>
 	</tag>
 	<tag>

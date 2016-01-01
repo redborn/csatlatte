@@ -12,11 +12,11 @@ import org.redborn.csatlatte.commons.servlet.http.HttpSessionValue;
  *
  */
 @SuppressWarnings("serial")
-public class IsAdministratorTag extends ConditionalTagSupport {
+public class IsManagerTag extends ConditionalTagSupport {
 
 	@Override
 	protected boolean condition() throws JspTagException {
-		return HttpSessionValue.getRuleSequence(pageContext.getSession()) == HttpSessionValue.ADMINISTRATOR;
+		return HttpSessionValue.getRuleSequence(pageContext.getSession()) == HttpSessionValue.MANAGER;
 	}
 
 }

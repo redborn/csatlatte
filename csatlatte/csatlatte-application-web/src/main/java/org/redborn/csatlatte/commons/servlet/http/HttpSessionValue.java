@@ -19,7 +19,7 @@ public class HttpSessionValue {
 	private final static String RULE_SEQUENCE = "ruleSequence";
 	private final static String ID = "id";
 	public final static int STUDENT = 1;
-	public final static int ADMINISTRATOR = 2;
+	public final static int MANAGER = 2;
 	@Autowired
 	private HttpSession session;
 	

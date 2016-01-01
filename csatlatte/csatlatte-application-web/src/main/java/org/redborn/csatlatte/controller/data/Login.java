@@ -31,7 +31,7 @@ public class Login {
 		StudentVo studentVo = studentService.information(id, password);
 		boolean result = false;
 		if (studentVo != null) {
-			httpSessionValue.setUser(id, studentVo.getStudentSequence(), studentVo.getNickname(), HttpSessionValue.STUDENT);
+			httpSessionValue.setUser(id, studentVo.getStudentSequence(), studentVo.getNickname(), studentVo.getRuleSequence());
 			result = true;
 			loggerStr.append("success.");
 		} else {
