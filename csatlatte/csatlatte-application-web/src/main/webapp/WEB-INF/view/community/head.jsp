@@ -38,7 +38,7 @@ $(document).ready(function() {
 		html += '		<div class="community-action">';
 		if (studentSequence === community.studentSequence) {
 			html += '			<button type="button" class="community-delete btn btn-default close"><span class="glyphicon glyphicon-remove"></span></button>';
-		} else if (studentSequence !== 0) {
+		} else if (studentSequence !== 0 && !community.report) {
 			html += '			<button type="button" class="community-report btn btn-default close"><span class="glyphicon glyphicon-bell"></span></button>';
 		}
 		html += '		</div>';
