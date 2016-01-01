@@ -77,8 +77,8 @@ public class CommunityServiceImpl implements CommunityService {
 		return commentDao.updateUseYnN(communityTypeSequence,communitySequence, commentSequence, studentSequence) == 1;
 	}
 
-	public List<CommunityVo> list(int communityTypeSequence, int start, int end, int limit) {
-		return communityDao.selectList(communityTypeSequence, start, end, limit);
+	public List<CommunityVo> list(int communityTypeSequence, int start, int end, int limit, int studentSequence) {
+		return communityDao.selectList(communityTypeSequence, start, end, limit, studentSequence);
 	}
 	
 	public List<CommunityVo> list(int communityTypeSequence, String search, int pageNumber) {

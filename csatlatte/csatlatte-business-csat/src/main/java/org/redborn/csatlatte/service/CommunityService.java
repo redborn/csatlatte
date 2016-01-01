@@ -20,7 +20,7 @@ public interface CommunityService {
 	public boolean writeComment(CommentVo commentVo);
 	public boolean modifyComment(CommentVo commentVo);
 	public boolean deleteComment(int communityTypeSequence, int communitySequence, int commentSequence, int studentSequence);
-	public List<CommunityVo> list(int communityTypeSequence, int start, int end, int limit);
+	public List<CommunityVo> list(int communityTypeSequence, int start, int end, int limit, int studentSequence);
 	public List<CommunityVo> list(int communityTypeSequence, String search, int pageNumber);
 	public List<CommunityVo> list(int communityTypeSequence, int studentSequence);
 	public List<CommentVo> commentList(int communityTypeSequence, int communitySequence);
