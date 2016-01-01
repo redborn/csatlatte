@@ -71,7 +71,7 @@ $(document).ready(function() {
 		html += '			<div class="dropdown">';
 		if (studentSequence === comment.studentSequence) {
 			html += '			<button type="button" class="community-comment-delete btn btn-default close"><span class="glyphicon glyphicon-remove"></span></button>';
-		} else if (studentSequence !== 0) {
+		} else if (studentSequence !== 0 && !comment.report) {
 			html += '			<button type="button" class="community-comment-report btn btn-default close"><span class="glyphicon glyphicon-bell"></span></button>';
 		}
 		html += '			</div>';
