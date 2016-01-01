@@ -9,6 +9,7 @@ public class CommunityVo {
 	private String nickname;
 	private String content;
 	private String writeYmdhms;
+	private boolean report;
 	private int blind;
 
 	public int getCommunityTypeSequence() {
@@ -67,6 +68,14 @@ public class CommunityVo {
 		this.writeYmdhms = writeYmdhms;
 	}
 
+	public boolean isReport() {
+		return report;
+	}
+
+	public void setReport(boolean report) {
+		this.report = report;
+	}
+
 	public int getBlind() {
 		return blind;
 	}
@@ -92,6 +101,8 @@ public class CommunityVo {
 		builder.append(content);
 		builder.append(", writeYmdhms=");
 		builder.append(writeYmdhms);
+		builder.append(", report=");
+		builder.append(report);
 		builder.append(", blind=");
 		builder.append(blind);
 		builder.append("]");
