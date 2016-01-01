@@ -14,6 +14,7 @@
 	.community-text .community-name {font-size:12px; display:inline;}
 	.community-text .community-name strong, .community-text  .community-name xmp {display:inline-block;}
 	.community-text .community-calender {font-size:12px; color:gray;}
+	.community-text .community-blind {color:red;}
 	.community-text .community-action {display:inline-block; vertical-align:top; text-align:right; float:right;}
 	.community-text .community-text-content {padding-top:15px;}
 	.community-text .community-text-comment-info {padding-left:44px; display:inline-block; width:100%;}
@@ -36,10 +37,12 @@ $(document).ready(function() {
 		var html = '<div class="panel panel-default community-text" id="community-' +  community.communitySequence + '" ' + (!show ? "style='display:none;'" : '') + '>';
 		html += '	<div class="panel-body">';
 		html += '		<div class="community-action">';
-		if (studentSequence === community.studentSequence) {
-			html += '			<button type="button" class="community-delete btn btn-default close"><span class="glyphicon glyphicon-remove"></span></button>';
-		} else if (studentSequence !== 0 && !community.report) {
-			html += '			<button type="button" class="community-report btn btn-default close"><span class="glyphicon glyphicon-bell"></span></button>';
+		if (!community.blind) {
+			if (studentSequence === community.studentSequence) {
+				html += '			<button type="button" class="community-delete btn btn-default close"><span class="glyphicon glyphicon-remove"></span></button>';
+			} else if (studentSequence !== 0 && !community.report) {
+				html += '			<button type="button" class="community-report btn btn-default close"><span class="glyphicon glyphicon-bell"></span></button>';
+			}
 		}
 		html += '		</div>';
 		html += '		<img alt="프로필사진" class="community-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png">';
@@ -47,15 +50,23 @@ $(document).ready(function() {
 		html += '			<div class="community-name"><strong>' + community.nickname + '</strong></div>';
 		html += '			<div class="community-calender">' + format(community.writeYmdhms) + '</div>';
 		html += '		</div>';
-		html += '		<div class="community-text-content"><xmp>' + community.content + '</xmp></div>';
+		if (!community.blind) {
+			html += '		<div class="community-text-content"><xmp>' + community.content + '</xmp></div>';
+		} else {
+			html += '		<div class="community-text-content"><xmp class="community-blind">이 글은 관리자에 의해 블라인드 처리 되었습니다.</xmp></div>';
+		}
 		html += '	</div>';
-		html += '	<div class="panel-footer community-text-comment-write">';
-		html += '		<img alt="프로필사진" class="community-comment-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png"/>';
-		html += '		<div class="community-text-comment-write-div">';
-		html += '			<label for="community-text-comment-write-input-' + community.communitySequence + '" class="sr-only">댓글을 입력하세요.</label>';
-		html += '			<input id="community-text-comment-write-input-' + community.communitySequence + '" type="text" class="form-control" placeholder="댓글을 입력하세요." maxlength="140"/>';
-		html += '		</div>';
-		html += '	</div>';
+		if (!community.blind) {
+			html += '	<div class="panel-footer community-text-comment-write">';
+			html += '		<img alt="프로필사진" class="community-comment-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png"/>';
+			html += '		<div class="community-text-comment-write-div">';
+			html += '			<label for="community-text-comment-write-input-' + community.communitySequence + '" class="sr-only">댓글을 입력하세요.</label>';
+			html += '			<input id="community-text-comment-write-input-' + community.communitySequence + '" type="text" class="form-control" placeholder="댓글을 입력하세요." maxlength="140"/>';
+			html += '		</div>';
+			html += '	</div>';
+		} else {
+			html += '	<div class="community-text-comment-write"></div>';
+		}
 		html += '</div>';
 		return html;
 	};
