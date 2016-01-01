@@ -8,6 +8,7 @@ public class CommentVo {
 	private int studentSequence;
 	private String nickname;
 	private String content;
+	private boolean report;
 	private String writeYmdhms;
 
 	public int getCommunityTypeSequence() {
@@ -58,6 +59,14 @@ public class CommentVo {
 		this.content = content;
 	}
 
+	public boolean isReport() {
+		return report;
+	}
+
+	public void setReport(boolean report) {
+		this.report = report;
+	}
+
 	public String getWriteYmdhms() {
 		return writeYmdhms;
 	}
@@ -68,11 +77,25 @@ public class CommentVo {
 
 	@Override
 	public String toString() {
-		return "CommentVo [communityTypeSequence=" + communityTypeSequence
-				+ ", communitySequence=" + communitySequence
-				+ ", commentSequence=" + commentSequence + ", studentSequence="
-				+ studentSequence + ", nickname=" + nickname + ", content="
-				+ content + ", writeYmdhms=" + writeYmdhms + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("CommentVo [communityTypeSequence=");
+		builder.append(communityTypeSequence);
+		builder.append(", communitySequence=");
+		builder.append(communitySequence);
+		builder.append(", commentSequence=");
+		builder.append(commentSequence);
+		builder.append(", studentSequence=");
+		builder.append(studentSequence);
+		builder.append(", nickname=");
+		builder.append(nickname);
+		builder.append(", content=");
+		builder.append(content);
+		builder.append(", report=");
+		builder.append(report);
+		builder.append(", writeYmdhms=");
+		builder.append(writeYmdhms);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }
