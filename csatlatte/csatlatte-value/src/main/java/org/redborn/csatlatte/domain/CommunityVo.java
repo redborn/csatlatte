@@ -10,7 +10,7 @@ public class CommunityVo {
 	private String content;
 	private String writeYmdhms;
 	private boolean report;
-	private int blind;
+	private boolean blind;
 
 	public int getCommunityTypeSequence() {
 		return communityTypeSequence;
@@ -76,11 +76,11 @@ public class CommunityVo {
 		this.report = report;
 	}
 
-	public int getBlind() {
+	public boolean isBlind() {
 		return blind;
 	}
 
-	public void setBlind(int blind) {
+	public void setBlind(boolean blind) {
 		this.blind = blind;
 	}
 
