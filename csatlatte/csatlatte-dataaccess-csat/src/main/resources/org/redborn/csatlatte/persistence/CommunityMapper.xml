@@ -89,7 +89,14 @@
 		               ON cc.student_seq = cs.student_seq
 		       LEFT OUTER JOIN (SELECT community_type_seq,community_seq
 		                          FROM csat_community_report
-		                         WHERE student_seq = #{studentSequence}) ccr
+		                         WHERE student_seq = #{studentSequence}
+								<if test="start > 0">
+								   AND community_seq &lt;= #{start}
+								</if>
+								<if test="end > 0">
+								   AND community_seq &gt;= #{end}
+								</if>
+		                         ) ccr
 		                    ON cc.community_type_seq = ccr.community_type_seq
 		                       AND cc.community_seq = ccr.community_seq
 		 WHERE cc.use_yn = 'Y'
