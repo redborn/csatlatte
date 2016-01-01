@@ -79,16 +79,21 @@ $(document).ready(function() {
 		html += '	<img alt="프로필사진" class="community-comment-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png"/>';
 		html += '	<div class="community-text-comment-info">';
 		html += '		<div class="community-action">';
-		html += '			<div class="dropdown">';
-		if (studentSequence === comment.studentSequence) {
-			html += '			<button type="button" class="community-comment-delete btn btn-default close"><span class="glyphicon glyphicon-remove"></span></button>';
-		} else if (studentSequence !== 0 && !comment.report) {
-			html += '			<button type="button" class="community-comment-report btn btn-default close"><span class="glyphicon glyphicon-bell"></span></button>';
+		if (!comment.blind) {
+			if (studentSequence === comment.studentSequence) {
+				html += '			<button type="button" class="community-comment-delete btn btn-default close"><span class="glyphicon glyphicon-remove"></span></button>';
+			} else if (studentSequence !== 0 && !comment.report) {
+				html += '			<button type="button" class="community-comment-report btn btn-default close"><span class="glyphicon glyphicon-bell"></span></button>';
+			}
 		}
-		html += '			</div>';
 		html += '		</div>';
 		html += '		<div class="community-name">';
-		html += '			<strong>' + comment.nickname + '</strong> <xmp>' + comment.content + '</xmp>';
+		html += '			<strong>' + comment.nickname + '</strong> ';
+		if (!comment.blind) {
+			html += '<xmp>' + comment.content + '</xmp>';
+		} else {
+			html += '<xmp class="community-blind">이 글은 관리자에 의해 블라인드 처리 되었습니다.</xmp>';
+		}
 		html += '		</div>';
 		html += '		<div class="community-calender">' + format(comment.writeYmdhms) + '</div>';
 		html += '	</div>';
