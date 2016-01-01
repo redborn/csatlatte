@@ -32,7 +32,7 @@ public class Community {
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model, @RequestParam(value="start",required=false,defaultValue="-1") int start, @RequestParam(value="end",required=false,defaultValue="-1") int end, @RequestParam(value="limit",required=false,defaultValue="10") int limit) {
 		logger.info("data community list");
-		model.addAttribute("list", communityService.list(CommunityService.COMMUNITY, start, end, limit));
+		model.addAttribute("list", communityService.list(CommunityService.COMMUNITY, start, end, limit, httpSessionValue.getStudentSequence()));
 	}
 	
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.GET)
