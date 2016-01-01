@@ -9,6 +9,7 @@ public class CommentVo {
 	private String nickname;
 	private String content;
 	private boolean report;
+	private boolean blind;
 	private String writeYmdhms;
 
 	public int getCommunityTypeSequence() {
@@ -67,6 +68,14 @@ public class CommentVo {
 		this.report = report;
 	}
 
+	public boolean isBlind() {
+		return blind;
+	}
+
+	public void setBlind(boolean blind) {
+		this.blind = blind;
+	}
+
 	public String getWriteYmdhms() {
 		return writeYmdhms;
 	}
@@ -92,6 +101,8 @@ public class CommentVo {
 		builder.append(content);
 		builder.append(", report=");
 		builder.append(report);
+		builder.append(", blind=");
+		builder.append(blind);
 		builder.append(", writeYmdhms=");
 		builder.append(writeYmdhms);
 		builder.append("]");
