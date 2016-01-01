@@ -89,8 +89,8 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDao.selectListStudentText(communityTypeSequence, studentSequence);
 	}
 
-	public List<CommentVo> commentList(int communityTypeSequence, int communitySequence) {
-		return commentDao.selectList(communityTypeSequence, communitySequence);
+	public List<CommentVo> commentList(int communityTypeSequence, int communitySequence, int studentSequence) {
+		return commentDao.selectList(communityTypeSequence, communitySequence, studentSequence);
 	}
 
 	public List<TypeVo> reportTypeList() {

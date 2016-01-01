@@ -23,7 +23,7 @@ public interface CommunityService {
 	public List<CommunityVo> list(int communityTypeSequence, int start, int end, int limit, int studentSequence);
 	public List<CommunityVo> list(int communityTypeSequence, String search, int pageNumber);
 	public List<CommunityVo> list(int communityTypeSequence, int studentSequence);
-	public List<CommentVo> commentList(int communityTypeSequence, int communitySequence);
+	public List<CommentVo> commentList(int communityTypeSequence, int communitySequence, int studentSequence);
 	public List<TypeVo> reportTypeList();
 	public boolean report(int studentSequence,int communityTypeSequence, int communitySequence, int reportTypeSequence);
 	public boolean reportComment(int studentSequence,int communityTypeSequence, int communitySequence, int commentSequence, int reportTypeSequence);
