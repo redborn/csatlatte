@@ -34,15 +34,17 @@ public class CommunityServiceImpl implements CommunityService {
 	@Autowired
 	private CommentReportDao commentReportDao;
 	@Autowired
-	private TypeDao typeDao;
+	private TypeDao reportTypeDao;
+	@Autowired
+	private org.redborn.csatlatte.persistence.blind.TypeDao blindTypeDao;
 	
 	public int amountCommunity() {
 		return communityDao.selectOneAmountCommunity();
 	}
 	
-	public boolean blind(int communityTypeSequence, int communitySequence, String content) {
+	public boolean blind(int communityTypeSequence, int communitySequence, int blindTypeSequence) {
 		return blindDao.selectOne(communityTypeSequence, communitySequence) == 0 
-				&& blindDao.insert(communityTypeSequence, communitySequence, content) == 1;
+				&& blindDao.insert(communityTypeSequence, communitySequence, blindTypeSequence) == 1;
 	}
 
 	public boolean write(CommunityVo communityVo) {
@@ -59,9 +61,9 @@ public class CommunityServiceImpl implements CommunityService {
 				&& communityDao.updateUseYnN(communityTypeSequence, communitySequence) == 1;
 	}
 
-	public boolean blindComment(int communityTypeSequence, int communitySequence, int commentSequence, String content) {
+	public boolean blindComment(int communityTypeSequence, int communitySequence, int commentSequence, int blindTypeSequence) {
 		return commentBlindDao.selectOne(communityTypeSequence, communitySequence, commentSequence) == 0 
-				&& commentBlindDao.insert(communityTypeSequence, communitySequence, commentSequence, content) == 1;
+				&& commentBlindDao.insert(communityTypeSequence, communitySequence, commentSequence, blindTypeSequence) == 1;
 	}
 
 	public boolean writeComment(CommentVo commentVo) {
@@ -93,8 +95,12 @@ public class CommunityServiceImpl implements CommunityService {
 		return commentDao.selectList(communityTypeSequence, communitySequence, studentSequence);
 	}
 
+	public List<TypeVo> blindTypeList() {
+		return blindTypeDao.selectList();
+	}
+
 	public List<TypeVo> reportTypeList() {
-		return typeDao.selectList();
+		return reportTypeDao.selectList();
 	}
 
 	public boolean report(int studentSequence, int communityTypeSequence, int communitySequence, int reportTypeSequence) {

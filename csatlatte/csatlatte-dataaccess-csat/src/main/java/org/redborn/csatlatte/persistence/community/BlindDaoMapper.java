@@ -17,11 +17,11 @@ public class BlindDaoMapper extends SqlSessionDaoSupport implements BlindDao {
 		return getSqlSession().selectOne("community.blind.selectOne", params);
 	}
 
-	public int insert(int communityTypeSequence, int communitySequence, String content) {
+	public int insert(int communityTypeSequence, int communitySequence, int blindTypeSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("communityTypeSequence", communityTypeSequence);
 		params.put("communitySequence", communitySequence);
-		params.put("content", content);
+		params.put("blindTypeSequence", blindTypeSequence);
 		
 		return getSqlSession().insert("community.blind.insert", params);
 	}
