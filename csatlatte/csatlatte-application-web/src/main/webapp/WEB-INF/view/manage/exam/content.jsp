@@ -10,6 +10,7 @@
 <table class="table">
 	<thead>
 		<tr>
+			<th class="col-lg-1">번호</th>
 			<th class="col-lg-3">연도</th>
 			<th class="col-lg-4">모의고사</th>
 			<th class="col-lg-4">주관교육청</th>
@@ -20,6 +21,7 @@
 	<tbody>
 	<c:forEach items="${list}" var="list">
 		<tr>
+			<td>${list.examSequence}</td>
 			<td>${list.year}</td>
 			<td>${list.examName}</td>
 			<td><div class="manage-question-content" data-toggle="modal" data-target="#manage-question-answer-view">${list.istttName}</div></td>

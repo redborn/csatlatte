@@ -13,6 +13,7 @@
 	</resultMap>
 	
 	<resultMap type="ExamVo" id="ExamVoForManageMap">
+		<result column="exam_seq" property="examSequence"/>
 		<result column="year" property="year" />
 		<result column="exam_name" property="examName" />
 		<result column="isttt_name" property="istttName" />
@@ -34,12 +35,12 @@
 	</select>
 	
 	<select id="selectListExamForManage" parameterType="Map" resultMap="ExamVoForManageMap">
-		SELECT DATE_FORMAT(ce.exam_ymd, '%Y') AS year,ce.exam_name,ci.isttt_name
+		SELECT ce.exam_seq, DATE_FORMAT(ce.exam_ymd, '%Y') AS year,ce.exam_name,ci.isttt_name
 		  FROM csat_exam ce,csat_isttt ci
 		 WHERE ce.isttt_seq = ci.isttt_seq
 		   AND ( ce.exam_name LIKE CONCAT('%', #{search}, '%')
 		          OR ci.isttt_name LIKE CONCAT('%', #{search}, '%') )
-		 ORDER BY year
+		 ORDER BY ce.exam_seq desc
 		 LIMIT #{pageNumber}, 10 
 	</select>
 	

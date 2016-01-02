@@ -110,6 +110,7 @@
 		   AND cc.community_type_seq = #{communityTypeSequence}
 		   AND ( cs.student_id LIKE CONCAT('%', #{search}, '%')
 		          OR cs.nickname LIKE CONCAT('%', #{search}, '%') )
+	  ORDER BY cc.community_seq desc
 		 LIMIT #{pageNumber}, 10; 
 	</select>
 	

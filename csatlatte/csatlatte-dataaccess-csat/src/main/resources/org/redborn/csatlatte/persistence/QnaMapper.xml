@@ -55,6 +55,7 @@
 		   AND cq.student_seq = cs.student_seq
 		   AND cq.use_yn like CONCAT ('%',#{useYn},'%')
 		   AND (cs.student_id like CONCAT('%',#{search},'%') OR cs.nickname like CONCAT('%',#{search},'%'))
+	  ORDER BY cq.qna_seq desc
 		 LIMIT #{pageNumber}, 10
 	</select>
 	
