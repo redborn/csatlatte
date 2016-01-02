@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <div class="container">
 	<h2 style="color:#7a6253;">커뮤니티</h2>
 </div>
@@ -49,7 +50,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					<button id="community-report-submit" type="submit" class="btn btn-primary" disabled="disabled">확인</button>
+					<button type="submit" class="btn btn-primary" disabled="disabled">확인</button>
 				</div>
 			</form>
 		</div>
@@ -75,9 +76,63 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					<button id="community-comment-report-submit" type="submit" class="btn btn-primary" disabled="disabled">확인</button>
+					<button type="submit" class="btn btn-primary" disabled="disabled">확인</button>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
+<session:isManager>
+<div id="community-blind" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<form id="community-blind-form" action="<c:url value="/data/community/blind/"/>" method="post">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+					<h4 class="modal-title">블라인드</h4>
+				</div>
+				<div class="modal-body">
+				<c:forEach items="${blindTypeList}" var="blindType">
+					<div class="radio">
+						<label>
+							<input type="radio" name="blindTypeSequence" value="${blindType.typeSequence}"/>
+							${blindType.description}
+						</label>
+					</div>
+				</c:forEach>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					<button type="submit" class="btn btn-primary" disabled="disabled">확인</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="community-comment-blind" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<form id="community-comment-blind-form" action="<c:url value="/data/community/comment/blind/"/>" method="post">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+					<h4 class="modal-title">블라인드</h4>
+				</div>
+				<div class="modal-body">
+				<c:forEach items="${blindTypeList}" var="blindType">
+					<div class="radio">
+						<label>
+							<input type="radio" name="blindTypeSequence" value="${blindType.typeSequence}"/>
+							${blindType.description}
+						</label>
+					</div>
+				</c:forEach>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					<button type="submit" class="btn btn-primary" disabled="disabled">확인</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</session:isManager>

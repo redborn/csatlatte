@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/layout/include/student.jsp" %>
+<%@ include file="/WEB-INF/layout/include/manager.jsp" %>
 <%@ include file="/WEB-INF/layout/include/jquery/form.jsp" %>
 <style>
 	.community-write-btn {text-align:right;}
@@ -14,7 +15,7 @@
 	.community-text .community-name {font-size:12px; display:inline;}
 	.community-text .community-name strong, .community-text  .community-name xmp {display:inline-block;}
 	.community-text .community-calender {font-size:12px; color:gray;}
-	.community-text .community-blind {color:red;}
+	.community-text .community-blind-text {color:red;}
 	.community-text .community-action {display:inline-block; vertical-align:top; text-align:right; float:right;}
 	.community-text .community-text-content {padding-top:15px;}
 	.community-text .community-text-comment-info {padding-left:44px; display:inline-block; width:100%;}
@@ -25,6 +26,7 @@
 $(document).ready(function() {
 	var firstCommunitySequence;
 	var lastCommunitySequence;
+	var blindText = "이 글은 관리자에 의해 블라인드 처리 되었습니다.";
 	
 	var format = function(ymdhms) {
 		return ymdhms.substring(0, 4) + "-" + ymdhms.substring(4, 6) + "-" + ymdhms.substring(6, 8) + " " + ymdhms.substring(8, 10) + ":" + ymdhms.substring(10, 12) + ":" + ymdhms.substring(12, 14);
@@ -40,6 +42,8 @@ $(document).ready(function() {
 		if (!community.blind) {
 			if (studentSequence === community.studentSequence) {
 				html += '			<button type="button" class="community-delete btn btn-default close"><span class="glyphicon glyphicon-remove"></span></button>';
+			} else if (manager) {
+				html += '			<button type="button" class="community-blind btn btn-default close"><span class="glyphicon glyphicon-lock"></span></button>';
 			} else if (studentSequence !== 0 && !community.report) {
 				html += '			<button type="button" class="community-report btn btn-default close"><span class="glyphicon glyphicon-bell"></span></button>';
 			}
@@ -53,7 +57,7 @@ $(document).ready(function() {
 		if (!community.blind) {
 			html += '		<div class="community-text-content"><xmp>' + community.content + '</xmp></div>';
 		} else {
-			html += '		<div class="community-text-content"><xmp class="community-blind">이 글은 관리자에 의해 블라인드 처리 되었습니다.</xmp></div>';
+			html += '		<div class="community-text-content"><xmp class="community-blind-text">' + blindText + '</xmp></div>';
 		}
 		html += '	</div>';
 		if (!community.blind) {
@@ -82,6 +86,8 @@ $(document).ready(function() {
 		if (!comment.blind) {
 			if (studentSequence === comment.studentSequence) {
 				html += '			<button type="button" class="community-comment-delete btn btn-default close"><span class="glyphicon glyphicon-remove"></span></button>';
+			} else if (manager) {
+				html += '			<button type="button" class="community-comment-blind btn btn-default close"><span class="glyphicon glyphicon-lock"></span></button>';
 			} else if (studentSequence !== 0 && !comment.report) {
 				html += '			<button type="button" class="community-comment-report btn btn-default close"><span class="glyphicon glyphicon-bell"></span></button>';
 			}
@@ -92,7 +98,7 @@ $(document).ready(function() {
 		if (!comment.blind) {
 			html += '<xmp>' + comment.content + '</xmp>';
 		} else {
-			html += '<xmp class="community-blind">이 글은 관리자에 의해 블라인드 처리 되었습니다.</xmp>';
+			html += '<xmp class="community-blind-text">' + blindText + '</xmp>';
 		}
 		html += '		</div>';
 		html += '		<div class="community-calender">' + format(comment.writeYmdhms) + '</div>';
@@ -176,6 +182,14 @@ $(document).ready(function() {
 		});
 	}
 	
+	var addCommunityBlindEvent = function(communitySequence) {
+		$("#community-" + communitySequence + " .community-blind").on("click", function() {
+			$("#community-blind").modal("show");
+			var action = $("#community-blind-form").attr("action");
+			$("#community-blind-form").attr("action", action.substring(0, action.lastIndexOf("/") + 1) + communitySequence + ".json");
+		});
+	}
+	
 	var addCommentWriteEvent = function(communitySequence) {
 		$("#community-text-comment-write-input-" + communitySequence).on("keyup", function(event) {
 			var $this = $(this);
@@ -225,7 +239,6 @@ $(document).ready(function() {
 					}
 				}
 			});
-			return false;
 		});
 	};
 	
@@ -242,14 +255,31 @@ $(document).ready(function() {
 			var action = $("#community-comment-report-form").attr("action");
 			$("#community-comment-report-form").attr("action", action.substring(0, action.lastIndexOf("report/") + 7) + communitySequence + "/" + commentSequence + ".json");
 		});
-	}
+	};
+	
+	var addCommentsBlindEvent = function(communitySequence) {
+		$("#community-" + communitySequence + " .community-text-comment").each(function() {
+			var id = $(this).attr("id");
+			addCommentBlindEvent(communitySequence, id.substring(id.lastIndexOf("-") + 1));
+		});
+	};
+	
+	var addCommentBlindEvent = function(communitySequence, commentSequence) {
+		$("#community-comment-" + communitySequence + "-" + commentSequence + " .community-comment-blind").on("click", function() {
+			$("#community-comment-blind").modal("show");
+			var action = $("#community-comment-blind-form").attr("action");
+			$("#community-comment-blind-form").attr("action", action.substring(0, action.lastIndexOf("blind/") + 6) + communitySequence + "/" + commentSequence + ".json");
+		});
+	};
 	
 	var addCommunityAndCommentEvent = function(communitySequence) {
 		addCommunityDeleteEvent(communitySequence);
 		addCommunityReportEvent(communitySequence);
+		addCommunityBlindEvent(communitySequence);
 		addCommentWriteEvent(communitySequence);
 		addCommentsDeleteEvent(communitySequence);
 		addCommentsReportEvent(communitySequence);
+		addCommentsBlindEvent(communitySequence);
 	};
 	
 	var ajaxCommunity = function(data, callback) {
@@ -363,6 +393,7 @@ $(document).ready(function() {
 		$("#community-report-form input[name='reportTypeSequence']:checked").attr("checked", false);
 		$("#community-report-form button[type='submit']").attr("disabled", true);
 	});
+	
 
 	$("#community-comment-report-form input[name='reportTypeSequence']").on("change", function() {
 		if ($("#community-comment-report-form input[name='reportTypeSequence']:checked").length >= 1) {
@@ -374,6 +405,28 @@ $(document).ready(function() {
 		$("#community-comment-report-form input[name='reportTypeSequence']:checked").attr("checked", false);
 		$("#community-comment-report-form button[type='submit']").attr("disabled", true);
 	});
+
+	$("#community-blind-form input[name='blindTypeSequence']").on("change", function() {
+		if ($("#community-blind-form input[name='blindTypeSequence']:checked").length >= 1) {
+			$("#community-blind-form button[type='submit']").attr("disabled", false);
+		}
+	});
+	
+	$("#community-blind").on("hidden.bs.modal", function() {
+		$("#community-blind-form input[name='blindTypeSequence']:checked").attr("checked", false);
+		$("#community-blind-form button[type='submit']").attr("disabled", true);
+	});
+
+	$("#community-comment-blind-form input[name='blindTypeSequence']").on("change", function() {
+		if ($("#community-comment-blind-form input[name='blindTypeSequence']:checked").length >= 1) {
+			$("#community-comment-blind-form button[type='submit']").attr("disabled", false);
+		}
+	});
+	
+	$("#community-comment-blind").on("hidden.bs.modal", function() {
+		$("#community-comment-blind-form input[name='blindTypeSequence']:checked").attr("checked", false);
+		$("#community-comment-blind-form button[type='submit']").attr("disabled", true);
+	});
 	
 	$("#community-report-form").ajaxForm({
 		dataType : "json",
@@ -381,8 +434,6 @@ $(document).ready(function() {
 			if (data.result) {
 				var action = $("#community-report-form").attr("action");
 				$("#community-" + action.substring(action.lastIndexOf("/") + 1, action.lastIndexOf(".")) + " .community-report").fadeOut("normal", function() {
-					$("#community-report-form input[name='reportTypeSequence']:checked").attr("checked", false);
-					$("#community-report-form button[type='submit']").attr("disabled", true);
 					$(this).remove();
 				});
 				$("#community-report").modal("hide");
@@ -401,13 +452,46 @@ $(document).ready(function() {
 				action = action.substring(0, action.lastIndexOf("/"));
 				var communitySequence = action.substring(action.lastIndexOf("/") + 1);
 				$("#community-comment-" + communitySequence + "-" + commentSequence + " .community-comment-report").fadeOut("normal", function() {
-					$("#community-comment-report-form input[name='reportTypeSequence']:checked").attr("checked", false);
-					$("#community-comment-report-form button[type='submit']").attr("disabled", true);
 					$(this).remove();
 				});
 				$("#community-comment-report").modal("hide");
 			} else {
 				// 실패 처리..
+			}
+		}
+	});
+	
+	$("#community-blind-form").ajaxForm({
+		dataType : "json",
+		success : function(data) {
+			if (data.result) {
+				var action = $("#community-blind-form").attr("action");
+				var communitySequence = action.substring(action.lastIndexOf("/") + 1, action.lastIndexOf("."));
+				$("#community-" + communitySequence + " .community-blind").fadeOut("normal", function() {
+					$(this).remove();
+				});
+				$("#community-" + communitySequence + " .community-text-comment-write").slideUp("fast", function() {
+					$(this).remove();
+				});
+				$("#community-" + communitySequence + " .community-text-content xmp").addClass("community-blind-text").text(blindText);
+				$("#community-blind").modal("hide");
+			}
+		}
+	});
+	
+	$("#community-comment-blind-form").ajaxForm({
+		dataType : "json",
+		success : function(data) {
+			if (data.result) {
+				var action = $("#community-comment-blind-form").attr("action");
+				var commentSequence = action.substring(action.lastIndexOf("/") + 1, action.lastIndexOf("."));
+				action = action.substring(0, action.lastIndexOf("/"));
+				var communitySequence = action.substring(action.lastIndexOf("/") + 1);
+				$("#community-comment-" + communitySequence + "-" + commentSequence + " .community-comment-blind").fadeOut("normal", function() {
+					$(this).remove();
+				});
+				$("#community-comment-" + communitySequence + "-" + commentSequence + " .community-name xmp").addClass("community-blind-text").text(blindText);
+				$("#community-comment-blind").modal("hide");
 			}
 		}
 	});
