@@ -5,7 +5,7 @@
 <%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
 <h4 class="manage-user-title">회원 관리</h4>
 <div class="manage-user-search">
-	<div class="col-lg-5"><input type="text" class="form-control" placeholder="아이디 혹은 닉네임"></div>
+	<div class="col-lg-5"><input type="text" class="form-control" id="manage-student-search" placeholder="아이디 혹은 닉네임"></div>
 </div>
 <table class="table">
 	<thead>
@@ -19,7 +19,18 @@
 			<th class="col-lg-1">성적평균</th>
 		</tr>
 	</thead>
-	<tbody id="table-content">
+	<tbody>
+	<c:forEach items="${userList}" var="userList">
+		<tr>
+			<td>${userList.studentSequence}</td>
+			<td><div id="${userList.studentSequence}" data-toggle="modal" data-target="#manage-user-id" class="manage-user-id">${userList.studentId}</div></td>
+			<td>${userList.nickname}</td>
+			<td>${userList.countConnection}</td>
+			<td><input type="checkbox" name="blindCheck" value="${userList.studentSequence}" <c:if test="${userList.useYn == 'N'}">checked</c:if>></td>
+			<td>${userList.countCommunity + userList.countComment}</td>
+			<td>${userList.averageScore}</td>
+		</tr>
+	</c:forEach>
 	</tbody>
 </table>
 <div class="manage-user-apply-align">

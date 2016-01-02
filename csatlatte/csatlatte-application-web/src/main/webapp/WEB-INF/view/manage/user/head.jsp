@@ -26,24 +26,6 @@
 <script>
 	$(document).ready(function () {
 		
-		var pageNumber = null;
-		var search = null;
-		
-		var getUrlParameter = function getUrlParameter(sParam) {
-		    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-		        sURLVariables = sPageURL.split('&'),
-		        sParameterName,
-		        i;
-
-		    for (i = 0; i < sURLVariables.length; i++) {
-		        sParameterName = sURLVariables[i].split('=');
-
-		        if (sParameterName[0] === sParam) {
-		            return sParameterName[1] === undefined ? true : sParameterName[1];
-		        }
-		    }
-		};
-		
 		var makeStudentInformation = function (student) {
 			var html = '';
 			html += '<div class="manage-user-student-information">';
@@ -74,56 +56,19 @@
 			return html;
 		}
 		
-		var makeStudentDataRow = function(student) {
-			var html = '';
-			html += '<tr>';
-			html += '	<td>' + student.studentSequence + '</td>';
-			html += '	<td><div id="'+ student.studentSequence +'"data-toggle="modal" data-target="#manage-user-id" class="manage-user-id">' + student.studentId + '</div></td>';
-			html += '	<td>' + student.nickname + '</td>';
-			html += '	<td>' + student.countConnection + '</td>';
-			html += '	<td><input type="checkbox" name="blindCheck" value="'+ student.studentSequence + '"';
-			if (student.useYn == 'N') {
-				html += ' checked';
-			}
-			html += '></td>';
-			html += '	<td>' + (student.countCommunity + student.countComment) + '</td>';
-			html += '	<td>' + student.averageScore + '</td>';
-			html += '<tr>';
-			return html;
-		}
-		
-		pageNumber = getUrlParameter('pageNumber');
-		search = getUrlParameter('search');
-		
-		$.ajax("<c:url value="/data/student.json"/>", {
-			dataType : "json",
-			type : "GET",
-			data : {pageNumber : pageNumber, search : search},
-			success : function(data) {
-				if (data.userList != null) {
-					var studentList = data.userList;
-					var studentListLength = studentList.length;
-					for (var index = 0; index < studentListLength; index++) {
-						var student = studentList[index];
-						$("#table-content").append(makeStudentDataRow(student));
+		$('.manage-user-id').on("click", function() {
+			var target = $(this).attr("id");
+			$.ajax("<c:url value="/data/student.json"/>", {
+				dataType : "json",
+				type : "GET",
+				data : {studentSequence : target},
+				success : function(data) {
+					if (data.information != null) {
+						var student = data.information;
+						$('#manage-user-student-information').append(makeStudentInformation(student));
 					}
-					$('.manage-user-id').on("click", function () {
-						var studentSequence = $(this).attr("id");
-						
-						$.ajax("<c:url value="/data/manage/student.json"/>", {
-							dataType : "json",
-							type : "GET",
-							data : {studentSequence : studentSequence},
-							success : function(data) {
-								if (data.information != null) {
-									var studentInformation = data.information;
-									$('#manage-user-student-information').append(makeStudentInformation(studentInformation));
-								}
-							}
-						});
-					});
 				}
-			}
+			});
 		});
 		
 		$('.manage-user-apply').on("click", function () {
@@ -145,6 +90,13 @@
 		
 		$('#manage-user-id').on('hidden.bs.modal', function () {
 			$('.manage-user-student-information').remove();
+		});
+		
+		$('#manage-student-search').on("keyup", function (event) {
+			if (event.which == 13) {
+				var search = $('#manage-student-search').val();
+				$(location).attr('href', '<c:url value="/manage/user?search="/>' + search);
+			}
 		});
 	});
 </script>
