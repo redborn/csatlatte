@@ -38,6 +38,14 @@
 		  FROM csat_qna 
 	</select>
 	
+	<select id="selectOneAmountQuestion" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_qna cq, csat_student cs
+		 WHERE cq.student_seq = cs.student_seq
+		   AND (cs.student_id like CONCAT('%',#{search},'%') OR cs.nickname like CONCAT('%',#{search},'%'))
+		   AND cq.use_yn like CONCAT ('%',#{useYn},'%')
+	</select>
+	
 	<select id="selectListForManage" parameterType="Map" resultMap="QnaForManageVoMap">
 		SELECT cq.qna_seq as qna_seq,cs.student_id as student_id,
 			   cs.nickname as nickname,cqc.content as content,cq.title,

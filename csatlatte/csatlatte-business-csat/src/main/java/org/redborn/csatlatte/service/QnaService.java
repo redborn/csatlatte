@@ -16,6 +16,6 @@ public interface QnaService {
 	public boolean delete(int qnaSequence);
 	public boolean write(QnaVo qnaVo, List<File> listFile);
 	public boolean answer(QnaAnswerVo qnaAnswerVo);
-	public int amountQuestion();
+	public int amountQuestion(String search, String useYn);
 	
 }

@@ -41,7 +41,7 @@ public class Question {
 		params.put("search", search);
 		params.put("useYn", useYn);
 		
-		Pagination pagination = new Pagination(pageNumber, qnaService.amountQuestion());
+		Pagination pagination = new Pagination(pageNumber, qnaService.amountQuestion(search, useYn));
 		
 		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/question", params, "pageNumber"));
 		model.addAttribute("list", qnaService.listForManage(search, beginPageNumber, useYn));

@@ -111,8 +111,8 @@ public class QnaServiceImpl implements QnaService {
 		return answerDao.insert(qnaAnswerVo) == 1;
 	}
 	
-	public int amountQuestion() {
-		return qnaDao.selectOneMaxQnaSequence() - 1;
+	public int amountQuestion(String search, String useYn) {
+		return qnaDao.selectOneAmountQuestion(search, useYn);
 	}
 
 }
