@@ -5,8 +5,9 @@
 <%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
 <h4 class="manage-community-title">커뮤니티 관리</h4>
 <div class="manage-community-search">
-	<div class="col-lg-5"><input type="text" class="form-control" placeholder="아이디 혹은 닉네임"></div>
+	<div class="col-lg-5"><input type="text" class="form-control" id="manage-community-search" placeholder="아이디 혹은 닉네임"></div>
 </div>
+
 <table class="table">
 	<thead>
 		<tr>
@@ -18,6 +19,15 @@
 		</tr>
 	</thead>
 	<tbody id="table-content">
+	<c:forEach items="${list}" var="list">
+		<tr>
+			<td>${list.communitySequence}</td>
+			<td><div id="${list.studentSequence}" data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">${list.studentId}</div></td>
+			<td>${list.nickname}</td>
+			<td><div id="${list.communitySequence}" data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail">${list.content}</div></td>
+			<td><input type="checkbox" name="blindCheck" value="${list.communitySequence}" <c:if test="${list.blind == 1}">checked</c:if>></td>
+		</tr>
+	</c:forEach>
 	</tbody>
 </table>
 <div class="manage-community-btn-align">
@@ -26,22 +36,6 @@
 <nav>
 	<pagination:writer value="${paginationWriter}"/>
 </nav>
-<div class="modal fade" id="manage-community-delete" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">게시글 삭제</h4>
-			</div>
-			<div class="modal-body">
-				정말로 이 게시글을 삭제하실거에요?
-			</div>
-			<div class="modal-footer">
-				<img class="manage-exam-btn-cancel" data-dismiss="modal" src="<c:url value="/resources/csatlatte/images/btn/btn_cancel.png"/>">
-				<img class="manage-exam-btn-accept" src="<c:url value="/resources/csatlatte/images/btn/btn_accept.png"/>">
-			</div>
-		</div>
-	</div>
-</div>
 <div class="modal fade" id="manage-community-id" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-dialog-user-info" role="document">
 		<div class="modal-content">
@@ -54,4 +48,5 @@
 		</div>
 	</div>
 </div>
-<div id="manage-community-text-detail-area"></div>
+<div class="modal fade" id="manage-community-text-detail" tabindex="-1" role="dialog">
+</div>

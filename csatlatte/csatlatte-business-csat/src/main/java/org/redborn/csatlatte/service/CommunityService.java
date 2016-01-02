@@ -10,7 +10,7 @@ public interface CommunityService {
 	
 	public static final int COMMUNITY = 1;
 
-	public int amountCommunity();
+	public int amountCommunity(String search);
 	public boolean blind(int communityTypeSequence, int communitySequence, String content);
 	public boolean write(CommunityVo communityVo);
 	public boolean modify(CommunityVo communityVo);
@@ -28,5 +28,6 @@ public interface CommunityService {
 	public List<CountVo> dailyActive(int communityTypeSequence, String ymd);
 	public List<CountVo> monthlyActive(int communityTypeSequence, String ym);
 	public List<CountVo> annualActive(int communityTypeSequence, String year);
+	public CommunityVo detail(int communityTypeSequence, int communitySequence);
 	
 }

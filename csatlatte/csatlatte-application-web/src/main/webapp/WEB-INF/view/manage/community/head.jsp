@@ -42,49 +42,15 @@
 	.manage-exam-btn-cancel {cursor:pointer;}
 	.manage-exam-btn-accept {cursor:pointer;}
 	
+	.community-comment {margin-bottom:5px;}
+	
 </style>
 <script>
 	$(document).ready(function () {
 		
-		var target = null;
-		var pageNumber = null;
-		var search = null;
-		
-		var getUrlParameter = function getUrlParameter(sParam) {
-		    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-		        sURLVariables = sPageURL.split('&'),
-		        sParameterName,
-		        i;
-
-		    for (i = 0; i < sURLVariables.length; i++) {
-		        sParameterName = sURLVariables[i].split('=');
-
-		        if (sParameterName[0] === sParam) {
-		            return sParameterName[1] === undefined ? true : sParameterName[1];
-		        }
-		    }
-		};
-		
-		var makeCommunityDataRow = function(community) {
-			var html = '';
-			html += '<tr>';
-			html += '	<td>' + community.communitySequence + '</td>';
-			html += '	<td><div id="'+ community.studentSequence +'"data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">' + community.studentId + '</div></td>';
-			html += '	<td>' + community.nickname + '</td>';
-			html += '	<td><div id="' + community.communitySequence + '"data-toggle="modal" data-target="#manage-community-text-detail' + community.communitySequence + '" class="manage-community-text-detail">' + community.content + '</div></td>';
-			html += '	<td><input type="checkbox" name="blindCheck" value="'+ community.communitySequence + '"';
-			if (community.blind == 1) {
-				html += ' checked';
-			}
-			html += '></td>';
-			html += '</tr>';
-			return html;
-		};
-		
 		var makeCommunityDetail = function(community) {
 			var html = '';
-			html += '<div class="modal fade" id="manage-community-text-detail' + community.communitySequence + '" role="dialog">';
-			html += '	<div class="modal-dialog" role="document">';
+			html += '	<div class="modal-dialog manage-community-detail" role="document">';
 			html += '		<div class="modal-content">';
 			html += '			<div class="modal-header">';
 			html += '				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
@@ -99,17 +65,16 @@
 			html += '			<div class="modal-body">';
 			html += '				<div class="community-content">' + community.content + '</div>';
 			html += '			</div>';
-			html += '			<div id="comment-area' + community.communitySequence + '" class="modal-footer">';
+			html += '			<div id="comment-area" class="modal-footer">';
 			html += '			</div>';
 			html += '		</div>';
 			html += '	</div>';
-			html += '</div>';
 			return html;
 		}
 		
 		var makeCommunityDetailComment = function(comment) {
 			var html = '';
-			html += '<div class="community-text">';
+			html += '<div class="community-text community-comment">';
 			html += '	<img alt="프로필사진" class="community-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
 			html += '	<div class="community-user-info">';
 			html += '		<div class="community-name"><strong>' + comment.nickname + '</strong></div>';
@@ -150,58 +115,61 @@
 			return html;
 		}
 		
-		pageNumber = getUrlParameter('pageNumber');
-		search = getUrlParameter('search');
+		$('.manage-community-id').on("click", function () {
+			var target = $(this).attr("id");
+			if (target != null) {
+				$.ajax("<c:url value="/data/student.json"/>", {
+					dataType : "json",
+					type : "GET",
+					data : {studentSequence : target},
+					success : function(data) {
+						var student = data.information;
+						$("#manage-community-student-information").append(makeStudentInformation(student));
+					}
+				});
+			}
+		});
 		
-		$.ajax("<c:url value="/data/manage/community.json"/>", {
-			dataType : "json",
-			type : "GET",
-			data : {pageNumber : pageNumber, search : search},
-			success : function(data) {
-				if (data.list != null) {
-					var communityList = data.list;
-					var communityListLength = communityList.length;
-					for (var index = 0; index < communityListLength; index++) {
-						var community = communityList[index];
-						$("#table-content").append(makeCommunityDataRow(community));
-						$("#manage-community-text-detail-area").append(makeCommunityDetail(community));
-						$.ajax("<c:url value="/data/community/comment"/>", {
+		$('#manage-community-id').on('hidden.bs.modal', function () {
+			$('.manage-community-student-information').remove();
+		});
+		
+		$('.manage-community-text-detail').on("click", function() {
+			var target = $(this).attr("id");
+			if (target != null) {
+				$.ajax("<c:url value="/data/manage/community.json"/>", {
+					dataType : "json",
+					type : "GET",
+					data : {communitySequence : target},
+					success : function(data) {
+						var community = data.detail;
+						$("#manage-community-text-detail").append(makeCommunityDetail(community));
+						$.ajax("<c:url value="/data/community/comment.json"/>", {
 							dataType : "json",
 							type : "GET",
-							data : {communitySequence : community.communitySequence},
+							data : {communitySequence : target},
 							success : function(commentData) {
-								if (commentData.list != null) {
+								if(commentData.list != null) {
 									var commentList = commentData.list;
 									var commentListLength = commentList.length;
 									for (var index = 0; index < commentListLength; index++) {
-										var comment = commentList[index];
-										$("#comment-area" + community.communitySequence).append(makeCommunityDetailComment(comment));
+										comment = commentList[index];
+										$('#comment-area').append(makeCommunityDetailComment(comment));
 									}
 								}
 							}
 						});
 					}
-					
-					$('.manage-community-id').on("click", function () {
-						var studentSequence = $(this).attr("id");
-						
-						$.ajax("<c:url value="/data/manage/student.json"/>", {
-							dataType : "json",
-							type : "GET",
-							data : {studentSequence : studentSequence},
-							success : function(data) {
-								if (data.information != null) {
-									var studentInformation = data.information;
-									$('#manage-community-student-information').append(makeStudentInformation(studentInformation));
-								}
-							}
-						});
-					});
-				}
+				});
 			}
 		});
 		
+		$('#manage-community-text-detail').on('hidden.bs.modal', function () {
+			$('.manage-community-detail').remove();
+		});
+		
 		$('.manage-community-apply').on("click", function () {
+			var result = 0;
 			$("input[type=checkbox]:checked").each(function () {
 				var target = $(this).val();
 				if(target != null) {
@@ -210,7 +178,7 @@
 						type : "POST",
 						data : {communitySequence : target},
 						success : function() {
-								
+
 						}
 					});
 				}
@@ -218,8 +186,11 @@
 			alert("처리가 완료되었습니다.");
 		});
 		
-		$('#manage-community-id').on('hidden.bs.modal', function () {
-			$('.manage-community-student-information').remove();
+		$('#manage-community-search').on("keyup", function (event) {
+			if (event.which == 13) {
+				var search = $('#manage-community-search').val();
+				$(location).attr('href', '<c:url value="/manage/community?search="/>' + search);
+			}
 		});
 		
 	});

@@ -46,9 +46,20 @@
 		   AND student_seq = #{studentSequence}
 	</select>
 	
-	<select id="selectOneAmountCommunity" resultType="int">
+	<select id="selectOneAmountCommunity" parameterType="String" resultType="int">
 		SELECT COUNT(*)
-		  FROM csat_community
+		  FROM csat_community cc, csat_student cs
+		 WHERE cc.student_seq = cs.student_seq
+		   AND ( cs.student_id LIKE CONCAT('%', #{search}, '%')
+		          OR cs.nickname LIKE CONCAT('%', #{search}, '%') )
+	</select>
+	
+	<select id="selectOneDetail" parameterType="Map" resultMap="CommunityVoMap">
+		SELECT cc.community_seq, cs.nickname, cc.content, DATE_FORMAT(cc.write_date, '%Y%m%d%H%i%s') AS write_ymdhms
+		  FROM csat_community cc, csat_student cs
+		 WHERE cc.student_seq = cs.student_seq
+		   AND cc.community_type_seq = #{communityTypeSequence}
+		   AND cc.community_seq = #{communitySequence}
 	</select>
 	
 	<select id="selectListCountYmd" parameterType="Map" resultMap="YmdCountVoMap">

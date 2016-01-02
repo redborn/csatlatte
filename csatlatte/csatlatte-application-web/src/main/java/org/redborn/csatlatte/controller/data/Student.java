@@ -19,13 +19,10 @@ public class Student {
 	private StudentService studentService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public void get(Model model, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber,
-			@RequestParam(value="search",required=false,defaultValue="") String search) {
-		logger.info("data student view");
+	public void get(Model model, @RequestParam(value="studentSequence",required=true) int studentSequence) {
+		logger.info("data manage student view");
 		
-		int beginPageNumber = (pageNumber * 10) - 10;
-		
-		model.addAttribute("userList", studentService.userList(search, beginPageNumber));
+		model.addAttribute("information", studentService.information(studentSequence));
 	}
 	
 }

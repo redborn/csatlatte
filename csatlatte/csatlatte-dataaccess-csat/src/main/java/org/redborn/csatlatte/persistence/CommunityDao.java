@@ -8,7 +8,8 @@ import org.redborn.csatlatte.domain.CountVo;
 public interface CommunityDao {
 
 	public int selectOne(int communityTypeSequence, int communitySequence, int studentSequence);
-	public int selectOneAmountCommunity();
+	public int selectOneAmountCommunity(String search);
+	public CommunityVo selectOneDetail(int communityTypeSequence, int communitySequence);
 	public List<CountVo> selectListCountYmd(int communityTypeSequence, String ymd);
 	public List<CountVo> selectListCountYm(int communityTypeSequence, String ym);
 	public List<CountVo> selectListCountYear(int communityTypeSequence, String year);

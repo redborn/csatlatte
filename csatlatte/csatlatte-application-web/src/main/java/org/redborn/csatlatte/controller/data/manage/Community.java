@@ -19,13 +19,10 @@ public class Community {
 	private CommunityService communityService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public void get(Model model, @RequestParam(value="communityTypeSequence",required=false,defaultValue="1") int communityTypeSequence,
-			@RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
+	public void get(Model model, @RequestParam(value="communitySequence",required=true) int communitySequence) {
 		logger.info("data manage community view");
 		
-		int beginPageNumber = (pageNumber * 10) - 10;
-		
-		model.addAttribute("list", communityService.list(communityTypeSequence, search, beginPageNumber));
+		model.addAttribute("detail", communityService.detail(CommunityService.COMMUNITY, communitySequence));
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
