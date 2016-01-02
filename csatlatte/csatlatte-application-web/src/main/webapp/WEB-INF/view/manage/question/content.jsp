@@ -17,7 +17,7 @@
 	</div>
 		<div class="col-lg-5">
 		<div class="manage-community-search">
-			<div class="col-lg-12"><input type="text" class="form-control" placeholder="아이디 혹은 닉네임"></div>
+			<div class="col-lg-12"><input type="text" class="form-control" id="manage-question-search" placeholder="아이디 혹은 닉네임"></div>
 		</div>
 	</div>
 </div>
@@ -40,7 +40,12 @@
 			<td>${list.nickname}</td>
 			<td><div id="${list.qnaSequence}" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view">${list.title}</div></td>
 			<td>${list.writeDate}</td>
-			<td>${list.useYn}</td>
+			<td>
+				<c:choose>
+					<c:when test="${list.useYn == 'Y'}">X</c:when>
+					<c:when test="${list.useYn == 'N'}">O</c:when>
+				</c:choose>
+			</td>
 		</tr>
 	</c:forEach>
 	</tbody>

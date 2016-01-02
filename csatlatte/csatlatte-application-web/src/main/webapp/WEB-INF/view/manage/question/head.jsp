@@ -56,9 +56,31 @@
 				type : "GET",
 				data : {qnaSequence : target},
 				success : function(data) {
-					if(data.detail != null) {
+					if (data.detail != null) {
 						var question = data.detail;
 						$("#manage-question-detail").append(makeQuestionDetailView(question));
+						$('.manage-question-answer-accept').on("click", function () {
+							var answerContent = $('.manage-question-answer-textarea').val();
+							$.ajax("<c:url value="/data/manage/question.json"/>", {
+								dataType : "json",
+								type : "POST",
+								data : {qnaSequence : target, answerContent : answerContent},
+								success : function () {
+									$('.manage-question-detail').remove();
+									$.ajax("<c:url value="/data/question.json"/>", {
+										dataType : "json",
+										type : "GET",
+										data : {qnaSequence : target},
+										success : function(data) {
+											if (data.detail != null) {
+												var question = data.detail;
+												$("#manage-question-detail").append(makeQuestionDetailView(question));
+											}
+										}
+									});
+								}
+							});
+						});
 					}
 				}
 			});
@@ -68,5 +90,23 @@
 			$('.manage-question-detail').remove();
 		});
 		
+		$('#manage-question-all').on("click", function () {
+			$(location).attr('href', '<c:url value="/manage/question"/>');	
+		});
+		
+		$('#manage-question-standby').on("click", function () {
+			$(location).attr('href', '<c:url value="/manage/question?useYn="/>' + "Y");	
+		});
+		
+		$('#manage-question-success').on("click", function () {
+			$(location).attr('href', '<c:url value="/manage/question?useYn="/>' + "N");	
+		});
+		
+		$('#manage-question-search').on("keyup", function (event) {
+			if (event.which == 13) {
+				var search = $('#manage-question-search').val();
+				$(location).attr('href', '<c:url value="/manage/question?search="/>' + search);
+			}
+		});
 	});
 </script>
