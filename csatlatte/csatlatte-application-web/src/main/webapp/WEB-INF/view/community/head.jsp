@@ -353,12 +353,36 @@ $(document).ready(function() {
 		});
 	});
 	
+	$("#community-report-form input[name='reportTypeSequence']").on("change", function() {
+		if ($("#community-report-form input[name='reportTypeSequence']:checked").length >= 1) {
+			$("#community-report-form button[type='submit']").attr("disabled", false);
+		}
+	});
+	
+	$("#community-report").on("hidden.bs.modal", function() {
+		$("#community-report-form input[name='reportTypeSequence']:checked").attr("checked", false);
+		$("#community-report-form button[type='submit']").attr("disabled", true);
+	});
+
+	$("#community-comment-report-form input[name='reportTypeSequence']").on("change", function() {
+		if ($("#community-comment-report-form input[name='reportTypeSequence']:checked").length >= 1) {
+			$("#community-comment-report-form button[type='submit']").attr("disabled", false);
+		}
+	});
+	
+	$("#community-comment-report").on("hidden.bs.modal", function() {
+		$("#community-comment-report-form input[name='reportTypeSequence']:checked").attr("checked", false);
+		$("#community-comment-report-form button[type='submit']").attr("disabled", true);
+	});
+	
 	$("#community-report-form").ajaxForm({
 		dataType : "json",
 		success : function(data) {
 			if (data.result) {
 				var action = $("#community-report-form").attr("action");
 				$("#community-" + action.substring(action.lastIndexOf("/") + 1, action.lastIndexOf(".")) + " .community-report").fadeOut("normal", function() {
+					$("#community-report-form input[name='reportTypeSequence']:checked").attr("checked", false);
+					$("#community-report-form button[type='submit']").attr("disabled", true);
 					$(this).remove();
 				});
 				$("#community-report").modal("hide");
@@ -377,6 +401,8 @@ $(document).ready(function() {
 				action = action.substring(0, action.lastIndexOf("/"));
 				var communitySequence = action.substring(action.lastIndexOf("/") + 1);
 				$("#community-comment-" + communitySequence + "-" + commentSequence + " .community-comment-report").fadeOut("normal", function() {
+					$("#community-comment-report-form input[name='reportTypeSequence']:checked").attr("checked", false);
+					$("#community-comment-report-form button[type='submit']").attr("disabled", true);
 					$(this).remove();
 				});
 				$("#community-comment-report").modal("hide");

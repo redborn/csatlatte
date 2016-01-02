@@ -38,10 +38,10 @@
 					<h4 class="modal-title">신고하기</h4>
 				</div>
 				<div class="modal-body">
-				<c:forEach items="${reportTypeList}" var="reportType" varStatus="status">
+				<c:forEach items="${reportTypeList}" var="reportType">
 					<div class="radio">
 						<label>
-							<input type="radio" name="reportTypeSequence" value="${reportType.typeSequence}"<c:if test="${status.index == 0}"> checked="checked"</c:if>/>
+							<input type="radio" name="reportTypeSequence" value="${reportType.typeSequence}"/>
 							${reportType.description}
 						</label>
 					</div>
@@ -49,7 +49,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					<button id="community-report-submit" type="submit" class="btn btn-primary">확인</button>
+					<button id="community-report-submit" type="submit" class="btn btn-primary" disabled="disabled">확인</button>
 				</div>
 			</form>
 		</div>
@@ -64,10 +64,10 @@
 					<h4 class="modal-title">신고하기</h4>
 				</div>
 				<div class="modal-body">
-				<c:forEach items="${reportTypeList}" var="reportType" varStatus="status">
+				<c:forEach items="${reportTypeList}" var="reportType">
 					<div class="radio">
 						<label>
-							<input type="radio" name="reportTypeSequence" value="${reportType.typeSequence}"<c:if test="${status.index == 0}"> checked="checked"</c:if>/>
+							<input type="radio" name="reportTypeSequence" value="${reportType.typeSequence}"/>
 							${reportType.description}
 						</label>
 					</div>
@@ -75,7 +75,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					<button id="community-comment-report-submit" type="submit" class="btn btn-primary">확인</button>
+					<button id="community-comment-report-submit" type="submit" class="btn btn-primary" disabled="disabled">확인</button>
 				</div>
 			</form>
 		</div>
