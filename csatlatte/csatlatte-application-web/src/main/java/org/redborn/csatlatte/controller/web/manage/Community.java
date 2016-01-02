@@ -1,5 +1,8 @@
 package org.redborn.csatlatte.controller.web.manage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.redborn.csatlatte.commons.pagination.BootstrapPaginationWriter;
 import org.redborn.csatlatte.commons.pagination.Pagination;
 import org.redborn.csatlatte.commons.tiles.TilesName;
@@ -34,11 +37,13 @@ public class Community {
 		logger.info("manage community view");
 		
 		int beginPageNumber = (pageNumber * 10) - 10;
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("search", search);
 		
 		Pagination pagination = new Pagination(pageNumber, communityService.amountCommunity(search));
 		
 		model.addAttribute("list", communityService.list(CommunityService.COMMUNITY, search, beginPageNumber));
-		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/community", "pageNumber"));
+		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/community", params, "pageNumber"));
 		return TilesName.MANAGE_COMMUNITY;
 	}
 }
