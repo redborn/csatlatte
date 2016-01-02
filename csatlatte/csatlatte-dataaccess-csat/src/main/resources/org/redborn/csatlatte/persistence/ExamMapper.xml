@@ -31,11 +31,11 @@
 	</select>
 	
 	<select id="selectListExamForManage" parameterType="Map" resultMap="ExamVoForManageMap">
-		SELECT DATE_FORMAT(ce.exam_ymd, '%Y') AS year,ce.exam_name,cm.manage_name
-		  FROM csat_exam ce,csat_manage cm
-		 WHERE ce.manage_seq = cm.manage_seq
+		SELECT DATE_FORMAT(ce.exam_ymd, '%Y') AS year,ce.exam_name,ci.manage_name
+		  FROM csat_exam ce,csat_isttt ci
+		 WHERE ce.manage_seq = ci.manage_seq
 		   AND ( ce.exam_name LIKE CONCAT('%', #{search}, '%')
-		          OR cm.manage_name LIKE CONCAT('%', #{search}, '%') )
+		          OR ci.manage_name LIKE CONCAT('%', #{search}, '%') )
 		 ORDER BY year
 		 LIMIT #{pageNumber}, 10 
 	</select>
