@@ -1,5 +1,6 @@
 package org.redborn.csatlatte.controller.web;
 
+import org.redborn.csatlatte.commons.servlet.http.HttpSessionValue;
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.redborn.csatlatte.service.CommunityService;
 import org.slf4j.Logger;
@@ -22,6 +23,8 @@ public class Community {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private CommunityService communityService;
+	@Autowired
+	private HttpSessionValue httpSessionValue;
 
 	/**
 	 * 사용자 본인과 다른 사용자가 작성한 글, 댓글을 조회 및 새로운 글, 댓글을 작성, 수정하는 페이지입니다.
@@ -30,6 +33,9 @@ public class Community {
 	public String get(Model model) {
 		logger.info("community view");
 		model.addAttribute("reportTypeList", communityService.reportTypeList());
+		if (httpSessionValue.getRuleSequence() == HttpSessionValue.MANAGER) {
+			model.addAttribute("blindTypeList", communityService.blindTypeList());
+		}
 		return TilesName.COMMUNITY;
 	}	
 }
