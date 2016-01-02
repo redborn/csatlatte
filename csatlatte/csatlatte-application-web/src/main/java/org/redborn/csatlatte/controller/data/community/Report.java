@@ -22,7 +22,7 @@ public class Report {
 	@Autowired
 	private HttpSessionValue httpSessionValue;
 	
-	@RequestMapping(value="{commuitySequence}",method=RequestMethod.POST)
+	@RequestMapping(value="{communitySequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="communitySequence") int communitySequence, @RequestParam(value="reportTypeSequence",required=true) int reportTypeSequence) {
 		logger.info(new StringBuilder("data community report... communitySequence is ").append(communitySequence).toString());
 		model.addAttribute("result", communityService.report(httpSessionValue.getStudentSequence(), CommunityService.COMMUNITY, communitySequence, reportTypeSequence));

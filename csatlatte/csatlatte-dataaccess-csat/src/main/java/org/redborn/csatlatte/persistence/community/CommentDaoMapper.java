@@ -46,10 +46,11 @@ public class CommentDaoMapper extends SqlSessionDaoSupport implements CommentDao
 		return getSqlSession().selectList("community.comment.selectListCountYear", params);
 	}
 
-	public List<CommentVo> selectList(int communityTypeSequence, int communitySequence) {
+	public List<CommentVo> selectList(int communityTypeSequence, int communitySequence, int studentSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("communityTypeSequence", communityTypeSequence);
 		params.put("communitySequence", communitySequence);
+		params.put("studentSequence", studentSequence);
 		
 		return getSqlSession().selectList("community.comment.selectList", params);
 	}

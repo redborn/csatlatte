@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <div class="container">
 	<h2 style="color:#7a6253;">커뮤니티</h2>
 </div>
@@ -26,6 +26,58 @@
 					<input id="community-write-submit" type="submit" class="btn btn-default" value="게시" disabled="disabled"/>
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
+<div id="community-report" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<form id="community-report-form" action="<c:url value="/data/community/report/"/>" method="post">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+					<h4 class="modal-title">신고하기</h4>
+				</div>
+				<div class="modal-body">
+				<c:forEach items="${reportTypeList}" var="reportType">
+					<div class="radio">
+						<label>
+							<input type="radio" name="reportTypeSequence" value="${reportType.typeSequence}"/>
+							${reportType.description}
+						</label>
+					</div>
+				</c:forEach>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					<button id="community-report-submit" type="submit" class="btn btn-primary" disabled="disabled">확인</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="community-comment-report" class="modal fade" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-sm" role="document">
+		<div class="modal-content">
+			<form id="community-comment-report-form" action="<c:url value="/data/community/comment/report/"/>" method="post">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+					<h4 class="modal-title">신고하기</h4>
+				</div>
+				<div class="modal-body">
+				<c:forEach items="${reportTypeList}" var="reportType">
+					<div class="radio">
+						<label>
+							<input type="radio" name="reportTypeSequence" value="${reportType.typeSequence}"/>
+							${reportType.description}
+						</label>
+					</div>
+				</c:forEach>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					<button id="community-comment-report-submit" type="submit" class="btn btn-primary" disabled="disabled">확인</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
