@@ -169,7 +169,6 @@
 		});
 		
 		$('.manage-community-apply').on("click", function () {
-			var result = 0;
 			$("input[type=checkbox]:checked").each(function () {
 				var target = $(this).val();
 				if(target != null) {
@@ -178,7 +177,7 @@
 						type : "POST",
 						data : {communitySequence : target},
 						success : function() {
-
+								
 						}
 					});
 				}
