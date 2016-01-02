@@ -18,9 +18,12 @@
 		<result column="isttt_name" property="istttName" />
 	</resultMap>
 
-	<select id="selectOne" resultType="int">
+	<select id="selectOne" parameterType="String" resultType="int">
 		SELECT COUNT(*)
-		  FROM csat_exam
+		  FROM csat_exam ce, csat_isttt ci
+		 WHERE ce.isttt_seq = ci.isttt_seq
+		   AND ( ce.exam_name LIKE CONCAT('%', #{search}, '%')
+		          OR ci.isttt_name LIKE CONCAT('%', #{search}, '%') )
 	</select>
 
 	<select id="selectListExam" parameterType="int" resultMap="ExamVoMap">

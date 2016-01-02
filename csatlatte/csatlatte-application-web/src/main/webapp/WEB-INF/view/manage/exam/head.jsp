@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 	nav {text-align:center;}
 	th {text-align:center;}
@@ -24,3 +25,15 @@
 	.manage-exam-btn-cancel {cursor:pointer; margin-right:10px;}
 	.manage-exam-btn-accept {cursor:pointer;}
 </style>
+<script>
+
+	$(document).ready(function () {
+		$('#manage-exam-search').on("keyup", function (event) {
+			if (event.which == 13) {
+				var search = $('#manage-exam-search').val();
+				$(location).attr('href', '<c:url value="/manage/exam?search="/>' + search);
+			}
+		});
+	});
+	
+</script>

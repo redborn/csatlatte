@@ -13,6 +13,6 @@ public interface ExamService {
 	public int register(ExamVo examVo);
 	public int modify(ExamVo examVo);
 	public int delete(int examSequence);
-	public int amountExam();
+	public int amountExam(String search);
 	
 }

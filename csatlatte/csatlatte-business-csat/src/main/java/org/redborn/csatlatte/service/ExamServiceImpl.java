@@ -42,8 +42,8 @@ public class ExamServiceImpl implements ExamService {
 		return examDao.delete(examSequence);
 	}
 	
-	public int amountExam() {
-		return examDao.selectOne();
+	public int amountExam(String search) {
+		return examDao.selectOne(search);
 	}
 
 }

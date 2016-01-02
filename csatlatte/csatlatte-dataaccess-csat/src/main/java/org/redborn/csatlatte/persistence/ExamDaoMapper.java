@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ExamDaoMapper extends SqlSessionDaoSupport implements ExamDao {
 	
-	public int selectOne() {
-		return getSqlSession().selectOne("exam.selectOne");
+	public int selectOne(String search) {
+		return getSqlSession().selectOne("exam.selectOne", search);
 	}
 	
 	public List<ExamVo> selectListExam(int csatSequence) {
