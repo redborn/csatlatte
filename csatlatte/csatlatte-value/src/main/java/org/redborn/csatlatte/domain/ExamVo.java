@@ -4,12 +4,12 @@ public class ExamVo {
 
 	private int csatSequence;
 	private int examSequence;
-	private int manageSequence;
+	private int istttSequence;
 	private int ysSequence;
 	private String ymd;
 	private String year;
 	private String examName;
-	private String manageName;
+	private String istttName;
 	
 	public int getCsatSequence() {
 		return csatSequence;
@@ -27,12 +27,12 @@ public class ExamVo {
 		this.examSequence = examSequence;
 	}
 	
-	public int getManageSequence() {
-		return manageSequence;
+	public int getIstttSequence() {
+		return istttSequence;
 	}
 	
-	public void setManageSequence(int manageSequence) {
-		this.manageSequence = manageSequence;
+	public void setIstttSequence(int istttSequence) {
+		this.istttSequence = istttSequence;
 	}
 	
 	public int getYsSequence() {
@@ -67,21 +67,21 @@ public class ExamVo {
 		this.year = year;
 	}
 
-	public String getManageName() {
-		return manageName;
+	public String getIstttName() {
+		return istttName;
 	}
 
-	public void setManageName(String manageName) {
-		this.manageName = manageName;
+	public void setIstttName(String istttName) {
+		this.istttName = istttName;
 	}
 
 	@Override
 	public String toString() {
 		return "ExamVo [csatSequence=" + csatSequence + ", examSequence="
-				+ examSequence + ", manageSequence=" + manageSequence
+				+ examSequence + ", istttSequence=" + istttSequence
 				+ ", ysSequence=" + ysSequence + ", ymd=" + ymd + ", year="
-				+ year + ", examName=" + examName + ", manageName="
-				+ manageName + "]";
+				+ year + ", examName=" + examName + ", istttName="
+				+ istttName + "]";
 	}
 
 }
