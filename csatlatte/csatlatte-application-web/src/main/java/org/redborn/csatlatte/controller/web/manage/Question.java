@@ -1,5 +1,8 @@
 package org.redborn.csatlatte.controller.web.manage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.redborn.csatlatte.commons.pagination.BootstrapPaginationWriter;
 import org.redborn.csatlatte.commons.pagination.Pagination;
 import org.redborn.csatlatte.commons.tiles.TilesName;
@@ -34,10 +37,13 @@ public class Question {
 		logger.info("manage question view");
 		
 		int beginPageNumber = (pageNumber * 10) - 10;
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("search", search);
+		params.put("useYn", useYn);
 		
 		Pagination pagination = new Pagination(pageNumber, qnaService.amountQuestion());
 		
-		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/question", "pageNumber"));
+		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/question", params, "pageNumber"));
 		model.addAttribute("list", qnaService.listForManage(search, beginPageNumber, useYn));
 		return TilesName.MANAGE_QUESTION;
 	}

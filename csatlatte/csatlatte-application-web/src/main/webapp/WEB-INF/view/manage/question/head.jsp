@@ -32,39 +32,6 @@
 <script>
 	$(document).ready(function () {
 		
-		var pageNumber = null;
-		var search = null;
-		var useYn = null;
-		var target = null;
-		
-		var getUrlParameter = function getUrlParameter(sParam) {
-		    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-		        sURLVariables = sPageURL.split('&'),
-		        sParameterName,
-		        i;
-
-		    for (i = 0; i < sURLVariables.length; i++) {
-		        sParameterName = sURLVariables[i].split('=');
-
-		        if (sParameterName[0] === sParam) {
-		            return sParameterName[1] === undefined ? true : sParameterName[1];
-		        }
-		    }
-		};
-		
-		var makeQuestionDataRow = function(question) {
-			var html = '';
-			html += '<tr class="manage-question-data-row">';
-			html += '	<td>' + question.qnaSequence + '</td>';
-			html += '	<td>' + question.studentId + '</td>';
-			html += '	<td>' + question.nickname + '</td>';
-			html += '	<td><div id="'+ question.qnaSequence +'" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view">' + question.title + '</div></td>';
-			html += '	<td>' + question.writeDate + '</td>';
-			html += '	<td>' + question.useYn + '</td>';
-			html += '</tr>';
-			return html;
-		}
-		
 		var makeQuestionDetailView = function(question) {
 			var html = '';
 			html += '<div class="manage-question-detail">';
@@ -82,150 +49,16 @@
 			return html;
 		}
 		
-		pageNumber = getUrlParameter('pageNumber');
-		search = getUrlParameter('search');
-		
-		$.ajax("<c:url value="/data/manage/question.json"/>", {
-			dataType : "json",
-			type : "GET",
-			data : {pageNumber : pageNumber, search : search, useYn : useYn},
-			success : function(data) {
-				if (data.list != null) {
-					questionList = data.list;
-					questionListLength = questionList.length;
-					for (index = 0; index < questionListLength; index++) {
-						question = questionList[index];
-						$("#table-content").append(makeQuestionDataRow(question));
-						console.log("데이터가 추가되었습니다."	);
-					}
-					$(".manage-question-answer-view").on("click", function () {
-						console.log("manage-question-answer-view 클릭 했습니다.");
-						var qnaSequence = $(this).attr("id");
-						target = qnaSequence;
-						$.ajax("<c:url value="/data/question.json"/>", {
-							dataType : "json",
-							type : "GET",
-							data : {qnaSequence : qnaSequence},
-							success : function(qnaData) {
-								if (qnaData.detail != null) {
-									question = qnaData.detail;
-									$("#manage-question-detail").append(makeQuestionDetailView(question));
-								}
-								$(".manage-question-answer-accept").on("click", function () {
-								var answerContent = $('.manage-question-answer-textarea').val();
-									$.ajax("<c:url value="/data/manage/question.json"/>", {
-										dataType : "json",
-										type : "POST",
-										data : {qnaSequence : target, answerContent : answerContent},
-										success : function() {
-											alert("답변이 완료되었습니다.");
-										}
-									});
-								});
-							}
-						});
-					});
-				}
-			}
-		});
-		
-		$("#manage-question-all").on("click", function () {
-			$('.manage-question-data-row').remove();
-			useYn = null;
-			$.ajax("<c:url value="/data/manage/question.json"/>", {
+		$('.manage-question-answer-view').on("click", function () {
+			var target = $(this).attr("id");
+			$.ajax("<c:url value="/data/question.json"/>", {
 				dataType : "json",
 				type : "GET",
-				data : {pageNumber : pageNumber, search : search, useYn : useYn},
+				data : {qnaSequence : target},
 				success : function(data) {
-					if (data.list != null) {
-						questionList = data.list;
-						questionListLength = questionList.length;
-						for (index = 0; index < questionListLength; index++) {
-							question = questionList[index];
-							$("#table-content").append(makeQuestionDataRow(question));
-						}
-						$(".manage-question-answer-view").on("click", function () {
-							var qnaSequence = $(this).attr("id");
-							$.ajax("<c:url value="/data/question.json"/>", {
-								dataType : "json",
-								type : "GET",
-								data : {qnaSequence : qnaSequence},
-								success : function(qnaData) {
-									if (qnaData.detail != null) {
-										question = qnaData.detail;
-										$("#manage-question-detail").append(makeQuestionDetailView(question));
-									}
-								}
-							});
-						});
-					}
-				}
-			});
-		});
-		
-		$("#manage-question-standby").on("click", function () {
-			$('.manage-question-data-row').remove();
-			useYn = "Y";
-			$.ajax("<c:url value="/data/manage/question.json"/>", {
-				dataType : "json",
-				type : "GET",
-				data : {pageNumber : pageNumber, search : search, useYn : useYn},
-				success : function(data) {
-					if (data.list != null) {
-						questionList = data.list;
-						questionListLength = questionList.length;
-						for (index = 0; index < questionListLength; index++) {
-							question = questionList[index];
-							$("#table-content").append(makeQuestionDataRow(question));
-						}
-						$(".manage-question-answer-view").on("click", function () {
-							var qnaSequence = $(this).attr("id");
-							$.ajax("<c:url value="/data/question.json"/>", {
-								dataType : "json",
-								type : "GET",
-								data : {qnaSequence : qnaSequence},
-								success : function(qnaData) {
-									if (qnaData.detail != null) {
-										question = qnaData.detail;
-										$("#manage-question-detail").append(makeQuestionDetailView(question));
-									}
-								}
-							});
-						});
-					}
-				}
-			});
-		});
-		
-		$("#manage-question-success").on("click", function () {
-			$('.manage-question-data-row').remove();
-			useYn = "N";
-			$.ajax("<c:url value="/data/manage/question.json"/>", {
-				dataType : "json",
-				type : "GET",
-				data : {pageNumber : pageNumber, search : search, useYn : useYn},
-				success : function(data) {
-					if (data.list != null) {
-						questionList = data.list;
-						questionListLength = questionList.length;
-						for (index = 0; index < questionListLength; index++) {
-							question = questionList[index];
-							$("#table-content").append(makeQuestionDataRow(question));
-						}
-						$(".manage-question-answer-view").on("click", function () {
-							var qnaSequence = $(this).attr("id");
-							$.ajax("<c:url value="/data/question.json"/>", {
-								dataType : "json",
-								type : "GET",
-								data : {qnaSequence : qnaSequence},
-								success : function(qnaData) {
-									if (qnaData.detail != null) {
-										question = qnaData.detail;
-										$("#manage-question-detail").append(makeQuestionDetailView(question));
-									}
-								}
-							});
-						});
+					if(data.detail != null) {
+						var question = data.detail;
+						$("#manage-question-detail").append(makeQuestionDetailView(question));
 					}
 				}
 			});

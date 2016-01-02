@@ -24,6 +24,5 @@ public class Question {
 		
 		model.addAttribute("detail", qnaService.detail(qnaSequence));
 	}
-	
 
 }

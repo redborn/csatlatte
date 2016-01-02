@@ -32,7 +32,17 @@
 			<th>완료여부</th>
 		</tr>
 	</thead>
-	<tbody id="table-content">
+	<tbody>
+	<c:forEach items="${list}" var="list">
+		<tr>
+			<td>${list.qnaSequence}</td>
+			<td>${list.studentId}</td>
+			<td>${list.nickname}</td>
+			<td><div id="${list.qnaSequence}" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view">${list.title}</div></td>
+			<td>${list.writeDate}</td>
+			<td>${list.useYn}</td>
+		</tr>
+	</c:forEach>
 	</tbody>
 </table>
 <nav>
