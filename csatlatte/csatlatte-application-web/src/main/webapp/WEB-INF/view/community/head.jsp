@@ -35,7 +35,18 @@ $(document).ready(function() {
 	var blindText = "이 글은 관리자에 의해 블라인드 처리 되었습니다.";
 	
 	var format = function(ymdhms) {
-		return ymdhms.substring(0, 4) + "-" + ymdhms.substring(4, 6) + "-" + ymdhms.substring(6, 8) + " " + ymdhms.substring(8, 10) + ":" + ymdhms.substring(10, 12) + ":" + ymdhms.substring(12, 14);
+		var gapTime = new Date().getTime() - new Date(ymdhms.substring(0, 4), parseInt(ymdhms.substring(4, 6)) - 1, ymdhms.substring(6, 8), ymdhms.substring(8, 10), ymdhms.substring(10, 12), ymdhms.substring(12, 14)).getTime(); 
+		var result = "";
+		if (gapTime >= 1000 * 60 * 60 * 24) {
+			result = ymdhms.substring(0, 4) + "-" + ymdhms.substring(4, 6) + "-" + ymdhms.substring(6, 8) + " " + ymdhms.substring(8, 10) + ":" + ymdhms.substring(10, 12) + ":" + ymdhms.substring(12, 14)
+		} else if (gapTime >= 1000 * 60 * 60) {
+			result = parseInt(gapTime / (1000 * 60 * 60), 10) + "시간 전";
+		} else if (gapTime >= 1000 * 60) {
+			result = parseInt(gapTime / (1000 * 60), 10) + "분 전";
+		} else {
+			result = parseInt(gapTime / 1000, 10) + "초 전";
+		}
+		return result;
 	};
 	
 	var makeCommunityHtml = function(community, show) {
