@@ -49,13 +49,14 @@ public class CommunityDaoMapper extends SqlSessionDaoSupport implements Communit
 		return getSqlSession().selectList("community.selectListCountYear", params);
 	}
 
-	public List<CommunityVo> selectList(int communityTypeSequence, int start, int end, int limit, int studentSequence) {
+	public List<CommunityVo> selectList(int communityTypeSequence, int start, int end, int limit, int studentSequence, int searchStudentSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("communityTypeSequence", communityTypeSequence);
 		params.put("start", start);
 		params.put("end", end);
 		params.put("limit", limit);
 		params.put("studentSequence", studentSequence);
+		params.put("searchStudentSequence", searchStudentSequence);
 		return getSqlSession().selectList("community.selectList", params);
 	}
 	
