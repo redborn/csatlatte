@@ -80,7 +80,11 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	public List<CommunityVo> list(int communityTypeSequence, int start, int end, int limit, int studentSequence) {
-		return communityDao.selectList(communityTypeSequence, start, end, limit, studentSequence);
+		return list(communityTypeSequence, start, end, limit, studentSequence, 0);
+	}
+	
+	public List<CommunityVo> list(int communityTypeSequence, int start, int end, int limit, int studentSequence, int searchStudentSequence) {
+		return communityDao.selectList(communityTypeSequence, start, end, limit, studentSequence, searchStudentSequence);
 	}
 	
 	public List<CommunityVo> list(int communityTypeSequence, String search, int pageNumber) {
