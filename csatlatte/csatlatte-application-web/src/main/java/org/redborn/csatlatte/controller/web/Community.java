@@ -36,6 +36,7 @@ public class Community {
 		if (httpSessionValue.getRuleSequence() == HttpSessionValue.MANAGER) {
 			model.addAttribute("blindTypeList", communityService.blindTypeList());
 		}
+		model.addAttribute("nav", 0);
 		return TilesName.COMMUNITY;
 	}	
 }
