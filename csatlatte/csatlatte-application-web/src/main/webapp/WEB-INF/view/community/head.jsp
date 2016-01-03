@@ -16,7 +16,7 @@
 	.community-text .communuty-text-info {display:inline-block; margin-left:3px;}
 	.community-text .community-name {font-size:12px; display:inline;}
 	.community-text .community-name strong, .community-text  .community-name xmp {display:inline-block;}
-	.community-text .community-calender {font-size:12px; color:gray;}
+	.community-text .community-date {font-size:12px; color:gray;}
 	.community-text .community-blind-text {color:red;}
 	.community-text .community-action {display:inline-block; vertical-align:top; text-align:right; float:right;}
 	.community-text .community-text-content {padding-top:15px;}
@@ -44,7 +44,7 @@ $(document).ready(function() {
 		} else if (gapTime >= 1000 * 60) {
 			result = parseInt(gapTime / (1000 * 60), 10) + "분 전";
 		} else {
-			result = parseInt(gapTime / 1000, 10) + "초 전";
+			result = "방금 전";
 		}
 		return result;
 	};
@@ -69,7 +69,7 @@ $(document).ready(function() {
 		html += '		<img alt="프로필사진" class="community-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png">';
 		html += '		<div class="communuty-text-info">';
 		html += '			<div class="community-name"><strong>' + community.nickname + '</strong></div>';
-		html += '			<div class="community-calender">' + format(community.writeYmdhms) + '</div>';
+		html += '			<div class="community-date" data-ymdhms="' + community.writeYmdhms + '">' + format(community.writeYmdhms) + '</div>';
 		html += '		</div>';
 		if (!community.blind) {
 			html += '		<div class="community-text-content"><xmp>' + community.content + '</xmp></div>';
@@ -119,7 +119,7 @@ $(document).ready(function() {
 			html += '<xmp class="community-blind-text">' + blindText + '</xmp>';
 		}
 		html += '		</div>';
-		html += '		<div class="community-calender">' + format(comment.writeYmdhms) + '</div>';
+		html += '		<div class="community-date" data-ymdhms="' + comment.writeYmdhms + '">' + format(comment.writeYmdhms) + '</div>';
 		html += '	</div>';
 		html += '</div>';
 		return html;
@@ -225,6 +225,7 @@ $(document).ready(function() {
 							refreshComment(communitySequence);
 							$this.val("");
 							$("#community-" + communitySequence + " .community-comment-write-count").text(140);
+							refreshCommunityDate();
 						} else {
 							// 실패 처리..
 						}
@@ -363,9 +364,16 @@ $(document).ready(function() {
 		});
 	};
 	
+	var refreshCommunityDate = function() {
+		$(".community-date").each(function() {
+			$(this).text(format(String($(this).data("ymdhms"))));
+		});
+	};
+	
 	var minuteRefresh = function() {
 		setTimeout(function() {
 			refreshCommunityAndComment();
+			refreshCommunityDate();
 			minuteRefresh();
 		}, 60000);
 	};
@@ -378,7 +386,6 @@ $(document).ready(function() {
 
 	$("#community-write-content").on("keyup", function() {
 		var $communityWriteContent = $(this);
-		console.log(140 - $(this).val().length);
 		$("#community-write-count").text(140 - $(this).val().length);
 		if ($.trim($(this).val()) != "") {
 			$("#community-write-submit").attr("disabled", false);
@@ -399,6 +406,7 @@ $(document).ready(function() {
 					$("#community-write-submit").attr("disabled", true);
 					$("#community-write-content").val("");
 					$("#community-write-count").text(140);
+					refreshCommunityDate();
 					refreshCommunityAndComment();
 				} else {
 					// 실패 처리..
