@@ -64,8 +64,9 @@ $(document).ready(function() {
 			html += '	<div class="panel-footer community-text-comment-write">';
 			html += '		<img alt="프로필사진" class="community-comment-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png"/>';
 			html += '		<div class="community-text-comment-write-div">';
-			html += '			<label for="community-text-comment-write-input-' + community.communitySequence + '" class="sr-only">댓글을 입력하세요.</label>';
-			html += '			<input id="community-text-comment-write-input-' + community.communitySequence + '" type="text" class="form-control" placeholder="댓글을 입력하세요." maxlength="140"/>';
+			html += '			<label for="community-text-comment-write-input-' + community.communitySequence + '" class="sr-only">' + (studentSequence !== 0 ?  '댓글을 입력하세요.' : '로그인 후 작성 할 수 있습니다.') + '</label>';
+			
+			html += '			<input id="community-text-comment-write-input-' + community.communitySequence + '" type="text" class="form-control" placeholder="' + (studentSequence !== 0 ?  '댓글을 입력하세요.' : '로그인 후 작성 할 수 있습니다.') + '" maxlength="140 " ' + (studentSequence === 0 ?  'disabled="disabled"' : '') + '/>';
 			html += '		</div>';
 			html += '	</div>';
 		} else {

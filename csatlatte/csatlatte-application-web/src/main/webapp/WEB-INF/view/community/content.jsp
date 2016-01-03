@@ -21,7 +21,7 @@
 					<h3 class="panel-title">글 작성</h3>
 				</div>
 				<div class="panel-body community-write-text">
-					<textarea id="community-write-content" rows="5" class="form-control" placeholder="무슨일이 있으셨나요?" maxlength="140"></textarea>
+					<textarea id="community-write-content" rows="5" class="form-control" placeholder="<session:isManager>관리자님 어떤 정보를 알려줄까요?</session:isManager><session:isStudent>무슨일이 있으셨나요?</session:isStudent><session:isGuest>로그인 후 작성 할 수 있습니다.</session:isGuest>" maxlength="140"<session:isGuest> disabled="disabled"</session:isGuest>></textarea>
 				</div>
 				<div class="panel-footer community-write-btn">
 					<input id="community-write-submit" type="submit" class="btn btn-default" value="게시" disabled="disabled"/>
