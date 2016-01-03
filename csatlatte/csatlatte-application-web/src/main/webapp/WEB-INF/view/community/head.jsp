@@ -7,6 +7,7 @@
 	.community-write-btn {text-align:right;}
 	.community-write-text {padding:0;}
 	.community-write-text textarea {width:100%; resize:none; border:none; padding-top:5px;}
+	#community-write-count {margin-right:10px;}
 	
 	.community-picture {width:34px; height:34px; border-radius:5px; border:1px solid #7a6253; vertical-align:top;}
 	.community-comment-picture {width:34px; height:34px; border-radius:5px; border:1px solid #7a6253; vertical-align:top; position:absolute;}
@@ -19,7 +20,10 @@
 	.community-text .community-action {display:inline-block; vertical-align:top; text-align:right; float:right;}
 	.community-text .community-text-content {padding-top:15px;}
 	.community-text .community-text-comment-info {padding-left:44px; display:inline-block; width:100%;}
-	.community-text .community-text-comment-write-div {padding-left:44px;}
+	.community-text .community-text-comment-write {position:relative;}
+	.community-text .community-text-comment-write .community-text-comment-write-div {padding-left:44px; margin-right:34px;}
+	.community-text .community-text-comment-write .community-text-comment-write-div input {padding-right:-40px;}
+	.community-text .community-text-comment-write .community-comment-write-count {position:absolute; right:15px; height:34px; line-height:34px;}
 	.community-text xmp {white-space: pre-wrap; word-break: break-all;}
 </style>
 <script type="text/javascript">
@@ -63,9 +67,9 @@ $(document).ready(function() {
 		if (!community.blind) {
 			html += '	<div class="panel-footer community-text-comment-write">';
 			html += '		<img alt="프로필사진" class="community-comment-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png"/>';
+			html += '		<div class="community-comment-write-count"">140</div>';
 			html += '		<div class="community-text-comment-write-div">';
 			html += '			<label for="community-text-comment-write-input-' + community.communitySequence + '" class="sr-only">' + (studentSequence !== 0 ?  '댓글을 입력하세요.' : '로그인 후 작성 할 수 있습니다.') + '</label>';
-			
 			html += '			<input id="community-text-comment-write-input-' + community.communitySequence + '" type="text" class="form-control" placeholder="' + (studentSequence !== 0 ?  '댓글을 입력하세요.' : '로그인 후 작성 할 수 있습니다.') + '" maxlength="140 " ' + (studentSequence === 0 ?  'disabled="disabled"' : '') + '/>';
 			html += '		</div>';
 			html += '	</div>';
@@ -194,6 +198,7 @@ $(document).ready(function() {
 	var addCommentWriteEvent = function(communitySequence) {
 		$("#community-text-comment-write-input-" + communitySequence).on("keyup", function(event) {
 			var $this = $(this);
+			$("#community-" + communitySequence + " .community-comment-write-count").text(140 - $(this).val().length);
 			if (event.which === 13 && $.trim($(this).val()) != "") {
 				$.ajax(contextPath + "/data/community/comment.json", {
 					dataType : "json",
@@ -206,6 +211,7 @@ $(document).ready(function() {
 						if (data.result) {
 							refreshComment(communitySequence);
 							$this.val("");
+							$("#community-" + communitySequence + " .community-comment-write-count").text(140);
 						} else {
 							// 실패 처리..
 						}
@@ -358,7 +364,10 @@ $(document).ready(function() {
 	});
 
 	$("#community-write-content").on("keyup", function() {
-		if ($(this).val() != "") {
+		var $communityWriteContent = $(this);
+		console.log(140 - $(this).val().length);
+		$("#community-write-count").text(140 - $(this).val().length);
+		if ($.trim($(this).val()) != "") {
 			$("#community-write-submit").attr("disabled", false);
 		} else {
 			$("#community-write-submit").attr("disabled", true);
@@ -376,6 +385,7 @@ $(document).ready(function() {
 				if (data.result) {
 					$("#community-write-submit").attr("disabled", true);
 					$("#community-write-content").val("");
+					$("#community-write-count").text(140);
 					refreshCommunityAndComment();
 				} else {
 					// 실패 처리..

@@ -24,6 +24,7 @@
 					<textarea id="community-write-content" rows="5" class="form-control" placeholder="<session:isManager>관리자님 어떤 정보를 알려줄까요?</session:isManager><session:isStudent>무슨일이 있으셨나요?</session:isStudent><session:isGuest>로그인 후 작성 할 수 있습니다.</session:isGuest>" maxlength="140"<session:isGuest> disabled="disabled"</session:isGuest>></textarea>
 				</div>
 				<div class="panel-footer community-write-btn">
+					<span id="community-write-count">140</span>
 					<input id="community-write-submit" type="submit" class="btn btn-default" value="게시" disabled="disabled"/>
 				</div>
 			</div>
