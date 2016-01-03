@@ -3,6 +3,7 @@
 <%@ include file="/WEB-INF/layout/include/student.jsp" %>
 <%@ include file="/WEB-INF/layout/include/manager.jsp" %>
 <%@ include file="/WEB-INF/layout/include/jquery/form.jsp" %>
+<%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <style>
 	.community-write-btn {text-align:right;}
 	.community-write-text {padding:0;}
@@ -27,6 +28,7 @@
 	.community-text xmp {white-space: pre-wrap; word-break: break-all;}
 </style>
 <script type="text/javascript">
+var communityUrl = contextPath + "<c:if test="${nav == 1}">/<session:id/></c:if>/data/community.json"
 $(document).ready(function() {
 	var firstCommunitySequence;
 	var lastCommunitySequence;
@@ -290,7 +292,7 @@ $(document).ready(function() {
 	};
 	
 	var ajaxCommunity = function(data, callback) {
-		$.ajax(contextPath + "/data/community.json", {
+		$.ajax(communityUrl, {
 			dataType : "json",
 			type : "GET",
 			data : data,

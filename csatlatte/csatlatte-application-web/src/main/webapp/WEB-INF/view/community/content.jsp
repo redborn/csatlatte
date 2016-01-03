@@ -8,8 +8,11 @@
 <div style="border-top: 1px solid #7a6253; border-bottom: 1px solid #7a6253; padding:10px; margin-bottom:10px;">
 	<div class="container">
 		<ul class="nav nav-pills">
-			<li role="presentation" class="active"><a href="#">전체 글</a></li>
-			<li role="presentation"><a href="#">내가 작성한 글</a></li>
+		
+			<li role="presentation"<c:if test="${nav == 0}"> class="active"</c:if>><a href="<c:url value="/community"/>">전체 글</a></li>
+		<session:isLogin>
+			<li role="presentation"<c:if test="${nav == 1}"> class="active"</c:if>><a href="${pageContext.request.contextPath}/<session:id/>/community">내가 작성한 글</a></li>
+		</session:isLogin>
 		</ul>
 	</div>
 </div>
