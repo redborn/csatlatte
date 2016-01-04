@@ -30,7 +30,6 @@
 <script type="text/javascript">
 var communityUrl = contextPath + "<c:if test="${nav == 1}">/<session:id/></c:if>/data/community.json"
 $(document).ready(function() {
-	var firstCommunitySequence;
 	var lastCommunitySequence;
 	var blindText = "이 글은 관리자에 의해 블라인드 처리 되었습니다.";
 	
@@ -158,7 +157,20 @@ $(document).ready(function() {
 			if (data.list != null) {
 				var commentList =  data.list;
 				var commentListLength = commentList.length;
-				for (var index = 0; index < commentListLength; index++) {
+				var commentListIndex = 0;
+				
+				$("#community-" + communitySequence + " .community-text-comment").each(function(index) {
+					var id = $(this).attr("id");
+					if (commentListIndex < commentListLength && id.substring(id.lastIndexOf("-") + 1) == commentList[commentListIndex].commentSequence) {
+						commentListIndex++;
+					} else {
+						$(this).slideUp("fast", function() {
+							$(this).remove();
+						});
+					}
+				});
+				
+				for (var index = commentListIndex; index < commentListLength; index++) {
 					var comment = commentList[index];
 					if ($("#community-comment-" + communitySequence + "-" + comment.commentSequence).length === 0) {
 						$(makeCommentHtml(communitySequence, comment, false)).insertBefore($("#community-" + communitySequence + " .community-text-comment-write"));
@@ -331,9 +343,6 @@ $(document).ready(function() {
 						addCommunityAndCommentEvent(communitySequence);
 					});
 				}
-				if (start === -1) {
-					firstCommunitySequence = communityList[0].communitySequence;
-				}
 				lastCommunitySequence = communityList[communityListLength - 1].communitySequence;
 			} else {
 				lastCommunitySequence = 1;
@@ -342,13 +351,16 @@ $(document).ready(function() {
 	};
 	
 	var refreshCommunityAndComment = function() {
+		console.log(lastCommunitySequence);
 		ajaxCommunity({
-			end : firstCommunitySequence,
+			end : lastCommunitySequence,
 			limit : -1
 		}, function(data) {
 			if (data.list != null) {
 				var communityList = data.list;
 				var communityListLength = communityList.length;
+				var communityListIndex = 0;
+				
 				for (var index = 0; index < communityListLength; index++) {
 					var community = communityList[index];
 					if ($("#community-" + community.communitySequence).length == 0) {
@@ -359,7 +371,19 @@ $(document).ready(function() {
 						});
 					}
 				}
-				firstCommunitySequence = communityList[0].communitySequence;
+				
+				$(".community-text").each(function(index) {
+					var id = $(this).attr("id");
+					var communitySequence = parseInt(id.substring(id.lastIndexOf("-") + 1));
+					if (communityListIndex < communityListLength && communitySequence === communityList[communityListIndex].communitySequence) {
+						communityListIndex++;
+						refreshComment(communitySequence);
+					} else {
+						$(this).slideUp("fast", function() {
+							$(this).remove();
+						});
+					}
+				});
 			}
 		});
 	};
