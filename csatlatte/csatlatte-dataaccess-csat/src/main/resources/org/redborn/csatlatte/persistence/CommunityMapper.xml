@@ -117,6 +117,9 @@
 		                       AND cc.community_seq = ccb.community_seq
 		 WHERE cc.use_yn = 'Y'
 		   AND cc.community_type_seq = #{communityTypeSequence}
+		<if test="searchStudentSequence > 0">
+		   AND cc.student_seq = #{searchStudentSequence}
+		</if>
 		<if test="start > 0">
 		   AND cc.community_seq &lt;= #{start}
 		</if>

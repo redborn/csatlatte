@@ -37,8 +37,17 @@ public class HttpSessionValue {
 		this.session.setAttribute(RULE_SEQUENCE, ruleSequence);
 	}
 	
+	/**
+	 * 학생 아이디 입니다.
+	 * 
+	 * @return 아이디
+	 */
 	public String getId() {
-		return (String) this.session.getAttribute(ID);
+		return getId(this.session);
+	}
+	
+	public static String getId(HttpSession session) {
+		return (String) session.getAttribute(ID);
 	}
 	
 	/**

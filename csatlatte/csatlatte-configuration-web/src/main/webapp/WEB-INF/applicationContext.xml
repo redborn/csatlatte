@@ -2,6 +2,7 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -9,7 +10,9 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/mvc 
-		http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
+		http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
 		
 	<!-- Database -->
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
@@ -45,9 +48,18 @@
 	<context:component-scan base-package="org.redborn.csatlatte.controller" name-generator="org.redborn.csatlatte.commons.spring.beans.factory.support.CsatBeanNameGenerator"/>
 	<context:component-scan base-package="org.redborn.csatlatte.commons.servlet.http" name-generator="org.redborn.csatlatte.commons.spring.beans.factory.support.CsatBeanNameGenerator"/>
 	
-	<!-- etc -->
+	<!-- mvc -->
 	<mvc:annotation-driven/>
 	<mvc:resources mapping="/resources/**" location="/resources/"/>
+	
+	<!-- aop -->
+	<bean id="aop.account" class="org.redborn.csatlatte.commons.spring.aop.Account"/>
+	<aop:config>
+		<aop:pointcut id="accountPointCut" expression="execution(* org.redborn.csatlatte.controller.account.*.*(..))"/>
+		<aop:aspect ref="aop.account">
+			<aop:before pointcut-ref="accountPointCut" method="compareId"/>
+		</aop:aspect>
+	</aop:config>
 	
 	<!-- View -->
 	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">

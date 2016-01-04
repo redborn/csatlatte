@@ -34,12 +34,6 @@ public class Community {
 		logger.info("data community list");
 		model.addAttribute("list", communityService.list(CommunityService.COMMUNITY, start, end, limit, httpSessionValue.getStudentSequence()));
 	}
-	
-	@RequestMapping(value="{studentSequence}",method=RequestMethod.GET)
-	public void detail(Model model, @PathVariable int studentSequence) {
-		logger.info("data community detail");
-		communityService.list(CommunityService.COMMUNITY, studentSequence);
-	}
 
 	@RequestMapping(method=RequestMethod.POST)
 	public void post(Model model, @RequestParam(value="content",required=true) String content) {

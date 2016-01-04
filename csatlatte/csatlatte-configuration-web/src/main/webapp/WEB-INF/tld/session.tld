@@ -11,6 +11,11 @@
 		<body-content>JSP</body-content>
 	</tag>
 	<tag>
+		<name>isLogin</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.IsLoginTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+	<tag>
 		<name>isStudent</name>
 		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.IsStudentTag</tag-class>
 		<body-content>JSP</body-content>
@@ -29,6 +34,11 @@
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
+	</tag>
+	<tag>
+		<name>id</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.IdTag</tag-class>
+		<body-content>JSP</body-content>
 	</tag>
 	<tag>
 		<name>nickname</name>
