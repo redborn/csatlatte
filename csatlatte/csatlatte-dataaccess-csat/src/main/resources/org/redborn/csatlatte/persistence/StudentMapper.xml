@@ -20,12 +20,14 @@
 	</resultMap>
 	
 	<resultMap type="StudentVo" id="StudentInformationVoMap">
+		<result column="student_seq" property="studentSequence"/>
 		<result column="student_id" property="studentId"/>
 		<result column="content" property="securityQuestionContent"/>
 		<result column="photo_code" property="photoCode"/>
 		<result column="photo_name" property="photoName"/>
 		<result column="nickname" property="nickname"/>
 		<result column="csat_name" property="csatName"/>
+		<result column="rule_seq" property="ruleSequence"/>
 	</resultMap>
 	
 	<resultMap type="YmdCountVo" id="YmdCountVoMap">
@@ -44,15 +46,22 @@
 	</resultMap>
 
 	<select id="selectOne" parameterType="Map" resultMap="StudentInformationVoMap">
-		SELECT cs.student_id AS student_id,csc.content AS content,
+		SELECT cs.student_seq,cs.student_id AS student_id,csc.content AS content,
 		       cs.photo_code AS photo_code,cs.photo_name AS photo_name,
-		       cs.nickname AS nickname,c.csat_name AS csat_name
-		  FROM csat_student cs,csat_student_scqs css,csat_scqs csc,csat c
+		       cs.nickname AS nickname,c.csat_name AS csat_name,IF (
+		       IFNULL(cm.student_seq, 0) = 0, 1, 2) AS
+		       rule_seq
+		  FROM csat_student cs
+		       INNER JOIN csat_student_scqs css
+		               ON cs.student_seq = css.student_seq
+		       INNER JOIN csat_scqs csc
+		               ON css.scqs_seq = csc.scqs_seq
+		       INNER JOIN csat c
+		               ON cs.csat_seq = c.csat_seq
+		       LEFT OUTER JOIN csat_manager cm
+		                    ON cs.student_seq = cm.student_seq
 		 WHERE student_id = #{id}
 		   AND student_password = #{password}
-		   AND cs.student_seq = css.student_seq
-		   AND css.scqs_seq = csc.scqs_seq
-		   AND cs.csat_seq = c.csat_seq
 	</select>
 
 	<select id="selectOneDetail" parameterType="int" resultMap="StudentVoMap">

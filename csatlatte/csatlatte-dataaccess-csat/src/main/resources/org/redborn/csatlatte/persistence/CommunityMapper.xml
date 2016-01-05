@@ -8,8 +8,11 @@
 
 	<resultMap type="CommunityVo" id="CommunityVoMap">
 		<result column="community_seq" property="communitySequence"/>
+		<result column="student_seq" property="studentSequence"/>
 		<result column="nickname" property="nickname"/>
 		<result column="content" property="content"/>
+		<result column="report" property="report" typeHandler="org.redborn.csatlatte.commons.mybatis.BooleanTypeHandler"/>
+		<result column="blind" property="blind" typeHandler="org.redborn.csatlatte.commons.mybatis.BooleanTypeHandler"/>
 		<result column="write_ymdhms" property="writeYmdhms"/>
 	</resultMap>
 	
@@ -89,12 +92,55 @@
 		 GROUP BY DATE_FORMAT(write_date, '%m')
 	</select>
 	
-	<select id="selectList" parameterType="int" resultMap="CommunityVoMap">
-		SELECT cc.community_seq, cs.nickname, cc.content, DATE_FORMAT(cc.write_date, '%Y%m%d%H%i%s') AS write_ymdhms
-		  FROM csat_community cc, csat_student cs
+	<select id="selectList" parameterType="Map" resultMap="CommunityVoMap">
+		SELECT cc.community_seq,cc.student_seq,cs.nickname,
+			   IF (IFNULL(ccb.community_type_seq, 0) = 0, cc.content, NULL) AS content,
+		       DATE_FORMAT(cc.write_date, '%Y%m%d%H%i%s') AS write_ymdhms,
+		       IF (IFNULL(ccr.community_type_seq, 0) = 0, 0, 1) AS report,
+		       IF (IFNULL(ccb.community_type_seq, 0) = 0, 0, 1) AS blind
+		  FROM csat_community cc
+		       INNER JOIN csat_student cs
+		               ON cc.student_seq = cs.student_seq
+		       LEFT OUTER JOIN (SELECT community_type_seq,community_seq
+		                          FROM csat_community_report
+		                         WHERE student_seq = #{studentSequence}
+		                           AND community_type_seq = #{communityTypeSequence}
+								<if test="start > 0">
+								   AND community_seq &lt;= #{start}
+								</if>
+								<if test="end > 0">
+								   AND community_seq &gt;= #{end}
+								</if>
+		                        ) ccr
+		                    ON cc.community_type_seq = ccr.community_type_seq
+		                       AND cc.community_seq = ccr.community_seq
+				LEFT OUTER JOIN (SELECT community_type_seq,community_seq
+		                          FROM csat_community_blind
+		                         WHERE community_type_seq = #{communityTypeSequence}
+		                        <if test="start > 0">
+								   AND community_seq &lt;= #{start}
+								</if>
+								<if test="end > 0">
+								   AND community_seq &gt;= #{end}
+								</if>
+								) ccb
+		                    ON cc.community_type_seq = ccb.community_type_seq
+		                       AND cc.community_seq = ccb.community_seq
 		 WHERE cc.use_yn = 'Y'
-		   AND cc.student_seq = cs.student_seq
 		   AND cc.community_type_seq = #{communityTypeSequence}
+		<if test="searchStudentSequence > 0">
+		   AND cc.student_seq = #{searchStudentSequence}
+		</if>
+		<if test="start > 0">
+		   AND cc.community_seq &lt;= #{start}
+		</if>
+		<if test="end > 0">
+		   AND cc.community_seq &gt;= #{end}
+		</if>
+		 ORDER BY community_seq DESC
+		<if test="limit > 0">
+		 LIMIT 0, #{limit}
+		</if>
 	</select>
 	
 	<select id="selectListForManage" parameterType="Map" resultMap="CommunityVoManageMap">
@@ -115,7 +161,7 @@
 	</select>
 	
 	<select id="selectListStudentText" parameterType="Map" resultMap="CommunityVoMap">
-		SELECT cc.community_seq, cs.nickname, cc.content, cc.write_date
+		SELECT cc.community_seq,cc.student_seq,cs.nickname,cc.content,DATE_FORMAT(cc.write_date, '%Y%m%d%H%i%s') AS write_ymdhms
 		  FROM csat_community cc, csat_student cs
 		 WHERE cc.use_yn = 'Y'
 		   AND cc.student_seq = cs.student_seq

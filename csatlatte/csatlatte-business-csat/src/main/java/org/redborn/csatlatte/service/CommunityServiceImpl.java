@@ -7,12 +7,14 @@ import java.util.List;
 import org.redborn.csatlatte.domain.CommentVo;
 import org.redborn.csatlatte.domain.CommunityVo;
 import org.redborn.csatlatte.domain.CountVo;
+import org.redborn.csatlatte.domain.TypeVo;
 import org.redborn.csatlatte.persistence.CommunityDao;
 import org.redborn.csatlatte.persistence.community.BlindDao;
 import org.redborn.csatlatte.persistence.community.CommentDao;
 import org.redborn.csatlatte.persistence.community.ReportDao;
 import org.redborn.csatlatte.persistence.community.comment.CommentBlindDao;
 import org.redborn.csatlatte.persistence.community.comment.CommentReportDao;
+import org.redborn.csatlatte.persistence.report.TypeDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,14 +33,18 @@ public class CommunityServiceImpl implements CommunityService {
 	private ReportDao reportDao;
 	@Autowired
 	private CommentReportDao commentReportDao;
+	@Autowired
+	private TypeDao reportTypeDao;
+	@Autowired
+	private org.redborn.csatlatte.persistence.blind.TypeDao blindTypeDao;
 	
 	public int amountCommunity(String search) {
 		return communityDao.selectOneAmountCommunity(search);
 	}
 	
-	public boolean blind(int communityTypeSequence, int communitySequence, String content) {
+	public boolean blind(int communityTypeSequence, int communitySequence, int blindTypeSequence) {
 		return blindDao.selectOne(communityTypeSequence, communitySequence) == 0 
-				&& blindDao.insert(communityTypeSequence, communitySequence, content) == 1;
+				&& blindDao.insert(communityTypeSequence, communitySequence, blindTypeSequence) == 1;
 	}
 
 	public boolean write(CommunityVo communityVo) {
@@ -55,9 +61,9 @@ public class CommunityServiceImpl implements CommunityService {
 				&& communityDao.updateUseYnN(communityTypeSequence, communitySequence) == 1;
 	}
 
-	public boolean blindComment(int communityTypeSequence, int communitySequence, int commentSequence, String content) {
+	public boolean blindComment(int communityTypeSequence, int communitySequence, int commentSequence, int blindTypeSequence) {
 		return commentBlindDao.selectOne(communityTypeSequence, communitySequence, commentSequence) == 0 
-				&& commentBlindDao.insert(communityTypeSequence, communitySequence, commentSequence, content) == 1;
+				&& commentBlindDao.insert(communityTypeSequence, communitySequence, commentSequence, blindTypeSequence) == 1;
 	}
 
 	public boolean writeComment(CommentVo commentVo) {
@@ -69,13 +75,16 @@ public class CommunityServiceImpl implements CommunityService {
 				&& commentDao.update(commentVo) == 1;
 	}
 
-	public boolean deleteComment(CommentVo commentVo) {
-		return commentDao.selectOne(commentVo.getCommunityTypeSequence(), commentVo.getCommunitySequence(), commentVo.getCommentSequence(), commentVo.getStudentSequence()) == 1 
-				&& commentDao.updateUseYnN(commentVo.getCommunityTypeSequence(), commentVo.getCommunitySequence(), commentVo.getCommentSequence()) == 1;
+	public boolean deleteComment(int communityTypeSequence, int communitySequence, int commentSequence, int studentSequence) {
+		return commentDao.updateUseYnN(communityTypeSequence,communitySequence, commentSequence, studentSequence) == 1;
 	}
 
-	public List<CommunityVo> list(int communityTypeSequence) {
-		return communityDao.selectList(communityTypeSequence);
+	public List<CommunityVo> list(int communityTypeSequence, int start, int end, int limit, int studentSequence) {
+		return list(communityTypeSequence, start, end, limit, studentSequence, 0);
+	}
+	
+	public List<CommunityVo> list(int communityTypeSequence, int start, int end, int limit, int studentSequence, int searchStudentSequence) {
+		return communityDao.selectList(communityTypeSequence, start, end, limit, studentSequence, searchStudentSequence);
 	}
 	
 	public List<CommunityVo> list(int communityTypeSequence, String search, int pageNumber) {
@@ -86,8 +95,16 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDao.selectListStudentText(communityTypeSequence, studentSequence);
 	}
 
-	public List<CommentVo> commentList(int communityTypeSequence, int communitySequence) {
-		return commentDao.selectList(communityTypeSequence, communitySequence);
+	public List<CommentVo> commentList(int communityTypeSequence, int communitySequence, int studentSequence) {
+		return commentDao.selectList(communityTypeSequence, communitySequence, studentSequence);
+	}
+
+	public List<TypeVo> blindTypeList() {
+		return blindTypeDao.selectList();
+	}
+
+	public List<TypeVo> reportTypeList() {
+		return reportTypeDao.selectList();
 	}
 
 	public boolean report(int studentSequence, int communityTypeSequence, int communitySequence, int reportTypeSequence) {

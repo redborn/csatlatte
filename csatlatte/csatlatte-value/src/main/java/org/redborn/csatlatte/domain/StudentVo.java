@@ -18,95 +18,96 @@ public class StudentVo {
 	private int countCommunity;
 	private int countComment;
 	private String lastConnection;
-	
+	private int ruleSequence;
+
 	public int getStudentSequence() {
 		return studentSequence;
 	}
-	
+
 	public void setStudentSequence(int studentSequence) {
 		this.studentSequence = studentSequence;
 	}
-	
+
 	public String getStudentId() {
 		return studentId;
 	}
-	
+
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
-	
+
 	public String getStudentPassword() {
 		return studentPassword;
 	}
-	
+
 	public void setStudentPassword(String studentPassword) {
 		this.studentPassword = studentPassword;
 	}
-	
+
 	public String getNickname() {
 		return nickname;
 	}
-	
+
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	
+
 	public String getPhotoCode() {
 		return photoCode;
 	}
-	
+
 	public void setPhotoCode(String photoCode) {
 		this.photoCode = photoCode;
 	}
-	
+
 	public String getPhotoName() {
 		return photoName;
 	}
-	
+
 	public void setPhotoName(String photoName) {
 		this.photoName = photoName;
 	}
-	
+
 	public int getCsatSequence() {
 		return csatSequence;
 	}
-	
+
 	public void setCsatSequence(int csatSequence) {
 		this.csatSequence = csatSequence;
 	}
-	
+
 	public String getUseYn() {
 		return useYn;
 	}
-	
+
 	public void setUseYn(String useYn) {
 		this.useYn = useYn;
 	}
-	
+
 	public String getCreateDate() {
 		return createDate;
 	}
-	
+
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
-	
+
 	public int getCountConnection() {
 		return countConnection;
 	}
-	
+
 	public void setCountConnection(int countConnection) {
 		this.countConnection = countConnection;
 	}
-	
+
 	public int getAverageScore() {
 		return averageScore;
 	}
-	
+
 	public void setAverageScore(int averageScore) {
 		this.averageScore = averageScore;
 	}
-	
+
 	public String getSecurityQuestionContent() {
 		return securityQuestionContent;
 	}
@@ -147,18 +148,53 @@ public class StudentVo {
 		this.lastConnection = lastConnection;
 	}
 
+	public int getRuleSequence() {
+		return ruleSequence;
+	}
+
+	public void setRuleSequence(int ruleSequence) {
+		this.ruleSequence = ruleSequence;
+	}
+
 	@Override
 	public String toString() {
-		return "StudentVo [studentSequence=" + studentSequence + ", studentId="
-				+ studentId + ", studentPassword=" + studentPassword
-				+ ", nickname=" + nickname + ", photoCode=" + photoCode
-				+ ", photoName=" + photoName + ", csatSequence=" + csatSequence
-				+ ", useYn=" + useYn + ", createDate=" + createDate
-				+ ", countConnection=" + countConnection + ", averageScore="
-				+ averageScore + ", securityQuestionContent="
-				+ securityQuestionContent + ", csatName=" + csatName
-				+ ", countCommunity=" + countCommunity + ", countComment="
-				+ countComment + ", lastConnection=" + lastConnection + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("StudentVo [studentSequence=");
+		builder.append(studentSequence);
+		builder.append(", studentId=");
+		builder.append(studentId);
+		builder.append(", studentPassword=");
+		builder.append(studentPassword);
+		builder.append(", nickname=");
+		builder.append(nickname);
+		builder.append(", photoCode=");
+		builder.append(photoCode);
+		builder.append(", photoName=");
+		builder.append(photoName);
+		builder.append(", csatSequence=");
+		builder.append(csatSequence);
+		builder.append(", useYn=");
+		builder.append(useYn);
+		builder.append(", createDate=");
+		builder.append(createDate);
+		builder.append(", countConnection=");
+		builder.append(countConnection);
+		builder.append(", averageScore=");
+		builder.append(averageScore);
+		builder.append(", securityQuestionContent=");
+		builder.append(securityQuestionContent);
+		builder.append(", csatName=");
+		builder.append(csatName);
+		builder.append(", countCommunity=");
+		builder.append(countCommunity);
+		builder.append(", countComment=");
+		builder.append(countComment);
+		builder.append(", lastConnection=");
+		builder.append(lastConnection);
+		builder.append(", ruleSequence=");
+		builder.append(ruleSequence);
+		builder.append("]");
+		return builder.toString();
 	}
 
 }

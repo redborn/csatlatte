@@ -11,13 +11,18 @@
 		<body-content>JSP</body-content>
 	</tag>
 	<tag>
+		<name>isLogin</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.IsLoginTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+	<tag>
 		<name>isStudent</name>
 		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.IsStudentTag</tag-class>
 		<body-content>JSP</body-content>
 	</tag>
 	<tag>
-		<name>isAdministrator</name>
-		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.IsAdministratorTag</tag-class>
+		<name>isManager</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.IsManagerTag</tag-class>
 		<body-content>JSP</body-content>
 	</tag>
 	<tag>
@@ -31,8 +36,18 @@
 		</attribute>
 	</tag>
 	<tag>
+		<name>id</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.IdTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+	<tag>
 		<name>nickname</name>
 		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.NicknameTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+	<tag>
+		<name>studentSequence</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.StudentSequenceTag</tag-class>
 		<body-content>JSP</body-content>
 	</tag>
 </taglib>

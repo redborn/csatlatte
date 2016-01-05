@@ -18,12 +18,12 @@ public class CommentBlindDaoMapper extends SqlSessionDaoSupport implements Comme
 		return getSqlSession().selectOne("community.comment.blind.selectOne", params);
 	}
 
-	public int insert(int communityTypeSequence, int communitySequence, int commentSequence, String content) {
+	public int insert(int communityTypeSequence, int communitySequence, int commentSequence, int blindTypeSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("communityTypeSequence", communityTypeSequence);
 		params.put("communitySequence", communitySequence);
 		params.put("commentSequence", commentSequence);
-		params.put("content", content);
+		params.put("blindTypeSequence", blindTypeSequence);
 		
 		return getSqlSession().insert("community.comment.blind.insert", params);
 	}
