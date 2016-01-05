@@ -25,13 +25,13 @@
 			<td><div id="${list.studentSequence}" data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">${list.studentId}</div></td>
 			<td>${list.nickname}</td>
 			<td><div id="${list.communitySequence}" data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail"><xmp>${list.content}</xmp></div></td>
-			<td><input type="checkbox" name="blindCheck" value="${list.communitySequence}" <c:if test="${list.blind == 1}">checked</c:if>></td>
+			<td><input class="manage-community-blind-check-box" type="checkbox" name="blindCheck" value="${list.communitySequence}" <c:if test="${list.blind == 1}">checked</c:if>></td>
 		</tr>
 	</c:forEach>
 	</tbody>
 </table>
 <div class="manage-community-btn-align">
-	<button class="btn btn-default manage-community-apply">적용</button>
+	<button class="btn btn-default manage-community-apply" data-toggle="modal" data-target="#manage-community-blind">적용</button>
 </div>
 <nav>
 	<pagination:writer value="${paginationWriter}"/>
@@ -49,4 +49,34 @@
 	</div>
 </div>
 <div class="modal fade" id="manage-community-text-detail" tabindex="-1" role="dialog">
+</div>
+<div class="modal fade" id="manage-community-blind" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-user-info" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">블라인드</h4>
+			</div>
+			<div class="modal-body">
+				<div class="radio">
+					<label>
+						<input type="radio" name="optionsRadios" value="1">불쾌한 내용이 포함되어 있습니다.
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input type="radio" name="optionsRadios" value="2">수능라떼에 올바르지 않은 게시물입니다.
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input type="radio" name="optionsRadios" value="3">스팸 게시물입니다.
+					</label>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default manage-community-accept">완료</button>
+			</div>
+		</div>
+	</div>
 </div>

@@ -47,6 +47,7 @@
 	.community-content xmp {white-space:pre-wrap; word-break:break-all; margin-top:0px; margin-bottom:0px;}
 	.community-comment-content xmp {white-space:pre-wrap; word-break:break-all; display:inline-block; margin-top:0px; margin-bottom:0px;}
 	
+	#manage-community-blind .modal-body {text-align:left;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -208,8 +209,21 @@
 			$('.manage-community-detail').remove();
 		});
 		
-		$('.manage-community-apply').on("click", function () {
+		$('.manage-community-apply').attr('disabled',true);
+		
+		$('.manage-community-accept').attr('disabled', true);
+		
+		$('.radio').change(function () {
+			$('.manage-community-accept').attr('disabled', false);
+		});
+		
+		$('.manage-community-blind-check-box').change(function () {
+			$('.manage-community-apply').attr('disabled',false);
+		});
+		
+		$('.manage-community-accept').on("click", function () {
 			$("input[type=checkbox]:checked").each(function () {
+				var reason = $(':radio[name="optionsRadios"]:checked').val();
 				var target = $(this).val();
 				if(target != null) {
 					$.ajax("<c:url value="/data/manage/community.json"/>", {
@@ -217,7 +231,7 @@
 						type : "POST",
 						data : {communitySequence : target},
 						success : function() {
-								
+							alert(target);
 						}
 					});
 				}
