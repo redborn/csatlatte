@@ -51,6 +51,21 @@
 <script>
 	$(document).ready(function () {
 		
+		var format = function(ymdhms) {
+			var gapTime = new Date().getTime() - new Date(ymdhms.substring(0, 4), parseInt(ymdhms.substring(4, 6)) - 1, ymdhms.substring(6, 8), ymdhms.substring(8, 10), ymdhms.substring(10, 12), ymdhms.substring(12, 14)).getTime(); 
+			var result = "";
+			if (gapTime >= 1000 * 60 * 60 * 24) {
+				result = ymdhms.substring(0, 4) + "-" + ymdhms.substring(4, 6) + "-" + ymdhms.substring(6, 8) + " " + ymdhms.substring(8, 10) + ":" + ymdhms.substring(10, 12) + ":" + ymdhms.substring(12, 14)
+			} else if (gapTime >= 1000 * 60 * 60) {
+				result = parseInt(gapTime / (1000 * 60 * 60), 10) + "시간 전";
+			} else if (gapTime >= 1000 * 60) {
+				result = parseInt(gapTime / (1000 * 60), 10) + "분 전";
+			} else {
+				result = "방금 전";
+			}
+			return result;
+		};
+		
 		var getUrlParameter = function getUrlParameter(sParam) {
 			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
 			sURLVariables = sPageURL.split('&'),
@@ -78,7 +93,7 @@
 			html += '					<img alt="프로필사진" class="community-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
 			html += '					<div class="community-user-info">';
 			html += '						<div class="community-name"><strong>' + community.nickname + '</strong></div>';
-			html += '						<div class="community-calender">' + community.writeYmdhms + '</div>';
+			html += '						<div class="community-calender">' + format(community.writeYmdhms) + '</div>';
 			html += '					</div>';
 			html += '				</div>';
 			html += '			</div>';
@@ -99,7 +114,7 @@
 			html += '	<div class="community-user-info">';
 			html += '		<div class="community-name"><strong>' + comment.nickname + '</strong></div>';
 			html += '		<div class="community-comment-content"><xmp>' + comment.content + '</xmp></div>';
-			html += '		<div class="community-calender">' + comment.writeYmdhms + '</div>';
+			html += '		<div class="community-calender">' + format(comment.writeYmdhms) + '</div>';
 			html += '	</div>';
 			html += '</div>';
 			return html;
