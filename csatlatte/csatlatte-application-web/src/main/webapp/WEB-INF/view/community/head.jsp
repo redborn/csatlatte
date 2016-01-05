@@ -161,8 +161,15 @@ $(document).ready(function() {
 				
 				$("#community-" + communitySequence + " .community-text-comment").each(function(index) {
 					var id = $(this).attr("id");
-					if (commentListIndex < commentListLength && id.substring(id.lastIndexOf("-") + 1) == commentList[commentListIndex].commentSequence) {
+					var comment = commentList[commentListIndex];
+					if (commentListIndex < commentListLength && parseInt(id.substring(id.lastIndexOf("-") + 1)) === comment.commentSequence) {
 						commentListIndex++;
+						if (comment.blind) {
+							$("#community-comment-" + communitySequence + "-" + comment.commentSequence + " .community-comment-blind").fadeOut("normal", function() {
+								$(this).remove();
+							});
+							$("#community-comment-" + communitySequence + "-" + comment.commentSequence + " .community-name xmp").addClass("community-blind-text").text(blindText);
+						}
 					} else {
 						$(this).slideUp("fast", function() {
 							$(this).remove();
@@ -351,7 +358,6 @@ $(document).ready(function() {
 	};
 	
 	var refreshCommunityAndComment = function() {
-		console.log(lastCommunitySequence);
 		ajaxCommunity({
 			end : lastCommunitySequence,
 			limit : -1
@@ -369,6 +375,14 @@ $(document).ready(function() {
 							addCommunityAndCommentEvent(communitySequence);
 							$("#community-" + communitySequence).slideDown();
 						});
+					} else if (community.blind) {
+						$("#community-" + community.communitySequence + " .community-blind").fadeOut("normal", function() {
+							$(this).remove();
+						});
+						$("#community-" + community.communitySequence + " .community-text-comment-write").slideUp("fast", function() {
+							$(this).remove();
+						});
+						$("#community-" + community.communitySequence + " .community-text-content xmp").addClass("community-blind-text").text(blindText);
 					}
 				}
 				
