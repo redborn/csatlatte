@@ -43,6 +43,9 @@
 	.manage-exam-btn-accept {cursor:pointer;}
 	
 	.community-comment {margin-bottom:5px;}
+	.manage-community-text-detail xmp {white-space:pre-wrap; word-break:break-all; margin-top:0px; margin-bottom:0px;}
+	.community-content xmp {white-space:pre-wrap; word-break:break-all; margin-top:0px; margin-bottom:0px;}
+	.community-comment-content xmp {white-space:pre-wrap; word-break:break-all; display:inline-block; margin-top:0px; margin-bottom:0px;}
 	
 </style>
 <script>
@@ -80,7 +83,7 @@
 			html += '				</div>';
 			html += '			</div>';
 			html += '			<div class="modal-body">';
-			html += '				<div class="community-content">' + community.content + '</div>';
+			html += '				<div class="community-content"><xmp>' + community.content + '</xmp></div>';
 			html += '			</div>';
 			html += '			<div id="comment-area" class="modal-footer">';
 			html += '			</div>';
@@ -95,7 +98,7 @@
 			html += '	<img alt="프로필사진" class="community-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
 			html += '	<div class="community-user-info">';
 			html += '		<div class="community-name"><strong>' + comment.nickname + '</strong></div>';
-			html += '		<div class="community-comment-content">' + comment.content + '</div>';
+			html += '		<div class="community-comment-content"><xmp>' + comment.content + '</xmp></div>';
 			html += '		<div class="community-calender">' + comment.writeYmdhms + '</div>';
 			html += '	</div>';
 			html += '</div>';
