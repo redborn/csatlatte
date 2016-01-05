@@ -45,6 +45,7 @@ public class BootstrapPaginationWriter extends PaginationWriter {
 	public BootstrapPaginationWriter(Pagination pagination, String url, Map<String, String> params, String pageKey) {
 		super(pagination, url, params, pageKey, new BootstrapPaginationElement());
 		setPageParentAttribute("class", "pagination");
+		setSelectPageAttribute("class", "active");
 	}
 
 }
