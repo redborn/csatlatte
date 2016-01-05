@@ -26,10 +26,9 @@ public class Community {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public void post(@RequestParam(value="communityTypeSequence",required=true,defaultValue="1") int communityTypeSequence, 
-			@RequestParam(value="communitySequence",required=true) int communitySequence) {
+	public void post(@RequestParam(value="communitySequence",required=true) int communitySequence) {
 		logger.info("data manage community insert blind");
 		
-		communityService.blind(communityTypeSequence, communitySequence, "관리자에 의한 블라인드");
+		communityService.blind(CommunityService.COMMUNITY, communitySequence, "관리자에 의한 블라인드");
 	}
 }
