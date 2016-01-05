@@ -48,6 +48,23 @@
 <script>
 	$(document).ready(function () {
 		
+		var getUrlParameter = function getUrlParameter(sParam) {
+			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+			sURLVariables = sPageURL.split('&'),
+			sParameterName,
+			i;
+
+			for (i = 0; i < sURLVariables.length; i++) {
+				sParameterName = sURLVariables[i].split('=');
+				
+				if (sParameterName[0] === sParam) {
+					return sParameterName[1] === undefined ? true : sParameterName[1];	
+				}	
+			}	
+		};
+		
+		$('#manage-community-search').val(getUrlParameter("search"));
+		
 		var makeCommunityDetail = function(community) {
 			var html = '';
 			html += '	<div class="modal-dialog manage-community-detail" role="document">';
@@ -100,7 +117,11 @@
 			html += '		</div>';
 			html += '		<div class="manage-community-info-content">';
 			html += '			<label>최근 접속일</label>';
-			html += '			<div class="manage-community-info-content-value">' + student.lastConnection + '</div>';
+			if (student.lastConnection == null) {
+				html += '			<div class="manage-community-info-content-value">로그인 기록이 없습니다.</div>';
+			} else {
+				html += '			<div class="manage-community-info-content-value">' + student.lastConnection + '</div>';	
+			}
 			html += '		</div>';
 			html += '			<div class="manage-community-info-content">';
 			html += '			<label>활동점수 내역</label>';
@@ -124,6 +145,7 @@
 					data : {studentSequence : target},
 					success : function(data) {
 						var student = data.information;
+						console.log(student.lastConnection);
 						$("#manage-community-student-information").append(makeStudentInformation(student));
 					}
 				});
