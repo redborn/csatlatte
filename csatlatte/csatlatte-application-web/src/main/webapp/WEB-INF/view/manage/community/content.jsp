@@ -24,7 +24,7 @@
 			<td>${list.communitySequence}</td>
 			<td><div id="${list.studentSequence}" data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">${list.studentId}</div></td>
 			<td>${list.nickname}</td>
-			<td><div id="${list.communitySequence}" data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail">${list.content}</div></td>
+			<td><div id="${list.communitySequence}" data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail"><xmp>${list.content}</xmp></div></td>
 			<td><input type="checkbox" name="blindCheck" value="${list.communitySequence}" <c:if test="${list.blind == 1}">checked</c:if>></td>
 		</tr>
 	</c:forEach>
