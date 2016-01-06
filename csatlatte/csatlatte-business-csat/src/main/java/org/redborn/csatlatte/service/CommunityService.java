@@ -13,6 +13,7 @@ public interface CommunityService {
 
 	public int amountCommunity(String search);
 	public boolean blind(int communityTypeSequence, int communitySequence, int blindTypeSequence);
+	public boolean blindCheck(int communityTypeSequence, int communitySequence);
 	public boolean write(CommunityVo communityVo);
 	public boolean modify(CommunityVo communityVo);
 	public boolean delete(int communityTypeSequence, int communitySequence, int studentSequence);

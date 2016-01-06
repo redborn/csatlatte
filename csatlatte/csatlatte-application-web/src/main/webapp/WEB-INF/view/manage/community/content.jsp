@@ -18,14 +18,14 @@
 			<th class="col-lg-2">블라인드</th>
 		</tr>
 	</thead>
-	<tbody id="table-content">
+	<tbody>
 	<c:forEach items="${list}" var="list">
 		<tr>
 			<td>${list.communitySequence}</td>
 			<td><div id="${list.studentSequence}" data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">${list.studentId}</div></td>
 			<td>${list.nickname}</td>
 			<td><div id="${list.communitySequence}" data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail"><xmp>${list.content}</xmp></div></td>
-			<td><input class="manage-community-blind-check-box" type="checkbox" name="blindCheck" value="${list.communitySequence}" <c:if test="${list.blind == 1}">checked</c:if>></td>
+			<td><input class="manage-community-blind-check-box" type="checkbox" name="blindCheck" value="${list.communitySequence}" <c:if test="${list.blind eq true}">checked</c:if>></td>
 		</tr>
 	</c:forEach>
 	</tbody>

@@ -19,6 +19,11 @@ public class Blind {
 	@Autowired
 	private CommunityService communityService;
 	
+	@RequestMapping(method=RequestMethod.GET)
+	public void get(Model model, @RequestParam(value="communitySequence",required=true) int communitySequence) {
+		model.addAttribute("check", communityService.blindCheck(CommunityService.COMMUNITY, communitySequence));
+	}
+	
 	@RequestMapping(value="{communitySequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="communitySequence") int communitySequence, @RequestParam(value="blindTypeSequence",required=true) int blindTypeSequence) {
 		logger.info(new StringBuilder("data community blind... communitySequence is ").append(communitySequence).toString());

@@ -92,6 +92,12 @@
 			});
 		});
 		
+		$('.manage-user-apply').attr('disabled',true);
+		
+		$('.manage-user-blind-check-box').change(function () {
+			$('.manage-user-apply').attr('disabled',false);
+		});
+		
 		$('.manage-user-apply').on("click", function () {
 			$("input[type=checkbox]:checked").each(function () {
 				var target = $(this).val();
@@ -99,7 +105,7 @@
 					$.ajax("<c:url value="/data/manage/student.json"/>", {
 						dataType : "json",
 						type : "PUT",
-						data : {studentSequence : target},
+						data : {studentSequence : target, _method : "PUT"},
 						success : function() {
 							
 						}
@@ -107,6 +113,7 @@
 				}
 			});
 			alert("처리가 완료되었습니다.");
+			$('.manage-user-apply').attr('disabled',true);
 		});
 		
 		$('#manage-user-id').on('hidden.bs.modal', function () {

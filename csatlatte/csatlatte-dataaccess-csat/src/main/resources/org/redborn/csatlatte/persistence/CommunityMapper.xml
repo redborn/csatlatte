@@ -157,7 +157,7 @@
 		   AND ( cs.student_id LIKE CONCAT('%', #{search}, '%')
 		          OR cs.nickname LIKE CONCAT('%', #{search}, '%') )
 	  ORDER BY cc.community_seq desc
-		 LIMIT #{pageNumber}, 10; 
+		 LIMIT #{pageNumber}, 10
 	</select>
 	
 	<select id="selectListStudentText" parameterType="Map" resultMap="CommunityVoMap">

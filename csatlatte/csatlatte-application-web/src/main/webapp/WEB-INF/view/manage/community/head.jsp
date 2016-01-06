@@ -226,17 +226,28 @@
 				var reason = $(':radio[name="optionsRadios"]:checked').val();
 				var target = $(this).val();
 				if(target != null) {
-					$.ajax("<c:url value="/data/manage/community.json"/>", {
+					$.ajax("<c:url value="/data/community/blind.json"/>", {
 						dataType : "json",
-						type : "POST",
+						type : "GET",
 						data : {communitySequence : target},
-						success : function() {
-							alert(target);
+						success : function(data) {
+							if (data.check == true) {
+								$.ajax("<c:url value="/data/manage/community.json"/>", {
+									dataType : "json",
+									type : "POST",
+									data : {communitySequence : target, blindTypeSequence : reason},
+									success : function() {
+									}
+								});
+							}
 						}
 					});
 				}
 			});
 			alert("처리가 완료되었습니다.");
+			$('#manage-community-blind').modal('hide');
+			$('.manage-community-apply').attr('disabled',true);
+			$('.manage-community-accept').attr('disabled', true);
 		});
 		
 		$('#manage-community-search').on("keyup", function (event) {

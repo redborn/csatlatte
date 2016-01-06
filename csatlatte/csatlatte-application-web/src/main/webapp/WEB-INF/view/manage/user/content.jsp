@@ -26,7 +26,7 @@
 			<td><div id="${userList.studentSequence}" data-toggle="modal" data-target="#manage-user-id" class="manage-user-id">${userList.studentId}</div></td>
 			<td>${userList.nickname}</td>
 			<td>${userList.countConnection}</td>
-			<td><input type="checkbox" name="blindCheck" value="${userList.studentSequence}" <c:if test="${userList.useYn == 'N'}">checked</c:if>></td>
+			<td><input class="manage-user-blind-check-box" type="checkbox" name="blindCheck" value="${userList.studentSequence}" <c:if test="${userList.useYn == 'N'}">checked</c:if>></td>
 			<td>${userList.countCommunity + userList.countComment}</td>
 			<td>${userList.averageScore}</td>
 		</tr>
