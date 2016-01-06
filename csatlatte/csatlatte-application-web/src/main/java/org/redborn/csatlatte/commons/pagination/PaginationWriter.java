@@ -20,8 +20,8 @@ public class PaginationWriter {
 	private String pageElementBeginTag;
 	private String pageElementEndTag;
 	
+	private String pageElementAttribute;
 	private String anchorElementAttribute;
-	
 	private String selectAnchorElementAttribute;
 	
 	private String pageFirstElementText;
@@ -176,6 +176,16 @@ public class PaginationWriter {
 	}
 	
 	/**
+	 * select element의 속성을 추가합니다.
+	 * 
+	 * @param key 키
+	 * @param value 값
+	 */
+	public void setSelectPageAttribute(String key, String value) {
+		pageElementAttribute = makeAttribute(pageElementBeginTag, key, value);
+	}
+	
+	/**
 	 * anchor element의 속성을 추가합니다.
 	 * 
 	 * @param key 키
@@ -186,7 +196,7 @@ public class PaginationWriter {
 	}
 	
 	/**
-	 * anchor element의 속성을 추가합니다.
+	 * select anchor element의 속성을 추가합니다.
 	 * 
 	 * @param key 키
 	 * @param value 값
@@ -224,7 +234,7 @@ public class PaginationWriter {
 		}
 		
 		for (int i = beginPage; i <= endPage; i++) {
-			paginationStr.append(pageElementBeginTag).append("><a ").append(i != page ? anchorElementAttribute : selectAnchorElementAttribute).append("href='").append(url).append(i).append("'>").append(i).append("</a>").append(pageElementEndTag);
+			paginationStr.append(pageElementBeginTag).append(" ").append(i != page ? null : pageElementAttribute).append("><a ").append(i != page ? anchorElementAttribute : selectAnchorElementAttribute).append("href='").append(url).append(i).append("'>").append(i).append("</a>").append(pageElementEndTag);
 		}
 		
 		if (endPage != lastPage) {

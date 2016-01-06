@@ -1,5 +1,8 @@
 package org.redborn.csatlatte.controller.web.manage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.redborn.csatlatte.commons.pagination.BootstrapPaginationWriter;
 import org.redborn.csatlatte.commons.pagination.Pagination;
 import org.redborn.csatlatte.commons.tiles.TilesName;
@@ -30,15 +33,17 @@ public class User {
 	 * 사용자 정보를 관리하는 페이지입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
-	public String get(Model model, @RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
+	public String get(Model model, @RequestParam(value="search",required=false,defaultValue="") String search, 
+			@RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
 		logger.info("manage user view");
 		
-		int beginPageNumber;
-		beginPageNumber = (pageNumber * 10) - 10;
+		int beginPageNumber = (pageNumber * 10) - 10;
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("search", search);
 		
-		Pagination pagination = new Pagination(pageNumber, studentService.amountStudent());
+		Pagination pagination = new Pagination(pageNumber, studentService.amountStudent(search));
 		
-		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/user", "pageNumber"));
+		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/user", params, "pageNumber"));
 		model.addAttribute("userList", studentService.userList(search, beginPageNumber));
 		
 		return TilesName.MANAGE_USER;

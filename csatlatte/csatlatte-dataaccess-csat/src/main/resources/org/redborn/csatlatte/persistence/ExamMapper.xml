@@ -13,14 +13,18 @@
 	</resultMap>
 	
 	<resultMap type="ExamVo" id="ExamVoForManageMap">
+		<result column="exam_seq" property="examSequence"/>
 		<result column="year" property="year" />
 		<result column="exam_name" property="examName" />
-		<result column="manage_name" property="manageName" />
+		<result column="isttt_name" property="istttName" />
 	</resultMap>
 
-	<select id="selectOne" resultType="int">
+	<select id="selectOne" parameterType="String" resultType="int">
 		SELECT COUNT(*)
-		  FROM csat_exam
+		  FROM csat_exam ce, csat_isttt ci
+		 WHERE ce.isttt_seq = ci.isttt_seq
+		   AND ( ce.exam_name LIKE CONCAT('%', #{search}, '%')
+		          OR ci.isttt_name LIKE CONCAT('%', #{search}, '%') )
 	</select>
 
 	<select id="selectListExam" parameterType="int" resultMap="ExamVoMap">
@@ -31,28 +35,28 @@
 	</select>
 	
 	<select id="selectListExamForManage" parameterType="Map" resultMap="ExamVoForManageMap">
-		SELECT DATE_FORMAT(ce.exam_ymd, '%Y') AS year,ce.exam_name,cm.manage_name
-		  FROM csat_exam ce,csat_manage cm
-		 WHERE ce.manage_seq = cm.manage_seq
+		SELECT ce.exam_seq, DATE_FORMAT(ce.exam_ymd, '%Y') AS year,ce.exam_name,ci.isttt_name
+		  FROM csat_exam ce,csat_isttt ci
+		 WHERE ce.isttt_seq = ci.isttt_seq
 		   AND ( ce.exam_name LIKE CONCAT('%', #{search}, '%')
-		          OR cm.manage_name LIKE CONCAT('%', #{search}, '%') )
-		 ORDER BY year
+		          OR ci.isttt_name LIKE CONCAT('%', #{search}, '%') )
+		 ORDER BY ce.exam_seq desc
 		 LIMIT #{pageNumber}, 10 
 	</select>
 	
 	<insert id="insert" parameterType="ExamVo">
 		INSERT INTO csat_exam
-		            (csat_seq,exam_seq,manage_seq,exam_name,exam_ymd)
+		            (csat_seq,exam_seq,isttt_seq,exam_name,exam_ymd)
 		     VALUES (#{csatSequence},
 		     		 #{examSequence}, 
-		     		 #{manageSequence},
+		     		 #{istttSequence},
 		     		 #{examSequence}, 
 		     		 #{examYmd}) 
 	</insert>
 	
 	<update id="update" parameterType="ExamVo">
 		UPDATE csat_exam
-		   SET csat_seq = #{csatSequence}, manage_seq = #{manageSequence},
+		   SET csat_seq = #{csatSequence}, isttt_seq = #{istttSequence},
 		       exam_name = #{examName}, exam_ymd = #{examYmd}, ys_seq = #{ysSequence}
 		 WHERE exam_seq = #{examSequence} 
 	</update>

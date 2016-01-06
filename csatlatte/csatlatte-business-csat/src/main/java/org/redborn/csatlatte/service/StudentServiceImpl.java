@@ -122,8 +122,8 @@ public class StudentServiceImpl implements StudentService {
 		return securityQuestionDao.selectOne(studentSequence);
 	}
 	
-	public int amountStudent() {
-		return studentDao.selectOneMaxStudentSequence() - 1;
+	public int amountStudent(String search) {
+		return studentDao.selectOneAmountStudent(search);
 	}
 
 }

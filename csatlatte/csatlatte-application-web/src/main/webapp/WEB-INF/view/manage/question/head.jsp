@@ -22,21 +22,108 @@
 	.manage-question-qna-title-content {display:inline-block; margin-left:10px;}
 	.manage-question-qna-answer {margin-top:10px;}
 	
-	textarea {resize:none; border:none; padding-top:5px;}
+	textarea {resize:none; border:none; padding-top:5px; margin-bottom:10px;}
 	textarea.form-control {display:block; width:100%; height:150px;}
+	
+	.manage-question-detail {text-align:right;}
+	.manage-question-detail-content {text-align:left; margin-bottom:15px;}
+	.manage-question-detail-answer {text-align:left;}
 </style>
 <script>
 	$(document).ready(function () {
-		$("#manage-question-all").on("click", function () {
-			$(location).attr('href', '<c:url value="/manage/question"/>');
+		
+		var getUrlParameter = function getUrlParameter(sParam) {
+			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+			sURLVariables = sPageURL.split('&'),
+			sParameterName,
+			i;
+
+			for (i = 0; i < sURLVariables.length; i++) {
+				sParameterName = sURLVariables[i].split('=');
+				
+				if (sParameterName[0] === sParam) {
+					return sParameterName[1] === undefined ? true : sParameterName[1];	
+				}	
+			}	
+		};
+		
+		$('#manage-question-search').val(getUrlParameter("search"));
+		
+		var makeQuestionDetailView = function(question) {
+			var html = '';
+			html += '<div class="manage-question-detail">';
+			html += '	<div class="manage-question-detail-content">';
+			html += '		<div><b>질문제목</b> : ' + question.title + '</div>';
+			html += '		<div><b>질문내용</b> : ' + question.content + '</div>';
+			html += '	</div>';
+			if (question.answerContent != "") {
+				html += '<div class="manage-question-detail-answer"><b>답변내용</b> : ' + question.answerContent + '</div>';
+			} else {
+				html += '<textarea class="form-control manage-question-answer-textarea" placeholder="답변이 완료되지 않은 문의입니다. 답변을 입력해주세요."/>';
+				html += '<input type="submit" class="btn btn-primary manage-question-answer-accept" value="답변완료">';
+			}
+			html += '</div>';
+			return html;
+		}
+		
+		$('.manage-question-answer-view').on("click", function () {
+			var target = $(this).attr("id");
+			$.ajax("<c:url value="/data/question.json"/>", {
+				dataType : "json",
+				type : "GET",
+				data : {qnaSequence : target},
+				success : function(data) {
+					if (data.detail != null) {
+						var question = data.detail;
+						$("#manage-question-detail").append(makeQuestionDetailView(question));
+						$('.manage-question-answer-accept').on("click", function () {
+							var answerContent = $('.manage-question-answer-textarea').val();
+							$.ajax("<c:url value="/data/manage/question.json"/>", {
+								dataType : "json",
+								type : "POST",
+								data : {qnaSequence : target, answerContent : answerContent},
+								success : function () {
+									$('.manage-question-detail').remove();
+									$.ajax("<c:url value="/data/question.json"/>", {
+										dataType : "json",
+										type : "GET",
+										data : {qnaSequence : target},
+										success : function(data) {
+											if (data.detail != null) {
+												var question = data.detail;
+												$("#manage-question-detail").append(makeQuestionDetailView(question));
+											}
+										}
+									});
+								}
+							});
+						});
+					}
+				}
+			});
 		});
 		
-		$("#manage-question-standby").on("click", function () {
-			$(location).attr('href', '<c:url value="/manage/question?useYn=Y"/>');
+		$('#manage-question-answer-view').on('hidden.bs.modal', function () {
+			$('.manage-question-detail').remove();
 		});
 		
-		$("#manage-question-success").on("click", function () {
-			$(location).attr('href', '<c:url value="/manage/question?useYn=N"/>');
+		$('#manage-question-all').on("click", function () {
+			$(location).attr('href', '<c:url value="/manage/question"/>');	
+		});
+		
+		$('#manage-question-standby').on("click", function () {
+			$(location).attr('href', '<c:url value="/manage/question?useYn="/>' + "Y");	
+		});
+		
+		$('#manage-question-success').on("click", function () {
+			$(location).attr('href', '<c:url value="/manage/question?useYn="/>' + "N");	
+		});
+		
+		$('#manage-question-search').on("keyup", function (event) {
+			if (event.which == 13) {
+				var search = $('#manage-question-search').val();
+				$(location).attr('href', '<c:url value="/manage/question?search="/>' + search);
+			}
 		});
 	});
 </script>

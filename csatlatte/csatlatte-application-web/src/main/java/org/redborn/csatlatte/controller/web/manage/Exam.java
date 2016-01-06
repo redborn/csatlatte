@@ -1,5 +1,8 @@
 package org.redborn.csatlatte.controller.web.manage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.redborn.csatlatte.commons.pagination.BootstrapPaginationWriter;
 import org.redborn.csatlatte.commons.pagination.Pagination;
 import org.redborn.csatlatte.commons.tiles.TilesName;
@@ -34,10 +37,12 @@ public class Exam {
 		logger.info("manage exam view");
 		
 		int beginPageNumber = (pageNumber * 10) - 10;
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("search", search);
 		
-		Pagination pagination = new Pagination(pageNumber, examService.amountExam());
+		Pagination pagination = new Pagination(pageNumber, examService.amountExam(search));
 		
-		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/exam", "pageNumber"));
+		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/exam", params, "pageNumber"));
 		model.addAttribute("list", examService.listForManage(beginPageNumber, search));
 		return TilesName.MANAGE_EXAM;
 	}

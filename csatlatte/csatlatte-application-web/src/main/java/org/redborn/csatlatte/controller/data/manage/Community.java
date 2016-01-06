@@ -19,20 +19,17 @@ public class Community {
 	private CommunityService communityService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public void get(Model model, @RequestParam(value="communityTypeSequence",required=false,defaultValue="1") int communityTypeSequence,
-			@RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
+	public void get(Model model, @RequestParam(value="communitySequence",required=true) int communitySequence) {
 		logger.info("data manage community view");
 		
-		int beginPageNumber = (pageNumber * 10) - 10;
-		
-		model.addAttribute("list", communityService.list(communityTypeSequence, search, beginPageNumber));
+		model.addAttribute("detail", communityService.detail(CommunityService.COMMUNITY, communitySequence));
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public void post(@RequestParam(value="communityTypeSequence",required=true,defaultValue="1") int communityTypeSequence, 
-			@RequestParam(value="communitySequence",required=true) int communitySequence) {
+	public void post(@RequestParam(value="communitySequence",required=true) int communitySequence,
+			@RequestParam(value="blindTypeSequence",required=true) int blindTypeSequence) {
 		logger.info("data manage community insert blind");
 		
-		communityService.blind(communityTypeSequence, communitySequence, "관리자에 의한 블라인드");
+		communityService.blind(CommunityService.COMMUNITY, communitySequence, blindTypeSequence);
 	}
 }

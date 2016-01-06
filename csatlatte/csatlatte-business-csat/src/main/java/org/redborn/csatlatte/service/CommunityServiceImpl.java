@@ -38,8 +38,8 @@ public class CommunityServiceImpl implements CommunityService {
 	@Autowired
 	private org.redborn.csatlatte.persistence.blind.TypeDao blindTypeDao;
 	
-	public int amountCommunity() {
-		return communityDao.selectOneAmountCommunity();
+	public int amountCommunity(String search) {
+		return communityDao.selectOneAmountCommunity(search);
 	}
 	
 	public boolean blind(int communityTypeSequence, int communitySequence, int blindTypeSequence) {
@@ -167,6 +167,10 @@ public class CommunityServiceImpl implements CommunityService {
 
 	public List<CountVo> annualActive(int communityTypeSequence, String year) {
 		return margeCountVoList(communityDao.selectListCountYear(communityTypeSequence, year), commentDao.selectListCountYear(communityTypeSequence, year), 1, 12);
+	}
+	
+	public CommunityVo detail(int communityTypeSequence, int communitySequence) {
+		return communityDao.selectOneDetail(communityTypeSequence, communitySequence);
 	}
 
 }

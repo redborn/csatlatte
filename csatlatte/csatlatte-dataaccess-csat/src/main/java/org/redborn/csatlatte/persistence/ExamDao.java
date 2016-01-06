@@ -6,7 +6,7 @@ import org.redborn.csatlatte.domain.ExamVo;
 
 public interface ExamDao {
 	
-	public int selectOne();
+	public int selectOne(String search);
 	public List<ExamVo> selectListExam(int csatSequence);
 	public List<ExamVo> selectListExamForManage(int pageNumber, String search);
 	public int insert(ExamVo examVo);

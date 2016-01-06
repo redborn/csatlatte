@@ -5,11 +5,13 @@
 <%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
 <h4 class="manage-community-title">커뮤니티 관리</h4>
 <div class="manage-community-search">
-	<div class="col-lg-5"><input type="text" class="form-control" placeholder="아이디 혹은 닉네임"></div>
+	<div class="col-lg-5"><input type="text" class="form-control" id="manage-community-search" placeholder="아이디 혹은 닉네임"></div>
 </div>
+
 <table class="table">
 	<thead>
 		<tr>
+			<th class="col-lg-2">번호</th>
 			<th class="col-lg-2">아이디</th>
 			<th class="col-lg-2">닉네임</th>
 			<th class="col-lg-4">내용</th>
@@ -17,30 +19,23 @@
 		</tr>
 	</thead>
 	<tbody id="table-content">
+	<c:forEach items="${list}" var="list">
+		<tr>
+			<td>${list.communitySequence}</td>
+			<td><div id="${list.studentSequence}" data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">${list.studentId}</div></td>
+			<td>${list.nickname}</td>
+			<td><div id="${list.communitySequence}" data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail"><xmp>${list.content}</xmp></div></td>
+			<td><input class="manage-community-blind-check-box" type="checkbox" name="blindCheck" value="${list.communitySequence}" <c:if test="${list.blind == 1}">checked</c:if>></td>
+		</tr>
+	</c:forEach>
 	</tbody>
 </table>
 <div class="manage-community-btn-align">
-	<button class="btn btn-default manage-community-apply">적용</button>
+	<button class="btn btn-default manage-community-apply" data-toggle="modal" data-target="#manage-community-blind">적용</button>
 </div>
 <nav>
 	<pagination:writer value="${paginationWriter}"/>
 </nav>
-<div class="modal fade" id="manage-community-delete" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">게시글 삭제</h4>
-			</div>
-			<div class="modal-body">
-				정말로 이 게시글을 삭제하실거에요?
-			</div>
-			<div class="modal-footer">
-				<img class="manage-exam-btn-cancel" data-dismiss="modal" src="<c:url value="/resources/csatlatte/images/btn/btn_cancel.png"/>">
-				<img class="manage-exam-btn-accept" src="<c:url value="/resources/csatlatte/images/btn/btn_accept.png"/>">
-			</div>
-		</div>
-	</div>
-</div>
 <div class="modal fade" id="manage-community-id" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-dialog-user-info" role="document">
 		<div class="modal-content">
@@ -53,35 +48,34 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="manage-community-text-detail" role="dialog">
-	<div class="modal-dialog" role="document">
+<div class="modal fade" id="manage-community-text-detail" tabindex="-1" role="dialog">
+</div>
+<div class="modal fade" id="manage-community-blind" tabindex="-1" role="dialog">
+	<div class="modal-dialog modal-dialog-user-info" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<div class="community-text">
-					<img alt="프로필사진" class="community-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
-					<div class="community-user-info">
-						<div class="community-name"><strong>이름</strong></div>
-						<div class="community-calender">작성일</div>
-					</div>
-				</div>
+				<h4 class="modal-title">블라인드</h4>
 			</div>
 			<div class="modal-body">
-				<div class="community-content">글내용</div>
+				<div class="radio">
+					<label>
+						<input type="radio" name="optionsRadios" value="1">불쾌한 내용이 포함되어 있습니다.
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input type="radio" name="optionsRadios" value="2">수능라떼에 올바르지 않은 게시물입니다.
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input type="radio" name="optionsRadios" value="3">스팸 게시물입니다.
+					</label>
+				</div>
 			</div>
 			<div class="modal-footer">
-				<div class="community-text">
-					<img alt="프로필사진" class="community-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
-					<div class="community-user-info">
-						<div class="community-name"><strong>닉네임</strong></div>
-						<div class="community-comment-content">내용</div>
-						<div class="community-calender">2015-09-20 12:00:12</div>
-					</div>
-				</div>
-				<div class="community-comment">
-					<img alt="프로필사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
-					<input type="text" class="form-control" placeholder="댓글을 입력해주세요.">
-				</div>
+				<button class="btn btn-default manage-community-accept">완료</button>
 			</div>
 		</div>
 	</div>

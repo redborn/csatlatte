@@ -5,11 +5,12 @@
 <%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
 <h4 class="manage-exam-title">모의고사 관리</h4>
 <div class="manage-exam-search">
-	<div class="col-lg-5"><input type="text" class="form-control" placeholder="아이디 혹은 닉네임"></div>
+	<div class="col-lg-5"><input type="text" class="form-control" id="manage-exam-search" placeholder="모의고사 혹은 주관교육청"></div>
 </div>
 <table class="table">
 	<thead>
 		<tr>
+			<th class="col-lg-1">번호</th>
 			<th class="col-lg-3">연도</th>
 			<th class="col-lg-4">모의고사</th>
 			<th class="col-lg-4">주관교육청</th>
@@ -20,9 +21,10 @@
 	<tbody>
 	<c:forEach items="${list}" var="list">
 		<tr>
+			<td>${list.examSequence}</td>
 			<td>${list.year}</td>
 			<td>${list.examName}</td>
-			<td><div class="manage-question-content" data-toggle="modal" data-target="#manage-question-answer-view">${list.manageName}</div></td>
+			<td><div class="manage-question-content" data-toggle="modal" data-target="#manage-question-answer-view">${list.istttName}</div></td>
 			<td><img alt="시험수정" data-toggle="modal" data-target="#manage-exam-modify" class="manage-exam-modify" src="<c:url value="/resources/csatlatte/images/btn/btn_modify.png"/>"></td>
 			<td><img alt="시험지우기" data-toggle="modal" data-target="#manage-exam-delete" class="manage-exam-delete" src="<c:url value="/resources/csatlatte/images/btn/btn_delete.png"/>"></td>
 		</tr>

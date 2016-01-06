@@ -127,6 +127,13 @@
 		  FROM csat_student 
 	</select>
 	
+	<select id="selectOneAmountStudent" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_student
+	  	 WHERE ( student_id LIKE CONCAT('%', #{search}, '%')
+		      	 OR nickname LIKE CONCAT('%', #{search}, '%') )
+	</select>
+	
 	<select id="selectList" parameterType="Map" resultMap="StudentVoMap">
 		SELECT cs.student_seq,cs.student_id,cs.nickname,cs.use_yn,cc.count_community,
 		       ccc.count_comment,cess.avg_score,csc.count_connection,csc.last_connection
@@ -161,7 +168,8 @@
 		                    ON cs.student_seq = csc.student_seq
 		 WHERE ( student_id LIKE CONCAT('%', #{search}, '%')
 		      OR nickname LIKE CONCAT('%', #{search}, '%') )
-		 LIMIT #{pageNumber}, 10; 
+	  ORDER BY cs.student_seq desc 
+		 LIMIT #{pageNumber}, 10 
 	</select>
 	
 	<select id="selectListCountYmd" parameterType="String" resultMap="YmdCountVoMap">

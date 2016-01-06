@@ -42,110 +42,188 @@
 	.manage-exam-btn-cancel {cursor:pointer;}
 	.manage-exam-btn-accept {cursor:pointer;}
 	
+	.community-comment {margin-bottom:5px;}
+	.manage-community-text-detail xmp {white-space:pre-wrap; word-break:break-all; margin-top:0px; margin-bottom:0px;}
+	.community-content xmp {white-space:pre-wrap; word-break:break-all; margin-top:0px; margin-bottom:0px;}
+	.community-comment-content xmp {white-space:pre-wrap; word-break:break-all; display:inline-block; margin-top:0px; margin-bottom:0px;}
+	
+	#manage-community-blind .modal-body {text-align:left;}
 </style>
 <script>
 	$(document).ready(function () {
 		
-		var target;
-		var pageNumber;
-		var search = null;
+		var format = function(ymdhms) {
+			var gapTime = new Date().getTime() - new Date(ymdhms.substring(0, 4), parseInt(ymdhms.substring(4, 6)) - 1, ymdhms.substring(6, 8), ymdhms.substring(8, 10), ymdhms.substring(10, 12), ymdhms.substring(12, 14)).getTime(); 
+			var result = "";
+			if (gapTime >= 1000 * 60 * 60 * 24) {
+				result = ymdhms.substring(0, 4) + "-" + ymdhms.substring(4, 6) + "-" + ymdhms.substring(6, 8) + " " + ymdhms.substring(8, 10) + ":" + ymdhms.substring(10, 12) + ":" + ymdhms.substring(12, 14)
+			} else if (gapTime >= 1000 * 60 * 60) {
+				result = parseInt(gapTime / (1000 * 60 * 60), 10) + "시간 전";
+			} else if (gapTime >= 1000 * 60) {
+				result = parseInt(gapTime / (1000 * 60), 10) + "분 전";
+			} else {
+				result = "방금 전";
+			}
+			return result;
+		};
 		
 		var getUrlParameter = function getUrlParameter(sParam) {
-		    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-		        sURLVariables = sPageURL.split('&'),
-		        sParameterName,
-		        i;
+			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+			sURLVariables = sPageURL.split('&'),
+			sParameterName,
+			i;
 
-		    for (i = 0; i < sURLVariables.length; i++) {
-		        sParameterName = sURLVariables[i].split('=');
-
-		        if (sParameterName[0] === sParam) {
-		            return sParameterName[1] === undefined ? true : sParameterName[1];
-		        }
-		    }
+			for (i = 0; i < sURLVariables.length; i++) {
+				sParameterName = sURLVariables[i].split('=');
+				
+				if (sParameterName[0] === sParam) {
+					return sParameterName[1] === undefined ? true : sParameterName[1];	
+				}	
+			}	
 		};
 		
-		var makeCommunityDataRow = function(community) {
-			var html;
-			html += '<tr>';
-			html += '	<td><div id="'+ community.studentSequence +'"data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">' + community.studentId + '</div></td>';
-			html += '	<td>' + community.nickname + '</td>';
-			html += '	<td><div id="' + community.communitySequence + '"data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail">' + community.content + '</div></td>';
-			html += '	<td><input type="checkbox" name="blindCheck" value="'+ community.communitySequence + '"';
-			if (community.blind == 1) {
-				html += ' checked';
-			}
-			html += '></td>';
-			html += '</tr>';
+		$('#manage-community-search').val(getUrlParameter("search"));
+		
+		var makeCommunityDetail = function(community) {
+			var html = '';
+			html += '	<div class="modal-dialog manage-community-detail" role="document">';
+			html += '		<div class="modal-content">';
+			html += '			<div class="modal-header">';
+			html += '				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+			html += '				<div class="community-text">';
+			html += '					<img alt="프로필사진" class="community-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
+			html += '					<div class="community-user-info">';
+			html += '						<div class="community-name"><strong>' + community.nickname + '</strong></div>';
+			html += '						<div class="community-calender">' + format(community.writeYmdhms) + '</div>';
+			html += '					</div>';
+			html += '				</div>';
+			html += '			</div>';
+			html += '			<div class="modal-body">';
+			html += '				<div class="community-content"><xmp>' + community.content + '</xmp></div>';
+			html += '			</div>';
+			html += '			<div id="comment-area" class="modal-footer">';
+			html += '			</div>';
+			html += '		</div>';
+			html += '	</div>';
 			return html;
-		};
+		}
 		
-		var makeStudentInformation = function (student) {
-			var html;
-			html += '<div class="manage-community-student-information">';
-			html += '<img class="manage-community-picture" alt="회원사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
-			html += '<div class="manage-community-info">';
-			html +=	'	<div class="manage-community-info-content">';
-			html += '		<label>아이디</label>';
-			html += '		<div class="manage-community-info-content-value">' + student.studentId + '</div>';
+		var makeCommunityDetailComment = function(comment) {
+			var html = '';
+			html += '<div class="community-text community-comment">';
+			html += '	<img alt="프로필사진" class="community-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
+			html += '	<div class="community-user-info">';
+			html += '		<div class="community-name"><strong>' + comment.nickname + '</strong></div>';
+			html += '		<div class="community-comment-content"><xmp>' + comment.content + '</xmp></div>';
+			html += '		<div class="community-calender">' + format(comment.writeYmdhms) + '</div>';
 			html += '	</div>';
-			html += '	<div class="manage-community-info-content">';
-			html += '		<label>가입일</label>';
-			html += '		<div class="manage-community-info-content-value">' + student.createDate + '</div>';
-			html += '	</div>';
-			html += '	<div class="manage-community-info-content">';
-			html += '		<label>최근 접속일</label>';
-			html += '		<div class="manage-community-info-content-value">' + student.lastConnection + '</div>';
-			html += '	</div>';
-			html += '		<div class="manage-community-info-content">';
-			html += '		<label>활동점수 내역</label>';
-			html += '		<div class="manage-community-info-content-value">게시글 ' + student.countCommunity + '개, 댓글 ' + student.countComment + '개</div>';
-			html += '	</div>';
-			html += '	<div class="manage-community-info-content">';
-			html += '		<label>성적평균</label>';
-			html += '		<div class="manage-community-info-content-value">' + student.averageScore + '</div>';
-			html += '	</div>';
-			html += '</div>';
 			html += '</div>';
 			return html;
 		}
 		
-		pageNumber = getUrlParameter('pageNumber');
-		search = getUrlParameter('search');
+		var makeStudentInformation = function (student) {
+			var html = '';
+			html += '<div class="manage-community-student-information">';
+			html += '	<img class="manage-community-picture" alt="회원사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
+			html += '	<div class="manage-community-info">';
+			html +=	'		<div class="manage-community-info-content">';
+			html += '			<label>아이디</label>';
+			html += '			<div class="manage-community-info-content-value">' + student.studentId + '</div>';
+			html += '		</div>';
+			html += '		<div class="manage-community-info-content">';
+			html += '			<label>가입일</label>';
+			html += '			<div class="manage-community-info-content-value">' + student.createDate + '</div>';
+			html += '		</div>';
+			html += '		<div class="manage-community-info-content">';
+			html += '			<label>최근 접속일</label>';
+			if (student.lastConnection == null) {
+				html += '			<div class="manage-community-info-content-value">로그인 기록이 없습니다.</div>';
+			} else {
+				html += '			<div class="manage-community-info-content-value">' + student.lastConnection + '</div>';	
+			}
+			html += '		</div>';
+			html += '			<div class="manage-community-info-content">';
+			html += '			<label>활동점수 내역</label>';
+			html += '			<div class="manage-community-info-content-value">게시글 ' + student.countCommunity + '개, 댓글 ' + student.countComment + '개</div>';
+			html += '		</div>';
+			html += '		<div class="manage-community-info-content">';
+			html += '			<label>성적평균</label>';
+			html += '			<div class="manage-community-info-content-value">' + student.averageScore + '</div>';
+			html += '		</div>';
+			html += '	</div>'; 
+			html += '</div>';
+			return html;
+		}
 		
-		$.ajax("<c:url value="/data/manage/community.json"/>", {
-			dataType : "json",
-			type : "GET",
-			data : {pageNumber : pageNumber, search : search},
-			success : function(data) {
-				if (data.list != null) {
-					var communityList = data.list;
-					var communityListLength = communityList.length;
-					for (var index = 0; index < communityListLength; index++) {
-						var community = communityList[index];
-						$("#table-content").append(makeCommunityDataRow(community));
+		$('.manage-community-id').on("click", function () {
+			var target = $(this).attr("id");
+			if (target != null) {
+				$.ajax("<c:url value="/data/student.json"/>", {
+					dataType : "json",
+					type : "GET",
+					data : {studentSequence : target},
+					success : function(data) {
+						var student = data.information;
+						console.log(student.lastConnection);
+						$("#manage-community-student-information").append(makeStudentInformation(student));
 					}
-					$('.manage-community-id').on("click", function () {
-						var studentSequence = $(this).attr("id");
-						
-						$.ajax("<c:url value="/data/manage/student.json"/>", {
-							dataType : "json",
-							type : "GET",
-							data : {studentSequence : studentSequence},
-							success : function(data) {
-								if (data.information != null) {
-									var studentInformation = data.information;
-									$('#manage-community-student-information').append(makeStudentInformation(studentInformation));
-								}
-							}
-						});
-					});
-				}
+				});
 			}
 		});
 		
-		$('.manage-community-apply').on("click", function () {
+		$('#manage-community-id').on('hidden.bs.modal', function () {
+			$('.manage-community-student-information').remove();
+		});
+		
+		$('.manage-community-text-detail').on("click", function() {
+			var target = $(this).attr("id");
+			if (target != null) {
+				$.ajax("<c:url value="/data/manage/community.json"/>", {
+					dataType : "json",
+					type : "GET",
+					data : {communitySequence : target},
+					success : function(data) {
+						var community = data.detail;
+						$("#manage-community-text-detail").append(makeCommunityDetail(community));
+						$.ajax("<c:url value="/data/community/comment.json"/>", {
+							dataType : "json",
+							type : "GET",
+							data : {communitySequence : target},
+							success : function(commentData) {
+								if(commentData.list != null) {
+									var commentList = commentData.list;
+									var commentListLength = commentList.length;
+									for (var index = 0; index < commentListLength; index++) {
+										comment = commentList[index];
+										$('#comment-area').append(makeCommunityDetailComment(comment));
+									}
+								}
+							}
+						});
+					}
+				});
+			}
+		});
+		
+		$('#manage-community-text-detail').on('hidden.bs.modal', function () {
+			$('.manage-community-detail').remove();
+		});
+		
+		$('.manage-community-apply').attr('disabled',true);
+		
+		$('.manage-community-accept').attr('disabled', true);
+		
+		$('.radio').change(function () {
+			$('.manage-community-accept').attr('disabled', false);
+		});
+		
+		$('.manage-community-blind-check-box').change(function () {
+			$('.manage-community-apply').attr('disabled',false);
+		});
+		
+		$('.manage-community-accept').on("click", function () {
 			$("input[type=checkbox]:checked").each(function () {
+				var reason = $(':radio[name="optionsRadios"]:checked').val();
 				var target = $(this).val();
 				if(target != null) {
 					$.ajax("<c:url value="/data/manage/community.json"/>", {
@@ -153,7 +231,7 @@
 						type : "POST",
 						data : {communitySequence : target},
 						success : function() {
-								
+							alert(target);
 						}
 					});
 				}
@@ -161,8 +239,12 @@
 			alert("처리가 완료되었습니다.");
 		});
 		
-		$('#manage-community-id').on('hidden.bs.modal', function () {
-			$('.manage-community-student-information').remove();
+		$('#manage-community-search').on("keyup", function (event) {
+			if (event.which == 13) {
+				var search = $('#manage-community-search').val();
+				$(location).attr('href', '<c:url value="/manage/community?search="/>' + search);
+			}
 		});
+		
 	});
 </script>
