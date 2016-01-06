@@ -100,12 +100,12 @@
 		
 		$('.manage-user-apply').on("click", function () {
 			$("input[type=checkbox]:checked").each(function () {
-				var target = $(this).val();
-				if (target != null) {
-					$.ajax("<c:url value="/data/manage/student.json"/>", {
+				var studentSequence = $(this).val();
+				if (studentSequence != null) {
+					$.ajax(contextPath + "/data/manage/student/" + studentSequence + ".json", {
 						dataType : "json",
-						type : "PUT",
-						data : {studentSequence : target, _method : "PUT"},
+						type : "DELETE",
+						data : {_method : "DELETE"},
 						success : function() {
 							
 						}
