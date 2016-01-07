@@ -7,6 +7,7 @@ import org.redborn.csatlatte.domain.StudentVo;
 import org.redborn.csatlatte.domain.YearCountVo;
 import org.redborn.csatlatte.domain.YmCountVo;
 import org.redborn.csatlatte.domain.YmdCountVo;
+import org.redborn.csatlatte.domain.YsVo;
 
 public interface StudentService {
 
@@ -28,5 +29,6 @@ public interface StudentService {
 	public List<StudentVo> userList(String search, int pageNumber);
 	public String securityQuestion(int studentSequence);
 	public int amountStudent(String search);
+	public List<YsVo> ysList();
 	
 }

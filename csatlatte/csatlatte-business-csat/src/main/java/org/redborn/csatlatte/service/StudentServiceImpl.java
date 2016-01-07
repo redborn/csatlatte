@@ -7,7 +7,9 @@ import org.redborn.csatlatte.domain.StudentVo;
 import org.redborn.csatlatte.domain.YearCountVo;
 import org.redborn.csatlatte.domain.YmCountVo;
 import org.redborn.csatlatte.domain.YmdCountVo;
+import org.redborn.csatlatte.domain.YsVo;
 import org.redborn.csatlatte.persistence.StudentDao;
+import org.redborn.csatlatte.persistence.YsDao;
 import org.redborn.csatlatte.persistence.student.ConnectionDao;
 import org.redborn.csatlatte.persistence.student.SecurityQuestionDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ public class StudentServiceImpl implements StudentService {
 	private SecurityQuestionDao securityQuestionDao;
 	@Autowired
 	private PlatformTransactionManager transactionManager;
+	@Autowired
+	private YsDao ysDao;
 	
 	public boolean changePassword(int studentSequence, String password, String newPassword) {
 		boolean result = false;
@@ -124,6 +128,10 @@ public class StudentServiceImpl implements StudentService {
 	
 	public int amountStudent(String search) {
 		return studentDao.selectOneAmountStudent(search);
+	}
+	
+	public List<YsVo> ysList() {
+		return ysDao.selectList();
 	}
 
 }

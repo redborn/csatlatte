@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.redborn.csatlatte.domain.CsatVo;
 import org.redborn.csatlatte.domain.ExamVo;
+import org.redborn.csatlatte.domain.IstttVo;
 
 public interface ExamService {
 
@@ -14,5 +15,6 @@ public interface ExamService {
 	public int modify(ExamVo examVo);
 	public int delete(int examSequence);
 	public int amountExam(String search);
+	public List<IstttVo> istttList();
 	
 }
