@@ -15,7 +15,7 @@
 		SELECT csat_seq,csat_name
 		  FROM csat
 		 WHERE use_yn = 'Y'
-		 ORDER BY csat_seq ASC 
+		 ORDER BY csat_seq DESC
 	</select>
 	
 </mapper>
