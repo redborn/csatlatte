@@ -11,8 +11,8 @@
 	<thead>
 		<tr>
 			<th class="col-lg-1">번호</th>
-			<th class="col-lg-3">연도</th>
-			<th class="col-lg-4">모의고사</th>
+			<th class="col-lg-2">연도</th>
+			<th class="col-lg-6">모의고사</th>
 			<th class="col-lg-4">주관교육청</th>
 			<th class="col-lg-1"></th>
 			<th class="col-lg-1"></th>
@@ -25,8 +25,8 @@
 			<td>${list.year}</td>
 			<td>${list.examName}</td>
 			<td><div class="manage-question-content" data-toggle="modal" data-target="#manage-question-answer-view">${list.istttName}</div></td>
-			<td><img alt="시험수정" data-toggle="modal" data-target="#manage-exam-modify" class="manage-exam-modify" src="<c:url value="/resources/csatlatte/images/btn/btn_modify.png"/>"></td>
-			<td><img alt="시험지우기" data-toggle="modal" data-target="#manage-exam-delete" class="manage-exam-delete" src="<c:url value="/resources/csatlatte/images/btn/btn_delete.png"/>"></td>
+			<td><div data-toggle="modal" data-target="#manage-exam-modify" class="manage-exam-modify glyphicon glyphicon-pencil"></div></td>
+			<td><div data-toggle="modal" data-target="#manage-exam-delete" class="manage-exam-delete glyphicon glyphicon-remove"></div></td>
 		</tr>
 	</c:forEach>
 	</tbody>
