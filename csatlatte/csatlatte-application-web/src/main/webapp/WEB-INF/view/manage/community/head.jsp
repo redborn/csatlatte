@@ -48,9 +48,15 @@
 	.community-comment-content xmp {white-space:pre-wrap; word-break:break-all; display:inline-block; margin-top:0px; margin-bottom:0px;}
 	
 	#manage-community-blind .modal-body {text-align:left;}
+	
+	.manage-community-blind {cursor:pointer;}
 </style>
 <script>
 	$(document).ready(function () {
+		
+		var blindTarget;
+		
+		$('.manage-community-accept').attr('disabled',true);
 		
 		var format = function(ymdhms) {
 			var gapTime = new Date().getTime() - new Date(ymdhms.substring(0, 4), parseInt(ymdhms.substring(4, 6)) - 1, ymdhms.substring(6, 8), ymdhms.substring(8, 10), ymdhms.substring(10, 12), ymdhms.substring(12, 14)).getTime(); 
@@ -175,6 +181,38 @@
 			$('.manage-community-student-information').remove();
 		});
 		
+		$('.manage-community-blind').on("click", function() {
+			blindTarget = $(this).attr("id");
+		});
+		
+		$('.radio').change(function () {
+			$('.manage-community-accept').attr('disabled',false);
+		});
+		
+		$('.manage-community-accept').on("click", function () {
+			var reason = $(':radio[name="optionsRadios"]:checked').val();
+			if (blindTarget != null) {
+				$.ajax("<c:url value="/data/community/blind.json"/>", {
+					dataType : "json",
+					type : "GET",
+					data : {communitySequence : blindTarget},
+					success : function(data) {
+						if (data.check == true) {
+							$.ajax("<c:url value="/data/manage/community.json"/>", {
+								dataType : "json",
+								type : "POST",
+								data : {communitySequence : blindTarget, blindTypeSequence : reason},
+								success : function() {
+									$('#blind' + blindTarget).remove();
+								}
+							});
+						}
+					}
+				});
+			}
+			$('#manage-community-blind').modal('hide');
+		});
+		
 		$('.manage-community-text-detail').on("click", function() {
 			var target = $(this).attr("id");
 			if (target != null) {
@@ -209,45 +247,9 @@
 			$('.manage-community-detail').remove();
 		});
 		
-		$('.manage-community-apply').attr('disabled',true);
-		
-		$('.manage-community-accept').attr('disabled', true);
-		
-		$('.radio').change(function () {
-			$('.manage-community-accept').attr('disabled', false);
-		});
-		
-		$('.manage-community-blind-check-box').change(function () {
-			$('.manage-community-apply').attr('disabled',false);
-		});
-		
-		$('.manage-community-accept').on("click", function () {
-			$("input[type=checkbox]:checked").each(function () {
-				var reason = $(':radio[name="optionsRadios"]:checked').val();
-				var target = $(this).val();
-				if(target != null) {
-					$.ajax("<c:url value="/data/community/blind.json"/>", {
-						dataType : "json",
-						type : "GET",
-						data : {communitySequence : target},
-						success : function(data) {
-							if (data.check == true) {
-								$.ajax("<c:url value="/data/manage/community.json"/>", {
-									dataType : "json",
-									type : "POST",
-									data : {communitySequence : target, blindTypeSequence : reason},
-									success : function() {
-									}
-								});
-							}
-						}
-					});
-				}
-			});
-			alert("처리가 완료되었습니다.");
-			$('#manage-community-blind').modal('hide');
-			$('.manage-community-apply').attr('disabled',true);
-			$('.manage-community-accept').attr('disabled', true);
+		$('#manage-community-blind').on('hidden.bs.modal', function () {
+			$('input:radio[name="optionsRadios"]').attr('checked',false);
+			$('.manage-community-accept').attr('disabled',true);
 		});
 		
 		$('#manage-community-search').on("keyup", function (event) {

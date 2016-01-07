@@ -25,14 +25,11 @@
 			<td><div id="${list.studentSequence}" data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">${list.studentId}</div></td>
 			<td>${list.nickname}</td>
 			<td><div id="${list.communitySequence}" data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail"><xmp>${list.content}</xmp></div></td>
-			<td><input class="manage-community-blind-check-box" type="checkbox" name="blindCheck" value="${list.communitySequence}" <c:if test="${list.blind eq true}">checked</c:if>></td>
+			<td><div id="blind${list.communitySequence}"><div id="${list.communitySequence}" data-toggle="modal" data-target="#manage-community-blind" class="glyphicon <c:choose><c:when test="${list.blind eq true}">1</c:when><c:when test="${list.blind eq false}">glyphicon-remove manage-community-blind</c:when></c:choose>"></div></div></td>
 		</tr>
 	</c:forEach>
 	</tbody>
 </table>
-<div class="manage-community-btn-align">
-	<button class="btn btn-default manage-community-apply" data-toggle="modal" data-target="#manage-community-blind">적용</button>
-</div>
 <nav>
 	<pagination:writer value="${paginationWriter}"/>
 </nav>
