@@ -20,7 +20,7 @@
 	#main-maintain-login {text-align:left;}
 	#main-account {text-align:left;}
 	
-	.btn {background:#7a6253; width:270px; color:white; border-color:#7a6253;}
+	.main-login .btn {background:#7a6253; width:270px; color:white; border-color:#7a6253;}
 	
 	.main-profile-picture {width:120px; border-radius:4px; border:1px solid white;}
 </style>

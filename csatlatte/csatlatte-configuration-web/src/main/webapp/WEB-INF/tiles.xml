@@ -5,16 +5,13 @@
 
 	<definition name="csatlatte.layout.main" template="/WEB-INF/layout/template/main.jsp">
 		<put-attribute name="title" value="수능라떼"/>
-		<put-attribute name="header" value="/WEB-INF/layout/attribute/header/main.jsp"/>
+		<put-attribute name="header" value="/WEB-INF/layout/attribute/header.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/layout/attribute/footer.jsp"/>
 	</definition>
 
-	<definition	name="csatlatte.layout.function1" template="/WEB-INF/layout/template/function1.jsp" extends="csatlatte.layout.main">
-		<put-attribute name="header" value="/WEB-INF/layout/attribute/header/function.jsp"/>
-	</definition>
-	
-	<definition name="csatlatte.layout.function2" template="/WEB-INF/layout/template/function2.jsp" extends="csatlatte.layout.function1"/>
-	<definition name="csatlatte.layout.function3" template="/WEB-INF/layout/template/function3.jsp" extends="csatlatte.layout.function2"/>
+	<definition	name="csatlatte.layout.function1" template="/WEB-INF/layout/template/function1.jsp" extends="csatlatte.layout.main"/>
+	<definition name="csatlatte.layout.function2" template="/WEB-INF/layout/template/function2.jsp" extends="csatlatte.layout.main"/>
+	<definition name="csatlatte.layout.function3" template="/WEB-INF/layout/template/function3.jsp" extends="csatlatte.layout.main"/>
 	
 	<definition name="csatlatte.layout.error" template="/WEB-INF/layout/template/error.jsp" extends="csatlatte.layout.function1"/>
 	

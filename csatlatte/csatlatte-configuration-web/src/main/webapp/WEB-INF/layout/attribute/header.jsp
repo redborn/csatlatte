@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -20,7 +21,16 @@
 				<li><a href="<c:url value="/grade"/>">내 성적 관리</a></li>
 				<li><a href="<c:url value="/community"/>">커뮤니티</a></li>
 				<li><a href="<c:url value="/support"/>">고객지원</a></li>
+			<session:isManager>
+				<li><a href="<c:url value="/stats/join"/>">관리자 페이지</a></li>
+			</session:isManager>
 			</ul>
+		<session:isLogin>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="${pageContext.request.contextPath}/<session:id/>" class="btn btn-defaults btn-lg"><span class="glyphicon glyphicon-user"></span></a></li>
+				<li><a href="<c:url value="/logout"/>" class="btn btn-defaults btn-lg"><span class="glyphicon glyphicon-off"></span></a></li>
+			</ul>
+		</session:isLogin>
 		</div>
 	</div>
 </nav>
