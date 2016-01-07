@@ -16,15 +16,18 @@
 	.manage-user-apply-align {text-align:right;}
 	.manage-user-id {cursor:pointer;}
 	
-	.modal-body {text-align:center;}
+	#manage-user-id .modal-body {text-align:center;}
 	.modal-dialog {width:400px;}
 	.manage-user-picture {width:100px; border-radius:5px; border:1px solid #7a6253;}
 	.manage-user-info {margin-top:10px;}
 	.manage-user-info-content {text-align:left; margin-left:40px; margin-top:5px;}
 	.manage-user-info-content-value {margin-left:10px; display:inline-block;}
+	.manage-user-blind {cursor:pointer;}
 </style>
 <script>
 	$(document).ready(function () {
+		
+		var blindTarget;
 		
 		var getUrlParameter = function getUrlParameter(sParam) {
 			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -92,28 +95,23 @@
 			});
 		});
 		
-		$('.manage-user-apply').attr('disabled',true);
-		
-		$('.manage-user-blind-check-box').change(function () {
-			$('.manage-user-apply').attr('disabled',false);
+		$('.manage-user-blind').on("click", function () {
+			blindTarget = $(this).attr("id");
 		});
 		
-		$('.manage-user-apply').on("click", function () {
-			$("input[type=checkbox]:checked").each(function () {
-				var studentSequence = $(this).val();
-				if (studentSequence != null) {
-					$.ajax(contextPath + "/data/manage/student/" + studentSequence + ".json", {
-						dataType : "json",
-						type : "DELETE",
-						data : {_method : "DELETE"},
-						success : function() {
-							
-						}
-					});
-				}
-			});
-			alert("처리가 완료되었습니다.");
-			$('.manage-user-apply').attr('disabled',true);
+		$('.manage-user-blind-apply').on("click", function () {
+			var studentSequence = blindTarget;
+			if (studentSequence != null) {
+				$.ajax(contextPath + "/data/manage/student/" + studentSequence + ".json", {
+					dataType : "json",
+					type : "DELETE",
+					data : {_method : "DELETE"},
+					success : function() {
+						$('#manage-user-blind').modal("hide");
+						$('#blind' + studentSequence).remove();
+					}
+				});
+			}
 		});
 		
 		$('#manage-user-id').on('hidden.bs.modal', function () {

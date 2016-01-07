@@ -14,9 +14,9 @@
 			<th class="col-lg-1">아이디</th>
 			<th class="col-lg-1">닉네임</th>
 			<th class="col-lg-1">접속횟수</th>
-			<th class="col-lg-1">차단</th>
 			<th class="col-lg-1">활동점수</th>
 			<th class="col-lg-1">성적평균</th>
+			<th class="col-lg-1">차단</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -26,16 +26,13 @@
 			<td><div id="${userList.studentSequence}" data-toggle="modal" data-target="#manage-user-id" class="manage-user-id">${userList.studentId}</div></td>
 			<td>${userList.nickname}</td>
 			<td>${userList.countConnection}</td>
-			<td><input class="manage-user-blind-check-box" type="checkbox" name="blindCheck" value="${userList.studentSequence}" <c:if test="${userList.useYn == 'N'}">checked</c:if>></td>
 			<td>${userList.countCommunity + userList.countComment}</td>
 			<td>${userList.averageScore}</td>
+			<td><div id="blind${userList.studentSequence}"><div id="${userList.studentSequence}" data-toggle="modal" data-target="#manage-user-blind" class="<c:if test="${userList.useYn eq 'Y'}">glyphicon glyphicon glyphicon-lock manage-user-blind</c:if>"></div></div></td>
 		</tr>
 	</c:forEach>
 	</tbody>
 </table>
-<div class="manage-user-apply-align">
-	<input type="submit" class="btn btn-default manage-user-apply" value="적용">
-</div>
 <nav>
 	<pagination:writer value="${paginationWriter}"/>
 </nav>
@@ -47,6 +44,22 @@
 				<h4 class="modal-title">회원정보</h4>
 			</div>
 			<div class="modal-body" id="manage-user-student-information">
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="manage-user-blind" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">회원차단</h4>
+			</div>
+			<div class="modal-body">
+				정말로 차단하시겠습니까?
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>
+				<button class="btn btn-primary manage-user-blind-apply">확인</button>
 			</div>
 		</div>
 	</div>
