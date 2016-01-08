@@ -80,8 +80,8 @@ public class ExamVo {
 		return "ExamVo [csatSequence=" + csatSequence + ", examSequence="
 				+ examSequence + ", istttSequence=" + istttSequence
 				+ ", ysSequence=" + ysSequence + ", ymd=" + ymd + ", year="
-				+ year + ", examName=" + examName + ", istttName="
-				+ istttName + "]";
+				+ year + ", examName=" + examName + ", istttName=" + istttName
+				+ "]";
 	}
 
 }

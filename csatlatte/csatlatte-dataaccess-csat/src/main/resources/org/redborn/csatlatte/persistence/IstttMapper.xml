@@ -13,6 +13,6 @@
 	
 	<select id="selectList" resultMap="IstttVoMap">
 		SELECT isttt_seq,isttt_name
-		  FROM csat_isttt; 
+		  FROM csat_isttt
 	</select>
 </mapper>

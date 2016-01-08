@@ -7,6 +7,7 @@ import org.redborn.csatlatte.commons.pagination.BootstrapPaginationWriter;
 import org.redborn.csatlatte.commons.pagination.Pagination;
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.redborn.csatlatte.service.ExamService;
+import org.redborn.csatlatte.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class Exam {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private ExamService examService;
+	@Autowired
+	private StudentService studentService;
 	
 	/**
 	 * 모의고사 목록을 조회하는 페이지입니다.
@@ -44,6 +47,10 @@ public class Exam {
 		
 		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/exam", params, "pageNumber"));
 		model.addAttribute("list", examService.listForManage(beginPageNumber, search));
+		model.addAttribute("yearList", examService.yearList());
+		model.addAttribute("istttList", examService.istttList());
+		model.addAttribute("ysList", studentService.ysList());
+		
 		return TilesName.MANAGE_EXAM;
 	}
 }

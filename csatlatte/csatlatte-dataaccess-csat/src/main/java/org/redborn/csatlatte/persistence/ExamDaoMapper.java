@@ -38,5 +38,9 @@ public class ExamDaoMapper extends SqlSessionDaoSupport implements ExamDao {
 	public int delete(int examSequence) {
 		return getSqlSession().delete("exam.delete", examSequence);
 	}
+	
+	public List<ExamVo> selectListExamOneForManage(int examSequence) {
+		return getSqlSession().selectList("exam.selectListExamOneForManage", examSequence);
+	}
 
 }

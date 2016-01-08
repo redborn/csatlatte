@@ -16,5 +16,6 @@ public interface ExamService {
 	public int delete(int examSequence);
 	public int amountExam(String search);
 	public List<IstttVo> istttList();
+	public List<ExamVo> listForManageOne(int examSequence);
 	
 }

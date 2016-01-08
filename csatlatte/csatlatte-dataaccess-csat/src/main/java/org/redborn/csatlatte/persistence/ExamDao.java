@@ -12,4 +12,6 @@ public interface ExamDao {
 	public int insert(ExamVo examVo);
 	public int update(ExamVo examVo);
 	public int delete(int examSequence);
+	public List<ExamVo> selectListExamOneForManage(int examSequence);
+	
 }

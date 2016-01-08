@@ -52,5 +52,9 @@ public class ExamServiceImpl implements ExamService {
 	public List<IstttVo> istttList() {
 		return istttDao.selectList();
 	}
+	
+	public List<ExamVo> listForManageOne(int examSequence) {
+		return examDao.selectListExamOneForManage(examSequence);
+	}
 
 }

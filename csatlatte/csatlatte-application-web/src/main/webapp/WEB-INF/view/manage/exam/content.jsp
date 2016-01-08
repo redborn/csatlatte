@@ -25,8 +25,8 @@
 			<td>${list.year}</td>
 			<td>${list.examName}</td>
 			<td><div class="manage-question-content" data-toggle="modal" data-target="#manage-question-answer-view">${list.istttName}</div></td>
-			<td><div data-toggle="modal" data-target="#manage-exam-modify" class="manage-exam-modify glyphicon glyphicon-pencil"></div></td>
-			<td><div data-toggle="modal" data-target="#manage-exam-delete" class="manage-exam-delete glyphicon glyphicon-remove"></div></td>
+			<td><div id="${list.examSequence}" data-toggle="modal" data-target="#manage-exam-modify" class="manage-exam-modify glyphicon glyphicon-pencil"></div></td>
+			<td><div id="${list.examSequence}" data-toggle="modal" data-target="#manage-exam-delete${list.examSequence}" class="manage-exam-delete glyphicon glyphicon-remove"></div></td>
 		</tr>
 	</c:forEach>
 	</tbody>
@@ -38,81 +38,27 @@
 	<pagination:writer value="${paginationWriter}"/>
 </nav>
 <div class="modal fade" id="manage-exam-modify" tabindex="-1" role="dialog">
+
+</div>
+<c:forEach items="${list}" var="list">
+<div class="modal fade" id="manage-exam-delete${list.examSequence}" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">모의고사 수정</h4>
-			</div>
-			<div class="modal-body">
-				<div class="manage-exam-info-content">
-					<label for="manage-exam-csat">수능</label>
-					<div class="manage-exam-info-content-value">
-						<select class="form-control" id="manage-exam-csat">
-							<option>2016학년도 대학수학능력시험</option>
-							<option>2015학년도 대학수학능력시험</option>
-							<option>2014학년도 대학수학능력시험</option>
-						</select>
-					</div>
-				</div>
-				<div class="manage-exam-info-content">
-					<label for="manage-exam-name">모의고사</label>
-					<div class="manage-exam-info-content-value">
-						<input type="text" class="form-control" id="manage-exam-name">
-					</div>
-				</div>
-				<div class="manage-exam-info-content">
-					<label for="manage-exam-eduoffice">주관 교육청</label>
-					<div class="manage-exam-info-content-value">
-						<select class="form-control" id="manage-exam-eduoffice">
-							<option>한국교육과정평가원</option>
-							<option>서울특별시교육청</option>
-						</select>
-					</div>
-				</div>
-				<div class="manage-exam-info-content">
-					<label for="manage-exam-student-grade">학년</label>
-					<div class="manage-exam-info-content-value">
-						<select class="form-control" id="manage-exam-student-grade">
-							<option>3학년</option>
-							<option>2학년</option>
-							<option>1학년</option>
-						</select>
-					</div>
-				</div>
-				<div class="manage-exam-info-content">
-					<label for="manage-exam-file">등급컷 업로드</label>
-					<div class="manage-exam-info-content-value">
-						<input type="file" id="manage-exam-file">
-					</div>
-				</div>
-				<div class="manage-exam-info-content">
-					<a href="#">등급컷 다운로드</a>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<img class="manage-exam-btn-cancel" data-dismiss="modal" src="<c:url value="/resources/csatlatte/images/btn/btn_cancel.png"/>">
-				<img class="manage-exam-btn-accept" src="<c:url value="/resources/csatlatte/images/btn/btn_accept.png"/>">
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="manage-exam-delete" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
 				<h4 class="modal-title">모의고사 삭제</h4>
 			</div>
 			<div class="modal-body">
-				정말로 이 모의고사를 삭제하실거에요?
+				정말로 [${list.examName}] 를 삭제하실거에요?
 			</div>
 			<div class="modal-footer">
-				<img class="manage-exam-btn-cancel" data-dismiss="modal" src="<c:url value="/resources/csatlatte/images/btn/btn_cancel.png"/>">
-				<img class="manage-exam-btn-accept" src="<c:url value="/resources/csatlatte/images/btn/btn_accept.png"/>">
+				<button class="btn btn-default" data-dismiss="modal">닫기</button>
+				<button class="btn btn-primary manage-exam-delete-accept">확인</button>
 			</div>
 		</div>
 	</div>
 </div>
+</c:forEach>
 <div class="modal fade" id="manage-exam-add" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -124,10 +70,10 @@
 				<div class="manage-exam-info-content">
 					<label for="manage-exam-csat">수능</label>
 					<div class="manage-exam-info-content-value">
-						<select class="form-control" id="manage-exam-csat">
-							<option>2016학년도 대학수학능력시험</option>
-							<option>2015학년도 대학수학능력시험</option>
-							<option>2014학년도 대학수학능력시험</option>
+						<select class="form-control" id="manage-exam-csat"> 
+							<c:forEach items="${yearList}" var="yearList">
+								<option value="${yearList.csatSequence}">${yearList.csatName}</option>
+							</c:forEach>
 						</select>
 					</div>
 				</div>
@@ -141,8 +87,9 @@
 					<label for="manage-exam-eduoffice">주관 교육청</label>
 					<div class="manage-exam-info-content-value">
 						<select class="form-control" id="manage-exam-eduoffice">
-							<option>한국교육과정평가원</option>
-							<option>서울특별시교육청</option>
+							<c:forEach items="${istttList}" var="istttList">
+								<option value="${istttList.istttSequence}">${istttList.istttName}</option>
+							</c:forEach>
 						</select>
 					</div>
 				</div>
@@ -150,9 +97,9 @@
 					<label for="manage-exam-student-grade">학년</label>
 					<div class="manage-exam-info-content-value">
 						<select class="form-control" id="manage-exam-student-grade">
-							<option>3학년</option>
-							<option>2학년</option>
-							<option>1학년</option>
+							<c:forEach items="${ysList}" var="ysList">
+								<option value="${ysList.ysSequence}">${ysList.ysName}</option>
+							</c:forEach>
 						</select>
 					</div>
 				</div>
@@ -167,8 +114,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<img class="manage-exam-btn-cancel" data-dismiss="modal" src="<c:url value="/resources/csatlatte/images/btn/btn_cancel.png"/>">
-				<img class="manage-exam-btn-accept" src="<c:url value="/resources/csatlatte/images/btn/btn_accept.png"/>">
+				<button class="btn btn-default" data-dismiss="modal">닫기</button>
+				<button class="btn btn-primary">확인</button>
 			</div>
 		</div>
 	</div>

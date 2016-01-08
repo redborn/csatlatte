@@ -18,6 +18,15 @@
 		<result column="exam_name" property="examName" />
 		<result column="isttt_name" property="istttName" />
 	</resultMap>
+	
+	<resultMap type="ExamVo" id="ExamVoForManageOneMap">
+		<result column="csat_seq" property="csatSequence"/>
+		<result column="exam_seq" property="examSequence"/>
+		<result column="isttt_seq" property="istttSequence"/>
+		<result column="exam_name" property="examName"/>
+		<result column="exam_ymd" property="ymd"/>
+		<result column="ys_seq" property="ysSequence"/>
+	</resultMap>
 
 	<select id="selectOne" parameterType="String" resultType="int">
 		SELECT COUNT(*)
@@ -25,6 +34,12 @@
 		 WHERE ce.isttt_seq = ci.isttt_seq
 		   AND ( ce.exam_name LIKE CONCAT('%', #{search}, '%')
 		          OR ci.isttt_name LIKE CONCAT('%', #{search}, '%') )
+	</select>
+	
+	<select id="selectListExamOneForManage" parameterType="int" resultMap="ExamVoForManageOneMap">
+		SELECT csat_seq,exam_seq,isttt_seq,exam_name,exam_ymd,ys_seq
+		  FROM csat_exam
+		 WHERE exam_seq = #{examSequence} 
 	</select>
 
 	<select id="selectListExam" parameterType="int" resultMap="ExamVoMap">
@@ -57,7 +72,7 @@
 	<update id="update" parameterType="ExamVo">
 		UPDATE csat_exam
 		   SET csat_seq = #{csatSequence}, isttt_seq = #{istttSequence},
-		       exam_name = #{examName}, exam_ymd = #{examYmd}, ys_seq = #{ysSequence}
+		       exam_name = #{examName}, ys_seq = #{ysSequence}
 		 WHERE exam_seq = #{examSequence} 
 	</update>
 	
