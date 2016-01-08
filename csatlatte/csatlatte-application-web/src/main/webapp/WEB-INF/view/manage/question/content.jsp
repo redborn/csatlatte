@@ -29,7 +29,7 @@
 			<th>닉네임</th>
 			<th>제목</th>
 			<th>문의날짜</th>
-			<th>완료여부</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -38,13 +38,15 @@
 			<td>${list.qnaSequence}</td>
 			<td>${list.studentId}</td>
 			<td>${list.nickname}</td>
-			<td><div id="${list.qnaSequence}" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view">${list.title}</div></td>
+			<td>${list.title}</td>
 			<td>${list.writeDate}</td>
-			<td>
+			<td id="manage-question-answer-button${list.qnaSequence}">
+			<div id="manage-question-answer-button-div${list.qnaSequence}">
 				<c:choose>
-					<c:when test="${list.useYn == 'Y'}">X</c:when>
-					<c:when test="${list.useYn == 'N'}">O</c:when>
+					<c:when test="${list.useYn == 'Y'}"><button id="${list.qnaSequence}" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view btn btn-primary">답변</button></c:when>
+					<c:when test="${list.useYn == 'N'}"><button id="${list.qnaSequence}" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view btn btn-default">확인</button></c:when>
 				</c:choose>
+			</div>
 			</td>
 		</tr>
 	</c:forEach>

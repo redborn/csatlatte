@@ -32,6 +32,8 @@
 <script>
 	$(document).ready(function () {
 		
+		var target;
+		
 		var getUrlParameter = function getUrlParameter(sParam) {
 			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
 			sURLVariables = sPageURL.split('&'),
@@ -66,8 +68,14 @@
 			return html;
 		}
 		
+		var changeToViewButton = function () {
+			var html = '';
+			html += '<button id="' + target + '" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view btn btn-default">확인</button>';
+			return html;
+		}
+		
 		$('.manage-question-answer-view').on("click", function () {
-			var target = $(this).attr("id");
+			target = $(this).attr("id");
 			$.ajax("<c:url value="/data/question.json"/>", {
 				dataType : "json",
 				type : "GET",
@@ -83,6 +91,8 @@
 								type : "POST",
 								data : {qnaSequence : target, answerContent : answerContent},
 								success : function () {
+									$('#manage-question-answer-button-div' + target).remove();
+									$('#manage-question-answer-button' + target).append(changeToViewButton());
 									$('.manage-question-detail').remove();
 									$.ajax("<c:url value="/data/question.json"/>", {
 										dataType : "json",
