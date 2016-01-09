@@ -46,7 +46,7 @@ public class ExamServiceImpl implements ExamService {
 	}
 	
 	public int amountExam(String search) {
-		return examDao.selectOne(search);
+		return examDao.selectOneCount(search);
 	}
 	
 	public List<IstttVo> istttList() {
