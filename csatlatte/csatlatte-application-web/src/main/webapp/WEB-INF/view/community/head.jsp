@@ -3,6 +3,7 @@
 <%@ include file="/WEB-INF/layout/include/student.jsp" %>
 <%@ include file="/WEB-INF/layout/include/manager.jsp" %>
 <%@ include file="/WEB-INF/layout/include/jquery/form.jsp" %>
+<%@ include file="/WEB-INF/layout/include/banner.jsp" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <style>
 	.community-write-btn {text-align:right;}
@@ -123,6 +124,16 @@ $(document).ready(function() {
 		html += '</div>';
 		return html;
 	};
+	
+	var makeBannerHtml = function(bannerSequence) {
+		if (bannerSequence === undefined) {
+			bannerSequence = (parseInt((Math.random()) * 10) % 3) + 1
+		}
+		var html = '<div class="banner-width">';
+		html += '	<img class="img-responsive" src="' + contextPath + '/resources/csatlatte/images/ad_csat_width' + bannerSequence + '.png"/>';
+		html += '</div>';
+		return html;
+	}
 	
 	var ajaxComment = function(communitySequence, callback) {
 		$.ajax(contextPath + "/data/community/comment.json", {
@@ -349,6 +360,9 @@ $(document).ready(function() {
 					makeComment(community.communitySequence, function(communitySequence) {
 						addCommunityAndCommentEvent(communitySequence);
 					});
+					if (index % 5 === 4) {
+						$(".community-list").append(makeBannerHtml());
+					}
 				}
 				lastCommunitySequence = communityList[communityListLength - 1].communitySequence;
 			} else {
