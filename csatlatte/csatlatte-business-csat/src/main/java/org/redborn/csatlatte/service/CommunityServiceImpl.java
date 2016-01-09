@@ -39,7 +39,7 @@ public class CommunityServiceImpl implements CommunityService {
 	private org.redborn.csatlatte.persistence.blind.TypeDao blindTypeDao;
 	
 	public int amountCommunity(String search) {
-		return communityDao.selectOneAmountCommunity(search);
+		return communityDao.selectOneCount(search);
 	}
 	
 	public boolean blind(int communityTypeSequence, int communitySequence, int blindTypeSequence) {

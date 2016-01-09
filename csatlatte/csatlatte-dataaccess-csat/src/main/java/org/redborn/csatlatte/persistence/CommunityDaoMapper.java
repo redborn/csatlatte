@@ -21,8 +21,8 @@ public class CommunityDaoMapper extends SqlSessionDaoSupport implements Communit
 		return getSqlSession().selectOne("community.selectOne", params);
 	}
 	
-	public int selectOneAmountCommunity(String search) {
-		return getSqlSession().selectOne("community.selectOneAmountCommunity", search);
+	public int selectOneCount(String search) {
+		return getSqlSession().selectOne("community.selectOneCount", search);
 	}
 	
 	public CommunityVo selectOneDetail(int communityTypeSequence, int communitySequence) {

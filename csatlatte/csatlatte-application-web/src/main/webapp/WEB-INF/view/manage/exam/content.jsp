@@ -49,7 +49,7 @@
 				<h4 class="modal-title">모의고사 삭제</h4>
 			</div>
 			<div class="modal-body">
-				[${list.examName}]를 삭제하시겠습니까?
+				${list.examName}를 삭제하시겠습니까?
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-default" data-dismiss="modal">닫기</button>
