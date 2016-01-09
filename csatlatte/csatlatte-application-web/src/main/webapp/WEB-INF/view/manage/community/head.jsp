@@ -92,8 +92,7 @@
 		
 		var makeCommunityDetail = function(community) {
 			var html = '';
-			html += '	<div class="modal-dialog manage-community-detail" role="document">';
-			html += '		<div class="modal-content">';
+			html += '		<div class="modal-content" id="manage-community-text-content">';
 			html += '			<div class="modal-header">';
 			html += '				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 			html += '				<div class="community-text">';
@@ -110,7 +109,6 @@
 			html += '			<div id="comment-area" class="modal-footer">';
 			html += '			</div>';
 			html += '		</div>';
-			html += '	</div>';
 			return html;
 		}
 		
@@ -222,7 +220,7 @@
 					data : {communitySequence : target},
 					success : function(data) {
 						var community = data.detail;
-						$("#manage-community-text-detail").append(makeCommunityDetail(community));
+						$("#manage-community-text-dialog").append(makeCommunityDetail(community));
 						$.ajax("<c:url value="/data/community/comment.json"/>", {
 							dataType : "json",
 							type : "GET",
@@ -244,7 +242,7 @@
 		});
 		
 		$('#manage-community-text-detail').on('hidden.bs.modal', function () {
-			$('.manage-community-detail').remove();
+			$('#manage-community-text-content').remove();
 		});
 		
 		$('#manage-community-blind').on('hidden.bs.modal', function () {

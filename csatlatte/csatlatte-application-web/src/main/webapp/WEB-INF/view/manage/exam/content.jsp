@@ -38,7 +38,8 @@
 	<pagination:writer value="${paginationWriter}"/>
 </nav>
 <div class="modal fade" id="manage-exam-modify" tabindex="-1" role="dialog">
-
+	<div class="modal-dialog" id="manage-exam-modify-dialog" role="document">
+	</div>
 </div>
 <c:forEach items="${list}" var="list">
 <div class="modal fade" id="manage-exam-delete${list.examSequence}" tabindex="-1" role="dialog">

@@ -36,8 +36,7 @@
 			var yearListLength = yearList.length;
 			var istttListLength = istttList.length;
 			var ysListLength = ysList.length;
-			html += '<div class="modal-dialog" id="manage-exam-modify-dialog" role="document">';
-			html += '	<div class="modal-content">';
+			html += '	<div class="modal-content" id="manage-exam-modify-content">';
 			html += '		<div class="modal-header">';
 			html += '			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 			html += '			<h4 class="modal-title">모의고사 수정</h4>';
@@ -106,7 +105,6 @@
 			html += '			<button class="btn btn-primary manage-exam-modify-accept">확인</button>';
 			html += '		</div>';
 			html += '	</div>';
-			html += '</div>';
 			return html;
 		}
 		
@@ -137,7 +135,7 @@
 						var istttList = data.istttList;
 						var ysList = data.ysList;
 						var listOne = data.listOne;
-						$('#manage-exam-modify').append(makeExamModify(yearList, istttList, ysList, listOne));
+						$('#manage-exam-modify-dialog').append(makeExamModify(yearList, istttList, ysList, listOne));
 						$('.manage-exam-modify-accept').on("click", function () {
 							console.log("들어옴");
 							var csatSequence = $('#manage-exam-csat option:selected').val();
@@ -171,7 +169,7 @@
 		$('#manage-exam-search').val(getUrlParameter("search"));
 		
 		$('#manage-exam-modify').on('hidden.bs.modal', function () {
-			$('#manage-exam-modify-dialog').remove();
+			$('#manage-exam-modify-content').remove();
 		});
 		
 		$('#manage-exam-search').on("keyup", function (event) {
