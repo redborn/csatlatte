@@ -138,15 +138,10 @@
 						var listOne = data.listOne;
 						$('#manage-exam-modify-dialog').append(makeExamModify(yearList, istttList, ysList, listOne));
 						$('.manage-exam-modify-accept').on("click", function () {
-							console.log("들어옴");
 							var csatSequence = $('#manage-exam-csat option:selected').val();
-							console.log(csatSequence);
 							var examName = $('#manage-exam-name').val();
-							console.log(examName);
 							var istttSequence = $('#manage-exam-eduoffice option:selected').val();
-							console.log(istttSequence);
 							var ysSequence = $('#manage-exam-student-grade option:selected').val();
-							console.log(ysSequence);
 							$.ajax("<c:url value="/data/manage/exam.json"/>", {
 								dataType : "json",
 								type : "POST",
