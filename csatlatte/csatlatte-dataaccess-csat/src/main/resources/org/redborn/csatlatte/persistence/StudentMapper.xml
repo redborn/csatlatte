@@ -127,7 +127,7 @@
 		  FROM csat_student 
 	</select>
 	
-	<select id="selectOneAmountStudent" parameterType="String" resultType="int">
+	<select id="selectOneCount" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_student
 	  	 WHERE ( student_id LIKE CONCAT('%', #{search}, '%')

@@ -127,7 +127,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 	
 	public int amountStudent(String search) {
-		return studentDao.selectOneAmountStudent(search);
+		return studentDao.selectOneCount(search);
 	}
 	
 	public List<YsVo> ysList() {

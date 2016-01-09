@@ -15,7 +15,7 @@ public interface StudentDao {
 	public int selectOneCountIsPassword(String id, String securityAnswer);
 	public String selectOneId(String nickname, String securityAnswer);
 	public int selectOneMaxStudentSequence();
-	public int selectOneAmountStudent(String search);
+	public int selectOneCount(String search);
 	public List<StudentVo> selectList(String search, int pageNumber);
 	public List<YmdCountVo> selectListCountYmd(String ymd);
 	public List<YmCountVo> selectListCountYm(String ym);
