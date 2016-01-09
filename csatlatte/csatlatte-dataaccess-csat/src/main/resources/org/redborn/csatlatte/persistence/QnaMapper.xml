@@ -38,7 +38,7 @@
 		  FROM csat_qna 
 	</select>
 	
-	<select id="selectOneAmountQuestion" parameterType="Map" resultType="int">
+	<select id="selectOneCount" parameterType="Map" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_qna cq, csat_student cs
 		 WHERE cq.student_seq = cs.student_seq
