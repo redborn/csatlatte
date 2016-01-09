@@ -24,5 +24,6 @@ public interface StudentDao {
 	public int updateInformation(StudentVo studentVo);
 	public int updatePassword(int studentSequence, String newPassword);
 	public int updateUseYnN(int studentSequence);
+	public int updateUseYnNRecovery(int studentSequence);
 	
 }

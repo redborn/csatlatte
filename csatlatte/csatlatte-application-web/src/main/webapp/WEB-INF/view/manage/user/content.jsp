@@ -28,7 +28,20 @@
 			<td>${userList.countConnection}</td>
 			<td>${userList.countCommunity + userList.countComment}</td>
 			<td>${userList.averageScore}</td>
-			<td><div id="blind${userList.studentSequence}"><div id="${userList.studentSequence}" data-toggle="modal" data-target="#manage-user-blind" class="<c:if test="${userList.useYn eq 'Y'}">glyphicon glyphicon glyphicon-lock manage-user-blind</c:if>"></div></div></td>
+			<td><div id="manage-user-blind-button-area${userList.studentSequence}">
+				<c:choose>
+					<c:when test="${userList.useYn eq 'Y'}">
+						<div id="blind${userList.studentSequence}">
+							<div id="${userList.studentSequence}" data-toggle="modal" data-target="#manage-user-blind" class="glyphicon glyphicon-lock manage-user-blind"></div>
+						</div>
+					</c:when>
+					<c:when test="${userList.useYn eq 'N'}">
+						<div id="recovery${userList.studentSequence}">
+							<div id="${userList.studentSequence}" data-toggle="modal" data-target="#manage-user-recovery" class="glyphicon glyphicon-refresh manage-user-recovery"></div>
+						</div>
+					</c:when>
+				</c:choose>
+			</div></td>
 		</tr>
 	</c:forEach>
 	</tbody>
@@ -60,6 +73,22 @@
 			<div class="modal-footer">
 				<button class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>
 				<button class="btn btn-primary manage-user-blind-apply">확인</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="manage-user-recovery" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">회원복구</h4>
+			</div>
+			<div class="modal-body">
+				정말로 차단을 해제하시겠습니까?
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>
+				<button class="btn btn-primary manage-user-recovery-apply">확인</button>
 			</div>
 		</div>
 	</div>

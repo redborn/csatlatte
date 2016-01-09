@@ -214,10 +214,16 @@
 		 WHERE student_seq = #{studentSequence}
 	</update>
 	
-	<update id="updateUseYnN" parameterType="int">
+	<update id="updateUseYnN" parameterType="Map">
 		UPDATE csat_student
 		   SET use_yn = 'N'
 		 WHERE student_seq = #{studentSequence} 
+	</update>
+	
+	<update id="updateUseYnNRecovery" parameterType="int">
+		UPDATE csat_student
+		   SET use_yn = 'Y'
+		 WHERE student_seq = #{studentSequence}
 	</update>
 	
 </mapper>

@@ -93,6 +93,10 @@ public class StudentServiceImpl implements StudentService {
 	public boolean lock(int studentSequence) {
 		return studentDao.updateUseYnN(studentSequence) == 1;
 	}
+	
+	public boolean recovery(int studentSequence) {
+		return studentDao.updateUseYnNRecovery(studentSequence) == 1;
+	}
 
 	public List<YmdCountVo> dailyJoinCountList(String ymd) {
 		return studentDao.selectListCountYmd(ymd);

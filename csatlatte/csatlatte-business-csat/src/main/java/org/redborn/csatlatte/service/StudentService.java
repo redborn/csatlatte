@@ -20,6 +20,7 @@ public interface StudentService {
 	public StudentVo information(String id, String password);
 	public StudentVo information(int studentSequence);
 	public boolean lock(int studentSequence);
+	public boolean recovery(int studentSequence);
 	public List<YmdCountVo> dailyJoinCountList(String ymd);
 	public List<YmCountVo> monthlyJoinCountList(String ym);
 	public List<YearCountVo> annualJoinCountList(String year);

@@ -97,5 +97,9 @@ public class StudentDaoMapper extends SqlSessionDaoSupport implements StudentDao
 	public int updateUseYnN(int studentSequence) {
 		return getSqlSession().update("student.updateUseYnN", studentSequence);
 	}
+	
+	public int updateUseYnNRecovery(int studentSequence) {
+		return getSqlSession().update("student.updateUseYnNRecovery",studentSequence);
+	}
 
 }

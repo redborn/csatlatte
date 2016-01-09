@@ -23,11 +23,13 @@
 	.manage-user-info-content {text-align:left; margin-left:40px; margin-top:5px;}
 	.manage-user-info-content-value {margin-left:10px; display:inline-block;}
 	.manage-user-blind {cursor:pointer;}
+	.manage-user-recovery {cursor:pointer;}
 </style>
 <script>
 	$(document).ready(function () {
 		
 		var blindTarget;
+		var recoveryTarget;
 		
 		var getUrlParameter = function getUrlParameter(sParam) {
 			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -80,6 +82,22 @@
 			return html;
 		}
 		
+		var makeRecoveryButton = function (studentSequence) {
+			var html = '';
+			html += '<div id="recovery' + studentSequence + '">';
+			html += '	<div id="' + studentSequence + '" data-toggle="modal" data-target="#manage-user-recovery" class="glyphicon glyphicon-refresh manage-user-recovery"></div>';
+			html += '</div>';
+			return html;
+		}
+		
+		var makeBlindButton = function (studentSequence) {
+			var html = '';
+			html += '<div id="blind' + studentSequence + '">';
+			html += '	<div id="' + studentSequence + '" data-toggle="modal" data-target="#manage-user-blind" class="glyphicon glyphicon-lock manage-user-blind"></div>';
+			html += '</div>';
+			return html;
+		}
+		
 		$('.manage-user-id').on("click", function() {
 			var target = $(this).attr("id");
 			$.ajax("<c:url value="/data/student.json"/>", {
@@ -109,6 +127,10 @@
 					success : function() {
 						$('#manage-user-blind').modal("hide");
 						$('#blind' + studentSequence).remove();
+						$('#manage-user-blind-button-area' + studentSequence).append(makeRecoveryButton(studentSequence));
+						$('.manage-user-recovery').on("click", function () {
+							recoveryTarget = $(this).attr("id");
+						});
 					}
 				});
 			}
@@ -122,6 +144,29 @@
 			if (event.which == 13) {
 				var search = $('#manage-student-search').val();
 				$(location).attr('href', '<c:url value="/manage/user?search="/>' + search);
+			}
+		});
+		
+		$('.manage-user-recovery').on("click", function () {
+			recoveryTarget = $(this).attr("id");
+		});
+		
+		$('.manage-user-recovery-apply').on("click", function () {
+			var studentSequence = recoveryTarget;
+			if (studentSequence != null) {
+				$.ajax(contextPath + "/data/manage/student.json", {
+					dataType : "json",
+					type : "POST",
+					data : {studentSequence : studentSequence},
+					success : function () {
+						$('#manage-user-recovery').modal("hide");
+						$('#recovery' + studentSequence).remove();
+						$('#manage-user-blind-button-area' + studentSequence).append(makeBlindButton(studentSequence));
+						$('.manage-user-blind').on("click", function () {
+							blindTarget = $(this).attr("id");
+						});
+					}
+				});
 			}
 		});
 	});
