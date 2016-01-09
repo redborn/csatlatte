@@ -24,6 +24,7 @@
 	.manage-user-info-content-value {margin-left:10px; display:inline-block;}
 	.manage-user-blind {cursor:pointer;}
 	.manage-user-recovery {cursor:pointer;}
+	td .close {float:none;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -85,7 +86,7 @@
 		var makeRecoveryButton = function (studentSequence) {
 			var html = '';
 			html += '<div id="recovery' + studentSequence + '">';
-			html += '	<div id="' + studentSequence + '" data-toggle="modal" data-target="#manage-user-recovery" class="glyphicon glyphicon-refresh manage-user-recovery"></div>';
+			html += '	<button type="button" class="btn btn-default close"><div id="' + studentSequence + '" data-toggle="modal" data-target="#manage-user-recovery" class="glyphicon glyphicon-refresh manage-user-recovery"></div></button>';
 			html += '</div>';
 			return html;
 		}
@@ -93,7 +94,7 @@
 		var makeBlindButton = function (studentSequence) {
 			var html = '';
 			html += '<div id="blind' + studentSequence + '">';
-			html += '	<div id="' + studentSequence + '" data-toggle="modal" data-target="#manage-user-blind" class="glyphicon glyphicon-lock manage-user-blind"></div>';
+			html += '	<button type="button" class="btn btn-default close"><div id="' + studentSequence + '" data-toggle="modal" data-target="#manage-user-blind" class="glyphicon glyphicon-lock manage-user-blind"></div></button>';
 			html += '</div>';
 			return html;
 		}

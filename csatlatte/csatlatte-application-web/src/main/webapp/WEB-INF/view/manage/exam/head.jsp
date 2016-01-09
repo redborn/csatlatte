@@ -24,6 +24,7 @@
 	.modal-footer {text-align:right;}
 	.manage-exam-btn-cancel {cursor:pointer; margin-right:10px;}
 	.manage-exam-btn-accept {cursor:pointer;}
+	td .close {float:none;}
 </style>
 <script>
 

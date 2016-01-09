@@ -50,6 +50,7 @@
 	#manage-community-blind .modal-body {text-align:left;}
 	
 	.manage-community-blind {cursor:pointer;}
+	td .close {float:none;}
 </style>
 <script>
 	$(document).ready(function () {
