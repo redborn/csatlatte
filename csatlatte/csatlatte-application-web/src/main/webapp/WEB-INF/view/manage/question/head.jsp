@@ -55,16 +55,21 @@
 		var makeQuestionDetailView = function(question) {
 			var html = '';
 			html += '<div class="manage-question-detail">';
-			html += '	<div class="manage-question-detail-content">';
-			html += '		<div><b>질문제목</b> : ' + question.title + '</div>';
-			html += '		<div><b>질문내용</b> : ' + question.content + '</div>';
-			html += '	</div>';
+			html += '	<div class="modal-body">';
+			html += '		<div class="manage-question-detail-content">';
+			html += '			<div><b>질문제목</b> : ' + question.title + '</div>';
+			html += '			<div><b>질문내용</b> : ' + question.content + '</div>';
+			html += '		</div>';
 			if (question.answerContent != "") {
-				html += '<div class="manage-question-detail-answer"><b>답변내용</b> : ' + question.answerContent + '</div>';
+				html += '	<div class="manage-question-detail-answer"><b>답변내용</b> : ' + question.answerContent + '</div>';
+				html += '</div>';
 			} else {
-				html += '<textarea class="form-control manage-question-answer-textarea" placeholder="답변이 완료되지 않은 문의입니다. 답변을 입력해주세요."/>';
+				html += '	<textarea class="form-control manage-question-answer-textarea" placeholder="답변이 완료되지 않은 문의입니다. 답변을 입력해주세요."/>';
+				html += '</div>';
+				html += '<div class="modal-footer">';
 				html += '<input type="submit" class="btn btn-default"  data-dismiss="modal" aria-label="Close" value="닫기">';
 				html += '<input type="submit" class="btn btn-primary manage-question-answer-accept" value="완료">';
+				html += '</div>';
 			}
 			html += '</div>';
 			return html;

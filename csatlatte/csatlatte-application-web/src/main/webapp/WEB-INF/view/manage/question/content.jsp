@@ -57,12 +57,10 @@
 </nav>
 <div class="modal fade" id="manage-question-answer-view" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
-		<div class="modal-content">
+		<div class="modal-content" id="manage-question-detail">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				답변하기
-			</div>
-			<div class="modal-body" id="manage-question-detail">
 			</div>
 		</div>
 	</div>
