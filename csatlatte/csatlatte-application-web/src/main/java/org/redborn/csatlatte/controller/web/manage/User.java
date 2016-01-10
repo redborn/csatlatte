@@ -36,15 +36,14 @@ public class User {
 	public String get(Model model, @RequestParam(value="search",required=false,defaultValue="") String search, 
 			@RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
 		logger.info("manage user view");
-		
-		int beginPageNumber = (pageNumber * 10) - 10;
+
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("search", search);
 		
 		Pagination pagination = new Pagination(pageNumber, studentService.amountStudent(search));
 		
 		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/user", params, "pageNumber"));
-		model.addAttribute("userList", studentService.userList(search, beginPageNumber));
+		model.addAttribute("userList", studentService.userList(search, pagination.getBeginPage()));
 		
 		return TilesName.MANAGE_USER;
 	}

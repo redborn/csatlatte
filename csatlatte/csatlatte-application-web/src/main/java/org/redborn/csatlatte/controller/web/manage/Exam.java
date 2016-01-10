@@ -39,14 +39,13 @@ public class Exam {
 	public String get(Model model, @RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
 		logger.info("manage exam view");
 		
-		int beginPageNumber = (pageNumber * 10) - 10;
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("search", search);
 		
 		Pagination pagination = new Pagination(pageNumber, examService.amountExam(search));
 		
 		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/exam", params, "pageNumber"));
-		model.addAttribute("list", examService.listForManage(beginPageNumber, search));
+		model.addAttribute("list", examService.listForManage(pagination.getBeginPage(), search));
 		model.addAttribute("yearList", examService.yearList());
 		model.addAttribute("istttList", examService.istttList());
 		model.addAttribute("ysList", studentService.ysList());

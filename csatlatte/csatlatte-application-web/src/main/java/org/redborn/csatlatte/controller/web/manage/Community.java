@@ -35,14 +35,13 @@ public class Community {
 	public String get(Model model, @RequestParam(value="communityTypeSequence",required=false,defaultValue="1") int communityTypeSequence,
 			@RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
 		logger.info("manage community view");
-		
-		int beginPageNumber = (pageNumber * 10) - 10;
+
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("search", search);
 		
 		Pagination pagination = new Pagination(pageNumber, communityService.amountCommunity(search));
 		
-		model.addAttribute("list", communityService.list(CommunityService.COMMUNITY, search, beginPageNumber));
+		model.addAttribute("list", communityService.list(CommunityService.COMMUNITY, search, pagination.getBeginRow()));
 		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/community", params, "pageNumber"));
 		return TilesName.MANAGE_COMMUNITY;
 	}

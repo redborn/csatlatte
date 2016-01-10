@@ -36,7 +36,6 @@ public class Question {
 			@RequestParam(value="useYn",required=false,defaultValue="") String useYn) {
 		logger.info("manage question view");
 		
-		int beginPageNumber = (pageNumber * 10) - 10;
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("search", search);
 		params.put("useYn", useYn);
@@ -44,7 +43,7 @@ public class Question {
 		Pagination pagination = new Pagination(pageNumber, qnaService.amountQuestion(search, useYn));
 		
 		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/question", params, "pageNumber"));
-		model.addAttribute("list", qnaService.listForManage(search, beginPageNumber, useYn));
+		model.addAttribute("list", qnaService.listForManage(search, pagination.getBeginPage(), useYn));
 		return TilesName.MANAGE_QUESTION;
 	}
 }
