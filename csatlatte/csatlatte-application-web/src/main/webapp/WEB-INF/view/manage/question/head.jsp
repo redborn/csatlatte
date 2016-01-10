@@ -58,18 +58,18 @@
 			html += '	<div class="modal-body">';
 			html += '		<div class="manage-question-detail-content">';
 			html += '			<div class="form-group">';
-			html += '				<label for="manage-question-title">질문제목</label>';
-			html += '				<div id="manage-question-title">' + question.title + '</div>' 
+			html += '				<label>질문제목</label>';
+			html += '				<div>' + question.title + '</div>' 
 			html += '			</div>';
 			html += '			<div class="form-group">';
-			html += '				<label for="manage-question-content">질문내용</label>';
-			html += '				<div id="manage-question-content">' + question.content + '</div>';
+			html += '				<label>질문내용</label>';
+			html += '				<div>' + question.content + '</div>';
 			html += '			</div>';
 			html += '		</div>';
 			if (question.answerContent != "") {
 				html += '	<div class="form-group">';
-				html += '		<label for="manage-question-answer-content">답변내용</label>';
-				html += '		<div id="manage-question-answer-content">' + question.answerContent + '</div>'; 
+				html += '		<label>답변내용</label>';
+				html += '		<div>' + question.answerContent + '</div>'; 
 				html += '	</div>';
 				html += '</div>';
 			} else {
