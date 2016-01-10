@@ -29,6 +29,9 @@
 	.manage-question-detail-content {text-align:left; margin-bottom:15px;}
 	.manage-question-detail-answer {text-align:left;}
 	.manage-question-answer-accept {margin-left:10px;}
+	
+	.form-group {text-align:left;}
+	
 </style>
 <script>
 	$(document).ready(function () {
@@ -64,7 +67,10 @@
 				html += '	<div class="manage-question-detail-answer"><b>답변내용</b> : ' + question.answerContent + '</div>';
 				html += '</div>';
 			} else {
-				html += '	<textarea class="form-control manage-question-answer-textarea" placeholder="답변이 완료되지 않은 문의입니다. 답변을 입력해주세요."/>';
+				html += '	<div class="form-group">';
+				html += '		<label for="manage-question-answer-textarea">답변내용</label>';
+				html += '		<textarea id="manage-question-answer-textarea" class="form-control manage-question-answer-textarea" placeholder="답변이 완료되지 않은 문의입니다. 답변을 입력해주세요."/>';
+				html += '	</div>';
 				html += '</div>';
 				html += '<div class="modal-footer">';
 				html += '<input type="submit" class="btn btn-default"  data-dismiss="modal" aria-label="Close" value="닫기">';
