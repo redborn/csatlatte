@@ -3,6 +3,8 @@ package org.redborn.csatlatte.controller.web.manage;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.redborn.csatlatte.commons.pagination.BootstrapPaginationWriter;
 import org.redborn.csatlatte.commons.pagination.Pagination;
 import org.redborn.csatlatte.commons.tiles.TilesName;
@@ -36,15 +38,17 @@ public class Exam {
 	 * 모의고사 목록을 조회하는 페이지입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
-	public String get(Model model, @RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
+	public String get(Model model, HttpServletRequest request, @RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
 		logger.info("manage exam view");
+		
+		String contextPath = request.getContextPath();
 		
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("search", search);
 		
 		Pagination pagination = new Pagination(pageNumber, examService.amountExam(search));
 		
-		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/exam", params, "pageNumber"));
+		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, contextPath + "/manage/exam", params, "pageNumber"));
 		model.addAttribute("list", examService.listForManage(pagination.getBeginPage(), search));
 		model.addAttribute("yearList", examService.yearList());
 		model.addAttribute("istttList", examService.istttList());

@@ -3,6 +3,8 @@ package org.redborn.csatlatte.controller.web.manage;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.redborn.csatlatte.commons.pagination.BootstrapPaginationWriter;
 import org.redborn.csatlatte.commons.pagination.Pagination;
 import org.redborn.csatlatte.commons.tiles.TilesName;
@@ -32,9 +34,11 @@ public class Question {
 	 * 문의목록을 조회하는 페이지입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
-	public String get(Model model, @RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber,
+	public String get(Model model, HttpServletRequest request, @RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber,
 			@RequestParam(value="useYn",required=false,defaultValue="") String useYn) {
 		logger.info("manage question view");
+		
+		String contextPath = request.getContextPath();
 		
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("search", search);
@@ -42,7 +46,7 @@ public class Question {
 		
 		Pagination pagination = new Pagination(pageNumber, qnaService.amountQuestion(search, useYn));
 		
-		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/question", params, "pageNumber"));
+		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, contextPath + "/manage/question", params, "pageNumber"));
 		model.addAttribute("list", qnaService.listForManage(search, pagination.getBeginPage(), useYn));
 		return TilesName.MANAGE_QUESTION;
 	}
