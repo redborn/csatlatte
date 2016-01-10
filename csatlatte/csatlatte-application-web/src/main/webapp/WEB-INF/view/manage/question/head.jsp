@@ -10,12 +10,10 @@
 	.col-lg-4 {float:none; display:inline-block;}
 	.manage-community-search {text-align:right;}
 
-	.manage-question-title {display:inline-block; width:380px;}
 	.manage-question-yn h5 {display:inline-block;}
 	.manage-question-yn .btn-default {width:auto; display:inline-block;}
 	.manage-question-btn-cancel {cursor:pointer;}
 	.manage-question-btn-accept {cursor:pointer;}
-	.manage-question-content {cursor:pointer;}
 	.btn-group {margin-left:5px;}
 	
 	.modal-body h5 {display:inline-block;}
@@ -27,7 +25,6 @@
 	
 	.manage-question-detail {text-align:right;}
 	.manage-question-detail-content {text-align:left; margin-bottom:15px;}
-	.manage-question-detail-answer {text-align:left;}
 	.manage-question-answer-accept {margin-left:10px;}
 	
 	.form-group {text-align:left;}
@@ -60,11 +57,20 @@
 			html += '<div class="manage-question-detail">';
 			html += '	<div class="modal-body">';
 			html += '		<div class="manage-question-detail-content">';
-			html += '			<div><b>질문제목</b> : ' + question.title + '</div>';
-			html += '			<div><b>질문내용</b> : ' + question.content + '</div>';
+			html += '			<div class="form-group">';
+			html += '				<label for="manage-question-title">질문제목</label>';
+			html += '				<div id="manage-question-title">' + question.title + '</div>' 
+			html += '			</div>';
+			html += '			<div class="form-group">';
+			html += '				<label for="manage-question-content">질문내용</label>';
+			html += '				<div id="manage-question-content">' + question.content + '</div>';
+			html += '			</div>';
 			html += '		</div>';
 			if (question.answerContent != "") {
-				html += '	<div class="manage-question-detail-answer"><b>답변내용</b> : ' + question.answerContent + '</div>';
+				html += '	<div class="form-group">';
+				html += '		<label for="manage-question-answer-content">답변내용</label>';
+				html += '		<div id="manage-question-answer-content">' + question.answerContent + '</div>'; 
+				html += '	</div>';
 				html += '</div>';
 			} else {
 				html += '	<div class="form-group">';
