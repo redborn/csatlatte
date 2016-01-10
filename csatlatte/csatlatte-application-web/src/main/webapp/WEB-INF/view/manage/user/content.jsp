@@ -32,12 +32,12 @@
 				<c:choose>
 					<c:when test="${userList.useYn eq 'Y'}">
 						<div id="blind${userList.studentSequence}">
-							<button type="button" class="btn btn-default close"><div id="${userList.studentSequence}" data-toggle="modal" data-target="#manage-user-blind" class="glyphicon glyphicon-lock manage-user-blind"></div></button>
+							<button type="button" class="btn btn-default close"><span id="${userList.studentSequence}" data-toggle="modal" data-target="#manage-user-blind" class="glyphicon glyphicon-lock manage-user-blind"></span></button>
 						</div>
 					</c:when>
 					<c:when test="${userList.useYn eq 'N'}">
 						<div id="recovery${userList.studentSequence}">
-							<button type="button" class="btn btn-default close"><div id="${userList.studentSequence}" data-toggle="modal" data-target="#manage-user-recovery" class="glyphicon glyphicon-refresh manage-user-recovery"></div></button>
+							<button type="button" class="btn btn-default close"><span id="${userList.studentSequence}" data-toggle="modal" data-target="#manage-user-recovery" class="glyphicon glyphicon-refresh manage-user-recovery"></span></button>
 						</div>
 					</c:when>
 				</c:choose>
