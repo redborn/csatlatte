@@ -1,4 +1,4 @@
 @CHARSET "UTF-8";
 
 .banner-width {text-align:center; margin-bottom:20px;}
-.banner-width img {display:inline;}
+.banner-width img {display:inline; border-radius:4px;}
