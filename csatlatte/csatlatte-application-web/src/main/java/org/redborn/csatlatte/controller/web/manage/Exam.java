@@ -41,15 +41,13 @@ public class Exam {
 	public String get(Model model, HttpServletRequest request, @RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
 		logger.info("manage exam view");
 		
-		String contextPath = request.getContextPath();
-		
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("search", search);
 		
 		Pagination pagination = new Pagination(pageNumber, examService.amountExam(search));
 		
-		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, contextPath + "/manage/exam", params, "pageNumber"));
-		model.addAttribute("list", examService.listForManage(pagination.getBeginPage(), search));
+		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, new StringBuilder(request.getContextPath()).append("/manage/exam").toString(), params, "pageNumber"));
+		model.addAttribute("list", examService.listForManage(pagination.getBeginRow(), search));
 		model.addAttribute("yearList", examService.yearList());
 		model.addAttribute("istttList", examService.istttList());
 		model.addAttribute("ysList", studentService.ysList());

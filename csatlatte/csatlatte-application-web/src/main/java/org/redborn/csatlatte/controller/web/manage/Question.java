@@ -38,16 +38,14 @@ public class Question {
 			@RequestParam(value="useYn",required=false,defaultValue="") String useYn) {
 		logger.info("manage question view");
 		
-		String contextPath = request.getContextPath();
-		
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("search", search);
 		params.put("useYn", useYn);
 		
 		Pagination pagination = new Pagination(pageNumber, qnaService.amountQuestion(search, useYn));
 		
-		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, contextPath + "/manage/question", params, "pageNumber"));
-		model.addAttribute("list", qnaService.listForManage(search, pagination.getBeginPage(), useYn));
+		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, new StringBuilder(request.getContextPath()).append("/manage/question").toString(), params, "pageNumber"));
+		model.addAttribute("list", qnaService.listForManage(search, pagination.getBeginRow(), useYn));
 		return TilesName.MANAGE_QUESTION;
 	}
 }

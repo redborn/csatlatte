@@ -38,15 +38,12 @@ public class Community {
 			@RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
 		logger.info("manage community view");
 		
-		String contextPath = request.getContextPath();
-		
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("search", search);
-		
+		params.put("search", search); 
 		Pagination pagination = new Pagination(pageNumber, communityService.amountCommunity(search));
 		
 		model.addAttribute("list", communityService.list(CommunityService.COMMUNITY, search, pagination.getBeginRow()));
-		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, contextPath + "/manage/community", params, "pageNumber"));
+		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, new StringBuilder(request.getContextPath()).append("/manage/community").toString(), params, "pageNumber"));
 		return TilesName.MANAGE_COMMUNITY;
 	}
 }

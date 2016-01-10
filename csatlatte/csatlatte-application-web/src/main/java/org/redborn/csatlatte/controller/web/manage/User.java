@@ -38,16 +38,14 @@ public class User {
 	public String get(Model model, HttpServletRequest request, @RequestParam(value="search",required=false,defaultValue="") String search, 
 			@RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
 		logger.info("manage user view");
-		
-		String contextPath = request.getContextPath();
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("search", search);
 		
 		Pagination pagination = new Pagination(pageNumber, studentService.amountStudent(search));
 		
-		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, contextPath + "/manage/user", params, "pageNumber"));
-		model.addAttribute("userList", studentService.userList(search, pagination.getBeginPage()));
+		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, new StringBuilder(request.getContextPath()).append("/manage/user").toString(), params, "pageNumber"));
+		model.addAttribute("userList", studentService.userList(search, pagination.getBeginRow()));
 		
 		return TilesName.MANAGE_USER;
 	}
