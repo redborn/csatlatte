@@ -60,7 +60,7 @@
 		<div class="modal-content" id="manage-question-detail">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				답변하기
+				<h4 class="modal-title">문의 답변</h4>
 			</div>
 		</div>
 	</div>
