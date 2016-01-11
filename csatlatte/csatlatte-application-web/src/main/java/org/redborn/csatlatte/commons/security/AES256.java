@@ -15,31 +15,39 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.CharEncoding;
 import org.apache.tomcat.util.codec.binary.Base64;
 
+/**
+ * AES256 암/복호화 처리를 합니다.
+ * 
+ * @author 최순열
+ *
+ */
 public class AES256 {
 	
-	private byte[] keyData;
-	private String iv;
-	private String transformation;
+	private static String TRANSFORMATION = "AES/CBC/PKCS5Padding";
+	private static String KEY = "abcdefghijklmnopqrstuvwxyz123456";
 	
-	public AES256() {
-		this("abcdefghijklmnopqrstuvwxyz123456");
+	/**
+	 * 문자열을 암호화 합니다.
+	 * 
+	 * @param str 문자열
+	 * @return 암호화 된 문자열
+	 */
+	public static String encrypt(String str) {
+		return encrypt(str, KEY);
 	}
 	
-	public AES256(String key) {
-		try {
-			iv = key.substring(0, 16);
-			keyData = key.getBytes(CharEncoding.UTF_8);
-			transformation = "AES/CBC/PKCS5Padding";
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public String encrypt(String str) {
+	/**
+	 * 문자열을 암호화 합니다.
+	 * 
+	 * @param str 문자열
+	 * @param key 키
+	 * @return 암호화 된 문자열
+	 */
+	public static String encrypt(String str, String key) {
 		String result = null;
 		try {
-			Cipher cipher = Cipher.getInstance(transformation);
-			cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(keyData, "AES"), new IvParameterSpec(iv.getBytes(CharEncoding.UTF_8)));
+			Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+			cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key.getBytes(CharEncoding.UTF_8), "AES"), new IvParameterSpec(key.substring(0, 16).getBytes(CharEncoding.UTF_8)));
 			result = new String(Base64.encodeBase64(cipher.doFinal(str.getBytes(CharEncoding.UTF_8))), CharEncoding.UTF_8);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
@@ -59,11 +67,28 @@ public class AES256 {
 		return result;
 	}
 	
-	public String decrypt(String str) {
+	/**
+	 * 문자열을 복호화 합니다.
+	 * 
+	 * @param str 암호화 된 문자열
+	 * @return 복호화 된 문자열
+	 */
+	public static String decrypt(String str) {
+		return decrypt(str, KEY);
+	}
+	
+	/**
+	 * 문자열을 복호화 합니다.
+	 * 
+	 * @param str 암호화 된 무낮열
+	 * @param key 키
+	 * @return 복호화 된 문자열
+	 */
+	public static String decrypt(String str, String key) {
 		String result = null;
 		try {
-			Cipher cipher = Cipher.getInstance(transformation);
-			cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(keyData, "AES"), new IvParameterSpec(iv.getBytes(CharEncoding.UTF_8)));
+			Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+			cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key.getBytes(CharEncoding.UTF_8), "AES"), new IvParameterSpec(key.substring(0, 16).getBytes(CharEncoding.UTF_8)));
 			result = new String(cipher.doFinal(Base64.decodeBase64(str.getBytes(CharEncoding.UTF_8))), CharEncoding.UTF_8);
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();

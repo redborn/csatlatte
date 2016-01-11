@@ -7,9 +7,21 @@ import java.security.NoSuchAlgorithmException;
 import org.apache.commons.codec.CharEncoding;
 import org.apache.commons.codec.binary.Base64;
 
+/**
+ * SHA512 암호화 처리를 합니다.
+ * 
+ * @author 최순열
+ *
+ */
 public class SHA512 {
 	
-	public String encrypt(String str) {
+	/**
+	 * 문자열을 암호화 합니다.
+	 * 
+	 * @param str 문자열
+	 * @return 암호화 된 문자열
+	 */
+	public static String encrypt(String str) {
 		MessageDigest messageDigest = null;
 		try {
 			messageDigest = MessageDigest.getInstance("SHA-512");
