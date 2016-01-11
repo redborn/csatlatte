@@ -28,7 +28,7 @@ public class Exam {
 		logger.info("data manage exam get view");
 		
 		model.addAttribute("yearList", examService.yearList());
-		model.addAttribute("istttList", examService.istttList());
+		model.addAttribute("institutionList", examService.institutionList());
 		model.addAttribute("ysList", studentService.ysList());
 		model.addAttribute("listOne", examService.listForManageOne(examSequence));
 	}
@@ -37,7 +37,7 @@ public class Exam {
 	public void post(@RequestParam(value="examSequence",required=true) int examSequence,
 			@RequestParam(value="csatSequence",required=true) int csatSequence,
 			@RequestParam(value="examName",required=true) String examName,
-			@RequestParam(value="istttSequence",required=true) int istttSequence,
+			@RequestParam(value="institutionSequence",required=true) int institutionSequence,
 			@RequestParam(value="ysSequence",required=true) int ysSequence) {
 		logger.info("data manage exam put view");
 		
@@ -46,7 +46,7 @@ public class Exam {
 		examVo.setExamSequence(examSequence);
 		examVo.setCsatSequence(csatSequence);
 		examVo.setExamName(examName);
-		examVo.setIstttSequence(istttSequence);
+		examVo.setInstitutionSequence(institutionSequence);
 		examVo.setYsSequence(ysSequence);
 		
 		examService.modify(examVo);

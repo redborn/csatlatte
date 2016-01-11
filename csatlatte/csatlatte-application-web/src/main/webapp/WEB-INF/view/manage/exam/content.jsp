@@ -24,7 +24,7 @@
 			<td>${exam.examSequence}</td>
 			<td>${exam.year}</td>
 			<td>${exam.examName}</td>
-			<td><div class="manage-question-content" data-toggle="modal" data-target="#manage-question-answer-view">${exam.istttName}</div></td>
+			<td><div class="manage-question-content" data-toggle="modal" data-target="#manage-question-answer-view">${exam.institutionName}</div></td>
 			<td><button type="button" class="btn btn-default close"><span id="${exam.examSequence}" data-toggle="modal" data-target="#manage-exam-modify" class="manage-exam-modify glyphicon glyphicon-pencil"></span></button></td>
 			<td><button type="button" class="btn btn-default close"><span id="${exam.examSequence}" data-toggle="modal" data-target="#manage-exam-delete${exam.examSequence}" class="manage-exam-delete glyphicon glyphicon-remove"></span></button></td>
 		</tr>
@@ -88,8 +88,8 @@
 					<label class="manage-exam-label" for="manage-exam-eduoffice">주관 교육청</label>
 					<div class="manage-exam-info-content-value">
 						<select class="form-control" id="manage-exam-eduoffice">
-							<c:forEach items="${istttList}" var="institution">
-								<option value="${institution.istttSequence}">${institution.istttName}</option>
+							<c:forEach items="${institutionList}" var="institution">
+								<option value="${institution.institutionSequence}">${institution.institutionName}</option>
 							</c:forEach>
 						</select>
 					</div>

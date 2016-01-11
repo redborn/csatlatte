@@ -25,10 +25,10 @@
 		
 		var target;
 		
-		var makeExamModify = function (yearList, istttList, ysList, listOne) {
+		var makeExamModify = function (yearList, institutionList, ysList, listOne) {
 			var html = '';
 			var yearListLength = yearList.length;
-			var istttListLength = istttList.length;
+			var institutionListLength = institutionList.length;
 			var ysListLength = ysList.length;
 			html += '	<div class="modal-content" id="manage-exam-modify-content">';
 			html += '		<div class="modal-header">';
@@ -60,12 +60,12 @@
 			html += '				<label class="manage-exam-label" for="manage-exam-eduoffice">주관 교육청</label>';
 			html += '				<div class="manage-exam-info-content-value">';
 			html += '					<select class="form-control" id="manage-exam-eduoffice">';
-			for (var index = 0; index < istttListLength; index++) {
-				html += '					<option value="' + istttList[index].istttSequence + '"';
-				if (listOne[0].istttSequence == istttList[index].istttSequence) {
+			for (var index = 0; index < institutionListLength; index++) {
+				html += '					<option value="' + institutionList[index].institutionSequence + '"';
+				if (listOne[0].institutionSequence == institutionList[index].institutionSequence) {
 					html += ' selected';
 				}
-				html += '>' + istttList[index].istttName + '</option>';
+				html += '>' + institutionList[index].institutionName + '</option>';
 			}
 			html += '					</select>';
 			html += '				</div>';
@@ -124,16 +124,16 @@
 				type : "GET",
 				data : {examSequence : target},
 				success : function(data) {
-					if (data.yearList != null && data.istttList != null && data.ysList != null && data.listOne != null) {
+					if (data.yearList != null && data.institutionList != null && data.ysList != null && data.listOne != null) {
 						var yearList = data.yearList;
-						var istttList = data.istttList;
+						var institutionList = data.institutionList;
 						var ysList = data.ysList;
 						var listOne = data.listOne;
-						$('#manage-exam-modify-dialog').append(makeExamModify(yearList, istttList, ysList, listOne));
+						$('#manage-exam-modify-dialog').append(makeExamModify(yearList, institutionList, ysList, listOne));
 						$('.manage-exam-modify-accept').on("click", function () {
 							var csatSequence = $('#manage-exam-csat option:selected').val();
 							var examName = $('#manage-exam-name').val();
-							var istttSequence = $('#manage-exam-eduoffice option:selected').val();
+							var institutionSequence = $('#manage-exam-eduoffice option:selected').val();
 							var ysSequence = $('#manage-exam-student-grade option:selected').val();
 							$.ajax("<c:url value="/data/manage/exam.json"/>", {
 								dataType : "json",
@@ -142,7 +142,7 @@
 									examSequence : target,
 									csatSequence : csatSequence, 
 									examName : examName,
-									istttSequence : istttSequence,
+									institutionSequence : institutionSequence,
 									ysSequence : ysSequence
 								},
 								success : function() {

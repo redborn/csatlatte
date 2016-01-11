@@ -49,7 +49,7 @@ public class Exam {
 		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, new StringBuilder(request.getContextPath()).append("/manage/exam").toString(), params, "pageNumber"));
 		model.addAttribute("list", examService.listForManage(pagination.getBeginRow(), search));
 		model.addAttribute("yearList", examService.yearList());
-		model.addAttribute("istttList", examService.istttList());
+		model.addAttribute("institutionList", examService.institutionList());
 		model.addAttribute("ysList", studentService.ysList());
 		
 		return TilesName.MANAGE_EXAM;
