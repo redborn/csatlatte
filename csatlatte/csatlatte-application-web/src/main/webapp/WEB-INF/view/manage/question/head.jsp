@@ -2,33 +2,26 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
-	nav {text-align:center;}
 	th {text-align:center;}
 	tr {text-align:center;}
-	.table {margin-top:15px;}
-	
-	.col-lg-4 {float:none; display:inline-block;}
-	.manage-community-search {text-align:right;}
-
+	textarea {resize:none; border:none; padding-top:5px; margin-bottom:10px;}
+	textarea.form-control {display:block; width:100%; height:150px;}
+	.modal-body h5 {display:inline-block;}
+	.manage-question-nav {text-align:center;}
+	#manage-question-table {margin-top:15px;}
+	.manage-question-col-lg {float:none; display:inline-block;}
+	.manage-question-search {text-align:right; width:auto;}
 	.manage-question-yn h5 {display:inline-block;}
 	.manage-question-yn .btn-default {width:auto; display:inline-block;}
 	.manage-question-btn-cancel {cursor:pointer;}
 	.manage-question-btn-accept {cursor:pointer;}
-	.btn-group {margin-left:5px;}
-	
-	.modal-body h5 {display:inline-block;}
+	.manage-question-btn-group {margin-left:5px;}
 	.manage-question-qna-title-content {display:inline-block; margin-left:10px;}
 	.manage-question-qna-answer {margin-top:10px;}
-	
-	textarea {resize:none; border:none; padding-top:5px; margin-bottom:10px;}
-	textarea.form-control {display:block; width:100%; height:150px;}
-	
 	.manage-question-detail {text-align:right;}
 	.manage-question-detail-content {text-align:left; margin-bottom:15px;}
 	.manage-question-answer-accept {margin-left:10px;}
-	
-	.form-group {text-align:left;}
-	
+	.manage-question-form-group {text-align:left;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -57,23 +50,23 @@
 			html += '<div class="manage-question-detail">';
 			html += '	<div class="modal-body">';
 			html += '		<div class="manage-question-detail-content">';
-			html += '			<div class="form-group">';
+			html += '			<div class="form-group manage-question-form-group">';
 			html += '				<label>질문제목</label>';
 			html += '				<div>' + question.title + '</div>' 
 			html += '			</div>';
-			html += '			<div class="form-group">';
+			html += '			<div class="form-group manage-question-form-group">';
 			html += '				<label>질문내용</label>';
 			html += '				<div>' + question.content + '</div>';
 			html += '			</div>';
 			html += '		</div>';
 			if (question.answerContent != "") {
-				html += '	<div class="form-group">';
+				html += '	<div class="form-group manage-question-form-group">';
 				html += '		<label>답변내용</label>';
 				html += '		<div>' + question.answerContent + '</div>'; 
 				html += '	</div>';
 				html += '</div>';
 			} else {
-				html += '	<div class="form-group">';
+				html += '	<div class="form-group manage-question-form-group">';
 				html += '		<label for="manage-question-answer-textarea">답변내용</label>';
 				html += '		<textarea id="manage-question-answer-textarea" class="form-control manage-question-answer-textarea" placeholder="답변이 완료되지 않은 문의입니다. 답변을 입력해주세요."/>';
 				html += '	</div>';

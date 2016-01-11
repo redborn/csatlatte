@@ -5,17 +5,17 @@
 <%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
 <h4 class="manage-exam-title">모의고사 관리</h4>
 <div class="manage-exam-search">
-	<div class="col-lg-5"><input type="text" class="form-control" id="manage-exam-search" placeholder="모의고사 혹은 주관교육청"></div>
+	<div class="col-lg-5 manage-exam-col-lg"><input type="text" class="form-control" id="manage-exam-search" placeholder="모의고사 혹은 주관교육청"></div>
 </div>
-<table class="table">
+<table class="table" id="manage-exam-table">
 	<thead>
 		<tr>
-			<th class="col-lg-1">번호</th>
-			<th class="col-lg-2">연도</th>
-			<th class="col-lg-6">모의고사</th>
-			<th class="col-lg-4">주관교육청</th>
-			<th class="col-lg-1"></th>
-			<th class="col-lg-1"></th>
+			<th class="col-lg-1 manage-exam-col-lg">번호</th>
+			<th class="col-lg-2 manage-exam-col-lg">연도</th>
+			<th class="col-lg-6 manage-exam-col-lg">모의고사</th>
+			<th class="col-lg-4 manage-exam-col-lg">주관교육청</th>
+			<th class="col-lg-1 manage-exam-col-lg"></th>
+			<th class="col-lg-1 manage-exam-col-lg"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -34,7 +34,7 @@
 <div class="manage-exam-btn-align">
 	<button class="btn btn-default manage-exam-add" data-toggle="modal" data-target="#manage-exam-add">모의고사 추가</button>
 </div>
-<nav>
+<nav id="manage-exam-nav">
 	<pagination:writer value="${paginationWriter}"/>
 </nav>
 <div class="modal fade" id="manage-exam-modify" tabindex="-1" role="dialog">

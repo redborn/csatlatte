@@ -2,22 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
-	nav {text-align:center;}
 	th {text-align:center;}
 	tr {text-align:center;}
 	label {display:inline-block; width:80px; text-align:right;}
-	.table {margin-top:15px;}
-	
-	.col-lg-5 {float:none; display:inline-block;}
+	#manage-user-nav {text-align:center;}
+	#manage-user-table {margin-top:15px;}
+	.manage-user-col-lg {float:none; display:inline-block;}
 	.manage-user-search {text-align:right;}
-	
 	.manage-user-title {display:inline-block; width:380px;}
 	.manage-user-apply {width:50px; display:inline-block;}
 	.manage-user-apply-align {text-align:right;}
 	.manage-user-id {cursor:pointer;}
-	
 	#manage-user-id .modal-body {text-align:center;}
-	.modal-dialog {width:400px;}
+	.manage-user-modal-dialog {width:400px;}
 	.manage-user-picture {width:100px; border-radius:5px; border:1px solid #7a6253;}
 	.manage-user-info {margin-top:10px;}
 	.manage-user-info-content {text-align:left; margin-left:40px; margin-top:5px;}

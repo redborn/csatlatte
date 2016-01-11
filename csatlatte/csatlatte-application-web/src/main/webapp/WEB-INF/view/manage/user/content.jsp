@@ -5,18 +5,18 @@
 <%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
 <h4 class="manage-user-title">회원 관리</h4>
 <div class="manage-user-search">
-	<div class="col-lg-5"><input type="text" class="form-control" id="manage-student-search" placeholder="아이디 혹은 닉네임"></div>
+	<div class="col-lg-5 manage-user-col-lg"><input type="text" class="form-control" id="manage-student-search" placeholder="아이디 혹은 닉네임"></div>
 </div>
-<table class="table">
+<table class="table" id="manage-user-table">
 	<thead>
 		<tr>
-			<th class="col-lg-1">번호</th>
-			<th class="col-lg-1">아이디</th>
-			<th class="col-lg-1">닉네임</th>
-			<th class="col-lg-1">접속횟수</th>
-			<th class="col-lg-1">활동점수</th>
-			<th class="col-lg-1">성적평균</th>
-			<th class="col-lg-1">차단</th>
+			<th class="col-lg-1 manage-user-col-lg">번호</th>
+			<th class="col-lg-1 manage-user-col-lg">아이디</th>
+			<th class="col-lg-1 manage-user-col-lg">닉네임</th>
+			<th class="col-lg-1 manage-user-col-lg">접속횟수</th>
+			<th class="col-lg-1 manage-user-col-lg">활동점수</th>
+			<th class="col-lg-1 manage-user-col-lg">성적평균</th>
+			<th class="col-lg-1 manage-user-col-lg">차단</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -46,11 +46,11 @@
 	</c:forEach>
 	</tbody>
 </table>
-<nav>
+<nav id="manage-user-nav">
 	<pagination:writer value="${paginationWriter}"/>
 </nav>
 <div class="modal fade" id="manage-user-id" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog manage-user-modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -62,7 +62,7 @@
 	</div>
 </div>
 <div class="modal fade" id="manage-user-blind" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog manage-user-modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -79,7 +79,7 @@
 	</div>
 </div>
 <div class="modal fade" id="manage-user-recovery" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog manage-user-modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

@@ -4,24 +4,20 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
 <h4 class="manage-question-title">문의 관리</h4>
-<div class="row">
-	<div class="col-lg-7">
-		<div class="manage-question-yn">
-			<h5>답변여부</h5>
-			<div class="btn-group">
-				<button id="manage-question-all" class="btn btn-default <c:if test="${param.useYn == null || param.useYn == ''}">active</c:if>">전체</button>
-				<button id="manage-question-standby" class="btn btn-default <c:if test="${param.useYn eq 'Y'}">active</c:if>">대기</button>
-				<button id="manage-question-success" class="btn btn-default <c:if test="${param.useYn eq 'N'}">active</c:if>">완료</button>
-			</div>
-		</div>
-	</div>
-		<div class="col-lg-5">
-		<div class="manage-community-search">
-			<div class="col-lg-12"><input type="text" class="form-control" id="manage-question-search" placeholder="아이디 혹은 닉네임"></div>
+<div class="col-lg-7 manage-question-col-lg">
+	<div class="manage-question-yn">
+	<h5>답변여부</h5>
+		<div class="btn-group manage-question-btn-group">
+		<button id="manage-question-all" class="btn btn-default <c:if test="${param.useYn == null || param.useYn == ''}">active</c:if>">전체</button>
+		<button id="manage-question-standby" class="btn btn-default <c:if test="${param.useYn eq 'Y'}">active</c:if>">대기</button>
+		<button id="manage-question-success" class="btn btn-default <c:if test="${param.useYn eq 'N'}">active</c:if>">완료</button>
 		</div>
 	</div>
 </div>
-<table class="table">
+<div class="manage-question-search">
+	<div class="col-lg-5 manage-question-col-lg"><input type="text" class="form-control" id="manage-question-search" placeholder="아이디 혹은 닉네임"></div>
+</div>
+<table class="table" id="manage-question-table">
 	<thead>
 		<tr>
 			<th>번호</th>
@@ -52,7 +48,7 @@
 	</c:forEach>
 	</tbody>
 </table>
-<nav>
+<nav class="manage-question-nav">
 	<pagination:writer value="${paginationWriter}"/>
 </nav>
 <div class="modal fade" id="manage-question-answer-view" tabindex="-1" role="dialog">

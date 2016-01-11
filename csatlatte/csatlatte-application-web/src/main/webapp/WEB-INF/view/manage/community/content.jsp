@@ -5,17 +5,17 @@
 <%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
 <h4 class="manage-community-title">커뮤니티 관리</h4>
 <div class="manage-community-search">
-	<div class="col-lg-5"><input type="text" class="form-control" id="manage-community-search" placeholder="아이디 혹은 닉네임"></div>
+	<div class="col-lg-5 manage-community-col-lg"><input type="text" class="form-control" id="manage-community-search" placeholder="아이디 혹은 닉네임"></div>
 </div>
 
-<table class="table">
+<table class="table" id="manage-community-table">
 	<thead>
 		<tr>
-			<th class="col-lg-2">번호</th>
-			<th class="col-lg-2">아이디</th>
-			<th class="col-lg-2">닉네임</th>
-			<th class="col-lg-4">내용</th>
-			<th class="col-lg-2">블라인드</th>
+			<th class="col-lg-2 manage-community-col-lg">번호</th>
+			<th class="col-lg-2 manage-community-col-lg">아이디</th>
+			<th class="col-lg-2 manage-community-col-lg">닉네임</th>
+			<th class="col-lg-4 manage-community-col-lg">내용</th>
+			<th class="col-lg-2 manage-community-col-lg">블라인드</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -32,7 +32,7 @@
 	</c:forEach>
 	</tbody>
 </table>
-<nav>
+<nav id="manage-community-nav">
 	<pagination:writer value="${paginationWriter}"/>
 </nav>
 <div class="modal fade" id="manage-community-id" tabindex="-1" role="dialog">
