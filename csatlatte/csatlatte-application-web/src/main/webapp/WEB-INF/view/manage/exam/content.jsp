@@ -69,7 +69,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="manage-exam-info-content">
-					<label for="manage-exam-csat">수능</label>
+					<label class="manage-exam-label" for="manage-exam-csat">수능</label>
 					<div class="manage-exam-info-content-value">
 						<select class="form-control" id="manage-exam-csat"> 
 							<c:forEach items="${yearList}" var="year">
@@ -79,13 +79,13 @@
 					</div>
 				</div>
 				<div class="manage-exam-info-content">
-					<label for="manage-exam-name">모의고사</label>
+					<label class="manage-exam-label" for="manage-exam-name">모의고사</label>
 					<div class="manage-exam-info-content-value">
 						<input type="text" class="form-control" id="manage-exam-name">
 					</div>
 				</div>
 				<div class="manage-exam-info-content">
-					<label for="manage-exam-eduoffice">주관 교육청</label>
+					<label class="manage-exam-label" for="manage-exam-eduoffice">주관 교육청</label>
 					<div class="manage-exam-info-content-value">
 						<select class="form-control" id="manage-exam-eduoffice">
 							<c:forEach items="${istttList}" var="institution">
@@ -95,7 +95,7 @@
 					</div>
 				</div>
 				<div class="manage-exam-info-content">
-					<label for="manage-exam-student-grade">학년</label>
+					<label class="manage-exam-label" for="manage-exam-student-grade">학년</label>
 					<div class="manage-exam-info-content-value">
 						<select class="form-control" id="manage-exam-student-grade">
 							<c:forEach items="${ysList}" var="ys">
@@ -105,7 +105,7 @@
 					</div>
 				</div>
 				<div class="manage-exam-info-content">
-					<label for="manage-exam-file">등급컷 업로드</label>
+					<label class="manage-exam-label" for="manage-exam-file">등급컷 업로드</label>
 					<div class="manage-exam-info-content-value">
 						<input type="file" id="manage-exam-file">
 					</div>

@@ -2,14 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
-	th {text-align:center;}
-	tr {text-align:center;}
 	textarea {resize:none; border:none; padding-top:5px; margin-bottom:10px;}
 	textarea.form-control {display:block; width:100%; height:150px;}
 	.modal-body h5 {display:inline-block;}
 	.manage-question-nav {text-align:center;}
-	#manage-question-table {margin-top:15px;}
-	.manage-question-col-lg {float:none; display:inline-block;}
+	#manage-question-table {margin-top:15px; text-align:center;}
+	.manage-question-col-lg {float:none; display:inline-block; text-align:center;}
 	.manage-question-search {text-align:right; width:auto;}
 	.manage-question-yn h5 {display:inline-block;}
 	.manage-question-yn .btn-default {width:auto; display:inline-block;}

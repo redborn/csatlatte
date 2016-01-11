@@ -2,13 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
-	th {text-align:center;}
-	tr {text-align:center;}
 	#manage-community-nav {text-align:center;}
-	#manage-community-table {margin-top:15px;}
+	#manage-community-table {margin-top:15px; text-align:center;}
 	.manage-community-title {display:inline-block; width:380px;}
 	.manage-community-delete {cursor:pointer;}
-	.manage-community-col-lg {float:none; display:inline-block;}
+	.manage-community-col-lg {float:none; display:inline-block; text-align:center;}
 	.manage-community-search {text-align:right;}
 	.manage-community-btn-align {text-align:right;}
 	.manage-community-apply {width:50px; display:inline-block;}

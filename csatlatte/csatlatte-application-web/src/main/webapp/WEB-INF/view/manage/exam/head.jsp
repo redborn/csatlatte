@@ -2,12 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
-	th {text-align:center;}
-	tr {text-align:center;}
-	label {width:80px; text-align:right; display:inline-block; margin-left:10px;}
+	.manage-exam-label {width:80px; text-align:right; display:inline-block; margin-left:10px;}
 	#manage-exam-nav {text-align:center;}
-	#manage-exam-table {margin-top:15px;}
-	.manage-exam-col-lg {float:none; display:inline-block;}
+	#manage-exam-table {margin-top:15px; text-align:center;}
+	.manage-exam-col-lg {float:none; display:inline-block; text-align:center;}
 	.manage-exam-search {text-align:right;}
 	.manage-exam-info-content-value {margin-left:10px; display:inline-block; margin-top:5px;}
 	.manage-exam-info-content-value .form-control {width:auto;}
@@ -39,7 +37,7 @@
 			html += '		</div>';
 			html += '		<div class="modal-body">';
 			html += '			<div class="manage-exam-info-content">';
-			html += '				<label for="manage-exam-csat">수능</label>';
+			html += '				<label class="manage-exam-label" for="manage-exam-csat">수능</label>';
 			html += '				<div class="manage-exam-info-content-value">';
 			html += '					<select class="form-control" id="manage-exam-csat">';
 			for (var index = 0; index < yearListLength; index++) {
@@ -53,13 +51,13 @@
 			html += '				</div>';
 			html += '			</div>';
 			html += '			<div class="manage-exam-info-content">';
-			html += '				<label for="manage-exam-name">모의고사</label>';
+			html += '				<label class="manage-exam-label" for="manage-exam-name">모의고사</label>';
 			html += '				<div class="manage-exam-info-content-value">';
 			html += '					<input type="text" class="form-control" id="manage-exam-name" value="' + listOne[0].examName + '">';
 			html += '				</div>';
 			html += '			</div>';
 			html += '			<div class="manage-exam-info-content">';
-			html += '				<label for="manage-exam-eduoffice">주관 교육청</label>';
+			html += '				<label class="manage-exam-label" for="manage-exam-eduoffice">주관 교육청</label>';
 			html += '				<div class="manage-exam-info-content-value">';
 			html += '					<select class="form-control" id="manage-exam-eduoffice">';
 			for (var index = 0; index < istttListLength; index++) {
@@ -73,7 +71,7 @@
 			html += '				</div>';
 			html += '			</div>';
 			html += '			<div class="manage-exam-info-content">';
-			html += '				<label for="manage-exam-student-grade">학년</label>';
+			html += '				<label class="manage-exam-label" for="manage-exam-student-grade">학년</label>';
 			html += '				<div class="manage-exam-info-content-value">';
 			html += '					<select class="form-control" id="manage-exam-student-grade">';
 			for (var index = 0; index < ysListLength; index++) {
@@ -87,7 +85,7 @@
 			html += '				</div>';
 			html += '			</div>';
 			html += '			<div class="manage-exam-info-content">';
-			html += '				<label for="manage-exam-file">등급컷 업로드</label>';
+			html += '				<label class="manage-exam-label" for="manage-exam-file">등급컷 업로드</label>';
 			html += '				<div class="manage-exam-info-content-value">';
 			html += '					<input type="file" id="manage-exam-file">';
 			html += '				</div>';
