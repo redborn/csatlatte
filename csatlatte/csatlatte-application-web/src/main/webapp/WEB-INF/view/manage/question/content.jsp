@@ -33,18 +33,18 @@
 		</tr>
 	</thead>
 	<tbody>
-	<c:forEach items="${list}" var="list">
+	<c:forEach items="${list}" var="question">
 		<tr>
-			<td>${list.qnaSequence}</td>
-			<td>${list.studentId}</td>
-			<td>${list.nickname}</td>
-			<td>${list.title}</td>
-			<td>${list.writeDate}</td>
-			<td id="manage-question-answer-button${list.qnaSequence}">
-			<div id="manage-question-answer-button-div${list.qnaSequence}">
+			<td>${question.qnaSequence}</td>
+			<td>${question.studentId}</td>
+			<td>${question.nickname}</td>
+			<td>${question.title}</td>
+			<td>${question.writeDate}</td>
+			<td id="manage-question-answer-button${question.qnaSequence}">
+			<div id="manage-question-answer-button-div${question.qnaSequence}">
 				<c:choose>
-					<c:when test="${list.useYn == 'Y'}"><button id="${list.qnaSequence}" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view btn btn-primary">답변</button></c:when>
-					<c:when test="${list.useYn == 'N'}"><button id="${list.qnaSequence}" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view btn btn-default">확인</button></c:when>
+					<c:when test="${question.useYn == 'Y'}"><button id="${question.qnaSequence}" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view btn btn-primary">답변</button></c:when>
+					<c:when test="${question.useYn == 'N'}"><button id="${question.qnaSequence}" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view btn btn-default">확인</button></c:when>
 				</c:choose>
 			</div>
 			</td>

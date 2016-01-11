@@ -19,14 +19,14 @@
 		</tr>
 	</thead>
 	<tbody>
-	<c:forEach items="${list}" var="list">
+	<c:forEach items="${list}" var="community">
 		<tr>
-			<td>${list.communitySequence}</td>
-			<td><div id="${list.studentSequence}" data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">${list.studentId}</div></td>
-			<td>${list.nickname}</td>
-			<td><div id="${list.communitySequence}" data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail"><xmp>${list.content}</xmp></div></td>
-			<td><div id="blind${list.communitySequence}">
-				<button type="button" class="btn btn-default close"><span id="${list.communitySequence}" data-toggle="modal" data-target="#manage-community-blind" class="<c:if test="${list.blind eq false}">glyphicon glyphicon glyphicon-lock manage-community-blind</c:if>"></span></button>
+			<td>${community.communitySequence}</td>
+			<td><div id="${community.studentSequence}" data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">${community.studentId}</div></td>
+			<td>${community.nickname}</td>
+			<td><div id="${community.communitySequence}" data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail"><xmp>${community.content}</xmp></div></td>
+			<td><div id="blind${community.communitySequence}">
+				<button type="button" class="btn btn-default close"><span id="${community.communitySequence}" data-toggle="modal" data-target="#manage-community-blind" class="<c:if test="${community.blind eq false}">glyphicon glyphicon glyphicon-lock manage-community-blind</c:if>"></span></button>
 			</div></td>
 		</tr>
 	</c:forEach>

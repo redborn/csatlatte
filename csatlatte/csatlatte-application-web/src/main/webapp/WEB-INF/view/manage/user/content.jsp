@@ -20,24 +20,24 @@
 		</tr>
 	</thead>
 	<tbody>
-	<c:forEach items="${userList}" var="userList">
+	<c:forEach items="${userList}" var="user">
 		<tr>
-			<td>${userList.studentSequence}</td>
-			<td><div id="${userList.studentSequence}" data-toggle="modal" data-target="#manage-user-id" class="manage-user-id">${userList.studentId}</div></td>
-			<td>${userList.nickname}</td>
-			<td>${userList.countConnection}</td>
-			<td>${userList.countCommunity + userList.countComment}</td>
-			<td>${userList.averageScore}</td>
-			<td><div id="manage-user-blind-button-area${userList.studentSequence}">
+			<td>${user.studentSequence}</td>
+			<td><div id="${user.studentSequence}" data-toggle="modal" data-target="#manage-user-id" class="manage-user-id">${user.studentId}</div></td>
+			<td>${user.nickname}</td>
+			<td>${user.countConnection}</td>
+			<td>${user.countCommunity + user.countComment}</td>
+			<td>${user.averageScore}</td>
+			<td><div id="manage-user-blind-button-area${user.studentSequence}">
 				<c:choose>
-					<c:when test="${userList.useYn eq 'Y'}">
-						<div id="blind${userList.studentSequence}">
-							<button type="button" class="btn btn-default close"><span id="${userList.studentSequence}" data-toggle="modal" data-target="#manage-user-blind" class="glyphicon glyphicon-lock manage-user-blind"></span></button>
+					<c:when test="${user.useYn eq 'Y'}">
+						<div id="blind${user.studentSequence}">
+							<button type="button" class="btn btn-default close"><span id="${user.studentSequence}" data-toggle="modal" data-target="#manage-user-blind" class="glyphicon glyphicon-lock manage-user-blind"></span></button>
 						</div>
 					</c:when>
-					<c:when test="${userList.useYn eq 'N'}">
-						<div id="recovery${userList.studentSequence}">
-							<button type="button" class="btn btn-default close"><span id="${userList.studentSequence}" data-toggle="modal" data-target="#manage-user-recovery" class="glyphicon glyphicon-refresh manage-user-recovery"></span></button>
+					<c:when test="${user.useYn eq 'N'}">
+						<div id="recovery${user.studentSequence}">
+							<button type="button" class="btn btn-default close"><span id="${user.studentSequence}" data-toggle="modal" data-target="#manage-user-recovery" class="glyphicon glyphicon-refresh manage-user-recovery"></span></button>
 						</div>
 					</c:when>
 				</c:choose>

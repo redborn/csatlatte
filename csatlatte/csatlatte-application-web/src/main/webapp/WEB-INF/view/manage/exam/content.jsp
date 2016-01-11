@@ -19,14 +19,14 @@
 		</tr>
 	</thead>
 	<tbody>
-	<c:forEach items="${list}" var="list">
+	<c:forEach items="${list}" var="exam">
 		<tr>
-			<td>${list.examSequence}</td>
-			<td>${list.year}</td>
-			<td>${list.examName}</td>
-			<td><div class="manage-question-content" data-toggle="modal" data-target="#manage-question-answer-view">${list.istttName}</div></td>
-			<td><button type="button" class="btn btn-default close"><span id="${list.examSequence}" data-toggle="modal" data-target="#manage-exam-modify" class="manage-exam-modify glyphicon glyphicon-pencil"></span></button></td>
-			<td><button type="button" class="btn btn-default close"><span id="${list.examSequence}" data-toggle="modal" data-target="#manage-exam-delete${list.examSequence}" class="manage-exam-delete glyphicon glyphicon-remove"></span></button></td>
+			<td>${exam.examSequence}</td>
+			<td>${exam.year}</td>
+			<td>${exam.examName}</td>
+			<td><div class="manage-question-content" data-toggle="modal" data-target="#manage-question-answer-view">${exam.istttName}</div></td>
+			<td><button type="button" class="btn btn-default close"><span id="${exam.examSequence}" data-toggle="modal" data-target="#manage-exam-modify" class="manage-exam-modify glyphicon glyphicon-pencil"></span></button></td>
+			<td><button type="button" class="btn btn-default close"><span id="${exam.examSequence}" data-toggle="modal" data-target="#manage-exam-delete${exam.examSequence}" class="manage-exam-delete glyphicon glyphicon-remove"></span></button></td>
 		</tr>
 	</c:forEach>
 	</tbody>
@@ -41,8 +41,8 @@
 	<div class="modal-dialog" id="manage-exam-modify-dialog" role="document">
 	</div>
 </div>
-<c:forEach items="${list}" var="list">
-<div class="modal fade" id="manage-exam-delete${list.examSequence}" tabindex="-1" role="dialog">
+<c:forEach items="${list}" var="exam">
+<div class="modal fade" id="manage-exam-delete${exam.examSequence}" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -50,7 +50,7 @@
 				<h4 class="modal-title">모의고사 삭제</h4>
 			</div>
 			<div class="modal-body">
-				${list.examName}를 삭제하시겠습니까?
+				${exam.examName}를 삭제하시겠습니까?
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-default" data-dismiss="modal">닫기</button>
