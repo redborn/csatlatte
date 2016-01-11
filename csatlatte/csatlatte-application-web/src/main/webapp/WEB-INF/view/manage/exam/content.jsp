@@ -72,8 +72,8 @@
 					<label for="manage-exam-csat">수능</label>
 					<div class="manage-exam-info-content-value">
 						<select class="form-control" id="manage-exam-csat"> 
-							<c:forEach items="${yearList}" var="yearList">
-								<option value="${yearList.csatSequence}">${yearList.csatName}</option>
+							<c:forEach items="${yearList}" var="year">
+								<option value="${year.csatSequence}">${year.csatName}</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -88,8 +88,8 @@
 					<label for="manage-exam-eduoffice">주관 교육청</label>
 					<div class="manage-exam-info-content-value">
 						<select class="form-control" id="manage-exam-eduoffice">
-							<c:forEach items="${istttList}" var="istttList">
-								<option value="${istttList.istttSequence}">${istttList.istttName}</option>
+							<c:forEach items="${istttList}" var="institution">
+								<option value="${institution.istttSequence}">${institution.istttName}</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -98,8 +98,8 @@
 					<label for="manage-exam-student-grade">학년</label>
 					<div class="manage-exam-info-content-value">
 						<select class="form-control" id="manage-exam-student-grade">
-							<c:forEach items="${ysList}" var="ysList">
-								<option value="${ysList.ysSequence}">${ysList.ysName}</option>
+							<c:forEach items="${ysList}" var="ys">
+								<option value="${ys.ysSequence}">${ys.ysName}</option>
 							</c:forEach>
 						</select>
 					</div>
