@@ -25,8 +25,8 @@
 			<td>${exam.year}</td>
 			<td>${exam.examName}</td>
 			<td><div class="manage-question-content" data-toggle="modal" data-target="#manage-question-answer-view">${exam.institutionName}</div></td>
-			<td><button type="button" class="btn btn-default close"><span id="${exam.examSequence}" data-toggle="modal" data-target="#manage-exam-modify" class="manage-exam-modify glyphicon glyphicon-pencil"></span></button></td>
-			<td><button type="button" class="btn btn-default close"><span id="${exam.examSequence}" data-toggle="modal" data-target="#manage-exam-delete${exam.examSequence}" class="manage-exam-delete glyphicon glyphicon-remove"></span></button></td>
+			<td><button type="button" class="btn btn-default close manage-exam-icon"><span id="${exam.examSequence}" data-toggle="modal" data-target="#manage-exam-modify" class="manage-exam-modify glyphicon glyphicon-pencil"></span></button></td>
+			<td><button type="button" class="btn btn-default close manage-exam-icon"><span id="${exam.examSequence}" data-toggle="modal" data-target="#manage-exam-delete${exam.examSequence}" class="manage-exam-delete glyphicon glyphicon-remove"></span></button></td>
 		</tr>
 	</c:forEach>
 	</tbody>

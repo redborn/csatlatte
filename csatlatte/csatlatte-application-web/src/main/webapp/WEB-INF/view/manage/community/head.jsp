@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 	#manage-community-nav {text-align:center;}
-	#manage-community-table {margin-top:15px; text-align:center;}
+	#manage-community-table {margin-top:15px; text-align:center; float:none;}
 	.manage-community-title {display:inline-block; width:380px;}
 	.manage-community-delete {cursor:pointer;}
 	.manage-community-col-lg {float:none; display:inline-block; text-align:center;}
@@ -34,7 +34,7 @@
 	.manage-community-text-detail xmp {white-space:pre-wrap; word-break:break-all; margin-top:0px; margin-bottom:0px;}
 	#manage-community-blind .modal-body {text-align:left;}
 	.manage-community-blind {cursor:pointer;}
-	td .close {float:none;}
+	.manage-community-icon {float:none;}
 </style>
 <script>
 	$(document).ready(function () {

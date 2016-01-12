@@ -2,8 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
-	textarea {resize:none; border:none; padding-top:5px; margin-bottom:10px;}
-	textarea.form-control {display:block; width:100%; height:150px;}
+	#manage-question-answer-textarea {resize:none; padding-top:5px; margin-bottom:10px; display:block; width:100%; height:150px;}
 	.modal-body h5 {display:inline-block;}
 	.manage-question-nav {text-align:center;}
 	#manage-question-table {margin-top:15px; text-align:center;}

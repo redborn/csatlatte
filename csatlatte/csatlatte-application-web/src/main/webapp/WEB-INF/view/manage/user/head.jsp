@@ -19,7 +19,7 @@
 	.manage-user-info-content-value {margin-left:10px; display:inline-block;}
 	.manage-user-blind {cursor:pointer;}
 	.manage-user-recovery {cursor:pointer;}
-	td .close {float:none;}
+	.manage-user-icon {float:none;}
 </style>
 <script>
 	$(document).ready(function () {

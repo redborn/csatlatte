@@ -15,9 +15,7 @@
 	.manage-exam-btn-align {text-align:right;}
 	.manage-exam-add {width:100px; display:inline-block;}
 	.modal-footer {text-align:right;}
-	.manage-exam-btn-cancel {cursor:pointer; margin-right:10px;}
-	.manage-exam-btn-accept {cursor:pointer;}
-	td .close {float:none;}
+	.manage-exam-icon {float:none;}
 </style>
 <script>
 
