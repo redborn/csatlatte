@@ -11,18 +11,18 @@
 		<result column="exam_seq" property="examSequence"/>
 		<result column="exam_name" property="examName"/>
 	</resultMap>
-	
+
 	<resultMap type="ExamVo" id="ExamVoForManageMap">
 		<result column="exam_seq" property="examSequence"/>
 		<result column="year" property="year" />
 		<result column="exam_name" property="examName" />
-		<result column="isttt_name" property="istttName" />
+		<result column="isttt_name" property="institutionName" />
 	</resultMap>
 	
 	<resultMap type="ExamVo" id="ExamVoForManageOneMap">
 		<result column="csat_seq" property="csatSequence"/>
 		<result column="exam_seq" property="examSequence"/>
-		<result column="isttt_seq" property="istttSequence"/>
+		<result column="isttt_seq" property="institutionSequence"/>
 		<result column="exam_name" property="examName"/>
 		<result column="exam_ymd" property="ymd"/>
 		<result column="ys_seq" property="ysSequence"/>
