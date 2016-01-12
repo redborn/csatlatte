@@ -24,5 +24,5 @@ public class Support {
 		
 		model.addAttribute("list", faqService.list(faqTypeSequence));
 	}
-	
+
 }

@@ -13,7 +13,7 @@ public interface QnaDao {
 	public int selectOneAmountQuestion(String search, String useYn);
 	public List<QnaForManageVo> selectListForManage(String search, int pageNumber, String useYn);
 	public List<QnaForStudentVo> selectListForStudent(int studentSequence, int pageNumber);
-	public int insert(int qnaSequence, int studentSequence);
+	public int insert(int qnaSequence, int studentSequence, String title);
 	public int updateUseYnN(int qnaSequence);
 	
 }

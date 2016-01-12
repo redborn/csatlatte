@@ -67,7 +67,7 @@
 		 LIMIT #{pageNumber}, 10 
 	</select>
 	
-	<insert id="insert" parameterType="QnaVo">
+	<insert id="insert" parameterType="Map">
 		 INSERT INTO csat_qna(qna_seq, student_seq, title, write_date, use_yn)
 	     VALUES (#{qnaSequence}, #{studentSequence}, #{title}, NOW(),'Y') 
 	</insert>
