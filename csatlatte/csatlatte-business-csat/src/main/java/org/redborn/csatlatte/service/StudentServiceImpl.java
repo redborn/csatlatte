@@ -1,5 +1,7 @@
 package org.redborn.csatlatte.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.redborn.csatlatte.domain.StudentSecurityQuestionVo;
@@ -50,8 +52,11 @@ public class StudentServiceImpl implements StudentService {
 		boolean result = false;
 		int maxStudentSequence = studentDao.selectOneMaxStudentSequence();
 		studentVo.setStudentSequence(maxStudentSequence);
+		Date createDate = new Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HHmmssSSS");
+		studentVo.setCreateDate(createDate);
+		studentVo.setStudentPassword(new StringBuilder(simpleDateFormat.format(createDate)).append(studentVo.getStudentPassword()).toString());
 		studentSecurityQuestionVo.setStudentSequence(maxStudentSequence);
-		
 		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
 		defaultTransactionDefinition.setName("Student Join Transaction");
 		defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
@@ -64,7 +69,11 @@ public class StudentServiceImpl implements StudentService {
 		} catch (RuntimeException e) {
 			transactionManager.rollback(transactionStatus);
 		}
-		transactionManager.commit(transactionStatus);
+		if (result) {
+			transactionManager.commit(transactionStatus);
+		} else {
+			transactionManager.rollback(transactionStatus);
+		}
 		return result;
 	}
 
