@@ -11,25 +11,21 @@
 <script>
 	$(document).ready(function () {
 		
-		var titleChange = false;
-		var contentChange = false;
+		var titleKeyup = false;
+		var contentKeyup = false;
 		
 		$('#support-question-write-submit').attr('disabled',true);
 		
-		$('#support-question-write-question-title').on("change", function () {
-			console.log(titleChange);
-			console.log(contentChange);
-			titleChange = true;
-			if (titleChange == true && contentChange == true) {
+		$('#support-question-write-question-title').on("keyup", function () {
+			titleKeyup = true;
+			if (titleKeyup && contentKeyup) {
 				$('#support-question-write-submit').attr('disabled',false);
 			}
 		});
 		
-		$('#support-question-write-content').on("change", function () {
-			console.log(titleChange);
-			console.log(contentChange);
-			contentChange = true;
-			if (titleChange == true && contentChange == true) {
+		$('#support-question-write-content').on("keyup", function () {
+			contentKeyup = true;
+			if (titleKeyup && contentKeyup) {
 				$('#support-question-write-submit').attr('disabled',false);
 			}
 		});
