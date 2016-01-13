@@ -186,7 +186,7 @@
 								type : "POST",
 								data : {communitySequence : blindTarget, blindTypeSequence : reason},
 								success : function() {
-									$('#blind' + blindTarget).remove();
+									$('#blind-' + blindTarget).remove();
 								}
 							});
 						}

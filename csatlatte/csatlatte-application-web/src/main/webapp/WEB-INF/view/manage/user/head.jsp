@@ -80,16 +80,16 @@
 		
 		var makeRecoveryButton = function (studentSequence) {
 			var html = '';
-			html += '<div id="recovery' + studentSequence + '">';
-			html += '	<button type="button" class="btn btn-default close"><div id="' + studentSequence + '" data-toggle="modal" data-target="#manage-user-recovery" class="glyphicon glyphicon-refresh manage-user-recovery"></div></button>';
+			html += '<div id="recovery-' + studentSequence + '">';
+			html += '	<button type="button" class="btn btn-default close manage-user-icon"><div id="' + studentSequence + '" data-toggle="modal" data-target="#manage-user-recovery" class="glyphicon glyphicon-refresh manage-user-recovery"></div></button>';
 			html += '</div>';
 			return html;
 		}
 		
 		var makeBlindButton = function (studentSequence) {
 			var html = '';
-			html += '<div id="blind' + studentSequence + '">';
-			html += '	<button type="button" class="btn btn-default close"><div id="' + studentSequence + '" data-toggle="modal" data-target="#manage-user-blind" class="glyphicon glyphicon-lock manage-user-blind"></div></button>';
+			html += '<div id="blind-' + studentSequence + '">';
+			html += '	<button type="button" class="btn btn-default close manage-user-icon"><div id="' + studentSequence + '" data-toggle="modal" data-target="#manage-user-blind" class="glyphicon glyphicon-lock manage-user-blind"></div></button>';
 			html += '</div>';
 			return html;
 		}
@@ -122,8 +122,8 @@
 					data : {_method : "DELETE"},
 					success : function() {
 						$('#manage-user-blind').modal("hide");
-						$('#blind' + studentSequence).remove();
-						$('#manage-user-blind-button-area' + studentSequence).append(makeRecoveryButton(studentSequence));
+						$('#blind-' + studentSequence).remove();
+						$('#manage-user-blind-button-area-' + studentSequence).append(makeRecoveryButton(studentSequence));
 						$('.manage-user-recovery').on("click", function () {
 							recoveryTarget = $(this).attr("id");
 						});
@@ -156,8 +156,8 @@
 					data : {studentSequence : studentSequence},
 					success : function () {
 						$('#manage-user-recovery').modal("hide");
-						$('#recovery' + studentSequence).remove();
-						$('#manage-user-blind-button-area' + studentSequence).append(makeBlindButton(studentSequence));
+						$('#recovery-' + studentSequence).remove();
+						$('#manage-user-blind-button-area-' + studentSequence).append(makeBlindButton(studentSequence));
 						$('.manage-user-blind').on("click", function () {
 							blindTarget = $(this).attr("id");
 						});

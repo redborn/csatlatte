@@ -28,15 +28,15 @@
 			<td>${user.countConnection}</td>
 			<td>${user.countCommunity + user.countComment}</td>
 			<td>${user.averageScore}</td>
-			<td><div id="manage-user-blind-button-area${user.studentSequence}">
+			<td><div id="manage-user-blind-button-area-${user.studentSequence}">
 				<c:choose>
 					<c:when test="${user.useYn eq 'Y'}">
-						<div id="blind${user.studentSequence}">
+						<div id="blind-${user.studentSequence}">
 							<button type="button" class="btn btn-default close manage-user-icon"><span id="${user.studentSequence}" data-toggle="modal" data-target="#manage-user-blind" class="glyphicon glyphicon-lock manage-user-blind"></span></button>
 						</div>
 					</c:when>
 					<c:when test="${user.useYn eq 'N'}">
-						<div id="recovery${user.studentSequence}">
+						<div id="recovery-${user.studentSequence}">
 							<button type="button" class="btn btn-default close manage-user-icon"><span id="${user.studentSequence}" data-toggle="modal" data-target="#manage-user-recovery" class="glyphicon glyphicon-refresh manage-user-recovery"></span></button>
 						</div>
 					</c:when>

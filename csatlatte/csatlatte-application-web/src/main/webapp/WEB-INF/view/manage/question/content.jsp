@@ -38,8 +38,8 @@
 			<td>${question.nickname}</td>
 			<td>${question.title}</td>
 			<td>${question.writeDate}</td>
-			<td id="manage-question-answer-button${question.qnaSequence}">
-			<div id="manage-question-answer-button-div${question.qnaSequence}">
+			<td id="manage-question-answer-button-${question.qnaSequence}">
+			<div id="manage-question-answer-button-div-${question.qnaSequence}">
 				<button id="${question.qnaSequence}" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view btn <c:if test="${question.useYn eq 'Y'}">btn-primary</c:if><c:if test="${question.useYn eq 'N'}">btn-default</c:if>"><c:if test="${question.useYn eq 'Y'}">답변</c:if><c:if test="${question.useYn eq 'N'}">확인</c:if></button>
 			</div>
 			</td>

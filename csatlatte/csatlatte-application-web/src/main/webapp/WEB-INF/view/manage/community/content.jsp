@@ -25,7 +25,7 @@
 			<td><div id="${community.studentSequence}" data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">${community.studentId}</div></td>
 			<td>${community.nickname}</td>
 			<td><div id="${community.communitySequence}" data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail"><xmp>${community.content}</xmp></div></td>
-			<td><div id="blind${community.communitySequence}">
+			<td><div id="blind-${community.communitySequence}">
 				<button type="button" class="btn btn-default close manage-community-icon"><span id="${community.communitySequence}" data-toggle="modal" data-target="#manage-community-blind" class="<c:if test="${!community.blind}">glyphicon glyphicon glyphicon-lock manage-community-blind</c:if>"></span></button>
 			</div></td>
 		</tr>

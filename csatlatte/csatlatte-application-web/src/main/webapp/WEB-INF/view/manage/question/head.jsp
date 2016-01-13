@@ -100,8 +100,8 @@
 								type : "POST",
 								data : {qnaSequence : target, answerContent : answerContent},
 								success : function () {
-									$('#manage-question-answer-button-div' + target).remove();
-									$('#manage-question-answer-button' + target).append(changeToViewButton());
+									$('#manage-question-answer-button-div-' + target).remove();
+									$('#manage-question-answer-button-' + target).append(changeToViewButton());
 									$('.manage-question-detail').remove();
 									$.ajax("<c:url value="/data/question.json"/>", {
 										dataType : "json",
