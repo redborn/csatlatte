@@ -77,6 +77,14 @@ public class StudentDaoMapper extends SqlSessionDaoSupport implements StudentDao
 	public List<YearCountVo> selectListCountYear(String year) {
 		return getSqlSession().selectList("student.selectListCountYear", year);
 	}
+
+	public String selectOneCreateHmsmWhereStudentSequence(int studentSequence) {
+		return getSqlSession().selectOne("student.selectOneCreateHmsmWhereStudentSequence", studentSequence);
+	}
+
+	public String selectOneCreateHmsmWhereStudentId(String studentId) {
+		return getSqlSession().selectOne("student.selectOneCreateHmsmWhereStudentId", studentId);
+	}
 	
 	public int insert(StudentVo studentVo) {
 		return getSqlSession().insert("student.insert", studentVo);

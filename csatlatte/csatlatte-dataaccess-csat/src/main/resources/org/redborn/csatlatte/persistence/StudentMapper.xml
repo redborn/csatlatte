@@ -61,7 +61,7 @@
 		       LEFT OUTER JOIN csat_manager cm
 		                    ON cs.student_seq = cm.student_seq
 		 WHERE student_id = #{id}
-		   AND student_password = #{password}
+		   AND student_password = #{password,typeHandler=org.redborn.csatlatte.commons.mybatis.SHA512TypeHandler}
 	</select>
 
 	<select id="selectOneDetail" parameterType="int" resultMap="StudentVoMap">
@@ -103,7 +103,7 @@
 		SELECT COUNT(*)
 		  FROM csat_student
 		 WHERE student_seq = #{studentSequence}
-		   AND student_password = #{password}
+		   AND student_password = CONCAT(DATE_FORMAT(create_date, '%f%S%i%H'), #{password,typeHandler=org.redborn.csatlatte.commons.mybatis.SHA512TypeHandler})
 	</select>
 	
 	<select id="selectOneCountIsPassword" parameterType="Map" resultType="int">
@@ -196,6 +196,18 @@
 		 GROUP BY DATE_FORMAT(create_date, '%m')
 	</select>
 	
+	<select id="selectOneCreateHmsmWhereStudentSequence" parameterType="int">
+		SELECT DATE_FORMAT(create_date, '%H%i%S%f')
+		  FROM csat_student
+		 WHERE student_seq = #{studentSequence}
+	</select>
+	
+	<select id="selectOneCreateHmsmWhereStudentId" parameterType="String">
+		SELECT DATE_FORMAT(create_date, '%H%i%S%f')
+		  FROM csat_student
+		 WHERE student_id = #{studentId}
+	</select>
+	
 	<insert id="insert" parameterType="StudentVo">
 		 INSERT INTO csat_student
 	     VALUES ( #{studentSequence}, #{studentId}, #{studentPassword}, #{nickname}, 
@@ -210,7 +222,7 @@
 
 	<update id="updatePassword" parameterType="Map">
 		UPDATE csat_student
-		   SET student_password = #{newPassword}
+		   SET student_password = #{newPassword,typeHandler=org.redborn.csatlatte.commons.mybatis.SHA512TypeHandler}
 		 WHERE student_seq = #{studentSequence}
 	</update>
 	
