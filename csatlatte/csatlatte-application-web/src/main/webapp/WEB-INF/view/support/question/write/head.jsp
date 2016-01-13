@@ -11,18 +11,41 @@
 <script>
 	$(document).ready(function () {
 		
+		var titleChange = false;
+		var contentChange = false;
+		
+		$('#support-question-write-submit').attr('disabled',true);
+		
+		$('#support-question-write-question-title').on("change", function () {
+			console.log(titleChange);
+			console.log(contentChange);
+			titleChange = true;
+			if (titleChange == true && contentChange == true) {
+				$('#support-question-write-submit').attr('disabled',false);
+			}
+		});
+		
+		$('#support-question-write-content').on("change", function () {
+			console.log(titleChange);
+			console.log(contentChange);
+			contentChange = true;
+			if (titleChange == true && contentChange == true) {
+				$('#support-question-write-submit').attr('disabled',false);
+			}
+		});
+		
 		$("#support-question-write-form").on("submit", function() {
 			var result = false;
 			
 			if ($("#support-question-write-question-title").val() == "") {
-				$('[data-toggle="tooltip"]').tooltip('show'); 	
+				$('[data-toggle="tooltip-title"]').tooltip('show'); 	
 			}
 			
 			if ($("#support-question-write-content").val() == "") {
-				$('[data-toggle="tooltip"]').tooltip('show');
+				$('[data-toggle="tooltip-content"]').tooltip('show');
 			}
 			
-			if ($("#support-question-write-title").val() != "" && $("#support-question-write-content").val() != "") {
+			if ($("#support-question-write-question-title").val() != "" && $("#support-question-write-content").val() != "") {
 				result = true;
 			}
 				
