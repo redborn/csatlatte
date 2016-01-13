@@ -31,12 +31,10 @@ public class StudentServiceImpl implements StudentService {
 	
 	public boolean changePassword(int studentSequence, String password, String newPassword) {
 		boolean result = false;
-		
-		if (studentDao.selectOneCountPassword(studentSequence, password) == 1 
-				&& studentDao.updatePassword(studentSequence, newPassword) == 1) {
+		if (studentDao.selectOneCountPassword(studentSequence, makePassword(studentSequence, password)) == 1 
+				&& studentDao.updatePassword(studentSequence, makePassword(studentSequence, newPassword)) == 1) {
 			result = true;
 		}
-		
 		return result;
 	}
 
@@ -79,7 +77,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	public StudentVo information(String id, String password) {
-		return studentDao.selectOne(id, password);
+		return studentDao.selectOne(id, makePassword(id, password));
 	}
 	
 	public StudentVo information(int studentSequence) {
@@ -124,6 +122,28 @@ public class StudentServiceImpl implements StudentService {
 	
 	public int amountStudent(String search) {
 		return studentDao.selectOneAmountStudent(search);
+	}
+	
+	/**
+	 * 비밀번호를 만듭니다.
+	 * 
+	 * @param studentId 학생 ID
+	 * @param password 비밀번호
+	 * @return 생성된 비밀번호
+	 */
+	private String makePassword(String studentId, String password) {
+		return new StringBuilder(studentDao.selectOneCreateHmsmWhereStudentId(studentId)).append(password).toString();
+	}
+	
+	/**
+	 * 비밀번호를 만듭니다.
+	 * 
+	 * @param studentSequence 학생 일련번호
+	 * @param password 비밀번호
+	 * @return 생성된 비밀번호
+	 */
+	private String makePassword(int studentSequence, String password) {
+		return new StringBuilder(studentDao.selectOneCreateHmsmWhereStudentSequence(studentSequence)).append(password).toString();
 	}
 
 }
