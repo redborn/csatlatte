@@ -24,11 +24,11 @@
 		</div>
 		<div class="panel-footer">
 			<div class="row support-question-write-guide">
-				<div class="col-lg-8 support-question-write-guide-message">
+				<div class="col-xs-9 support-question-write-guide-message">
 					<p>문의하신 내용은 서비스 개선을 위해 수능라떼팀이 보관합니다.</p>
 					<p>명확하지 않은 질문에 대해선 올바른 답변이 어려울 수 있습니다.</p>
 				</div>
-				<div class="col-lg-4 support-question-write-btn-align-right">
+				<div class="col-xs-3 support-question-write-btn-align-right">
 					<input type="submit" name="test-value" class="btn btn-default" id="support-question-write-submit" value="완료">
 				</div>
 			</div>

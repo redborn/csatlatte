@@ -25,7 +25,7 @@
 		</div>
 		<div class="panel-footer">
 			<div class="row support-guide">
-				<div class="col-lg-8 support-guide-message">
+				<div class="col-xs-9 support-guide-message">
 					<session:isGuest>
 						<strong>필요한 답을 얻지 못했나요?</strong><br/>
 						수능라떼팀에게 문의하려면 우선 회원가입을 진행해야 합니다.
@@ -35,7 +35,7 @@
 						궁금한 항목에 대한 정보를 찾지 못했다면 수능라떼팀으로 문의해주세요.
 					</session:isStudent>
 				</div>
-				<div class="col-lg-4 support-btn-align-right">
+				<div class="col-xs-3 support-btn-align-right">
 					<session:isGuest>
 						<a class="btn btn-default" href="<c:url value="/join"/>">가입하기</a>
 					</session:isGuest>
