@@ -11,7 +11,7 @@
 		<div class="panel-body">
 			<div class="form-group">
 				<label for="support-question-write-question-title">문의 제목</label>
-				<input name="title" data-toggle="tooltip-title" data-placement="bottom" title="제목을 입력하셔야 돼요!" type="text" class="form-control" id="support-question-write-question-title" placeholder="여기에 제목을 입력해주세요.">
+				<input name="title" maxlength="40" data-toggle="tooltip-title" data-placement="bottom" title="제목을 입력하셔야 돼요!" type="text" class="form-control" id="support-question-write-question-title" placeholder="여기에 제목을 입력해주세요. 최대 40글자까지 입력 가능합니다.">
 			</div>
 			<div class="form-group">
 				<label for="support-question-write-content">문의하실 내용</label>
