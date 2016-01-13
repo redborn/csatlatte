@@ -5,9 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
-import org.redborn.csatlatte.commons.security.SHA512;
 
 /**
  * SHA512 암호화 처리를 합니다.
@@ -39,7 +39,7 @@ public class SHA512TypeHandler extends BaseTypeHandler<String> {
 	@Override
 	public void setNonNullParameter(PreparedStatement preparedStatement, int parameterIndex,
 			String value, JdbcType jdbcType) throws SQLException {
-		preparedStatement.setString(parameterIndex, SHA512.encrypt(value));
+		preparedStatement.setString(parameterIndex, DigestUtils.sha512Hex(value));
 	}
 
 }
