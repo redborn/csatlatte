@@ -52,7 +52,7 @@
 			if (result) {
 				var title = $('#support-question-write-question-title').val();
 				var content = $('#support-question-write-content').val();
-				$.ajax("<c:url value="/data/question.json"/>", {
+				$.ajax(contextPath + "/data/question.json", {
 					dataType : "json",
 					type : "POST",
 					data : {title : title, content : content},

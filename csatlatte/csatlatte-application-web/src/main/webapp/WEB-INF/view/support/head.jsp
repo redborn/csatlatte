@@ -27,7 +27,7 @@
 		
 		$("#support-category").on("change", function () {
 			var faqTypeSequence = $(this).val();
-			$.ajax("<c:url value="/data/support.json"/>", {
+			$.ajax(contextPath + "/data/support.json", {
 				dataType : "json",
 				type : "GET",
 				data : {faqTypeSequence : faqTypeSequence},
