@@ -40,10 +40,7 @@
 			<td>${question.writeDate}</td>
 			<td id="manage-question-answer-button${question.qnaSequence}">
 			<div id="manage-question-answer-button-div${question.qnaSequence}">
-				<c:choose>
-					<c:when test="${question.useYn eq 'Y'}"><button id="${question.qnaSequence}" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view btn btn-primary">답변</button></c:when>
-					<c:when test="${question.useYn eq 'N'}"><button id="${question.qnaSequence}" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view btn btn-default">확인</button></c:when>
-				</c:choose>
+				<button id="${question.qnaSequence}" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view btn <c:if test="${question.useYn eq 'Y'}">btn-primary</c:if><c:if test="${question.useYn eq 'N'}">btn-default</c:if>"><c:if test="${question.useYn eq 'Y'}">답변</c:if><c:if test="${question.useYn eq 'N'}">확인</c:if></button>
 			</div>
 			</td>
 		</tr>
