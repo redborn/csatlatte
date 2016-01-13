@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.redborn.csatlatte.domain.CsatVo;
 import org.redborn.csatlatte.domain.ExamVo;
+import org.redborn.csatlatte.domain.InstitutionVo;
 import org.redborn.csatlatte.persistence.CsatDao;
 import org.redborn.csatlatte.persistence.ExamDao;
+import org.redborn.csatlatte.persistence.InstitutionDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,10 @@ public class ExamServiceImpl implements ExamService {
 
 	@Autowired
 	private ExamDao examDao;
-	
 	@Autowired
 	private CsatDao csatDao;
+	@Autowired
+	private InstitutionDao institutionDao;
 	
 	public List<CsatVo> yearList() {
 		return csatDao.selectListYear();
@@ -43,7 +46,15 @@ public class ExamServiceImpl implements ExamService {
 	}
 	
 	public int amountExam(String search) {
-		return examDao.selectOne(search);
+		return examDao.selectOneCount(search);
+	}
+	
+	public List<InstitutionVo> institutionList() {
+		return institutionDao.selectList();
+	}
+	
+	public List<ExamVo> listForManageOne(int examSequence) {
+		return examDao.selectListExamOneForManage(examSequence);
 	}
 
 }

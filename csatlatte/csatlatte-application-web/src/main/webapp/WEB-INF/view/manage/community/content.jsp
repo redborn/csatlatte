@@ -5,35 +5,34 @@
 <%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
 <h4 class="manage-community-title">커뮤니티 관리</h4>
 <div class="manage-community-search">
-	<div class="col-lg-5"><input type="text" class="form-control" id="manage-community-search" placeholder="아이디 혹은 닉네임"></div>
+	<div class="col-lg-5 manage-community-col-lg"><input type="text" class="form-control" id="manage-community-search" placeholder="아이디 혹은 닉네임"></div>
 </div>
 
-<table class="table">
+<table class="table" id="manage-community-table">
 	<thead>
 		<tr>
-			<th class="col-lg-2">번호</th>
-			<th class="col-lg-2">아이디</th>
-			<th class="col-lg-2">닉네임</th>
-			<th class="col-lg-4">내용</th>
-			<th class="col-lg-2">블라인드</th>
+			<th class="col-lg-2 manage-community-col-lg">번호</th>
+			<th class="col-lg-2 manage-community-col-lg">아이디</th>
+			<th class="col-lg-2 manage-community-col-lg">닉네임</th>
+			<th class="col-lg-4 manage-community-col-lg">내용</th>
+			<th class="col-lg-2 manage-community-col-lg">블라인드</th>
 		</tr>
 	</thead>
-	<tbody id="table-content">
-	<c:forEach items="${list}" var="list">
+	<tbody>
+	<c:forEach items="${list}" var="community">
 		<tr>
-			<td>${list.communitySequence}</td>
-			<td><div id="${list.studentSequence}" data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">${list.studentId}</div></td>
-			<td>${list.nickname}</td>
-			<td><div id="${list.communitySequence}" data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail"><xmp>${list.content}</xmp></div></td>
-			<td><input class="manage-community-blind-check-box" type="checkbox" name="blindCheck" value="${list.communitySequence}" <c:if test="${list.blind == 1}">checked</c:if>></td>
+			<td>${community.communitySequence}</td>
+			<td><div id="${community.studentSequence}" data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">${community.studentId}</div></td>
+			<td>${community.nickname}</td>
+			<td><div id="${community.communitySequence}" data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail"><xmp>${community.content}</xmp></div></td>
+			<td><div id="blind-${community.communitySequence}">
+				<button type="button" class="btn btn-default close manage-community-icon"><span id="${community.communitySequence}" data-toggle="modal" data-target="#manage-community-blind" class="<c:if test="${!community.blind}">glyphicon glyphicon glyphicon-lock manage-community-blind</c:if>"></span></button>
+			</div></td>
 		</tr>
 	</c:forEach>
 	</tbody>
 </table>
-<div class="manage-community-btn-align">
-	<button class="btn btn-default manage-community-apply" data-toggle="modal" data-target="#manage-community-blind">적용</button>
-</div>
-<nav>
+<nav id="manage-community-nav">
 	<pagination:writer value="${paginationWriter}"/>
 </nav>
 <div class="modal fade" id="manage-community-id" tabindex="-1" role="dialog">
@@ -49,6 +48,8 @@
 	</div>
 </div>
 <div class="modal fade" id="manage-community-text-detail" tabindex="-1" role="dialog">
+	<div class="modal-dialog" id="manage-community-text-dialog" role="document">
+	</div>
 </div>
 <div class="modal fade" id="manage-community-blind" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-dialog-user-info" role="document">

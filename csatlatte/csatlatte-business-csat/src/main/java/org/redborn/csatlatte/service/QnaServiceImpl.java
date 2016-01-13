@@ -112,7 +112,7 @@ public class QnaServiceImpl implements QnaService {
 	}
 	
 	public int amountQuestion(String search, String useYn) {
-		return qnaDao.selectOneAmountQuestion(search, useYn);
+		return qnaDao.selectOneCount(search, useYn);
 	}
 
 }

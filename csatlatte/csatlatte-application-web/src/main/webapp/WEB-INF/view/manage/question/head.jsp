@@ -2,35 +2,28 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
-	nav {text-align:center;}
-	th {text-align:center;}
-	tr {text-align:center;}
-	.table {margin-top:15px;}
-	
-	.col-lg-4 {float:none; display:inline-block;}
-	.manage-community-search {text-align:right;}
-
-	.manage-question-title {display:inline-block; width:380px;}
+	#manage-question-answer-textarea {resize:none; padding-top:5px; margin-bottom:10px; display:block; width:100%; height:150px;}
+	.modal-body h5 {display:inline-block;}
+	.manage-question-nav {text-align:center;}
+	#manage-question-table {margin-top:15px; text-align:center;}
+	.manage-question-col-lg {float:none; display:inline-block; text-align:center;}
+	.manage-question-search {text-align:right; width:auto;}
 	.manage-question-yn h5 {display:inline-block;}
 	.manage-question-yn .btn-default {width:auto; display:inline-block;}
 	.manage-question-btn-cancel {cursor:pointer;}
 	.manage-question-btn-accept {cursor:pointer;}
-	.manage-question-content {cursor:pointer;}
-	.btn-group {margin-left:5px;}
-	
-	.modal-body h5 {display:inline-block;}
+	.manage-question-btn-group {margin-left:5px;}
 	.manage-question-qna-title-content {display:inline-block; margin-left:10px;}
 	.manage-question-qna-answer {margin-top:10px;}
-	
-	textarea {resize:none; border:none; padding-top:5px; margin-bottom:10px;}
-	textarea.form-control {display:block; width:100%; height:150px;}
-	
 	.manage-question-detail {text-align:right;}
 	.manage-question-detail-content {text-align:left; margin-bottom:15px;}
-	.manage-question-detail-answer {text-align:left;}
+	.manage-question-answer-accept {margin-left:10px;}
+	.manage-question-form-group {text-align:left;}
 </style>
 <script>
 	$(document).ready(function () {
+		
+		var target;
 		
 		var getUrlParameter = function getUrlParameter(sParam) {
 			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -52,22 +45,46 @@
 		var makeQuestionDetailView = function(question) {
 			var html = '';
 			html += '<div class="manage-question-detail">';
-			html += '	<div class="manage-question-detail-content">';
-			html += '		<div><b>질문제목</b> : ' + question.title + '</div>';
-			html += '		<div><b>질문내용</b> : ' + question.content + '</div>';
-			html += '	</div>';
+			html += '	<div class="modal-body">';
+			html += '		<div class="manage-question-detail-content">';
+			html += '			<div class="form-group manage-question-form-group">';
+			html += '				<label>질문제목</label>';
+			html += '				<div>' + question.title + '</div>' 
+			html += '			</div>';
+			html += '			<div class="form-group manage-question-form-group">';
+			html += '				<label>질문내용</label>';
+			html += '				<div>' + question.content + '</div>';
+			html += '			</div>';
+			html += '		</div>';
 			if (question.answerContent != "") {
-				html += '<div class="manage-question-detail-answer"><b>답변내용</b> : ' + question.answerContent + '</div>';
+				html += '	<div class="form-group manage-question-form-group">';
+				html += '		<label>답변내용</label>';
+				html += '		<div>' + question.answerContent + '</div>'; 
+				html += '	</div>';
+				html += '</div>';
 			} else {
-				html += '<textarea class="form-control manage-question-answer-textarea" placeholder="답변이 완료되지 않은 문의입니다. 답변을 입력해주세요."/>';
-				html += '<input type="submit" class="btn btn-primary manage-question-answer-accept" value="답변완료">';
+				html += '	<div class="form-group manage-question-form-group">';
+				html += '		<label for="manage-question-answer-textarea">답변내용</label>';
+				html += '		<textarea id="manage-question-answer-textarea" class="form-control manage-question-answer-textarea" placeholder="답변이 완료되지 않은 문의입니다. 답변을 입력해주세요."/>';
+				html += '	</div>';
+				html += '</div>';
+				html += '<div class="modal-footer">';
+				html += '<input type="submit" class="btn btn-default"  data-dismiss="modal" aria-label="Close" value="닫기">';
+				html += '<input type="submit" class="btn btn-primary manage-question-answer-accept" value="완료">';
+				html += '</div>';
 			}
 			html += '</div>';
 			return html;
 		}
 		
+		var changeToViewButton = function () {
+			var html = '';
+			html += '<button id="' + target + '" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view btn btn-default">확인</button>';
+			return html;
+		}
+		
 		$('.manage-question-answer-view').on("click", function () {
-			var target = $(this).attr("id");
+			target = $(this).attr("id");
 			$.ajax("<c:url value="/data/question.json"/>", {
 				dataType : "json",
 				type : "GET",
@@ -83,6 +100,8 @@
 								type : "POST",
 								data : {qnaSequence : target, answerContent : answerContent},
 								success : function () {
+									$('#manage-question-answer-button-div-' + target).remove();
+									$('#manage-question-answer-button-' + target).append(changeToViewButton());
 									$('.manage-question-detail').remove();
 									$.ajax("<c:url value="/data/question.json"/>", {
 										dataType : "json",

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="institution">
+
+	<resultMap type="InstitutionVo" id="InstitutionVoMap">
+		<result column="isttt_seq" property="institutionSequence"/>
+		<result column="isttt_name" property="institutionName"/>
+	</resultMap>
+	
+	<select id="selectList" resultMap="InstitutionVoMap">
+		SELECT isttt_seq,isttt_name
+		  FROM csat_isttt
+	</select>
+</mapper>

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ExamDaoMapper extends SqlSessionDaoSupport implements ExamDao {
 	
-	public int selectOne(String search) {
-		return getSqlSession().selectOne("exam.selectOne", search);
+	public int selectOneCount(String search) {
+		return getSqlSession().selectOne("exam.selectOneCount", search);
 	}
 	
 	public List<ExamVo> selectListExam(int csatSequence) {
@@ -37,6 +37,10 @@ public class ExamDaoMapper extends SqlSessionDaoSupport implements ExamDao {
 
 	public int delete(int examSequence) {
 		return getSqlSession().delete("exam.delete", examSequence);
+	}
+	
+	public List<ExamVo> selectListExamOneForManage(int examSequence) {
+		return getSqlSession().selectList("exam.selectListExamOneForManage", examSequence);
 	}
 
 }

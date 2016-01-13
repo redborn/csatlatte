@@ -3,10 +3,13 @@ package org.redborn.csatlatte.controller.web.manage;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.redborn.csatlatte.commons.pagination.BootstrapPaginationWriter;
 import org.redborn.csatlatte.commons.pagination.Pagination;
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.redborn.csatlatte.service.ExamService;
+import org.redborn.csatlatte.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,22 +31,27 @@ public class Exam {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private ExamService examService;
+	@Autowired
+	private StudentService studentService;
 	
 	/**
 	 * 모의고사 목록을 조회하는 페이지입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
-	public String get(Model model, @RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
+	public String get(Model model, HttpServletRequest request, @RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
 		logger.info("manage exam view");
 		
-		int beginPageNumber = (pageNumber * 10) - 10;
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("search", search);
 		
 		Pagination pagination = new Pagination(pageNumber, examService.amountExam(search));
 		
-		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/exam", params, "pageNumber"));
-		model.addAttribute("list", examService.listForManage(beginPageNumber, search));
+		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, new StringBuilder(request.getContextPath()).append("/manage/exam").toString(), params, "pageNumber"));
+		model.addAttribute("list", examService.listForManage(pagination.getBeginRow() - 1, search));
+		model.addAttribute("yearList", examService.yearList());
+		model.addAttribute("institutionList", examService.institutionList());
+		model.addAttribute("ysList", studentService.ysList());
+		
 		return TilesName.MANAGE_EXAM;
 	}
 }

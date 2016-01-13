@@ -3,6 +3,8 @@ package org.redborn.csatlatte.controller.web.manage;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.redborn.csatlatte.commons.pagination.BootstrapPaginationWriter;
 import org.redborn.csatlatte.commons.pagination.Pagination;
 import org.redborn.csatlatte.commons.tiles.TilesName;
@@ -32,18 +34,16 @@ public class Community {
 	 * 커뮤니티 게시글 목록을 조회하는 페이지입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
-	public String get(Model model, @RequestParam(value="communityTypeSequence",required=false,defaultValue="1") int communityTypeSequence,
+	public String get(Model model, HttpServletRequest request, @RequestParam(value="communityTypeSequence",required=false,defaultValue="1") int communityTypeSequence,
 			@RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
 		logger.info("manage community view");
 		
-		int beginPageNumber = (pageNumber * 10) - 10;
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("search", search);
-		
+		params.put("search", search); 
 		Pagination pagination = new Pagination(pageNumber, communityService.amountCommunity(search));
 		
-		model.addAttribute("list", communityService.list(CommunityService.COMMUNITY, search, beginPageNumber));
-		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, "http://localhost:8080/csatlatte-application-web/manage/community", params, "pageNumber"));
+		model.addAttribute("list", communityService.list(CommunityService.COMMUNITY, search, pagination.getBeginRow() - 1));
+		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, new StringBuilder(request.getContextPath()).append("/manage/community").toString(), params, "pageNumber"));
 		return TilesName.MANAGE_COMMUNITY;
 	}
 }

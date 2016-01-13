@@ -54,8 +54,8 @@ public class StudentDaoMapper extends SqlSessionDaoSupport implements StudentDao
 		return getSqlSession().selectOne("student.selectOneMaxStudentSequence");
 	}
 	
-	public int selectOneAmountStudent(String search) {
-		return getSqlSession().selectOne("student.selectOneAmountStudent", search);
+	public int selectOneCount(String search) {
+		return getSqlSession().selectOne("student.selectOneCount", search);
 	}
 	
 	public List<StudentVo> selectList(String search, int pageNumber) {
@@ -96,6 +96,10 @@ public class StudentDaoMapper extends SqlSessionDaoSupport implements StudentDao
 
 	public int updateUseYnN(int studentSequence) {
 		return getSqlSession().update("student.updateUseYnN", studentSequence);
+	}
+	
+	public int updateUseYnNRecovery(int studentSequence) {
+		return getSqlSession().update("student.updateUseYnNRecovery",studentSequence);
 	}
 
 }

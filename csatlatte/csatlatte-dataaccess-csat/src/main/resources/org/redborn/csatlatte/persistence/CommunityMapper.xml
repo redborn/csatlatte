@@ -49,7 +49,7 @@
 		   AND student_seq = #{studentSequence}
 	</select>
 	
-	<select id="selectOneAmountCommunity" parameterType="String" resultType="int">
+	<select id="selectOneCount" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_community cc, csat_student cs
 		 WHERE cc.student_seq = cs.student_seq
@@ -157,7 +157,7 @@
 		   AND ( cs.student_id LIKE CONCAT('%', #{search}, '%')
 		          OR cs.nickname LIKE CONCAT('%', #{search}, '%') )
 	  ORDER BY cc.community_seq desc
-		 LIMIT #{pageNumber}, 10; 
+		 LIMIT #{pageNumber}, 10
 	</select>
 	
 	<select id="selectListStudentText" parameterType="Map" resultMap="CommunityVoMap">
