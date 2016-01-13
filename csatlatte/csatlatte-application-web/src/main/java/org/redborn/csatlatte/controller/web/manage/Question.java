@@ -45,7 +45,7 @@ public class Question {
 		Pagination pagination = new Pagination(pageNumber, qnaService.amountQuestion(search, useYn));
 		
 		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, new StringBuilder(request.getContextPath()).append("/manage/question").toString(), params, "pageNumber"));
-		model.addAttribute("list", qnaService.listForManage(search, pagination.getBeginRow(), useYn));
+		model.addAttribute("list", qnaService.listForManage(search, pagination.getBeginRow() - 1, useYn));
 		return TilesName.MANAGE_QUESTION;
 	}
 }

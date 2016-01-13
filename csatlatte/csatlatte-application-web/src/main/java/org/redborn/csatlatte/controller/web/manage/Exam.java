@@ -47,7 +47,7 @@ public class Exam {
 		Pagination pagination = new Pagination(pageNumber, examService.amountExam(search));
 		
 		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, new StringBuilder(request.getContextPath()).append("/manage/exam").toString(), params, "pageNumber"));
-		model.addAttribute("list", examService.listForManage(pagination.getBeginRow(), search));
+		model.addAttribute("list", examService.listForManage(pagination.getBeginRow() - 1, search));
 		model.addAttribute("yearList", examService.yearList());
 		model.addAttribute("institutionList", examService.institutionList());
 		model.addAttribute("ysList", studentService.ysList());
