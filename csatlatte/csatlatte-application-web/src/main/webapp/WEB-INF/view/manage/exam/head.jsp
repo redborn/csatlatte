@@ -23,6 +23,14 @@
 		
 		var target;
 		
+		var makeExamName = function (exam) {
+			var html = '';
+			html += '<div class="manage-exam-modal-body-name">';
+			html += exam[0].examName + '를 삭제하시겠습니까?';
+			html += '</div>';
+			return html;
+		}
+		
 		var makeExamModify = function (yearList, institutionList, ysList, listOne) {
 			var html = '';
 			var yearListLength = yearList.length;
@@ -168,6 +176,21 @@
 		
 		$('.manage-exam-delete').on("click", function () {
 			target = $(this).attr("id");
+			$.ajax(contextPath + "/data/manage/exam", {
+				dataType : "json",
+				type : "GET",
+				data : {examSequence : target},
+				success : function (data) {
+					if (data.listOne != null) {
+						var exam = data.listOne;
+						$('#manage-exam-delete-modal-body').append(makeExamName(exam));						
+					}
+				}
+			});
+		});
+		
+		$('#manage-exam-delete').on('hidden.bs.modal', function () {
+			$('.manage-exam-modal-body-name').remove();
 		});
 		
 		$('.manage-exam-delete-accept').on("click", function () {
