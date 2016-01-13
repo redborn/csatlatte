@@ -196,14 +196,14 @@
 		 GROUP BY DATE_FORMAT(create_date, '%m')
 	</select>
 	
-	<select id="selectOneCreateHmsmWhereStudentSequence" parameterType="int">
-		SELECT DATE_FORMAT(create_date, '%H%i%S%f')
+	<select id="selectOneCreateHmsmWhereStudentSequence" parameterType="int" resultType="String">
+		SELECT SUBSTR(DATE_FORMAT(create_date, '%H%i%S%f'), 1, 9)
 		  FROM csat_student
 		 WHERE student_seq = #{studentSequence}
 	</select>
 	
-	<select id="selectOneCreateHmsmWhereStudentId" parameterType="String">
-		SELECT DATE_FORMAT(create_date, '%H%i%S%f')
+	<select id="selectOneCreateHmsmWhereStudentId" parameterType="String" resultType="String">
+		SELECT SUBSTR(DATE_FORMAT(create_date, '%H%i%S%f'), 1, 9)
 		  FROM csat_student
 		 WHERE student_id = #{studentId}
 	</select>
