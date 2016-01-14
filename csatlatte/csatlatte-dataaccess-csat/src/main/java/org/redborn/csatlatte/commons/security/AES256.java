@@ -13,7 +13,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.CharEncoding;
-import org.apache.tomcat.util.codec.binary.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * AES256 암/복호화 처리를 합니다.
@@ -48,7 +48,7 @@ public class AES256 {
 		try {
 			Cipher cipher = Cipher.getInstance(TRANSFORMATION);
 			cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key.getBytes(CharEncoding.UTF_8), "AES"), new IvParameterSpec(key.substring(0, 16).getBytes(CharEncoding.UTF_8)));
-			result = new String(Base64.encodeBase64(cipher.doFinal(str.getBytes(CharEncoding.UTF_8))), CharEncoding.UTF_8);
+			result = Base64.encodeBase64String(cipher.doFinal(str.getBytes(CharEncoding.UTF_8)));
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		} catch (NoSuchPaddingException e) {
