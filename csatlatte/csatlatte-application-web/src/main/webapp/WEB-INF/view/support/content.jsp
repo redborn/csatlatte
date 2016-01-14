@@ -16,12 +16,8 @@
 			</div>
 		</div>
 		<div class="panel-body" id="support-content">
-			<c:forEach items="${list}" var="list">
-				<div class="support-faq">
-					<div class="support-question"><p><strong>${list.title}</strong></p></div>
-					<div class="support-answer">${list.content}</div>
-				</div>
-			</c:forEach>
+			<div class="support-faq">
+			</div>
 		</div>
 		<div class="panel-footer">
 			<div class="row support-guide">
@@ -34,6 +30,10 @@
 						<strong>필요한 답을 얻지 못했나요?</strong><br/>
 						궁금한 항목에 대한 정보를 찾지 못했다면 수능라떼팀으로 문의해주세요.
 					</session:isStudent>
+					<session:isManager>
+						<strong>회원들의 문의를 확인하셨나요?</strong><br />
+						문의에 대한 답변을 진행하려면 관리자 메뉴로 이동해야 합니다.
+					</session:isManager>
 				</div>
 				<div class="col-xs-3 support-btn-align-right">
 					<session:isGuest>
@@ -42,6 +42,9 @@
 					<session:isStudent>
 						<a class="btn btn-default" href="<c:url value="/support/question"/>">문의하기</a>
 					</session:isStudent>
+					<session:isManager>
+						<a class="btn btn-default" href="<c:url value="/manage/question"/>">답변하기</a>
+					</session:isManager>
 				</div>
 			</div>
 		</div>
