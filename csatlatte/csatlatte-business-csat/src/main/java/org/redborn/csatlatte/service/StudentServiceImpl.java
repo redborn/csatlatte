@@ -152,7 +152,11 @@ public class StudentServiceImpl implements StudentService {
 	 * @return 생성된 비밀번호
 	 */
 	private String makePassword(String studentId, String password) {
-		return new StringBuilder(studentDao.selectOneCreateHmsmWhereStudentId(studentId)).append(password).toString();
+		String hmsm = studentDao.selectOneCreateHmsmWhereStudentId(studentId);
+		if (hmsm == null) {
+			hmsm = "";
+		}
+		return new StringBuilder(hmsm).append(password).toString();
 	}
 	
 	/**
@@ -163,7 +167,11 @@ public class StudentServiceImpl implements StudentService {
 	 * @return 생성된 비밀번호
 	 */
 	private String makePassword(int studentSequence, String password) {
-		return new StringBuilder(studentDao.selectOneCreateHmsmWhereStudentSequence(studentSequence)).append(password).toString();
+		String hmsm = studentDao.selectOneCreateHmsmWhereStudentSequence(studentSequence);
+		if (hmsm == null) {
+			hmsm = "";
+		}
+		return new StringBuilder(hmsm).append(password).toString();
 	}
 
 }
