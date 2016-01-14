@@ -8,8 +8,8 @@
 
 	<resultMap type="StudentVo" id="StudentVoMap">
 		<result column="student_seq" property="studentSequence" />
-		<result column="student_id" property="studentId" />
-		<result column="nickname" property="nickname" />
+		<result column="student_id" property="studentId" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
+		<result column="nickname" property="nickname" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
 		<result column="use_yn" property="useYn" />
 		<result column="count_community" property="countCommunity" />
 		<result column="count_comment" property="countComment" />
@@ -21,11 +21,11 @@
 	
 	<resultMap type="StudentVo" id="StudentInformationVoMap">
 		<result column="student_seq" property="studentSequence"/>
-		<result column="student_id" property="studentId"/>
+		<result column="student_id" property="studentId" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
 		<result column="content" property="securityQuestionContent"/>
 		<result column="photo_code" property="photoCode"/>
 		<result column="photo_name" property="photoName"/>
-		<result column="nickname" property="nickname"/>
+		<result column="nickname" property="nickname" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
 		<result column="csat_name" property="csatName"/>
 		<result column="rule_seq" property="ruleSequence"/>
 	</resultMap>
@@ -60,7 +60,7 @@
 		               ON cs.csat_seq = c.csat_seq
 		       LEFT OUTER JOIN csat_manager cm
 		                    ON cs.student_seq = cm.student_seq
-		 WHERE student_id = #{id}
+		 WHERE student_id = #{id,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
 		   AND student_password = #{password,typeHandler=org.redborn.csatlatte.commons.mybatis.SHA512TypeHandler}
 	</select>
 
@@ -110,7 +110,7 @@
 		SELECT COUNT(*)
 		  FROM csat_student cs,csat_student_scqs css
 		 WHERE cs.student_seq = css.student_seq
-		   AND cs.student_id = #{id}
+		   AND cs.student_id = #{id,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
 		   AND css.content = #{securityAnswer}
 	</select>
 	
@@ -118,7 +118,7 @@
 		SELECT cs.student_id
 		  FROM csat_student cs,csat_student_scqs css
 		 WHERE cs.student_seq = css.student_seq
-		   AND cs.nickname = #{nickname}
+		   AND cs.nickname = #{nickname,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
 		   AND css.content = #{securityAnswer}
 	</select>
 	
@@ -205,7 +205,7 @@
 	<select id="selectOneCreateHmsmWhereStudentId" parameterType="String" resultType="String">
 		SELECT SUBSTR(DATE_FORMAT(create_date, '%H%i%S%f'), 1, 9)
 		  FROM csat_student
-		 WHERE student_id = #{studentId}
+		 WHERE student_id = #{studentId,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
 	</select>
 	
 	<insert id="insert" parameterType="StudentVo">
@@ -216,7 +216,7 @@
 	
 	<update id="updateInformation" parameterType="StudentVo">
 		UPDATE csat_student
-		   SET nickname = #{nickname}, photo_code = #{photoCode}, photo_name = #{photoName}, csat_seq = #{csatSequence}
+		   SET nickname = #{nickname,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}, photo_code = #{photoCode}, photo_name = #{photoName}, csat_seq = #{csatSequence}
 		 WHERE student_seq = #{studentSequence}
 	</update>
 

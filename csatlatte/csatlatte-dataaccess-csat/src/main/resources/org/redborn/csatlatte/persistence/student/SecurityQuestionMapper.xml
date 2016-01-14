@@ -6,7 +6,11 @@
 
 <mapper namespace="student.securityQuestion">
 
-	<select id="selectOne" parameterType="int" resultType="String">
+	<resultMap type="java.util.HashMap" id="ContentMap">
+		<result column="content" property="content" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
+	</resultMap>
+
+	<select id="selectOne" parameterType="int" resultMap="ContentMap">
 		SELECT cs.content
 		  FROM csat_student_scqs css,csat_scqs cs
 		 WHERE css.scqs_seq = cs.scqs_seq
@@ -15,12 +19,12 @@
 	
 	<insert id="insert" parameterType="StudentSecurityQuestionVo">
 		INSERT INTO csat_student_scqs
-		     VALUES (#{studentSequence},#{securityQuestionSequence},#{content}) 
+		     VALUES (#{studentSequence},#{securityQuestionSequence},#{content,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}) 
 	</insert>
 
 	<update id="updateContent" parameterType="StudentSecurityQuestionVo">
 		UPDATE csat_student_scqs
-		   SET content = #{content}, scqs_seq = #{securityQuestionSequence}
+		   SET content = #{content,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}, scqs_seq = #{securityQuestionSequence}
 		 WHERE student_seq = #{studentSequence}
 	</update>
 	
