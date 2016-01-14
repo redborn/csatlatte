@@ -11,11 +11,11 @@
 		<div class="panel-body">
 			<div class="form-group">
 				<label for="support-question-write-question-title">문의 제목</label>
-				<input name="title" maxlength="40" data-toggle="tooltip-title" data-placement="bottom" title="제목을 입력하셔야 돼요!" type="text" class="form-control" id="support-question-write-question-title" placeholder="여기에 제목을 입력해주세요. 최대 40글자까지 입력 가능합니다.">
+				<input name="title" maxlength="40" data-toggle="tooltip-title" data-placement="bottom" title="제목을 입력하셔야 돼요!" type="text" class="form-control" id="support-question-write-question-title" placeholder="제목을 입력하세요.">
 			</div>
 			<div class="form-group">
 				<label for="support-question-write-content">문의하실 내용</label>
-				<textarea name="content" data-toggle="tooltip-content" data-placement="bottom" title="내용이 없으면 도와드리기 어려워요.." cols="40" rows="12" class="form-control" id="support-question-write-content" placeholder="여기에 내용을 입력해주세요."></textarea>
+				<textarea name="content" data-toggle="tooltip-content" data-placement="bottom" title="내용이 없으면 도와드리기 어려워요.." cols="40" rows="12" class="form-control" id="support-question-write-content" placeholder="내용을 입력하세요."></textarea>
 			</div>
 			<div class="form-group">
 				<label for="support-question-write-input-file">파일 첨부</label>

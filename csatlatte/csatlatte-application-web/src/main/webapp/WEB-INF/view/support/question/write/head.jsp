@@ -21,7 +21,7 @@
 			
 			$('#support-question-write-submit').attr('disabled',true);
 			
-			if ($("#support-question-write-question-title").val() == "") {
+			if ($("#support-question-write-question-title").val() === "") {
 				titleKeyup = false; 	
 			}
 			
@@ -35,7 +35,7 @@
 			
 			$('#support-question-write-submit').attr('disabled',true);
 			
-			if ($("#support-question-write-content").val() == "") {
+			if ($("#support-question-write-content").val() === "") {
 				contentKeyup = false;
 			}
 			
@@ -47,21 +47,21 @@
 		$("#support-question-write-form").on("submit", function() {
 			var result = false;
 			
-			if ($("#support-question-write-question-title").val() == "") {
+			if ($("#support-question-write-question-title").val() === "") {
 				$('[data-toggle="tooltip-title"]').tooltip('show');
 				setTimeout(function () {
 					$('[data-toggle="tooltip-title"]').tooltip('destroy');
 				}, 2000);
 			}
 			
-			if ($("#support-question-write-content").val() == "") {
+			if ($("#support-question-write-content").val() === "") {
 				$('[data-toggle="tooltip-content"]').tooltip('show');
 				setTimeout(function () {
 					$('[data-toggle="tooltip-content"]').tooltip('destroy');
 				}, 2000);
 			}
 			
-			if ($("#support-question-write-question-title").val() != "" && $("#support-question-write-content").val() != "") {
+			if ($("#support-question-write-question-title").val() !== "" && $("#support-question-write-content").val() !== "") {
 				result = true;
 			}
 				
