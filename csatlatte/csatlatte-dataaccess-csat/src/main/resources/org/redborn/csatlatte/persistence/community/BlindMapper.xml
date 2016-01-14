@@ -15,7 +15,7 @@
 	
 	<insert id="insert" parameterType="Map">
 		INSERT INTO csat_community_blind(community_type_seq, community_seq, blind_type_seq, blind_date)
-		VALUES (#{communityTypeSequence}, #{communitySequence}, #{blindTypeSequence}, NOW())
+		VALUES (#{communityTypeSequence}, #{communitySequence}, #{blindTypeSequence}, NOW(3))
 	</insert>
 	
 </mapper>

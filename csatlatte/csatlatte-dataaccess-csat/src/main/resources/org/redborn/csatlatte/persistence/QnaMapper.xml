@@ -69,7 +69,7 @@
 	
 	<insert id="insert" parameterType="QnaVo">
 		 INSERT INTO csat_qna(qna_seq, student_seq, title, write_date, use_yn)
-	     VALUES (#{qnaSequence}, #{studentSequence}, #{title}, NOW(),'Y') 
+	     VALUES (#{qnaSequence}, #{studentSequence}, #{title}, NOW(3),'Y') 
 	</insert>
 	
 	<update id="updateUseYnN" parameterType="int">

@@ -8,7 +8,7 @@
 
 	<insert id="insert" parameterType="QnaAnswerVo">
 		 INSERT INTO csat_qna_answer(qna_seq, content, write_date)
-	     VALUES (#{qnaSequence}, #{content}, NOW()) 
+	     VALUES (#{qnaSequence}, #{content}, NOW(3)) 
 	</insert>
 	
 	<select id="selectList" parameterType="int" resultType="String">
