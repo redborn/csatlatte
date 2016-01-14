@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="panel panel-default">
+<div class="panel panel-default col-lg-12">
 	<div class="panel-body">
 		<div class="support-question-fail">
 			<h4>문의를 전달하지 못했습니다.</h4>

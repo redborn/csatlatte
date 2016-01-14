@@ -1,7 +1,6 @@
 package org.redborn.csatlatte.controller.data;
 
-import org.redborn.csatlatte.commons.servlet.http.HttpSessionValue;
-import org.redborn.csatlatte.service.QnaService;
+import org.redborn.csatlatte.service.FaqService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,20 +11,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/data/question")
-public class Question {
+@RequestMapping("/data/support")
+public class Support {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
-	private QnaService qnaService;
-	@Autowired
-    private HttpSessionValue httpSessionValue;
+	private FaqService faqService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public void get(Model model, @RequestParam(value="qnaSequence",required=true) int qnaSequence) {
-		logger.info("data question view");
+	public void get(Model model, @RequestParam(value="faqTypeSequence",required=true) int faqTypeSequence) {
+		logger.info("data support view");
 		
-		model.addAttribute("detail", qnaService.detail(qnaSequence));
+		model.addAttribute("list", faqService.list(faqTypeSequence));
 	}
 
 }
