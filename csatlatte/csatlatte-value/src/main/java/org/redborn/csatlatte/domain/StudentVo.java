@@ -1,5 +1,7 @@
 package org.redborn.csatlatte.domain;
 
+import java.util.Date;
+
 public class StudentVo {
 
 	private int studentSequence;
@@ -10,7 +12,7 @@ public class StudentVo {
 	private String photoName;
 	private int csatSequence;
 	private String useYn;
-	private String createDate;
+	private Date createDate;
 	private int countConnection;
 	private int averageScore;
 	private String securityQuestionContent;
@@ -84,11 +86,11 @@ public class StudentVo {
 		this.useYn = useYn;
 	}
 
-	public String getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(String createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 

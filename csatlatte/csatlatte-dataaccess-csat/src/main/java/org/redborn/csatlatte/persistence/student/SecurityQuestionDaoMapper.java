@@ -1,5 +1,7 @@
 package org.redborn.csatlatte.persistence.student;
 
+import java.util.Map;
+
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.StudentSecurityQuestionVo;
 import org.springframework.stereotype.Repository;
@@ -7,8 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class SecurityQuestionDaoMapper extends SqlSessionDaoSupport implements SecurityQuestionDao {
 
+	@SuppressWarnings("unchecked")
 	public String selectOne(int studentSequence) {
-		return getSqlSession().selectOne("student.securityQuestion.selectOne", studentSequence);
+		return (String) ((Map<String, Object>) getSqlSession().selectOne("student.securityQuestion.selectOne", studentSequence)).get("content");
 	}
 	
 	public int insert(StudentSecurityQuestionVo studentSecurityQuestionVo) {

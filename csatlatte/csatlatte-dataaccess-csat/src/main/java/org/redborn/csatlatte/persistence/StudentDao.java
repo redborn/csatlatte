@@ -20,6 +20,8 @@ public interface StudentDao {
 	public List<YmdCountVo> selectListCountYmd(String ymd);
 	public List<YmCountVo> selectListCountYm(String ym);
 	public List<YearCountVo> selectListCountYear(String year);
+	public String selectOneCreateHmsmWhereStudentSequence(int studentSequence);
+	public String selectOneCreateHmsmWhereStudentId(String studentId);
 	public int insert(StudentVo studentVo);
 	public int updateInformation(StudentVo studentVo);
 	public int updatePassword(int studentSequence, String newPassword);
