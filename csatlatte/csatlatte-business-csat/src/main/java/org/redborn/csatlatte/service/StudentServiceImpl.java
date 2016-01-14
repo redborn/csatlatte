@@ -12,7 +12,6 @@ import org.redborn.csatlatte.domain.YmdCountVo;
 import org.redborn.csatlatte.domain.YsVo;
 import org.redborn.csatlatte.persistence.StudentDao;
 import org.redborn.csatlatte.persistence.YsDao;
-import org.redborn.csatlatte.persistence.student.ConnectionDao;
 import org.redborn.csatlatte.persistence.student.SecurityQuestionDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private StudentDao studentDao;
 	@Autowired
-	private ConnectionDao connectionDao;
+	private org.redborn.csatlatte.persistence.connection.StudentDao connectionStudentDao;
 	@Autowired
 	private SecurityQuestionDao securityQuestionDao;
 	@Autowired
@@ -118,15 +117,15 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	public List<YmdCountVo> dailyConnectionCount(String ymd) {
-		return connectionDao.selectListCountYmd(ymd);
+		return connectionStudentDao.selectListCountYmd(ymd);
 	}
 
 	public List<YmCountVo> monthlyConnectionCount(String ym) {
-		return connectionDao.selectListCountYm(ym);
+		return connectionStudentDao.selectListCountYm(ym);
 	}
 
 	public List<YearCountVo> annualConnectionCount(String year) {
-		return connectionDao.selectListCountYear(year);
+		return connectionStudentDao.selectListCountYear(year);
 	}
 
 	public List<StudentVo> userList(String search, int pageNumber) {
