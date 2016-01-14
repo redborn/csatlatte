@@ -64,19 +64,6 @@
 			if ($("#support-question-write-question-title").val() !== "" && $("#support-question-write-content").val() !== "") {
 				result = true;
 			}
-				
-			if (result) {
-				var title = $('#support-question-write-question-title').val();
-				var content = $('#support-question-write-content').val();
-				$.ajax(contextPath + "/data/question.json", {
-					dataType : "json",
-					type : "POST",
-					data : {title : title, content : content},
-					success : function () {
-						
-					}
-				});
-			}
 			
 			return result;
 		});
