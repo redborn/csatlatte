@@ -5,10 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.redborn.csatlatte.domain.CountVo;
 import org.redborn.csatlatte.domain.StudentVo;
-import org.redborn.csatlatte.domain.YearCountVo;
-import org.redborn.csatlatte.domain.YmCountVo;
-import org.redborn.csatlatte.domain.YmdCountVo;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -66,15 +64,15 @@ public class StudentDaoMapper extends SqlSessionDaoSupport implements StudentDao
 		return getSqlSession().selectList("student.selectList", params);
 	}
 
-	public List<YmdCountVo> selectListCountYmd(String ymd) {
+	public List<CountVo> selectListCountYmd(String ymd) {
 		return getSqlSession().selectList("student.selectListCountYmd", ymd);
 	}
 
-	public List<YmCountVo> selectListCountYm(String ym) {
+	public List<CountVo> selectListCountYm(String ym) {
 		return getSqlSession().selectList("student.selectListCountYm", ym);
 	}
 
-	public List<YearCountVo> selectListCountYear(String year) {
+	public List<CountVo> selectListCountYear(String year) {
 		return getSqlSession().selectList("student.selectListCountYear", year);
 	}
 

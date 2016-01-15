@@ -1,14 +1,14 @@
 package org.redborn.csatlatte.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.redborn.csatlatte.domain.CountVo;
 import org.redborn.csatlatte.domain.StudentSecurityQuestionVo;
 import org.redborn.csatlatte.domain.StudentVo;
-import org.redborn.csatlatte.domain.YearCountVo;
-import org.redborn.csatlatte.domain.YmCountVo;
-import org.redborn.csatlatte.domain.YmdCountVo;
 import org.redborn.csatlatte.domain.YsVo;
 import org.redborn.csatlatte.persistence.StudentDao;
 import org.redborn.csatlatte.persistence.YsDao;
@@ -103,29 +103,61 @@ public class StudentServiceImpl implements StudentService {
 	public boolean recovery(int studentSequence) {
 		return studentDao.updateUseYnNRecovery(studentSequence) == 1;
 	}
-
-	public List<YmdCountVo> dailyJoinCountList(String ymd) {
-		return studentDao.selectListCountYmd(ymd);
+	
+	private List<CountVo> margeCountVoList(List<CountVo> connectionYmdCountVos, int begin, int end) {
+		List<CountVo> ymdCountVos = new ArrayList<CountVo>();
+		
+		int connectionYmdCountVosIndex = 0;
+		int connectionYmdCountVosSize = connectionYmdCountVos != null ? connectionYmdCountVos.size() : 0;
+		
+		for (int index = begin; index <= end; index++) {
+			CountVo ymdCountVo = new CountVo();
+			
+			int sumCount = 0;
+			
+			if (connectionYmdCountVosIndex < connectionYmdCountVosSize) {
+				CountVo connectionCountVo = connectionYmdCountVos.get(connectionYmdCountVosIndex);
+				if (connectionCountVo.getKey() == index) {
+					sumCount = connectionCountVo.getCount();
+					connectionYmdCountVosIndex++;
+				}
+			}
+			
+			ymdCountVo.setKey(index);
+			ymdCountVo.setCount(sumCount);
+			
+			ymdCountVos.add(ymdCountVo);
+		}
+		
+		return ymdCountVos;
 	}
 
-	public List<YmCountVo> monthlyJoinCountList(String ym) {
-		return studentDao.selectListCountYm(ym);
+	public List<CountVo> dailyJoinCountList(String ymd) {
+		return margeCountVoList(studentDao.selectListCountYmd(ymd), 0, 23);
 	}
 
-	public List<YearCountVo> annualJoinCountList(String year) {
-		return studentDao.selectListCountYear(year);
+	public List<CountVo> monthlyJoinCountList(String ym) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Integer.parseInt(ym.substring(0, 4)), Integer.parseInt(ym.substring(5, 6)) - 1, 1);
+		return margeCountVoList(studentDao.selectListCountYm(ym), 1, calendar.getActualMaximum(Calendar.DATE));
 	}
 
-	public List<YmdCountVo> dailyConnectionCount(String ymd) {
-		return connectionStudentDao.selectListCountYmd(ymd);
+	public List<CountVo> annualJoinCountList(String year) {
+		return margeCountVoList(studentDao.selectListCountYear(year), 1, 12);
 	}
 
-	public List<YmCountVo> monthlyConnectionCount(String ym) {
-		return connectionStudentDao.selectListCountYm(ym);
+	public List<CountVo> dailyConnectionCount(String ymd) {
+		return margeCountVoList(connectionStudentDao.selectListCountYmd(ymd), 0, 23);
 	}
 
-	public List<YearCountVo> annualConnectionCount(String year) {
-		return connectionStudentDao.selectListCountYear(year);
+	public List<CountVo> monthlyConnectionCount(String ym) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Integer.parseInt(ym.substring(0, 4)), Integer.parseInt(ym.substring(5, 6)) - 1, 1);
+		return margeCountVoList(connectionStudentDao.selectListCountYm(ym), 1, calendar.getActualMaximum(Calendar.DATE));
+	}
+
+	public List<CountVo> annualConnectionCount(String year) {
+		return margeCountVoList(connectionStudentDao.selectListCountYear(year), 1, 12);
 	}
 
 	public List<StudentVo> userList(String search, int pageNumber) {
