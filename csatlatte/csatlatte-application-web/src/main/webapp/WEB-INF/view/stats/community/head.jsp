@@ -167,7 +167,7 @@ google.load("visualization", "1", {packages: ["corechart"]});
 				vAxis: {
 					title:'커뮤니티 활성도',
 					minValue:0,
-					format:0,
+					format:'',
 					viewWindow:{
 						min:0,
 					},
@@ -213,7 +213,7 @@ google.load("visualization", "1", {packages: ["corechart"]});
 				},
 				vAxis: {
 					title:'커뮤니티 활성도',
-					format:'0',
+					format:'',
 					minValue:0,
 					viewWindow:{
 						min:0
@@ -261,7 +261,7 @@ google.load("visualization", "1", {packages: ["corechart"]});
 				vAxis: {
 					title:'커뮤니티 활성도',
 					minValue:0,
-					format:'0',
+					format:'',
 					viewWindow:{
 						min:0
 					},
