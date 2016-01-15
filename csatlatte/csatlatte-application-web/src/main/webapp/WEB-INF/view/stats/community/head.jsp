@@ -19,15 +19,49 @@
 </style>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
+google.load("visualization", "1", {packages: ["corechart"]});
 	$(document).ready(function () {
+		var ymd = '';
+		var ym = '';
+		var year = '';
+
 		$('#stats-community-daily-datepicker').datepicker({
 			format:"yyyymmdd",
 			startView:0,
 			minViewMode:0,
 			language:"kr",
 			autoclose:true,
-			todayHighlight:true
+			todayHighlight:true,
+			setDate:new Date()
 		});
+		$('#stats-community-daily-datepicker').datepicker("setDate", new Date());
+		ymd = $('#stats-community-daily-datepicker').val();
+		$.ajax(contextPath + "/data/stats/community.json", {
+			dataType : "json",
+			type : "GET",
+			data : {date : ymd, item : 1},
+			success : function(data) {
+				if (data.dailyActive != null) {
+					var dailyActive = data.dailyActive;
+					drawDailyChart(dailyActive);
+				}
+			}
+		});
+		$('#stats-community-daily-datepicker').on("change", function () {
+			ymd = $('#stats-community-daily-datepicker').val();
+			$.ajax(contextPath + "/data/stats/community.json", {
+				dataType : "json",
+				type : "GET",
+				data : {date : ymd, item : 1},
+				success : function(data) {
+					if (data.dailyActive != null) {
+						var dailyActive = data.dailyActive;
+						drawDailyChart(dailyActive);
+					}
+				}
+			});
+		});
+		
 		$('#stats-community-monthly-datepicker').datepicker({
 			format:"yyyymm",
 			startView:1,
@@ -35,6 +69,34 @@
 			language:"kr",
 			autoclose:true
 		});
+		$('#stats-community-monthly-datepicker').datepicker("setDate", new Date());
+		ym = $('#stats-community-monthly-datepicker').val();
+		$.ajax(contextPath + "/data/stats/community.json", {
+			dataType : "json",
+			type : "GET",
+			data : {date : ym, item : 2},
+			success : function(data) {
+				if (data.monthlyActive != null) {
+					var monthlyActive = data.monthlyActive;
+					drawMonthlyChart(monthlyActive);
+				}
+			}
+		});
+		$('#stats-community-monthly-datepicker').on("change", function() {
+			ym = $('#stats-community-monthly-datepicker').val();
+			$.ajax(contextPath + "/data/stats/community.json", {
+				dataType : "json",
+				type : "GET",
+				data : {date : ym, item : 2},
+				success : function(data) {
+					if (data.monthlyActive != null) {
+						var monthlyActive = data.monthlyActive;
+						drawMonthlyChart(monthlyActive);
+					}
+				}
+			});
+		});
+		
 		$('#stats-community-annual-datepicker').datepicker({
 			format:"yyyy",
 			startView:2,
@@ -42,106 +104,143 @@
 			language:"kr",
 			autoclose:true
 		});
+		$('#stats-community-annual-datepicker').datepicker("setDate", new Date());
+		year = $('#stats-community-annual-datepicker').val();
+		$.ajax(contextPath + "/data/stats/community.json", {
+			dataType : "json",
+			type : "GET",
+			data : {date : year, item : 3},
+			success : function(data) {
+				if (data.annualActive != null) {
+					var annualActive = data.annualActive;
+					drawAnnualChart(annualActive);
+				}
+			}
+		});
+		$('#stats-community-annual-datepicker').on("change", function () {
+			year = $('#stats-community-annual-datepicker').val();
+			$.ajax(contextPath + "/data/stats/community.json", {
+				dataType : "json",
+				type : "GET",
+				data : {date : year, item : 3},
+				success : function(data) {
+					if (data.annualActive != null) {
+						var annualActive = data.annualActive;
+						drawAnnualChart(annualActive);
+					}
+				}
+			});
+		});
+
+		var drawDailyChart = function(dailyActive) {
+			
+			var data = new Array();
+			var dailyActiveLength = dailyActive.length;
+			data[0] = ['시간', '커뮤니티 활성'];
+			for (var index = 0; index < dailyActiveLength; index++) {
+				data[index + 1] = [index.toString(), dailyActive[index].count];
+			}
+			
+			var statsCommunityDailyData = google.visualization.arrayToDataTable(data);
+			
+			var statsCommunityDailyView = new google.visualization.DataView(statsCommunityDailyData);
+			statsCommunityDailyView.setColumns([0,1, { 
+				calc: "stringify",
+				sourceColumn: 1,
+				type: "string",
+				role: "annotation" 
+			}]);
+
+			var statsCommunityDailyOptions = {
+				chartArea:{left:50,top:10,width:'90%',height:'80%'},
+				legend : {
+					position : 'none'
+				},
+				hAxis: {
+					title:'시간'
+				},
+				vAxis: {
+					title:'커뮤니티 활성도'
+				}
+			};
+			
+			var statsCommunityDailyChart = new google.visualization.ColumnChart(document.getElementById('stats-community-daily-chart'));
+			statsCommunityDailyChart.draw(statsCommunityDailyView, statsCommunityDailyOptions);
+			google.setOnLoadCallback(drawDailyChart);
+		}
+	
+		var drawMonthlyChart = function(monthlyActive) {
+			
+			var data = new Array();
+			var monthlyActiveLength = monthlyActive.length;
+			data[0] = ['날짜', '커뮤니티 활성'];
+			for (var index = 1; index <= monthlyActiveLength; index++) {
+				data[index] = [index.toString(), monthlyActive[index - 1].count];
+			}
+			
+			var statsCommunityMonthlyData = google.visualization.arrayToDataTable(data);
+			
+			var statsCommunityMonthlyView = new google.visualization.DataView(statsCommunityMonthlyData);
+			statsCommunityMonthlyView.setColumns([0,1, { 
+				calc: "stringify",
+				sourceColumn: 1,
+				type: "string",
+				role: "annotation" 
+			}]);
+
+			var statsCommunityMonthlyOptions = {
+				chartArea:{left:50,top:10,width:'90%',height:'80%'},
+				legend : {
+					position : 'none'
+				},
+				hAxis: {
+					title:'일'
+				},
+				vAxis: {
+					title:'커뮤니티 활성도'
+				}
+			};
+
+			var statsCommunityMonthlyChart = new google.visualization.ColumnChart(document.getElementById('stats-community-monthly-chart'));
+			statsCommunityMonthlyChart.draw(statsCommunityMonthlyView, statsCommunityMonthlyOptions);
+			google.setOnLoadCallback(drawMonthlyChart);
+		}
+		
+		var drawAnnualChart = function (annualActive) {
+			
+			var data = new Array();
+			var annualActiveLength = annualActive.length;
+			data[0] = ['날짜', '커뮤니티 활성'];
+			for (var index = 1; index <= annualActiveLength; index++) {
+				data[index] = [index.toString(), annualActive[index - 1].count];
+			}
+			
+			var statsCommunityAnnualData = google.visualization.arrayToDataTable(data);
+			
+			var statsCommunityAnnualView = new google.visualization.DataView(statsCommunityAnnualData);
+			statsCommunityAnnualView.setColumns([0,1, { 
+				calc: "stringify",
+				sourceColumn: 1,
+				type: "string",
+				role: "annotation" 
+			}]);
+
+			var statsCommunityAnnualOptions = {
+				chartArea:{left:50,top:10,width:'90%',height:'80%'},
+				legend : {
+					position : 'none'
+				},
+				hAxis: {
+					title:'월'
+				},
+				vAxis: {
+					title:'커뮤니티 활성도'
+				}
+			};
+
+			var statsCommunityAnnualChart = new google.visualization.ColumnChart(document.getElementById('stats-community-annual-chart'));
+			statsCommunityAnnualChart.draw(statsCommunityAnnualView, statsCommunityAnnualOptions);
+			google.setOnLoadCallback(drawAnnualChart);
+		}
 	});
-
-	google.load("visualization", "1", {packages: ["corechart"]});
-	var drawChart = function() {
-		var statsCommunityDailyData = google.visualization.arrayToDataTable([
-			[ '시간', '커뮤니티 활성' ], [ '00', 165 ], [ '01', 165 ], [ '02', 157 ],
-			[ '03', 157 ], [ '04', 139 ], [ '05', 139 ], [ '06', 167 ],
-			[ '07', 101 ], [ '08', 193 ], [ '09', 124 ], [ '10', 163 ],
-			[ '11', 112 ], [ '12', 181 ], [ '13', 119 ], [ '14', 138 ],
-			[ '15', 110 ], [ '16', 100 ], [ '17', 192 ], [ '18', 181 ],
-			[ '19', 137 ], [ '20', 148 ], [ '21', 189 ], [ '22', 112 ],
-			[ '23', 110 ], [ '24', 12 ] ]);
-		
-		var statsCommunityDailyView = new google.visualization.DataView(statsCommunityDailyData);
-		statsCommunityDailyView.setColumns([0,1, { 
-			calc: "stringify",
-			sourceColumn: 1,
-			type: "string",
-			role: "annotation" 
-		}]);
-
-		var statsCommunityDailyOptions = {
-			chartArea:{left:50,top:10,width:'90%',height:'80%'},
-			legend : {
-				position : 'none'
-			},
-			hAxis: {
-				title:'시간'
-			},
-			vAxis: {
-				title:'커뮤니티 활성도'
-			}
-		};
-		
-		var statsCommunityDailyChart = new google.visualization.ColumnChart(document.getElementById('stats-community-daily-chart'));
-		statsCommunityDailyChart.draw(statsCommunityDailyView, statsCommunityDailyOptions);
-		
-		var statsCommunityMonthlyData = google.visualization.arrayToDataTable([
-			[ '날짜', '커뮤니티 활성' ], [ '1', 165 ], [ '2', 165 ], [ '3', 157 ],
-			[ '4', 157 ], [ '5', 139 ], [ '6', 139 ], [ '7', 167 ],
-			[ '8', 101 ], [ '9', 193 ], [ '10', 124 ], [ '11', 163 ],
-			[ '12', 112 ], [ '13', 181 ], [ '14', 119 ], [ '15', 138 ],
-			[ '16', 110 ], [ '17', 100 ], [ '18', 192 ], [ '19', 137 ], 
-			[ '20', 148 ], [ '21', 189 ], [ '22', 112 ], [ '23', 110 ], 
-			[ '24', 148 ], [ '25', 189 ], [ '26', 112 ], [ '27', 110 ], 
-			[ '28', 148 ], [ '29', 189 ], [ '30', 112 ]]);
-		
-		var statsCommunityMonthlyView = new google.visualization.DataView(statsCommunityMonthlyData);
-		statsCommunityMonthlyView.setColumns([0,1, { 
-			calc: "stringify",
-			sourceColumn: 1,
-			type: "string",
-			role: "annotation" 
-		}]);
-
-		var statsCommunityMonthlyOptions = {
-			chartArea:{left:50,top:10,width:'90%',height:'80%'},
-			legend : {
-				position : 'none'
-			},
-			hAxis: {
-				title:'일'
-			},
-			vAxis: {
-				title:'커뮤니티 활성도'
-			}
-		};
-
-		var statsCommunityMonthlyChart = new google.visualization.ColumnChart(document.getElementById('stats-community-monthly-chart'));
-		statsCommunityMonthlyChart.draw(statsCommunityMonthlyView, statsCommunityMonthlyOptions);
-
-		var statsCommunityAnnualData = google.visualization.arrayToDataTable([
-			[ '날짜', '커뮤니티 활성' ], [ '1', 165 ], [ '2', 165 ], [ '3', 157 ],
-			[ '4', 157 ], [ '5', 139 ], [ '6', 139 ], [ '7', 167 ],
-			[ '8', 101 ], [ '9', 193 ], [ '10', 124 ], [ '11', 163 ],
-			[ '12', 112 ]]);
-		
-		var statsCommunityAnnualView = new google.visualization.DataView(statsCommunityAnnualData);
-		statsCommunityAnnualView.setColumns([0,1, { 
-			calc: "stringify",
-			sourceColumn: 1,
-			type: "string",
-			role: "annotation" 
-		}]);
-
-		var statsCommunityAnnualOptions = {
-			chartArea:{left:50,top:10,width:'90%',height:'80%'},
-			legend : {
-				position : 'none'
-			},
-			hAxis: {
-				title:'월'
-			},
-			vAxis: {
-				title:'커뮤니티 활성도'
-			}
-		};
-
-		var statsCommunityAnnualChart = new google.visualization.ColumnChart(document.getElementById('stats-community-annual-chart'));
-		statsCommunityAnnualChart.draw(statsCommunityAnnualView, statsCommunityAnnualOptions);
-	};
-	google.setOnLoadCallback(drawChart);
 </script>
