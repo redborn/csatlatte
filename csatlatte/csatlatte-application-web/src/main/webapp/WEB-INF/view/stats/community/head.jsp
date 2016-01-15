@@ -153,6 +153,11 @@ google.load("visualization", "1", {packages: ["corechart"]});
 
 			var statsCommunityDailyOptions = {
 				chartArea:{left:50,top:10,width:'90%',height:'80%'},
+				animation:{
+					startup:true,
+			        duration:2000,
+			        easing:'out',
+			    },
 				legend : {
 					position : 'none'
 				},
@@ -160,7 +165,12 @@ google.load("visualization", "1", {packages: ["corechart"]});
 					title:'시간'
 				},
 				vAxis: {
-					title:'커뮤니티 활성도'
+					title:'커뮤니티 활성도',
+					minValue:0,
+					format:0,
+					viewWindow:{
+						min:0,
+					},
 				}
 			};
 			
@@ -190,6 +200,11 @@ google.load("visualization", "1", {packages: ["corechart"]});
 
 			var statsCommunityMonthlyOptions = {
 				chartArea:{left:50,top:10,width:'90%',height:'80%'},
+				animation:{
+					startup:true,
+			        duration:2000,
+			        easing:'out',
+			    },
 				legend : {
 					position : 'none'
 				},
@@ -197,7 +212,12 @@ google.load("visualization", "1", {packages: ["corechart"]});
 					title:'일'
 				},
 				vAxis: {
-					title:'커뮤니티 활성도'
+					title:'커뮤니티 활성도',
+					format:'0',
+					minValue:0,
+					viewWindow:{
+						min:0
+					},
 				}
 			};
 
@@ -227,6 +247,11 @@ google.load("visualization", "1", {packages: ["corechart"]});
 
 			var statsCommunityAnnualOptions = {
 				chartArea:{left:50,top:10,width:'90%',height:'80%'},
+				animation:{
+					startup:true,
+			        duration:2000,
+			        easing:'out',
+			    },
 				legend : {
 					position : 'none'
 				},
@@ -234,7 +259,12 @@ google.load("visualization", "1", {packages: ["corechart"]});
 					title:'월'
 				},
 				vAxis: {
-					title:'커뮤니티 활성도'
+					title:'커뮤니티 활성도',
+					minValue:0,
+					format:'0',
+					viewWindow:{
+						min:0
+					},
 				}
 			};
 
