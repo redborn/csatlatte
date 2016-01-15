@@ -89,7 +89,7 @@ public class AES256 {
 		try {
 			Cipher cipher = Cipher.getInstance(TRANSFORMATION);
 			cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(key.getBytes(CharEncoding.UTF_8), "AES"), new IvParameterSpec(key.substring(0, 16).getBytes(CharEncoding.UTF_8)));
-			result = new String(cipher.doFinal(Base64.decodeBase64(str.getBytes(CharEncoding.UTF_8))), CharEncoding.UTF_8);
+			result = new String(cipher.doFinal(Base64.decodeBase64(str)));
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		} catch (NoSuchPaddingException e) {
