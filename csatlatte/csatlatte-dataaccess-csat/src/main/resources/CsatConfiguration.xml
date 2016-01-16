@@ -29,6 +29,7 @@
 		<typeAlias alias="YmdCountVo" type="org.redborn.csatlatte.domain.YmdCountVo"/>
 		<typeAlias alias="InstitutionVo" type="org.redborn.csatlatte.domain.InstitutionVo"/>
 		<typeAlias alias="YsVo" type="org.redborn.csatlatte.domain.YsVo"/>
+		<typeAlias alias="SecurityQuestionVo" type="org.redborn.csatlatte.domain.SecurityQuestionVo"/>
 	</typeAliases>
 	
 	<mappers>

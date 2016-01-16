@@ -34,6 +34,14 @@ public class StudentDaoMapper extends SqlSessionDaoSupport implements StudentDao
 		return getSqlSession().selectOne("student.selectOneCountPassword", params);
 	}
 	
+	public int selectOneCountOverlapId(String studentId) {
+		return getSqlSession().selectOne("student.selectOneCountOverlapId", studentId);
+	}
+	
+	public int selectOneCountOverlapNickname(String nickname) {
+		return getSqlSession().selectOne("student.selectOneCountOverlapNickname", nickname);
+	}
+	
 	public int selectOneCountIsPassword(String id, String securityAnswer) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("id", id);

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.redborn.csatlatte.domain.SecurityQuestionVo;
 import org.redborn.csatlatte.domain.StudentSecurityQuestionVo;
 import org.redborn.csatlatte.domain.StudentVo;
 import org.redborn.csatlatte.domain.YearCountVo;
@@ -86,6 +87,14 @@ public class StudentServiceImpl implements StudentService {
 
 	public boolean isPassword(String id, String securityAnswer) {
 		return studentDao.selectOneCountIsPassword(id, securityAnswer) == 1;
+	}
+	
+	public boolean overlapCheckId(String studentId) {
+		return studentDao.selectOneCountOverlapId(studentId) == 1;
+	}
+	
+	public boolean overlapCheckNickname(String nickname) {
+		return studentDao.selectOneCountOverlapNickname(nickname) == 1;
 	}
 
 	public StudentVo information(String id, String password) {
@@ -172,6 +181,10 @@ public class StudentServiceImpl implements StudentService {
 			hmsm = "";
 		}
 		return new StringBuilder(hmsm).append(password).toString();
+	}
+	
+	public List<SecurityQuestionVo> securityQuestionList() {
+		return securityQuestionDao.selectList();
 	}
 
 }

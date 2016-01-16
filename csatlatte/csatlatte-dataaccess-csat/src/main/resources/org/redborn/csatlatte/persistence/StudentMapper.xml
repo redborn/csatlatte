@@ -106,6 +106,18 @@
 		   AND student_password = CONCAT(DATE_FORMAT(create_date, '%f%S%i%H'), #{password,typeHandler=org.redborn.csatlatte.commons.mybatis.SHA512TypeHandler})
 	</select>
 	
+	<select id="selectOneCountOverlapId" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_student cs
+		 WHERE cs.student_id = #{studentId}
+	</select>
+	
+	<select id="selectOneCountOverlapNickname" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_student cs
+		 WHERE cs.nickname = #{nickname}
+	</select>
+	
 	<select id="selectOneCountIsPassword" parameterType="Map" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_student cs,csat_student_scqs css
