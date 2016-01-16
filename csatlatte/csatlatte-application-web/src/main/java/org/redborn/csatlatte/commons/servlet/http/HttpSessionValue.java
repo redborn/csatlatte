@@ -17,6 +17,7 @@ public class HttpSessionValue {
 	private final static String STUDENT_SEQUENCE = "studentSequence";
 	private final static String NICKNAME = "nickname";
 	private final static String RULE_SEQUENCE = "ruleSequence";
+	private final static String CSAT_SEQUENCE = "csatSequence";
 	private final static String ID = "id";
 	public final static int STUDENT = 1;
 	public final static int MANAGER = 2;
@@ -30,11 +31,12 @@ public class HttpSessionValue {
 	 * @param nickname 닉네임
 	 * @param ruleSequence 규칙 일련번호
 	 */
-	public void setUser(String id, int studentSequence, String nickname, int ruleSequence) {
+	public void setUser(String id, int studentSequence, String nickname, int ruleSequence, int csatSequence) {
 		this.session.setAttribute(ID, id);
 		this.session.setAttribute(STUDENT_SEQUENCE, studentSequence);
 		this.session.setAttribute(NICKNAME, nickname);
 		this.session.setAttribute(RULE_SEQUENCE, ruleSequence);
+		this.session.setAttribute(CSAT_SEQUENCE, csatSequence);
 	}
 	
 	/**
@@ -107,6 +109,11 @@ public class HttpSessionValue {
 	 */
 	public static String getNickname(HttpSession session) {
 		return (String) session.getAttribute(NICKNAME);
+	}
+	
+	public int getCsatSequence() {
+		Integer csatSequence = (Integer) this.session.getAttribute(CSAT_SEQUENCE);
+		return csatSequence != null ? csatSequence : 0;
 	}
 	
 	/**
