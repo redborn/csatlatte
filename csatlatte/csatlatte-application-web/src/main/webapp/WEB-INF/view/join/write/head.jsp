@@ -39,7 +39,6 @@
 		var patternEnglishNumber = /^[A-Za-z0-9+]*$/;
 		var patternEnglishNumberSpecial = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[~,!,@,#,$,*,(,),=,+,_,.,|]).*$/; // 8~15자리 영문, 숫자, 특수문자 최소 1개 포함
 		var patternKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
-		var RegExpHG = "[ㄱ-ㅎ가-?R]";
 		
 		var passwordNegativeMessage = function () {
 			var html = '';
@@ -291,8 +290,7 @@
 				}, 2000);
 			}
 			
-			if ($('#join-content-id').val() !== "" && $('#join-content-password').val() !== "" &&
-					successPassword && $('#join-content-answer').val() !== "" && $('#join-content-nickname').val() !== "") {
+			if (successPasswordCheck && successPassword && successId && successNickname && successAnswer) {
 				result = true;
 			}
 			
