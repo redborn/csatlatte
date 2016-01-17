@@ -63,6 +63,6 @@
 	</div>
 	<div class="join-button-group">
 		<a id="join-btn-cancel" class="btn btn-default" href="<c:url value="/main"/>">취소</a>
-		<input id="join-btn-success" type="submit" class="btn btn-default" value="계정 만들기">
+		<input id="join-btn-success" type="submit" class="btn btn-primary" value="계정 만들기">
 	</div>
 </form>

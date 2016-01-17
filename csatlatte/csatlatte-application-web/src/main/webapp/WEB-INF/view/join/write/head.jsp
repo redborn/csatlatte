@@ -10,8 +10,6 @@
 	.join-info {margin-top:30px;}
 	.join-content img {width:100px; border:1px solid #7a6253; border-radius:4px; margin-bottom:10px;}
 	.join-button-group {text-align:right; width:auto; margin-top:20px;}
-	.join-button-group #join-btn-cancel {background:#ffd0c9; text-shadow:none;}
-	.join-button-group #join-btn-success {background:#c9e6ff; text-shadow:none;}
 	#join-password-check-message-area {display:inline-block; margin-left:10px;}
 	.join-password-check-message-negative {color:#d9534f;}
 	.join-password-check-message-positive {color:#5cb85c;}
@@ -155,7 +153,7 @@
 		$('#join-content-id').on("keyup", function () {
 			$('.join-id-check-message-negative').remove();
 			$('.join-id-check-message-positive').remove();
-			if ($(this).val().length < 5 || $(this).val().match(patternSpace) || !$(this).val().match(patternEnglishNumber)) {
+			if ($(this).val().length < 6 || $(this).val().match(patternSpace) || !$(this).val().match(patternEnglishNumber)) {
 				$('#join-id-check-message-area').append(idNegativeMessage());
 				successId = false;
 			} else {
