@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/layout/include/bootstrap/datepicker.jsp" %>
+<%@ include file="/WEB-INF/layout/include/google/chart.jsp" %>
 <style>
 	h5 {display:inline-block;  vertical-align:top;}
 	.form-control {margin-left:5px; display:inline-block; float:none; width:100px; height:30px;}
@@ -17,9 +18,7 @@
 	
 	.btn-default {width:100%; display:block;}
 </style>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
-google.load("visualization", "1", {packages: ["corechart"]});
 	$(document).ready(function () {
 		var ymd = '';
 		var ym = '';
