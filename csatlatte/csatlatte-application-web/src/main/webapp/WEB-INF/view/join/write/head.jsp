@@ -2,13 +2,13 @@
     pageEncoding="UTF-8"%>
 <style>
 	.join {font-size:13px;}
-	.join-content-label {margin-right:10px; width:13%; text-align:right;}
-	.join-content {margin-left:30px; margin-bottom:0px;}
+	.join-content-label {text-align:right; width:80px; margin-right:5px;}
+	.join-form-inline {margin-bottom:8px;}
+	#join-id-check-message-area {margin-top:7px;}
 	.join-message {margin-left:70px; margin-top:5px;}
-	.join-form-control {display:inline-block; float:none; width:220px; height:25px; margin-top:10px;}
 	.join-security {margin-top:30px;}
 	.join-info {margin-top:30px;}
-	.join-content img {width:100px; border:1px solid #7a6253; border-radius:4px; margin-bottom:10px;}
+	.join-image {width:100px; border:1px solid #7a6253; border-radius:4px; margin-bottom:10px;}
 	.join-button-group {text-align:right; width:auto; margin-top:20px;}
 	#join-password-check-message-area {display:inline-block; margin-left:10px;}
 	.join-password-check-message-negative {color:#d9534f;}
