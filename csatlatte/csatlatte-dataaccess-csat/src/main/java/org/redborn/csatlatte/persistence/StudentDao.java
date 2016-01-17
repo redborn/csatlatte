@@ -2,10 +2,8 @@ package org.redborn.csatlatte.persistence;
 
 import java.util.List;
 
+import org.redborn.csatlatte.domain.CountVo;
 import org.redborn.csatlatte.domain.StudentVo;
-import org.redborn.csatlatte.domain.YearCountVo;
-import org.redborn.csatlatte.domain.YmCountVo;
-import org.redborn.csatlatte.domain.YmdCountVo;
 
 public interface StudentDao {
 	
@@ -19,9 +17,9 @@ public interface StudentDao {
 	public int selectOneMaxStudentSequence();
 	public int selectOneCount(String search);
 	public List<StudentVo> selectList(String search, int pageNumber);
-	public List<YmdCountVo> selectListCountYmd(String ymd);
-	public List<YmCountVo> selectListCountYm(String ym);
-	public List<YearCountVo> selectListCountYear(String year);
+	public List<CountVo> selectListCountYmd(String ymd);
+	public List<CountVo> selectListCountYm(String ym);
+	public List<CountVo> selectListCountYear(String year);
 	public String selectOneCreateHmsmWhereStudentSequence(int studentSequence);
 	public String selectOneCreateHmsmWhereStudentId(String studentId);
 	public int insert(StudentVo studentVo);
