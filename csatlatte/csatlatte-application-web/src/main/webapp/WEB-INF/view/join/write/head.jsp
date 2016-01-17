@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <style>
-	label {margin-right:10px; width:13%; text-align:right;}
 	.join {font-size:13px;}
-	.join-content {margin-left:30px;}
+	.join-content-label {margin-right:10px; width:13%; text-align:right;}
+	.join-content {margin-left:30px; margin-bottom:0px;}
 	.join-message {margin-left:70px; margin-top:5px;}
-	.form-control {display:inline-block; float:none; width:220px; height:25px; margin-top:10px;}
+	.join-form-control {display:inline-block; float:none; width:220px; height:25px; margin-top:10px;}
 	.join-security {margin-top:30px;}
 	.join-info {margin-top:30px;}
 	.join-content img {width:100px; border:1px solid #7a6253; border-radius:4px; margin-bottom:10px;}
