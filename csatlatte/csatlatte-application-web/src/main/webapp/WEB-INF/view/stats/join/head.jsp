@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/layout/include/bootstrap/datepicker.jsp" %>
+<%@ include file="/WEB-INF/layout/include/google/chart.jsp" %>
 <style>
 	h5 {display:inline-block; vertical-align:top;}
 	.form-control {margin-left:5px; display:inline-block; float:none; width:auto; height:30px;}
@@ -17,127 +18,258 @@
 	
 	.btn-default {width:100%; display:block;}
 </style>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
+		var ymd = '';
+		var ym = '';
+		var year = '';
+		
 		$('#stats-join-daily-datepicker').datepicker({
-			startView : 0,
-			minViewMode : 0,
-			autoclose : true,
-			todayHighlight : true
+			format:"yyyymmdd",
+			startView:0,
+			minViewMode:0,
+			language:"kr",
+			autoclose:true,
+			todayHighlight:true
 		});
+		$('#stats-join-daily-datepicker').datepicker("setDate", new Date());
+		ymd = $('#stats-join-daily-datepicker').val();
+		$.ajax(contextPath + "/data/student/join/stats/daily.json", {
+			dataType : "json",
+			type : "GET",
+			data : {ymd : ymd},
+			success : function(data) {
+				if (data.dailyJoin != null) {
+					var dailyJoin = data.dailyJoin;
+					drawDailyChart(dailyJoin);
+				}
+			}
+		});
+		$('#stats-join-daily-datepicker').on("change", function() {
+			ymd = $('#stats-join-daily-datepicker').val();
+			$.ajax(contextPath + "/data/student/join/stats/daily.json", {
+				dataType : "json",
+				type : "GET",
+				data : {ymd : ymd},
+				success : function(data) {
+					if (data.dailyJoin != null) {
+						var dailyJoin = data.dailyJoin;
+						drawDailyChart(dailyJoin);
+					}
+				}
+			});
+		});
+		
 		$('#stats-join-monthly-datepicker').datepicker({
-			format : "yyyy.mm",
-			startView : 1,
-			minViewMode : 1,
-			autoclose : true
+			format:"yyyymm",
+			startView:1,
+			minViewMode:1,
+			language:"kr",
+			autoclose:true
 		});
+		$('#stats-join-monthly-datepicker').datepicker("setDate", new Date());
+		ym = $('#stats-join-monthly-datepicker').val();
+		$.ajax(contextPath + "/data/student/join/stats/monthly.json", {
+			dataType : "json",
+			type : "GET",
+			data : {ym : ym},
+			success : function(data) {
+				if (data.monthlyJoin != null) {
+					var monthlyJoin = data.monthlyJoin;
+					drawMonthlyChart(monthlyJoin);
+				}
+			}
+		});
+		$('#stats-join-monthly-datepicker').on("change", function() {
+			ym = $('#stats-join-monthly-datepicker').val();
+			$.ajax(contextPath + "/data/student/join/stats/monthly.json", {
+				dataType : "json",
+				type : "GET",
+				data : {ym : ym},
+				success : function(data) {
+					if (data.monthlyJoin != null) {
+						var monthlyJoin = data.monthlyJoin;
+						drawMonthlyChart(monthlyJoin);
+					}
+				}
+			});
+		});
+		
 		$('#stats-join-annual-datepicker').datepicker({
-			format : "yyyy",
-			startView : 2,
-			minViewMode : 2,
-			autoclose : true
+			format:"yyyy",
+			startView:2,
+			minViewMode:2,
+			language:"kr",
+			autoclose:true
 		});
+		$('#stats-join-annual-datepicker').datepicker("setDate", new Date());
+		year = $('#stats-join-annual-datepicker').val();
+		$.ajax(contextPath + "/data/student/join/stats/annual.json", {
+			dataType : "json",
+			type : "GET",
+			data : {year : year},
+			success : function(data) {
+				if (data.annualJoin != null) {
+					var annualJoin = data.annualJoin;
+					drawAnnualChart(annualJoin);
+				}
+			}
+		});
+		$('#stats-join-annual-datepicker').on("change", function () {
+			year = $('#stats-join-annual-datepicker').val();
+			$.ajax(contextPath + "/data/student/join/stats/annual.json", {
+				dataType : "json",
+				type : "GET",
+				data : {year : year},
+				success : function(data) {
+					if (data.annualJoin != null) {
+						var annualJoin = data.annualJoin;
+						drawAnnualChart(annualJoin);
+					}
+				}
+			});
+		});
+	
+		var drawDailyChart = function(dailyJoin) {
+			
+			var data = new Array();
+			var dailyJoinLength = dailyJoin.length;
+			data[0] = ['시간', '가입자 수'];
+			for (var index = 0; index < dailyJoinLength; index++) {
+				data[index + 1] = [index.toString(), dailyJoin[index].count];
+				console.log(data[index + 1]);
+			}
+			
+			var statsJoinDailyData = google.visualization.arrayToDataTable(data);
+	
+			var statsJoinDailyView = new google.visualization.DataView(statsJoinDailyData);
+			statsJoinDailyView.setColumns([0,1, { 
+				calc: "stringify",
+				sourceColumn: 1,
+				type: "string",
+				role: "annotation" 
+			}]);
+			
+			var statsJoinDailyOptions = {
+				chartArea:{left:50,top:10,width:'90%',height:'80%'},
+				animation:{
+					startup:true,
+			        duration:2000,
+			        easing:'out',
+			    },
+				legend : {
+					position : 'none'
+				},
+				hAxis: {
+					title:'시간'
+				},
+				vAxis: {
+					title:'가입자 수',
+					minValue:0,
+					format:'',
+					viewWindow:{
+						min:0,
+					},
+				}
+			};
+			
+			var statsJoinDailyChart = new google.visualization.ColumnChart(document.getElementById('stats-join-daily-chart'));
+			statsJoinDailyChart.draw(statsJoinDailyView, statsJoinDailyOptions);
+			google.setOnLoadCallback(drawDailyChart);
+		}
+		
+		var drawMonthlyChart = function(monthlyJoin) {
+			
+			var data = new Array();
+			var monthlyJoinLength = monthlyJoin.length;
+			data[0] = ['일', '가입자 수'];
+			for (var index = 1; index <= monthlyJoinLength; index++) {
+				data[index] = [index.toString(), monthlyJoin[index - 1].count];
+			}
+			
+			var statsJoinMonthlyData = google.visualization.arrayToDataTable(data);
+			
+			var statsJoinMonthlyView = new google.visualization.DataView(statsJoinMonthlyData);
+			statsJoinMonthlyView.setColumns([0,1, { 
+				calc: "stringify",
+				sourceColumn: 1,
+				type: "string",
+				role: "annotation" 
+			}]);
+			
+			var statsJoinMonthlyOptions = {
+				chartArea:{left:50,top:10,width:'90%',height:'80%'},
+				animation:{
+					startup:true,
+			        duration:2000,
+			        easing:'out',
+			    },
+				legend : {
+					position : 'none'
+				},
+				hAxis: {
+					title:'일'
+				},
+				vAxis: {
+					title:'가입자 수',
+					minValue:0,
+					format:'',
+					viewWindow:{
+						min:0,
+					},
+				}
+			};
+	
+			var statsJoinMonthlyChart = new google.visualization.ColumnChart(document.getElementById('stats-join-monthly-chart'));
+			statsJoinMonthlyChart.draw(statsJoinMonthlyView, statsJoinMonthlyOptions);
+			google.setOnLoadCallback(drawMonthlyChart);
+		}
+	
+		var drawAnnualChart = function(annualJoin) {
+			
+			var data = new Array();
+			var annualJoinLength = annualJoin.length;
+			data[0] = ['월', '가입자 수'];
+			for (var index = 1; index <= annualJoinLength; index++) {
+				data[index] = [index.toString(), annualJoin[index - 1].count];
+			}
+			
+			var statsJoinAnnualData = google.visualization.arrayToDataTable(data);
+	
+			var statsJoinAnnualView = new google.visualization.DataView(statsJoinAnnualData);
+			statsJoinAnnualView.setColumns([0,1, { 
+				calc: "stringify",
+				sourceColumn: 1,
+				type: "string",
+				role: "annotation" 
+			}]);
+			
+			var statsJoinAnnualOptions = {
+				chartArea:{left:50,top:10,width:'90%',height:'80%'},
+				animation:{
+					startup:true,
+			        duration:2000,
+			        easing:'out',
+			    },
+				legend : {
+					position : 'none'
+				},
+				hAxis: {
+					title:'월'
+				},
+				vAxis: {
+					title:'가입자 수',
+					minValue:0,
+					format:'',
+					viewWindow:{
+						min:0,
+					},
+				}
+			};
+	
+			var statsJoinAnnualChart = new google.visualization.ColumnChart(document.getElementById('stats-join-annual-chart'));
+			statsJoinAnnualChart.draw(statsJoinAnnualView, statsJoinAnnualOptions);
+			google.setOnLoadCallback(drawAnnualChart);
+		}
 	});
-
-	google.load("visualization", "1", {packages: ["corechart"]});
-	var drawChart = function() {
-		var statsJoinDailyData = google.visualization.arrayToDataTable([
-			[ '시간', '신규가입자' ], [ '00', 165 ], [ '01', 165 ], [ '02', 157 ],
-			[ '03', 157 ], [ '04', 139 ], [ '05', 139 ], [ '06', 167 ],
-			[ '07', 101 ], [ '08', 193 ], [ '09', 124 ], [ '10', 163 ],
-			[ '11', 112 ], [ '12', 181 ], [ '13', 119 ], [ '14', 138 ],
-			[ '15', 110 ], [ '16', 100 ], [ '17', 192 ], [ '18', 181 ],
-			[ '19', 137 ], [ '20', 148 ], [ '21', 189 ], [ '22', 112 ],
-			[ '23', 110 ], [ '24', 12 ] ]);
-
-		var statsJoinDailyView = new google.visualization.DataView(statsJoinDailyData);
-		statsJoinDailyView.setColumns([0,1, { 
-			calc: "stringify",
-			sourceColumn: 1,
-			type: "string",
-			role: "annotation" 
-		}]);
-		
-		var statsJoinDailyOptions = {
-			chartArea:{left:50,top:10,width:'90%',height:'80%'},
-			legend : {
-				position : 'none'
-			},
-			hAxis: {
-				title:'시간'
-			},
-			vAxis: {
-				title:'가입자 수'
-			}
-		};
-		
-		var statsJoinDailyChart = new google.visualization.ColumnChart(document.getElementById('stats-join-daily-chart'));
-		statsJoinDailyChart.draw(statsJoinDailyView, statsJoinDailyOptions);
-		
-		var statsJoinMonthlyData = google.visualization.arrayToDataTable([
-			[ '날짜', '신규가입자' ], [ '1', 165 ], [ '2', 165 ], [ '3', 157 ],
-			[ '4', 157 ], [ '5', 139 ], [ '6', 139 ], [ '7', 167 ],
-			[ '8', 101 ], [ '9', 193 ], [ '10', 124 ], [ '11', 163 ],
-			[ '12', 112 ], [ '13', 181 ], [ '14', 119 ], [ '15', 138 ],
-			[ '16', 110 ], [ '17', 100 ], [ '18', 192 ], [ '19', 137 ], 
-			[ '20', 148 ], [ '21', 189 ], [ '22', 112 ], [ '23', 110 ], 
-			[ '24', 148 ], [ '25', 189 ], [ '26', 112 ], [ '27', 110 ], 
-			[ '28', 148 ], [ '29', 189 ], [ '30', 112 ]]);
-		
-		var statsJoinMonthlyView = new google.visualization.DataView(statsJoinMonthlyData);
-		statsJoinMonthlyView.setColumns([0,1, { 
-			calc: "stringify",
-			sourceColumn: 1,
-			type: "string",
-			role: "annotation" 
-		}]);
-		
-		var statsJoinMonthlyOptions = {
-			chartArea:{left:50,top:10,width:'90%',height:'80%'},
-			legend : {
-				position : 'none'
-			},
-			hAxis: {
-				title:'일'
-			},
-			vAxis: {
-				title:'가입자 수'
-			}
-		};
-
-		var statsJoinMonthlyChart = new google.visualization.ColumnChart(document.getElementById('stats-join-monthly-chart'));
-		statsJoinMonthlyChart.draw(statsJoinMonthlyView, statsJoinMonthlyOptions);
-
-		var statsJoinAnnualData = google.visualization.arrayToDataTable([
-			[ '날짜', '신규가입자' ], [ '1', 165 ], [ '2', 165 ], [ '3', 157 ],
-			[ '4', 157 ], [ '5', 139 ], [ '6', 139 ], [ '7', 167 ],
-			[ '8', 101 ], [ '9', 193 ], [ '10', 124 ], [ '11', 163 ],
-			[ '12', 112 ]]);
-
-		var statsJoinAnnualView = new google.visualization.DataView(statsJoinAnnualData);
-		statsJoinAnnualView.setColumns([0,1, { 
-			calc: "stringify",
-			sourceColumn: 1,
-			type: "string",
-			role: "annotation" 
-		}]);
-		
-		var statsJoinAnnualOptions = {
-			chartArea:{left:50,top:10,width:'90%',height:'80%'},
-			legend : {
-				position : 'none'
-			},
-			hAxis: {
-				title:'월'
-			},
-			vAxis: {
-				title:'가입자 수'
-			}
-		};
-
-		var statsJoinAnnualChart = new google.visualization.ColumnChart(document.getElementById('stats-join-annual-chart'));
-		statsJoinAnnualChart.draw(statsJoinAnnualView, statsJoinAnnualOptions);
-	};
-	google.setOnLoadCallback(drawChart);
 </script>

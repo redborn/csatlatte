@@ -2,11 +2,9 @@ package org.redborn.csatlatte.service;
 
 import java.util.List;
 
+import org.redborn.csatlatte.domain.CountVo;
 import org.redborn.csatlatte.domain.StudentSecurityQuestionVo;
 import org.redborn.csatlatte.domain.StudentVo;
-import org.redborn.csatlatte.domain.YearCountVo;
-import org.redborn.csatlatte.domain.YmCountVo;
-import org.redborn.csatlatte.domain.YmdCountVo;
 import org.redborn.csatlatte.domain.YsVo;
 
 public interface StudentService {
@@ -21,12 +19,12 @@ public interface StudentService {
 	public StudentVo information(int studentSequence);
 	public boolean lock(int studentSequence);
 	public boolean recovery(int studentSequence);
-	public List<YmdCountVo> dailyJoinCountList(String ymd);
-	public List<YmCountVo> monthlyJoinCountList(String ym);
-	public List<YearCountVo> annualJoinCountList(String year);
-	public List<YmdCountVo> dailyConnectionCount(String ymd);
-	public List<YmCountVo> monthlyConnectionCount(String ym);
-	public List<YearCountVo> annualConnectionCount(String year);
+	public List<CountVo> dailyJoinCountList(String ymd);
+	public List<CountVo> monthlyJoinCountList(String ym);
+	public List<CountVo> annualJoinCountList(String year);
+	public List<CountVo> dailyConnectionCount(String ymd);
+	public List<CountVo> monthlyConnectionCount(String ym);
+	public List<CountVo> annualConnectionCount(String year);
 	public List<StudentVo> userList(String search, int pageNumber);
 	public String securityQuestion(int studentSequence);
 	public int amountStudent(String search);

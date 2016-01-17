@@ -9,7 +9,7 @@
 	<resultMap type="CommunityVo" id="CommunityVoMap">
 		<result column="community_seq" property="communitySequence"/>
 		<result column="student_seq" property="studentSequence"/>
-		<result column="nickname" property="nickname"/>
+		<result column="nickname" property="nickname" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
 		<result column="content" property="content"/>
 		<result column="report" property="report" typeHandler="org.redborn.csatlatte.commons.mybatis.BooleanTypeHandler"/>
 		<result column="blind" property="blind" typeHandler="org.redborn.csatlatte.commons.mybatis.BooleanTypeHandler"/>
@@ -18,8 +18,8 @@
 	
 	<resultMap type="CommunityVo" id="CommunityVoManageMap">
 		<result column="community_seq" property="communitySequence"/>
-		<result column="student_id" property="studentId"/>
-		<result column="nickname" property="nickname"/>
+		<result column="student_id" property="studentId" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
+		<result column="nickname" property="nickname" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
 		<result column="content" property="content"/>
 		<result column="write_ymdhms" property="writeYmdhms"/>
 		<result column="blind" property="blind"/>
