@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <style>
 	.join {font-size:13px;}
-	.join-content-label {text-align:right; width:80px; margin-right:5px;}
+	.join-content-label {text-align:right; width:100px; margin-right:5px;}
 	.join-form-inline {margin-bottom:8px;}
 	#join-id-check-message-area {margin-top:7px;}
 	.join-message {margin-left:70px; margin-top:5px;}
