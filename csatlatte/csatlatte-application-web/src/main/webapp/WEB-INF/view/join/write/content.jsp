@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <form class="form-horizontal" id="join-write-form" method="POST" action="<c:url value="/join"/>">
 	<div class="join">
-		<h5>수능라떼 아이디 정보</h5>
+		<h4>수능라떼 아이디 정보</h4>
 		<div class="join-id">
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="join-content-id">아이디</label>
@@ -21,7 +21,7 @@
 				<div class="col-sm-5"><div id="join-password-check-message-area"></div></div>
 			</div>
 		</div>
-		<h5>보안 질문 <small>아이디 혹은 비밀번호를 분실한 경우 필요한 정보입니다.</small></h5>
+		<h4>보안 질문 <small>아이디 혹은 비밀번호를 분실한 경우 필요한 정보입니다.</small></h4>
 		<div class="join-security">
 			<div class="form-group">	
 				<label class="col-sm-2 control-label" for="join-content-select-question">질문 선택</label>
@@ -39,7 +39,7 @@
 				<div class="col-sm-5"><div id="join-answer-check-message-area"></div></div>
 			</div>
 		</div>
-		<h5>프로필 사진 및 닉네임 <small>커뮤니티를 이용 시에 사용되는 정보입니다.</small></h5>
+		<h4>프로필 사진 및 닉네임 <small>커뮤니티를 이용 시에 사용되는 정보입니다.</small></h4>
 		<div class="join-info">
 			<div class="form-group">
 				<label class="col-sm-2 control-label" id="join-profile-picture">프로필 사진</label>
