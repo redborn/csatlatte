@@ -34,7 +34,7 @@
 		});
 		$('#stats-connection-daily-datepicker').datepicker("setDate", new Date());
 		ymd = $('#stats-connection-daily-datepicker').val();
-		$.ajax(contextPath + "/data/stats/dailyconnection.json", {
+		$.ajax(contextPath + "/data/student/connection/stats/daily.json", {
 			dataType : "json",
 			type : "GET",
 			data : {ymd : ymd},
@@ -47,7 +47,7 @@
 		});
 		$('#stats-connection-daily-datepicker').on("change", function () {
 			ymd = $('#stats-connection-daily-datepicker').val();
-			$.ajax(contextPath + "/data/stats/dailyconnection.json", {
+			$.ajax(contextPath + "/data/student/connection/stats/daily.json", {
 				dataType : "json",
 				type : "GET",
 				data : {ymd : ymd},
@@ -69,7 +69,7 @@
 		});
 		$('#stats-connection-monthly-datepicker').datepicker("setDate", new Date());
 		ym = $('#stats-connection-monthly-datepicker').val();
-		$.ajax(contextPath + "/data/stats/monthlyconnection.json" , {
+		$.ajax(contextPath + "/data/student/connection/stats/monthly.json" , {
 			dataType : "json",
 			type : "GET",
 			data : {ym : ym},
@@ -82,7 +82,7 @@
 		});
 		$('#stats-connection-monthly-datepicker').on("change", function () {
 			ym = $('#stats-connection-monthly-datepicker').val();
-			$.ajax(contextPath + "/data/stats/monthlyconnection.json" , {
+			$.ajax(contextPath + "/data/student/connection/stats/monthly.json" , {
 				dataType : "json",
 				type : "GET",
 				data : {ym : ym},
@@ -104,7 +104,7 @@
 		});
 		$('#stats-connection-annual-datepicker').datepicker("setDate", new Date());
 		year = $('#stats-connection-annual-datepicker').val();
-		$.ajax(contextPath + "/data/stats/annualconnection.json", {
+		$.ajax(contextPath + "/data/student/connection/stats/annual.json", {
 			dataType : "json",
 			type : "GET",
 			data : {year : year},
@@ -117,7 +117,7 @@
 		});
 		$('#stats-connection-annual-datepicker').on("change", function() {
 			year = $('#stats-connection-annual-datepicker').val();
-			$.ajax(contextPath + "/data/stats/annualconnection.json", {
+			$.ajax(contextPath + "/data/student/connection/stats/annual.json", {
 				dataType : "json",
 				type : "GET",
 				data : {year : year},

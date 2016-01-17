@@ -34,7 +34,7 @@
 		});
 		$('#stats-join-daily-datepicker').datepicker("setDate", new Date());
 		ymd = $('#stats-join-daily-datepicker').val();
-		$.ajax(contextPath + "/data/stats/dailyjoin.json", {
+		$.ajax(contextPath + "/data/student/join/stats/daily.json", {
 			dataType : "json",
 			type : "GET",
 			data : {ymd : ymd},
@@ -47,7 +47,7 @@
 		});
 		$('#stats-join-daily-datepicker').on("change", function() {
 			ymd = $('#stats-join-daily-datepicker').val();
-			$.ajax(contextPath + "/data/stats/dailyjoin.json", {
+			$.ajax(contextPath + "/data/student/join/stats/daily.json", {
 				dataType : "json",
 				type : "GET",
 				data : {ymd : ymd},
@@ -69,7 +69,7 @@
 		});
 		$('#stats-join-monthly-datepicker').datepicker("setDate", new Date());
 		ym = $('#stats-join-monthly-datepicker').val();
-		$.ajax(contextPath + "/data/stats/monthlyjoin.json", {
+		$.ajax(contextPath + "/data/student/join/stats/monthly.json", {
 			dataType : "json",
 			type : "GET",
 			data : {ym : ym},
@@ -82,7 +82,7 @@
 		});
 		$('#stats-join-monthly-datepicker').on("change", function() {
 			ym = $('#stats-join-monthly-datepicker').val();
-			$.ajax(contextPath + "/data/stats/monthlyjoin.json", {
+			$.ajax(contextPath + "/data/student/join/stats/monthly.json", {
 				dataType : "json",
 				type : "GET",
 				data : {ym : ym},
@@ -104,7 +104,7 @@
 		});
 		$('#stats-join-annual-datepicker').datepicker("setDate", new Date());
 		year = $('#stats-join-annual-datepicker').val();
-		$.ajax(contextPath + "/data/stats/annualjoin.json", {
+		$.ajax(contextPath + "/data/student/join/stats/annual.json", {
 			dataType : "json",
 			type : "GET",
 			data : {year : year},
@@ -117,7 +117,7 @@
 		});
 		$('#stats-join-annual-datepicker').on("change", function () {
 			year = $('#stats-join-annual-datepicker').val();
-			$.ajax(contextPath + "/data/stats/annualjoin.json", {
+			$.ajax(contextPath + "/data/student/join/stats/annual.json", {
 				dataType : "json",
 				type : "GET",
 				data : {year : year},

@@ -35,7 +35,7 @@
 		});
 		$('#stats-community-daily-datepicker').datepicker("setDate", new Date());
 		ymd = $('#stats-community-daily-datepicker').val();
-		$.ajax(contextPath + "/data/stats/dailycommunity.json", {
+		$.ajax(contextPath + "/data/community/stats/daily.json", {
 			dataType : "json",
 			type : "GET",
 			data : {ymd : ymd},
@@ -48,7 +48,7 @@
 		});
 		$('#stats-community-daily-datepicker').on("change", function () {
 			ymd = $('#stats-community-daily-datepicker').val();
-			$.ajax(contextPath + "/data/stats/dailycommunity.json", {
+			$.ajax(contextPath + "/data/community/stats/daily.json", {
 				dataType : "json",
 				type : "GET",
 				data : {ymd : ymd},
@@ -70,7 +70,7 @@
 		});
 		$('#stats-community-monthly-datepicker').datepicker("setDate", new Date());
 		ym = $('#stats-community-monthly-datepicker').val();
-		$.ajax(contextPath + "/data/stats/monthlycommunity.json", {
+		$.ajax(contextPath + "/data/community/stats/monthly.json", {
 			dataType : "json",
 			type : "GET",
 			data : {ym : ym},
@@ -83,7 +83,7 @@
 		});
 		$('#stats-community-monthly-datepicker').on("change", function() {
 			ym = $('#stats-community-monthly-datepicker').val();
-			$.ajax(contextPath + "/data/stats/monthlycommunity.json", {
+			$.ajax(contextPath + "/data/community/stats/monthly.json", {
 				dataType : "json",
 				type : "GET",
 				data : {ym : ym},
@@ -105,7 +105,7 @@
 		});
 		$('#stats-community-annual-datepicker').datepicker("setDate", new Date());
 		year = $('#stats-community-annual-datepicker').val();
-		$.ajax(contextPath + "/data/stats/annualcommunity.json", {
+		$.ajax(contextPath + "/data/community/stats/annual.json", {
 			dataType : "json",
 			type : "GET",
 			data : {year : year},
@@ -118,7 +118,7 @@
 		});
 		$('#stats-community-annual-datepicker').on("change", function () {
 			year = $('#stats-community-annual-datepicker').val();
-			$.ajax(contextPath + "/data/stats/annualcommunity.json", {
+			$.ajax(contextPath + "/data/community/stats/annual.json", {
 				dataType : "json",
 				type : "GET",
 				data : {year : year},

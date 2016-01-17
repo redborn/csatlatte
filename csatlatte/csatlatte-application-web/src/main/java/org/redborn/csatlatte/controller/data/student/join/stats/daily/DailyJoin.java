@@ -1,4 +1,4 @@
-package org.redborn.csatlatte.controller.data.stats;
+package org.redborn.csatlatte.controller.data.student.join.stats.daily;
 
 import org.redborn.csatlatte.service.StudentService;
 import org.slf4j.Logger;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/data/stats/dailyjoin")
+@RequestMapping("/data/student/join/stats/daily")
 public class DailyJoin {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
