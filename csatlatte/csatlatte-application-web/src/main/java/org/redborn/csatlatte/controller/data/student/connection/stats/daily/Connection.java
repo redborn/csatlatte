@@ -1,6 +1,6 @@
-package org.redborn.csatlatte.controller.data.coomunity.stats.daily;
+package org.redborn.csatlatte.controller.data.student.connection.stats.daily;
 
-import org.redborn.csatlatte.service.CommunityService;
+import org.redborn.csatlatte.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/data/community/stats/daily")
-public class DailyCommunity {
+@RequestMapping("/data/student/connection/stats/daily")
+public class Connection {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
-	private CommunityService communityService;
+	private StudentService studentService;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model, @RequestParam(value="ymd",required=true) String ymd) {
-		logger.info("data stats dailycommunity view");
+		logger.info("data stats dailyconnection view");
 		
-		model.addAttribute("dailyActive", communityService.dailyActive(CommunityService.COMMUNITY, ymd));
+		model.addAttribute("dailyConnection", studentService.dailyConnectionCount(ymd));
 	}
 }

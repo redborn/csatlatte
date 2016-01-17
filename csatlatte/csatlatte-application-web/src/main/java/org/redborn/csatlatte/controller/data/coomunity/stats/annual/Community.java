@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/data/community/stats/annual")
-public class AnnualCommunity {
+public class Community {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
