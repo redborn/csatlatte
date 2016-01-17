@@ -223,7 +223,7 @@
 	<insert id="insert" parameterType="StudentVo">
 		 INSERT INTO csat_student
 	     VALUES ( #{studentSequence}, #{studentId}, #{studentPassword}, #{nickname}, 
-	     		  #{photoCode}, # {photoName}, #{csatSequence},'Y', #{createDate}) 
+	     		  #{photoCode}, #{photoName}, #{csatSequence},'Y', #{createDate}) 
 	</insert>
 	
 	<update id="updateInformation" parameterType="StudentVo">

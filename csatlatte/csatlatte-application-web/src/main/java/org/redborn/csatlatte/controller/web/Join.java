@@ -60,6 +60,8 @@ public class Join {
 		studentVo.setStudentPassword(password);
 		studentVo.setNickname(nickname);
 		studentVo.setCsatSequence(csat);
+		studentVo.setPhotoCode("TEST");
+		studentVo.setPhotoName("TEST");
 		
 		studentSecurityQuestionVo.setSecurityQuestionSequence(securityQuestion);
 		studentSecurityQuestionVo.setContent(answer);
