@@ -9,19 +9,19 @@
 	.join-message {margin-left:70px; margin-top:5px;}
 	.join-image {width:100px; border:1px solid #7a6253; border-radius:4px; margin-left:15px;}
 	.join-button-group {text-align:right; width:auto; margin-top:20px;}
-	#join-password-check-message-area {display:inline-block; padding-top:7px;}
+	#join-password-check-message-area {padding-top:7px;}
 	.join-password-check-message-negative {color:#d9534f;}
 	.join-password-check-message-positive {color:#5cb85c;}
 	.join-id-check-message-negative {color:#d9534f;}
 	.join-id-check-message-positive {color:#5cb85c;}
-	#join-id-check-message-area {display:inline-block; padding-top:7px;}
-	#join-answer-check-message-area {display:inline-block; padding-top:7px;}
+	#join-id-check-message-area {padding-top:7px;}
+	#join-answer-check-message-area {padding-top:7px;}
 	.join-answer-check-message-negative {color:#d9534f;}
 	.join-answer-check-message-positive {color:#5cb85c;}
-	#join-nickname-check-message-area {display:inline-block; padding-top:7px;}
+	#join-nickname-check-message-area {padding-top:7px;}
 	.join-nickname-check-message-negative {color:#d9534f;}
 	.join-nickname-check-message-positive {color:#5cb85c;}
-	#join-password-message-area {display:inline-block; padding-top:7px;}
+	#join-password-message-area {padding-top:7px;}
 	.join-password-message-negative {color:#d9534f;}
 	.join-password-message-positive {color:#5cb85c;}
 </style>
