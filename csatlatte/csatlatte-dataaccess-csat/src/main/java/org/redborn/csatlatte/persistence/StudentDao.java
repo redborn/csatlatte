@@ -10,6 +10,8 @@ public interface StudentDao {
 	public StudentVo selectOne(String id, String password);
 	public StudentVo selectOneDetail(int studentSequence);
 	public int selectOneCountPassword(int studentSequence, String password);
+	public int selectOneCountOverlapId(String studentId);
+	public int selectOneCountOverlapNickname(String nickname);
 	public int selectOneCountIsPassword(String id, String securityAnswer);
 	public String selectOneId(String nickname, String securityAnswer);
 	public int selectOneMaxStudentSequence();

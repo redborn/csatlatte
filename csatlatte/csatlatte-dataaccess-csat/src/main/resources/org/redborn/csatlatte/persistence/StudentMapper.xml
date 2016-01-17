@@ -106,6 +106,18 @@
 		   AND student_password = CONCAT(DATE_FORMAT(create_date, '%f%S%i%H'), #{password,typeHandler=org.redborn.csatlatte.commons.mybatis.SHA512TypeHandler})
 	</select>
 	
+	<select id="selectOneCountOverlapId" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_student cs
+		 WHERE cs.student_id = #{studentId,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
+	</select>
+	
+	<select id="selectOneCountOverlapNickname" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_student cs
+		 WHERE cs.nickname = #{nickname,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
+	</select>
+	
 	<select id="selectOneCountIsPassword" parameterType="Map" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_student cs,csat_student_scqs css
@@ -210,8 +222,8 @@
 	
 	<insert id="insert" parameterType="StudentVo">
 		 INSERT INTO csat_student
-	     VALUES ( #{studentSequence}, #{studentId}, #{studentPassword}, #{nickname}, 
-	     		  #{photoCode}, # {photoName}, #{csatSequence},'Y', #{createDate}) 
+	     VALUES ( #{studentSequence}, #{studentId,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}, #{studentPassword,typeHandler=org.redborn.csatlatte.commons.mybatis.SHA512TypeHandler}, #{nickname,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}, 
+	     		  #{photoCode}, #{photoName}, #{csatSequence},'Y', #{createDate}) 
 	</insert>
 	
 	<update id="updateInformation" parameterType="StudentVo">

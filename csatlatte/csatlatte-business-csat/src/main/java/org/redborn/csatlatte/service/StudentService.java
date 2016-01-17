@@ -2,6 +2,7 @@ package org.redborn.csatlatte.service;
 
 import java.util.List;
 
+import org.redborn.csatlatte.domain.SecurityQuestionVo;
 import org.redborn.csatlatte.domain.CountVo;
 import org.redborn.csatlatte.domain.StudentSecurityQuestionVo;
 import org.redborn.csatlatte.domain.StudentVo;
@@ -15,6 +16,8 @@ public interface StudentService {
 	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo);
 	public String findId(String nickname, String securityAnswer);
 	public boolean isPassword(String id, String securityAnswer);
+	public boolean overlapCheckId(String studentId);
+	public boolean overlapCheckNickname(String nickname);
 	public StudentVo information(String id, String password);
 	public StudentVo information(int studentSequence);
 	public boolean lock(int studentSequence);
@@ -29,5 +32,6 @@ public interface StudentService {
 	public String securityQuestion(int studentSequence);
 	public int amountStudent(String search);
 	public List<YsVo> ysList();
+	public List<SecurityQuestionVo> securityQuestionList();
 	
 }
