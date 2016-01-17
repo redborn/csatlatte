@@ -1,6 +1,6 @@
-package org.redborn.csatlatte.controller.data.coomunity.stats.annual;
+package org.redborn.csatlatte.controller.data.student.connection.stats;
 
-import org.redborn.csatlatte.service.CommunityService;
+import org.redborn.csatlatte.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/data/community/stats/annual")
-public class Community {
+@RequestMapping("/data/student/connection/stats/annual")
+public class Annual {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
-	private CommunityService communityService;
+	private StudentService studentService;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model, @RequestParam(value="year",required=true) String year) {
-		logger.info("data stats annualcommunity view");
+		logger.info("data stats annualconnection view");
 		
-		model.addAttribute("annualActive",communityService.annualActive(CommunityService.COMMUNITY, year));
+		model.addAttribute("annualConnection", studentService.annualConnectionCount(year));
 	}
 }

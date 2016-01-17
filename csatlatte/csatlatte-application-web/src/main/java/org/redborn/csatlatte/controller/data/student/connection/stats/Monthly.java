@@ -1,4 +1,4 @@
-package org.redborn.csatlatte.controller.data.student.connection.stats.monthly;
+package org.redborn.csatlatte.controller.data.student.connection.stats;
 
 import org.redborn.csatlatte.service.StudentService;
 import org.slf4j.Logger;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/data/student/connection/stats/monthly")
-public class Connection {
+public class Monthly {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
