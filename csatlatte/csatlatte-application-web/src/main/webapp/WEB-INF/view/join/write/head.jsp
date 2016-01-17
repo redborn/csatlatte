@@ -2,11 +2,11 @@
     pageEncoding="UTF-8"%>
 <style>
 	.join {font-size:13px;}
+	.join-id {margin-left:20px; margin-bottom:35px;}
+	.join-security {margin-left:20px; margin-bottom:35px;}
+	.join-info {margin-left:20px; margin-bottom:35px;}
 	.join-content-label {text-align:right; width:120px; margin-right:5px;}
-	.join-form-horizontal {margin-left:20px}
 	.join-message {margin-left:70px; margin-top:5px;}
-	.join-security {margin-top:30px;}
-	.join-info {margin-top:30px;}
 	.join-image {width:100px; border:1px solid #7a6253; border-radius:4px; margin-left:15px;}
 	.join-button-group {text-align:right; width:auto; margin-top:20px;}
 	#join-password-check-message-area {display:inline-block; padding-top:7px;}
