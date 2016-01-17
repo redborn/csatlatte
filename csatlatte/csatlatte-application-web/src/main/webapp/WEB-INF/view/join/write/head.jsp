@@ -3,26 +3,25 @@
 <style>
 	.join {font-size:13px;}
 	.join-content-label {text-align:right; width:120px; margin-right:5px;}
-	.join-form-inline {margin-bottom:8px;}
-	#join-id-check-message-area {margin-top:7px;}
+	.join-form-horizontal {margin-left:20px}
 	.join-message {margin-left:70px; margin-top:5px;}
 	.join-security {margin-top:30px;}
 	.join-info {margin-top:30px;}
-	.join-image {width:100px; border:1px solid #7a6253; border-radius:4px; margin-bottom:10px;}
+	.join-image {width:100px; border:1px solid #7a6253; border-radius:4px; margin-left:15px;}
 	.join-button-group {text-align:right; width:auto; margin-top:20px;}
-	#join-password-check-message-area {display:inline-block; margin-left:10px;}
+	#join-password-check-message-area {display:inline-block; padding-top:7px;}
 	.join-password-check-message-negative {color:#d9534f;}
 	.join-password-check-message-positive {color:#5cb85c;}
 	.join-id-check-message-negative {color:#d9534f;}
 	.join-id-check-message-positive {color:#5cb85c;}
-	#join-id-check-message-area {display:inline-block; margin-left:10px;}
-	#join-answer-check-message-area {display:inline-block; margin-left:10px;}
+	#join-id-check-message-area {display:inline-block; padding-top:7px;}
+	#join-answer-check-message-area {display:inline-block; padding-top:7px;}
 	.join-answer-check-message-negative {color:#d9534f;}
 	.join-answer-check-message-positive {color:#5cb85c;}
-	#join-nickname-check-message-area {display:inline-block; margin-left:10px;}
+	#join-nickname-check-message-area {display:inline-block; padding-top:7px;}
 	.join-nickname-check-message-negative {color:#d9534f;}
 	.join-nickname-check-message-positive {color:#5cb85c;}
-	#join-password-message-area {display:inline-block; margin-left:10px;}
+	#join-password-message-area {display:inline-block; padding-top:7px;}
 	.join-password-message-negative {color:#d9534f;}
 	.join-password-message-positive {color:#5cb85c;}
 </style>
@@ -41,7 +40,7 @@
 		var passwordNegativeMessage = function () {
 			var html = '';
 			html += '<div class="join-password-message-negative">';
-			html += '	8자 이상 15자 이하, 영문,숫자,특수문자를 포함';
+			html += '	8~15자 이내, 영문,숫자,특수문자를 포함';
 			html +=	'</div>';
 			return html;
 		}
@@ -73,7 +72,7 @@
 		var idNegativeMessage = function () {
 			var html = '';
 			html += '<div class="join-id-check-message-negative">';
-			html += '	6글자 이상 영문과 숫자만 사용할 수 있습니다.';
+			html += '	6자 이상 영문,숫자만 사용할 수 있습니다.';
 			html += '</div>';
 			return html;
 		}
