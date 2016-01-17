@@ -11,29 +11,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/data/stats/community")
-public class Community {
+@RequestMapping("/data/stats/monthlycommunity")
+public class MonthlyCommunity {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private CommunityService communityService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public void get(Model model, @RequestParam(value="date",required=true) String date,
-			@RequestParam(value="item",required=true) int item) {
-		logger.info("data stats community view");
-		
-		switch(item) {
-		case 1:
-			model.addAttribute("dailyActive", communityService.dailyActive(CommunityService.COMMUNITY, date));
-			break;
-		case 2:
-			model.addAttribute("monthlyActive", communityService.monthlyActive(CommunityService.COMMUNITY, date));
-			break;
-		case 3:
-			model.addAttribute("annualActive", communityService.annualActive(CommunityService.COMMUNITY, date));
-			break;
-		}
-	}
+	public void get(Model model, @RequestParam(value="ym",required=true) String ym) {
+		logger.info("data stats monthlycommunity view");
 	
+		model.addAttribute("monthlyActive", communityService.monthlyActive(CommunityService.COMMUNITY, ym));
+	}
 }

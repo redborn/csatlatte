@@ -36,10 +36,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-community-daily-datepicker').datepicker("setDate", new Date());
 		ymd = $('#stats-community-daily-datepicker').val();
-		$.ajax(contextPath + "/data/stats/community.json", {
+		$.ajax(contextPath + "/data/stats/dailycommunity.json", {
 			dataType : "json",
 			type : "GET",
-			data : {date : ymd, item : 1},
+			data : {ymd : ymd},
 			success : function(data) {
 				if (data.dailyActive != null) {
 					var dailyActive = data.dailyActive;
@@ -49,10 +49,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-community-daily-datepicker').on("change", function () {
 			ymd = $('#stats-community-daily-datepicker').val();
-			$.ajax(contextPath + "/data/stats/community.json", {
+			$.ajax(contextPath + "/data/stats/dailycommunity.json", {
 				dataType : "json",
 				type : "GET",
-				data : {date : ymd, item : 1},
+				data : {ymd : ymd},
 				success : function(data) {
 					if (data.dailyActive != null) {
 						var dailyActive = data.dailyActive;
@@ -71,10 +71,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-community-monthly-datepicker').datepicker("setDate", new Date());
 		ym = $('#stats-community-monthly-datepicker').val();
-		$.ajax(contextPath + "/data/stats/community.json", {
+		$.ajax(contextPath + "/data/stats/monthlycommunity.json", {
 			dataType : "json",
 			type : "GET",
-			data : {date : ym, item : 2},
+			data : {ym : ym},
 			success : function(data) {
 				if (data.monthlyActive != null) {
 					var monthlyActive = data.monthlyActive;
@@ -84,10 +84,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-community-monthly-datepicker').on("change", function() {
 			ym = $('#stats-community-monthly-datepicker').val();
-			$.ajax(contextPath + "/data/stats/community.json", {
+			$.ajax(contextPath + "/data/stats/monthlycommunity.json", {
 				dataType : "json",
 				type : "GET",
-				data : {date : ym, item : 2},
+				data : {ym : ym},
 				success : function(data) {
 					if (data.monthlyActive != null) {
 						var monthlyActive = data.monthlyActive;
@@ -106,10 +106,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-community-annual-datepicker').datepicker("setDate", new Date());
 		year = $('#stats-community-annual-datepicker').val();
-		$.ajax(contextPath + "/data/stats/community.json", {
+		$.ajax(contextPath + "/data/stats/annualcommunity.json", {
 			dataType : "json",
 			type : "GET",
-			data : {date : year, item : 3},
+			data : {year : year},
 			success : function(data) {
 				if (data.annualActive != null) {
 					var annualActive = data.annualActive;
@@ -119,10 +119,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-community-annual-datepicker').on("change", function () {
 			year = $('#stats-community-annual-datepicker').val();
-			$.ajax(contextPath + "/data/stats/community.json", {
+			$.ajax(contextPath + "/data/stats/annualcommunity.json", {
 				dataType : "json",
 				type : "GET",
-				data : {date : year, item : 3},
+				data : {year : year},
 				success : function(data) {
 					if (data.annualActive != null) {
 						var annualActive = data.annualActive;

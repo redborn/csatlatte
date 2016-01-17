@@ -35,10 +35,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-connection-daily-datepicker').datepicker("setDate", new Date());
 		ymd = $('#stats-connection-daily-datepicker').val();
-		$.ajax(contextPath + "/data/stats/connection.json", {
+		$.ajax(contextPath + "/data/stats/dailyconnection.json", {
 			dataType : "json",
 			type : "GET",
-			data : {date : ymd, item : 1},
+			data : {ymd : ymd},
 			success : function(data) {
 				if (data.dailyConnection != null) {
 					var dailyConnection = data.dailyConnection;
@@ -48,10 +48,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-connection-daily-datepicker').on("change", function () {
 			ymd = $('#stats-connection-daily-datepicker').val();
-			$.ajax(contextPath + "/data/stats/connection.json", {
+			$.ajax(contextPath + "/data/stats/dailyconnection.json", {
 				dataType : "json",
 				type : "GET",
-				data : {date : ymd, item : 1},
+				data : {ymd : ymd},
 				success : function(data) {
 					if (data.dailyConnection != null) {
 						var dailyConnection = data.dailyConnection;
@@ -70,10 +70,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-connection-monthly-datepicker').datepicker("setDate", new Date());
 		ym = $('#stats-connection-monthly-datepicker').val();
-		$.ajax(contextPath + "/data/stats/connection.json" , {
+		$.ajax(contextPath + "/data/stats/monthlyconnection.json" , {
 			dataType : "json",
 			type : "GET",
-			data : {date : ym, item : 2},
+			data : {ym : ym},
 			success : function(data) {
 				if (data.monthlyConnection != null) {
 					var monthlyConnection = data.monthlyConnection;
@@ -83,10 +83,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-connection-monthly-datepicker').on("change", function () {
 			ym = $('#stats-connection-monthly-datepicker').val();
-			$.ajax(contextPath + "/data/stats/connection.json" , {
+			$.ajax(contextPath + "/data/stats/monthlyconnection.json" , {
 				dataType : "json",
 				type : "GET",
-				data : {date : ym, item : 2},
+				data : {ym : ym},
 				success : function(data) {
 					if (data.monthlyConnection != null) {
 						var monthlyConnection = data.monthlyConnection;
@@ -105,10 +105,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-connection-annual-datepicker').datepicker("setDate", new Date());
 		year = $('#stats-connection-annual-datepicker').val();
-		$.ajax(contextPath + "/data/stats/connection.json", {
+		$.ajax(contextPath + "/data/stats/annualconnection.json", {
 			dataType : "json",
 			type : "GET",
-			data : {date : year, item : 3},
+			data : {year : year},
 			success : function(data) {
 				if (data.annualConnection != null) {
 					var annualConnection = data.annualConnection;
@@ -118,10 +118,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-connection-annual-datepicker').on("change", function() {
 			year = $('#stats-connection-annual-datepicker').val();
-			$.ajax(contextPath + "/data/stats/connection.json", {
+			$.ajax(contextPath + "/data/stats/annualconnection.json", {
 				dataType : "json",
 				type : "GET",
-				data : {date : year, item : 3},
+				data : {year : year},
 				success : function(data) {
 					if (data.annualConnection != null) {
 						var annualConnection = data.annualConnection;

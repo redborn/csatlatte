@@ -35,10 +35,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-join-daily-datepicker').datepicker("setDate", new Date());
 		ymd = $('#stats-join-daily-datepicker').val();
-		$.ajax(contextPath + "/data/stats/join.json", {
+		$.ajax(contextPath + "/data/stats/dailyjoin.json", {
 			dataType : "json",
 			type : "GET",
-			data : {date : ymd, item : 1},
+			data : {ymd : ymd},
 			success : function(data) {
 				if (data.dailyJoin != null) {
 					var dailyJoin = data.dailyJoin;
@@ -48,10 +48,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-join-daily-datepicker').on("change", function() {
 			ymd = $('#stats-join-daily-datepicker').val();
-			$.ajax(contextPath + "/data/stats/join.json", {
+			$.ajax(contextPath + "/data/stats/dailyjoin.json", {
 				dataType : "json",
 				type : "GET",
-				data : {date : ymd, item : 1},
+				data : {ymd : ymd},
 				success : function(data) {
 					if (data.dailyJoin != null) {
 						var dailyJoin = data.dailyJoin;
@@ -70,10 +70,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-join-monthly-datepicker').datepicker("setDate", new Date());
 		ym = $('#stats-join-monthly-datepicker').val();
-		$.ajax(contextPath + "/data/stats/join.json", {
+		$.ajax(contextPath + "/data/stats/monthlyjoin.json", {
 			dataType : "json",
 			type : "GET",
-			data : {date : ym, item : 2},
+			data : {ym : ym},
 			success : function(data) {
 				if (data.monthlyJoin != null) {
 					var monthlyJoin = data.monthlyJoin;
@@ -83,10 +83,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-join-monthly-datepicker').on("change", function() {
 			ym = $('#stats-join-monthly-datepicker').val();
-			$.ajax(contextPath + "/data/stats/join.json", {
+			$.ajax(contextPath + "/data/stats/monthlyjoin.json", {
 				dataType : "json",
 				type : "GET",
-				data : {date : ym, item : 2},
+				data : {ym : ym},
 				success : function(data) {
 					if (data.monthlyJoin != null) {
 						var monthlyJoin = data.monthlyJoin;
@@ -105,10 +105,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-join-annual-datepicker').datepicker("setDate", new Date());
 		year = $('#stats-join-annual-datepicker').val();
-		$.ajax(contextPath + "/data/stats/join.json", {
+		$.ajax(contextPath + "/data/stats/annualjoin.json", {
 			dataType : "json",
 			type : "GET",
-			data : {date : year, item : 3},
+			data : {year : year},
 			success : function(data) {
 				if (data.annualJoin != null) {
 					var annualJoin = data.annualJoin;
@@ -118,10 +118,10 @@ google.load("visualization", "1", {packages: ["corechart"]});
 		});
 		$('#stats-join-annual-datepicker').on("change", function () {
 			year = $('#stats-join-annual-datepicker').val();
-			$.ajax(contextPath + "/data/stats/join.json", {
+			$.ajax(contextPath + "/data/stats/annualjoin.json", {
 				dataType : "json",
 				type : "GET",
-				data : {date : year, item : 3},
+				data : {year : year},
 				success : function(data) {
 					if (data.annualJoin != null) {
 						var annualJoin = data.annualJoin;

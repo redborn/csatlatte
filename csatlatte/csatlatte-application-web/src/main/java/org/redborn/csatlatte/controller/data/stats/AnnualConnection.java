@@ -11,29 +11,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/data/stats/join")
-public class Join {
-	
+@RequestMapping("/data/stats/annualconnection")
+public class AnnualConnection {
+
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private StudentService studentService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public void get(Model model, @RequestParam(value="date",required=true) String date,
-			@RequestParam(value="item",required=true) int item) {
-		logger.info("data stats join view");
+	public void get(Model model, @RequestParam(value="year",required=true) String year) {
+		logger.info("data stats annualconnection view");
 		
-		switch(item) {
-		case 1:
-			model.addAttribute("dailyJoin", studentService.dailyJoinCountList(date));
-			break;
-		case 2:
-			model.addAttribute("monthlyJoin", studentService.monthlyJoinCountList(date));
-			break;
-		case 3:
-			model.addAttribute("annualJoin", studentService.annualJoinCountList(date));
-			break;
-		}
+		model.addAttribute("annualConnection", studentService.annualConnectionCount(year));
 	}
-
 }
