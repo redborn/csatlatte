@@ -109,7 +109,7 @@
 	<select id="selectOneCountOverlapId" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_student cs
-		 WHERE cs.student_id = #{studentId}
+		 WHERE cs.student_id = #{studentId,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
 	</select>
 	
 	<select id="selectOneCountOverlapNickname" parameterType="String" resultType="int">
