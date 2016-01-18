@@ -14,7 +14,7 @@
 </div>
 <div class="id-security-fail">
 	<h4>아이디를 찾지 못했습니다.</h4>
-	<p>찾으려는 아이디의 보안 확인 답변이 올바르지 않습니다.</p>
+	<p>찾으려는 아이디의 보안 답변이 올바르지 않습니다.</p>
 	<p>다시 시도하시려면 우측 하단의 버튼을 클릭해주세요.</p>
 </div>
 <div id="id-security-fail-btn-group">
