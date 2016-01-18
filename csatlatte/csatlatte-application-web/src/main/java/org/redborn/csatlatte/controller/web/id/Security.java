@@ -37,15 +37,16 @@ public class Security {
 		logger.info("find id security");
 		
 		String findId = studentService.findId(nickname, securityAnswer);
-		String resultFindId = findId.substring(0, 4);
-		int findIdLength = findId.length() - 4;
-		
-		for (int index = 0; index < findIdLength; index++) {
-			resultFindId += "*";
-		}
 
 		String result = TilesName.ID_SECURITY_FAIL;
 		if (findId != null) {
+			String resultFindId = findId.substring(0, 4);
+			int findIdLength = findId.length() - 4;
+			
+			for (int index = 0; index < findIdLength; index++) {
+				resultFindId += "*";
+			}
+			
 			model.addAttribute("findId", resultFindId);
 			result = TilesName.ID_SECURITY_SUCCESS;
 		}
