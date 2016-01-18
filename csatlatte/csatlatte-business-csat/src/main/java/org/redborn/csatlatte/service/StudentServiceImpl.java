@@ -218,5 +218,9 @@ public class StudentServiceImpl implements StudentService {
 	public List<SecurityQuestionVo> securityQuestionList() {
 		return securityQuestionDao.selectList();
 	}
+	
+	public int NicknameStudentSequence(String nickname) {
+		return studentDao.selectOneStudentSequence(nickname);
+	}
 
 }

@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,13 +41,17 @@ public class Id {
 	 * 입력한 닉네임이 존재하지 않는 경우 아이디 찾기 실패 페이지(TilesName.ID_FAIL)를 출력합니다. 
 	 */
 	@RequestMapping(method=RequestMethod.POST)
-	public String post(@RequestParam(value="nickname",required=true) String nickname) {
+	public String post(Model model, @RequestParam(value="nickname",required=true) String nickname) {
 		logger.info("find id nickname");
 		
 		boolean success = studentService.overlapCheckNickname(nickname);
 		
 		String result = TilesName.ID_FAIL;
 		if (success) {
+			int studentSequence = studentService.NicknameStudentSequence(nickname);
+			logger.info("번호 : " + studentSequence);
+			model.addAttribute("securityQuestion", studentService.securityQuestion(studentSequence));
+			logger.info("질문 : " + studentService.securityQuestion(studentSequence));
 			result = TilesName.ID_SECURITY_WRITE;
 		}
 		
