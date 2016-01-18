@@ -48,12 +48,20 @@ public class StudentDaoMapper extends SqlSessionDaoSupport implements StudentDao
 		return getSqlSession().selectOne("student.selectOneCountIsPassword", params);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public String selectOneId(String nickname, String securityAnswer) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("nickname", nickname);
 		params.put("securityAnswer", securityAnswer);
 		
-		return getSqlSession().selectOne("student.selectOneId", params);
+		Map<String, Object> data = (Map<String, Object>) getSqlSession().selectOne("student.selectOneId", params);
+		String result = null;
+		
+		if (data != null) {
+			result = (String) data.get("studentId");
+		}
+		
+		return result;
 	}
 	
 	public int selectOneMaxStudentSequence() {

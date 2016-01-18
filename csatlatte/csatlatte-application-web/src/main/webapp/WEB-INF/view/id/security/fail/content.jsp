@@ -13,10 +13,10 @@
 	</div>
 </div>
 <div class="id-security-fail">
-	<h5>아이디를 찾지 못했습니다.</h5>
+	<h4>아이디를 찾지 못했습니다.</h4>
 	<p>찾으려는 아이디의 보안 확인 답변이 올바르지 않습니다.</p>
 	<p>다시 시도하시려면 우측 하단의 버튼을 클릭해주세요.</p>
 </div>
 <div id="id-security-fail-btn-group">
-	<a id="id-security-fail-btn-cancel" class="btn btn-default" href="<c:url value="/id"/>">처음으로 돌아가기</a>
+	<a class="btn btn-danger" href="<c:url value="/id"/>">처음으로 돌아가기</a>
 </div>

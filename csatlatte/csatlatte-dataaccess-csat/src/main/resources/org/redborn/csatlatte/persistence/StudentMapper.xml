@@ -45,6 +45,10 @@
 		<result column="count_join" property="count"/>
 	</resultMap>
 
+	<resultMap type="java.util.HashMap" id="FindIdMap">
+		<result column="student_id" property="studentId" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
+	</resultMap>
+
 	<select id="selectOne" parameterType="Map" resultMap="StudentInformationVoMap">
 		SELECT cs.student_seq,cs.student_id AS student_id,csc.content AS content,
 		       cs.photo_code AS photo_code,cs.photo_name AS photo_name,
@@ -126,12 +130,12 @@
 		   AND css.content = #{securityAnswer}
 	</select>
 	
-	<select id="selectOneId" parameterType="Map" resultType="String">
+	<select id="selectOneId" parameterType="Map" resultMap="FindIdMap">
 		SELECT cs.student_id
 		  FROM csat_student cs,csat_student_scqs css
 		 WHERE cs.student_seq = css.student_seq
 		   AND cs.nickname = #{nickname,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
-		   AND css.content = #{securityAnswer}
+		   AND css.content = #{securityAnswer,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
 	</select>
 	
 	<select id="selectOneMaxStudentSequence" resultType="int">

@@ -12,16 +12,16 @@
 		3단계 아이디 찾기 완료
 	</div>
 </div>
-<form method="post" action="<c:url value="/id"/>">
+<form id="id-write-form" class="form-horizontal" method="post" action="<c:url value="/id"/>">
 	<div class="id-write">
-		<h5>아이디 정보</h5>
-		<div class="id-write-content">
-			<label for="id-write-content-nickname">닉네임</label>
-			<input id="id-write-content-nickname" type="text" class="form-control">
+		<h4>아이디 정보</h4>
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="id-write-content-nickname">닉네임</label>
+			<div class="col-sm-6"><input id="id-write-content-nickname" maxlength="8" data-toggle="tooltip-nickname" data-placement="right" title="닉네임을 입력하셔야 합니다." name="nickname" type="text" class="form-control"></div>
 		</div>
 	</div>
 	<div class="id-write-button-group">
-		<a id="id-write-btn-cancel" class="btn btn-default" href="<c:url value="/main"/>">취소</a>
-		<input id="id-write-btn-success" type="submit" class="btn btn-default" value="다음단계">
+		<a class="btn btn-default" href="<c:url value="/main"/>">취소</a>
+		<input id="btn-next" type="submit" class="btn btn-success" value="다음단계">
 	</div>
 </form>
