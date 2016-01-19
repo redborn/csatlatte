@@ -67,7 +67,7 @@
 			} else {
 				html += '	<div class="form-group manage-question-form-group">';
 				html += '		<label for="manage-question-answer-textarea">답변내용</label>';
-				html += '		<textarea id="manage-question-answer-textarea" class="form-control manage-question-answer-textarea" placeholder="답변이 완료되지 않은 문의입니다. 답변을 입력해주세요."/>';
+				html += '		<textarea maxlength="2000" id="manage-question-answer-textarea" class="form-control manage-question-answer-textarea" placeholder="답변이 완료되지 않은 문의입니다. 답변을 입력해주세요."/>';
 				html += '	</div>';
 				html += '	<div class="manage-question-content-count">';
 				html += '		<div class="manage-question-answer-count">';
