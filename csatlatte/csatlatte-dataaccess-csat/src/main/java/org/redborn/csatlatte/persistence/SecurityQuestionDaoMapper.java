@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.SecurityQuestionVo;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class SecurityQuestionDaoMapper extends SqlSessionDaoSupport implements SecurityQuestionDao {
 
 	public String selectOne(int studentSequence) {
