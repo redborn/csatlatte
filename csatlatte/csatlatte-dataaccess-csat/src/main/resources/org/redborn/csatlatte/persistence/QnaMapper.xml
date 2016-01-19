@@ -13,8 +13,8 @@
 	
 	<resultMap type="QnaForManageVo" id="QnaForManageVoMap">
 		<result column="qna_seq" property="qnaSequence"/>
-		<result column="student_id" property="studentId"/>
-		<result column="nickname" property="nickname"/>
+		<result column="student_id" property="studentId" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
+		<result column="nickname" property="nickname" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
 		<result column="content" property="content"/>
 		<result column="write_date" property="writeDate"/>
 		<result column="use_yn" property="useYn"/>
