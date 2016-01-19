@@ -55,13 +55,13 @@
 			html += '			</div>';
 			html += '			<div class="form-group manage-question-form-group">';
 			html += '				<label>질문내용</label>';
-			html += '				<div>' + question.content + '</div>';
+			html += '				<div><xmp>' + question.content + '</xmp></div>';
 			html += '			</div>';
 			html += '		</div>';
 			if (question.answerContent != "") {
 				html += '	<div class="form-group manage-question-form-group">';
 				html += '		<label>답변내용</label>';
-				html += '		<div>' + question.answerContent + '</div>'; 
+				html += '		<div><xmp>' + question.answerContent + '</xmp></div>'; 
 				html += '	</div>';
 				html += '</div>';
 			} else {
@@ -114,7 +114,7 @@
 							$('.manage-question-content-count').append(makeAnswerCount(answerCount));
 						});
 						$('.manage-question-answer-accept').on("click", function () {
-							var answerContent = $('.manage-question-answer-textarea').val().replace(/\n/g, '<br>');
+							var answerContent = $('.manage-question-answer-textarea').val();
 							$.ajax("<c:url value="/data/manage/question.json"/>", {
 								dataType : "json",
 								type : "POST",
