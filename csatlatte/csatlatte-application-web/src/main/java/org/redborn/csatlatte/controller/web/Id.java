@@ -49,9 +49,7 @@ public class Id {
 		String result = TilesName.ID_FAIL;
 		if (success) {
 			int studentSequence = studentService.nicknameStudentSequence(nickname);
-			logger.info("번호 : " + studentSequence);
 			model.addAttribute("securityQuestion", studentService.securityQuestion(studentSequence));
-			logger.info("질문 : " + studentService.securityQuestion(studentSequence));
 			result = TilesName.ID_SECURITY_WRITE;
 		}
 		
