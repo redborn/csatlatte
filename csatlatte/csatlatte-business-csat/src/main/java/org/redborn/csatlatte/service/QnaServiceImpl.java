@@ -60,8 +60,8 @@ public class QnaServiceImpl implements QnaService {
 		return qnaVo;
 	}
 
-	public List<QnaForManageVo> listForManage(String search, int pageNumber, String useYn) {
-		return qnaDao.selectListForManage(search, pageNumber, useYn);
+	public List<QnaForManageVo> listForManage(String search, int pageNumber, int countQnaAnswer) {
+		return qnaDao.selectListForManage(search, pageNumber, countQnaAnswer);
 	}
 
 	public List<QnaForStudentVo> listForStudent(int studentSequence, int pageNumber) {
@@ -110,8 +110,8 @@ public class QnaServiceImpl implements QnaService {
 		return answerDao.insert(qnaAnswerVo) == 1;
 	}
 	
-	public int amountQuestion(String search, String useYn) {
-		return qnaDao.selectOneCount(search, useYn);
+	public int amountQuestion(String search, int countQnaAnswer) {
+		return qnaDao.selectOneCount(search, countQnaAnswer);
 	}
 
 }

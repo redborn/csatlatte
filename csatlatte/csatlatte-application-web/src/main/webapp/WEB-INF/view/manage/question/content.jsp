@@ -9,9 +9,9 @@
 	<div class="manage-question-yn">
 		<h5>답변여부</h5>
 		<div class="btn-group manage-question-btn-group">
-			<button id="manage-question-all" class="btn btn-default <c:if test="${param.useYn == null || param.useYn eq ''}">active</c:if>">전체</button>
-			<button id="manage-question-standby" class="btn btn-default <c:if test="${param.useYn eq 'Y'}">active</c:if>">대기</button>
-			<button id="manage-question-success" class="btn btn-default <c:if test="${param.useYn eq 'N'}">active</c:if>">완료</button>
+			<button id="manage-question-all" class="btn btn-default <c:if test="${param.countQnaAnswer == null || param.countQnaAnswer eq '' || param.countQnaAnswer eq '2'}">active</c:if>">전체</button>
+			<button id="manage-question-standby" class="btn btn-default <c:if test="${param.countQnaAnswer eq '0'}">active</c:if>">대기</button>
+			<button id="manage-question-success" class="btn btn-default <c:if test="${param.countQnaAnswer eq '1'}">active</c:if>">완료</button>
 		</div>
 	</div>
 	</div>
@@ -40,7 +40,7 @@
 			<td>${question.writeDate}</td>
 			<td id="manage-question-answer-button-${question.qnaSequence}">
 			<div id="manage-question-answer-button-div-${question.qnaSequence}">
-				<button id="${question.qnaSequence}" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view btn <c:if test="${question.useYn eq 'Y'}">btn-primary</c:if><c:if test="${question.useYn eq 'N'}">btn-default</c:if>"><c:if test="${question.useYn eq 'Y'}">답변</c:if><c:if test="${question.useYn eq 'N'}">확인</c:if></button>
+				<button id="${question.qnaSequence}" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view btn <c:if test="${question.countQnaAnswer eq '0'}">btn-primary</c:if><c:if test="${question.countQnaAnswer eq '1'}">btn-default</c:if>"><c:if test="${question.countQnaAnswer eq '0'}">답변</c:if><c:if test="${question.countQnaAnswer eq '1'}">확인</c:if></button>
 			</div>
 			</td>
 		</tr>

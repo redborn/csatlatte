@@ -35,17 +35,19 @@ public class Question {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model, HttpServletRequest request, @RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber,
-			@RequestParam(value="useYn",required=false,defaultValue="") String useYn) {
+			@RequestParam(value="countQnaAnswer",required=false,defaultValue="2") String countQnaAnswerString) {
 		logger.info("manage question view");
 		
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("search", search);
-		params.put("useYn", useYn);
+		params.put("countQnaAnswer", countQnaAnswerString);
 		
-		Pagination pagination = new Pagination(pageNumber, qnaService.amountQuestion(search, useYn));
+		int countQnaAnswer = Integer.parseInt(countQnaAnswerString);
+		
+		Pagination pagination = new Pagination(pageNumber, qnaService.amountQuestion(search, countQnaAnswer));
 		
 		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, new StringBuilder(request.getContextPath()).append("/manage/question").toString(), params, "pageNumber"));
-		model.addAttribute("list", qnaService.listForManage(search, pagination.getBeginRow() - 1, useYn));
+		model.addAttribute("list", qnaService.listForManage(search, pagination.getBeginRow() - 1, countQnaAnswer));
 		return TilesName.MANAGE_QUESTION;
 	}
 }

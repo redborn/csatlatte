@@ -9,6 +9,7 @@ public class QnaForManageVo {
 	private String content;
 	private String writeDate;
 	private String useYn;
+	private int countQnaAnswer;
 	
 	public int getQnaSequence() {
 		return qnaSequence;
@@ -66,12 +67,21 @@ public class QnaForManageVo {
 		this.useYn = useYn;
 	}
 
+	public int getCountQnaAnswer() {
+		return countQnaAnswer;
+	}
+
+	public void setCountQnaAnswer(int countQnaAnswer) {
+		this.countQnaAnswer = countQnaAnswer;
+	}
+
 	@Override
 	public String toString() {
 		return "QnaForManageVo [qnaSequence=" + qnaSequence + ", title="
 				+ title + ", studentId=" + studentId + ", nickname=" + nickname
 				+ ", content=" + content + ", writeDate=" + writeDate
-				+ ", useYn=" + useYn + "]";
+				+ ", useYn=" + useYn + ", countQnaAnswer=" + countQnaAnswer
+				+ "]";
 	}
 
 }

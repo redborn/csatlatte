@@ -10,8 +10,8 @@ public interface QnaDao {
 
 	public QnaVo selectOne(int qnaSequence);
 	public int selectOneMaxQnaSequence();
-	public int selectOneCount(String search, String useYn);
-	public List<QnaForManageVo> selectListForManage(String search, int pageNumber, String useYn);
+	public int selectOneCount(String search, int countQnaAnswer);
+	public List<QnaForManageVo> selectListForManage(String search, int pageNumber, int countQnaAnswer);
 	public List<QnaForStudentVo> selectListForStudent(int studentSequence, int pageNumber);
 	public int insert(int qnaSequence, int studentSequence, String title);
 	public int updateUseYnN(int qnaSequence);
