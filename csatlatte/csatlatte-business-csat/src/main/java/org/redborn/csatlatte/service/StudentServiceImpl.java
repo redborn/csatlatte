@@ -6,14 +6,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.redborn.csatlatte.domain.SecurityQuestionVo;
 import org.redborn.csatlatte.domain.CountVo;
+import org.redborn.csatlatte.domain.SecurityQuestionVo;
 import org.redborn.csatlatte.domain.StudentSecurityQuestionVo;
 import org.redborn.csatlatte.domain.StudentVo;
 import org.redborn.csatlatte.domain.YsVo;
+import org.redborn.csatlatte.persistence.SecurityQuestionDao;
 import org.redborn.csatlatte.persistence.StudentDao;
 import org.redborn.csatlatte.persistence.YsDao;
-import org.redborn.csatlatte.persistence.student.SecurityQuestionDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -28,6 +28,8 @@ public class StudentServiceImpl implements StudentService {
 	private StudentDao studentDao;
 	@Autowired
 	private org.redborn.csatlatte.persistence.connection.StudentDao connectionStudentDao;
+	@Autowired
+	private org.redborn.csatlatte.persistence.student.SecurityQuestionDao studentSecurityQuestionDao;
 	@Autowired
 	private SecurityQuestionDao securityQuestionDao;
 	@Autowired
@@ -49,7 +51,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	public boolean changeSecurity(StudentSecurityQuestionVo studentSecurityQuestionVo) {
-		return securityQuestionDao.updateContent(studentSecurityQuestionVo) == 1;
+		return studentSecurityQuestionDao.updateContent(studentSecurityQuestionVo) == 1;
 	}
 
 	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo) {
@@ -67,7 +69,7 @@ public class StudentServiceImpl implements StudentService {
 		
 		TransactionStatus transactionStatus = transactionManager.getTransaction(defaultTransactionDefinition);
 		try {
-			if (studentDao.insert(studentVo) == 1 && securityQuestionDao.insert(studentSecurityQuestionVo) == 1) {
+			if (studentDao.insert(studentVo) == 1 && studentSecurityQuestionDao.insert(studentSecurityQuestionVo) == 1) {
 				result = true;
 			}
 		} catch (RuntimeException e) {
