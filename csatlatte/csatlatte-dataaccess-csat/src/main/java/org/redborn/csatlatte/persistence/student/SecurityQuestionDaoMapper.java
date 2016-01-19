@@ -9,13 +9,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class SecurityQuestionDaoMapper extends SqlSessionDaoSupport implements SecurityQuestionDao {
-
+	
 	public String selectOne(int studentSequence) {
-		return getSqlSession().selectOne("student.securityQuestion.selectOne", studentSequence);
+		return getSqlSession().selectOne("securityQuestion.selectOne", studentSequence);
 	}
 	
 	public List<SecurityQuestionVo> selectList() {
-		return getSqlSession().selectList("student.securityQuestion.selectList");
+		return getSqlSession().selectList("securityQuestion.selectList");
 	}
 	
 	public int insert(StudentSecurityQuestionVo studentSecurityQuestionVo) {
