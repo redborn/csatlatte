@@ -25,23 +25,9 @@ public class Question {
 		
 		QnaAnswerVo qnaAnswerVo = new QnaAnswerVo();
 		
-		String content = answerContent;
-		int max = content.length() / 2000;
-		int beginIndex = 0;
-		
 		qnaAnswerVo.setQnaSequence(qnaSequence);
-		
-		for (int index = 0; index < max; index++) {
-			beginIndex = 2000 * index;
-			qnaAnswerVo.setContent(content.substring(beginIndex, beginIndex + 2000));
-			qnaService.answer(qnaAnswerVo);
-		}
-		
-		if (content.length() % 2000 != 0) {
-			qnaAnswerVo.setContent(content.substring(max * 2000, content.length()));
-			qnaService.answer(qnaAnswerVo);
-		}
-		
+		qnaAnswerVo.setContent(answerContent);
+		qnaService.answer(qnaAnswerVo);
 		qnaService.delete(qnaSequence);
 	}
 }

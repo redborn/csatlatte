@@ -19,11 +19,13 @@
 	.manage-question-detail-content {text-align:left; margin-bottom:15px;}
 	.manage-question-answer-accept {margin-left:10px;}
 	.manage-question-form-group {text-align:left;}
+	.manage-question-content-count {text-align:right;}
 </style>
 <script>
 	$(document).ready(function () {
 		
 		var target;
+		var answerCount;
 		
 		var getUrlParameter = function getUrlParameter(sParam) {
 			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -67,6 +69,11 @@
 				html += '		<label for="manage-question-answer-textarea">답변내용</label>';
 				html += '		<textarea id="manage-question-answer-textarea" class="form-control manage-question-answer-textarea" placeholder="답변이 완료되지 않은 문의입니다. 답변을 입력해주세요."/>';
 				html += '	</div>';
+				html += '	<div class="manage-question-content-count">';
+				html += '		<div class="manage-question-answer-count">';
+				html += '			2000';
+				html += '		</div>';
+				html += '	</div>';
 				html += '</div>';
 				html += '<div class="modal-footer">';
 				html += '<input type="submit" class="btn btn-default"  data-dismiss="modal" aria-label="Close" value="닫기">';
@@ -83,6 +90,14 @@
 			return html;
 		}
 		
+		var makeAnswerCount = function (answerCount) {
+			var html = '';
+			html += '<div class="manage-question-answer-count">';
+			html += 	answerCount;
+			html += '</div>';
+			return html;
+		}
+		
 		$('.manage-question-answer-view').on("click", function () {
 			target = $(this).attr("id");
 			$.ajax("<c:url value="/data/question.json"/>", {
@@ -93,6 +108,11 @@
 					if (data.detail != null) {
 						var question = data.detail;
 						$("#manage-question-detail").append(makeQuestionDetailView(question));
+						$('#manage-question-answer-textarea').on("keyup", function () {
+							answerCount = 2000 - $('#manage-question-answer-textarea').val().length;
+							$('.manage-question-answer-count').remove();
+							$('.manage-question-content-count').append(makeAnswerCount(answerCount));
+						});
 						$('.manage-question-answer-accept').on("click", function () {
 							var answerContent = $('.manage-question-answer-textarea').val();
 							$.ajax("<c:url value="/data/manage/question.json"/>", {
