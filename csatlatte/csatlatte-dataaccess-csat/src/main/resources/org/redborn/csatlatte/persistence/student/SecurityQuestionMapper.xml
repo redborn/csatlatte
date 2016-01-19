@@ -5,28 +5,6 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="student.securityQuestion">
-
-	<resultMap type="java.util.HashMap" id="ContentMap">
-		<result column="content" property="content" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
-	</resultMap>
-	
-	<resultMap type="SecurityQuestionVo" id="SecurityQuestionVoMap">
-		<result column="scqs_seq" property="securityQuestionSequence"/>
-		<result column="content" property="content"/>
-	</resultMap>
-
-	<select id="selectOne" parameterType="int" resultMap="ContentMap">
-		SELECT cs.content
-		  FROM csat_student_scqs css,csat_scqs cs
-		 WHERE css.scqs_seq = cs.scqs_seq
-		   AND css.student_seq = #{studentSequence}
-	</select>
-	
-	<select id="selectList" resultMap="SecurityQuestionVoMap">
-		SELECT scqs_seq,content
-		  FROM csat_scqs
-		 WHERE use_yn = 'Y' 
-	</select>
 	
 	<insert id="insert" parameterType="StudentSecurityQuestionVo">
 		INSERT INTO csat_student_scqs

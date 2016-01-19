@@ -55,6 +55,7 @@
 		<mapper resource="org/redborn/csatlatte/persistence/community/comment/ReportMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/InstitutionMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/YsMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/SecurityQuestionMapper.xml"/>
 	</mappers>
 	
 </configuration>
