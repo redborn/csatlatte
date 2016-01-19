@@ -55,13 +55,13 @@
 			html += '			</div>';
 			html += '			<div class="form-group manage-question-form-group">';
 			html += '				<label>질문내용</label>';
-			html += '				<div><xmp>' + question.content + '</xmp></div>';
+			html += '				<div>' + question.content + '</div>';
 			html += '			</div>';
 			html += '		</div>';
 			if (question.answerContent != "") {
 				html += '	<div class="form-group manage-question-form-group">';
 				html += '		<label>답변내용</label>';
-				html += '		<div><xmp>' + question.answerContent + '</xmp></div>'; 
+				html += '		<div>' + question.answerContent + '</div>'; 
 				html += '	</div>';
 				html += '</div>';
 			} else {
@@ -86,7 +86,7 @@
 		
 		var changeToViewButton = function () {
 			var html = '';
-			html += '<button id="' + target + '" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view btn btn-default">확인</button>';
+			html += '<button id="' + target + '" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer btn btn-default">확인</button>';
 			return html;
 		}
 		
@@ -114,7 +114,7 @@
 							$('.manage-question-content-count').append(makeAnswerCount(answerCount));
 						});
 						$('.manage-question-answer-accept').on("click", function () {
-							var answerContent = $('.manage-question-answer-textarea').val();
+							var answerContent = $('.manage-question-answer-textarea').val().replace(/\n/g, '<br>');
 							$.ajax("<c:url value="/data/manage/question.json"/>", {
 								dataType : "json",
 								type : "POST",
@@ -134,7 +134,8 @@
 											}
 										}
 									});
-									$('.manage-question-answer-view').on("click", function () {
+									$('.manage-question-answer').off("click");
+									$('.manage-question-answer').on("click", function () {
 										target = $(this).attr("id");
 										$.ajax("<c:url value="/data/question.json"/>", {
 											dataType : "json",
