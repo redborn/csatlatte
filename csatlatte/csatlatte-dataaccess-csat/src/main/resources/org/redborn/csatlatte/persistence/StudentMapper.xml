@@ -178,8 +178,8 @@
 		                          FROM csat_connection_student ccs
 		                         GROUP BY ccs.student_seq) ccs
 		                    ON cs.student_seq = ccs.student_seq
-		 WHERE ( student_id LIKE CONCAT('%', #{search}, '%')
-		      OR nickname LIKE CONCAT('%', #{search}, '%') )
+		 WHERE ( student_id LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler})
+		      OR nickname LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}))
 	  ORDER BY cs.student_seq desc 
 		 LIMIT #{pageNumber}, 10 
 	</select>
