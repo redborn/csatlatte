@@ -142,8 +142,8 @@
 	<select id="selectOneCount" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_student
-	  	 WHERE ( student_id LIKE CONCAT('%', #{search}, '%')
-		      	 OR nickname LIKE CONCAT('%', #{search}, '%') )
+	  	 WHERE ( student_id LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler})
+		      OR nickname LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}))
 	</select>
 	
 	<select id="selectList" parameterType="Map" resultMap="StudentVoMap">
