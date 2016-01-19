@@ -114,7 +114,7 @@
 							$('.manage-question-content-count').append(makeAnswerCount(answerCount));
 						});
 						$('.manage-question-answer-accept').on("click", function () {
-							var answerContent = $('.manage-question-answer-textarea').val();
+							var answerContent = $('.manage-question-answer-textarea').val().replace(/\n/g, '<br>');
 							$.ajax("<c:url value="/data/manage/question.json"/>", {
 								dataType : "json",
 								type : "POST",
