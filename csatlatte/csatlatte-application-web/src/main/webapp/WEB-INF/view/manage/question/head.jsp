@@ -134,6 +134,20 @@
 											}
 										}
 									});
+									$('.manage-question-answer-view').on("click", function () {
+										target = $(this).attr("id");
+										$.ajax("<c:url value="/data/question.json"/>", {
+											dataType : "json",
+											type : "GET",
+											data : {qnaSequence : target},
+											success : function(data) {
+												if (data.detail != null) {
+													var question = data.detail;
+													$("#manage-question-detail").append(makeQuestionDetailView(question));
+												}
+											}
+										});
+									});
 								}
 							});
 						});
