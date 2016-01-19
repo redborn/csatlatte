@@ -45,6 +45,10 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return result;
 	}
+	
+	public boolean changePasswordForFind(int studentSequence, String newPassword) {
+		return studentDao.updatePassword(studentSequence, newPassword) == 1;
+	}
 
 	public boolean changeInformation(StudentVo studentVo) {
 		return studentDao.updateInformation(studentVo) == 1;
@@ -221,8 +225,12 @@ public class StudentServiceImpl implements StudentService {
 		return securityQuestionDao.selectList();
 	}
 	
-	public int NicknameStudentSequence(String nickname) {
+	public int nicknameStudentSequence(String nickname) {
 		return studentDao.selectOneStudentSequence(nickname);
+	}
+	
+	public int studentIdStudentSequence(String studentId) {
+		return studentDao.selectOneStudentSequenceById(studentId);
 	}
 
 }

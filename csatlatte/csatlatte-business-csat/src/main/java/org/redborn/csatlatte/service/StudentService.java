@@ -11,6 +11,7 @@ import org.redborn.csatlatte.domain.YsVo;
 public interface StudentService {
 
 	public boolean changePassword(int studentSequence, String password, String newPassword);
+	public boolean changePasswordForFind(int studentSequence, String newPassword);
 	public boolean changeInformation(StudentVo studentVo);
 	public boolean changeSecurity(StudentSecurityQuestionVo studentSecurityQuestionVo);
 	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo);
@@ -33,6 +34,7 @@ public interface StudentService {
 	public int amountStudent(String search);
 	public List<YsVo> ysList();
 	public List<SecurityQuestionVo> securityQuestionList();
-	public int NicknameStudentSequence(String nickname);
+	public int nicknameStudentSequence(String nickname);
+	public int studentIdStudentSequence(String studentId);
 	
 }

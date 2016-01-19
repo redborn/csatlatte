@@ -127,7 +127,7 @@
 		  FROM csat_student cs,csat_student_scqs css
 		 WHERE cs.student_seq = css.student_seq
 		   AND cs.student_id = #{id,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
-		   AND css.content = #{securityAnswer}
+		   AND css.content = #{securityAnswer,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
 	</select>
 	
 	<select id="selectOneId" parameterType="Map" resultMap="FindIdMap">
@@ -154,6 +154,12 @@
 		SELECT cs.student_seq
 		  FROM csat_student cs
 		 WHERE cs.nickname = #{nickname,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
+	</select>
+	
+	<select id="selectOneStudentSequenceById" parameterType="String" resultType="int">
+		SELECT cs.student_seq
+		  FROM csat_student cs
+		 WHERE cs.student_id = #{studentId,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
 	</select>
 	
 	<select id="selectList" parameterType="Map" resultMap="StudentVoMap">

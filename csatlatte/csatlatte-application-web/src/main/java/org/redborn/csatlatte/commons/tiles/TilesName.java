@@ -46,6 +46,7 @@ public class TilesName {
 	public static final String PASSWORD_SECURITY_FAIL = "/password/security/fail";
 	public static final String PASSWORD_NEW_WRITE = "/password/new/write";
 	public static final String PASSWORD_NEW_SUCCESS = "/password/new/success";
+	public static final String PASSWORD_NEW_FAIL = "/password/new/fail";
 	
 	public static final String STATS_JOIN = "/stats/join";
 	public static final String STATS_CONNECTION = "/stats/connection";
