@@ -67,6 +67,7 @@
 		   AND IF(#{countQnaAnswer} = 2, cqa.count_qna_answer = 1 OR cqa.count_qna_answer = 0, cqa.count_qna_answer = #{countQnaAnswer})
 		   AND (cs.student_id like IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}) 
 		   		OR cs.nickname like IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}))
+	  GROUP BY cq.qna_seq
 	  ORDER BY cq.qna_seq desc
 		 LIMIT #{pageNumber}, 10
 	</select>
