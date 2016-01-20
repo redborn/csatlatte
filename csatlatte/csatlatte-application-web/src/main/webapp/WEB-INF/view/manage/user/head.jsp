@@ -30,7 +30,7 @@
 		var makeStudentInformation = function (student) {
 			var html = '';
 			html += '<div class="manage-user-student-information">';
-			html += '	<img class="manage-user-picture" alt="회원사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
+			html += '	<img class="manage-user-picture" alt="회원사진" src="' + contextPath + '/resources/csatlatte/images/img/img_person.png">';
 			html += '	<div class="manage-user-info">';
 			html +=	'		<div class="manage-user-info-content">';
 			html += '			<label class="manage-user-label">아이디</label>';
@@ -83,7 +83,7 @@
 		
 		$('.manage-user-id').on("click", function() {
 			var target = $(this).attr("id");
-			$.ajax("<c:url value="/data/student.json"/>", {
+			$.ajax(contextPath + "/data/student.json", {
 				dataType : "json",
 				type : "GET",
 				data : {studentSequence : target},

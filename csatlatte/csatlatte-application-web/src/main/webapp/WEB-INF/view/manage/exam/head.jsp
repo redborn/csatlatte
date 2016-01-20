@@ -110,7 +110,7 @@
 		
 		$('.manage-exam-modify').on("click", function () {
 			target = $(this).attr("id");
-			$.ajax("<c:url value="/data/manage/exam.json"/>", {
+			$.ajax(contextPath + "/data/manage/exam.json", {
 				dataType : "json",
 				type : "GET",
 				data : {examSequence : target},
@@ -126,7 +126,7 @@
 							var examName = $('#manage-exam-name').val();
 							var institutionSequence = $('#manage-exam-eduoffice option:selected').val();
 							var ysSequence = $('#manage-exam-student-grade option:selected').val();
-							$.ajax("<c:url value="/data/manage/exam.json"/>", {
+							$.ajax(contextPath + "/data/manage/exam.json", {
 								dataType : "json",
 								type : "POST",
 								data : {
@@ -137,7 +137,7 @@
 									ysSequence : ysSequence
 								},
 								success : function() {
-									// 리플래시
+									$(location).attr('href', contextPath + "/manage/exam");
 								}
 							});
 						});
@@ -176,7 +176,7 @@
 				type : "DELETE",
 				data : {_method : "DELETE"},
 				success : function () {
-					// 리플래시
+					$(location).attr('href', contextPath + "/manage/exam");	
 				}
 			});
 		});

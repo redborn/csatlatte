@@ -65,7 +65,7 @@
 			html += '			<div class="modal-header">';
 			html += '				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 			html += '				<div class="community-text">';
-			html += '					<img alt="프로필사진" class="community-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
+			html += '					<img alt="프로필사진" class="community-profile-picture" src="' + contextPath + '/resources/csatlatte/images/img/img_person.png">';
 			html += '					<div class="community-user-info">';
 			html += '						<div class="community-name"><strong>' + community.nickname + '</strong></div>';
 			html += '						<div class="community-calender">' + format(community.writeYmdhms) + '</div>';
@@ -84,7 +84,7 @@
 		var makeCommunityDetailComment = function(comment) {
 			var html = '';
 			html += '<div class="community-text community-comment">';
-			html += '	<img alt="프로필사진" class="community-profile-picture" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
+			html += '	<img alt="프로필사진" class="community-profile-picture" src="' + contextPath + '/resources/csatlatte/images/img/img_person.png">';
 			html += '	<div class="community-user-info">';
 			html += '		<div class="community-name"><strong>' + comment.nickname + '</strong></div>';
 			html += '		<div class="community-comment-content"><xmp>' + comment.content + '</xmp></div>';
@@ -97,7 +97,7 @@
 		var makeStudentInformation = function (student) {
 			var html = '';
 			html += '<div class="manage-community-student-information">';
-			html += '	<img class="manage-community-picture" alt="회원사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
+			html += '	<img class="manage-community-picture" alt="회원사진" src="' + contextPath + '/resources/csatlatte/images/img/img_person.png">';
 			html += '	<div class="manage-community-info">';
 			html +=	'		<div class="manage-community-info-content">';
 			html += '			<label class="manage-community-label">아이디</label>';
@@ -135,7 +135,7 @@
 		$('.manage-community-id').on("click", function () {
 			var target = $(this).attr("id");
 			if (target != null) {
-				$.ajax("<c:url value="/data/student.json"/>", {
+				$.ajax(contextPath + "/data/student.json", {
 					dataType : "json",
 					type : "GET",
 					data : {studentSequence : target},
@@ -163,13 +163,13 @@
 		$('.manage-community-accept').on("click", function () {
 			var reason = $(':radio[name="optionsRadios"]:checked').val();
 			if (blindTarget != null) {
-				$.ajax("<c:url value="/data/community/blind.json"/>", {
+				$.ajax(contextPath + "/data/community/blind.json", {
 					dataType : "json",
 					type : "GET",
 					data : {communitySequence : blindTarget},
 					success : function(data) {
 						if (data.check == true) {
-							$.ajax("<c:url value="/data/manage/community.json"/>", {
+							$.ajax(contextPath + "/data/manage/community.json", {
 								dataType : "json",
 								type : "POST",
 								data : {communitySequence : blindTarget, blindTypeSequence : reason},
@@ -187,14 +187,14 @@
 		$('.manage-community-text-detail').on("click", function() {
 			var target = $(this).attr("id");
 			if (target != null) {
-				$.ajax("<c:url value="/data/manage/community.json"/>", {
+				$.ajax(contextPath + "/data/manage/community.json", {
 					dataType : "json",
 					type : "GET",
 					data : {communitySequence : target},
 					success : function(data) {
 						var community = data.detail;
 						$("#manage-community-text-dialog").append(makeCommunityDetail(community));
-						$.ajax("<c:url value="/data/community/comment.json"/>", {
+						$.ajax(contextPath + "/data/community/comment.json", {
 							dataType : "json",
 							type : "GET",
 							data : {communitySequence : target},

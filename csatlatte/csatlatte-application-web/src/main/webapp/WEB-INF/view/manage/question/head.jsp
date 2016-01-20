@@ -83,7 +83,7 @@
 		
 		$('.manage-question-answer-view').on("click", function () {
 			target = $(this).attr("id");
-			$.ajax("<c:url value="/data/question.json"/>", {
+			$.ajax(contextPath + "/data/question.json", {
 				dataType : "json",
 				type : "GET",
 				data : {qnaSequence : target},
@@ -104,7 +104,7 @@
 						});
 						$('.manage-question-answer-accept').on("click", function () {
 							var answerContent = $('.manage-question-answer-textarea').val().replace(/\n/g, '<br>');
-							$.ajax("<c:url value="/data/manage/question.json"/>", {
+							$.ajax(contextPath + "/data/manage/question.json", {
 								dataType : "json",
 								type : "POST",
 								data : {qnaSequence : target, answerContent : answerContent},
@@ -112,7 +112,7 @@
 									$('#manage-question-answer-button-div-' + target).remove();
 									$('#manage-question-answer-button-' + target).append(changeToViewButton());
 									$('.manage-question-detail').remove();
-									$.ajax("<c:url value="/data/question.json"/>", {
+									$.ajax(contextPath + "/data/question.json", {
 										dataType : "json",
 										type : "GET",
 										data : {qnaSequence : target},
@@ -125,7 +125,7 @@
 									});
 									$('#' + target).on("click", function () {
 										target = $(this).attr("id");
-										$.ajax("<c:url value="/data/question.json"/>", {
+										$.ajax(contextPath + "/data/question.json", {
 											dataType : "json",
 											type : "GET",
 											data : {qnaSequence : target},
