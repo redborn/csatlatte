@@ -16,7 +16,7 @@
 	</div>
 	</div>
 	<div class="manage-question-search">
-		<div class="col-lg-5 manage-question-col-lg"><input type="text" class="form-control" id="manage-question-search" placeholder="아이디 혹은 닉네임"></div>
+		<div class="col-lg-5 manage-question-col-lg"><input type="text" class="form-control" id="manage-question-search" placeholder="아이디 혹은 닉네임" value="${param.search}"></div>
 	</div>
 </div>
 <table class="table" id="manage-question-table">

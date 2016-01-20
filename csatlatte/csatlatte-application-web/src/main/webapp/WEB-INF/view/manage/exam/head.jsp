@@ -108,21 +108,6 @@
 			return html;
 		}
 		
-		var getUrlParameter = function getUrlParameter(sParam) {
-			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-			sURLVariables = sPageURL.split('&'),
-			sParameterName,
-			i;
-
-			for (i = 0; i < sURLVariables.length; i++) {
-				sParameterName = sURLVariables[i].split('=');
-				
-				if (sParameterName[0] === sParam) {
-					return sParameterName[1] === undefined ? true : sParameterName[1];	
-				}	
-			}	
-		};
-
 		$('.manage-exam-modify').on("click", function () {
 			target = $(this).attr("id");
 			$.ajax("<c:url value="/data/manage/exam.json"/>", {
@@ -160,8 +145,6 @@
 				}
 			});
 		});
-		
-		$('#manage-exam-search').val(getUrlParameter("search"));
 		
 		$('#manage-exam-modify').on('hidden.bs.modal', function () {
 			$('#manage-exam-modify-content').remove();
