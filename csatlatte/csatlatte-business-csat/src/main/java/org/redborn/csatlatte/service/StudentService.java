@@ -35,6 +35,6 @@ public interface StudentService {
 	public int amountStudent(String search);
 	public List<YsVo> ysList();
 	public List<SecurityQuestionVo> securityQuestionList();
-	public int studentIdStudentSequence(String studentId);
+	public int getStudentSequence(String studentId);
 	
 }

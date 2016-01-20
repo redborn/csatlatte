@@ -48,8 +48,7 @@ public class Password {
 		
 		String result = TilesName.PASSWORD_FAIL;
 		if (success) {
-			int studentSequence = studentService.studentIdStudentSequence(studentId);
-			model.addAttribute("securityQuestion", studentService.securityQuestion(studentSequence));
+			model.addAttribute("securityQuestion", studentService.securityQuestion(studentService.getStudentSequence(studentId)));
 			result = TilesName.PASSWORD_SECURITY_WRITE;
 		}
 		

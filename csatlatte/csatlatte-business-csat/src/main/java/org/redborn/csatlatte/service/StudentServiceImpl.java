@@ -229,7 +229,7 @@ public class StudentServiceImpl implements StudentService {
 		return securityQuestionDao.selectList();
 	}
 	
-	public int studentIdStudentSequence(String studentId) {
+	public int getStudentSequence(String studentId) {
 		return studentDao.selectOneStudentSequenceById(studentId);
 	}
 
