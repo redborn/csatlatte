@@ -50,7 +50,7 @@
 			} else {
 				html += '	<div class="form-group manage-question-form-group">';
 				html += '		<label for="manage-question-answer-textarea">답변내용</label>';
-				html += '		<textarea maxlength="2000" id="manage-question-answer-textarea" class="form-control manage-question-answer-textarea" placeholder="답변이 완료되지 않은 문의입니다. 답변을 입력해주세요."/>';
+				html += '		<textarea maxlength="2000" data-toggle="tooltip-answer-textarea" data-placement="bottom" title="내용이 올바르지 않습니다." id="manage-question-answer-textarea" class="form-control manage-question-answer-textarea" placeholder="답변이 완료되지 않은 문의입니다. 답변을 입력해주세요."/>';
 				html += '	</div>';
 				html += '	<div class="manage-question-content-count">';
 				html += '		<div class="manage-question-answer-count">';
@@ -97,29 +97,16 @@
 							$('.manage-question-content-count').append(makeAnswerCount(answerCount));
 						});
 						$('.manage-question-answer-accept').on("click", function () {
-							var answerContent = $('.manage-question-answer-textarea').val().replace(/\n/g, '<br>');
-							$.ajax("<c:url value="/data/manage/question.json"/>", {
-								dataType : "json",
-								type : "POST",
-								data : {qnaSequence : target, answerContent : answerContent},
-								success : function () {
-									$('#manage-question-answer-button-div-' + target).remove();
-									$('#manage-question-answer-button-' + target).append(changeToViewButton());
-									$('.manage-question-detail').remove();
-									$.ajax("<c:url value="/data/question.json"/>", {
-										dataType : "json",
-										type : "GET",
-										data : {qnaSequence : target},
-										success : function(data) {
-											if (data.detail != null) {
-												var question = data.detail;
-												$("#manage-question-detail").append(makeQuestionDetailView(question));
-											}
-										}
-									});
-									$('.manage-question-answer').off("click");
-									$('.manage-question-answer').on("click", function () {
-										target = $(this).attr("id");
+							if ($('.manage-question-answer-textarea').val() !== "") {
+								var answerContent = $('.manage-question-answer-textarea').val().replace(/\n/g, '<br>');
+								$.ajax("<c:url value="/data/manage/question.json"/>", {
+									dataType : "json",
+									type : "POST",
+									data : {qnaSequence : target, answerContent : answerContent},
+									success : function () {
+										$('#manage-question-answer-button-div-' + target).remove();
+										$('#manage-question-answer-button-' + target).append(changeToViewButton());
+										$('.manage-question-detail').remove();
 										$.ajax("<c:url value="/data/question.json"/>", {
 											dataType : "json",
 											type : "GET",
@@ -131,9 +118,28 @@
 												}
 											}
 										});
-									});
-								}
-							});
+										$('#' + target).on("click", function () {
+											target = $(this).attr("id");
+											$.ajax("<c:url value="/data/question.json"/>", {
+												dataType : "json",
+												type : "GET",
+												data : {qnaSequence : target},
+												success : function(data) {
+													if (data.detail != null) {
+														var question = data.detail;
+														$("#manage-question-detail").append(makeQuestionDetailView(question));
+													}
+												}
+											});
+										});
+									}
+								});
+							} else {
+								$('[data-toggle="tooltip-answer-textarea"]').tooltip('show');
+								setTimeout(function () {
+									$('[data-toggle="tooltip-answer-textarea"]').tooltip('destroy');
+								}, 1500);
+							}
 						});
 					}
 				}
