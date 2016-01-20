@@ -30,11 +30,11 @@ public interface StudentService {
 	public List<CountVo> monthlyConnectionCount(String ym);
 	public List<CountVo> annualConnectionCount(String year);
 	public List<StudentVo> userList(String search, int pageNumber);
+	public String securityQuestion(String nickname);
 	public String securityQuestion(int studentSequence);
 	public int amountStudent(String search);
 	public List<YsVo> ysList();
 	public List<SecurityQuestionVo> securityQuestionList();
-	public int nicknameStudentSequence(String nickname);
 	public int studentIdStudentSequence(String studentId);
 	
 }

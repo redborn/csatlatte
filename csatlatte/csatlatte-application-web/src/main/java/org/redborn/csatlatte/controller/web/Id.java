@@ -48,11 +48,10 @@ public class Id {
 		
 		String result = TilesName.ID_FAIL;
 		if (success) {
-			int studentSequence = studentService.nicknameStudentSequence(nickname);
-			model.addAttribute("securityQuestion", studentService.securityQuestion(studentSequence));
+			model.addAttribute("securityQuestion", studentService.securityQuestion(nickname));
 			result = TilesName.ID_SECURITY_WRITE;
 		}
-		
 		return result;
 	}
+	
 }

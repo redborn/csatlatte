@@ -179,6 +179,10 @@ public class StudentServiceImpl implements StudentService {
 		return studentDao.selectList(search, pageNumber);
 	}
 
+	public String securityQuestion(String nickname) {
+		return securityQuestion(studentDao.selectOneStudentSequence(nickname));
+	}
+
 	public String securityQuestion(int studentSequence) {
 		return securityQuestionDao.selectOne(studentSequence);
 	}
@@ -223,10 +227,6 @@ public class StudentServiceImpl implements StudentService {
 	
 	public List<SecurityQuestionVo> securityQuestionList() {
 		return securityQuestionDao.selectList();
-	}
-	
-	public int nicknameStudentSequence(String nickname) {
-		return studentDao.selectOneStudentSequence(nickname);
 	}
 	
 	public int studentIdStudentSequence(String studentId) {
