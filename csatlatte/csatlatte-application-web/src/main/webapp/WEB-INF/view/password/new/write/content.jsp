@@ -20,12 +20,12 @@
 		<h4>보안 확인이 완료되었습니다. <small>새 비밀번호를 설정해주세요.</small></h4>
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="password-new-write-password">비밀번호</label>
-			<div class="col-sm-5"><input id="password-new-write-password" type="password" class="form-control"></div>
+			<div class="col-sm-5"><input id="password-new-write-password" maxlength="15" type="password" class="form-control"></div>
 			<div class="col-sm-5"><div id="password-new-write-message-area"></div></div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="password-new-write-password-check">비밀번호 확인</label>
-			<div class="col-sm-5"><input id="password-new-write-password-check" name="newPassword" type="password" class="form-control"></div>
+			<div class="col-sm-5"><input id="password-new-write-password-check" maxlength="15" name="newPassword" type="password" class="form-control"></div>
 			<div class="col-sm-5"><div id="password-new-write-check-message-area"></div></div>
 			<input type="hidden" name="studentId" value="${param.studentId}">
 			<input type="hidden" name="securityAnswer" value="${param.securityAnswer}">
