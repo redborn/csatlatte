@@ -37,6 +37,10 @@
 			html += '			<div class="manage-user-info-content-value">' + student.studentId + '</div>';
 			html += '		</div>';
 			html += '		<div class="manage-user-info-content">';
+			html += '			<label class="manage-user-label">닉네임</label>';
+			html += '			<div class="manage-user-info-content-value">' + student.nickname + '</div>';
+			html += '		</div>';
+			html += '		<div class="manage-user-info-content">';
 			html += '			<label class="manage-user-label">가입일</label>';
 			html += '			<div class="manage-user-info-content-value">' + student.createDate + '</div>';
 			html += '		</div>';
