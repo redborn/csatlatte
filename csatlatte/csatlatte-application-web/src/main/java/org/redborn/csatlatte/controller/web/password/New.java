@@ -36,8 +36,7 @@ public class New {
 		
 		String result = TilesName.PASSWORD_NEW_FAIL;
 		
-		if (studentService.isPassword(studentId, securityAnswer)) {
-			studentService.changePasswordForFind(studentService.getStudentSequence(studentId), newPassword);
+		if (studentService.changePassword(studentId, securityAnswer, newPassword)) {
 			result = TilesName.PASSWORD_NEW_SUCCESS;
 		}
 		

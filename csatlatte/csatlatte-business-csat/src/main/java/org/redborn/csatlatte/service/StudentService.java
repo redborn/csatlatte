@@ -11,7 +11,7 @@ import org.redborn.csatlatte.domain.YsVo;
 public interface StudentService {
 
 	public boolean changePassword(int studentSequence, String password, String newPassword);
-	public boolean changePasswordForFind(int studentSequence, String newPassword);
+	public boolean changePassword(String studentId, String securityAnswer, String newPassword);
 	public boolean changeInformation(StudentVo studentVo);
 	public boolean changeSecurity(StudentSecurityQuestionVo studentSecurityQuestionVo);
 	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo);

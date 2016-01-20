@@ -45,9 +45,17 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return result;
 	}
-	
-	public boolean changePasswordForFind(int studentSequence, String newPassword) {
-		return studentDao.updatePassword(studentSequence, newPassword) == 1;
+
+	public boolean changePassword(String studentId, String securityAnswer,
+			String newPassword) {
+		boolean result = false;
+		if (isPassword(studentId, securityAnswer)) {
+			int studentSequence = getStudentSequence(studentId);
+			if (studentDao.updatePassword(studentSequence, makePassword(studentSequence, newPassword)) == 1) {
+				result = true;
+			}
+		}
+		return result;
 	}
 
 	public boolean changeInformation(StudentVo studentVo) {
