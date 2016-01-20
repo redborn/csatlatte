@@ -119,13 +119,6 @@
 			$('.manage-user-student-information').remove();
 		});
 		
-		$('#manage-student-search').on("keyup", function (event) {
-			if (event.which == 13) {
-				var search = $('#manage-student-search').val();
-				$(location).attr('href', '<c:url value="/manage/user?search="/>' + search);
-			}
-		});
-		
 		$('.manage-user-recovery').on("click", function () {
 			recoveryTarget = $(this).attr("id");
 		});

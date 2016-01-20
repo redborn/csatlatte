@@ -218,12 +218,5 @@
 			$('.manage-community-accept').attr('disabled',true);
 		});
 		
-		$('#manage-community-search').on("keyup", function (event) {
-			if (event.which == 13) {
-				var search = $('#manage-community-search').val();
-				$(location).attr('href', '<c:url value="/manage/community?search="/>' + search);
-			}
-		});
-		
 	});
 </script>

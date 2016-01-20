@@ -144,11 +144,5 @@
 			$('.manage-question-detail').remove();
 		});
 		
-		$('#manage-question-search').on("keyup", function (event) {
-			if (event.which == 13) {
-				var search = $('#manage-question-search').val();
-				$(location).attr('href', '<c:url value="/manage/question?search="/>' + search);
-			}
-		});
 	});
 </script>

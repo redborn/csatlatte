@@ -150,13 +150,6 @@
 			$('#manage-exam-modify-content').remove();
 		});
 		
-		$('#manage-exam-search').on("keyup", function (event) {
-			if (event.which == 13) {
-				var search = $('#manage-exam-search').val();
-				$(location).attr('href', '<c:url value="/manage/exam?search="/>' + search);
-			}
-		});
-		
 		$('.manage-exam-delete').on("click", function () {
 			target = $(this).attr("id");
 			$.ajax(contextPath + "/data/manage/exam", {
