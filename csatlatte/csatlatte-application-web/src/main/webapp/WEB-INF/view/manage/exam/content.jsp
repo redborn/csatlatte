@@ -5,7 +5,9 @@
 <%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
 <h4 class="manage-exam-title">모의고사 관리</h4>
 <div class="manage-exam-search">
-	<div class="col-lg-5 manage-exam-col-lg"><input type="text" class="form-control" id="manage-exam-search" placeholder="모의고사 혹은 주관교육청"></div>
+	<form method="get" action="<c:url value="/manage/exam"/>">
+		<div class="col-lg-5 manage-exam-col-lg"><input type="text" class="form-control" id="manage-exam-search" placeholder="모의고사 혹은 주관교육청" name="search" value="${param.search}"></div>
+	</form>
 </div>
 <table class="table" id="manage-exam-table">
 	<thead>

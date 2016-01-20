@@ -108,24 +108,9 @@
 			return html;
 		}
 		
-		var getUrlParameter = function getUrlParameter(sParam) {
-			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-			sURLVariables = sPageURL.split('&'),
-			sParameterName,
-			i;
-
-			for (i = 0; i < sURLVariables.length; i++) {
-				sParameterName = sURLVariables[i].split('=');
-				
-				if (sParameterName[0] === sParam) {
-					return sParameterName[1] === undefined ? true : sParameterName[1];	
-				}	
-			}	
-		};
-
 		$('.manage-exam-modify').on("click", function () {
 			target = $(this).attr("id");
-			$.ajax("<c:url value="/data/manage/exam.json"/>", {
+			$.ajax(contextPath + "/data/manage/exam.json", {
 				dataType : "json",
 				type : "GET",
 				data : {examSequence : target},
@@ -141,7 +126,7 @@
 							var examName = $('#manage-exam-name').val();
 							var institutionSequence = $('#manage-exam-eduoffice option:selected').val();
 							var ysSequence = $('#manage-exam-student-grade option:selected').val();
-							$.ajax("<c:url value="/data/manage/exam.json"/>", {
+							$.ajax(contextPath + "/data/manage/exam.json", {
 								dataType : "json",
 								type : "POST",
 								data : {
@@ -152,7 +137,7 @@
 									ysSequence : ysSequence
 								},
 								success : function() {
-									// 리플래시
+									$(location).attr('href', contextPath + "/manage/exam");
 								}
 							});
 						});
@@ -161,17 +146,8 @@
 			});
 		});
 		
-		$('#manage-exam-search').val(getUrlParameter("search"));
-		
 		$('#manage-exam-modify').on('hidden.bs.modal', function () {
 			$('#manage-exam-modify-content').remove();
-		});
-		
-		$('#manage-exam-search').on("keyup", function (event) {
-			if (event.which == 13) {
-				var search = $('#manage-exam-search').val();
-				$(location).attr('href', '<c:url value="/manage/exam?search="/>' + search);
-			}
 		});
 		
 		$('.manage-exam-delete').on("click", function () {
@@ -200,7 +176,7 @@
 				type : "DELETE",
 				data : {_method : "DELETE"},
 				success : function () {
-					// 리플래시
+					$(location).attr('href', contextPath + "/manage/exam");	
 				}
 			});
 		});

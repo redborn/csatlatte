@@ -19,28 +19,13 @@
 	.manage-question-detail-content {text-align:left; margin-bottom:15px;}
 	.manage-question-answer-accept {margin-left:10px;}
 	.manage-question-form-group {text-align:left;}
+	.manage-question-content-count {text-align:right;}
 </style>
 <script>
 	$(document).ready(function () {
 		
 		var target;
-		
-		var getUrlParameter = function getUrlParameter(sParam) {
-			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-			sURLVariables = sPageURL.split('&'),
-			sParameterName,
-			i;
-
-			for (i = 0; i < sURLVariables.length; i++) {
-				sParameterName = sURLVariables[i].split('=');
-				
-				if (sParameterName[0] === sParam) {
-					return sParameterName[1] === undefined ? true : sParameterName[1];	
-				}	
-			}	
-		};
-		
-		$('#manage-question-search').val(getUrlParameter("search"));
+		var answerCount;
 		
 		var makeQuestionDetailView = function(question) {
 			var html = '';
@@ -65,7 +50,12 @@
 			} else {
 				html += '	<div class="form-group manage-question-form-group">';
 				html += '		<label for="manage-question-answer-textarea">답변내용</label>';
-				html += '		<textarea id="manage-question-answer-textarea" class="form-control manage-question-answer-textarea" placeholder="답변이 완료되지 않은 문의입니다. 답변을 입력해주세요."/>';
+				html += '		<textarea data-toggle="tooltip-answer-textarea" data-placement="bottom" title="내용이 올바르지 않습니다." id="manage-question-answer-textarea" class="form-control manage-question-answer-textarea" placeholder="답변이 완료되지 않은 문의입니다. 답변을 입력해주세요."/>';
+				html += '	</div>';
+				html += '	<div class="manage-question-content-count">';
+				html += '		<div class="manage-question-answer-count">';
+				html += '			2000';
+				html += '		</div>';
 				html += '	</div>';
 				html += '</div>';
 				html += '<div class="modal-footer">';
@@ -79,13 +69,21 @@
 		
 		var changeToViewButton = function () {
 			var html = '';
-			html += '<button id="' + target + '" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer-view btn btn-default">확인</button>';
+			html += '<button id="' + target + '" data-toggle="modal" data-target="#manage-question-answer-view" class="manage-question-answer btn btn-default">확인</button>';
+			return html;
+		}
+		
+		var makeAnswerCount = function (answerCount) {
+			var html = '';
+			html += '<div class="manage-question-answer-count">';
+			html += 	answerCount;
+			html += '</div>';
 			return html;
 		}
 		
 		$('.manage-question-answer-view').on("click", function () {
 			target = $(this).attr("id");
-			$.ajax("<c:url value="/data/question.json"/>", {
+			$.ajax(contextPath + "/data/question.json", {
 				dataType : "json",
 				type : "GET",
 				data : {qnaSequence : target},
@@ -93,9 +91,20 @@
 					if (data.detail != null) {
 						var question = data.detail;
 						$("#manage-question-detail").append(makeQuestionDetailView(question));
+						$('.manage-question-answer-accept').attr("disabled", true);
+						$('#manage-question-answer-textarea').on("keyup", function () {
+							answerCount = 2000 - $('#manage-question-answer-textarea').val().length;
+							if ($('.manage-question-answer-textarea').val() === "" || answerCount < 0) {
+								$('.manage-question-answer-accept').attr("disabled", true);
+							} else {
+								$('.manage-question-answer-accept').attr("disabled", false);
+							}
+							$('.manage-question-answer-count').remove();
+							$('.manage-question-content-count').append(makeAnswerCount(answerCount));
+						});
 						$('.manage-question-answer-accept').on("click", function () {
-							var answerContent = $('.manage-question-answer-textarea').val();
-							$.ajax("<c:url value="/data/manage/question.json"/>", {
+							var answerContent = $('.manage-question-answer-textarea').val().replace(/\n/g, '<br>');
+							$.ajax(contextPath + "/data/manage/question.json", {
 								dataType : "json",
 								type : "POST",
 								data : {qnaSequence : target, answerContent : answerContent},
@@ -103,7 +112,7 @@
 									$('#manage-question-answer-button-div-' + target).remove();
 									$('#manage-question-answer-button-' + target).append(changeToViewButton());
 									$('.manage-question-detail').remove();
-									$.ajax("<c:url value="/data/question.json"/>", {
+									$.ajax(contextPath + "/data/question.json", {
 										dataType : "json",
 										type : "GET",
 										data : {qnaSequence : target},
@@ -113,6 +122,20 @@
 												$("#manage-question-detail").append(makeQuestionDetailView(question));
 											}
 										}
+									});
+									$('#' + target).on("click", function () {
+										target = $(this).attr("id");
+										$.ajax(contextPath + "/data/question.json", {
+											dataType : "json",
+											type : "GET",
+											data : {qnaSequence : target},
+											success : function(data) {
+												if (data.detail != null) {
+													var question = data.detail;
+													$("#manage-question-detail").append(makeQuestionDetailView(question));
+												}
+											}
+										});
 									});
 								}
 							});
@@ -126,23 +149,5 @@
 			$('.manage-question-detail').remove();
 		});
 		
-		$('#manage-question-all').on("click", function () {
-			$(location).attr('href', '<c:url value="/manage/question"/>');	
-		});
-		
-		$('#manage-question-standby').on("click", function () {
-			$(location).attr('href', '<c:url value="/manage/question?useYn="/>' + "Y");	
-		});
-		
-		$('#manage-question-success').on("click", function () {
-			$(location).attr('href', '<c:url value="/manage/question?useYn="/>' + "N");	
-		});
-		
-		$('#manage-question-search').on("keyup", function (event) {
-			if (event.which == 13) {
-				var search = $('#manage-question-search').val();
-				$(location).attr('href', '<c:url value="/manage/question?search="/>' + search);
-			}
-		});
 	});
 </script>

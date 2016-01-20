@@ -3,18 +3,16 @@
 <%@ include file="/WEB-INF/layout/include/bootstrap/datepicker.jsp" %>
 <%@ include file="/WEB-INF/layout/include/google/chart.jsp" %>
 <style>
-	h5 {display:inline-block;  vertical-align:top;}
-	.form-control {margin-left:5px; display:inline-block; float:none; width:100px; height:30px;}
+	.stats-connection-form-control {margin-left:5px; display:inline-block; float:none; width:100px; height:30px;}
 	#stats-connection-daily-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
 	#stats-connection-monthly-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
 	#stats-connection-annual-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
-	
-	.col-lg-6 {float:none; display:inline-block;}
+	.stats-connection-col-lg-6 {float:none; display:inline-block;}
 	#stats-connection-daily-datepicker {width:auto;}
 	#stats-connection-monthly-datepicker {width:auto;}
 	#stats-connection-annual-datepicker {width:auto;}
-	.input-group {display:inline-block; margin-top:4px;}
-	.input-group-addon {width:auto;}
+	.stats-connection-input-group {display:inline-block; margin-top:4px;}
+	.stats-connection-input-group-addon {width:auto;}
 	
 	.btn-default {width:100%; display:block;}
 </style>

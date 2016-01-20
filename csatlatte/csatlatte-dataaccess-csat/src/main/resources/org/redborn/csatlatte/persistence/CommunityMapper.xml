@@ -53,8 +53,8 @@
 		SELECT COUNT(*)
 		  FROM csat_community cc, csat_student cs
 		 WHERE cc.student_seq = cs.student_seq
-		   AND ( cs.student_id LIKE CONCAT('%', #{search}, '%')
-		          OR cs.nickname LIKE CONCAT('%', #{search}, '%') )
+		   AND ( cs.student_id LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler})
+		          OR cs.nickname LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}))
 	</select>
 	
 	<select id="selectOneDetail" parameterType="Map" resultMap="CommunityVoMap">
@@ -154,8 +154,8 @@
 		                    ON cc.community_seq = ccb.community_seq,csat_student cs
 		 WHERE cc.student_seq = cs.student_seq
 		   AND cc.community_type_seq = #{communityTypeSequence}
-		   AND ( cs.student_id LIKE CONCAT('%', #{search}, '%')
-		          OR cs.nickname LIKE CONCAT('%', #{search}, '%') )
+		   AND ( cs.student_id LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler})
+		          OR cs.nickname LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}))
 	  ORDER BY cc.community_seq desc
 		 LIMIT #{pageNumber}, 10
 	</select>

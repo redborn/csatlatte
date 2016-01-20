@@ -27,31 +27,18 @@
 		var blindTarget;
 		var recoveryTarget;
 		
-		var getUrlParameter = function getUrlParameter(sParam) {
-			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-			sURLVariables = sPageURL.split('&'),
-			sParameterName,
-			i;
-
-			for (i = 0; i < sURLVariables.length; i++) {
-				sParameterName = sURLVariables[i].split('=');
-				
-				if (sParameterName[0] === sParam) {
-					return sParameterName[1] === undefined ? true : sParameterName[1];	
-				}	
-			}	
-		};
-		
-		$('#manage-student-search').val(getUrlParameter("search"));
-		
 		var makeStudentInformation = function (student) {
 			var html = '';
 			html += '<div class="manage-user-student-information">';
-			html += '	<img class="manage-user-picture" alt="회원사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
+			html += '	<img class="manage-user-picture" alt="회원사진" src="' + contextPath + '/resources/csatlatte/images/img/img_person.png">';
 			html += '	<div class="manage-user-info">';
 			html +=	'		<div class="manage-user-info-content">';
 			html += '			<label class="manage-user-label">아이디</label>';
 			html += '			<div class="manage-user-info-content-value">' + student.studentId + '</div>';
+			html += '		</div>';
+			html += '		<div class="manage-user-info-content">';
+			html += '			<label class="manage-user-label">닉네임</label>';
+			html += '			<div class="manage-user-info-content-value">' + student.nickname + '</div>';
 			html += '		</div>';
 			html += '		<div class="manage-user-info-content">';
 			html += '			<label class="manage-user-label">가입일</label>';
@@ -96,7 +83,7 @@
 		
 		$('.manage-user-id').on("click", function() {
 			var target = $(this).attr("id");
-			$.ajax("<c:url value="/data/student.json"/>", {
+			$.ajax(contextPath + "/data/student.json", {
 				dataType : "json",
 				type : "GET",
 				data : {studentSequence : target},
@@ -134,13 +121,6 @@
 		
 		$('#manage-user-id').on('hidden.bs.modal', function () {
 			$('.manage-user-student-information').remove();
-		});
-		
-		$('#manage-student-search').on("keyup", function (event) {
-			if (event.which == 13) {
-				var search = $('#manage-student-search').val();
-				$(location).attr('href', '<c:url value="/manage/user?search="/>' + search);
-			}
 		});
 		
 		$('.manage-user-recovery').on("click", function () {
