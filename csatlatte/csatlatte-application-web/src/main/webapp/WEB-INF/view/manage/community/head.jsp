@@ -151,7 +151,7 @@
 			blindTarget = $(this).attr("id");
 		});
 		
-		$('.radio').change(function () {
+		$('.radio').on("change", function () {
 			$('.manage-community-accept').attr('disabled',false);
 		});
 		
