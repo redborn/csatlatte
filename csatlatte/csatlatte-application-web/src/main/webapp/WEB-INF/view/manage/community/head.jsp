@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
+	.manage-community-label {display:inline-block; width:80px; text-align:right; display:inline-block;}
 	#manage-community-nav {text-align:center;}
 	#manage-community-table {margin-top:15px; text-align:center; float:none;}
 	.manage-community-title {display:inline-block; width:380px;}
@@ -99,15 +100,19 @@
 			html += '	<img class="manage-community-picture" alt="회원사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">';
 			html += '	<div class="manage-community-info">';
 			html +=	'		<div class="manage-community-info-content">';
-			html += '			<label>아이디</label>';
+			html += '			<label class="manage-community-label">아이디</label>';
 			html += '			<div class="manage-community-info-content-value">' + student.studentId + '</div>';
 			html += '		</div>';
 			html += '		<div class="manage-community-info-content">';
-			html += '			<label>가입일</label>';
+			html += '			<label class="manage-community-label">닉네임</label>';
+			html += '			<div class="manage-community-info-content-value">' + student.nickname + '</div>';
+			html += '		</div>';
+			html += '		<div class="manage-community-info-content">';
+			html += '			<label class="manage-community-label">가입일</label>';
 			html += '			<div class="manage-community-info-content-value">' + student.createDate + '</div>';
 			html += '		</div>';
 			html += '		<div class="manage-community-info-content">';
-			html += '			<label>최근 접속일</label>';
+			html += '			<label class="manage-community-label">최근 접속일</label>';
 			if (student.lastConnection == null) {
 				html += '			<div class="manage-community-info-content-value">로그인 기록이 없습니다.</div>';
 			} else {
@@ -115,11 +120,11 @@
 			}
 			html += '		</div>';
 			html += '			<div class="manage-community-info-content">';
-			html += '			<label>활동점수 내역</label>';
+			html += '			<label class="manage-community-label">활동점수 내역</label>';
 			html += '			<div class="manage-community-info-content-value">게시글 ' + student.countCommunity + '개, 댓글 ' + student.countComment + '개</div>';
 			html += '		</div>';
 			html += '		<div class="manage-community-info-content">';
-			html += '			<label>성적평균</label>';
+			html += '			<label class="manage-community-label">성적평균</label>';
 			html += '			<div class="manage-community-info-content-value">' + student.averageScore + '</div>';
 			html += '		</div>';
 			html += '	</div>'; 
