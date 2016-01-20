@@ -72,7 +72,7 @@
 		var idNegativeMessage = function () {
 			var html = '';
 			html += '<div class="join-id-check-message-negative">';
-			html += '	6자 이상 영문,숫자만 사용할 수 있습니다.';
+			html += '	6~10자 이내 영문,숫자만 사용 가능';
 			html += '</div>';
 			return html;
 		}
@@ -104,7 +104,7 @@
 		var answerNegativeMessage = function () {
 			var html = '';
 			html += '<div class="join-answer-check-message-negative">';
-			html += '	2글자 이하 및 띄어쓰기는 불가능합니다.';
+			html += '	3~8자 이내 띄어쓰기없이 작성하세요.';
 			html += '</div>';
 			return html;
 		}
@@ -120,7 +120,7 @@
 		var nicknameNegativeMessage = function () {
 			var html = '';
 			html += '<div class="join-nickname-check-message-negative">';
-			html += '	2글자 이하 및 띄어쓰기는 불가능합니다.';
+			html += '	3~8자 이내 띄어쓰기없이 작성하세요.';
 			html += '</div>';
 			return html;
 		}
@@ -235,12 +235,22 @@
 				$('#join-password-message-area').append(passwordPositiveMessage());
 				successPassword = true;
 			}
+			
+			$('.join-password-check-message-negative').remove();
+			$('.join-password-check-message-positive').remove();
+			if ($('#join-content-password').val() !== $('#join-content-password-check').val() || $('#join-content-password').val() === "") {
+				$('#join-password-check-message-area').append(passwordCheckNegativeMessage());
+				successPasswordCheck = false;
+			} else {
+				$('#join-password-check-message-area').append(passwordCheckPositiveMessage());
+				successPasswordCheck = true;
+			}
 		});
 		
 		$('#join-content-password-check').on("keyup", function() {
 			$('.join-password-check-message-negative').remove();
 			$('.join-password-check-message-positive').remove();
-			if ($('#join-content-password').val() !== $('#join-content-password-check').val()) {
+			if ($('#join-content-password').val() !== $('#join-content-password-check').val() || $('#join-content-password').val() === "") {
 				$('#join-password-check-message-area').append(passwordCheckNegativeMessage());
 				successPasswordCheck = false;
 			} else {
