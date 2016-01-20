@@ -29,9 +29,9 @@
 	.community-comment img {width:40px; height:40px; display:inline-block; border-radius:5px; border:1px solid #7a6253;}
 	.community-comment .form-control {margin-top:3px; width:500px; display:inline-block; float:none;}
 	.community-comment {margin-bottom:5px;}
-	.community-content xmp {white-space:pre-wrap; word-break:break-all; margin-top:0px; margin-bottom:0px;}
+	.community-content xmp {white-space:pre-wrap; word-break:break-all;}
 	.community-comment-content xmp {white-space:pre-wrap; word-break:break-all; display:inline-block; margin-top:0px; margin-bottom:0px;}
-	.manage-community-text-detail xmp {white-space:pre-wrap; word-break:break-all; margin-top:0px; margin-bottom:0px;}
+	.manage-community-text-detail xmp {white-space:nowrap; width:200px; text-overflow:ellipsis; overflow:hidden;}
 	#manage-community-blind .modal-body {text-align:left;}
 	.manage-community-blind {cursor:pointer;}
 	.manage-community-icon {float:none;}
