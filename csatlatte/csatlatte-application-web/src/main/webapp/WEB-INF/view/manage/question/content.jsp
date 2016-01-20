@@ -9,9 +9,9 @@
 	<div class="manage-question-yn">
 		<h5>답변여부</h5>
 		<div class="btn-group manage-question-btn-group">
-			<button id="manage-question-all" class="btn btn-default <c:if test="${param.countQnaAnswer == null || param.countQnaAnswer eq '' || param.countQnaAnswer eq '2'}">active</c:if>">전체</button>
-			<button id="manage-question-standby" class="btn btn-default <c:if test="${param.countQnaAnswer eq '0'}">active</c:if>">대기</button>
-			<button id="manage-question-success" class="btn btn-default <c:if test="${param.countQnaAnswer eq '1'}">active</c:if>">완료</button>
+			<a href="<c:url value="/manage/question"/>" id="manage-question-all" class="btn btn-default <c:if test="${param.countQnaAnswer == null || param.countQnaAnswer eq '' || param.countQnaAnswer eq '2'}">active</c:if>">전체</a>
+			<a href="<c:url value="/manage/question?countQnaAnswer=0"/>" id="manage-question-standby" class="btn btn-default <c:if test="${param.countQnaAnswer eq '0'}">active</c:if>">대기</a>
+			<a href="<c:url value="/manage/question?countQnaAnswer=1"/>" id="manage-question-success" class="btn btn-default <c:if test="${param.countQnaAnswer eq '1'}">active</c:if>">완료</a>
 		</div>
 	</div>
 	</div>

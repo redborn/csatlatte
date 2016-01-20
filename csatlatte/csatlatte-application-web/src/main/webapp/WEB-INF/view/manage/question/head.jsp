@@ -144,18 +144,6 @@
 			$('.manage-question-detail').remove();
 		});
 		
-		$('#manage-question-all').on("click", function () {
-			$(location).attr('href', '<c:url value="/manage/question"/>');	
-		});
-		
-		$('#manage-question-standby').on("click", function () {
-			$(location).attr('href', '<c:url value="/manage/question?countQnaAnswer="/>' + "0");	
-		});
-		
-		$('#manage-question-success').on("click", function () {
-			$(location).attr('href', '<c:url value="/manage/question?countQnaAnswer="/>' + "1");	
-		});
-		
 		$('#manage-question-search').on("keyup", function (event) {
 			if (event.which == 13) {
 				var search = $('#manage-question-search').val();
