@@ -11,7 +11,6 @@
 </style>
 <script>
 	$(document).ready(function () {
-		$('#password-security-write-btn-success').attr("disabled", true);
 		
 		$('#password-security-write-content-answer').on("keyup", function () {
 			if ($(this).val() !== "") {

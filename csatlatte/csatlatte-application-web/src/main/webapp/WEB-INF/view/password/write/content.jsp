@@ -25,6 +25,6 @@
 	</div>
 	<div class="password-write-button-group">
 		<a class="btn btn-default" href="<c:url value="/main"/>">취소</a>
-		<input id="password-write-btn-success" type="submit" class="btn btn-success" value="다음단계">
+		<input id="password-write-btn-success" type="submit" disabled="disabled" class="btn btn-success" value="다음단계">
 	</div>
 </form>

@@ -27,6 +27,6 @@
 	</div>
 	<div class="id-security-write-button-group">
 		<a class="btn btn-default" href="<c:url value="/main"/>">취소</a>
-		<input id="id-security-write-btn-success" type="submit" class="btn btn-success" value="다음단계">
+		<input id="id-security-write-btn-success" type="submit" disabled="disabled" class="btn btn-success" value="다음단계">
 	</div>
 </form>

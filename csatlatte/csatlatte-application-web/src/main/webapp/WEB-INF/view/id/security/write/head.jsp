@@ -13,7 +13,6 @@
 </style>
 <script>
 	$(document).ready(function () {
-		$('#id-security-write-btn-success').attr("disabled", true);
 		
 		$('#id-security-write-content-answer').on("keyup", function () {
 			if ($(this).val() !== "") {

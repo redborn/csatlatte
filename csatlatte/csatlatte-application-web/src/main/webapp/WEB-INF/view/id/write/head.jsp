@@ -12,8 +12,6 @@
 <script>
 	$(document).ready(function () {
 		
-		$('#btn-next').attr("disabled", true);
-		
 		$('#id-write-content-nickname').on("keyup", function () {
 			if ($(this).val() !== "") {
 				$('#btn-next').attr("disabled", false);

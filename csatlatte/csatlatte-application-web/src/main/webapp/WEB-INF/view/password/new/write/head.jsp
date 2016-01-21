@@ -20,8 +20,6 @@
 		var successPasswordCheck = false;
 		var successPassword = false;
 		
-		$('#password-new-write-btn-success').attr("disabled", true);
-		
 		var passwordNegativeMessage = function () {
 			var html = '';
 			html += '<div class="password-new-write-message-negative">';

@@ -10,7 +10,6 @@
 </style>
 <script>
 	$(document).ready(function () {
-		$('#password-write-btn-success').attr("disabled", true);
 		
 		$('#password-write-content-id').on("keyup", function () {
 			if ($(this).val() !== "") {
