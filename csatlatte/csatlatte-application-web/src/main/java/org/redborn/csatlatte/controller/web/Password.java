@@ -44,10 +44,8 @@ public class Password {
 	public String post(Model model, @RequestParam(value="studentId",required=true) String studentId) {
 		logger.info("find password id");
 		
-		boolean success = studentService.overlapCheckId(studentId);
-		
 		String result = TilesName.PASSWORD_FAIL;
-		if (success) {
+		if (studentService.overlapCheckId(studentId)) {
 			model.addAttribute("securityQuestion", studentService.securityQuestion(studentService.getStudentSequence(studentId)));
 			result = TilesName.PASSWORD_SECURITY_WRITE;
 		}

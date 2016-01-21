@@ -17,7 +17,7 @@
 		<h4>아이디를 찾았습니다.</h4>
 		<div class="id-security-success-content">
 			<label id="id-security-label">아이디</label>
-			<div id="id-security-result">${findId}</div>
+			<div id="id-security-result">${id}</div>
 		</div>
 	</div>
 	<div>

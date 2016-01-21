@@ -35,7 +35,6 @@ public class New {
 		logger.info("find password success");
 		
 		String result = TilesName.PASSWORD_NEW_FAIL;
-		
 		if (studentService.changePassword(studentId, securityAnswer, newPassword)) {
 			result = TilesName.PASSWORD_NEW_SUCCESS;
 		}

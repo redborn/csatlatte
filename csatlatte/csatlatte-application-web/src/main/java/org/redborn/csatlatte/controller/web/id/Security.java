@@ -40,14 +40,16 @@ public class Security {
 
 		String result = TilesName.ID_SECURITY_FAIL;
 		if (findId != null) {
+			StringBuilder builder = new StringBuilder();
 			String resultFindId = findId.substring(0, 4);
+			builder.append(resultFindId);
 			int findIdLength = findId.length() - 4;
 			
 			for (int index = 0; index < findIdLength; index++) {
-				resultFindId += "*";
+				builder.append("*");
 			}
 			
-			model.addAttribute("findId", resultFindId);
+			model.addAttribute("id", builder.toString());
 			result = TilesName.ID_SECURITY_SUCCESS;
 		}
 		

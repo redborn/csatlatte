@@ -34,11 +34,9 @@ public class Security {
 	public String post(@RequestParam(value="securityAnswer",required=true) String securityAnswer,
 			@RequestParam(value="studentId",required=true) String studentId) {
 		logger.info("find password new");
-		
-		boolean success = studentService.isPassword(studentId, securityAnswer);
 
 		String result = TilesName.PASSWORD_SECURITY_FAIL;
-		if (success) {
+		if (studentService.isPassword(studentId, securityAnswer)) {
 			result = TilesName.PASSWORD_NEW_WRITE;
 		}
 		

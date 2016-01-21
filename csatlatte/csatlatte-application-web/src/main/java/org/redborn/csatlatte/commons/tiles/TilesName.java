@@ -33,6 +33,7 @@ public class TilesName {
 	
 	public static final String JOIN_WRITE = "/join/write";
 	public static final String JOIN_SUCCESS = "/join/success";
+	public static final String JOIN_FAIL = "/join/fail";
 	
 	public static final String ID_WRITE = "/id/write";
 	public static final String ID_FAIL = "/id/fail";

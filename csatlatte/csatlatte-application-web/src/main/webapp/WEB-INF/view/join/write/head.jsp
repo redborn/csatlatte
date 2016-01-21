@@ -262,41 +262,6 @@
 		$("#join-write-form").on("submit", function() {
 			var result = false;
 			
-			if (!successId) {
-				$('[data-toggle="tooltip-id"]').tooltip('show');
-				setTimeout(function () {
-					$('[data-toggle="tooltip-id"]').tooltip('destroy');
-				}, 2000);
-			}
-			
-			if (!successPassword) {
-				$('[data-toggle="tooltip-password"]').tooltip('show');
-				setTimeout(function () {
-					$('[data-toggle="tooltip-password"]').tooltip('destroy');
-				}, 2000);
-			}
-			
-			if (!successPasswordCheck) {
-				$('[data-toggle="tooltip-password-check"]').tooltip('show');
-				setTimeout(function () {
-					$('[data-toggle="tooltip-password-check"]').tooltip('destroy');
-				}, 2000);
-			}
-			
-			if (!successAnswer) {
-				$('[data-toggle="tooltip-answer"]').tooltip('show');
-				setTimeout(function () {
-					$('[data-toggle="tooltip-answer"]').tooltip('destroy');
-				}, 2000);
-			}
-			
-			if (!successNickname) {
-				$('[data-toggle="tooltip-nickname"]').tooltip('show');
-				setTimeout(function () {
-					$('[data-toggle="tooltip-nickname"]').tooltip('destroy');
-				}, 2000);
-			}
-			
 			if (successPasswordCheck && successPassword && successId && successNickname && successAnswer) {
 				result = true;
 			}

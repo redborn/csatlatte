@@ -66,8 +66,11 @@ public class Join {
 		studentSecurityQuestionVo.setSecurityQuestionSequence(securityQuestion);
 		studentSecurityQuestionVo.setContent(answer);
 		
-		studentService.join(studentVo, studentSecurityQuestionVo);
+		String result = TilesName.JOIN_FAIL;
+		if (studentService.join(studentVo, studentSecurityQuestionVo)) {
+			result = TilesName.JOIN_SUCCESS;
+		}
 		
-		return TilesName.JOIN_SUCCESS;
+		return result;
 	}
 }
