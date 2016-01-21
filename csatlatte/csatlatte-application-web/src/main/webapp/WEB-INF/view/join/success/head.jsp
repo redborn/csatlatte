@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <style>
 	.join-success {height:340px; font-size:13px;}
-	.join-success div:nth-child(2) {margin-top:20px;}
 	#join-success-btn-group {text-align:right;}
 	#join-success-message {margin-left:115px; margin-top:10px;}
 </style>

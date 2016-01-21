@@ -15,20 +15,21 @@
 		4단계 비밀번호 찾기 완료
 	</div>
 </div>
-<form method="post" action="<c:url value="/password/security"/>">
+<form id="password-security-write-form" class="form-horizontal" method="post" action="<c:url value="/password/security"/>">
 	<div class="password-security-write">
-		<h5>보안 확인 <small>회원가입때 등록한 보안 질문과 답변입니다.</small></h5>
-		<div class="password-security-write-content">
-			<label>질문</label>
-			<div class="password-security-write-content-value">당신의 어린시절 가장 기억에 남는 일은 무엇인가요?</div>
+		<h4>보안 확인 <small>회원가입때 등록한 보안 질문과 답변입니다.</small></h4>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">질문</label>
+			<div class="col-sm-7 password-security-write-question">${securityQuestion}</div>
 		</div>
-		<div class="password-security-write-content">
-			<label for="password-security-write-content-answer">답변</label>
-			<input id="password-security-write-content-answer" type="text" class="form-control">
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="password-security-write-content-answer">답변</label>
+			<div class="col-sm-6"><input maxlength="8" name="securityAnswer" id="password-security-write-content-answer" type="text" class="form-control"></div>
+			<input type="hidden" name="studentId" value="${param.studentId}">
 		</div>
 	</div>
 	<div class="password-security-write-button-group">
-		<a id="password-security-write-btn-cancel" class="btn btn-default" href="<c:url value="/main"/>">취소</a>
-		<input id="password-security-write-btn-success" type="submit" class="btn btn-default" value="다음단계">
+		<a class="btn btn-default" href="<c:url value="/main"/>">취소</a>
+		<input id="password-security-write-btn-success" type="submit" disabled="disabled" class="btn btn-success" value="다음단계">
 	</div>
 </form>

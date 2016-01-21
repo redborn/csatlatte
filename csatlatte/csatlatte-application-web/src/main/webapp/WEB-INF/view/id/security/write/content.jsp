@@ -21,12 +21,12 @@
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label" for="id-security-write-content-answer">답변</label>
-			<div class="col-sm-7"><input id="id-security-write-content-answer" name="securityAnswer" type="text" class="form-control"></div>
+			<div class="col-sm-7"><input id="id-security-write-content-answer" maxlength="8" name="securityAnswer" type="text" class="form-control"></div>
 			<input type="hidden" name="nickname" value="${param.nickname}">
 		</div>
 	</div>
 	<div class="id-security-write-button-group">
 		<a class="btn btn-default" href="<c:url value="/main"/>">취소</a>
-		<input id="id-security-write-btn-success" type="submit" class="btn btn-success" value="다음단계">
+		<input id="id-security-write-btn-success" type="submit" disabled="disabled" class="btn btn-success" value="다음단계">
 	</div>
 </form>

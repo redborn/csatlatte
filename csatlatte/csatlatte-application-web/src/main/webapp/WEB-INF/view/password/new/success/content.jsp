@@ -16,9 +16,9 @@
 	</div>
 </div>
 <div class="password-new-success">
-	<h5>비밀번호 변경이 완료되었습니다.</h5>
+	<h4>비밀번호 변경이 완료되었습니다.</h4>
 	<p>로그인 하시려면 우측 하단 버튼을 클릭해주세요.</p>
 </div>
 <div class="password-new-success-button-group">
-	<a id="password-new-success-btn-success" class="btn btn-default" href="<c:url value="/main"/>">로그인 하기</a>
+	<a class="btn btn-primary" href="<c:url value="/main"/>">로그인 하기</a>
 </div>

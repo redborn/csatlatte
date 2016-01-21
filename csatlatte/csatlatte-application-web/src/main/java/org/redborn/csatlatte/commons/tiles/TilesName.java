@@ -33,6 +33,7 @@ public class TilesName {
 	
 	public static final String JOIN_WRITE = "/join/write";
 	public static final String JOIN_SUCCESS = "/join/success";
+	public static final String JOIN_FAIL = "/join/fail";
 	
 	public static final String ID_WRITE = "/id/write";
 	public static final String ID_FAIL = "/id/fail";
@@ -46,6 +47,7 @@ public class TilesName {
 	public static final String PASSWORD_SECURITY_FAIL = "/password/security/fail";
 	public static final String PASSWORD_NEW_WRITE = "/password/new/write";
 	public static final String PASSWORD_NEW_SUCCESS = "/password/new/success";
+	public static final String PASSWORD_NEW_FAIL = "/password/new/fail";
 	
 	public static final String STATS_JOIN = "/stats/join";
 	public static final String STATS_CONNECTION = "/stats/connection";

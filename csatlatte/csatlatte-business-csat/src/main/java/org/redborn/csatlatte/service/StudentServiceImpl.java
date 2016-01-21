@@ -46,6 +46,18 @@ public class StudentServiceImpl implements StudentService {
 		return result;
 	}
 
+	public boolean changePassword(String studentId, String securityAnswer,
+			String newPassword) {
+		boolean result = false;
+		if (isPassword(studentId, securityAnswer)) {
+			int studentSequence = getStudentSequence(studentId);
+			if (studentDao.updatePassword(studentSequence, makePassword(studentSequence, newPassword)) == 1) {
+				result = true;
+			}
+		}
+		return result;
+	}
+
 	public boolean changeInformation(StudentVo studentVo) {
 		return studentDao.updateInformation(studentVo) == 1;
 	}
@@ -175,6 +187,10 @@ public class StudentServiceImpl implements StudentService {
 		return studentDao.selectList(search, pageNumber);
 	}
 
+	public String securityQuestion(String nickname) {
+		return securityQuestion(studentDao.selectOneStudentSequence(nickname));
+	}
+
 	public String securityQuestion(int studentSequence) {
 		return securityQuestionDao.selectOne(studentSequence);
 	}
@@ -221,8 +237,8 @@ public class StudentServiceImpl implements StudentService {
 		return securityQuestionDao.selectList();
 	}
 	
-	public int NicknameStudentSequence(String nickname) {
-		return studentDao.selectOneStudentSequence(nickname);
+	public int getStudentSequence(String studentId) {
+		return studentDao.selectOneStudentSequenceById(studentId);
 	}
 
 }

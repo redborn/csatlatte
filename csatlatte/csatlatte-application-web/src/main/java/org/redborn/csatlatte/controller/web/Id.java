@@ -44,17 +44,12 @@ public class Id {
 	public String post(Model model, @RequestParam(value="nickname",required=true) String nickname) {
 		logger.info("find id nickname");
 		
-		boolean success = studentService.overlapCheckNickname(nickname);
-		
 		String result = TilesName.ID_FAIL;
-		if (success) {
-			int studentSequence = studentService.NicknameStudentSequence(nickname);
-			logger.info("번호 : " + studentSequence);
-			model.addAttribute("securityQuestion", studentService.securityQuestion(studentSequence));
-			logger.info("질문 : " + studentService.securityQuestion(studentSequence));
+		if (studentService.overlapCheckNickname(nickname)) {
+			model.addAttribute("securityQuestion", studentService.securityQuestion(nickname));
 			result = TilesName.ID_SECURITY_WRITE;
 		}
-		
 		return result;
 	}
+	
 }

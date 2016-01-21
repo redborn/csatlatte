@@ -76,6 +76,10 @@ public class StudentDaoMapper extends SqlSessionDaoSupport implements StudentDao
 		return getSqlSession().selectOne("student.selectOneStudentSequence", nickname);
 	}
 	
+	public int selectOneStudentSequenceById(String studentId) {
+		return getSqlSession().selectOne("student.selectOneStudentSequenceById", studentId);
+	}
+	
 	public List<StudentVo> selectList(String search, int pageNumber) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("search", search);
