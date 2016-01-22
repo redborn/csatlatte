@@ -1,4 +1,4 @@
-package org.redborn.csatlatte.commons.io;
+package org.redborn.csatlatte.commons.amazonaws.services.s3;
 
 import java.io.File;
 import java.util.UUID;
