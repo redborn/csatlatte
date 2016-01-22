@@ -24,12 +24,18 @@ public class Exam {
 	private StudentService studentService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public void get(Model model, @RequestParam(value="examSequence",required=true) int examSequence) {
+	public void get(Model model, @RequestParam(value="csatSequence",required=true) int csatSequence) {
 		logger.info("data manage exam get view");
 		
-		model.addAttribute("yearList", examService.yearList());
-		model.addAttribute("institutionList", examService.institutionList());
+		model.addAttribute("list", examService.listForManage(csatSequence));
+	}
+	
+	@RequestMapping(value="{examSequence}",method=RequestMethod.GET) 
+	public void detail(Model model, @PathVariable int examSequence) {
+		logger.info("data manage exam detail view");
+		
 		model.addAttribute("ysList", studentService.ysList());
+		model.addAttribute("institutionList", examService.institutionList());
 		model.addAttribute("listOne", examService.listForManageOne(examSequence));
 	}
 	
@@ -38,8 +44,9 @@ public class Exam {
 			@RequestParam(value="csatSequence",required=true) int csatSequence,
 			@RequestParam(value="examName",required=true) String examName,
 			@RequestParam(value="institutionSequence",required=true) int institutionSequence,
-			@RequestParam(value="ysSequence",required=true) int ysSequence) {
-		logger.info("data manage exam put view");
+			@RequestParam(value="ysSequence",required=true) int ysSequence,
+			@RequestParam(value="ymd",required=true) String ymd) {
+		logger.info("data manage exam post view");
 		
 		ExamVo examVo = new ExamVo();
 		
@@ -48,6 +55,7 @@ public class Exam {
 		examVo.setExamName(examName);
 		examVo.setInstitutionSequence(institutionSequence);
 		examVo.setYsSequence(ysSequence);
+		examVo.setYmd(ymd);
 		
 		examService.modify(examVo);
 	}
@@ -56,4 +64,5 @@ public class Exam {
 	public void delete(@PathVariable int examSequence) {
 		examService.delete(examSequence);
 	}
+	
 }

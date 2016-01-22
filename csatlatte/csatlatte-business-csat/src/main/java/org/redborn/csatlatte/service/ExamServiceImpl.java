@@ -29,8 +29,8 @@ public class ExamServiceImpl implements ExamService {
 		return examDao.selectListExam(csatSequence);
 	}
 	
-	public List<ExamVo> listForManage(int pageNumber, String search) {
-		return examDao.selectListExamForManage(pageNumber, search);
+	public List<ExamVo> listForManage(int csatSequence) {
+		return examDao.selectListExamForManage(csatSequence);
 	}
 
 	public int register(ExamVo examVo) {
@@ -45,8 +45,8 @@ public class ExamServiceImpl implements ExamService {
 		return examDao.delete(examSequence);
 	}
 	
-	public int amountExam(String search) {
-		return examDao.selectOneCount(search);
+	public int amountExam(int csatSequence, String search) {
+		return examDao.selectOneCount(csatSequence, search);
 	}
 	
 	public List<InstitutionVo> institutionList() {
