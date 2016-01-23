@@ -27,7 +27,7 @@
 		
 		var makeExamRow = function (exam) {
 			html = '';
-			html += '<tr class="manage-exam-row-data">';
+			html += '<tr class="manage-exam-row-data" id="manage-exam-row-data-' + exam.examSequence + '">';
 			html += '	<td>' + exam.examSequence + '</td>';
 			html += '	<td id="manage-exam-row-td-year-' + exam.examSequence + '"><div id="manage-exam-row-data-year-' + exam.examSequence + '">' + exam.year + '</div></td>';
 			html += '	<td id="manage-exam-row-td-name-' + exam.examSequence + '"><div id="manage-exam-row-data-name-' + exam.examSequence + '">' + exam.examName + '</div></td>';
@@ -135,6 +135,32 @@
 						}
 					});
 				});
+				$('.manage-exam-delete').on("click", function () {
+					examSequence = $(this).attr("id");
+					$.ajax(contextPath + "/data/exam.json", {
+						dataType : "json",
+						type : "GET",
+						data : {csatSequence : csatSequence, examSequence : examSequence},
+						success : function (data) {
+							if (data.checkForDelete != null) {
+								var check = data.checkForDelete;
+								$('.manage-exam-delete-content').remove();
+								$('#manage-exam-delete-view-detail').append(makeExamDeleteMessage(check));
+								$('.manage-exam-delete-accept').on("click", function () {
+									$.ajax(contextPath + "/data/manage/exam/" + examSequence + ".json", {
+										dataType : "json",
+										type : "DELETE",
+										data : {_method : "DELETE"},
+										success : function () {
+											$('#manage-exam-row-data-' + examSequence).remove();
+											$('#manage-exam-delete-view').modal("hide");
+										}
+									});
+								});
+							}
+						}
+					});
+				});
 			}
 		});
 		
@@ -213,6 +239,32 @@
 							}
 						});
 					});
+					$('.manage-exam-delete').on("click", function () {
+						examSequence = $(this).attr("id");
+						$.ajax(contextPath + "/data/exam.json", {
+							dataType : "json",
+							type : "GET",
+							data : {csatSequence : csatSequence, examSequence : examSequence},
+							success : function (data) {
+								if (data.checkForDelete != null) {
+									var check = data.checkForDelete;
+									$('.manage-exam-delete-content').remove();
+									$('#manage-exam-delete-view-detail').append(makeExamDeleteMessage(check));
+									$('.manage-exam-delete-accept').on("click", function () {
+										$.ajax(contextPath + "/data/manage/exam/" + examSequence + ".json", {
+											dataType : "json",
+											type : "DELETE",
+											data : {_method : "DELETE"},
+											success : function () {
+												$('#manage-exam-row-data-' + examSequence).remove();
+												$('#manage-exam-delete-view').modal("hide");
+											}
+										});
+									});
+								}
+							}
+						});
+					});
 				}
 			});
 		});
@@ -283,6 +335,29 @@
 			$('.manage-exam-modify-content').remove();
 		});
 		
-		
+		var makeExamDeleteMessage = function (check) {
+			var html = '';
+			html += '<div class="modal-content manage-exam-delete-content">';
+			html += '	<div class="modal-header">';
+			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+			html += '		<h4 class="modal-title">모의고사 삭제</h4>';
+			html += '	</div>';
+			html += '	<div class="modal-body">';
+			if (check) {
+				html += '<p>해당 모의고사는 등급컷 정보가 등록되어 있습니다.</p>';
+				html += '<p>우선 등급컷 정보를 삭제 후 진행할 수 있습니다.</p>';
+			} else {
+				html += '이 모의고사를 정말로 삭제하시겠습니까?';
+			}
+			html += '	</div>';
+			html += '	<div class="modal-footer">';
+			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
+			if (!check) {
+				html += '<button type="button" class="btn btn-primary manage-exam-delete-accept">확인</button>';
+			}
+			html += '	</div>';
+			html += '</div>';
+			return html;
+		}
 	});
 </script>

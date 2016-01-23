@@ -33,3 +33,7 @@
 	<div class="modal-dialog" role="document" id="manage-exam-modify-view-detail">
 	</div>
 </div>
+<div class="modal fade" id="manage-exam-delete-view" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document" id="manage-exam-delete-view-detail">
+	</div>
+</div>

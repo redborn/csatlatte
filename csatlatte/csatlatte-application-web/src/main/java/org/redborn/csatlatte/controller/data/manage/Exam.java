@@ -62,6 +62,7 @@ public class Exam {
 	
 	@RequestMapping(value="{examSequence}",method=RequestMethod.DELETE)
 	public void delete(@PathVariable int examSequence) {
+		logger.info("data manage exam delete");
 		examService.delete(examSequence);
 	}
 	
