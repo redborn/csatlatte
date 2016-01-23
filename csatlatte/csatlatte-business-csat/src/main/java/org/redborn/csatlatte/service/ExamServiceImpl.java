@@ -21,6 +21,10 @@ public class ExamServiceImpl implements ExamService {
 	@Autowired
 	private InstitutionDao institutionDao;
 	
+	public boolean checkForDelete(int csatSequence, int examSequence) {
+		return examDao.selectOneCountForDelete(csatSequence, examSequence) == 1;
+	}
+	
 	public List<CsatVo> yearList() {
 		return csatDao.selectListYear();
 	}
