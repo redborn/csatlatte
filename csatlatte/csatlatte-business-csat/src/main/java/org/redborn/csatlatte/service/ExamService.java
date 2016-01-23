@@ -18,5 +18,6 @@ public interface ExamService {
 	public int amountExam(int csatSequence, String search);
 	public List<InstitutionVo> institutionList();
 	public List<ExamVo> listForManageOne(int examSequence);
+	public List<ExamVo> listForRatingManage(int csatSequence);
 	
 }

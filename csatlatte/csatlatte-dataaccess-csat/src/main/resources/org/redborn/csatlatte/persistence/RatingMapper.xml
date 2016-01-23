@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="rating">
+
+	<resultMap type="ExamVo" id="ExamVoMap">
+		<result column="exam_seq" property="examSequence"/>
+		<result column="exam_name" property="examName"/>
+	</resultMap>
+
+	<select id="selectList" parameterType="int" resultMap="ExamVoMap">
+		SELECT ce.exam_seq,ce.exam_name
+		  FROM csat_exam ce,(SELECT csat_seq,exam_seq,COUNT(*) AS avg
+		          FROM csat_exam_avg
+		         WHERE csat_seq = #{csatSequence}
+		         GROUP BY exam_seq) cea,(SELECT csat_seq,exam_seq,COUNT(*) AS section
+		          FROM csat_exam_section
+		         WHERE csat_seq = #{csatSequence}
+		         GROUP BY exam_seq) ces,(SELECT csat_seq,exam_seq,COUNT(*) AS subject
+		          FROM csat_exam_subject
+		         WHERE csat_seq = #{csatSequence}
+		         GROUP BY exam_seq) cest,(SELECT csat_seq,exam_seq,COUNT(*) AS rating
+		          FROM csat_exam_rating_cut
+		         WHERE csat_seq = #{csatSequence}
+		         GROUP BY exam_seq) cerc
+		 WHERE ce.csat_seq = cea.csat_seq
+		   AND ce.exam_seq = cea.exam_seq
+		   AND ce.csat_seq = ces.csat_seq
+		   AND ce.exam_seq = ces.exam_seq
+		   AND ce.csat_seq = cest.csat_seq
+		   AND ce.exam_seq = cest.exam_seq
+		   AND ce.csat_seq = cerc.csat_seq
+		   AND ce.exam_seq = cerc.exam_seq
+		   AND ( cea.avg > 0
+		          OR ces.section > 0
+		          OR cest.subject > 0
+		          OR cerc.rating > 0 )
+	</select>
+	
+</mapper>

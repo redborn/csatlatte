@@ -57,6 +57,7 @@ public class TilesName {
 	public static final String MANAGE_EXAM = "/manage/exam";
 	public static final String MANAGE_COMMUNITY = "/manage/community";
 	public static final String MANAGE_QUESTION = "/manage/question";
+	public static final String MANAGE_RATING = "/manage/rating";
 	
 	private static final String ERROR = "/error";
 	public static final String ERROR_404 = ERROR + "/404";

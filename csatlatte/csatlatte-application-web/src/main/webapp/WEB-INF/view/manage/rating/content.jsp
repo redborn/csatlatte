@@ -1,0 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
+<h4>등급컷 관리</h4>
+<div class="col-lg-5">
+	<select class="form-control" id="manage-rating-csat-list">
+		<c:forEach items="${yearList}" var="year">
+			<option value="${year.csatSequence}"<c:if test="${year.csatSequence eq '24'}"> selected</c:if>>${year.csatName}</option>
+		</c:forEach>
+	</select>
+</div>
+<table class="table" id="manage-rating-table">
+	<thead>
+		<tr>
+			<th class="col-lg-2 manage-rating-col-lg">번호</th>
+			<th class="col-lg-7 manage-rating-col-lg">모의고사 이름</th>
+			<th class="col-lg-1 manage-rating-col-lg"></th>
+			<th class="col-lg-1 manage-rating-col-lg"></th>
+			<th class="col-lg-1 manage-rating-col-lg"></th>
+		</tr>	
+	</thead>
+	<tbody class="manage-rating-row">
+	</tbody>
+</table>
+<div class="manage-rating-btn-align">
+	<button class="btn btn-default manage-rating-add" data-toggle="modal" data-target="#manage-rating-add">등급컷 추가</button>
+</div>

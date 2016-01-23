@@ -8,6 +8,7 @@ import org.redborn.csatlatte.domain.InstitutionVo;
 import org.redborn.csatlatte.persistence.CsatDao;
 import org.redborn.csatlatte.persistence.ExamDao;
 import org.redborn.csatlatte.persistence.InstitutionDao;
+import org.redborn.csatlatte.persistence.RatingDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,8 @@ public class ExamServiceImpl implements ExamService {
 	private CsatDao csatDao;
 	@Autowired
 	private InstitutionDao institutionDao;
+	@Autowired
+	private RatingDao ratingDao;
 	
 	public boolean checkForDelete(int csatSequence, int examSequence) {
 		return examDao.selectOneCountForDelete(csatSequence, examSequence) == 1;
@@ -59,6 +62,10 @@ public class ExamServiceImpl implements ExamService {
 	
 	public List<ExamVo> listForManageOne(int examSequence) {
 		return examDao.selectListExamOneForManage(examSequence);
+	}
+	
+	public List<ExamVo> listForRatingManage(int csatSequence) {
+		return ratingDao.selectList(csatSequence);
 	}
 
 }
