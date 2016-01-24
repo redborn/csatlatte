@@ -85,7 +85,7 @@
 			}
 		});
 		
-		$.ajax(contextPath + "/data/manage/exam/" + csatSequence + ".json", {
+		$.ajax(contextPath + "/data/exam/" + csatSequence + ".json", {
 			dataType : "json",
 			type : "GET",
 			success : function (data) {
@@ -98,7 +98,7 @@
 				}
 				$('.manage-exam-modify').on("click", function () {
 					examSequence = $(this).attr("id");
-					$.ajax(contextPath + "/data/manage/exam/" + csatSequence + "/" + examSequence + ".json", {
+					$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
 						dataType : "json",
 						type : "GET",
 						success : function (data) {
@@ -120,7 +120,7 @@
 								var institutionSequence = $('#manage-exam-modify-institution').val();
 								var ysSequence = $('#manage-exam-modify-ys').val();
 								var ymd = $('#manage-exam-modify-ymd').val();
-								$.ajax(contextPath + "/data/manage/exam.json", {
+								$.ajax(contextPath + "/data/exam.json", {
 									dataType : "json",
 									type : "POST",
 									data : {csatSequence : csatSequence,
@@ -130,7 +130,7 @@
 											ysSequence : ysSequence,
 											ymd : ymd},
 									success : function () {
-										$.ajax(contextPath + "/data/manage/exam/" + csatSequence + "/" + examSequence + ".json", {
+										$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
 											dataType : "json",
 											type : "GET",
 											success : function (data) {
@@ -166,7 +166,7 @@
 								$('.manage-exam-delete-content').remove();
 								$('#manage-exam-delete-view-detail').append(makeExamDeleteMessage(check));
 								$('.manage-exam-delete-accept').on("click", function () {
-									$.ajax(contextPath + "/data/manage/exam/" + examSequence + ".json", {
+									$.ajax(contextPath + "/data/exam/" + examSequence + ".json", {
 										dataType : "json",
 										type : "DELETE",
 										data : {_method : "DELETE", csatSequence : csatSequence},
@@ -185,7 +185,7 @@
 		
 		$('#manage-exam-csat-list').on("change", function () {
 			csatSequence = $('#manage-exam-csat-list').val();
-			$.ajax(contextPath + "/data/manage/exam/" + csatSequence + ".json", {
+			$.ajax(contextPath + "/data/exam/" + csatSequence + ".json", {
 				dataType : "json",
 				type : "GET",
 				success : function (data) {
@@ -199,7 +199,7 @@
 					}
 					$('.manage-exam-modify').on("click", function () {
 						examSequence = $(this).attr("id");
-						$.ajax(contextPath + "/data/manage/exam/" + csatSequence + "/" + examSequence + ".json", {
+						$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
 							dataType : "json",
 							type : "GET",
 							success : function (data) {
@@ -221,7 +221,7 @@
 									var institutionSequence = $('#manage-exam-modify-institution').val();
 									var ysSequence = $('#manage-exam-modify-ys').val();
 									var ymd = $('#manage-exam-modify-ymd').val();
-									$.ajax(contextPath + "/data/manage/exam.json", {
+									$.ajax(contextPath + "/data/exam.json", {
 										dataType : "json",
 										type : "POST",
 										data : {csatSequence : csatSequence,
@@ -231,7 +231,7 @@
 												ysSequence : ysSequence,
 												ymd : ymd},
 										success : function () {
-											$.ajax(contextPath + "/data/manage/exam/" + csatSequence + "/" + examSequence + ".json", {
+											$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
 												dataType : "json",
 												type : "GET",
 												success : function (data) {
@@ -267,7 +267,7 @@
 									$('.manage-exam-delete-content').remove();
 									$('#manage-exam-delete-view-detail').append(makeExamDeleteMessage(check));
 									$('.manage-exam-delete-accept').on("click", function () {
-										$.ajax(contextPath + "/data/manage/exam/" + examSequence + ".json", {
+										$.ajax(contextPath + "/data/exam/" + examSequence + ".json", {
 											dataType : "json",
 											type : "DELETE",
 											data : {_method : "DELETE", csatSequence : csatSequence},
