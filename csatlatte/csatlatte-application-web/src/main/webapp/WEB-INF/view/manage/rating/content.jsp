@@ -27,3 +27,7 @@
 <div class="manage-rating-btn-align">
 	<button class="btn btn-default manage-rating-add" data-toggle="modal" data-target="#manage-rating-add">등급컷 추가</button>
 </div>
+<div class="modal fade" id="manage-rating-modify-view" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document" id="manage-exam-modify-view-detail">
+	</div>
+</div>

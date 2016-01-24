@@ -67,5 +67,9 @@ public class ExamServiceImpl implements ExamService {
 	public List<ExamVo> listForRatingManage(int csatSequence) {
 		return ratingDao.selectList(csatSequence);
 	}
+	
+	public ExamVo detailForRatingManage(int csatSequence, int examSequence) {
+		return ratingDao.selectOne(csatSequence, examSequence);
+	}
 
 }

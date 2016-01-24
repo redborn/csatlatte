@@ -11,6 +11,7 @@
 <div class="list-group">
 	<a class="list-group-item <c:if test="${param.active eq '/manage/user'}">active</c:if>" href="<c:url value="/manage/user"/>">회원 관리</a>
 	<a class="list-group-item <c:if test="${param.active eq '/manage/exam'}">active</c:if>" href="<c:url value="/manage/exam"/>">모의고사 관리</a>
+	<a class="list-group-item <c:if test="${param.active eq '/manage/rating'}">active</c:if>" href="<c:url value="/manage/rating"/>">등급컷 관리</a>
 	<a class="list-group-item <c:if test="${param.active eq '/manage/community'}">active</c:if>" href="<c:url value="/manage/community"/>">커뮤니티 관리</a>
 	<a class="list-group-item <c:if test="${param.active eq '/manage/question'}">active</c:if>" href="<c:url value="/manage/question"/>">문의 관리</a>
 </div>

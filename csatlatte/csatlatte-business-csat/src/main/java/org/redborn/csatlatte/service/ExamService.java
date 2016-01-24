@@ -19,5 +19,6 @@ public interface ExamService {
 	public List<InstitutionVo> institutionList();
 	public List<ExamVo> listForManageOne(int examSequence);
 	public List<ExamVo> listForRatingManage(int csatSequence);
+	public ExamVo detailForRatingManage(int csatSequence, int examSequence);
 	
 }
