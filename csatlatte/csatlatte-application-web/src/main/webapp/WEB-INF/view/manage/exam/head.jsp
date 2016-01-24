@@ -24,6 +24,8 @@
 		var target;
 		var csatSequence = 24;
 		var examSequence;
+		var institutionList;
+		var ysList;
 		
 		var makeExamRow = function (exam) {
 			html = '';
@@ -63,6 +65,26 @@
 			return html;
 		}
 		
+		$.ajax(contextPath + "/data/institution.json", {
+			dataType : "json",
+			type : "GET",
+			success : function (data) {
+				if (data.institutionList != null) {
+					institutionList = data.institutionList;
+				}
+			}
+		});
+		
+		$.ajax(contextPath + "/data/ys.json", {
+			dataType : "json",
+			type : "GET",
+			success : function (data) {
+				if (data.ysList != null) {
+					ysList = data.ysList;
+				}
+			}
+		});
+		
 		$.ajax(contextPath + "/data/manage/exam/" + csatSequence + ".json", {
 			dataType : "json",
 			type : "GET",
@@ -82,8 +104,6 @@
 						success : function (data) {
 							if (data.detail != null) {
 								var exam = data.detail;
-								var institutionList = data.institutionList;
-								var ysList = data.ysList;
 								$('#manage-exam-modify-view-detail').append(makeExamRowDetail(exam[0], institutionList, ysList));
 							}
 							$('#manage-exam-modify-ymd').datepicker({
@@ -185,8 +205,6 @@
 							success : function (data) {
 								if (data.detail != null) {
 									var exam = data.detail;
-									var institutionList = data.institutionList;
-									var ysList = data.ysList;
 									$('#manage-exam-modify-view-detail').append(makeExamRowDetail(exam[0], institutionList, ysList));
 								}
 								$('#manage-exam-modify-ymd').datepicker({

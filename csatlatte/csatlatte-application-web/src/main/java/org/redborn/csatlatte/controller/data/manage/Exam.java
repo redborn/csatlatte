@@ -34,9 +34,7 @@ public class Exam {
 	public void detail(Model model, @PathVariable int examSequence,
 			@PathVariable int csatSequence) {
 		logger.info("data manage exam detail view");
-		
-		model.addAttribute("ysList", studentService.ysList());
-		model.addAttribute("institutionList", examService.institutionList());
+
 		model.addAttribute("detail", examService.detail(csatSequence, examSequence));
 	}
 	
