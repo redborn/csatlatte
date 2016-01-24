@@ -24,15 +24,15 @@ public class Exam {
 	private StudentService studentService;
 	
 	@RequestMapping(value="{csatSequence}",method=RequestMethod.GET)
-	public void get(Model model, @PathVariable int csatSequence) {
+	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence) {
 		logger.info("data manage exam get view");
 		
 		model.addAttribute("list", examService.listForManage(csatSequence));
 	}
 	
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.GET) 
-	public void detail(Model model, @PathVariable int examSequence,
-			@PathVariable int csatSequence) {
+	public void detail(Model model, @PathVariable(value="examSequence") int examSequence,
+			@PathVariable(value="csatSequence") int csatSequence) {
 		logger.info("data manage exam detail view");
 
 		model.addAttribute("detail", examService.detail(csatSequence, examSequence));
@@ -60,7 +60,7 @@ public class Exam {
 	}
 	
 	@RequestMapping(value="{examSequence}",method=RequestMethod.DELETE)
-	public void delete(@PathVariable int examSequence,
+	public void delete(@PathVariable(value="examSequence") int examSequence,
 			@RequestParam(value="csatSequence",required=true) int csatSequence) {
 		logger.info("data manage exam delete");
 		examService.delete(csatSequence, examSequence);
