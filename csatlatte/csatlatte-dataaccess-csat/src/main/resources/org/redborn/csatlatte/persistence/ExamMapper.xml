@@ -55,7 +55,7 @@
 		         WHERE csat_seq = #{csatSequence}
 		           AND exam_seq = #{examSequence}) > 0
 		   AND (SELECT COUNT(*) AS rating_count
-		   		  FROM csat_exam_rating
+		   		  FROM csat_exam_rating_cut
 		   		 WHERE csat_seq = #{csatSequence}
 		   		   AND exam_seq = #{examSequence}) > 0
 		   AND csat_seq = #{csatSequence}
