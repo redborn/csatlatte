@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/data/manage/rating")
@@ -19,17 +18,20 @@ public class Rating {
 	@Autowired
 	private ExamService examService;
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public void get(Model model, @RequestParam(value="csatSequence",required=true) int csatSequence) {
+	@RequestMapping(value="{csatSequence}",method=RequestMethod.GET)
+	public void get(Model model, @PathVariable int csatSequence) {
 		logger.info("data manage rating get view");
 		model.addAttribute("list",examService.listForRatingManage(csatSequence));
 	}
 	
-	@RequestMapping(value="{examSequence}",method=RequestMethod.GET)
-	public void detail(Model model, @PathVariable int examSequence,
-			@RequestParam(value="csatSequence",required=true) int csatSequence) {
-		logger.info("data manage rating detail view");
-		model.addAttribute("detail", examService.detailForRatingManage(csatSequence, examSequence));
+	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.DELETE)
+	public void delete(@PathVariable int csatSequence, @PathVariable int examSequence) {
+		logger.info("data manage rating delete");
+		examService.deleteStudentScore(csatSequence, examSequence);
+		examService.deleteRatingCut(csatSequence, examSequence);
+		examService.deleteAverage(csatSequence, examSequence);
+		examService.deleteSubject(csatSequence, examSequence);
+		examService.deleteSection(csatSequence, examSequence);
 	}
 	
 }

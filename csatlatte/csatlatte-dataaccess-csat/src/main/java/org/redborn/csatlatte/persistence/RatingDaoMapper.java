@@ -11,16 +11,55 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RatingDaoMapper extends SqlSessionDaoSupport implements RatingDao {
 
-	public ExamVo selectOne(int csatSequence, int examSequence) {
+	public int selectOne(int csatSequence, int examSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);
 		params.put("examSequence", examSequence);
 		
-		return getSqlSession().selectOne("rating.selectOne", params);
+		return getSqlSession().selectOne("rating.selectOneCount", params);
 	}
 	
 	public List<ExamVo> selectList(int csatSequence) {
 		return getSqlSession().selectList("rating.selectList", csatSequence);
 	}
-
+	
+	public int deleteAverage(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		
+		return getSqlSession().delete("rating.deleteAverage", params);
+	}
+	
+	public int deleteSection(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		
+		return getSqlSession().delete("rating.deleteSection", params);
+	}
+	
+	public int deleteSubject(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		
+		return getSqlSession().delete("rating.deleteSubject", params);
+	}
+	
+	public int deleteRatingCut(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		
+		return getSqlSession().delete("rating.deleteRatingCut", params);
+	}
+	
+	public int deleteStudentScore(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		
+		return getSqlSession().delete("rating.deleteStudentScore", params);
+	}
 }

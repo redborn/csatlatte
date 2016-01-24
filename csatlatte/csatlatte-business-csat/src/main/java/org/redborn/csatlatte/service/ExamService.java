@@ -19,6 +19,11 @@ public interface ExamService {
 	public List<InstitutionVo> institutionList();
 	public List<ExamVo> detail(int csatSequence, int examSequence);
 	public List<ExamVo> listForRatingManage(int csatSequence);
-	public ExamVo detailForRatingManage(int csatSequence, int examSequence);
+	public int ratingStudentCount(int csatSequence, int examSequence);
+	public boolean deleteAverage(int csatSequence, int examSequence);
+	public boolean deleteSection(int csatSequence, int examSequence);
+	public boolean deleteSubject(int csatSequence, int examSequence);
+	public boolean deleteRatingCut(int csatSequence, int examSequence);
+	public boolean deleteStudentScore(int csatSequence, int examSequence);
 	
 }

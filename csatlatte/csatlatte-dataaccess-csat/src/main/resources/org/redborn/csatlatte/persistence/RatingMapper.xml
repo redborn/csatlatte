@@ -11,34 +11,11 @@
 		<result column="exam_name" property="examName"/>
 	</resultMap>
 	
-	<select id="selectOne" parameterType="Map" resultMap="ExamVoMap">
-		SELECT ce.exam_seq,ce.exam_name
-		  FROM csat_exam ce,(SELECT csat_seq,exam_seq,COUNT(*) AS avg
-		          FROM csat_exam_avg
-		         WHERE csat_seq = #{csatSequence}
-		         GROUP BY exam_seq) cea,(SELECT csat_seq,exam_seq,COUNT(*) AS section
-		          FROM csat_exam_section
-		         WHERE csat_seq = #{csatSequence}
-		         GROUP BY exam_seq) ces,(SELECT csat_seq,exam_seq,COUNT(*) AS subject
-		          FROM csat_exam_subject
-		         WHERE csat_seq = #{csatSequence}
-		         GROUP BY exam_seq) cest,(SELECT csat_seq,exam_seq,COUNT(*) AS rating
-		          FROM csat_exam_rating_cut
-		         WHERE csat_seq = #{csatSequence}
-		         GROUP BY exam_seq) cerc
-		 WHERE ce.csat_seq = cea.csat_seq
-		   AND ce.exam_seq = cea.exam_seq
-		   AND ce.csat_seq = ces.csat_seq
-		   AND ce.exam_seq = ces.exam_seq
-		   AND ce.csat_seq = cest.csat_seq
-		   AND ce.exam_seq = cest.exam_seq
-		   AND ce.csat_seq = cerc.csat_seq
-		   AND ce.exam_seq = cerc.exam_seq
-		   AND ( cea.avg > 0
-		          OR ces.section > 0
-		          OR cest.subject > 0
-		          OR cerc.rating > 0 )
-		   AND ce.exam_seq = #{examSequence}
+	<select id="selectOneCount" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_exam_student_score
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence} 
 	</select>
 
 	<select id="selectList" parameterType="int" resultMap="ExamVoMap">
@@ -56,18 +33,43 @@
 		          FROM csat_exam_rating_cut
 		         WHERE csat_seq = #{csatSequence}
 		         GROUP BY exam_seq) cerc
-		 WHERE ce.csat_seq = cea.csat_seq
-		   AND ce.exam_seq = cea.exam_seq
-		   AND ce.csat_seq = ces.csat_seq
-		   AND ce.exam_seq = ces.exam_seq
-		   AND ce.csat_seq = cest.csat_seq
-		   AND ce.exam_seq = cest.exam_seq
-		   AND ce.csat_seq = cerc.csat_seq
-		   AND ce.exam_seq = cerc.exam_seq
-		   AND ( cea.avg > 0
-		          OR ces.section > 0
-		          OR cest.subject > 0
-		          OR cerc.rating > 0 )
+		 WHERE (ce.csat_seq = cea.csat_seq AND ce.exam_seq = cea.exam_seq)
+		    OR (ce.csat_seq = ces.csat_seq AND ce.exam_seq = ces.exam_seq)
+		    OR (ce.csat_seq = cest.csat_seq AND ce.exam_seq = cest.exam_seq)
+		    OR (ce.csat_seq = cerc.csat_seq AND ce.exam_seq = cerc.exam_seq)
+		   AND (cea.avg > 0 OR ces.section > 0 OR cest.subject > 0 OR cerc.rating > 0)
+	  	 GROUP BY exam_seq
+	  	 ORDER BY exam_seq DESC
 	</select>
+	
+	<delete id="deleteAverage" parameterType="Map">
+		DELETE FROM csat_exam_avg
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</delete>
+	
+	<delete id="deleteSection" parameterType="Map">
+		DELETE FROM csat_exam_section
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</delete>
+	
+	<delete id="deleteSubject" parameterType="Map">
+		DELETE FROM csat_exam_subject
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</delete>
+	
+	<delete id="deleteRatingCut" parameterType="Map">
+		DELETE FROM csat_exam_rating_cut
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</delete>
+	
+	<delete id="deleteStudentScore" parameterType="Map">
+		DELETE FROM csat_exam_student_score
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</delete>
 	
 </mapper>

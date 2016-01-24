@@ -68,8 +68,28 @@ public class ExamServiceImpl implements ExamService {
 		return ratingDao.selectList(csatSequence);
 	}
 	
-	public ExamVo detailForRatingManage(int csatSequence, int examSequence) {
+	public int ratingStudentCount(int csatSequence, int examSequence) {
 		return ratingDao.selectOne(csatSequence, examSequence);
+	}
+	
+	public boolean deleteAverage(int csatSequence, int examSequence) {
+		return ratingDao.deleteAverage(csatSequence, examSequence) > 0;
+	}
+	
+	public boolean deleteSection(int csatSequence, int examSequence) {
+		return ratingDao.deleteSection(csatSequence, examSequence) > 0;
+	}
+	
+	public boolean deleteSubject(int csatSequence, int examSequence) {
+		return ratingDao.deleteSubject(csatSequence, examSequence) > 0;
+	}
+	
+	public boolean deleteRatingCut(int csatSequence, int examSequence) {
+		return ratingDao.deleteRatingCut(csatSequence, examSequence) > 0;
+	}
+	
+	public boolean deleteStudentScore(int csatSequence, int examSequence) {
+		return ratingDao.deleteStudentScore(csatSequence, examSequence) > 0;
 	}
 
 }
