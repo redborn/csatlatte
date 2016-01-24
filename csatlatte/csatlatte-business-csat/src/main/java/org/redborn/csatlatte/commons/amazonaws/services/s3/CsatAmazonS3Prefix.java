@@ -9,10 +9,6 @@ package org.redborn.csatlatte.commons.amazonaws.services.s3;
 public class CsatAmazonS3Prefix {
 	
 	/**
-	 * 임시 Prefix 입니다.
-	 */
-	public static final String TEMP = "temp";
-	/**
 	 * QnA Prefix 입니다.
 	 */
 	public static final String QNA = "qna";
