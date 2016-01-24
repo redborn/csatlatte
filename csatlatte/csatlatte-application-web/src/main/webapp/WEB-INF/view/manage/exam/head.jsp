@@ -63,10 +63,9 @@
 			return html;
 		}
 		
-		$.ajax(contextPath + "/data/manage/exam.json", {
+		$.ajax(contextPath + "/data/manage/exam/" + csatSequence + ".json", {
 			dataType : "json",
 			type : "GET",
-			data : {csatSequence : csatSequence},
 			success : function (data) {
 				if (data.list != null) {
 					var examList = data.list;
@@ -77,10 +76,9 @@
 				}
 				$('.manage-exam-modify').on("click", function () {
 					examSequence = $(this).attr("id");
-					$.ajax(contextPath + "/data/manage/exam/" + examSequence + ".json", {
+					$.ajax(contextPath + "/data/manage/exam/" + csatSequence + "/" + examSequence + ".json", {
 						dataType : "json",
 						type : "GET",
-						data : {csatSequence : csatSequence},
 						success : function (data) {
 							if (data.detail != null) {
 								var exam = data.detail;
@@ -112,10 +110,9 @@
 											ysSequence : ysSequence,
 											ymd : ymd},
 									success : function () {
-										$.ajax(contextPath + "/data/manage/exam/" + examSequence + ".json", {
+										$.ajax(contextPath + "/data/manage/exam/" + csatSequence + "/" + examSequence + ".json", {
 											dataType : "json",
 											type : "GET",
-											data : {csatSequence : csatSequence},
 											success : function (data) {
 												if (data.detail != null) {
 													var exam = data.detail;
@@ -168,10 +165,9 @@
 		
 		$('#manage-exam-csat-list').on("change", function () {
 			csatSequence = $('#manage-exam-csat-list').val();
-			$.ajax(contextPath + "/data/manage/exam", {
+			$.ajax(contextPath + "/data/manage/exam/" + csatSequence + ".json", {
 				dataType : "json",
 				type : "GET",
-				data : {csatSequence : csatSequence},
 				success : function (data) {
 					if (data.list != null) {
 						var examList = data.list;
@@ -183,10 +179,9 @@
 					}
 					$('.manage-exam-modify').on("click", function () {
 						examSequence = $(this).attr("id");
-						$.ajax(contextPath + "/data/manage/exam/" + examSequence + ".json", {
+						$.ajax(contextPath + "/data/manage/exam/" + csatSequence + "/" + examSequence + ".json", {
 							dataType : "json",
 							type : "GET",
-							data : {csatSequence : csatSequence},
 							success : function (data) {
 								if (data.detail != null) {
 									var exam = data.detail;
@@ -218,10 +213,9 @@
 												ysSequence : ysSequence,
 												ymd : ymd},
 										success : function () {
-											$.ajax(contextPath + "/data/manage/exam/" + examSequence + ".json", {
+											$.ajax(contextPath + "/data/manage/exam/" + csatSequence + "/" + examSequence + ".json", {
 												dataType : "json",
 												type : "GET",
-												data : {csatSequence : csatSequence},
 												success : function (data) {
 													if (data.detail != null) {
 														var exam = data.detail;

@@ -23,16 +23,16 @@ public class Exam {
 	@Autowired
 	private StudentService studentService;
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public void get(Model model, @RequestParam(value="csatSequence",required=true) int csatSequence) {
+	@RequestMapping(value="{csatSequence}",method=RequestMethod.GET)
+	public void get(Model model, @PathVariable int csatSequence) {
 		logger.info("data manage exam get view");
 		
 		model.addAttribute("list", examService.listForManage(csatSequence));
 	}
 	
-	@RequestMapping(value="{examSequence}",method=RequestMethod.GET) 
+	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.GET) 
 	public void detail(Model model, @PathVariable int examSequence,
-			@RequestParam(value="csatSequence",required=true) int csatSequence) {
+			@PathVariable int csatSequence) {
 		logger.info("data manage exam detail view");
 		
 		model.addAttribute("ysList", studentService.ysList());
