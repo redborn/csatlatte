@@ -23,14 +23,6 @@ public class Exam {
 	@Autowired
 	private StudentService studentService;
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public void get(Model model, @RequestParam(value="csatSequence",required=true) int csatSequence,
-			@RequestParam(value="examSequence",required=true) int examSequence) {
-		logger.info("data exam get view");
-		
-		model.addAttribute("checkForDelete", examService.checkForDelete(csatSequence, examSequence));
-	}
-	
 	@RequestMapping(value="{csatSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable int csatSequence) {
 		logger.info("data manage exam get view");

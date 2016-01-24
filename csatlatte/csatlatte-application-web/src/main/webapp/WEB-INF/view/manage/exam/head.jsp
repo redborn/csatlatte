@@ -156,7 +156,7 @@
 				});
 				$('.manage-exam-delete').on("click", function () {
 					examSequence = $(this).attr("id");
-					$.ajax(contextPath + "/data/exam.json", {
+					$.ajax(contextPath + "/data/rating.json", {
 						dataType : "json",
 						type : "GET",
 						data : {csatSequence : csatSequence, examSequence : examSequence},
@@ -257,7 +257,7 @@
 					});
 					$('.manage-exam-delete').on("click", function () {
 						examSequence = $(this).attr("id");
-						$.ajax(contextPath + "/data/exam.json", {
+						$.ajax(contextPath + "/data/rating.json", {
 							dataType : "json",
 							type : "GET",
 							data : {csatSequence : csatSequence, examSequence : examSequence},
