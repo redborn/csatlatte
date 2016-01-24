@@ -166,10 +166,10 @@
 								$('.manage-exam-delete-content').remove();
 								$('#manage-exam-delete-view-detail').append(makeExamDeleteMessage(check));
 								$('.manage-exam-delete-accept').on("click", function () {
-									$.ajax(contextPath + "/data/exam/" + examSequence + ".json", {
+									$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
 										dataType : "json",
 										type : "DELETE",
-										data : {_method : "DELETE", csatSequence : csatSequence},
+										data : {_method : "DELETE"},
 										success : function () {
 											$('#manage-exam-row-data-' + examSequence).remove();
 											$('#manage-exam-delete-view').modal("hide");
@@ -267,10 +267,10 @@
 									$('.manage-exam-delete-content').remove();
 									$('#manage-exam-delete-view-detail').append(makeExamDeleteMessage(check));
 									$('.manage-exam-delete-accept').on("click", function () {
-										$.ajax(contextPath + "/data/exam/" + examSequence + ".json", {
+										$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
 											dataType : "json",
 											type : "DELETE",
-											data : {_method : "DELETE", csatSequence : csatSequence},
+											data : {_method : "DELETE"},
 											success : function () {
 												$('#manage-exam-row-data-' + examSequence).remove();
 												$('#manage-exam-delete-view').modal("hide");
