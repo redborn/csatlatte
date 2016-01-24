@@ -62,9 +62,10 @@ public class Exam {
 	}
 	
 	@RequestMapping(value="{examSequence}",method=RequestMethod.DELETE)
-	public void delete(@PathVariable int examSequence) {
+	public void delete(@PathVariable int examSequence,
+			@RequestParam(value="csatSequence",required=true) int csatSequence) {
 		logger.info("data manage exam delete");
-		examService.delete(examSequence);
+		examService.delete(csatSequence, examSequence);
 	}
 	
 }

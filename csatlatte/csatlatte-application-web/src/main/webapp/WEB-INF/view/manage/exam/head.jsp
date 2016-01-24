@@ -152,7 +152,7 @@
 									$.ajax(contextPath + "/data/manage/exam/" + examSequence + ".json", {
 										dataType : "json",
 										type : "DELETE",
-										data : {_method : "DELETE"},
+										data : {_method : "DELETE", csatSequence : csatSequence},
 										success : function () {
 											$('#manage-exam-row-data-' + examSequence).remove();
 											$('#manage-exam-delete-view').modal("hide");
@@ -258,7 +258,7 @@
 										$.ajax(contextPath + "/data/manage/exam/" + examSequence + ".json", {
 											dataType : "json",
 											type : "DELETE",
-											data : {_method : "DELETE"},
+											data : {_method : "DELETE", csatSequence : csatSequence},
 											success : function () {
 												$('#manage-exam-row-data-' + examSequence).remove();
 												$('#manage-exam-delete-view').modal("hide");

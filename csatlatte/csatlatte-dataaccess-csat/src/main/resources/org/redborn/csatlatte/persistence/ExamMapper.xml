@@ -103,9 +103,10 @@
 		   AND csat_seq = #{csatSequence}
 	</update>
 	
-	<delete id="delete" parameterType="int">
+	<delete id="delete" parameterType="Map">
 		DELETE FROM csat_exam
 		 WHERE exam_seq = #{examSequence} 
+		   AND csat_seq = #{csatSequence}
 	</delete>
 	
 </mapper>

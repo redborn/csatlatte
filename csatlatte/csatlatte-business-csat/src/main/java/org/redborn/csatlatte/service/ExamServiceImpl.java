@@ -48,8 +48,8 @@ public class ExamServiceImpl implements ExamService {
 		return examDao.update(examVo);
 	}
 
-	public int delete(int examSequence) {
-		return examDao.delete(examSequence);
+	public int delete(int csatSequence, int examSequence) {
+		return examDao.delete(csatSequence, examSequence);
 	}
 	
 	public int amountExam(int csatSequence, String search) {

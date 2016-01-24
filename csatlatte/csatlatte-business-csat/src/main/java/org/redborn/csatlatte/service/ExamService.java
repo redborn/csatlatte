@@ -14,7 +14,7 @@ public interface ExamService {
 	public List<ExamVo> listForManage(int csatSequence);
 	public int register(ExamVo examVo);
 	public int modify(ExamVo examVo);
-	public int delete(int examSequence);
+	public int delete(int csatSequence, int examSequence);
 	public int amountExam(int csatSequence, String search);
 	public List<InstitutionVo> institutionList();
 	public List<ExamVo> detail(int csatSequence, int examSequence);
