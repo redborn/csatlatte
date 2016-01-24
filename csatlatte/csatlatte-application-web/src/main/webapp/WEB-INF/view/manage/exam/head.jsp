@@ -63,7 +63,7 @@
 			return html;
 		}
 		
-		$.ajax(contextPath + "/data/manage/exam", {
+		$.ajax(contextPath + "/data/manage/exam.json", {
 			dataType : "json",
 			type : "GET",
 			data : {csatSequence : csatSequence},
@@ -285,7 +285,7 @@
 			html += '	<div class="modal-body">';
 			html += '		<div class="form-group row">';
 			html += '			<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-modify-name">모의고사 이름</label>';
-			html += '			<div class="col-lg-6"><input type="text" class="form-control" id="manage-exam-modify-name" value="' + exam.examName + '"></div>';
+			html += '			<div class="col-lg-6"><input type="text" maxlength="26" class="form-control" id="manage-exam-modify-name" value="' + exam.examName + '"></div>';
 			html += '		</div>';
 			html += '		<div class="form-group row">';
 			html += '			<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-modify-institution">주관 교육청</label>';
