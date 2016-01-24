@@ -5,7 +5,7 @@ public class ExamVo {
 	private int csatSequence;
 	private int examSequence;
 	private int institutionSequence;
-	private int ysSequence;
+	private int yearStudentSequence;
 	private String ymd;
 	private String year;
 	private String examName;
@@ -35,12 +35,12 @@ public class ExamVo {
 		this.institutionSequence = institutionSequence;
 	}
 	
-	public int getYsSequence() {
-		return ysSequence;
+	public int getYearStudentSequence() {
+		return yearStudentSequence;
 	}
 	
-	public void setYsSequence(int ysSequence) {
-		this.ysSequence = ysSequence;
+	public void setYearStudentSequence(int yearStudentSequence) {
+		this.yearStudentSequence = yearStudentSequence;
 	}
 	
 	public String getYmd() {
@@ -79,7 +79,7 @@ public class ExamVo {
 	public String toString() {
 		return "ExamVo [csatSequence=" + csatSequence + ", examSequence="
 				+ examSequence + ", institutionSequence=" + institutionSequence
-				+ ", ysSequence=" + ysSequence + ", ymd=" + ymd + ", year="
+				+ ", yearStudentSequence=" + yearStudentSequence + ", ymd=" + ymd + ", year="
 				+ year + ", examName=" + examName + ", institutionName="
 				+ institutionName + "]";
 	}

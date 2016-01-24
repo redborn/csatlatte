@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/data/ys")
-public class Ys {
+@RequestMapping("/data/yearStudent")
+public class YearStudent {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
@@ -19,8 +19,8 @@ public class Ys {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model) {
-		logger.info("data ysList get view");
+		logger.info("data yearStudentList get view");
 		
-		model.addAttribute("ysList", studentService.ysList());
+		model.addAttribute("yearStudentList", studentService.yearStudentList());
 	}
 }

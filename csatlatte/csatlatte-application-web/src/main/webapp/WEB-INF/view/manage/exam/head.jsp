@@ -25,7 +25,7 @@
 		var csatSequence = 24;
 		var examSequence;
 		var institutionList;
-		var ysList;
+		var yearStudentList;
 		
 		var makeExamRow = function (exam) {
 			html = '';
@@ -34,7 +34,7 @@
 			html += '	<td id="manage-exam-row-td-year-' + exam.examSequence + '"><div id="manage-exam-row-data-year-' + exam.examSequence + '">' + exam.year + '</div></td>';
 			html += '	<td id="manage-exam-row-td-name-' + exam.examSequence + '"><div id="manage-exam-row-data-name-' + exam.examSequence + '">' + exam.examName + '</div></td>';
 			html += '	<td id="manage-exam-row-td-institution-' + exam.examSequence + '"><div id="manage-exam-row-data-institution-' + exam.examSequence + '">' + exam.institutionName + '</div></td>';
-			html += '	<td id="manage-exam-row-td-ys-' + exam.examSequence + '"><div id="manage-exam-row-data-ys-' + exam.examSequence + '">' + exam.ysSequence + '</div></td>';
+			html += '	<td id="manage-exam-row-td-year-student-' + exam.examSequence + '"><div id="manage-exam-row-data-year-student-' + exam.examSequence + '">' + exam.yearStudentSequence + '</div></td>';
 			html += '	<td><button type="button" class="btn btn-default close manage-exam-icon"><span id="' + exam.examSequence + '" data-toggle="modal" data-target="#manage-exam-modify-view" class="manage-exam-modify glyphicon glyphicon-pencil"></span></button></td>';
 			html += '	<td><button type="button" class="btn btn-default close manage-exam-icon"><span id="' + exam.examSequence + '" data-toggle="modal" data-target="#manage-exam-delete-view" class="manage-exam-delete glyphicon glyphicon-remove"></span></button></td>';
 			html += '</tr>';
@@ -59,9 +59,9 @@
 			return html;
 		}
 		
-		var makeExamRowDataYs = function (ysSequence) {
+		var makeExamRowDataYearStudent = function (yearStudentSequence) {
 			var html = '';
-			html += '<div id="manage-exam-row-data-ys-' + examSequence + '">' + ysSequence + '</div>';
+			html += '<div id="manage-exam-row-data-year-student-' + examSequence + '">' + yearStudentSequence + '</div>';
 			return html;
 		}
 		
@@ -75,12 +75,12 @@
 			}
 		});
 		
-		$.ajax(contextPath + "/data/ys.json", {
+		$.ajax(contextPath + "/data/yearStudent.json", {
 			dataType : "json",
 			type : "GET",
 			success : function (data) {
-				if (data.ysList != null) {
-					ysList = data.ysList;
+				if (data.yearStudentList != null) {
+					yearStudentList = data.yearStudentList;
 				}
 			}
 		});
@@ -104,7 +104,7 @@
 						success : function (data) {
 							if (data.detail != null) {
 								var exam = data.detail;
-								$('#manage-exam-modify-view-detail').append(makeExamRowDetail(exam[0], institutionList, ysList));
+								$('#manage-exam-modify-view-detail').append(makeExamRowDetail(exam[0], institutionList, yearStudentList));
 							}
 							$('#manage-exam-modify-ymd').datepicker({
 								format:"yyyymmdd",
@@ -118,7 +118,7 @@
 							$('.manage-exam-modify-accept').on("click", function () {
 								var examName = $('#manage-exam-modify-name').val();
 								var institutionSequence = $('#manage-exam-modify-institution').val();
-								var ysSequence = $('#manage-exam-modify-ys').val();
+								var yearStudentSequence = $('#manage-exam-modify-year-student').val();
 								var ymd = $('#manage-exam-modify-ymd').val();
 								$.ajax(contextPath + "/data/exam.json", {
 									dataType : "json",
@@ -127,7 +127,7 @@
 											examSequence : examSequence,
 											examName : examName,
 											institutionSequence : institutionSequence,
-											ysSequence : ysSequence,
+											yearStudentSequence : yearStudentSequence,
 											ymd : ymd},
 									success : function () {
 										$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
@@ -140,11 +140,11 @@
 													$('#manage-exam-row-data-year-' + examSequence).remove();
 													$('#manage-exam-row-data-name-' + examSequence).remove();
 													$('#manage-exam-row-data-institution-' + examSequence).remove();
-													$('#manage-exam-row-data-ys-' + examSequence).remove();
+													$('#manage-exam-row-data-year-student-' + examSequence).remove();
 													$('#manage-exam-row-td-year-' + examSequence).append(makeExamRowDataYear(ymd.substring(0, 4)));
 													$('#manage-exam-row-td-name-' + examSequence).append(makeExamRowDataName(examName));
 													$('#manage-exam-row-td-institution-' + examSequence).append(makeExamRowDataInstitution(exam[0].institutionName));
-													$('#manage-exam-row-td-ys-' + examSequence).append(makeExamRowDataYs(ysSequence));
+													$('#manage-exam-row-td-year-student-' + examSequence).append(makeExamRowDataYearStudent(yearStudentSequence));
 												}
 											}
 										});
@@ -205,7 +205,7 @@
 							success : function (data) {
 								if (data.detail != null) {
 									var exam = data.detail;
-									$('#manage-exam-modify-view-detail').append(makeExamRowDetail(exam[0], institutionList, ysList));
+									$('#manage-exam-modify-view-detail').append(makeExamRowDetail(exam[0], institutionList, yearStudentList));
 								}
 								$('#manage-exam-modify-ymd').datepicker({
 									format:"yyyymmdd",
@@ -219,7 +219,7 @@
 								$('.manage-exam-modify-accept').on("click", function () {
 									var examName = $('#manage-exam-modify-name').val();
 									var institutionSequence = $('#manage-exam-modify-institution').val();
-									var ysSequence = $('#manage-exam-modify-ys').val();
+									var yearStudentSequence = $('#manage-exam-modify-year-student').val();
 									var ymd = $('#manage-exam-modify-ymd').val();
 									$.ajax(contextPath + "/data/exam.json", {
 										dataType : "json",
@@ -228,7 +228,7 @@
 												examSequence : examSequence,
 												examName : examName,
 												institutionSequence : institutionSequence,
-												ysSequence : ysSequence,
+												yearStudentSequence : yearStudentSequence,
 												ymd : ymd},
 										success : function () {
 											$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
@@ -241,11 +241,11 @@
 														$('#manage-exam-row-data-year-' + examSequence).remove();
 														$('#manage-exam-row-data-name-' + examSequence).remove();
 														$('#manage-exam-row-data-institution-' + examSequence).remove();
-														$('#manage-exam-row-data-ys-' + examSequence).remove();
+														$('#manage-exam-row-data-year-student-' + examSequence).remove();
 														$('#manage-exam-row-td-year-' + examSequence).append(makeExamRowDataYear(ymd.substring(0, 4)));
 														$('#manage-exam-row-td-name-' + examSequence).append(makeExamRowDataName(examName));
 														$('#manage-exam-row-td-institution-' + examSequence).append(makeExamRowDataInstitution(exam[0].institutionName));
-														$('#manage-exam-row-td-ys-' + examSequence).append(makeExamRowDataYs(ysSequence));
+														$('#manage-exam-row-td-year-student-' + examSequence).append(makeExamRowDataYearStudent(yearStudentSequence));
 													}
 												}
 											});
@@ -285,9 +285,9 @@
 			});
 		});
 		
-		var makeExamRowDetail = function (exam, institutionList, ysList) {
+		var makeExamRowDetail = function (exam, institutionList, yearStudentList) {
 			var institutionListLength = institutionList.length;
-			var ysListLength = ysList.length;
+			var yearStudentListLength = yearStudentList.length;
 			var html = '';
 			html += '<div class="modal-content manage-exam-modify-content">';
 			html += '	<div class="modal-header">';
@@ -314,15 +314,15 @@
 			html += '			</div>';
 			html += '		</div>';
 			html += '		<div class="form-group row">';
-			html += '			<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-modify-ys">학년</label>';
+			html += '			<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-modify-year-student">학년</label>';
 			html += '			<div class="col-lg-2">';
-			html += '				<select class="form-control" id="manage-exam-modify-ys">';
-			for (var index = 0; index < ysListLength; index++) {
-				html += '<option value="' + ysList[index].ysSequence + '"';
-				if (exam.ysSequence == ysList[index].ysSequence) {
+			html += '				<select class="form-control" id="manage-exam-modify-year-student">';
+			for (var index = 0; index < yearStudentListLength; index++) {
+				html += '<option value="' + yearStudentList[index].yearStudentSequence + '"';
+				if (exam.yearStudentSequence == yearStudentList[index].yearStudentSequence) {
 					html += ' selected';
 				}
-				html += '>' + ysList[index].ysName + '</option>';
+				html += '>' + yearStudentList[index].yearStudentName + '</option>';
 			}
 			html += '				</select>';
 			html += '			</div>';

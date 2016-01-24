@@ -17,7 +17,7 @@
 		<result column="year" property="year" />
 		<result column="exam_name" property="examName" />
 		<result column="isttt_name" property="institutionName" />
-		<result column="ys_seq" property="ysSequence"/>
+		<result column="ys_seq" property="yearStudentSequence"/>
 	</resultMap>
 	
 	<resultMap type="ExamVo" id="ExamVoForManageOneMap">
@@ -26,7 +26,7 @@
 		<result column="isttt_seq" property="institutionSequence"/>
 		<result column="exam_name" property="examName"/>
 		<result column="exam_ymd" property="ymd"/>
-		<result column="ys_seq" property="ysSequence"/>
+		<result column="ys_seq" property="yearStudentSequence"/>
 		<result column="isttt_name" property="institutionName"/>
 	</resultMap>
 
@@ -98,7 +98,7 @@
 	<update id="update" parameterType="ExamVo">
 		UPDATE csat_exam
 		   SET isttt_seq = #{institutionSequence}, exam_name = #{examName}, 
-			   ys_seq = #{ysSequence}, exam_ymd = #{ymd}
+			   ys_seq = #{yearStudentSequence}, exam_ymd = #{ymd}
 		 WHERE exam_seq = #{examSequence} 
 		   AND csat_seq = #{csatSequence}
 	</update>

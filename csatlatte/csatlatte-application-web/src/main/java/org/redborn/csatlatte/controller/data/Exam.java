@@ -51,7 +51,7 @@ public class Exam {
 			@RequestParam(value="csatSequence",required=true) int csatSequence,
 			@RequestParam(value="examName",required=true) String examName,
 			@RequestParam(value="institutionSequence",required=true) int institutionSequence,
-			@RequestParam(value="ysSequence",required=true) int ysSequence,
+			@RequestParam(value="yearStudentSequence",required=true) int yearStudentSequence,
 			@RequestParam(value="ymd",required=true) String ymd) {
 		logger.info("data manage exam post view");
 		
@@ -61,7 +61,7 @@ public class Exam {
 		examVo.setCsatSequence(csatSequence);
 		examVo.setExamName(examName);
 		examVo.setInstitutionSequence(institutionSequence);
-		examVo.setYsSequence(ysSequence);
+		examVo.setYearStudentSequence(yearStudentSequence);
 		examVo.setYmd(ymd);
 		
 		examService.modify(examVo);

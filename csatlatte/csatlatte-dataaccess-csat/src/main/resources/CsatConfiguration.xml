@@ -28,7 +28,7 @@
 		<typeAlias alias="YmCountVo" type="org.redborn.csatlatte.domain.YmCountVo"/>
 		<typeAlias alias="YmdCountVo" type="org.redborn.csatlatte.domain.YmdCountVo"/>
 		<typeAlias alias="InstitutionVo" type="org.redborn.csatlatte.domain.InstitutionVo"/>
-		<typeAlias alias="YsVo" type="org.redborn.csatlatte.domain.YsVo"/>
+		<typeAlias alias="YearStudentVo" type="org.redborn.csatlatte.domain.YearStudentVo"/>
 		<typeAlias alias="SecurityQuestionVo" type="org.redborn.csatlatte.domain.SecurityQuestionVo"/>
 	</typeAliases>
 	
@@ -54,7 +54,7 @@
 		<mapper resource="org/redborn/csatlatte/persistence/community/comment/BlindMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/community/comment/ReportMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/InstitutionMapper.xml"/>
-		<mapper resource="org/redborn/csatlatte/persistence/YsMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/YearStudentMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/SecurityQuestionMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/RatingMapper.xml"/>
 	</mappers>

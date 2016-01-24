@@ -10,10 +10,10 @@ import org.redborn.csatlatte.domain.CountVo;
 import org.redborn.csatlatte.domain.SecurityQuestionVo;
 import org.redborn.csatlatte.domain.StudentSecurityQuestionVo;
 import org.redborn.csatlatte.domain.StudentVo;
-import org.redborn.csatlatte.domain.YsVo;
+import org.redborn.csatlatte.domain.YearStudentVo;
 import org.redborn.csatlatte.persistence.SecurityQuestionDao;
 import org.redborn.csatlatte.persistence.StudentDao;
-import org.redborn.csatlatte.persistence.YsDao;
+import org.redborn.csatlatte.persistence.YearStudentDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -35,7 +35,7 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private PlatformTransactionManager transactionManager;
 	@Autowired
-	private YsDao ysDao;
+	private YearStudentDao yearStudentDao;
 	
 	public boolean changePassword(int studentSequence, String password, String newPassword) {
 		boolean result = false;
@@ -199,8 +199,8 @@ public class StudentServiceImpl implements StudentService {
 		return studentDao.selectOneCount(search);
 	}
 	
-	public List<YsVo> ysList() {
-		return ysDao.selectList();
+	public List<YearStudentVo> yearStudentList() {
+		return yearStudentDao.selectList();
 	}
 	
 	/**
