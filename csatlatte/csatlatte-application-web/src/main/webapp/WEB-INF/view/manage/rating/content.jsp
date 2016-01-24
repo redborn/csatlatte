@@ -39,3 +39,7 @@
 	<div class="modal-dialog" role="document" id="manage-rating-create-view-detail">
 	</div>
 </div>
+<div class="modal fade" id="manage-rating-detail-view" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document" id="manage-rating-detail-view-detail">
+	</div>
+</div>

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.ExamVo;
+import org.redborn.csatlatte.domain.RatingCutVo;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -21,6 +22,17 @@ public class RatingDaoMapper extends SqlSessionDaoSupport implements RatingDao {
 	
 	public List<ExamVo> selectList(int csatSequence) {
 		return getSqlSession().selectList("rating.selectList", csatSequence);
+	}
+	
+	public List<RatingCutVo> selectListDetail(int csatSequence, int examSequence, 
+			int upperRatingCode, int lowerRatingCode) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		params.put("upperRatingCode", upperRatingCode);
+		params.put("lowerRatingCode", lowerRatingCode);
+		
+		return getSqlSession().selectList("rating.selectListDetail", params);
 	}
 	
 	public List<ExamVo> selectListForCreate(int csatSequence) {

@@ -3,7 +3,9 @@ package org.redborn.csatlatte.service;
 import java.util.List;
 
 import org.redborn.csatlatte.domain.RatingCutScoreVo;
+import org.redborn.csatlatte.domain.RatingCutVo;
 import org.redborn.csatlatte.domain.SubjectVo;
+import org.redborn.csatlatte.persistence.RatingDao;
 import org.redborn.csatlatte.persistence.exam.AverageDao;
 import org.redborn.csatlatte.persistence.exam.RatingCutDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,16 @@ public class RatingCutServiceImpl implements RatingCutService {
 	private AverageDao averageDao;
 	@Autowired
 	private RatingCutDao ratingCutDao;
+	@Autowired
+	private RatingDao ratingDao;
 	
 	public List<RatingCutScoreVo> list(int csatSequence, int examSequence) {
 		return ratingCutDao.selectList(csatSequence, examSequence);
+	}
+	
+	public List<RatingCutVo> list(int csatSequence, int examSequence, 
+			int upperRatingCode, int lowerRatingCode) {
+		return ratingDao.selectListDetail(csatSequence, examSequence, upperRatingCode, lowerRatingCode);
 	}
 
 	public boolean register(SubjectVo subjectVo, int average, int standardDeviation, List<RatingCutScoreVo> ratingCutScoreVo) {
