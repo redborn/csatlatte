@@ -5,6 +5,7 @@ public class TilesName {
 	public static final String MAIN = "/main";
 	public static final String RATING = "/rating";
 	public static final String GRADE = "/grade";
+	public static final String GRADE_GUEST = "/grade/guest";
 	public static final String GRADE_ANALYSIS = "/grade/analysis";
 	public static final String COMMUNITY = "/community";
 	public static final String SUPPORT = "/support";

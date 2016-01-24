@@ -1,9 +1,13 @@
 package org.redborn.csatlatte.controller.web;
 
+import javax.servlet.http.HttpSession;
+
+import org.redborn.csatlatte.commons.servlet.http.HttpSessionValue;
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,9 +26,13 @@ public class Grade {
 	 * 사용자의 성적을 조회, 입력, 삭제, 수정을 하는 페이지입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
-	public String get() {
+	public String get(Model model, HttpSession session) {
 		logger.info("grade view");
-		return TilesName.GRADE;
+		String result = TilesName.GRADE;
+		if (HttpSessionValue.getStudentSequence(session) == 0) {
+			result = TilesName.GRADE_GUEST;
+		}
+		return result;
 	}
 	
 }
