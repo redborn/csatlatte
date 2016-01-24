@@ -80,9 +80,10 @@
 					$.ajax(contextPath + "/data/manage/exam/" + examSequence + ".json", {
 						dataType : "json",
 						type : "GET",
+						data : {csatSequence : csatSequence},
 						success : function (data) {
-							if (data.listOne != null) {
-								var exam = data.listOne;
+							if (data.detail != null) {
+								var exam = data.detail;
 								var institutionList = data.institutionList;
 								var ysList = data.ysList;
 								$('#manage-exam-modify-view-detail').append(makeExamRowDetail(exam[0], institutionList, ysList));
@@ -114,9 +115,10 @@
 										$.ajax(contextPath + "/data/manage/exam/" + examSequence + ".json", {
 											dataType : "json",
 											type : "GET",
+											data : {csatSequence : csatSequence},
 											success : function (data) {
-												if (data.listOne != null) {
-													var exam = data.listOne;
+												if (data.detail != null) {
+													var exam = data.detail;
 													$('#manage-exam-modify-view').modal("hide");
 													$('#manage-exam-row-data-year-' + examSequence).remove();
 													$('#manage-exam-row-data-name-' + examSequence).remove();
@@ -184,9 +186,10 @@
 						$.ajax(contextPath + "/data/manage/exam/" + examSequence + ".json", {
 							dataType : "json",
 							type : "GET",
+							data : {csatSequence : csatSequence},
 							success : function (data) {
-								if (data.listOne != null) {
-									var exam = data.listOne;
+								if (data.detail != null) {
+									var exam = data.detail;
 									var institutionList = data.institutionList;
 									var ysList = data.ysList;
 									$('#manage-exam-modify-view-detail').append(makeExamRowDetail(exam[0], institutionList, ysList));
@@ -218,9 +221,10 @@
 											$.ajax(contextPath + "/data/manage/exam/" + examSequence + ".json", {
 												dataType : "json",
 												type : "GET",
+												data : {csatSequence : csatSequence},
 												success : function (data) {
-													if (data.listOne != null) {
-														var exam = data.listOne;
+													if (data.detail != null) {
+														var exam = data.detail;
 														$('#manage-exam-modify-view').modal("hide");
 														$('#manage-exam-row-data-year-' + examSequence).remove();
 														$('#manage-exam-row-data-name-' + examSequence).remove();

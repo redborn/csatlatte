@@ -31,12 +31,13 @@ public class Exam {
 	}
 	
 	@RequestMapping(value="{examSequence}",method=RequestMethod.GET) 
-	public void detail(Model model, @PathVariable int examSequence) {
+	public void detail(Model model, @PathVariable int examSequence,
+			@RequestParam(value="csatSequence",required=true) int csatSequence) {
 		logger.info("data manage exam detail view");
 		
 		model.addAttribute("ysList", studentService.ysList());
 		model.addAttribute("institutionList", examService.institutionList());
-		model.addAttribute("listOne", examService.listForManageOne(examSequence));
+		model.addAttribute("detail", examService.detail(csatSequence, examSequence));
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)

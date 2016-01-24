@@ -60,8 +60,8 @@ public class ExamServiceImpl implements ExamService {
 		return institutionDao.selectList();
 	}
 	
-	public List<ExamVo> listForManageOne(int examSequence) {
-		return examDao.selectListExamOneForManage(examSequence);
+	public List<ExamVo> detail(int csatSequence, int examSequence) {
+		return examDao.selectListExamOneForManage(csatSequence, examSequence);
 	}
 	
 	public List<ExamVo> listForRatingManage(int csatSequence) {
