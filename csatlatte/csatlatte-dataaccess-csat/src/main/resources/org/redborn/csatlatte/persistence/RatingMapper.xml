@@ -20,26 +20,63 @@
 
 	<select id="selectList" parameterType="int" resultMap="ExamVoMap">
 		SELECT ce.exam_seq,ce.exam_name
-		  FROM csat_exam ce,(SELECT csat_seq,exam_seq,COUNT(*) AS avg
-		          FROM csat_exam_avg
-		         WHERE csat_seq = #{csatSequence}
-		         GROUP BY exam_seq) cea,(SELECT csat_seq,exam_seq,COUNT(*) AS section
-		          FROM csat_exam_section
-		         WHERE csat_seq = #{csatSequence}
-		         GROUP BY exam_seq) ces,(SELECT csat_seq,exam_seq,COUNT(*) AS subject
-		          FROM csat_exam_subject
-		         WHERE csat_seq = #{csatSequence}
-		         GROUP BY exam_seq) cest,(SELECT csat_seq,exam_seq,COUNT(*) AS rating
-		          FROM csat_exam_rating_cut
-		         WHERE csat_seq = #{csatSequence}
-		         GROUP BY exam_seq) cerc
-		 WHERE (ce.csat_seq = cea.csat_seq AND ce.exam_seq = cea.exam_seq)
-		    OR (ce.csat_seq = ces.csat_seq AND ce.exam_seq = ces.exam_seq)
-		    OR (ce.csat_seq = cest.csat_seq AND ce.exam_seq = cest.exam_seq)
-		    OR (ce.csat_seq = cerc.csat_seq AND ce.exam_seq = cerc.exam_seq)
-		   AND (cea.avg > 0 OR ces.section > 0 OR cest.subject > 0 OR cerc.rating > 0)
-	  	 GROUP BY exam_seq
-	  	 ORDER BY exam_seq DESC
+		  FROM csat_exam ce
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS average
+		                          FROM csat_exam_avg
+		                         GROUP BY exam_seq) cea
+		                    ON ( ce.csat_seq = cea.csat_seq
+		                         AND ce.exam_seq = cea.exam_seq )
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS subject
+		                          FROM csat_exam_subject
+		                         GROUP BY exam_seq) cest
+		                    ON ( ce.csat_seq = cest.csat_seq
+		                         AND ce.exam_seq = cest.exam_seq )
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS section
+		                          FROM csat_exam_section
+		                         GROUP BY exam_seq) ces
+		                    ON ( ce.csat_seq = ces.csat_seq
+		                         AND ce.exam_seq = ces.exam_seq )
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS ratingcut
+		                          FROM csat_exam_rating_cut
+		                         GROUP BY exam_seq) cerc
+		                    ON ( ce.csat_seq = cerc.csat_seq
+		                         AND ce.exam_seq = cerc.exam_seq )
+		 WHERE ce.csat_seq = #{csatSequence}
+		   AND !( IFNULL(cea.average, 0) = 0
+		         AND IFNULL(cest.subject, 0) = 0
+		         AND IFNULL(ces.section, 0) = 0
+		         AND IFNULL(cerc.ratingcut, 0) = 0 )
+		 ORDER BY ce.exam_seq desc 
+	</select>
+	
+	<select id="selectListForCreate" parameterType="int" resultMap="ExamVoMap">
+		SELECT ce.exam_seq,ce.exam_name
+		  FROM csat_exam ce
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS average
+		                          FROM csat_exam_avg
+		                         GROUP BY exam_seq) cea
+		                    ON ( ce.csat_seq = cea.csat_seq
+		                         AND ce.exam_seq = cea.exam_seq )
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS subject
+		                          FROM csat_exam_subject
+		                         GROUP BY exam_seq) cest
+		                    ON ( ce.csat_seq = cest.csat_seq
+		                         AND ce.exam_seq = cest.exam_seq )
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS section
+		                          FROM csat_exam_section
+		                         GROUP BY exam_seq) ces
+		                    ON ( ce.csat_seq = ces.csat_seq
+		                         AND ce.exam_seq = ces.exam_seq )
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS ratingcut
+		                          FROM csat_exam_rating_cut
+		                         GROUP BY exam_seq) cerc
+		                    ON ( ce.csat_seq = cerc.csat_seq
+		                         AND ce.exam_seq = cerc.exam_seq )
+		 WHERE ce.csat_seq = #{csatSequence}
+		   AND ( IFNULL(cea.average, 0) = 0
+		         AND IFNULL(cest.subject, 0) = 0
+		         AND IFNULL(ces.section, 0) = 0
+		         AND IFNULL(cerc.ratingcut, 0) = 0 ) 
 	</select>
 	
 	<delete id="deleteAverage" parameterType="Map">

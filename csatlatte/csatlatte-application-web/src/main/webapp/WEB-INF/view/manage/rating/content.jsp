@@ -25,7 +25,7 @@
 	</tbody>
 </table>
 <div class="manage-rating-btn-align">
-	<button class="btn btn-default manage-rating-add" data-toggle="modal" data-target="#manage-rating-add">등급컷 추가</button>
+	<button class="btn btn-default" id="manage-rating-create" data-toggle="modal" data-target="#manage-rating-create-view">등급컷 추가</button>
 </div>
 <div class="modal fade" id="manage-rating-modify-view" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document" id="manage-rating-modify-view-detail">
@@ -33,5 +33,9 @@
 </div>
 <div class="modal fade" id="manage-rating-delete-view" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document" id="manage-rating-delete-view-detail">
+	</div>
+</div>
+<div class="modal fade" id="manage-rating-create-view" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document" id="manage-rating-create-view-detail">
 	</div>
 </div>

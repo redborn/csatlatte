@@ -79,6 +79,52 @@
 			}
 		});
 		
+		var makeCreateView = function (list) {
+			var listLength = list.length;
+			var html = '';
+			html += '<div class="modal-content manage-rating-create-view">';
+			html += '	<div class="modal-header">';
+			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+			html += '		<h4 class="modal-title">등급컷 추가</h4>';
+			html += '	</div>';
+			html += '	<div class="modal-body">';
+			html += '		<div class="form-group row">';
+			html += '			<label class="col-lg-3 control-label manage-rating-label" for="manage-rating-create-rating-cut">모의고사 이름</label>';
+			html += '			<div class="col-lg-6">';
+			html += '				<select class="form-control" id="manage-rating-create-rating-cut">';
+			for (var index = 0; index < listLength; index++) {
+				html += '<option value="' + list[index].examSequence + '">' + list[index].examName + '</option>';
+			}
+			html += '				</select>';
+			html += '			</div>';
+			html += '		</div>';
+			html += '		<div class="form-group row">';
+			html += '			<label class="col-lg-3 control-label manage-rating-label" for="manage-rating-create-file">파일 첨부</label>';
+			html += '			<div class="col-lg-6"><input type="file" id="manage-rating-create-file"></div>';
+			html += '		</div>';
+			html +=	'	</div>';
+			html += '	<div class="modal-footer">';
+			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
+			html += '		<button type="button" class="btn btn-primary">확인</button>';
+			html += '	</div>';
+			html +=	'</div>';
+			return html;
+		}
+		
+		$('#manage-rating-create').on("click", function () {
+			$.ajax(contextPath + "/data/manage/rating/" + csatSequence + ".json", {
+				dataType : "json",
+				type : "GET",
+				success : function (data) {
+					if (data.listForCreate != null) {
+						var list = data.listForCreate;
+						$('.manage-rating-create-view').remove();
+						$('#manage-rating-create-view-detail').append(makeCreateView(list));
+					}
+				}
+			});
+		});
+		
 		var makeModifyView = function (detail) {
 			var html = '';
 			html += '<div class="modal-content manage-rating-modify-view">';

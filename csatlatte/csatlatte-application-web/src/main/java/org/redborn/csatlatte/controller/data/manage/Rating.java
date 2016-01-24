@@ -22,6 +22,7 @@ public class Rating {
 	public void get(Model model, @PathVariable int csatSequence) {
 		logger.info("data manage rating get view");
 		model.addAttribute("list",examService.listForRatingManage(csatSequence));
+		model.addAttribute("listForCreate",examService.listForRatingCreate(csatSequence));
 	}
 	
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.DELETE)

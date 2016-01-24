@@ -23,6 +23,10 @@ public class RatingDaoMapper extends SqlSessionDaoSupport implements RatingDao {
 		return getSqlSession().selectList("rating.selectList", csatSequence);
 	}
 	
+	public List<ExamVo> selectListForCreate(int csatSequence) {
+		return getSqlSession().selectList("rating.selectListForCreate", csatSequence);
+	}
+	
 	public int deleteAverage(int csatSequence, int examSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);

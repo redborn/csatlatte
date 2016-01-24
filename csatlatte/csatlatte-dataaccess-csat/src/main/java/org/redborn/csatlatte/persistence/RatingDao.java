@@ -8,6 +8,7 @@ public interface RatingDao {
 
 	public int selectOne(int csatSequence, int examSequence);
 	public List<ExamVo> selectList(int csatSequence);
+	public List<ExamVo> selectListForCreate(int csatSequence);
 	public int deleteAverage(int csatSequence, int examSequence);
 	public int deleteSection(int csatSequence, int examSequence);
 	public int deleteSubject(int csatSequence, int examSequence);
