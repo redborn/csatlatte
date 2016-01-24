@@ -6,6 +6,7 @@
 	.manage-rating-btn-align {text-align:right;}
 	.manage-rating-icon {float:none;}
 	#manage-rating-table {margin-top:15px; text-align:center;}
+	.manage-rating-label {text-align:right;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -36,14 +37,15 @@
 					}
 					$('.manage-rating-modify').on("click", function () {
 						var examSequence = $(this).attr("id");
-						$.ajax(contextPath + "/data/manage/rating/" + examSequence + ".json", {
+						$.ajax(contextPath + "/data/manage/exam/" + examSequence + ".json", {
 							dataType : "json",
 							type : "GET",
 							data : {csatSequence : csatSequence},
 							success : function (data) {
 								if (data.detail != null) {
 									var detail = data.detail;
-									$('#manage-exam-modify-view-detail').append(makeModifyView(detail));
+									$('.manage-rating-modify-view').remove();
+									$('#manage-exam-modify-view-detail').append(makeModifyView(detail[0]));
 								}
 							}
 						});
@@ -73,13 +75,19 @@
 		
 		var makeModifyView = function (detail) {
 			var html = '';
-			html += '<div class="modal-content">';
+			html += '<div class="modal-content manage-rating-modify-view">';
 			html += '	<div class="modal-header">';
 			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 			html += '		<h4 class="modal-title">등급컷 수정</h4>';
 			html += '	</div>';
 			html += '	<div class="modal-body">';
 			html += '		<div class="form-group row">';
+			html += '			<label class="col-lg-3 control-label manage-rating-label">모의고사 이름</label>';
+			html += '			<div class="col-lg-6">' + detail.examName + '</div>';
+			html += '		</div>';
+			html += '		<div class="form-group row">';
+			html += '			<label class="col-lg-3 control-label manage-rating-label" for="manage-rating-modify-file">파일 첨부</label>';
+			html += '			<div class="col-lg-6"><input type="file" id="manage-rating-modify-file"></div>';
 			html += '		</div>';
 			html += '	</div>';
 			html += '	<div class="modal-footer">';
