@@ -75,7 +75,7 @@
 			}
 		});
 		
-		$.ajax(contextPath + "/data/yearStudent.json", {
+		$.ajax(contextPath + "/data/yearstudent.json", {
 			dataType : "json",
 			type : "GET",
 			success : function (data) {

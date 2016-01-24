@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/data/yearStudent")
+@RequestMapping("/data/yearstudent")
 public class YearStudent {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
