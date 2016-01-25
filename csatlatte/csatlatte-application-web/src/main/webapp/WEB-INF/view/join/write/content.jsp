@@ -54,8 +54,8 @@
 				<label class="col-sm-2 control-label" for="join-content-select-sat">수능 선택</label>
 				<div class="col-sm-5">
 					<select name="csat" id="join-content-select-sat" class="form-control">
-						<c:forEach items="${yearList}" var="year">
-							<option value="${year.csatSequence}">${year.csatName}</option>
+						<c:forEach items="${csatList}" var="csat">
+							<option value="${csat.csatSequence}">${csat.csatName}</option>
 						</c:forEach>
 					</select>
 				</div>

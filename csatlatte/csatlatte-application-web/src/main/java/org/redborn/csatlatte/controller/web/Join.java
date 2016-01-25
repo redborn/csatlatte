@@ -37,7 +37,7 @@ public class Join {
 		logger.info("join view");
 		
 		model.addAttribute("securityQuestionList", studentService.securityQuestionList());
-		model.addAttribute("yearList", examService.yearList());
+		model.addAttribute("csatList", examService.csatList());
 		
 		return TilesName.JOIN_WRITE;
 	}

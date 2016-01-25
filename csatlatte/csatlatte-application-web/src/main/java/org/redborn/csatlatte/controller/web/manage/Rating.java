@@ -21,7 +21,7 @@ public class Rating {
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
 		logger.info("manage rating get view");
-		model.addAttribute("yearList",examService.yearList());
+		model.addAttribute("csatList",examService.csatList());
 		return TilesName.MANAGE_RATING;
 	}
 }

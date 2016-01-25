@@ -33,7 +33,7 @@ public class Exam {
 	public String get(Model model) {
 		logger.info("manage exam view");
 		
-		model.addAttribute("yearList", examService.yearList());
+		model.addAttribute("csatList", examService.csatList());
 		
 		return TilesName.MANAGE_EXAM;
 	}

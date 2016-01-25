@@ -9,7 +9,7 @@ import org.redborn.csatlatte.domain.InstitutionVo;
 public interface ExamService {
 
 	public boolean checkForDelete(int csatSequence, int examSequence);
-	public List<CsatVo> yearList();
+	public List<CsatVo> csatList();
 	public List<ExamVo> list(int csatSequence);
 	public List<ExamVo> listForManage(int csatSequence);
 	public int register(ExamVo examVo);

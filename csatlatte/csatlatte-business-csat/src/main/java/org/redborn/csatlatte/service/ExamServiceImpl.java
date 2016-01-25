@@ -28,7 +28,7 @@ public class ExamServiceImpl implements ExamService {
 		return examDao.selectOneCountForDelete(csatSequence, examSequence) == 1;
 	}
 	
-	public List<CsatVo> yearList() {
+	public List<CsatVo> csatList() {
 		return csatDao.selectListYear();
 	}
 	

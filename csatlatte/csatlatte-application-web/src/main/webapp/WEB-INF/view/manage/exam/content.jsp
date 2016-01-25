@@ -6,8 +6,8 @@
 <h4 class="manage-exam-title">모의고사 관리</h4>
 <div class="col-lg-5">
 	<select class="form-control" id="manage-exam-csat-list">
-		<c:forEach items="${yearList}" var="year">
-			<option value="${year.csatSequence}"<c:if test="${year.csatSequence eq '24'}"> selected</c:if>>${year.csatName}</option>
+		<c:forEach items="${csatList}" var="csat">
+			<option value="${csat.csatSequence}"<c:if test="${csat.csatSequence eq '24'}"> selected</c:if>>${csat.csatName}</option>
 		</c:forEach>
 	</select>
 </div>
