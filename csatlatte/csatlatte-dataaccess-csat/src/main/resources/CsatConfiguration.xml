@@ -30,6 +30,7 @@
 		<typeAlias alias="InstitutionVo" type="org.redborn.csatlatte.domain.InstitutionVo"/>
 		<typeAlias alias="YearStudentVo" type="org.redborn.csatlatte.domain.YearStudentVo"/>
 		<typeAlias alias="SecurityQuestionVo" type="org.redborn.csatlatte.domain.SecurityQuestionVo"/>
+		<typeAlias alias="RatingCutVo" type="org.redborn.csatlatte.domain.RatingCutVo"/>
 	</typeAliases>
 	
 	<mappers>
