@@ -171,39 +171,7 @@
 						});
 						$('.manage-rating-detail').on("click", function () {
 							examSequence = $(this).attr("id");
-							var list1, list2, list3;
-							$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
-								dataType : "json",
-								type : "GET",
-								data : {lowerRatingCode : 1, upperRatingCode : 3},
-								success : function (data) {
-									if (data.list != null) {
-										list1 = data.list;
-										$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
-											dataType : "json",
-											type : "GET",
-											data : {lowerRatingCode : 4, upperRatingCode : 6},
-											success : function (data) {
-												if (data.list != null) {
-													list2 = data.list;
-													$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
-														dataType : "json",
-														type : "GET",
-														data : {lowerRatingCode : 7, upperRatingCode : 9},
-														success : function (data) {
-															if (data.list != null) {
-																list3 = data.list;
-																$('.manage-rating-detail-view').remove();
-																$('#manage-rating-detail-view-detail').append(makeRatingCutView(list1, list2, list3));
-															}
-														}
-													});
-												}
-											}
-										});
-									}
-								}
-							});
+							
 						});
 					}
 				}
@@ -302,11 +270,9 @@
 			return html;
 		}
 		
-		var makeRatingCutView = function (list1, list2, list3) {
+		var makeRatingCutView = function () {
 			var html = '';
-			var list1Length = list1.length;
-			var list2Length = list2.length;
-			var list3Length = list3.length;
+			
 			html += '<div class="modal-content manage-rating-detail-view">';
 			html += '	<div class="modal-header">';
 			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
@@ -341,19 +307,7 @@
 			html += '								</tr>';
 			html += '							</thead>';
 			html += '							<tbody>';
-			var index = 0;
-			var index2 = 0;
-			while (index < list1Length) {
-				html += '<tr>';
-				html += '	<td>' + list1[index].subjectName + '</td>';
-				while (index2 < index + 3) {
-					html += '	<td>' + list1[index2].rawScore + '</td>';
-					html += '	<td>' + list1[index2].standardScore + '</td>';
-					index2++;
-				}
-				html += '</tr>'
-				index = index + 3;
-			}
+			
 			html += '							</tbody>';
 			html += '						</table>';
 			html += '					</div>';
@@ -379,19 +333,7 @@
 			html += '								</tr>';
 			html += '							</thead>';
 			html += '							<tbody>';
-			index = 0;
-			index2 = 0;
-			while (index < list1Length) {
-				html += '<tr>';
-				html += '	<td>' + list2[index].subjectName + '</td>';
-				while (index2 < index + 3) {
-					html += '	<td>' + list2[index2].rawScore + '</td>';
-					html += '	<td>' + list2[index2].standardScore + '</td>';
-					index2++;
-				}
-				html += '</tr>'
-				index = index + 3;
-			}
+			
 			html += '							</tbody>';
 			html += '						</table>';
 			html += '					</div>';
@@ -417,19 +359,7 @@
 			html += '								</tr>';
 			html += '							</thead>';
 			html += '							<tbody>';
-			index = 0;
-			index2 = 0;
-			while (index < list1Length) {
-				html += '<tr>';
-				html += '	<td>' + list3[index].subjectName + '</td>';
-				while (index2 < index + 3) {
-					html += '	<td>' + list3[index2].rawScore + '</td>';
-					html += '	<td>' + list3[index2].standardScore + '</td>';
-					index2++;
-				}
-				html += '</tr>'
-				index = index + 3;
-			}
+			
 			html += '							</tbody>';
 			html += '						</table>';
 			html += '					</div>';

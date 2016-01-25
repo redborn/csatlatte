@@ -19,9 +19,8 @@ public class RatingCutServiceImpl implements RatingCutService {
 	@Autowired
 	private RatingCutDao ratingCutDao;
 	
-	public List<RatingCutVo> list(int csatSequence, int examSequence, 
-			int upperRatingCode, int lowerRatingCode) {
-		return ratingCutDao.selectListDetail(csatSequence, examSequence, upperRatingCode, lowerRatingCode);
+	public List<RatingCutVo> list(int csatSequence, int examSequence) {
+		return ratingCutDao.selectListDetail(csatSequence, examSequence);
 	}
 	
 	public List<ExamVo> listForRatingManage(int csatSequence) {

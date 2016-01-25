@@ -66,8 +66,6 @@
 		                         AND cerc.subject_seq = ces.subject_seq )
 		 WHERE cerc.csat_seq = #{csatSequence}
 		   AND cerc.exam_seq = #{examSequence}
-		   AND cerc.rating_code &lt;= #{upperRatingCode}
-		   AND cerc.rating_code &gt;= #{lowerRatingCode}
 		 ORDER BY cerc.section_seq,cerc.subject_seq,cerc.rating_code
 	</select>
 	

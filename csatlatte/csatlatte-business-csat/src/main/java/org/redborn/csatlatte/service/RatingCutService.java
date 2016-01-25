@@ -8,7 +8,7 @@ import org.redborn.csatlatte.domain.SubjectVo;
 
 public interface RatingCutService {
 
-	public List<RatingCutVo> list(int csatSequence, int examSequence, int upperRatingCode, int lowerRatingCode);
+	public List<RatingCutVo> list(int csatSequence, int examSequence);
 	public boolean deleteAverage(int csatSequence, int examSequence);
 	public boolean deleteSection(int csatSequence, int examSequence);
 	public boolean deleteSubject(int csatSequence, int examSequence);

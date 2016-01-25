@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/data/rating")
@@ -31,12 +30,10 @@ public class Rating {
 	
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.GET)
 	public void detail(Model model, @PathVariable(value="csatSequence") int csatSequence,
-			@PathVariable(value="examSequence") int examSequence, 
-			@RequestParam(value="upperRatingCode",required=false,defaultValue="9") int upperRatingCode,
-			@RequestParam(value="lowerRatingCode",required=false,defaultValue="1") int lowerRatingCode) {
+			@PathVariable(value="examSequence") int examSequence) {
 		logger.info("data manage rating detail view");
 		
-		model.addAttribute("list", ratingCutService.list(csatSequence, examSequence, upperRatingCode, lowerRatingCode));
+		model.addAttribute("list", ratingCutService.list(csatSequence, examSequence));
 	}
 	
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.DELETE)
