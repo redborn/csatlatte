@@ -79,39 +79,7 @@
 					});
 					$('.manage-rating-detail').on("click", function () {
 						examSequence = $(this).attr("id");
-						var list1, list2, list3;
-						$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
-							dataType : "json",
-							type : "GET",
-							data : {lowerRatingCode : 1, upperRatingCode : 3},
-							success : function (data) {
-								if (data.list != null) {
-									list1 = data.list;
-									$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
-										dataType : "json",
-										type : "GET",
-										data : {lowerRatingCode : 4, upperRatingCode : 6},
-										success : function (data) {
-											if (data.list != null) {
-												list2 = data.list;
-												$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
-													dataType : "json",
-													type : "GET",
-													data : {lowerRatingCode : 7, upperRatingCode : 9},
-													success : function (data) {
-														if (data.list != null) {
-															list3 = data.list;
-															$('.manage-rating-detail-view').remove();
-															$('#manage-rating-detail-view-detail').append(makeRatingCutView(list1, list2, list3));
-														}
-													}
-												});
-											}
-										}
-									});
-								}
-							}
-						});
+						
 					});
 				}
 			}
