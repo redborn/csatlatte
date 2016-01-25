@@ -3,6 +3,7 @@ package org.redborn.csatlatte.domain;
 public class CsatVo {
 	private int csatSequence;
 	private String csatName;
+	private String examYmd;
 	
 	public int getCsatSequence() {
 		return csatSequence;
@@ -20,10 +21,18 @@ public class CsatVo {
 		this.csatName = csatName;
 	}
 	
+	public String getExamYmd() {
+		return examYmd;
+	}
+
+	public void setExamYmd(String examYmd) {
+		this.examYmd = examYmd;
+	}
+
 	@Override
 	public String toString() {
 		return "CsatVo [csatSequence=" + csatSequence + ", csatName="
-				+ csatName + "]";
+				+ csatName + ", examYmd=" + examYmd + "]";
 	}
 	
 }
