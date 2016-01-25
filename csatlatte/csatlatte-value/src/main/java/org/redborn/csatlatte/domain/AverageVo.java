@@ -6,8 +6,9 @@ public class AverageVo {
 	private int examSequence;
 	private int sectionSequence;
 	private int subjectSequence;
-	private int average;
-	private int standardDeviation;
+	private float average;
+	private float standardDeviation;
+	private String subjectName;
 	
 	public int getCsatSequence() {
 		return csatSequence;
@@ -41,28 +42,37 @@ public class AverageVo {
 		this.subjectSequence = subjectSequence;
 	}
 	
-	public int getAverage() {
+	public float getAverage() {
 		return average;
 	}
 	
-	public void setAverage(int average) {
+	public void setAverage(float average) {
 		this.average = average;
 	}
 	
-	public int getStandardDeviation() {
+	public float getStandardDeviation() {
 		return standardDeviation;
 	}
 	
-	public void setStandardDeviation(int standardDeviation) {
+	public void setStandardDeviation(float standardDeviation) {
 		this.standardDeviation = standardDeviation;
 	}
 	
+	public String getSubjectName() {
+		return subjectName;
+	}
+	
+	public void setSubjectName(String subjectName) {
+		this.subjectName = subjectName;
+	}
+
 	@Override
 	public String toString() {
 		return "AverageVo [csatSequence=" + csatSequence + ", examSequence="
 				+ examSequence + ", sectionSequence=" + sectionSequence
 				+ ", subjectSequence=" + subjectSequence + ", average="
-				+ average + ", standardDeviation=" + standardDeviation + "]";
+				+ average + ", standardDeviation=" + standardDeviation
+				+ ", subjectName=" + subjectName + "]";
 	}
-	
+
 }

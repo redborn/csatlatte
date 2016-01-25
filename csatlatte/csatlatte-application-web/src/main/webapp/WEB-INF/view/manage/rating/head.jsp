@@ -160,13 +160,21 @@
 								success : function (data) {
 									if (data.list != null) {
 										var list = data.list;
-										$('.manage-rating-detail-view').remove();
-										if (list.length == 0) {
-											makeRatingCutErrorView
-											$('#manage-rating-detail-view-detail').append(makeRatingCutErrorView);
-										} else {
-											$('#manage-rating-detail-view-detail').append(makeRatingCutView(list));
-										}
+										$.ajax(contextPath + "/data/exam/average/" + csatSequence + "/" + examSequence + ".json", {
+											dataType : "json",
+											type : "GET",
+											success : function (data) {
+												if (data.listAverage != null) {
+													var listAverage = data.listAverage;
+													$('.manage-rating-detail-view').remove();
+													if (list.length == 0 || listAverage.length == 0) {
+														$('#manage-rating-detail-view-detail').append(makeRatingCutErrorView);
+													} else {
+														$('#manage-rating-detail-view-detail').append(makeRatingCutView(list, listAverage));
+													}
+												}
+											}
+										});
 									}
 								}
 							});
@@ -285,10 +293,11 @@
 			return html;
 		}
 		
-		var makeRatingCutView = function (list) {
+		var makeRatingCutView = function (list, listAverage) {
 			var html = '';
 			var index1 = 0, index2 = 0;
 			var listLength = list.length;
+			var listAverageLength = listAverage.length;
 			console.log(listLength);
 			html += '<div class="modal-content manage-rating-detail-view">';
 			html += '	<div class="modal-header">';
@@ -413,6 +422,29 @@
 				html += '</tr>';
 				index1 += 9;
 				index2 += 6;
+			}
+			html += '							</tbody>';
+			html += '						</table>';
+			html += '					</div>';
+			html += '				</div>';
+			html += '				<div class="item">';
+			html += '					<img src="' + contextPath + '/resources/csatlatte/images/header/bg_test.png" alt="등급컷 배경사진">';
+			html += '					<div class="carousel-caption">';
+			html += '						<table class="table table-bordered table-hover">';
+			html += '							<thead>';
+			html += '								<tr>';
+			html += '									<th>과목</th>';
+			html += '									<th>평균</th>';
+			html += '									<th>표준편차</th>';
+			html += '								</tr>';
+			html += '							</thead>';
+			html += '							<tbody>';
+			for (var index = 0; index < listAverageLength; index++) {
+				html += '<tr>';
+				html += '	<td>' + listAverage[index].subjectName + '</td>';
+				html += '	<td>' + listAverage[index].average + '</td>';
+				html += '	<td>' + listAverage[index].standardDeviation + '</td>';
+				html += '</tr>';
 			}
 			html += '							</tbody>';
 			html += '						</table>';

@@ -13,13 +13,23 @@
 		<result column="subject_seq" property="subjectSequence"/>
 		<result column="avg" property="average"/>
 		<result column="standard_deviation" property="standardDeviation"/>
+		<result column="subject_name" property="subjectName"/>
 	</resultMap>
 
 	<select id="selectList" parameterType="Map" resultMap="AverageVoMap">
-		SELECT cea.csat_seq, cea.exam_seq, cea.section_seq, cea.subject_seq, cea.avg, cea.standard_deviation
+		SELECT cea.csat_seq,cea.exam_seq,cea.section_seq,cea.subject_seq,cea.avg,
+		       cea.standard_deviation,ces.subject_name
 		  FROM csat_exam_avg cea
+		       LEFT OUTER JOIN (SELECT *
+		                          FROM csat_exam_subject
+		                         WHERE csat_seq = #{csatSequence}
+		                           AND exam_seq = #{examSequence}) ces
+		                    ON ( ces.csat_seq = cea.csat_seq
+		                         AND ces.exam_seq = cea.exam_seq
+		                         AND ces.section_seq = cea.section_seq
+		                         AND ces.subject_seq = cea.subject_seq )
 		 WHERE cea.csat_seq = #{csatSequence}
-		   AND cea.exam_seq = #{examSequence}
+		   AND cea.exam_seq = #{examSequence} 
 	</select>
 
 	<insert id="insert" parameterType="Map">
