@@ -79,7 +79,16 @@
 					});
 					$('.manage-rating-detail').on("click", function () {
 						examSequence = $(this).attr("id");
-						
+						$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
+							dataType : "json",
+							type : "GET",
+							success : function (data) {
+								if (data.list != null) {
+									var list = data.list;
+									$('#manage-rating-detail-view-detail').append(makeRatingCutView(list));
+								}
+							}
+						});
 					});
 				}
 			}
@@ -139,7 +148,16 @@
 						});
 						$('.manage-rating-detail').on("click", function () {
 							examSequence = $(this).attr("id");
-							
+							$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
+								dataType : "json",
+								type : "GET",
+								success : function (data) {
+									if (data.list != null) {
+										var list = data.list;
+										$('#manage-rating-detail-view-detail').append(makeRatingCutView(list));
+									}
+								}
+							});
 						});
 					}
 				}
@@ -238,9 +256,11 @@
 			return html;
 		}
 		
-		var makeRatingCutView = function () {
+		var makeRatingCutView = function (list) {
 			var html = '';
-			
+			var index1 = 0, index2 = 0;
+			var listLength = list.length;
+			console.log(listLength);
 			html += '<div class="modal-content manage-rating-detail-view">';
 			html += '	<div class="modal-header">';
 			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
@@ -275,7 +295,18 @@
 			html += '								</tr>';
 			html += '							</thead>';
 			html += '							<tbody>';
-			
+			while (index1 < listLength) {
+				html += '<tr>';
+				html += '<td>' + list[index1].subjectName + '</td>';
+				while (index2 < index1 + 3) {
+					html += '<td>' + list[index2].rawScore + '</td>';
+					html += '<td>' + list[index2].standardScore + '</td>';
+					index2++;
+				}
+				html += '</tr>';
+				index1 += 9;
+				index2 += 6;
+			}
 			html += '							</tbody>';
 			html += '						</table>';
 			html += '					</div>';
@@ -301,7 +332,20 @@
 			html += '								</tr>';
 			html += '							</thead>';
 			html += '							<tbody>';
-			
+			index1 = 3;
+			index2 = 3;
+			while (index1 < listLength) {
+				html += '<tr>';
+				html += '<td>' + list[index1].subjectName + '</td>';
+				while (index2 < index1 + 3) {
+					html += '<td>' + list[index2].rawScore + '</td>';
+					html += '<td>' + list[index2].standardScore + '</td>';
+					index2++;
+				}
+				html += '</tr>';
+				index1 += 9;
+				index2 += 6;
+			}
 			html += '							</tbody>';
 			html += '						</table>';
 			html += '					</div>';
@@ -327,7 +371,20 @@
 			html += '								</tr>';
 			html += '							</thead>';
 			html += '							<tbody>';
-			
+			index1 = 6;
+			index2 = 6;
+			while (index1 < listLength) {
+				html += '<tr>';
+				html += '<td>' + list[index1].subjectName + '</td>';
+				while (index2 < index1 + 3) {
+					html += '<td>' + list[index2].rawScore + '</td>';
+					html += '<td>' + list[index2].standardScore + '</td>';
+					index2++;
+				}
+				html += '</tr>';
+				index1 += 9;
+				index2 += 6;
+			}
 			html += '							</tbody>';
 			html += '						</table>';
 			html += '					</div>';
