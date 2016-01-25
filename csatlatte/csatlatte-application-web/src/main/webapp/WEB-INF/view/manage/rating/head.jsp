@@ -8,7 +8,7 @@
 	#manage-rating-table {margin-top:15px; text-align:center;}
 	.manage-rating-label {text-align:right;}
 	.manage-rating-delete-alert {color:#d9534f;}
-	#manage-rating-detail-view-detail {width:900px; height:1000px;}
+	#manage-rating-detail-view-detail {width:850px;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -85,7 +85,13 @@
 							success : function (data) {
 								if (data.list != null) {
 									var list = data.list;
-									$('#manage-rating-detail-view-detail').append(makeRatingCutView(list));
+									$('.manage-rating-detail-view').remove();
+									if (list.length == 0) {
+										makeRatingCutErrorView
+										$('#manage-rating-detail-view-detail').append(makeRatingCutErrorView);
+									} else {
+										$('#manage-rating-detail-view-detail').append(makeRatingCutView(list));
+									}
 								}
 							}
 						});
@@ -154,7 +160,13 @@
 								success : function (data) {
 									if (data.list != null) {
 										var list = data.list;
-										$('#manage-rating-detail-view-detail').append(makeRatingCutView(list));
+										$('.manage-rating-detail-view').remove();
+										if (list.length == 0) {
+											makeRatingCutErrorView
+											$('#manage-rating-detail-view-detail').append(makeRatingCutErrorView);
+										} else {
+											$('#manage-rating-detail-view-detail').append(makeRatingCutView(list));
+										}
 									}
 								}
 							});
@@ -251,6 +263,23 @@
 			html += '	<div class="modal-footer">';
 			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
 			html += '		<button type="button" class="btn btn-primary manage-rating-delete-accept">확인</button>';
+			html += '	</div>';
+			html += '</div>';
+			return html;
+		}
+		
+		var makeRatingCutErrorView = function () {
+			var html = '';
+			html += '<div class="modal-content manage-rating-detail-view">';
+			html += '	<div class="modal-header">';
+			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+			html += '		<h4 class="modal-title">등급컷 조회</h4>';
+			html += '	</div>';
+			html += '	<div class="modal-body">';
+			html += '		<p>등급컷 데이터가 존재하지 않습니다.</p>';
+			html += '	</div>';
+			html += '	<div class="modal-footer">';
+			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
 			html += '	</div>';
 			html += '</div>';
 			return html;
