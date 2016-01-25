@@ -28,7 +28,7 @@
 			return html;
 		}
 		
-		$.ajax(contextPath + "/data/manage/rating/" + csatSequence + ".json", {
+		$.ajax(contextPath + "/data/rating/" + csatSequence + ".json", {
 			dataType : "json",
 			type : "GET",
 			success : function (data) {
@@ -63,7 +63,7 @@
 									$('.manage-rating-delete-view').remove();
 									$('#manage-rating-delete-view-detail').append(makeDeleteMessage(count));
 									$('.manage-rating-delete-accept').on("click", function() {
-										$.ajax(contextPath + "/data/manage/rating/" + csatSequence + "/" + examSequence + ".json", {
+										$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
 											dataType : "json",
 											type : "DELETE",
 											data : {_method : "DELETE"},
@@ -80,21 +80,21 @@
 					$('.manage-rating-detail').on("click", function () {
 						examSequence = $(this).attr("id");
 						var list1, list2, list3;
-						$.ajax(contextPath + "/data/manage/rating/" + csatSequence + "/" + examSequence + ".json", {
+						$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
 							dataType : "json",
 							type : "GET",
 							data : {lowerRatingCode : 1, upperRatingCode : 3},
 							success : function (data) {
 								if (data.list != null) {
 									list1 = data.list;
-									$.ajax(contextPath + "/data/manage/rating/" + csatSequence + "/" + examSequence + ".json", {
+									$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
 										dataType : "json",
 										type : "GET",
 										data : {lowerRatingCode : 4, upperRatingCode : 6},
 										success : function (data) {
 											if (data.list != null) {
 												list2 = data.list;
-												$.ajax(contextPath + "/data/manage/rating/" + csatSequence + "/" + examSequence + ".json", {
+												$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
 													dataType : "json",
 													type : "GET",
 													data : {lowerRatingCode : 7, upperRatingCode : 9},
@@ -120,7 +120,7 @@
 		$('#manage-rating-csat-list').on("change", function () {
 			csatSequence = $('#manage-rating-csat-list').val();
 			$('.manage-rating-row-data').remove();
-			$.ajax(contextPath + "/data/manage/rating/" + csatSequence + ".json", {
+			$.ajax(contextPath + "/data/rating/" + csatSequence + ".json", {
 				dataType : "json",
 				type : "GET",
 				success : function (data) {
@@ -155,7 +155,7 @@
 										$('.manage-rating-delete-view').remove();
 										$('#manage-rating-delete-view-detail').append(makeDeleteMessage(count));
 										$('.manage-rating-delete-accept').on("click", function() {
-											$.ajax(contextPath + "/data/manage/rating/" + csatSequence + "/" + examSequence + ".json", {
+											$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
 												dataType : "json",
 												type : "DELETE",
 												data : {_method : "DELETE"},
@@ -172,21 +172,21 @@
 						$('.manage-rating-detail').on("click", function () {
 							examSequence = $(this).attr("id");
 							var list1, list2, list3;
-							$.ajax(contextPath + "/data/manage/rating/" + csatSequence + "/" + examSequence + ".json", {
+							$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
 								dataType : "json",
 								type : "GET",
 								data : {lowerRatingCode : 1, upperRatingCode : 3},
 								success : function (data) {
 									if (data.list != null) {
 										list1 = data.list;
-										$.ajax(contextPath + "/data/manage/rating/" + csatSequence + "/" + examSequence + ".json", {
+										$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
 											dataType : "json",
 											type : "GET",
 											data : {lowerRatingCode : 4, upperRatingCode : 6},
 											success : function (data) {
 												if (data.list != null) {
 													list2 = data.list;
-													$.ajax(contextPath + "/data/manage/rating/" + csatSequence + "/" + examSequence + ".json", {
+													$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
 														dataType : "json",
 														type : "GET",
 														data : {lowerRatingCode : 7, upperRatingCode : 9},
@@ -243,7 +243,7 @@
 		}
 		
 		$('#manage-rating-create').on("click", function () {
-			$.ajax(contextPath + "/data/manage/rating/" + csatSequence + ".json", {
+			$.ajax(contextPath + "/data/rating/" + csatSequence + ".json", {
 				dataType : "json",
 				type : "GET",
 				success : function (data) {

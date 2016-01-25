@@ -1,4 +1,4 @@
-package org.redborn.csatlatte.controller.data.manage;
+package org.redborn.csatlatte.controller.data;
 
 import org.redborn.csatlatte.service.ExamService;
 import org.redborn.csatlatte.service.RatingCutService;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/data/manage/rating")
+@RequestMapping("/data/rating")
 public class Rating {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
