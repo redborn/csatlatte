@@ -13,7 +13,7 @@
 <script>
 	$(document).ready(function () {
 		
-		var csatSequence = 24;
+		var csatSequence = $('#manage-rating-csat-list').val();
 		var examSequence;
 		
 		var makeRatingRow = function (list) {

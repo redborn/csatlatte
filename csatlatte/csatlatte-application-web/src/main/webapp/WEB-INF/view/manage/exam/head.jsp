@@ -22,7 +22,7 @@
 	$(document).ready(function () {
 		
 		var target;
-		var csatSequence = 24;
+		var csatSequence = $('#manage-exam-csat-list').val();
 		var examSequence;
 		var institutionList;
 		var yearStudentList;

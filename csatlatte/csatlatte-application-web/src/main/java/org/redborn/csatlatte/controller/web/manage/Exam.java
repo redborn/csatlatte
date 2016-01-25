@@ -1,6 +1,11 @@
 package org.redborn.csatlatte.controller.web.manage;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import org.redborn.csatlatte.commons.tiles.TilesName;
+import org.redborn.csatlatte.domain.CsatVo;
 import org.redborn.csatlatte.service.ExamService;
 import org.redborn.csatlatte.service.StudentService;
 import org.slf4j.Logger;
@@ -33,7 +38,22 @@ public class Exam {
 	public String get(Model model) {
 		logger.info("manage exam view");
 		
-		model.addAttribute("csatList", examService.csatList());
+		List<CsatVo> csatList = examService.csatList();
+		int csatListSize = csatList.size();
+		int year = 0;
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy");
+		Date date = new Date();
+		String presentYear = format.format(date);
+		
+		for (int index = 0; index < csatListSize; index++) {
+			if (csatList.get(index).getExamYmd().substring(0, 4).equals(presentYear)) {
+				year = csatList.get(index).getCsatSequence();
+			}
+		}
+		
+		model.addAttribute("csatList", csatList);
+		model.addAttribute("year", year);
 		
 		return TilesName.MANAGE_EXAM;
 	}
