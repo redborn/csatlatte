@@ -19,14 +19,6 @@ public class ExamDaoMapper extends SqlSessionDaoSupport implements ExamDao {
 		return getSqlSession().selectOne("exam.selectOneCount", params);
 	}
 	
-	public int selectOneCountForDelete(int csatSequence, int examSequence) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("csatSequence", csatSequence);
-		params.put("examSequence", examSequence);
-		
-		return getSqlSession().selectOne("exam.selectOneCountForDelete", params);
-	}
-	
 	public List<ExamVo> selectListExam(int csatSequence) {
 		return getSqlSession().selectList("exam.selectListExam", csatSequence);
 	}

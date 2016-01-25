@@ -7,7 +7,6 @@ import org.redborn.csatlatte.domain.ExamVo;
 public interface ExamDao {
 	
 	public int selectOneCount(int csatSequence, String search);
-	public int selectOneCountForDelete(int csatSequence, int examSequence);
 	public List<ExamVo> selectListExam(int csatSequence);
 	public List<ExamVo> selectListExamForManage(int csatSequence);
 	public int insert(ExamVo examVo);

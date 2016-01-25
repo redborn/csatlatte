@@ -32,8 +32,8 @@ public class Rating {
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.GET)
 	public void detail(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@PathVariable(value="examSequence") int examSequence, 
-			@RequestParam(value="upperRatingCode",required=true) int upperRatingCode,
-			@RequestParam(value="lowerRatingCode",required=true) int lowerRatingCode) {
+			@RequestParam(value="upperRatingCode",required=false,defaultValue="9") int upperRatingCode,
+			@RequestParam(value="lowerRatingCode",required=false,defaultValue="1") int lowerRatingCode) {
 		logger.info("data manage rating detail view");
 		
 		model.addAttribute("list", ratingCutService.list(csatSequence, examSequence, upperRatingCode, lowerRatingCode));
@@ -43,11 +43,11 @@ public class Rating {
 	public void delete(@PathVariable(value="csatSequence") int csatSequence, 
 			@PathVariable(value="examSequence") int examSequence) {
 		logger.info("data manage rating delete");
-		examService.deleteStudentScore(csatSequence, examSequence);
-		examService.deleteRatingCut(csatSequence, examSequence);
-		examService.deleteAverage(csatSequence, examSequence);
-		examService.deleteSubject(csatSequence, examSequence);
-		examService.deleteSection(csatSequence, examSequence);
+		ratingCutService.deleteStudentScore(csatSequence, examSequence);
+		ratingCutService.deleteRatingCut(csatSequence, examSequence);
+		ratingCutService.deleteAverage(csatSequence, examSequence);
+		ratingCutService.deleteSubject(csatSequence, examSequence);
+		ratingCutService.deleteSection(csatSequence, examSequence);
 	}
 	
 }

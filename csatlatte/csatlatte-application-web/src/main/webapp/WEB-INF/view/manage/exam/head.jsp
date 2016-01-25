@@ -26,6 +26,7 @@
 		var examSequence;
 		var institutionList;
 		var yearStudentList;
+		var check;
 		
 		var makeExamRow = function (exam) {
 			html = '';
@@ -156,25 +157,44 @@
 				});
 				$('.manage-exam-delete').on("click", function () {
 					examSequence = $(this).attr("id");
-					$.ajax(contextPath + "/data/rating.json", {
+					$.ajax(contextPath + "/data/exam/average/" + csatSequence + "/" + examSequence + ".json", {
 						dataType : "json",
 						type : "GET",
-						data : {csatSequence : csatSequence, examSequence : examSequence},
-						success : function (data) {
-							if (data.checkForDelete != null) {
-								var check = data.checkForDelete;
-								$('.manage-exam-delete-content').remove();
-								$('#manage-exam-delete-view-detail').append(makeExamDeleteMessage(check));
-								$('.manage-exam-delete-accept').on("click", function () {
-									$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
-										dataType : "json",
-										type : "DELETE",
-										data : {_method : "DELETE"},
-										success : function () {
-											$('#manage-exam-row-data-' + examSequence).remove();
-											$('#manage-exam-delete-view').modal("hide");
+						success : function (data1) {
+							if (data1.listAverage != null) {
+								$.ajax(contextPath + "/data/exam/section/" + csatSequence + "/" + examSequence + ".json", {
+									dataType : "json",
+									type : "GET",
+									success : function (data2) {
+										if (data2.listSection != null) {
+											$.ajax(contextPath + "/data/exam/subject/" + csatSequence + "/" + examSequence + ".json", {
+												dataType : "json",
+												type : "GET",
+												success : function (data3) {
+													if (data3.listSubject != null) {
+														if (data1.listAverage.length != 0 || data2.listSection != 0 || data3.listSubject != 0) {
+															check = true;
+														} else {
+															check = false;
+														}
+														$('.manage-exam-delete-content').remove();
+														$('#manage-exam-delete-view-detail').append(makeExamDeleteMessage(check));
+														$('.manage-exam-delete-accept').on("click", function () {
+															$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
+																dataType : "json",
+																type : "DELETE",
+																data : {_method : "DELETE"},
+																success : function () {
+																	$('#manage-exam-row-data-' + examSequence).remove();
+																	$('#manage-exam-delete-view').modal("hide");
+																}
+															});
+														});
+													} 
+												}
+											});
 										}
-									});
+									}
 								});
 							}
 						}
@@ -257,25 +277,44 @@
 					});
 					$('.manage-exam-delete').on("click", function () {
 						examSequence = $(this).attr("id");
-						$.ajax(contextPath + "/data/rating.json", {
+						$.ajax(contextPath + "/data/exam/average/" + csatSequence + "/" + examSequence + ".json", {
 							dataType : "json",
 							type : "GET",
-							data : {csatSequence : csatSequence, examSequence : examSequence},
-							success : function (data) {
-								if (data.checkForDelete != null) {
-									var check = data.checkForDelete;
-									$('.manage-exam-delete-content').remove();
-									$('#manage-exam-delete-view-detail').append(makeExamDeleteMessage(check));
-									$('.manage-exam-delete-accept').on("click", function () {
-										$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
-											dataType : "json",
-											type : "DELETE",
-											data : {_method : "DELETE"},
-											success : function () {
-												$('#manage-exam-row-data-' + examSequence).remove();
-												$('#manage-exam-delete-view').modal("hide");
+							success : function (data1) {
+								if (data1.listAverage != null) {
+									$.ajax(contextPath + "/data/exam/section/" + csatSequence + "/" + examSequence + ".json", {
+										dataType : "json",
+										type : "GET",
+										success : function (data2) {
+											if (data2.listSection != null) {
+												$.ajax(contextPath + "/data/exam/subject/" + csatSequence + "/" + examSequence + ".json", {
+													dataType : "json",
+													type : "GET",
+													success : function (data3) {
+														if (data3.listSubject != null) {
+															if (data1.listAverage.length != 0 || data2.listSection != 0 || data3.listSubject != 0) {
+																check = true;
+															} else {
+																check = false;
+															}
+															$('.manage-exam-delete-content').remove();
+															$('#manage-exam-delete-view-detail').append(makeExamDeleteMessage(check));
+															$('.manage-exam-delete-accept').on("click", function () {
+																$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
+																	dataType : "json",
+																	type : "DELETE",
+																	data : {_method : "DELETE"},
+																	success : function () {
+																		$('#manage-exam-row-data-' + examSequence).remove();
+																		$('#manage-exam-delete-view').modal("hide");
+																	}
+																});
+															});
+														} 
+													}
+												});
 											}
-										});
+										}
 									});
 								}
 							}

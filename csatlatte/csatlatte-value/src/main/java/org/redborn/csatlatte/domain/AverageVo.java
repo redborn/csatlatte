@@ -1,13 +1,13 @@
 package org.redborn.csatlatte.domain;
 
-public class SubjectVo {
+public class AverageVo {
 
 	private int csatSequence;
 	private int examSequence;
 	private int sectionSequence;
 	private int subjectSequence;
-	private String subjectName;
-	private int maxScore;
+	private int average;
+	private int standardDeviation;
 	
 	public int getCsatSequence() {
 		return csatSequence;
@@ -40,29 +40,29 @@ public class SubjectVo {
 	public void setSubjectSequence(int subjectSequence) {
 		this.subjectSequence = subjectSequence;
 	}
-
-	public String getSubjectName() {
-		return subjectName;
+	
+	public int getAverage() {
+		return average;
 	}
-
-	public void setSubjectName(String subjectName) {
-		this.subjectName = subjectName;
+	
+	public void setAverage(int average) {
+		this.average = average;
 	}
-
-	public int getMaxScore() {
-		return maxScore;
+	
+	public int getStandardDeviation() {
+		return standardDeviation;
 	}
-
-	public void setMaxScore(int maxScore) {
-		this.maxScore = maxScore;
+	
+	public void setStandardDeviation(int standardDeviation) {
+		this.standardDeviation = standardDeviation;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "SubjectVo [csatSequence=" + csatSequence + ", examSequence="
+		return "AverageVo [csatSequence=" + csatSequence + ", examSequence="
 				+ examSequence + ", sectionSequence=" + sectionSequence
-				+ ", subjectSequence=" + subjectSequence + ", subjectName="
-				+ subjectName + ", maxScore=" + maxScore + "]";
+				+ ", subjectSequence=" + subjectSequence + ", average="
+				+ average + ", standardDeviation=" + standardDeviation + "]";
 	}
 	
 }

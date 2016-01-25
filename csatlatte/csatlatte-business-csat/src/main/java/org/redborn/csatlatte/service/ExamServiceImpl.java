@@ -2,13 +2,21 @@ package org.redborn.csatlatte.service;
 
 import java.util.List;
 
+import org.redborn.csatlatte.domain.AverageVo;
 import org.redborn.csatlatte.domain.CsatVo;
 import org.redborn.csatlatte.domain.ExamVo;
+import org.redborn.csatlatte.domain.GradeVo;
 import org.redborn.csatlatte.domain.InstitutionVo;
+import org.redborn.csatlatte.domain.SectionVo;
+import org.redborn.csatlatte.domain.SubjectVo;
 import org.redborn.csatlatte.persistence.CsatDao;
 import org.redborn.csatlatte.persistence.ExamDao;
 import org.redborn.csatlatte.persistence.InstitutionDao;
-import org.redborn.csatlatte.persistence.RatingDao;
+import org.redborn.csatlatte.persistence.exam.AverageDao;
+import org.redborn.csatlatte.persistence.exam.RatingCutDao;
+import org.redborn.csatlatte.persistence.exam.SectionDao;
+import org.redborn.csatlatte.persistence.exam.SubjectDao;
+import org.redborn.csatlatte.persistence.exam.student.ScoreDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +30,15 @@ public class ExamServiceImpl implements ExamService {
 	@Autowired
 	private InstitutionDao institutionDao;
 	@Autowired
-	private RatingDao ratingDao;
-	
-	public boolean checkForDelete(int csatSequence, int examSequence) {
-		return examDao.selectOneCountForDelete(csatSequence, examSequence) == 1;
-	}
+	private RatingCutDao ratingCutDao;
+	@Autowired
+	private AverageDao averageDao;
+	@Autowired
+	private SectionDao sectionDao;
+	@Autowired
+	private SubjectDao subjectDao;
+	@Autowired
+	private ScoreDao scoreDao;
 	
 	public List<CsatVo> csatList() {
 		return csatDao.selectListYear();
@@ -38,6 +50,18 @@ public class ExamServiceImpl implements ExamService {
 	
 	public List<ExamVo> listForManage(int csatSequence) {
 		return examDao.selectListExamForManage(csatSequence);
+	}
+	
+	public List<AverageVo> listAverage(int csatSequence, int examSequence) {
+		return averageDao.selectList(csatSequence, examSequence);
+	}
+	
+	public List<SectionVo> listSection(int csatSequence, int examSequence) {
+		return sectionDao.selectList(csatSequence, examSequence);
+	}
+	
+	public List<SubjectVo> listSubject(int csatSequence, int examSequence) {
+		return subjectDao.selectList(csatSequence, examSequence);
 	}
 
 	public int register(ExamVo examVo) {
@@ -65,35 +89,15 @@ public class ExamServiceImpl implements ExamService {
 	}
 	
 	public List<ExamVo> listForRatingManage(int csatSequence) {
-		return ratingDao.selectList(csatSequence);
+		return ratingCutDao.selectList(csatSequence);
 	}
 	
 	public List<ExamVo> listForRatingCreate(int csatSequence) {
-		return ratingDao.selectListForCreate(csatSequence);
+		return ratingCutDao.selectListForCreate(csatSequence);
 	}
 	
-	public int ratingStudentCount(int csatSequence, int examSequence) {
-		return ratingDao.selectOne(csatSequence, examSequence);
-	}
-	
-	public boolean deleteAverage(int csatSequence, int examSequence) {
-		return ratingDao.deleteAverage(csatSequence, examSequence) > 0;
-	}
-	
-	public boolean deleteSection(int csatSequence, int examSequence) {
-		return ratingDao.deleteSection(csatSequence, examSequence) > 0;
-	}
-	
-	public boolean deleteSubject(int csatSequence, int examSequence) {
-		return ratingDao.deleteSubject(csatSequence, examSequence) > 0;
-	}
-	
-	public boolean deleteRatingCut(int csatSequence, int examSequence) {
-		return ratingDao.deleteRatingCut(csatSequence, examSequence) > 0;
-	}
-	
-	public boolean deleteStudentScore(int csatSequence, int examSequence) {
-		return ratingDao.deleteStudentScore(csatSequence, examSequence) > 0;
+	public List<GradeVo> listExamStudent(int csatSequence, int examSequence) {
+		return scoreDao.selectListExamStudent(csatSequence, examSequence);
 	}
 
 }

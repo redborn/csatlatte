@@ -54,24 +54,26 @@
 					});
 					$('.manage-rating-delete').on("click", function () {
 						examSequence = $(this).attr("id");
-						$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
+						$.ajax(contextPath + "/data/exam/studentscore/" + csatSequence + "/" + examSequence + ".json", {
 							dataType : "json",
 							type : "GET",
 							success : function (data) {
-								var count = data.count;
-								$('.manage-rating-delete-view').remove();
-								$('#manage-rating-delete-view-detail').append(makeDeleteMessage(count));
-								$('.manage-rating-delete-accept').on("click", function() {
-									$.ajax(contextPath + "/data/manage/rating/" + csatSequence + "/" + examSequence + ".json", {
-										dataType : "json",
-										type : "DELETE",
-										data : {_method : "DELETE"},
-										success : function () {
-											$('#manage-rating-row-data-' + examSequence).remove();
-											$('#manage-rating-delete-view').modal("hide");
-										}
+								if (data.listExamStudent != null) {
+									var count = data.listExamStudent.length;
+									$('.manage-rating-delete-view').remove();
+									$('#manage-rating-delete-view-detail').append(makeDeleteMessage(count));
+									$('.manage-rating-delete-accept').on("click", function() {
+										$.ajax(contextPath + "/data/manage/rating/" + csatSequence + "/" + examSequence + ".json", {
+											dataType : "json",
+											type : "DELETE",
+											data : {_method : "DELETE"},
+											success : function () {
+												$('#manage-rating-row-data-' + examSequence).remove();
+												$('#manage-rating-delete-view').modal("hide");
+											}
+										});
 									});
-								});
+								}
 							}
 						});
 					});
@@ -144,24 +146,26 @@
 						});
 						$('.manage-rating-delete').on("click", function () {
 							examSequence = $(this).attr("id");
-							$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
+							$.ajax(contextPath + "/data/exam/studentscore/" + csatSequence + "/" + examSequence + ".json", {
 								dataType : "json",
 								type : "GET",
 								success : function (data) {
-									var count = data.count;
-									$('.manage-rating-delete-view').remove();
-									$('#manage-rating-delete-view-detail').append(makeDeleteMessage(count));
-									$('.manage-rating-delete-accept').on("click", function() {
-										$.ajax(contextPath + "/data/manage/rating/" + csatSequence + "/" + examSequence + ".json", {
-											dataType : "json",
-											type : "DELETE",
-											data : {_method : "DELETE"},
-											success : function () {
-												$('#manage-rating-row-data-' + examSequence).remove();
-												$('#manage-rating-delete-view').modal("hide");
-											}
+									if (data.listExamStudent != null) {
+										var count = data.listExamStudent.length;
+										$('.manage-rating-delete-view').remove();
+										$('#manage-rating-delete-view-detail').append(makeDeleteMessage(count));
+										$('.manage-rating-delete-accept').on("click", function() {
+											$.ajax(contextPath + "/data/manage/rating/" + csatSequence + "/" + examSequence + ".json", {
+												dataType : "json",
+												type : "DELETE",
+												data : {_method : "DELETE"},
+												success : function () {
+													$('#manage-rating-row-data-' + examSequence).remove();
+													$('#manage-rating-delete-view').modal("hide");
+												}
+											});
 										});
-									});
+									}
 								}
 							});
 						});

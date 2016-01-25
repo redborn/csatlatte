@@ -12,6 +12,12 @@
 		<result column="score" property="score"/>
 	</resultMap>
 	
+	<resultMap type="GradeVo" id="GradeVoExamStudentMap">
+		<result column="student_seq" property="studentSequence"/>
+		<result column="csat_seq" property="csatSequence"/>
+		<result column="exam_seq" property="examSequence"/>
+	</resultMap>
+	
 	<resultMap type="GradeRatingVo" id="GradeRatingVoMap">
 		<result column="section_seq" property="sectionSequence"/>
 		<result column="subject_seq" property="subjectSequence"/>
@@ -30,6 +36,14 @@
 		 WHERE csat_seq = #{csatSequence}
 		   AND exam_seq = #{examSequence}
 		   AND student_seq = #{studentSequence} 	
+	</select>
+	
+	<select id="selectListExamStudent" parameterType="Map" resultMap="GradeVoExamStudentMap">
+		SELECT student_seq, csat_seq, exam_seq
+		  FROM csat_exam_student_score
+	 	 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		 GROUP BY student_seq
 	</select>
 	
 	<select id="selectListRating" parameterType="GradeVo" resultMap="GradeRatingVoMap">
