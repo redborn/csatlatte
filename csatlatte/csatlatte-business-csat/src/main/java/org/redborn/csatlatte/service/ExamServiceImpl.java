@@ -52,15 +52,15 @@ public class ExamServiceImpl implements ExamService {
 		return examDao.selectListExamForManage(csatSequence);
 	}
 	
-	public List<AverageVo> listAverage(int csatSequence, int examSequence) {
+	public List<AverageVo> averageList(int csatSequence, int examSequence) {
 		return averageDao.selectList(csatSequence, examSequence);
 	}
 	
-	public List<SectionVo> listSection(int csatSequence, int examSequence) {
+	public List<SectionVo> sectionList(int csatSequence, int examSequence) {
 		return sectionDao.selectList(csatSequence, examSequence);
 	}
 	
-	public List<SubjectVo> listSubject(int csatSequence, int examSequence) {
+	public List<SubjectVo> subjectList(int csatSequence, int examSequence) {
 		return subjectDao.selectList(csatSequence, examSequence);
 	}
 
@@ -96,7 +96,7 @@ public class ExamServiceImpl implements ExamService {
 		return ratingCutDao.selectListForCreate(csatSequence);
 	}
 	
-	public List<GradeVo> listExamStudent(int csatSequence, int examSequence) {
+	public List<GradeVo> examStudentList(int csatSequence, int examSequence) {
 		return scoreDao.selectListExamStudent(csatSequence, examSequence);
 	}
 

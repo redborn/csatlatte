@@ -22,6 +22,6 @@ public class Section {
 	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@PathVariable(value="examSequence") int examSequence) {
 		logger.info("data exam section get view");
-		model.addAttribute("listSection", examService.listSection(csatSequence, examSequence));
+		model.addAttribute("sectionList", examService.sectionList(csatSequence, examSequence));
 	}
 }

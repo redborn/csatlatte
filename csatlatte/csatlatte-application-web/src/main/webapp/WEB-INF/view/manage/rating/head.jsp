@@ -58,8 +58,8 @@
 							dataType : "json",
 							type : "GET",
 							success : function (data) {
-								if (data.listExamStudent != null) {
-									var count = data.listExamStudent.length;
+								if (data.examStudentList != null) {
+									var count = data.examStudentList.length;
 									$('.manage-rating-delete-view').remove();
 									$('#manage-rating-delete-view-detail').append(makeDeleteMessage(count));
 									$('.manage-rating-delete-accept').on("click", function() {
@@ -133,8 +133,8 @@
 								dataType : "json",
 								type : "GET",
 								success : function (data) {
-									if (data.listExamStudent != null) {
-										var count = data.listExamStudent.length;
+									if (data.examStudentList != null) {
+										var count = data.examStudentList.length;
 										$('.manage-rating-delete-view').remove();
 										$('#manage-rating-delete-view-detail').append(makeDeleteMessage(count));
 										$('.manage-rating-delete-accept').on("click", function() {

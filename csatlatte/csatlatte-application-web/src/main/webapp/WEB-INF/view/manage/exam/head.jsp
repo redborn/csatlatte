@@ -161,18 +161,18 @@
 						dataType : "json",
 						type : "GET",
 						success : function (data1) {
-							if (data1.listAverage != null) {
+							if (data1.averageList != null) {
 								$.ajax(contextPath + "/data/exam/section/" + csatSequence + "/" + examSequence + ".json", {
 									dataType : "json",
 									type : "GET",
 									success : function (data2) {
-										if (data2.listSection != null) {
+										if (data2.sectionList != null) {
 											$.ajax(contextPath + "/data/exam/subject/" + csatSequence + "/" + examSequence + ".json", {
 												dataType : "json",
 												type : "GET",
 												success : function (data3) {
-													if (data3.listSubject != null) {
-														if (data1.listAverage.length != 0 || data2.listSection != 0 || data3.listSubject != 0) {
+													if (data3.subjectList != null) {
+														if (data1.averageList.length != 0 || data2.sectionList != 0 || data3.subjectList != 0) {
 															check = true;
 														} else {
 															check = false;
@@ -281,18 +281,18 @@
 							dataType : "json",
 							type : "GET",
 							success : function (data1) {
-								if (data1.listAverage != null) {
+								if (data1.averageList != null) {
 									$.ajax(contextPath + "/data/exam/section/" + csatSequence + "/" + examSequence + ".json", {
 										dataType : "json",
 										type : "GET",
 										success : function (data2) {
-											if (data2.listSection != null) {
+											if (data2.sectionList != null) {
 												$.ajax(contextPath + "/data/exam/subject/" + csatSequence + "/" + examSequence + ".json", {
 													dataType : "json",
 													type : "GET",
 													success : function (data3) {
-														if (data3.listSubject != null) {
-															if (data1.listAverage.length != 0 || data2.listSection != 0 || data3.listSubject != 0) {
+														if (data3.subjectList != null) {
+															if (data1.averageList.length != 0 || data2.sectionList != 0 || data3.subjectList != 0) {
 																check = true;
 															} else {
 																check = false;

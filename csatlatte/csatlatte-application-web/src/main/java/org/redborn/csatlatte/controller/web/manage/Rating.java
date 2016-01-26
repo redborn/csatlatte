@@ -1,7 +1,6 @@
 package org.redborn.csatlatte.controller.web.manage;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import org.redborn.csatlatte.commons.tiles.TilesName;
@@ -31,12 +30,12 @@ public class Rating {
 		int csatListSize = csatList.size();
 		int year = 0;
 		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy");
-		Date date = new Date();
-		String presentYear = format.format(date);
+		Calendar calendar = Calendar.getInstance();
+		int presentYear = calendar.get(Calendar.YEAR);
+		String presentYearString = Integer.toString(presentYear);
 		
 		for (int index = 0; index < csatListSize; index++) {
-			if (csatList.get(index).getExamYmd().substring(0, 4).equals(presentYear)) {
+			if (csatList.get(index).getExamYmd().substring(0, 4).equals(presentYearString)) {
 				year = csatList.get(index).getCsatSequence();
 			}
 		}

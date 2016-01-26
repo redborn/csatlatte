@@ -15,9 +15,9 @@ public interface ExamService {
 	public List<CsatVo> csatList();
 	public List<ExamVo> list(int csatSequence);
 	public List<ExamVo> listForManage(int csatSequence);
-	public List<AverageVo> listAverage(int csatSequence, int examSequence);
-	public List<SectionVo> listSection(int csatSequence, int examSequence);
-	public List<SubjectVo> listSubject(int csatSequence, int examSequence);
+	public List<AverageVo> averageList(int csatSequence, int examSequence);
+	public List<SectionVo> sectionList(int csatSequence, int examSequence);
+	public List<SubjectVo> subjectList(int csatSequence, int examSequence);
 	public int register(ExamVo examVo);
 	public int modify(ExamVo examVo);
 	public int delete(int csatSequence, int examSequence);
@@ -26,6 +26,6 @@ public interface ExamService {
 	public List<ExamVo> detail(int csatSequence, int examSequence);
 	public List<ExamVo> listForRatingManage(int csatSequence);
 	public List<ExamVo> listForRatingCreate(int csatSequence);
-	public List<GradeVo> listExamStudent(int csatSequence, int examSequence);
+	public List<GradeVo> examStudentList(int csatSequence, int examSequence);
 	
 }

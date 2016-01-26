@@ -22,7 +22,7 @@ public class StudentScore {
 	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@PathVariable(value="examSequence") int examSequence) {
 		logger.info("data exam studentscore get view");
-		model.addAttribute("listExamStudent", examService.listExamStudent(csatSequence, examSequence));
+		model.addAttribute("examStudentList", examService.examStudentList(csatSequence, examSequence));
 	}
 	
 }

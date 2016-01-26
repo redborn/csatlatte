@@ -22,6 +22,6 @@ public class Average {
 	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@PathVariable(value="examSequence") int examSequence) {
 		logger.info("data exam average get view");
-		model.addAttribute("listAverage", examService.listAverage(csatSequence, examSequence));
+		model.addAttribute("averageList", examService.averageList(csatSequence, examSequence));
 	}
 }

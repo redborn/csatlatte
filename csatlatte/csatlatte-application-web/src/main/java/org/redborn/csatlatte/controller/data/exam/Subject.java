@@ -22,7 +22,7 @@ public class Subject {
 	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@PathVariable(value="examSequence") int examSequence) {
 		logger.info("data exam subject get view");
-		model.addAttribute("listSubject", examService.listSubject(csatSequence, examSequence));
+		model.addAttribute("subjectList", examService.subjectList(csatSequence, examSequence));
 	}
 	
 }
