@@ -41,13 +41,14 @@ public class Exam {
 		int presentCsatSequence = 0;
 		
 		Calendar calendar = Calendar.getInstance();
-		String presentYear = Integer.toString(calendar.get(Calendar.YEAR)); 
+		int presentYear = calendar.get(Calendar.YEAR); 
 		
 		if (csatList != null) {
 			int csatListSize = csatList.size();
 			for (int index = 0; index < csatListSize; index++) {
-				if (csatList.get(index).getExamYmd() != null && csatList.get(index).getExamYmd().length() >= 4) {
-					if (csatList.get(index).getExamYmd().substring(0, 4).equals(presentYear)) {
+				String examYmd = csatList.get(index).getExamYmd();
+				if (examYmd != null && examYmd.length() >= 4) {
+					if (Integer.parseInt(examYmd.substring(0, 4)) == presentYear) {
 						presentCsatSequence = csatList.get(index).getCsatSequence();
 					}
 				}
