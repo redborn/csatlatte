@@ -106,6 +106,7 @@
 		$('#manage-rating-csat-list').on("change", function () {
 			csatSequence = $('#manage-rating-csat-list').val();
 			$('.manage-rating-row-data').remove();
+			$('.manage-rating-cut-info').remove();
 			$.ajax(contextPath + "/data/rating/" + csatSequence + ".json", {
 				dataType : "json",
 				type : "GET",
@@ -170,8 +171,9 @@
 											success : function (data) {
 												if (data.averageList != null) {
 													var averageList = data.averageList;
-													$('.manage-rating-detail-view').remove();
-													$('#manage-rating-detail-view-detail').append(makeRatingCutView(list, averageList));
+													$('.manage-rating-cut-info').remove();
+													$('#manage-rating-detail-view-detail').append(makeRatingCutView(averageList));
+													$('.manage-rating-detail-carousel-inner').append(makeRatingCut(list));
 												}
 											}
 										});
@@ -276,59 +278,10 @@
 			return html;
 		}
 		
-		var makeRatingCutErrorView = function () {
-			var html = '';
-			html += '<div class="modal-content manage-rating-detail-view">';
-			html += '	<div class="modal-header">';
-			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-			html += '		<h4 class="modal-title">등급컷 조회</h4>';
-			html += '	</div>';
-			html += '	<div class="modal-body">';
-			html += '		<p>등급컷 데이터가 존재하지 않습니다.</p>';
-			html += '	</div>';
-			html += '	<div class="modal-footer">';
-			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
-			html += '	</div>';
-			html += '</div>';
-			return html;
-		}
-		
-		var makeRatingCutView = function (list, averageList) {
+		var makeRatingCut = function (list) {
 			var html = '';
 			var index1, index2;
 			var listLength = list.length;
-			var averageListLength = averageList.length;
-			html += '<div id="carousel-example-generic" class="carousel slide manage-rating-carousel" data-ride="carousel" data-interval="false">';
-			html += '	<ol class="carousel-indicators">';
-			html += '		<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>';
-			html += '		<li data-target="#carousel-example-generic" data-slide-to="1"></li>';
-			html += '		<li data-target="#carousel-example-generic" data-slide-to="2"></li>';
-			html += '		<li data-target="#carousel-example-generic" data-slide-to="3"></li>';
-			html += '	</ol>';
-			html += '	<div class="carousel-inner" role="listbox">';		
-			html += '		<div class="item active">';
-			
-			html += '			<div class="carousel-caption manage-rating-carousel-caption">';
-			html += '				<table class="table table-bordered table-hover manage-rating-detail-table">';
-			html += '					<thead>';
-			html += '						<tr>';
-			html += '							<th>과목</th>';
-			html += '							<th>평균</th>';
-			html += '							<th>표준편차</th>';
-			html += '						</tr>';
-			html += '					</thead>';
-			html += '					<tbody>';
-			for (var index = 0; index < averageListLength; index++) {
-				html += '<tr>';
-				html += '	<td>' + averageList[index].subjectName + '</td>';
-				html += '	<td>' + averageList[index].average + '</td>';
-				html += '	<td>' + averageList[index].standardDeviation + '</td>';
-				html += '</tr>';
-			}
-			html += '					</tbody>';
-			html += '				</table>';
-			html += '			</div>';
-			html += '		</div>';
 			for (var tableIndex = 0; tableIndex < 3; tableIndex++) {
 				index1 = tableIndex * 3;
 				index2 = tableIndex * 3;
@@ -370,6 +323,42 @@
 				html += '			</div>';
 				html += '		</div>';
 			}
+			return html;
+		}
+		
+		var makeRatingCutView = function (averageList) {
+			var html = '';
+			var averageListLength = averageList.length;
+			html += '<div id="carousel-example-generic" class="carousel slide manage-rating-carousel manage-rating-cut-info" data-ride="carousel" data-interval="false">';
+			html += '	<ol class="carousel-indicators">';
+			html += '		<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>';
+			html += '		<li data-target="#carousel-example-generic" data-slide-to="1"></li>';
+			html += '		<li data-target="#carousel-example-generic" data-slide-to="2"></li>';
+			html += '		<li data-target="#carousel-example-generic" data-slide-to="3"></li>';
+			html += '	</ol>';
+			html += '	<div class="carousel-inner manage-rating-detail-carousel-inner" role="listbox">';		
+			html += '		<div class="item active">';
+			html += '			<div class="carousel-caption manage-rating-carousel-caption">';
+			html += '				<table class="table table-bordered table-hover manage-rating-detail-table">';
+			html += '					<thead>';
+			html += '						<tr>';
+			html += '							<th>과목</th>';
+			html += '							<th>평균</th>';
+			html += '							<th>표준편차</th>';
+			html += '						</tr>';
+			html += '					</thead>';
+			html += '					<tbody>';
+			for (var index = 0; index < averageListLength; index++) {
+				html += '<tr>';
+				html += '	<td>' + averageList[index].subjectName + '</td>';
+				html += '	<td>' + averageList[index].average + '</td>';
+				html += '	<td>' + averageList[index].standardDeviation + '</td>';
+				html += '</tr>';
+			}
+			html += '					</tbody>';
+			html += '				</table>';
+			html += '			</div>';
+			html += '		</div>';
 			html += '	</div>';
 			html += '	<a class="manage-rating-carousel-left-button carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">';
 			html += '		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>';
