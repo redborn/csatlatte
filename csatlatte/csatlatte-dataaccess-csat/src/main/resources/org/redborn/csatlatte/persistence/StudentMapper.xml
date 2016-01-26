@@ -26,7 +26,7 @@
 		<result column="photo_code" property="photoCode"/>
 		<result column="photo_name" property="photoName"/>
 		<result column="nickname" property="nickname" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
-		<result column="csat_name" property="csatName"/>
+		<result column="csat_seq" property="csatSequence"/>
 		<result column="rule_seq" property="ruleSequence"/>
 	</resultMap>
 	
@@ -46,18 +46,14 @@
 	</resultMap>
 
 	<select id="selectOne" parameterType="Map" resultMap="StudentInformationVoMap">
-		SELECT cs.student_seq,cs.student_id AS student_id,csc.content AS content,
-		       cs.photo_code AS photo_code,cs.photo_name AS photo_name,
-		       cs.nickname AS nickname,c.csat_name AS csat_name,IF (
-		       IFNULL(cm.student_seq, 0) = 0, 1, 2) AS
-		       rule_seq
+		SELECT cs.student_seq,cs.student_id,csc.content,cs.photo_code,cs.photo_name,
+		       cs.nickname,cs.csat_seq,IF (IFNULL(cm.student_seq, 0) = 0, 1, 2) AS
+		                               rule_seq
 		  FROM csat_student cs
 		       INNER JOIN csat_student_scqs css
 		               ON cs.student_seq = css.student_seq
 		       INNER JOIN csat_scqs csc
 		               ON css.scqs_seq = csc.scqs_seq
-		       INNER JOIN csat c
-		               ON cs.csat_seq = c.csat_seq
 		       LEFT OUTER JOIN csat_manager cm
 		                    ON cs.student_seq = cm.student_seq
 		 WHERE student_id = #{id,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}

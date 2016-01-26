@@ -16,7 +16,6 @@ public class StudentVo {
 	private int countConnection;
 	private int averageScore;
 	private String securityQuestionContent;
-	private String csatName;
 	private int countCommunity;
 	private int countComment;
 	private String lastConnection;
@@ -118,14 +117,6 @@ public class StudentVo {
 		this.securityQuestionContent = securityQuestionContent;
 	}
 
-	public String getCsatName() {
-		return csatName;
-	}
-
-	public void setCsatName(String csatName) {
-		this.csatName = csatName;
-	}
-
 	public int getCountCommunity() {
 		return countCommunity;
 	}
@@ -160,43 +151,17 @@ public class StudentVo {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("StudentVo [studentSequence=");
-		builder.append(studentSequence);
-		builder.append(", studentId=");
-		builder.append(studentId);
-		builder.append(", studentPassword=");
-		builder.append(studentPassword);
-		builder.append(", nickname=");
-		builder.append(nickname);
-		builder.append(", photoCode=");
-		builder.append(photoCode);
-		builder.append(", photoName=");
-		builder.append(photoName);
-		builder.append(", csatSequence=");
-		builder.append(csatSequence);
-		builder.append(", useYn=");
-		builder.append(useYn);
-		builder.append(", createDate=");
-		builder.append(createDate);
-		builder.append(", countConnection=");
-		builder.append(countConnection);
-		builder.append(", averageScore=");
-		builder.append(averageScore);
-		builder.append(", securityQuestionContent=");
-		builder.append(securityQuestionContent);
-		builder.append(", csatName=");
-		builder.append(csatName);
-		builder.append(", countCommunity=");
-		builder.append(countCommunity);
-		builder.append(", countComment=");
-		builder.append(countComment);
-		builder.append(", lastConnection=");
-		builder.append(lastConnection);
-		builder.append(", ruleSequence=");
-		builder.append(ruleSequence);
-		builder.append("]");
-		return builder.toString();
+		return "StudentVo [studentSequence=" + studentSequence + ", studentId="
+				+ studentId + ", studentPassword=" + studentPassword
+				+ ", nickname=" + nickname + ", photoCode=" + photoCode
+				+ ", photoName=" + photoName + ", csatSequence=" + csatSequence
+				+ ", useYn=" + useYn + ", createDate=" + createDate
+				+ ", countConnection=" + countConnection + ", averageScore="
+				+ averageScore + ", securityQuestionContent="
+				+ securityQuestionContent + ", countCommunity="
+				+ countCommunity + ", countComment=" + countComment
+				+ ", lastConnection=" + lastConnection + ", ruleSequence="
+				+ ruleSequence + "]";
 	}
 
 }
