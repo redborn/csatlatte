@@ -8,7 +8,10 @@
 	#manage-rating-table {margin-top:15px; text-align:center;}
 	.manage-rating-label {text-align:right;}
 	.manage-rating-delete-alert {color:#d9534f;}
-	#manage-rating-detail-view-detail {width:850px;}
+	.manage-rating-detail-table thead tr th {text-align:center; vertical-align:middle;}
+	.manage-rating-carousel-caption {position:static; color:black; text-shadow:none;}
+	.manage-rating-carousel-left-button {left:0; right:auto;}
+	.manage-rating-carousel-right-button {right:0; left:auto;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -153,6 +156,7 @@
 							});
 						});
 						$('.manage-rating-detail').on("click", function () {
+							$('.manage-rating-carousel').remove();
 							examSequence = $(this).attr("id");
 							$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
 								dataType : "json",
@@ -164,14 +168,10 @@
 											dataType : "json",
 											type : "GET",
 											success : function (data) {
-												if (data.listAverage != null) {
-													var listAverage = data.listAverage;
+												if (data.averageList != null) {
+													var averageList = data.averageList;
 													$('.manage-rating-detail-view').remove();
-													if (list.length == 0 || listAverage.length == 0) {
-														$('#manage-rating-detail-view-detail').append(makeRatingCutErrorView);
-													} else {
-														$('#manage-rating-detail-view-detail').append(makeRatingCutView(list, listAverage));
-													}
+													$('#manage-rating-detail-view-detail').append(makeRatingCutView(list, averageList));
 												}
 											}
 										});
@@ -293,173 +293,92 @@
 			return html;
 		}
 		
-		var makeRatingCutView = function (list, listAverage) {
+		var makeRatingCutView = function (list, averageList) {
 			var html = '';
-			var index1 = 0, index2 = 0;
+			var index1, index2;
 			var listLength = list.length;
-			var listAverageLength = listAverage.length;
-			html += '<div class="modal-content manage-rating-detail-view">';
-			html += '	<div class="modal-header">';
-			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-			html += '		<h4 class="modal-title">등급컷 조회</h4>';
-			html += '	</div>';
-			html += '	<div class="modal-body">';
-			html += '		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">';
-			html += '			<ol class="carousel-indicators">';
-			html += '				<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>';
-			html += '				<li data-target="#carousel-example-generic" data-slide-to="1"></li>';
-			html += '				<li data-target="#carousel-example-generic" data-slide-to="2"></li>';
-			html += '			</ol>';
-			html += '			<div class="carousel-inner" role="listbox">';
-			html += '				<div class="item active">';
-			html += '					<img src="' + contextPath + '/resources/csatlatte/images/header/bg_test.png" alt="등급컷 배경사진">';
-			html += '					<div class="carousel-caption">';
-			html += '						<table class="table table-bordered table-hover">';
-			html += '							<thead>';
-			html += '								<tr>';
-			html += '									<th rowspan="2">과목</th>';
-			html += '									<th colspan="2">1등급</th>';
-			html += '									<th colspan="2">2등급</th>';
-			html += '									<th colspan="2">3등급</th>';
-			html += '								</tr>';
-			html += '								<tr>';
-			html += '									<th>원점수</th>';
-			html += '									<th>표준점수</th>';
-			html += '									<th>원점수</th>';
-			html += '									<th>표준점수</th>';
-			html += '									<th>원점수</th>';
-			html += '									<th>표준점수</th>';
-			html += '								</tr>';
-			html += '							</thead>';
-			html += '							<tbody>';
-			while (index1 < listLength) {
+			var averageListLength = averageList.length;
+			html += '<div id="carousel-example-generic" class="carousel slide manage-rating-carousel" data-ride="carousel" data-interval="false">';
+			html += '	<ol class="carousel-indicators">';
+			html += '		<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>';
+			html += '		<li data-target="#carousel-example-generic" data-slide-to="1"></li>';
+			html += '		<li data-target="#carousel-example-generic" data-slide-to="2"></li>';
+			html += '		<li data-target="#carousel-example-generic" data-slide-to="3"></li>';
+			html += '	</ol>';
+			html += '	<div class="carousel-inner" role="listbox">';		
+			html += '		<div class="item active">';
+			
+			html += '			<div class="carousel-caption manage-rating-carousel-caption">';
+			html += '				<table class="table table-bordered table-hover manage-rating-detail-table">';
+			html += '					<thead>';
+			html += '						<tr>';
+			html += '							<th>과목</th>';
+			html += '							<th>평균</th>';
+			html += '							<th>표준편차</th>';
+			html += '						</tr>';
+			html += '					</thead>';
+			html += '					<tbody>';
+			for (var index = 0; index < averageListLength; index++) {
 				html += '<tr>';
-				html += '<td>' + list[index1].subjectName + '</td>';
-				while (index2 < index1 + 3) {
-					html += '<td>' + list[index2].rawScore + '</td>';
-					html += '<td>' + list[index2].standardScore + '</td>';
-					index2++;
-				}
-				html += '</tr>';
-				index1 += 9;
-				index2 += 6;
-			}
-			html += '							</tbody>';
-			html += '						</table>';
-			html += '					</div>';
-			html += '				</div>';
-			html += '				<div class="item">';
-			html += '					<img src="' + contextPath + '/resources/csatlatte/images/header/bg_test.png" alt="등급컷 배경사진">';
-			html += '					<div class="carousel-caption">';
-			html += '						<table class="table table-bordered table-hover">';
-			html += '							<thead>';
-			html += '								<tr>';
-			html += '									<th rowspan="2">과목</th>';
-			html += '									<th colspan="2">4등급</th>';
-			html += '									<th colspan="2">5등급</th>';
-			html += '									<th colspan="2">6등급</th>';
-			html += '								</tr>';
-			html += '								<tr>';
-			html += '									<th>원점수</th>';
-			html += '									<th>표준점수</th>';
-			html += '									<th>원점수</th>';
-			html += '									<th>표준점수</th>';
-			html += '									<th>원점수</th>';
-			html += '									<th>표준점수</th>';
-			html += '								</tr>';
-			html += '							</thead>';
-			html += '							<tbody>';
-			index1 = 3;
-			index2 = 3;
-			while (index1 < listLength) {
-				html += '<tr>';
-				html += '<td>' + list[index1].subjectName + '</td>';
-				while (index2 < index1 + 3) {
-					html += '<td>' + list[index2].rawScore + '</td>';
-					html += '<td>' + list[index2].standardScore + '</td>';
-					index2++;
-				}
-				html += '</tr>';
-				index1 += 9;
-				index2 += 6;
-			}
-			html += '							</tbody>';
-			html += '						</table>';
-			html += '					</div>';
-			html += '				</div>';
-			html += '				<div class="item">';
-			html += '					<img src="' + contextPath + '/resources/csatlatte/images/header/bg_test.png" alt="등급컷 배경사진">';
-			html += '					<div class="carousel-caption">';
-			html += '						<table class="table table-bordered table-hover">';
-			html += '							<thead>';
-			html += '								<tr>';
-			html += '									<th rowspan="2">과목</th>';
-			html += '									<th colspan="2">7등급</th>';
-			html += '									<th colspan="2">8등급</th>';
-			html += '									<th colspan="2">9등급</th>';
-			html += '								</tr>';
-			html += '								<tr>';
-			html += '									<th>원점수</th>';
-			html += '									<th>표준점수</th>';
-			html += '									<th>원점수</th>';
-			html += '									<th>표준점수</th>';
-			html += '									<th>원점수</th>';
-			html += '									<th>표준점수</th>';
-			html += '								</tr>';
-			html += '							</thead>';
-			html += '							<tbody>';
-			index1 = 6;
-			index2 = 6;
-			while (index1 < listLength) {
-				html += '<tr>';
-				html += '<td>' + list[index1].subjectName + '</td>';
-				while (index2 < index1 + 3) {
-					html += '<td>' + list[index2].rawScore + '</td>';
-					html += '<td>' + list[index2].standardScore + '</td>';
-					index2++;
-				}
-				html += '</tr>';
-				index1 += 9;
-				index2 += 6;
-			}
-			html += '							</tbody>';
-			html += '						</table>';
-			html += '					</div>';
-			html += '				</div>';
-			html += '				<div class="item">';
-			html += '					<img src="' + contextPath + '/resources/csatlatte/images/header/bg_test.png" alt="등급컷 배경사진">';
-			html += '					<div class="carousel-caption">';
-			html += '						<table class="table table-bordered table-hover">';
-			html += '							<thead>';
-			html += '								<tr>';
-			html += '									<th>과목</th>';
-			html += '									<th>평균</th>';
-			html += '									<th>표준편차</th>';
-			html += '								</tr>';
-			html += '							</thead>';
-			html += '							<tbody>';
-			for (var index = 0; index < listAverageLength; index++) {
-				html += '<tr>';
-				html += '	<td>' + listAverage[index].subjectName + '</td>';
-				html += '	<td>' + listAverage[index].average + '</td>';
-				html += '	<td>' + listAverage[index].standardDeviation + '</td>';
+				html += '	<td>' + averageList[index].subjectName + '</td>';
+				html += '	<td>' + averageList[index].average + '</td>';
+				html += '	<td>' + averageList[index].standardDeviation + '</td>';
 				html += '</tr>';
 			}
-			html += '							</tbody>';
-			html += '						</table>';
-			html += '					</div>';
-			html += '				</div>';
+			html += '					</tbody>';
+			html += '				</table>';
 			html += '			</div>';
-			html += '			<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">';
-			html += '				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>';
-			html += '				<span class="sr-only">Previous</span>';
-			html += '			</a>';
-			html += '			<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">';
-			html += '				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>';
-			html += '				<span class="sr-only">Next</span>';
-			html += '			</a>';
 			html += '		</div>';
+			for (var tableIndex = 0; tableIndex < 3; tableIndex++) {
+				index1 = tableIndex * 3;
+				index2 = tableIndex * 3;
+				var grade = index1;
+				html += '		<div class="item">';
+				html += '			<div class="carousel-caption manage-rating-carousel-caption">';
+				html += '				<table class="table table-bordered table-hover manage-rating-detail-table">';
+				html += '					<thead>';
+				html += '						<tr>';
+				html += '							<th rowspan="2">과목</th>';
+				html += '							<th colspan="2">' + (grade + 1) + '등급</th>';
+				html += '							<th colspan="2">' + (grade + 2) + '등급</th>';
+				html += '							<th colspan="2">' + (grade + 3) + '등급</th>';
+				html += '						</tr>';
+				html += '						<tr>';
+				html += '							<th>원점수</th>';
+				html += '							<th>표준점수</th>';
+				html += '							<th>원점수</th>';
+				html += '							<th>표준점수</th>';
+				html += '							<th>원점수</th>';
+				html += '							<th>표준점수</th>';
+				html += '						</tr>';
+				html += '					</thead>';
+				html += '					<tbody>';
+				while (index1 < listLength) {
+					html += '<tr>';
+					html += '<td>' + list[index1].subjectName + '</td>';
+					while (index2 < index1 + 3) {
+						html += '<td>' + list[index2].rawScore + '</td>';
+						html += '<td>' + list[index2].standardScore + '</td>';
+						index2++;
+					}
+					html += '</tr>';
+					index1 += 9;
+					index2 += 6;
+				}
+				html += '					</tbody>';
+				html += '				</table>';
+				html += '			</div>';
+				html += '		</div>';
+			}
 			html += '	</div>';
+			html += '	<a class="manage-rating-carousel-left-button carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">';
+			html += '		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>';
+			html += '		<span class="sr-only">Previous</span>';
+			html += '	</a>';
+			html += '	<a class="manage-rating-carousel-right-button carousel-control" href="#carousel-example-generic" role="button" data-slide="next">';
+			html += '		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>';
+			html += '		<span class="sr-only">Next</span>';
+			html += '	</a>';
 			html += '</div>';
 			return html;
 		}
