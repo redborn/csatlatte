@@ -298,7 +298,6 @@
 			var index1 = 0, index2 = 0;
 			var listLength = list.length;
 			var listAverageLength = listAverage.length;
-			console.log(listLength);
 			html += '<div class="modal-content manage-rating-detail-view">';
 			html += '	<div class="modal-header">';
 			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
