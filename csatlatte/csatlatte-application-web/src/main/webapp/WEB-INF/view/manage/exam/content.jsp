@@ -7,7 +7,7 @@
 <div class="col-lg-5">
 	<select class="form-control" id="manage-exam-csat-list">
 		<c:forEach items="${csatList}" var="csat">
-			<option value="${csat.csatSequence}"<c:if test="${csat.csatSequence eq year}"> selected</c:if>>${csat.csatName}</option>
+			<option value="${csat.csatSequence}"<c:if test="${csat.csatSequence eq presentCsatSequence}"> selected</c:if>>${csat.csatName}</option>
 		</c:forEach>
 	</select>
 </div>

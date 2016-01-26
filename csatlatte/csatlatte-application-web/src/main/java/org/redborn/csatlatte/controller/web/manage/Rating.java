@@ -27,21 +27,24 @@ public class Rating {
 		logger.info("manage rating get view");
 		
 		List<CsatVo> csatList = examService.csatList();
-		int csatListSize = csatList.size();
-		int year = 0;
+		int presentCsatSequence = 0;
 		
 		Calendar calendar = Calendar.getInstance();
-		int presentYear = calendar.get(Calendar.YEAR);
-		String presentYearString = Integer.toString(presentYear);
+		String presentYear = Integer.toString(calendar.get(Calendar.YEAR)); 
 		
-		for (int index = 0; index < csatListSize; index++) {
-			if (csatList.get(index).getExamYmd().substring(0, 4).equals(presentYearString)) {
-				year = csatList.get(index).getCsatSequence();
+		if (csatList != null) {
+			int csatListSize = csatList.size();
+			for (int index = 0; index < csatListSize; index++) {
+				if (csatList.get(index).getExamYmd() != null && csatList.get(index).getExamYmd().length() >= 4) {
+					if (csatList.get(index).getExamYmd().substring(0, 4).equals(presentYear)) {
+						presentCsatSequence = csatList.get(index).getCsatSequence();
+					}
+				}
 			}
 		}
 		
 		model.addAttribute("csatList", csatList);
-		model.addAttribute("year", year);
+		model.addAttribute("presentCsatSequence", presentCsatSequence);
 		
 		return TilesName.MANAGE_RATING;
 	}

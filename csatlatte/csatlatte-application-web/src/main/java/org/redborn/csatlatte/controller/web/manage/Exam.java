@@ -1,7 +1,6 @@
 package org.redborn.csatlatte.controller.web.manage;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import org.redborn.csatlatte.commons.tiles.TilesName;
@@ -39,21 +38,24 @@ public class Exam {
 		logger.info("manage exam view");
 		
 		List<CsatVo> csatList = examService.csatList();
-		int csatListSize = csatList.size();
-		int year = 0;
+		int presentCsatSequence = 0;
 		
-		SimpleDateFormat format = new SimpleDateFormat("yyyy");
-		Date date = new Date();
-		String presentYear = format.format(date);
+		Calendar calendar = Calendar.getInstance();
+		String presentYear = Integer.toString(calendar.get(Calendar.YEAR)); 
 		
-		for (int index = 0; index < csatListSize; index++) {
-			if (csatList.get(index).getExamYmd().substring(0, 4).equals(presentYear)) {
-				year = csatList.get(index).getCsatSequence();
+		if (csatList != null) {
+			int csatListSize = csatList.size();
+			for (int index = 0; index < csatListSize; index++) {
+				if (csatList.get(index).getExamYmd() != null && csatList.get(index).getExamYmd().length() >= 4) {
+					if (csatList.get(index).getExamYmd().substring(0, 4).equals(presentYear)) {
+						presentCsatSequence = csatList.get(index).getCsatSequence();
+					}
+				}
 			}
 		}
 		
 		model.addAttribute("csatList", csatList);
-		model.addAttribute("year", year);
+		model.addAttribute("presentCsatSequence", presentCsatSequence);
 		
 		return TilesName.MANAGE_EXAM;
 	}
