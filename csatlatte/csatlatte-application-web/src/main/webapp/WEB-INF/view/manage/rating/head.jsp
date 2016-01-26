@@ -12,6 +12,7 @@
 	.manage-rating-carousel-caption {position:static; color:black; text-shadow:none;}
 	.manage-rating-carousel-left-button {left:0; right:auto;}
 	.manage-rating-carousel-right-button {right:0; left:auto;}
+	.manage-rating-detail {cursor:pointer;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -23,8 +24,7 @@
 			var html = '';
 			html += '<tr class="manage-rating-row-data" id="manage-rating-row-data-' + list.examSequence + '">';
 			html += '	<td>' + list.examSequence + '</td>';
-			html += '	<td>' + list.examName + '</td>';
-			html += '	<td><button type="button" class="btn btn-default close manage-rating-icon"><span id="' + list.examSequence + '" data-toggle="modal" data-target="#manage-rating-detail-view" class="manage-rating-detail glyphicon glyphicon-search"></span></button></td>';
+			html += '	<td><div id="' + list.examSequence + '" class="manage-rating-detail">' + list.examName + '</div></td>';
 			html += '	<td><button type="button" class="btn btn-default close manage-rating-icon"><span id="' + list.examSequence + '" data-toggle="modal" data-target="#manage-rating-modify-view" class="manage-rating-modify glyphicon glyphicon-pencil"></span></button></td>';
 			html += '	<td><button type="button" class="btn btn-default close manage-rating-icon"><span id="' + list.examSequence + '" data-toggle="modal" data-target="#manage-rating-delete-view" class="manage-rating-delete glyphicon glyphicon-remove"></span></button></td>';
 			html += '</tr>';
@@ -81,6 +81,7 @@
 						});
 					});
 					$('.manage-rating-detail').on("click", function () {
+						$('.manage-rating-carousel').remove();
 						examSequence = $(this).attr("id");
 						$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
 							dataType : "json",
@@ -88,13 +89,18 @@
 							success : function (data) {
 								if (data.list != null) {
 									var list = data.list;
-									$('.manage-rating-detail-view').remove();
-									if (list.length == 0) {
-										makeRatingCutErrorView
-										$('#manage-rating-detail-view-detail').append(makeRatingCutErrorView);
-									} else {
-										$('#manage-rating-detail-view-detail').append(makeRatingCutView(list));
-									}
+									$.ajax(contextPath + "/data/exam/average/" + csatSequence + "/" + examSequence + ".json", {
+										dataType : "json",
+										type : "GET",
+										success : function (data) {
+											if (data.averageList != null) {
+												var averageList = data.averageList;
+												$('.manage-rating-cut-info').remove();
+												$('#manage-rating-detail-view-detail').append(makeRatingCutView(averageList));
+												$('.manage-rating-detail-carousel-inner').append(makeRatingCut(list));
+											}
+										}
+									});
 								}
 							}
 						});

@@ -15,8 +15,7 @@
 	<thead>
 		<tr>
 			<th class="col-lg-2 manage-rating-col-lg">번호</th>
-			<th class="col-lg-7 manage-rating-col-lg">모의고사 이름</th>
-			<th class="col-lg-1 manage-rating-col-lg"></th>
+			<th class="col-lg-8 manage-rating-col-lg">모의고사 이름</th>
 			<th class="col-lg-1 manage-rating-col-lg"></th>
 			<th class="col-lg-1 manage-rating-col-lg"></th>
 		</tr>	
