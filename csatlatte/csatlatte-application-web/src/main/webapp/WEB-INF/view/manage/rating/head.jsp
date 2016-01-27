@@ -96,8 +96,7 @@
 											if (data.averageList != null) {
 												var averageList = data.averageList;
 												$('.manage-rating-cut-info').remove();
-												$('#manage-rating-detail-view-detail').append(makeRatingCutView(averageList));
-												$('.manage-rating-detail-carousel-inner').append(makeRatingCut(list));
+												$('#manage-rating-detail-view-detail').append(makeRatingCutView(averageList, list));
 											}
 										}
 									});
@@ -178,8 +177,7 @@
 												if (data.averageList != null) {
 													var averageList = data.averageList;
 													$('.manage-rating-cut-info').remove();
-													$('#manage-rating-detail-view-detail').append(makeRatingCutView(averageList));
-													$('.manage-rating-detail-carousel-inner').append(makeRatingCut(list));
+													$('#manage-rating-detail-view-detail').append(makeRatingCutView(averageList, list));
 												}
 											}
 										});
@@ -332,7 +330,7 @@
 			return html;
 		}
 		
-		var makeRatingCutView = function (averageList) {
+		var makeRatingCutView = function (averageList, list) {
 			var html = '';
 			var averageListLength = averageList.length;
 			html += '<div id="carousel-example-generic" class="carousel slide manage-rating-carousel manage-rating-cut-info" data-ride="carousel" data-interval="false">';
@@ -348,9 +346,9 @@
 			html += '				<table class="table table-bordered table-hover manage-rating-detail-table">';
 			html += '					<thead>';
 			html += '						<tr>';
-			html += '							<th>과목</th>';
-			html += '							<th>평균</th>';
-			html += '							<th>표준편차</th>';
+			html += '							<th rowspan="2">과목</th>';
+			html += '							<th rowspan="2">평균</th>';
+			html += '							<th rowspan="2">표준편차</th>';
 			html += '						</tr>';
 			html += '					</thead>';
 			html += '					<tbody>';
@@ -365,6 +363,7 @@
 			html += '				</table>';
 			html += '			</div>';
 			html += '		</div>';
+			html += makeRatingCut(list);
 			html += '	</div>';
 			html += '	<a class="manage-rating-carousel-left-button carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">';
 			html += '		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>';
