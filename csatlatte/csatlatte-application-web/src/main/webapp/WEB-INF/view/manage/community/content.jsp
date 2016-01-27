@@ -22,6 +22,9 @@
 	</thead>
 	<tbody>
 	<c:forEach items="${list}" var="community">
+		<input type="hidden" id="manage-community-nickname-${community.communitySequence}" value="${community.nickname}">
+		<input type="hidden" id="manage-community-writeYmdhms-${community.communitySequence}" value="${community.writeYmdhms}">
+		<input type="hidden" id="manage-community-content-${community.communitySequence}" value="${community.content}">
 		<tr>
 			<td>${community.communitySequence}</td>
 			<td><div id="${community.studentSequence}" data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">${community.studentId}</div></td>
