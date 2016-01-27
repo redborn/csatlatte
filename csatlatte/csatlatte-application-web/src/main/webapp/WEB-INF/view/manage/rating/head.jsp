@@ -352,13 +352,37 @@
 			return resultList;
 		}
 		
+
+		var makeAverageTable = function(averageList) {
+			var html = '				<table class="table table-bordered table-hover manage-rating-detail-table">';
+			html += '					<thead>';
+			html += '						<tr>';
+			html += '							<th rowspan="2">과목</th>';
+			html += '							<th rowspan="2">평균</th>';
+			html += '							<th rowspan="2">표준편차</th>';
+			html += '						</tr>';
+			html += '					</thead>';
+			html += '					<tbody>';
+			if (averageList != null) {
+				var averageListLength = averageList.length;
+				for (var index = 0; index < averageListLength; index++) {
+					html += '<tr>';
+					html += '	<td>' + averageList[index].subjectName + '</td>';
+					html += '	<td>' + averageList[index].average + '</td>';
+					html += '	<td>' + averageList[index].standardDeviation + '</td>';
+					html += '</tr>';
+				}
+			}
+			html += '					</tbody>';
+			html += '				</table>';
+			return html;
+		}
+		
 		var makeRatingCutView = function (averageList, ratingCutList) {
-			var html = '';
-			var averageListLength = averageList.length;
 			var ratingCut1 = makeRatingCutList(ratingCutList, 1);
 			var ratingCut2 = makeRatingCutList(ratingCutList, 4);
 			var ratingCut3 = makeRatingCutList(ratingCutList, 7);
-			html += '<div id="carousel-example-generic" class="carousel slide manage-rating-carousel manage-rating-cut-info" data-ride="carousel" data-interval="false">';
+			var html = '<div id="carousel-example-generic" class="carousel slide manage-rating-carousel manage-rating-cut-info" data-ride="carousel" data-interval="false">';
 			html += '	<ol class="carousel-indicators">';
 			html += '		<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>';
 			html += '		<li data-target="#carousel-example-generic" data-slide-to="1"></li>';
@@ -368,24 +392,7 @@
 			html += '	<div class="carousel-inner manage-rating-detail-carousel-inner" role="listbox">';		
 			html += '		<div class="item active">';
 			html += '			<div class="carousel-caption manage-rating-carousel-caption">';
-			html += '				<table class="table table-bordered table-hover manage-rating-detail-table">';
-			html += '					<thead>';
-			html += '						<tr>';
-			html += '							<th rowspan="2">과목</th>';
-			html += '							<th rowspan="2">평균</th>';
-			html += '							<th rowspan="2">표준편차</th>';
-			html += '						</tr>';
-			html += '					</thead>';
-			html += '					<tbody>';
-			for (var index = 0; index < averageListLength; index++) {
-				html += '<tr>';
-				html += '	<td>' + averageList[index].subjectName + '</td>';
-				html += '	<td>' + averageList[index].average + '</td>';
-				html += '	<td>' + averageList[index].standardDeviation + '</td>';
-				html += '</tr>';
-			}
-			html += '					</tbody>';
-			html += '				</table>';
+			html += makeAverageTable(averageList);
 			html += '			</div>';
 			html += '		</div>';
 			html += makeRatingCut(ratingCut1, 1);
