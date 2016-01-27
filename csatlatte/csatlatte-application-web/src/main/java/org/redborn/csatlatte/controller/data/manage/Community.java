@@ -24,12 +24,4 @@ public class Community {
 		
 		model.addAttribute("detail", communityService.detail(CommunityService.COMMUNITY, communitySequence));
 	}
-	
-	@RequestMapping(method=RequestMethod.POST)
-	public void post(@RequestParam(value="communitySequence",required=true) int communitySequence,
-			@RequestParam(value="blindTypeSequence",required=true) int blindTypeSequence) {
-		logger.info("data manage community insert blind");
-		
-		communityService.blind(CommunityService.COMMUNITY, communitySequence, blindTypeSequence);
-	}
 }

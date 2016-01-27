@@ -169,10 +169,10 @@
 					data : {communitySequence : blindTarget},
 					success : function(data) {
 						if (data.check == true) {
-							$.ajax(contextPath + "/data/manage/community.json", {
+							$.ajax(contextPath + "/data/community/blind/" + blindTarget + ".json", {
 								dataType : "json",
 								type : "POST",
-								data : {communitySequence : blindTarget, blindTypeSequence : reason},
+								data : {blindTypeSequence : reason},
 								success : function() {
 									$('#blind-' + blindTarget).remove();
 								}
