@@ -1,5 +1,12 @@
 @CHARSET "UTF-8";
 
-body > div.container {padding:80px 0 20px; display:table;}
-.lnb {display:inline-block; width:300px; border:1px solid #ccc; border-radius:10px 0 0 10px; background-color:#e8e4e1; text-align:left; padding:16px; height:100%;  vertical-align:top; display:table-cell;}
-.content {display:inline-block; width:633px; border-top:1px solid #ccc; border-right:1px solid #ccc; border-bottom:1px solid #ccc; border-radius:0 10px 10px 0; text-align:left;  padding:16px; height:100%; vertical-align:top; display:table-cell;}
+body > div.container {padding-top:80px; padding-bottom:20px;}
+
+.lnb {display:block; border:1px solid #ccc; padding:16px; border-radius:10px 10px 0 0; background-color:#e8e4e1; text-align:left;}
+.content {text-align:left;  padding:16px; border-radius:0 0 10px 10px; border-right:1px solid #ccc; border-bottom:1px solid #ccc; border-left:1px solid #ccc;}
+
+@media (min-width:992px) {
+	body > div.container {display:table;}
+	.lnb {width:300px; border-radius:10px 0 0 10px; height:100%; vertical-align:top; display:table-cell;}
+	.content {width:633px; border-top:1px solid #ccc; border-left:0; border-radius:0 10px 10px 0; height:100%; vertical-align:top; display:table-cell;}
+}
