@@ -88,7 +88,7 @@
 							type : "GET",
 							success : function (data) {
 								if (data.list != null) {
-									var list = data.list;
+									var ratingCutList = data.list;
 									$.ajax(contextPath + "/data/exam/average/" + csatSequence + "/" + examSequence + ".json", {
 										dataType : "json",
 										type : "GET",
@@ -96,7 +96,7 @@
 											if (data.averageList != null) {
 												var averageList = data.averageList;
 												$('.manage-rating-cut-info').remove();
-												$('#manage-rating-detail-view-detail').append(makeRatingCutView(averageList, list));
+												$('#manage-rating-detail-view-detail').append(makeRatingCutView(averageList, ratingCutList));
 											}
 										}
 									});
@@ -169,7 +169,7 @@
 								type : "GET",
 								success : function (data) {
 									if (data.list != null) {
-										var list = data.list;
+										var ratingCutList = data.list;
 										$.ajax(contextPath + "/data/exam/average/" + csatSequence + "/" + examSequence + ".json", {
 											dataType : "json",
 											type : "GET",
@@ -177,7 +177,7 @@
 												if (data.averageList != null) {
 													var averageList = data.averageList;
 													$('.manage-rating-cut-info').remove();
-													$('#manage-rating-detail-view-detail').append(makeRatingCutView(averageList, list));
+													$('#manage-rating-detail-view-detail').append(makeRatingCutView(averageList, ratingCutList));
 												}
 											}
 										});
@@ -282,57 +282,82 @@
 			return html;
 		}
 		
-		var makeRatingCut = function (list) {
+		var makeRatingCut = function (ratingCutList, startGrade) {
 			var html = '';
-			var index1, index2;
-			var listLength = list.length;
-			for (var tableIndex = 0; tableIndex < 3; tableIndex++) {
-				index1 = tableIndex * 3;
-				index2 = tableIndex * 3;
-				var grade = index1;
-				html += '		<div class="item">';
-				html += '			<div class="carousel-caption manage-rating-carousel-caption">';
-				html += '				<table class="table table-bordered table-hover manage-rating-detail-table">';
-				html += '					<thead>';
-				html += '						<tr>';
-				html += '							<th rowspan="2">과목</th>';
-				html += '							<th colspan="2">' + (grade + 1) + '등급</th>';
-				html += '							<th colspan="2">' + (grade + 2) + '등급</th>';
-				html += '							<th colspan="2">' + (grade + 3) + '등급</th>';
-				html += '						</tr>';
-				html += '						<tr>';
-				html += '							<th>원점수</th>';
-				html += '							<th>표준점수</th>';
-				html += '							<th>원점수</th>';
-				html += '							<th>표준점수</th>';
-				html += '							<th>원점수</th>';
-				html += '							<th>표준점수</th>';
-				html += '						</tr>';
-				html += '					</thead>';
-				html += '					<tbody>';
-				while (index1 < listLength) {
-					html += '<tr>';
-					html += '<td>' + list[index1].subjectName + '</td>';
-					while (index2 < index1 + 3) {
-						html += '<td>' + list[index2].rawScore + '</td>';
-						html += '<td>' + list[index2].standardScore + '</td>';
-						index2++;
-					}
-					html += '</tr>';
-					index1 += 9;
-					index2 += 6;
+			var index1 = 0;
+			var index2 = 0;
+			var ratingCutListLength = ratingCutList.length;
+			html += '		<div class="item">';
+			html += '			<div class="carousel-caption manage-rating-carousel-caption">';
+			html += '				<table class="table table-bordered table-hover manage-rating-detail-table">';
+			html += '					<thead>';
+			html += '						<tr>';
+			html += '							<th rowspan="2">과목</th>';
+			html += '							<th colspan="2">' + startGrade + '등급</th>';
+			html += '							<th colspan="2">' + (startGrade + 1) + '등급</th>';
+			html += '							<th colspan="2">' + (startGrade + 2) + '등급</th>';
+			html += '						</tr>';
+			html += '						<tr>';
+			html += '							<th>원점수</th>';
+			html += '							<th>표준점수</th>';
+			html += '							<th>원점수</th>';
+			html += '							<th>표준점수</th>';
+			html += '							<th>원점수</th>';
+			html += '							<th>표준점수</th>';
+			html += '						</tr>';
+			html += '					</thead>';
+			html += '					<tbody>';
+			while (index1 < ratingCutListLength) {
+				html += '<tr>';
+				html += '<td>' + ratingCutList[index1].subjectName + '</td>';
+				while (index2 < index1 + 3) {
+					html += '<td>' + ratingCutList[index2].rawScore + '</td>';
+					html += '<td>' + ratingCutList[index2].standardScore + '</td>';
+					index2++;
 				}
-				html += '					</tbody>';
-				html += '				</table>';
-				html += '			</div>';
-				html += '		</div>';
+				html += '</tr>';
+				index1 += 3;
 			}
+			html += '					</tbody>';
+			html += '				</table>';
+			html += '			</div>';
+			html += '		</div>';
 			return html;
 		}
 		
-		var makeRatingCutView = function (averageList, list) {
+		var ratingCutInfo = function () {
+			var subjectName;
+			var rawScore;
+			var standardScore;
+		}
+		
+		var makeRatingCutList = function (ratingCutList, startGrade) {
+			var index1 = 0;
+			var index2 = startGrade - 1;
+			var index3 = startGrade - 1;
+			var ratingCutListLength = ratingCutList.length;
+			var resultList = new Array();
+			while (index2 < ratingCutListLength) {
+				while (index3 < index2 + 3) {
+					resultList[index1] = new ratingCutInfo();
+					resultList[index1].subjectName = ratingCutList[index3].subjectName;
+					resultList[index1].rawScore = ratingCutList[index3].rawScore;
+					resultList[index1].standardScore = ratingCutList[index3].standardScore;
+					index1++;
+					index3++;
+				}
+				index2 += 9;
+				index3 += 6;
+			}
+			return resultList;
+		}
+		
+		var makeRatingCutView = function (averageList, ratingCutList) {
 			var html = '';
 			var averageListLength = averageList.length;
+			var ratingCut1 = makeRatingCutList(ratingCutList, 1);
+			var ratingCut2 = makeRatingCutList(ratingCutList, 4);
+			var ratingCut3 = makeRatingCutList(ratingCutList, 7);
 			html += '<div id="carousel-example-generic" class="carousel slide manage-rating-carousel manage-rating-cut-info" data-ride="carousel" data-interval="false">';
 			html += '	<ol class="carousel-indicators">';
 			html += '		<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>';
@@ -363,7 +388,9 @@
 			html += '				</table>';
 			html += '			</div>';
 			html += '		</div>';
-			html += makeRatingCut(list);
+			html += makeRatingCut(ratingCut1, 1);
+			html += makeRatingCut(ratingCut2, 4);
+			html += makeRatingCut(ratingCut3, 7);
 			html += '	</div>';
 			html += '	<a class="manage-rating-carousel-left-button carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">';
 			html += '		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>';
