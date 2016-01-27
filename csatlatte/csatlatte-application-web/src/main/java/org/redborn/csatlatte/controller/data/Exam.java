@@ -1,4 +1,4 @@
-package org.redborn.csatlatte.controller.data.manage;
+package org.redborn.csatlatte.controller.data;
 
 import org.redborn.csatlatte.domain.ExamVo;
 import org.redborn.csatlatte.service.ExamService;
@@ -14,23 +14,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/data/manage/exam")
+@RequestMapping("/data/exam")
 public class Exam {
-
+	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private ExamService examService;
 	@Autowired
 	private StudentService studentService;
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public void get(Model model, @RequestParam(value="examSequence",required=true) int examSequence) {
+	@RequestMapping(value="{csatSequence}",method=RequestMethod.GET)
+	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence) {
 		logger.info("data manage exam get view");
 		
-		model.addAttribute("yearList", examService.yearList());
-		model.addAttribute("institutionList", examService.institutionList());
-		model.addAttribute("ysList", studentService.ysList());
-		model.addAttribute("listOne", examService.listForManageOne(examSequence));
+		model.addAttribute("list", examService.listForManage(csatSequence));
+	}
+	
+	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.GET) 
+	public void detail(Model model, @PathVariable(value="csatSequence") int csatSequence,
+			@PathVariable(value="examSequence") int examSequence) {
+		logger.info("data manage exam detail view");
+
+		model.addAttribute("detail", examService.detail(csatSequence, examSequence));
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
@@ -38,8 +43,9 @@ public class Exam {
 			@RequestParam(value="csatSequence",required=true) int csatSequence,
 			@RequestParam(value="examName",required=true) String examName,
 			@RequestParam(value="institutionSequence",required=true) int institutionSequence,
-			@RequestParam(value="ysSequence",required=true) int ysSequence) {
-		logger.info("data manage exam put view");
+			@RequestParam(value="yearStudentSequence",required=true) int yearStudentSequence,
+			@RequestParam(value="ymd",required=true) String ymd) {
+		logger.info("data manage exam post view");
 		
 		ExamVo examVo = new ExamVo();
 		
@@ -47,13 +53,16 @@ public class Exam {
 		examVo.setCsatSequence(csatSequence);
 		examVo.setExamName(examName);
 		examVo.setInstitutionSequence(institutionSequence);
-		examVo.setYsSequence(ysSequence);
+		examVo.setYearStudentSequence(yearStudentSequence);
+		examVo.setYmd(ymd);
 		
 		examService.modify(examVo);
 	}
 	
-	@RequestMapping(value="{examSequence}",method=RequestMethod.DELETE)
-	public void delete(@PathVariable int examSequence) {
-		examService.delete(examSequence);
+	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.DELETE)
+	public void delete(@PathVariable(value="csatSequence") int csatSequence,
+			@PathVariable(value="examSequence") int examSequence) {
+		logger.info("data manage exam delete");
+		examService.delete(csatSequence, examSequence);
 	}
 }

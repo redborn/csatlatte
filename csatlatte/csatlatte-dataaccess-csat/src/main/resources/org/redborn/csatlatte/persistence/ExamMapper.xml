@@ -17,6 +17,7 @@
 		<result column="year" property="year" />
 		<result column="exam_name" property="examName" />
 		<result column="isttt_name" property="institutionName" />
+		<result column="ys_seq" property="yearStudentSequence"/>
 	</resultMap>
 	
 	<resultMap type="ExamVo" id="ExamVoForManageOneMap">
@@ -25,21 +26,48 @@
 		<result column="isttt_seq" property="institutionSequence"/>
 		<result column="exam_name" property="examName"/>
 		<result column="exam_ymd" property="ymd"/>
-		<result column="ys_seq" property="ysSequence"/>
+		<result column="ys_seq" property="yearStudentSequence"/>
+		<result column="isttt_name" property="institutionName"/>
 	</resultMap>
 
-	<select id="selectOneCount" parameterType="String" resultType="int">
+	<select id="selectOneCount" parameterType="Map" resultType="int">
 		SELECT COUNT(*)
 		  FROM csat_exam ce, csat_isttt ci
 		 WHERE ce.isttt_seq = ci.isttt_seq
+		   AND ce.csat_seq = #{csatSequence}
 		   AND ( ce.exam_name LIKE CONCAT('%', #{search}, '%')
 		          OR ci.isttt_name LIKE CONCAT('%', #{search}, '%') )
 	</select>
 	
-	<select id="selectListExamOneForManage" parameterType="int" resultMap="ExamVoForManageOneMap">
-		SELECT csat_seq,exam_seq,isttt_seq,exam_name,exam_ymd,ys_seq
+	<select id="selectOneCountForDelete" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
 		  FROM csat_exam
-		 WHERE exam_seq = #{examSequence} 
+		 WHERE (SELECT COUNT(*) AS avg_count
+		          FROM csat_exam_avg
+		         WHERE csat_seq = #{csatSequence}
+		           AND exam_seq = #{examSequence}) > 0
+		   AND (SELECT COUNT(*) AS section_count
+		          FROM csat_exam_section
+		         WHERE csat_seq = #{csatSequence}
+		           AND exam_seq = #{examSequence}) > 0
+		   AND (SELECT COUNT(*) AS subject_count
+		          FROM csat_exam_subject
+		         WHERE csat_seq = #{csatSequence}
+		           AND exam_seq = #{examSequence}) > 0
+		   AND (SELECT COUNT(*) AS rating_count
+		   		  FROM csat_exam_rating_cut
+		   		 WHERE csat_seq = #{csatSequence}
+		   		   AND exam_seq = #{examSequence}) > 0
+		   AND csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</select>
+	
+	<select id="selectListExamOneForManage" parameterType="Map" resultMap="ExamVoForManageOneMap">
+		SELECT ce.csat_seq,ce.exam_seq,ce.isttt_seq,ce.exam_name,ce.exam_ymd,ce.ys_seq,ci.isttt_name
+		  FROM csat_exam ce, csat_isttt ci
+		 WHERE ce.exam_seq = #{examSequence}
+		   AND ce.csat_seq = #{csatSequence}
+		   AND ce.isttt_seq = ci.isttt_seq 
 	</select>
 
 	<select id="selectListExam" parameterType="int" resultMap="ExamVoMap">
@@ -49,14 +77,12 @@
 		 ORDER BY exam_seq ASC 
 	</select>
 	
-	<select id="selectListExamForManage" parameterType="Map" resultMap="ExamVoForManageMap">
-		SELECT ce.exam_seq, DATE_FORMAT(ce.exam_ymd, '%Y') AS year,ce.exam_name,ci.isttt_name
+	<select id="selectListExamForManage" parameterType="int" resultMap="ExamVoForManageMap">
+		SELECT ce.exam_seq, DATE_FORMAT(ce.exam_ymd, '%Y') AS year,ce.exam_name,ci.isttt_name,ce.ys_seq
 		  FROM csat_exam ce,csat_isttt ci
 		 WHERE ce.isttt_seq = ci.isttt_seq
-		   AND ( ce.exam_name LIKE CONCAT('%', #{search}, '%')
-		          OR ci.isttt_name LIKE CONCAT('%', #{search}, '%') )
+		   AND ce.csat_seq = #{csatSequence}
 		 ORDER BY ce.exam_seq desc
-		 LIMIT #{pageNumber}, 10 
 	</select>
 	
 	<insert id="insert" parameterType="ExamVo">
@@ -71,14 +97,16 @@
 	
 	<update id="update" parameterType="ExamVo">
 		UPDATE csat_exam
-		   SET csat_seq = #{csatSequence}, isttt_seq = #{istttSequence},
-		       exam_name = #{examName}, ys_seq = #{ysSequence}
+		   SET isttt_seq = #{institutionSequence}, exam_name = #{examName}, 
+			   ys_seq = #{yearStudentSequence}, exam_ymd = #{ymd}
 		 WHERE exam_seq = #{examSequence} 
+		   AND csat_seq = #{csatSequence}
 	</update>
 	
-	<delete id="delete" parameterType="int">
+	<delete id="delete" parameterType="Map">
 		DELETE FROM csat_exam
 		 WHERE exam_seq = #{examSequence} 
+		   AND csat_seq = #{csatSequence}
 	</delete>
 	
 </mapper>

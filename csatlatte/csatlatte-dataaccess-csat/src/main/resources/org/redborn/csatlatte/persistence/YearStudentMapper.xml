@@ -4,14 +4,14 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ys">
+<mapper namespace="yearStudent">
 
-	<resultMap type="YsVo" id="YsVoMap">
-		<result column="ys_seq" property="ysSequence"/>
-		<result column="ys_name" property="ysName"/>
+	<resultMap type="YearStudentVo" id="YearStudentVoMap">
+		<result column="ys_seq" property="yearStudentSequence"/>
+		<result column="ys_name" property="yearStudentName"/>
 	</resultMap>
 	
-	<select id="selectList" resultMap="YsVoMap">
+	<select id="selectList" resultMap="YearStudentVoMap">
 		SELECT ys_seq,ys_name
 		  FROM csat_ys
 	  ORDER BY ys_seq DESC 

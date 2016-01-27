@@ -41,6 +41,14 @@ public class ScoreDaoMapper extends SqlSessionDaoSupport implements ScoreDao {
 		
 		return getSqlSession().selectList("exam.student.score.selectList", params);
 	}
+	
+	public List<GradeVo> selectListExamStudent(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		
+		return getSqlSession().selectList("exam.student.score.selectListExamStudent", params);
+	}
 
 	public List<GradeRatingVo> selectListRating(int csatSequence, int examSequence, int studentSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();

@@ -1,32 +1,31 @@
 package org.redborn.csatlatte.domain;
 
-public class RatingCutVo {
+public class AverageVo {
 
 	private int csatSequence;
 	private int examSequence;
 	private int sectionSequence;
 	private int subjectSequence;
-	private int rawScore;
-	private int ratingCode;
-	private int standardScore;
+	private float average;
+	private float standardDeviation;
 	private String subjectName;
 	
 	public int getCsatSequence() {
 		return csatSequence;
 	}
-
+	
 	public void setCsatSequence(int csatSequence) {
 		this.csatSequence = csatSequence;
 	}
-
+	
 	public int getExamSequence() {
 		return examSequence;
 	}
-
+	
 	public void setExamSequence(int examSequence) {
 		this.examSequence = examSequence;
 	}
-
+	
 	public int getSectionSequence() {
 		return sectionSequence;
 	}
@@ -43,45 +42,37 @@ public class RatingCutVo {
 		this.subjectSequence = subjectSequence;
 	}
 	
-	public int getRawScore() {
-		return rawScore;
+	public float getAverage() {
+		return average;
 	}
 	
-	public void setRawScore(int rawScore) {
-		this.rawScore = rawScore;
+	public void setAverage(float average) {
+		this.average = average;
 	}
 	
-	public int getRatingCode() {
-		return ratingCode;
-	}
-
-	public void setRatingCode(int ratingCode) {
-		this.ratingCode = ratingCode;
-	}
-
-	public int getStandardScore() {
-		return standardScore;
+	public float getStandardDeviation() {
+		return standardDeviation;
 	}
 	
-	public void setStandardScore(int standardScore) {
-		this.standardScore = standardScore;
+	public void setStandardDeviation(float standardDeviation) {
+		this.standardDeviation = standardDeviation;
 	}
-
+	
 	public String getSubjectName() {
 		return subjectName;
 	}
-
+	
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
 	}
 
 	@Override
 	public String toString() {
-		return "RatingCutVo [csatSequence=" + csatSequence + ", examSequence="
+		return "AverageVo [csatSequence=" + csatSequence + ", examSequence="
 				+ examSequence + ", sectionSequence=" + sectionSequence
-				+ ", subjectSequence=" + subjectSequence + ", rawScore="
-				+ rawScore + ", ratingCode=" + ratingCode + ", standardScore="
-				+ standardScore + ", subjectName=" + subjectName + "]";
+				+ ", subjectSequence=" + subjectSequence + ", average="
+				+ average + ", standardDeviation=" + standardDeviation
+				+ ", subjectName=" + subjectName + "]";
 	}
-	
+
 }

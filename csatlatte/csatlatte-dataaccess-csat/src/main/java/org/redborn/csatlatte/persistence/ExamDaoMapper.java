@@ -11,20 +11,21 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ExamDaoMapper extends SqlSessionDaoSupport implements ExamDao {
 	
-	public int selectOneCount(String search) {
-		return getSqlSession().selectOne("exam.selectOneCount", search);
+	public int selectOneCount(int csatSequence, String search) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("search", search);
+		
+		return getSqlSession().selectOne("exam.selectOneCount", params);
 	}
 	
 	public List<ExamVo> selectListExam(int csatSequence) {
 		return getSqlSession().selectList("exam.selectListExam", csatSequence);
 	}
 
-	public List<ExamVo> selectListExamForManage(int pageNumber, String search) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("pageNumber", pageNumber);
-		params.put("search", search);
+	public List<ExamVo> selectListExamForManage(int csatSequence) {
 		
-		return getSqlSession().selectList("exam.selectListExamForManage", params);
+		return getSqlSession().selectList("exam.selectListExamForManage", csatSequence);
 	}
 	
 	public int insert(ExamVo examVo) {
@@ -35,12 +36,20 @@ public class ExamDaoMapper extends SqlSessionDaoSupport implements ExamDao {
 		return getSqlSession().update("exam.update", examVo);
 	}
 
-	public int delete(int examSequence) {
-		return getSqlSession().delete("exam.delete", examSequence);
+	public int delete(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		
+		return getSqlSession().delete("exam.delete", params);
 	}
 	
-	public List<ExamVo> selectListExamOneForManage(int examSequence) {
-		return getSqlSession().selectList("exam.selectListExamOneForManage", examSequence);
+	public List<ExamVo> selectListExamOneForManage(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		
+		return getSqlSession().selectList("exam.selectListExamOneForManage", params);
 	}
 
 }

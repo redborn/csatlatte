@@ -2,11 +2,11 @@ package org.redborn.csatlatte.service;
 
 import java.util.List;
 
-import org.redborn.csatlatte.domain.SecurityQuestionVo;
 import org.redborn.csatlatte.domain.CountVo;
+import org.redborn.csatlatte.domain.SecurityQuestionVo;
 import org.redborn.csatlatte.domain.StudentSecurityQuestionVo;
 import org.redborn.csatlatte.domain.StudentVo;
-import org.redborn.csatlatte.domain.YsVo;
+import org.redborn.csatlatte.domain.YearStudentVo;
 
 public interface StudentService {
 
@@ -33,7 +33,7 @@ public interface StudentService {
 	public String securityQuestion(String nickname);
 	public String securityQuestion(int studentSequence);
 	public int amountStudent(String search);
-	public List<YsVo> ysList();
+	public List<YearStudentVo> yearStudentList();
 	public List<SecurityQuestionVo> securityQuestionList();
 	public int getStudentSequence(String studentId);
 	

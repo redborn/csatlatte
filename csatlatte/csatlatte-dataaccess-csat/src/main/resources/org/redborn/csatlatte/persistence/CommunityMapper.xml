@@ -21,7 +21,7 @@
 		<result column="student_id" property="studentId" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
 		<result column="nickname" property="nickname" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
 		<result column="content" property="content"/>
-		<result column="write_ymdhms" property="writeYmdhms"/>
+		<result column="write_date" property="writeYmdhms"/>
 		<result column="blind" property="blind"/>
 		<result column="student_seq" property="studentSequence"/>
 	</resultMap>

@@ -59,7 +59,10 @@
 			return result;
 		};
 		
-		var makeCommunityDetail = function(community) {
+		var makeCommunityDetail = function(communitySequence) {
+			var nickname = $('#manage-community-nickname-' + communitySequence).val();
+			var writeYmdhms = $('#manage-community-writeYmdhms-' + communitySequence).val();
+			var content = $('#manage-community-content-' + communitySequence).val();
 			var html = '';
 			html += '		<div class="modal-content" id="manage-community-text-content">';
 			html += '			<div class="modal-header">';
@@ -67,13 +70,13 @@
 			html += '				<div class="community-text">';
 			html += '					<img alt="프로필사진" class="community-profile-picture" src="' + contextPath + '/resources/csatlatte/images/img/img_person.png">';
 			html += '					<div class="community-user-info">';
-			html += '						<div class="community-name"><strong>' + community.nickname + '</strong></div>';
-			html += '						<div class="community-calender">' + format(community.writeYmdhms) + '</div>';
+			html += '						<div class="community-name"><strong>' + nickname + '</strong></div>';
+			html += '						<div class="community-calender">' + writeYmdhms + '</div>';
 			html += '					</div>';
 			html += '				</div>';
 			html += '			</div>';
 			html += '			<div class="modal-body">';
-			html += '				<div class="community-content"><xmp>' + community.content + '</xmp></div>';
+			html += '				<div class="community-content"><xmp>' + content + '</xmp></div>';
 			html += '			</div>';
 			html += '			<div id="comment-area" class="modal-footer">';
 			html += '			</div>';
@@ -141,7 +144,6 @@
 					data : {studentSequence : target},
 					success : function(data) {
 						var student = data.information;
-						console.log(student.lastConnection);
 						$("#manage-community-student-information").append(makeStudentInformation(student));
 					}
 				});
@@ -169,10 +171,10 @@
 					data : {communitySequence : blindTarget},
 					success : function(data) {
 						if (data.check == true) {
-							$.ajax(contextPath + "/data/manage/community.json", {
+							$.ajax(contextPath + "/data/community/blind/" + blindTarget + ".json", {
 								dataType : "json",
 								type : "POST",
-								data : {communitySequence : blindTarget, blindTypeSequence : reason},
+								data : {blindTypeSequence : reason},
 								success : function() {
 									$('#blind-' + blindTarget).remove();
 								}
@@ -187,28 +189,20 @@
 		$('.manage-community-text-detail').on("click", function() {
 			var target = $(this).attr("id");
 			if (target != null) {
-				$.ajax(contextPath + "/data/manage/community.json", {
+				$("#manage-community-text-dialog").append(makeCommunityDetail(target));
+				$.ajax(contextPath + "/data/community/comment.json", {
 					dataType : "json",
 					type : "GET",
 					data : {communitySequence : target},
-					success : function(data) {
-						var community = data.detail;
-						$("#manage-community-text-dialog").append(makeCommunityDetail(community));
-						$.ajax(contextPath + "/data/community/comment.json", {
-							dataType : "json",
-							type : "GET",
-							data : {communitySequence : target},
-							success : function(commentData) {
-								if(commentData.list != null) {
-									var commentList = commentData.list;
-									var commentListLength = commentList.length;
-									for (var index = 0; index < commentListLength; index++) {
-										comment = commentList[index];
-										$('#comment-area').append(makeCommunityDetailComment(comment));
-									}
-								}
+					success : function(commentData) {
+						if(commentData.list != null) {
+							var commentList = commentData.list;
+							var commentListLength = commentList.length;
+							for (var index = 0; index < commentListLength; index++) {
+								comment = commentList[index];
+								$('#comment-area').append(makeCommunityDetailComment(comment));
 							}
-						});
+						}
 					}
 				});
 			}
