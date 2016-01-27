@@ -35,11 +35,11 @@ public class Rating {
 		if (csatList != null) {
 			int csatListSize = csatList.size();
 			for (int index = 0; index < csatListSize; index++) {
-				CsatVo csatListIndex = csatList.get(index);
-				String examYmd = csatListIndex.getExamYmd();
+				CsatVo csatVo = csatList.get(index);
+				String examYmd = csatVo.getExamYmd();
 				if (examYmd != null && examYmd.length() >= 4) {
 					if (Integer.parseInt(examYmd.substring(0, 4)) == presentYear) {
-						presentCsatSequence = csatListIndex.getCsatSequence();
+						presentCsatSequence = csatVo.getCsatSequence();
 						break;
 					}
 				}
