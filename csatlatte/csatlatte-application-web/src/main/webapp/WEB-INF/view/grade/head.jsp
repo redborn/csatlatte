@@ -7,9 +7,6 @@
 	.grade-menu-title {font-size:13px; width:60px; text-align:center; margin-top:3px; display:inline-block;}
 	.grade-menu img {display:block;}
 	.grade-synopsis {margin-top:10px;}
-	.grade-synopsis .grade-score {display:inline-block; width:400px;}
-	.grade-synopsis .grade-score .grade-standardscore {display:inline-block;}
-	.grade-synopsis .dropdown {display:inline-block; vertical-align:top; margin-top:5px;}
 	.table {font-size:13px; width:576px; margin-left:20px; margin-bottom:0px;}
 	.table tr {border-bottom:1px solid #DDDDDD;}
 	.table tr td {text-align:center; width:96px;}
@@ -75,6 +72,8 @@
 			});
 			*/
 		});
+		
+		$("#grade-yearstudent").trigger("change");
 		
 	});
 </script>

@@ -2,22 +2,24 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="grade-synopsis">
-	<div class="grade-score">
-		<h5><strong>등급 평균 : 3등급</strong></h5>
-		<h5 class="grade-standardscore"><strong>표준점수 : 98점</strong></h5>
-		<img alt="표준점수 뜻" src="<c:url value="/resources/csatlatte/images/btn/btn_help.png"/>" data-toggle="tooltip" data-placement="right" title="표준점수란 과목의 상대적 서열로 계산된 입시에 반영되는 점수입니다.">
-	</div>
-	<div class="dropdown">
-		<select id="grade-yearstudent" class="form-control">
-		<c:forEach items="${yearStudentList}" var="yearStudent">
-			<option value="${yearStudent.yearStudentSequence}">${yearStudent.yearStudentName}</option>
-		</c:forEach>
-		</select>
-		
-	</div>
-	<div class="dropdown">
-		<select id="grade-exam" class="form-control">
-		</select>
+	<div class="row">
+		<div class="col-md-4">
+			<h5><strong>등급 평균 : 3등급</strong></h5>
+			<h5 class="grade-standardscore"><strong>표준 점수 : 98점</strong> <img alt="표준점수 뜻" src="<c:url value="/resources/csatlatte/images/btn/btn_help.png"/>" data-toggle="tooltip" data-placement="bottom" title="표준점수란 과목의 상대적 서열로 계산된 입시에 반영되는 점수입니다."></h5>
+		</div>
+		<div class="col-md-8" style="text-align:right;">
+			<div class="col-sm-3">
+				<select id="grade-yearstudent" class="form-control">
+				<c:forEach items="${yearStudentList}" var="yearStudent">
+					<option value="${yearStudent.yearStudentSequence}">${yearStudent.yearStudentName}</option>
+				</c:forEach>
+				</select>
+			</div>
+			<div class="col-sm-9">
+				<select id="grade-exam" class="form-control">
+				</select>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="grade-transcript">
