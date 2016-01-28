@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="grade-synopsis">
 	<div class="grade-score">
 		<h5><strong>등급 평균 : 3등급</strong></h5>
@@ -8,26 +8,16 @@
 		<img alt="표준점수 뜻" src="<c:url value="/resources/csatlatte/images/btn/btn_help.png"/>" data-toggle="tooltip" data-placement="right" title="표준점수란 과목의 상대적 서열로 계산된 입시에 반영되는 점수입니다.">
 	</div>
 	<div class="dropdown">
-		<button class="btn btn-default dropdown-toggle" type="button" id="grade-year" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-			2015년 <span class="caret"></span>  
-		</button>
-		<ul class="dropdown-menu" aria-labelledby="grade-year">
-			<li><a href="#">test1</a></li>
-			<li><a href="#">test1</a></li>	
-			<li><a href="#">test1</a></li>
-			<li><a href="#">test1</a></li>
-		</ul>
+		<select id="grade-yearstudent" class="form-control">
+		<c:forEach items="${yearStudentList}" var="yearStudent">
+			<option value="${yearStudent.yearStudentSequence}">${yearStudent.yearStudentName}</option>
+		</c:forEach>
+		</select>
+		
 	</div>
 	<div class="dropdown">
-		<button class="btn btn-default dropdown-toggle" type="button" id="grade-exam" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-			10월 모의고사 <span class="caret"></span>  
-		</button>
-		<ul class="dropdown-menu" aria-labelledby="grade-exam">
-			<li><a href="#">test2</a></li>
-			<li><a href="#">test2</a></li>	
-			<li><a href="#">test2</a></li>
-			<li><a href="#">test2</a></li>
-		</ul>
+		<select id="grade-exam" class="form-control">
+		</select>
 	</div>
 </div>
 <div class="grade-transcript">
