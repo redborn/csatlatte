@@ -1,6 +1,7 @@
 package org.redborn.csatlatte.domain;
 
 public class CsatVo {
+	
 	private int csatSequence;
 	private String csatName;
 	private String examYmd;

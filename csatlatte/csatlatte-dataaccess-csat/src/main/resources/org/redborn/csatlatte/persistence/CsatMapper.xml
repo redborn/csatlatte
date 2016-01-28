@@ -12,6 +12,13 @@
 		<result column="exam_ymd" property="examYmd"/>
 	</resultMap>
 
+	<select id="selectOne" parameterType="int" resultMap="CsatVoMap">
+		SELECT csat_seq,csat_name,exam_ymd
+		  FROM csat
+		 WHERE csat_seq = #{csatSequence} 
+		   AND use_yn = 'Y'
+	</select>
+
 	<select id="selectListYear" resultMap="CsatVoMap">
 		SELECT csat_seq,csat_name,exam_ymd
 		  FROM csat

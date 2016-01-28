@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CsatDaoMapper extends SqlSessionDaoSupport implements CsatDao {
 
+	public CsatVo selectOne(int csatSequence) {
+		return getSqlSession().selectOne("csat.selectOne", csatSequence);
+	}
+	
 	public List<CsatVo> selectListYear() {
 		return getSqlSession().selectList("csat.selectListYear");
 	}
