@@ -44,7 +44,7 @@
 					$gradeExam.find("option").remove();
 					for (var index = 0; index < examListLength; index++) {
 						var exam = examList[index];
-						if (yearStudentSequence === exam.yearStudentSequence) {
+						if (yearStudentSequence == exam.yearStudentSequence) {
 							$gradeExam.append("<option value='" + exam.examSequence + "'>" + exam.examName + "</option>");
 						}
 					}
