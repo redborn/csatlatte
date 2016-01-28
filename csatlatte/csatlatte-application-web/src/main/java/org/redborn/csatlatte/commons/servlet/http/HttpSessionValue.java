@@ -111,8 +111,23 @@ public class HttpSessionValue {
 		return (String) session.getAttribute(NICKNAME);
 	}
 	
+	/**
+	 * 수능 일련번호 입니다.
+	 * 
+	 * @return 수능 일련번호
+	 */
 	public int getCsatSequence() {
-		Integer csatSequence = (Integer) this.session.getAttribute(CSAT_SEQUENCE);
+		return getCsatSequence(this.session);
+	}
+	
+	/**
+	 * 수능 일련번호 입니다.
+	 * 
+	 * @param session 세션
+	 * @return 수능 일련번호
+	 */
+	public static int getCsatSequence(HttpSession session) {
+		Integer csatSequence = (Integer) session.getAttribute(CSAT_SEQUENCE);
 		return csatSequence != null ? csatSequence : 0;
 	}
 	
