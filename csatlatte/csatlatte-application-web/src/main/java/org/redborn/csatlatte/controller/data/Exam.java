@@ -39,13 +39,35 @@ public class Exam {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public void post(@RequestParam(value="examSequence",required=true) int examSequence,
+	public void post(Model model, @RequestParam(value="csatSequence",required=true) int csatSequence,
+			@RequestParam(value="examName",required=true) String examName,
+			@RequestParam(value="institutionSequence",required=true) int institutionSequence,
+			@RequestParam(value="yearStudentSequence",required=true) int yearStudentSequence,
+			@RequestParam(value="ymd",required=true) String ymd) {
+		logger.info("data exam post view");
+		ExamVo examVo = new ExamVo();
+		
+		int examSequence = examService.examCountMax(csatSequence);
+		
+		examVo.setCsatSequence(csatSequence);
+		examVo.setExamSequence(examSequence);
+		examVo.setExamName(examName);
+		examVo.setInstitutionSequence(institutionSequence);
+		examVo.setYearStudentSequence(yearStudentSequence);
+		examVo.setYmd(ymd);
+		
+		model.addAttribute("examSequence", examSequence);
+		examService.register(examVo);
+	}
+	
+	@RequestMapping(method=RequestMethod.PUT)
+	public void put(@RequestParam(value="examSequence",required=true) int examSequence,
 			@RequestParam(value="csatSequence",required=true) int csatSequence,
 			@RequestParam(value="examName",required=true) String examName,
 			@RequestParam(value="institutionSequence",required=true) int institutionSequence,
 			@RequestParam(value="yearStudentSequence",required=true) int yearStudentSequence,
 			@RequestParam(value="ymd",required=true) String ymd) {
-		logger.info("data manage exam post view");
+		logger.info("data manage exam put view");
 		
 		ExamVo examVo = new ExamVo();
 		

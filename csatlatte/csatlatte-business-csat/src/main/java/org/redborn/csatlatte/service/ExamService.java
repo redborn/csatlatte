@@ -12,6 +12,7 @@ import org.redborn.csatlatte.domain.SubjectVo;
 
 public interface ExamService {
 
+	public int examCountMax(int csatSequence);
 	public List<CsatVo> csatList();
 	public List<ExamVo> list(int csatSequence);
 	public List<ExamVo> listForManage(int csatSequence);
@@ -21,7 +22,6 @@ public interface ExamService {
 	public int register(ExamVo examVo);
 	public int modify(ExamVo examVo);
 	public int delete(int csatSequence, int examSequence);
-	public int amountExam(int csatSequence, String search);
 	public List<InstitutionVo> institutionList();
 	public List<ExamVo> detail(int csatSequence, int examSequence);
 	public List<ExamVo> listForRatingManage(int csatSequence);

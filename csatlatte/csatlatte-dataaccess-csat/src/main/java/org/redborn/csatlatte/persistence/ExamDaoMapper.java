@@ -11,12 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ExamDaoMapper extends SqlSessionDaoSupport implements ExamDao {
 	
-	public int selectOneCount(int csatSequence, String search) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("csatSequence", csatSequence);
-		params.put("search", search);
-		
-		return getSqlSession().selectOne("exam.selectOneCount", params);
+	public int selectOneCountMax(int csatSequence) {
+		return getSqlSession().selectOne("exam.selectOneCountMax", csatSequence);
 	}
 	
 	public List<ExamVo> selectListExam(int csatSequence) {
