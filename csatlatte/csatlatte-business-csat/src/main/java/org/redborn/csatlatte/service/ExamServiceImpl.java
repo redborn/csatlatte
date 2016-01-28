@@ -39,6 +39,10 @@ public class ExamServiceImpl implements ExamService {
 	private SubjectDao subjectDao;
 	@Autowired
 	private ScoreDao scoreDao;
+
+	public CsatVo getCsat(int csatSequence) {
+		return csatDao.selectOne(csatSequence);
+	}
 	
 	public List<CsatVo> csatList() {
 		return csatDao.selectListYear();
