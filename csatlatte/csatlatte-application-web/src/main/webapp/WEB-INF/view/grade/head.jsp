@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/layout/include/student.jsp" %>
+<%@ include file="/WEB-INF/layout/include/jquery/form.jsp" %>
 <style>
 	.grade-message {margin-bottom:20px;}
 	.grade-menu {text-align:left; width:60px;}
@@ -16,12 +17,12 @@
 	.grade-btn-add-score {cursor:pointer; margin-top:5px; margin-bottom:15px;}
 	.grade-btn-delete-score {cursor:pointer;}
 	.grade-btn-modify-score {cursor:pointer;}
-	.grade-btn-cancel {cursor:pointer; margin-right:10px;}
-	.grade-btn-accept {cursor:pointer;}
 	.grade-select-subject {font-size:13px; margin-top:5px; margin-left:10px; margin-bottom:15px;}
 	.grade-insert-score {font-size:14px; margin-top:5px; margin-left:10px;}
 	.grade-insert-score .form-control {float:none; width:100px; height:25px;}
 	.modal-body {font-size:13px;}
+	
+	.grade-add-score-message {color:#d9534f; padding-top:7px;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -31,6 +32,7 @@
 		});
 		
 		var examList = null;
+		var subjectList = null;
 		
 		var makeExamSelectOption = function(yearStudentSequence) {
 			
@@ -78,7 +80,7 @@
 			html += '			<tbody>';
 			html += '			</tbody>';
 			html += '		</table>';
-			html += '		<img alt="성적추가" data-toggle="modal" data-target="#grade-add-score" class="grade-btn-add-score" src="' + contextPath + '/resources/csatlatte/images/btn/btn_add.png"/>';
+			html += '		<img alt="성적추가" data-toggle="modal" data-target="#grade-add" data-section="' + section.sectionSequence + '" class="grade-btn-add-score" src="' + contextPath + '/resources/csatlatte/images/btn/btn_add.png"/>';
 			html += '	</div>';
 			return html;
 		};
@@ -98,9 +100,82 @@
 						for (var index = 0; index < sectionListLength; index++) {
 							$(".grade-transcript").append(makeSectionTable(sectionList[index]));
 						}
+						$.ajax(contextPath + "/data/subject/" + csatSequence + "/" + examSequence + ".json", {
+							success : function(data) {
+								subjectList = data.list;
+								$.ajax(contextPath + "/data/grade/" + examSequence + ".json", {
+									success : function(data) {
+										// 내 성적 뿌리기..
+										console.log(data);
+									}
+								});
+							}
+						});
 					}
 				}
 			});
+			var action = $("#grade-add-form").attr("action");
+			$("#grade-add-form").attr("action", action.substring(0, action.lastIndexOf("/") + 1) + examSequence + ".json");
+		});
+		
+		$("#grade-add").on("show.bs.modal", function(event) {
+			var section = $(event.relatedTarget).data("section");
+			var $modal = $(this);
+			$modal.find("#grade-add-subject").text("");
+			$modal.find("#grade-add-subject button").remove();
+			if (subjectList != null) {
+				var subjectListLength = subjectList.length;
+				if (subjectListLength > 0) {
+					for (var index = 0; index < subjectListLength; index++) {
+						var subject = subjectList[index];
+						if (subject.sectionSequence == section) {
+							$modal.find("#grade-add-subject").append('<button type="button" data-subject="' + subject.subjectSequence + '" data-maxscore="' + subject.maxScore + '" class="btn btn-default">' + subject.subjectName + '</button>');
+						}
+					}
+					$modal.find("#grade-add-subject button").on("click", function() {
+						$(this).addClass("active").siblings().removeClass("active");
+						$("#grade-add-form input[name='subjectSequence']").val($(this).data("subject"));
+						$("#grade-add .form-group:not(:first)").slideDown("fast");
+					});
+				}
+			}
+			$("#grade-add-form input[name='sectionSequence']").val(section);
+			$("#grade-add-score").val("");
+			$(".grade-add-score-message").text("");
+			$("#grade-add .form-group:not(:first)").hide();
+		});
+		
+		$("#grade-add").on("shown.bs.modal", function(event) {
+			$("#grade-add-score").focus();
+		});
+		
+		$("#grade-add-score").on("keyup", function(event) {
+			var score = $(this).val();
+			if (score != null && /^[0-9]+$/.test(score)) {
+				var maxScore = $("#grade-add-form #grade-add-subject button.active").data("maxscore");
+				if (maxScore >= score) {
+					$(".grade-add-score-message").text("");
+					$("#grade-add-submit").attr("disabled", false);
+				} else {
+					$(".grade-add-score-message").text("최대 " + maxScore + "점까지 입력 가능합니다.");
+					$("#grade-add-submit").attr("disabled", true);
+				}
+			} else if (score == "") {
+				$(".grade-add-score-message").text("");
+				$("#grade-add-submit").attr("disabled", true);
+			} else {
+				$(".grade-add-score-message").text("원점수는 정수로만 입력이 가능합니다.");
+				$("#grade-add-submit").attr("disabled", true);
+			}
+		});
+		
+		$("#grade-add-form").ajaxForm({
+			dataType : "json",
+			success : function(data) {
+				if (data.result) {
+					$("#grade-add").modal("hide");
+				}
+			}
 		});
 		
 		$("#grade-yearstudent").trigger("change");

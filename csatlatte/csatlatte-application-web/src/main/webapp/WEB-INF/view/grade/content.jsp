@@ -127,26 +127,40 @@
 	 -->
 </div>
 
-<div class="modal fade" id="grade-add-score" role="dialog" aria-labelledby="grade-add-score-label">
+<div class="modal fade" id="grade-add" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="grade-add-score-label">성적 추가</h4>
-			</div>
-			<div class="modal-body">
-				<h5>과목 선택</h5>
-				<div class="grade-select-subject">
-					<a>국어A</a> | <a>국어B</a> | <a>수학A</a> | <a>수학B</a> | <a>영어</a>
+			<form id="grade-add-form" class="form-horizontal" action="<c:url value="/data/grade/"/>" method="post">
+				<input name="sectionSequence" type="hidden"/>
+				<input name="subjectSequence" type="hidden"/>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+					<h4 class="modal-title">성적 추가</h4>
 				</div>
-				<h5>성적 입력</h5>
-				<div class="grade-insert-score">
-					원점수 <input type="text" class="form-control"> <small>원점수는 시험에서 받은 성적을 의미합니다.</small>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">과목 선택</label>
+						<div class="col-sm-10">
+							<div id="grade-add-subject" class="btn-group">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="grade-add-score-text">성적 입력</label>
+						<div class="col-sm-4">
+							<input id="grade-add-score" name="score" type="text" class="form-control" placeholder="원점수"/>
+						</div>
+						<div class="col-sm-6 grade-add-score-message"></div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10"><small>원점수(원점수는 시험에서 받은 성적을 의미합니다.)</small></div>
+					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<img class="grade-btn-cancel" data-dismiss="modal" src="<c:url value="/resources/csatlatte/images/btn/btn_cancel.png"/>">
-				<img class="grade-btn-accept" src="<c:url value="/resources/csatlatte/images/btn/btn_accept.png"/>">
-			</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					<button type="submit" id="grade-add-submit" class="btn btn-primary" disabled="disabled">확인</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -160,8 +174,8 @@
 				정말로 이 과목 점수를 삭제하실거에요?
 			</div>
 			<div class="modal-footer">
-				<img class="grade-btn-cancel" data-dismiss="modal" src="<c:url value="/resources/csatlatte/images/btn/btn_cancel.png"/>">
-				<img class="grade-btn-accept" src="<c:url value="/resources/csatlatte/images/btn/btn_accept.png"/>">
+				<button type="button" class="btn btn-default">닫기</button>
+				<button type="submit" class="btn btn-primary" disabled="disabled">확인</button>
 			</div>
 		</div>
 	</div>
@@ -178,8 +192,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<img class="grade-btn-cancel" data-dismiss="modal" src="<c:url value="/resources/csatlatte/images/btn/btn_cancel.png"/>">
-				<img class="grade-btn-accept" src="<c:url value="/resources/csatlatte/images/btn/btn_accept.png"/>">
+				<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+				<button type="submit" class="btn btn-primary" disabled="disabled">확인</button>
 			</div>
 		</div>
 	</div>
