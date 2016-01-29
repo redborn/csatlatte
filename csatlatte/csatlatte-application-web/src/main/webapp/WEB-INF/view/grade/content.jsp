@@ -23,6 +23,9 @@
 	</div>
 </div>
 <div class="grade-transcript">
+
+
+<!-- 
 	<div class="grade-important">
 		<h5><strong>주요 과목</strong></h5>
 		<table class="table">
@@ -121,6 +124,7 @@
 		</table>
 		<img alt="성적추가" data-toggle="modal" data-target="#grade-add-score" class="grade-btn-add-score" src="<c:url value="/resources/csatlatte/images/btn/btn_add.png"/>">
 	</div>
+	 -->
 </div>
 
 <div class="modal fade" id="grade-add-score" role="dialog" aria-labelledby="grade-add-score-label">

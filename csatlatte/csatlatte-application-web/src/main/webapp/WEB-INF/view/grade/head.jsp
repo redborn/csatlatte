@@ -61,16 +61,46 @@
 			}
 		}
 		
+		var makeSectionTable = function(section) {
+			var html = '	<div id="grade-section-' + section.sectionSequence + '" class="grade-section">';
+			html += '		<h5><strong>' + section.sectionName + '</strong></h5>';
+			html += '		<table class="table">';
+			html += '			<thead>';
+			html += '				<tr>';
+			html += '					<th width="96px">과목명</th>';
+			html += '					<th width="96px">원점수</th>';
+			html += '					<th width="96px">등급</th>';
+			html += '					<th width="96px">표준점수</th>';
+			html += '					<th width="96px"></th>';
+			html += '					<th width="96px"></th>';
+			html += '				</tr>';
+			html += '			</thead>';
+			html += '			<tbody>';
+			html += '			</tbody>';
+			html += '		</table>';
+			html += '		<img alt="성적추가" data-toggle="modal" data-target="#grade-add-score" class="grade-btn-add-score" src="' + contextPath + '/resources/csatlatte/images/btn/btn_add.png"/>';
+			html += '	</div>';
+			return html;
+		};
+		
 		$("#grade-yearstudent").on("change", function() {
 			makeExamSelectOption($(this).val());
 		});
 		
 		$("#grade-exam").on("change", function() {
-			/*
-			$.ajax(contextPath + "/data/grade/" + $(this).val() + ".json", function(data) {
-				
+			var examSequence = $(this).val();
+			$.ajax(contextPath + "/data/section/" + csatSequence + "/" + examSequence + ".json", {
+				success : function(data) {
+					$(".grade-transcript .grade-section").remove();
+					var sectionList = data.list;
+					if (sectionList != null) {
+						var sectionListLength = sectionList.length;
+						for (var index = 0; index < sectionListLength; index++) {
+							$(".grade-transcript").append(makeSectionTable(sectionList[index]));
+						}
+					}
+				}
 			});
-			*/
 		});
 		
 		$("#grade-yearstudent").trigger("change");
