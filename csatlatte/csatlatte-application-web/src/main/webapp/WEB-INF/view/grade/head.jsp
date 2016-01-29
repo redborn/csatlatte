@@ -85,6 +85,18 @@
 			return html;
 		};
 		
+		var makeGradeTr = function(grade) {
+			var html = '				<tr>';
+			html += '					<td>' + grade.subjectName + '</td>';
+			html += '					<td>' + grade.score + '</td>';
+			html += '					<td>' + grade.ratingCode + '</td>';
+			html += '					<td>' + grade.standardScore + '</td>';
+			html += '					<td><img alt="성적수정" data-toggle="modal" data-target="#grade-modify-score" class="grade-btn-modify-score" src="<c:url value="/resources/csatlatte/images/btn/btn_modify.png"/>"></td>';
+			html += '					<td><img alt="성적지우기" data-toggle="modal" data-target="#grade-delete-score" class="grade-btn-delete-score" src="<c:url value="/resources/csatlatte/images/btn/btn_delete.png"/>"></td>';
+			html += '				</tr>';
+			return html;
+		};
+		
 		$("#grade-yearstudent").on("change", function() {
 			makeExamSelectOption($(this).val());
 		});
@@ -105,8 +117,14 @@
 								subjectList = data.list;
 								$.ajax(contextPath + "/data/grade/" + examSequence + ".json", {
 									success : function(data) {
-										// 내 성적 뿌리기..
-										console.log(data);
+										var gradeList = data.list;
+										if (gradeList != null) {
+											var gradeListLength = gradeList.length;
+											for (var index = 0; index < gradeListLength; index++) {
+												var grade = gradeList[index];
+												$("#grade-section-" + grade.sectionSequence + " tbody").append(makeGradeTr(grade));
+											}
+										}
 									}
 								});
 							}
