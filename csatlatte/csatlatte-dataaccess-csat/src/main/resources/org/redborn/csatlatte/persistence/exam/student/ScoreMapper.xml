@@ -51,7 +51,7 @@
 		       INNER JOIN (SELECT
 		       cerc1.csat_seq,cerc1.rating_code,cerc1.exam_seq,cerc1.section_seq,
 		                  cerc1.subject_seq,cerc1.raw_score AS min_raw_score,
-		                         IFNULL(cerc2.raw_score, ces.max_score) AS max_raw_score
+		                         IFNULL(cerc2.raw_score, ces.max_score + 1) AS max_raw_score
 		                     FROM csat_exam_rating_cut cerc1
 		                          LEFT OUTER JOIN csat_exam_rating_cut cerc2
 		                                       ON cerc1.csat_seq = cerc2.csat_seq
@@ -73,8 +73,8 @@
 		                  AND cess.exam_seq = cerc.exam_seq
 		                  AND cess.section_seq = cerc.section_seq
 		                  AND cess.subject_seq = cerc.subject_seq
-		                  AND cess.score BETWEEN cerc.min_raw_score AND
-		                                         cerc.max_raw_score
+		                  AND cess.score &gt;= cerc.min_raw_score 
+		                  AND cess.score &lt; cerc.max_raw_score
 		 WHERE cess.csat_seq = #{csatSequence}
 		   AND cess.exam_seq = #{examSequence}
 		   AND cess.student_seq = #{studentSequence}
