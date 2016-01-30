@@ -4,8 +4,8 @@
 <div class="grade-synopsis">
 	<div class="row">
 		<div class="col-md-4">
-			<h5><strong id="grade-rating">등급 평균 : 3등급</strong></h5>
-			<h5><strong id="grade-standardscore">표준 점수 : 98점</strong> <img alt="표준점수 뜻" src="<c:url value="/resources/csatlatte/images/btn/btn_help.png"/>" data-toggle="tooltip" data-placement="bottom" title="표준점수란 과목의 상대적 서열로 계산된 입시에 반영되는 점수입니다."></h5>
+			<h5><strong id="grade-rating"></strong></h5>
+			<h5><strong id="grade-standardscore"></strong> <img alt="표준점수 뜻" src="<c:url value="/resources/csatlatte/images/btn/btn_help.png"/>" data-toggle="tooltip" data-placement="bottom" title="표준점수란 과목의 상대적 서열로 계산된 입시에 반영되는 점수입니다."></h5>
 		</div>
 		<div class="col-md-8" style="text-align:right;">
 			<div class="col-sm-3">
@@ -61,19 +61,25 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="grade-delete-score" role="dialog" aria-labelledby="grade-delete-score-label">
+<div class="modal fade" id="grade-delete" role="dialog" aria-labelledby="grade-delete-score-label">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="grade-delete-score-label">성적 삭제</h4>
-			</div>
-			<div class="modal-body">
-				정말로 이 과목 점수를 삭제하실거에요?
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default">닫기</button>
-				<button type="submit" class="btn btn-primary" disabled="disabled">확인</button>
-			</div>
+			<form id="grade-delete-form" action="<c:url value="/data/grade///"/>">
+				<input name="sectionSequence" type="hidden"/>
+				<input name="subjectSequence" type="hidden"/>
+				<input name="_method" value="DELETE" type="hidden"/>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+					<h4 class="modal-title" id="grade-delete-score-label">성적 삭제</h4>
+				</div>
+				<div class="modal-body">
+					정말로 이 과목 점수를 삭제하실거에요?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					<button type="submit" class="btn btn-primary">확인</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

@@ -92,7 +92,7 @@
 			html += '					<td>' + grade.ratingCode + '</td>';
 			html += '					<td>' + grade.standardScore + '</td>';
 			html += '					<td><img alt="성적수정" data-toggle="modal" data-target="#grade-modify-score" class="grade-btn-modify-score" src="<c:url value="/resources/csatlatte/images/btn/btn_modify.png"/>"></td>';
-			html += '					<td><img alt="성적지우기" data-toggle="modal" data-target="#grade-delete-score" class="grade-btn-delete-score" src="<c:url value="/resources/csatlatte/images/btn/btn_delete.png"/>"></td>';
+			html += '					<td><img alt="성적지우기" data-toggle="modal" data-target="#grade-delete" data-section="' + grade.sectionSequence + '" data-subject="' + grade.subjectSequence + '" data-subject-name="' + grade.subjectName + '" class="grade-btn-delete-score" src="<c:url value="/resources/csatlatte/images/btn/btn_delete.png"/>"></td>';
 			html += '				</tr>';
 			return html;
 		};
@@ -143,8 +143,12 @@
 					}
 				}
 			});
-			var action = $("#grade-add-form").attr("action");
-			$("#grade-add-form").attr("action", action.substring(0, action.lastIndexOf("/") + 1) + examSequence + ".json");
+			var addFormAction = $("#grade-add-form").attr("action");
+			$("#grade-add-form").attr("action", addFormAction.substring(0, addFormAction.lastIndexOf("/") + 1) + examSequence + ".json");
+			var deleteFormAction = $("#grade-delete-form").attr("action");
+			deleteFormAction = deleteFormAction.substring(0, deleteFormAction.lastIndexOf("/"));
+			deleteFormAction = deleteFormAction.substring(0, deleteFormAction.lastIndexOf("/"));
+			$("#grade-delete-form").attr("action", deleteFormAction.substring(0, deleteFormAction.lastIndexOf("/") + 1) + examSequence + "//.json");
 		});
 		
 		$("#grade-add").on("show.bs.modal", function(event) {
@@ -203,8 +207,34 @@
 			success : function(data) {
 				if (data.result) {
 					$("#grade-add").modal("hide");
+					$("#grade-exam").trigger("change");
 				}
 			}
+		});
+		
+		$("#grade-delete").on("show.bs.modal", function(event) {
+			var $button = $(event.relatedTarget);
+			$("#grade-delete .modal-body").html("정말로 <code>" + $button.data("subject-name") + "</code>을(를) 삭제하시겠습니까?")
+			$("#grade-delete-form input[name='sectionSequence']").val($button.data("section"));
+			$("#grade-delete-form input[name='subjectSequence']").val($button.data("subject"));
+		});
+		
+		$("#grade-delete-form").on("submit", function() {
+			var deleteFormAction = $("#grade-delete-form").attr("action");
+			deleteFormAction = deleteFormAction.substring(0, deleteFormAction.lastIndexOf("/"));
+			deleteFormAction = deleteFormAction.substring(0, deleteFormAction.lastIndexOf("/") + 1) + $("#grade-delete-form input[name='sectionSequence']").val() + "/.json";
+			$("#grade-delete-form").attr("action", deleteFormAction.substring(0, deleteFormAction.lastIndexOf("/") + 1) + $("#grade-delete-form input[name='subjectSequence']").val() + ".json");
+			$.ajax($(this).attr("action"), {
+				dataType : "json",
+				type : "DELETE",
+				success : function(data) {
+					if (data.result) {
+						$("#grade-delete").modal("hide");
+						$("#grade-exam").trigger("change");
+					}
+				}
+			});
+			return false;
 		});
 		
 		$("#grade-yearstudent").trigger("change");
