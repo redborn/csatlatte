@@ -120,9 +120,20 @@
 										var gradeList = data.list;
 										if (gradeList != null) {
 											var gradeListLength = gradeList.length;
-											for (var index = 0; index < gradeListLength; index++) {
-												var grade = gradeList[index];
-												$("#grade-section-" + grade.sectionSequence + " tbody").append(makeGradeTr(grade));
+											if (gradeListLength > 0) {
+												var ratingSum = 0;
+												var standardScore = 0;
+												for (var index = 0; index < gradeListLength; index++) {
+													var grade = gradeList[index];
+													standardScore += grade.standardScore;
+													ratingSum += parseInt(grade.ratingCode);
+													$("#grade-section-" + grade.sectionSequence + " tbody").append(makeGradeTr(grade));
+												}
+												$("#grade-rating").text("등급 평균 : " + Math.round(ratingSum / gradeListLength * 100) / 100 + "등급");
+												$("#grade-standardscore").text("표준 점수 : " + standardScore + "점");
+											} else {
+												$("#grade-rating").text("등급 평균 : -");
+												$("#grade-standardscore").text("표준 점수 : -");
 											}
 										}
 									}
