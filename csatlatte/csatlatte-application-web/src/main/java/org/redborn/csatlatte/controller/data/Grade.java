@@ -55,8 +55,8 @@ public class Grade {
 		model.addAttribute("result", gradeService.modify(gradeVo));
 	}
 
-	@RequestMapping(value="{examSequence}",method=RequestMethod.DELETE)
-	public void delete(Model model, @PathVariable(value="examSequence") int examSequence, @RequestParam(value="sectionSequence",required=true) int sectionSequence, @RequestParam(value="subjectSequence",required=true) int subjectSequence) {
+	@RequestMapping(value="{examSequence}/{sectionSequence}/{subjectSequence}",method=RequestMethod.DELETE)
+	public void delete(Model model, @PathVariable(value="examSequence") int examSequence, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence) {
 		logger.info("data grade delete");
 		model.addAttribute("result", gradeService.delete(httpSessionValue.getStudentSequence(), httpSessionValue.getCsatSequence(), examSequence, sectionSequence, subjectSequence));
 	}
