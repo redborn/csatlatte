@@ -86,7 +86,7 @@
 		};
 		
 		var makeGradeTr = function(grade) {
-			var html = '				<tr>';
+			var html = '				<tr id="grade-section-row-' + grade.sectionSequence + '-' + grade.subjectSequence + '">';
 			html += '					<td>' + grade.subjectName + '</td>';
 			html += '					<td>' + grade.score + '</td>';
 			html += '					<td>' + grade.ratingCode + '</td>';
@@ -162,7 +162,9 @@
 					for (var index = 0; index < subjectListLength; index++) {
 						var subject = subjectList[index];
 						if (subject.sectionSequence == section) {
-							$modal.find("#grade-add-subject").append('<button type="button" data-subject="' + subject.subjectSequence + '" data-maxscore="' + subject.maxScore + '" class="btn btn-default">' + subject.subjectName + '</button>');
+							if ($("#grade-section-row-" + subject.sectionSequence + "-" + subject.subjectSequence).size() == 0) {
+								$modal.find("#grade-add-subject").append('<button type="button" data-subject="' + subject.subjectSequence + '" data-maxscore="' + subject.maxScore + '" class="btn btn-default">' + subject.subjectName + '</button>');
+							}
 						}
 					}
 					$modal.find("#grade-add-subject button").on("click", function() {
