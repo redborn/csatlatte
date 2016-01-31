@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix= "fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<p><strong>시험은 잘 보셨나요?</strong></p>
@@ -10,30 +11,23 @@
 	<div class="panel-body">
 		<div class="rating-select-grade">
 			<h5><strong>학년 선택</strong></h5>
-			<div class="rating-select-grade-list">
-				<a class="rating-select-grade-resource" href="#">1학년</a> | 
-				<a class="rating-select-grade-resource" href="#">2학년</a> | 
-				<a class="rating-select-grade-resource" href="#">3학년</a>
+			<div class="rating-select-yearstudent-list">
+				<c:forEach items="${yearStudentList}" var="yearStudent">
+					<button class="rating-select-yearstudent-resource" value="${yearStudent.yearStudentSequence}">${yearStudent.yearStudentName}</button>
+				</c:forEach>
 			</div>
 		</div>
 		<div class="rating-select-year">
 			<h5><strong>연도 선택</strong></h5>
 			<div class="rating-select-year-list">
-				<a class="rating-select-year-resource" href="#">2011년</a> | 
-				<a class="rating-select-year-resource" href="#">2012년</a> | 
-				<a class="rating-select-year-resource" href="#">2013년</a> | 
-				<a class="rating-select-year-resource" href="#">2014년</a> | 
-				<a class="rating-select-year-resource" href="#">2015년</a>
+				<c:forEach items="${csatList}" var="csat">
+					<button class="rating-select-year-resource" value="${csat.csatSequence}">${fn:substring(csat.examYmd,0,4)}</button>
+				</c:forEach>
 			</div>
 		</div>
 		<div class="rating-select-exam">
 			<h5><strong>모의고사 선택</strong></h5>
 			<div class="rating-select-exam-list">
-				<a class="rating-select-exam-resource" href="#"><img alt="3월모의고사" src="<c:url value="/resources/csatlatte/images/btn/btn_postit_3.png"/>"></a>
-				<a class="rating-select-exam-resource" href="#"><img alt="4월모의고사" src="<c:url value="/resources/csatlatte/images/btn/btn_postit_3.png"/>"></a>
-				<a class="rating-select-exam-resource" href="#"><img alt="6월모의고사" src="<c:url value="/resources/csatlatte/images/btn/btn_postit_3.png"/>"></a>
-				<a class="rating-select-exam-resource" href="#"><img alt="7월모의고사" src="<c:url value="/resources/csatlatte/images/btn/btn_postit_3.png"/>"></a>
-				<a class="rating-select-exam-resource" href="#"><img alt="9월모의고사" src="<c:url value="/resources/csatlatte/images/btn/btn_postit_3.png"/>"></a>
 			</div>
 		</div>
 	</div>

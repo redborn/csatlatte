@@ -70,10 +70,11 @@
 		   AND ce.isttt_seq = ci.isttt_seq 
 	</select>
 
-	<select id="selectListExam" parameterType="int" resultMap="ExamVoMap">
+	<select id="selectListExam" parameterType="Map" resultMap="ExamVoMap">
 		SELECT csat_seq,exam_seq,exam_name
 		  FROM csat_exam
 		 WHERE csat_seq = #{csatSequence}
+		   AND ys_seq = #{yearStudentSequence}
 		 ORDER BY exam_seq ASC 
 	</select>
 	
