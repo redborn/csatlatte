@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/layout/include/student.jsp" %>
 <%@ include file="/WEB-INF/layout/include/jquery/form.jsp" %>
 <style>
-	.table {font-size:13px; width:576px; margin-left:20px; margin-bottom:0px;}
+	.table {margin-bottom:0px;}
 	.table tr {border-bottom:1px solid #DDDDDD;}
 	.table tr td {text-align:center; width:96px;}
 	.table tr th {text-align:center;}
@@ -58,12 +58,12 @@
 			html += '		<table class="table">';
 			html += '			<thead>';
 			html += '				<tr>';
-			html += '					<th width="96px">과목명</th>';
-			html += '					<th width="96px">원점수</th>';
-			html += '					<th width="96px">등급</th>';
-			html += '					<th width="96px">표준점수</th>';
-			html += '					<th width="96px"></th>';
-			html += '					<th width="96px"></th>';
+			html += '					<th width="20%">과목명</th>';
+			html += '					<th width="20%">원점수</th>';
+			html += '					<th width="20%">등급</th>';
+			html += '					<th width="20%">표준점수</th>';
+			html += '					<th width="10%"></th>';
+			html += '					<th width="10%"></th>';
 			html += '				</tr>';
 			html += '			</thead>';
 			html += '			<tbody>';
