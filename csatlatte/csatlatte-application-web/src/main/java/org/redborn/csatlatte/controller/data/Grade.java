@@ -42,8 +42,8 @@ public class Grade {
 		model.addAttribute("result", gradeService.register(gradeVo));
 	}
 	
-	@RequestMapping(value="{examSequence}",method=RequestMethod.PUT)
-	public void put(Model model, @PathVariable(value="examSequence") int examSequence, @RequestParam(value="score",required=true) int score, @RequestParam(value="sectionSequence",required=true) int sectionSequence, @RequestParam(value="subjectSequence",required=true) int subjectSequence) {
+	@RequestMapping(value="{examSequence}/{sectionSequence}/{subjectSequence}",method=RequestMethod.PUT)
+	public void put(Model model, @PathVariable(value="examSequence") int examSequence, @RequestParam(value="score",required=true) int score, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence) {
 		logger.info("data grade modify");
 		GradeVo gradeVo = new GradeVo();
 		gradeVo.setCsatSequence(httpSessionValue.getCsatSequence());
