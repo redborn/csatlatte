@@ -29,8 +29,8 @@ public class Grade {
 		model.addAttribute("list", gradeService.list(httpSessionValue.getCsatSequence(), examSequence, httpSessionValue.getStudentSequence()));
 	}
 	
-	@RequestMapping(value="{examSequence}",method=RequestMethod.POST)
-	public void post(Model model, @PathVariable(value="examSequence") int examSequence, @RequestParam(value="score",required=true) int score, @RequestParam(value="sectionSequence",required=true) int sectionSequence, @RequestParam(value="subjectSequence",required=true) int subjectSequence) {
+	@RequestMapping(value="{examSequence}/{sectionSequence}/{subjectSequence}",method=RequestMethod.POST)
+	public void post(Model model, @PathVariable(value="examSequence") int examSequence, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence, @RequestParam(value="score",required=true) int score) {
 		logger.info("data grade register");
 		GradeVo gradeVo = new GradeVo();
 		gradeVo.setCsatSequence(httpSessionValue.getCsatSequence());
@@ -43,7 +43,7 @@ public class Grade {
 	}
 	
 	@RequestMapping(value="{examSequence}/{sectionSequence}/{subjectSequence}",method=RequestMethod.PUT)
-	public void put(Model model, @PathVariable(value="examSequence") int examSequence, @RequestParam(value="score",required=true) int score, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence) {
+	public void put(Model model, @PathVariable(value="examSequence") int examSequence, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence, @RequestParam(value="score",required=true) int score) {
 		logger.info("data grade modify");
 		GradeVo gradeVo = new GradeVo();
 		gradeVo.setCsatSequence(httpSessionValue.getCsatSequence());
