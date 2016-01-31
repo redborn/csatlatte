@@ -22,7 +22,7 @@
 	.grade-insert-score .form-control {float:none; width:100px; height:25px;}
 	.modal-body {font-size:13px;}
 	
-	.grade-add-score-message {color:#d9534f; padding-top:7px;}
+	.grade-score-message {color:#d9534f; padding-top:7px;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -91,10 +91,46 @@
 			html += '					<td>' + grade.score + '</td>';
 			html += '					<td>' + grade.ratingCode + '</td>';
 			html += '					<td>' + grade.standardScore + '</td>';
-			html += '					<td><img alt="성적수정" data-toggle="modal" data-target="#grade-modify-score" class="grade-btn-modify-score" src="<c:url value="/resources/csatlatte/images/btn/btn_modify.png"/>"></td>';
+			html += '					<td><img alt="성적수정" data-toggle="modal" data-target="#grade-modify" data-section="' + grade.sectionSequence + '" data-subject="' + grade.subjectSequence + '" data-subject-name="' + grade.subjectName + '" data-score="' + grade.score + '" data-maxscore="' + getMaxScore(grade.sectionSequence, grade.subjectSequence) + '" class="grade-btn-modify-score" src="<c:url value="/resources/csatlatte/images/btn/btn_modify.png"/>"></td>';
 			html += '					<td><img alt="성적지우기" data-toggle="modal" data-target="#grade-delete" data-section="' + grade.sectionSequence + '" data-subject="' + grade.subjectSequence + '" data-subject-name="' + grade.subjectName + '" class="grade-btn-delete-score" src="<c:url value="/resources/csatlatte/images/btn/btn_delete.png"/>"></td>';
 			html += '				</tr>';
 			return html;
+		};
+		
+		var validateScore = function($message, $submit, score, maxScore) {
+			var result = false; 
+			if (score != null && /^[0-9]+$/.test(score)) {
+				if (parseInt(maxScore) >= parseInt(score)) {
+					$message.text("");
+					$submit.attr("disabled", false);
+					result = true;
+				} else {
+					$message.text("최대 " + maxScore + "점까지 입력 가능합니다.");
+					$submit.attr("disabled", true);
+				}
+			} else if (score == "") {
+				$message.text("");
+				$submit.attr("disabled", true);
+			} else {
+				$message.text("원점수는 정수로만 입력이 가능합니다.");
+				$submit.attr("disabled", true);
+			}
+			return result;
+		};
+		
+		var getMaxScore = function(sectionSequence, subjectSequence) {
+			var maxScore = 0;
+			if (subjectList != null) {
+				var subjectListLength = subjectList.length;
+				for (var index = 0; index < subjectListLength; index++) {
+					var subject = subjectList[index];
+					if (subject.sectionSequence == sectionSequence && subject.subjectSequence == subjectSequence) {
+						maxScore = subject.maxScore;
+						break;
+					}
+				}
+			}
+			return maxScore;
 		};
 		
 		$("#grade-yearstudent").on("change", function() {
@@ -149,6 +185,10 @@
 			deleteFormAction = deleteFormAction.substring(0, deleteFormAction.lastIndexOf("/"));
 			deleteFormAction = deleteFormAction.substring(0, deleteFormAction.lastIndexOf("/"));
 			$("#grade-delete-form").attr("action", deleteFormAction.substring(0, deleteFormAction.lastIndexOf("/") + 1) + examSequence + "//.json");
+			var modifyFormAction = $("#grade-modify-form").attr("action");
+			modifyFormAction = modifyFormAction.substring(0, modifyFormAction.lastIndexOf("/"));
+			modifyFormAction = modifyFormAction.substring(0, modifyFormAction.lastIndexOf("/"));
+			$("#grade-modify-form").attr("action", modifyFormAction.substring(0, modifyFormAction.lastIndexOf("/") + 1) + examSequence + "//.json");
 		});
 		
 		$("#grade-add").on("show.bs.modal", function(event) {
@@ -185,23 +225,7 @@
 		});
 		
 		$("#grade-add-score").on("keyup", function(event) {
-			var score = $(this).val();
-			if (score != null && /^[0-9]+$/.test(score)) {
-				var maxScore = $("#grade-add-form #grade-add-subject button.active").data("maxscore");
-				if (maxScore >= score) {
-					$(".grade-add-score-message").text("");
-					$("#grade-add-submit").attr("disabled", false);
-				} else {
-					$(".grade-add-score-message").text("최대 " + maxScore + "점까지 입력 가능합니다.");
-					$("#grade-add-submit").attr("disabled", true);
-				}
-			} else if (score == "") {
-				$(".grade-add-score-message").text("");
-				$("#grade-add-submit").attr("disabled", true);
-			} else {
-				$(".grade-add-score-message").text("원점수는 정수로만 입력이 가능합니다.");
-				$("#grade-add-submit").attr("disabled", true);
-			}
+			validateScore($("#grade-add-score-message"), $("#grade-add-submit"), $(this).val(), $("#grade-add-form #grade-add-subject button.active").data("maxscore"));
 		});
 		
 		$("#grade-add-form").ajaxForm({
@@ -214,9 +238,43 @@
 			}
 		});
 		
+		$("#grade-modify").on("show.bs.modal", function(event) {
+			var $button = $(event.relatedTarget);
+			$("#grade-modify-subject").text($button.data("subject-name"));
+			$("#grade-modify-form input[name='score']").val($button.data("score"));
+			$("#grade-modify-form input[name='maxscore']").val($button.data("maxscore"));
+			$("#grade-modify-form input[name='sectionSequence']").val($button.data("section"));
+			$("#grade-modify-form input[name='subjectSequence']").val($button.data("subject"));
+		});
+		
+		$("#grade-modify-score").on("keyup", function(event) {
+			validateScore($("#grade-modify-score-message"), $("#grade-modify-submit"), $(this).val(), $("#grade-modify-form input[name='maxscore']").val());
+		});
+		
+		$("#grade-modify-form").on("submit", function() {
+			var modifyFormAction = $("#grade-modify-form").attr("action");
+			modifyFormAction = modifyFormAction.substring(0, modifyFormAction.lastIndexOf("/"));
+			modifyFormAction = modifyFormAction.substring(0, modifyFormAction.lastIndexOf("/") + 1) + $("#grade-modify-form input[name='sectionSequence']").val() + "/.json";
+			$("#grade-modify-form").attr("action", modifyFormAction.substring(0, modifyFormAction.lastIndexOf("/") + 1) + $("#grade-modify-form input[name='subjectSequence']").val() + ".json");
+			$.ajax($(this).attr("action"), {
+				dataType : "json",
+				type : "PUT",
+				data : {
+					score : $("#grade-modify-form input[name='score']").val()
+				},
+				success : function(data) {
+					if ("data.result") { 
+						$("#grade-modify").modal("hide");
+						$("#grade-exam").trigger("change");
+					}
+				}
+			});
+			return false;
+		});
+		
 		$("#grade-delete").on("show.bs.modal", function(event) {
 			var $button = $(event.relatedTarget);
-			$("#grade-delete .modal-body").html("정말로 <code>" + $button.data("subject-name") + "</code>을(를) 삭제하시겠습니까?")
+			$("#grade-delete .modal-body").html("정말로 <code>" + $button.data("subject-name") + "</code>을(를) 삭제하시겠습니까?");
 			$("#grade-delete-form input[name='sectionSequence']").val($button.data("section"));
 			$("#grade-delete-form input[name='subjectSequence']").val($button.data("subject"));
 		});

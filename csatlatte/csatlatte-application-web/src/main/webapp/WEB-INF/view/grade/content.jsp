@@ -43,11 +43,11 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-2 control-label" for="grade-add-score-text">성적 입력</label>
+						<label class="col-sm-2 control-label" for="grade-add-score">성적 입력</label>
 						<div class="col-sm-4">
 							<input id="grade-add-score" name="score" type="text" class="form-control" placeholder="원점수"/>
 						</div>
-						<div class="col-sm-6 grade-add-score-message"></div>
+						<div id="grade-add-score-message" class="col-sm-6 grade-score-message"></div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10"><small>원점수(원점수는 시험에서 받은 성적을 의미합니다.)</small></div>
@@ -61,7 +61,43 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="grade-delete" role="dialog" aria-labelledby="grade-delete-score-label">
+<div class="modal fade" id="grade-modify" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<form id="grade-modify-form" class="form-horizontal" action="<c:url value="/data/grade///"/>">
+				<input name="sectionSequence" type="hidden"/>
+				<input name="subjectSequence" type="hidden"/>
+				<input name="maxscore" type="hidden"/>
+				<input name="_method" value="PUT" type="hidden"/>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+					<h4 class="modal-title">성적 수정</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">과목</label>
+						<div id="grade-modify-subject" class="col-sm-10"></div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="grade-modify-score">성적 입력</label>
+						<div class="col-sm-4">
+							<input id="grade-modify-score" name="score" type="text" class="form-control" placeholder="원점수"/>
+						</div>
+						<div id="grade-modify-score-message" class="col-sm-6 grade-score-message"></div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10"><small>원점수(원점수는 시험에서 받은 성적을 의미합니다.)</small></div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+					<button type="submit" id="grade-modify-submit" class="btn btn-primary" disabled="disabled">확인</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="grade-delete" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<form id="grade-delete-form" action="<c:url value="/data/grade///"/>">
@@ -70,7 +106,7 @@
 				<input name="_method" value="DELETE" type="hidden"/>
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-					<h4 class="modal-title" id="grade-delete-score-label">성적 삭제</h4>
+					<h4 class="modal-title">성적 삭제</h4>
 				</div>
 				<div class="modal-body">
 					정말로 이 과목 점수를 삭제하실거에요?
@@ -80,24 +116,6 @@
 					<button type="submit" class="btn btn-primary">확인</button>
 				</div>
 			</form>
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="grade-modify-score" role="dialog" aria-labelledby="grade-modify-score-label">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title" id="grade-modify-score-label">성적 수정</h4>
-			</div>
-			<div class="modal-body">
-				<div class="grade-insert-score">
-					원점수 <input type="text" class="form-control"> <small>원점수는 시험에서 받은 성적을 의미합니다.</small>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-				<button type="submit" class="btn btn-primary" disabled="disabled">확인</button>
-			</div>
 		</div>
 	</div>
 </div>
