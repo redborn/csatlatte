@@ -3,26 +3,15 @@
 <%@ include file="/WEB-INF/layout/include/student.jsp" %>
 <%@ include file="/WEB-INF/layout/include/jquery/form.jsp" %>
 <style>
-	.grade-message {margin-bottom:20px;}
-	.grade-menu {text-align:left; width:60px;}
-	.grade-menu-title {font-size:13px; width:60px; text-align:center; margin-top:3px; display:inline-block;}
-	.grade-menu img {display:block;}
-	.grade-synopsis {margin-top:10px;}
 	.table {font-size:13px; width:576px; margin-left:20px; margin-bottom:0px;}
 	.table tr {border-bottom:1px solid #DDDDDD;}
 	.table tr td {text-align:center; width:96px;}
 	.table tr th {text-align:center;}
-	.grade-transcript {text-align:right;}
-	.grade-transcript h5 {text-align:left;}
-	.grade-btn-add-score {cursor:pointer; margin-top:5px; margin-bottom:15px;}
-	.grade-btn-delete-score {cursor:pointer;}
-	.grade-btn-modify-score {cursor:pointer;}
-	.grade-select-subject {font-size:13px; margin-top:5px; margin-left:10px; margin-bottom:15px;}
-	.grade-insert-score {font-size:14px; margin-top:5px; margin-left:10px;}
-	.grade-insert-score .form-control {float:none; width:100px; height:25px;}
-	.modal-body {font-size:13px;}
 	
+	.grade-section-add-btn {padding: 10px; height:41px; text-align:right;}
+	.grade-synopsis {margin-top:10px;}
 	.grade-score-message {color:#d9534f; padding-top:7px;}
+	.grade-btn {font-size:14px;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -80,7 +69,7 @@
 			html += '			<tbody>';
 			html += '			</tbody>';
 			html += '		</table>';
-			html += '		<img alt="성적추가" data-toggle="modal" data-target="#grade-add" data-section="' + section.sectionSequence + '" class="grade-btn-add-score" src="' + contextPath + '/resources/csatlatte/images/btn/btn_add.png"/>';
+			html += '		<div class="grade-section-add-btn"><button class="btn btn-default close" data-toggle="modal" data-target="#grade-add" data-section="' + section.sectionSequence + '"><span class="glyphicon glyphicon-plus"></span></button></div>';
 			html += '	</div>';
 			return html;
 		};
@@ -91,8 +80,8 @@
 			html += '					<td>' + grade.score + '</td>';
 			html += '					<td>' + grade.ratingCode + '</td>';
 			html += '					<td>' + grade.standardScore + '</td>';
-			html += '					<td><img alt="성적수정" data-toggle="modal" data-target="#grade-modify" data-section="' + grade.sectionSequence + '" data-subject="' + grade.subjectSequence + '" data-subject-name="' + grade.subjectName + '" data-score="' + grade.score + '" data-maxscore="' + getMaxScore(grade.sectionSequence, grade.subjectSequence) + '" class="grade-btn-modify-score" src="<c:url value="/resources/csatlatte/images/btn/btn_modify.png"/>"></td>';
-			html += '					<td><img alt="성적지우기" data-toggle="modal" data-target="#grade-delete" data-section="' + grade.sectionSequence + '" data-subject="' + grade.subjectSequence + '" data-subject-name="' + grade.subjectName + '" class="grade-btn-delete-score" src="<c:url value="/resources/csatlatte/images/btn/btn_delete.png"/>"></td>';
+			html += '					<td><button type="button" class="btn btn-default close grade-btn" data-toggle="modal" data-target="#grade-modify" data-section="' + grade.sectionSequence + '" data-subject="' + grade.subjectSequence + '" data-subject-name="' + grade.subjectName + '" data-score="' + grade.score + '" data-maxscore="' + getMaxScore(grade.sectionSequence, grade.subjectSequence) + '"><span class="glyphicon glyphicon-pencil"></span></button></td>';
+			html += '					<td><button type="button" class="btn btn-default close grade-btn" data-toggle="modal" data-target="#grade-delete" data-section="' + grade.sectionSequence + '" data-subject="' + grade.subjectSequence + '" data-subject-name="' + grade.subjectName + '"><span class="glyphicon glyphicon-remove"></span></button></td>';
 			html += '				</tr>';
 			return html;
 		};
