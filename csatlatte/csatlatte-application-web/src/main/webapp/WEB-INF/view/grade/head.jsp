@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/layout/include/student.jsp" %>
-<%@ include file="/WEB-INF/layout/include/jquery/form.jsp" %>
 <style>
 	.table {margin-bottom:0px;}
 	.table tr {border-bottom:1px solid #DDDDDD;}
@@ -13,7 +12,7 @@
 	.grade-score-message {color:#d9534f; padding-top:7px;}
 	.grade-btn {font-size:14px;}
 </style>
-<script>
+<script type="text/javascript">
 	$(document).ready(function () {
 		
 		$(function () {
@@ -169,7 +168,9 @@
 				}
 			});
 			var addFormAction = $("#grade-add-form").attr("action");
-			$("#grade-add-form").attr("action", addFormAction.substring(0, addFormAction.lastIndexOf("/") + 1) + examSequence + ".json");
+			addFormAction = addFormAction.substring(0, addFormAction.lastIndexOf("/"));
+			addFormAction = addFormAction.substring(0, addFormAction.lastIndexOf("/"));
+			$("#grade-add-form").attr("action", addFormAction.substring(0, addFormAction.lastIndexOf("/") + 1) + examSequence + "//.json");
 			var deleteFormAction = $("#grade-delete-form").attr("action");
 			deleteFormAction = deleteFormAction.substring(0, deleteFormAction.lastIndexOf("/"));
 			deleteFormAction = deleteFormAction.substring(0, deleteFormAction.lastIndexOf("/"));
@@ -198,12 +199,15 @@
 					}
 					$modal.find("#grade-add-subject button").on("click", function() {
 						$(this).addClass("active").siblings().removeClass("active");
-						$("#grade-add-form input[name='subjectSequence']").val($(this).data("subject"));
+						var addFormAction = $("#grade-add-form").attr("action");
+						$("#grade-add-form").attr("action", addFormAction.substring(0, addFormAction.lastIndexOf("/") + 1) + $(this).data("subject") + ".json");
 						$("#grade-add .form-group:not(:first)").slideDown("fast");
 					});
 				}
 			}
-			$("#grade-add-form input[name='sectionSequence']").val(section);
+			var addFormAction = $("#grade-add-form").attr("action");
+			addFormAction = addFormAction.substring(0, addFormAction.lastIndexOf("/"));
+			$("#grade-add-form").attr("action", addFormAction.substring(0, addFormAction.lastIndexOf("/") + 1) + section + "/.json");
 			$("#grade-add-score").val("");
 			$(".grade-add-score-message").text("");
 			$("#grade-add .form-group:not(:first)").hide();
@@ -217,14 +221,21 @@
 			validateScore($("#grade-add-score-message"), $("#grade-add-submit"), $(this).val(), $("#grade-add-form #grade-add-subject button.active").data("maxscore"));
 		});
 		
-		$("#grade-add-form").ajaxForm({
-			dataType : "json",
-			success : function(data) {
-				if (data.result) {
-					$("#grade-add").modal("hide");
-					$("#grade-exam").trigger("change");
+		$("#grade-add-form").on("submit", function() {
+			$.ajax($(this).attr("action"), {
+				dataType : "json",
+				type : "POST",
+				data : {
+					score : $("#grade-add-form input[name='score']").val()
+				},
+				success : function(data) {
+					if (data.result) {
+						$("#grade-add").modal("hide");
+						$("#grade-exam").trigger("change");
+					}
 				}
-			}
+			});
+			return false;
 		});
 		
 		$("#grade-modify").on("show.bs.modal", function(event) {

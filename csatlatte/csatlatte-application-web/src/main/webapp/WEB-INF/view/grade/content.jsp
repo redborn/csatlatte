@@ -27,9 +27,7 @@
 <div class="modal fade" id="grade-add" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<form id="grade-add-form" class="form-horizontal" action="<c:url value="/data/grade/"/>" method="post">
-				<input name="sectionSequence" type="hidden"/>
-				<input name="subjectSequence" type="hidden"/>
+			<form id="grade-add-form" class="form-horizontal" action="<c:url value="/data/grade///"/>" method="post">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
 					<h4 class="modal-title">성적 추가</h4>
