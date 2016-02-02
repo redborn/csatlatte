@@ -6,7 +6,8 @@
 	<div class="main-title">"미래를 위한<br/>현명한 준비"</div>
 	<session:isGuest>
 	<div class="main-login">
-		<form id="main-form" method="post" action='<c:url value="/data/login"/>'>
+		<form id="main-form" method="post" action='<c:url value="/login"/>'>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			<div class="form-group">
 				<label for="main-input-id" class="sr-only">수능라떼 아이디</label>
 				<input type="text" name="id" class="form-control" placeholder="수능라떼 아이디" id="main-input-id"/>
@@ -31,6 +32,9 @@
 					<a id="main-find-password" href="<c:url value="/password"/>">비밀번호 찾기</a>
 				</div>
 			</div>
+		<c:if test="${fail}">
+			<div class="form-group"><strong style="color:#ebccd1;">아이디 또는 비밀번호가 틀렸습니다.</strong></div>
+		</c:if>
 		</form>
 	</div>
 	</session:isGuest>
