@@ -5,7 +5,6 @@
 	.rating-panel h5 {margin-top:0px; margin-bottom:10px;}
 	.rating-select-yearstudent-list {margin-left:20px; margin-bottom:20px;}
 	.rating-select-year-list {margin-left:20px; margin-bottom:20px;}
-	.rating-select-exam-list img {margin-left:20px; width:100px;}
 	.rating-examcut {position:relative; margin-top:30px; width:100%; min-width:933px; height:auto; background:#EEEEEE; padding-top:15px; padding-bottom:15px; overflow:hidden; display:none;}
 	.rating-examcut .rating-animate-panel {position:relative; width:4000px; height:auto; overflow:hidden;}
 	.rating-examcut .rating-animate-panel .table {width:900px; display:inline-block;}
@@ -83,6 +82,8 @@
 													$('#rating-carousel').remove();
 													$('.rating-table-view').append(makeRatingCutView(averageList, ratingCutList));
 													$('.rating-table-view').insertBefore('.footer');
+													$('.rating-table-view').fadeTo(0,0);
+													$('.rating-table-view').fadeTo(400,1);
 												}
 											}
 										});
