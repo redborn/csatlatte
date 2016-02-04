@@ -2,27 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <style>
-	h5 {margin-top:0px; margin-bottom:10px;}
-	.panel {width:933px; margin:auto; overflow:hidden;}
-	.panel .panel-body {font-size:13px;}
+	.rating-panel h5 {margin-top:0px; margin-bottom:10px;}
 	.rating-select-yearstudent-list {margin-left:20px; margin-bottom:20px;}
 	.rating-select-year-list {margin-left:20px; margin-bottom:20px;}
 	.rating-select-exam-list img {margin-left:20px; width:100px;}
 	.rating-examcut {position:relative; margin-top:30px; width:100%; min-width:933px; height:auto; background:#EEEEEE; padding-top:15px; padding-bottom:15px; overflow:hidden; display:none;}
 	.rating-examcut .rating-animate-panel {position:relative; width:4000px; height:auto; overflow:hidden;}
 	.rating-examcut .rating-animate-panel .table {width:900px; display:inline-block;}
-	.table tr {width:auto;}
-	.table tr th {text-align:center; font-size:13px; width:120px;}
-	.table tr td {text-align:center; font-size:13px; width:120px;}
-	.table thead tr th {vertical-align:middle;}
-	.rating-btn-next {cursor:pointer; position:absolute; top:55px; right:50px;}
-	.rating-btn-prev {cursor:pointer; position:absolute; top:55px; left:50px;}
-	.container-examcut {padding-left:0px; padding-right:0px; text-align:left; margin-bottom:30px;}
 	.rating-select-year-resource {background:none; border:none;}
 	.rating-select-yearstudent-resource {background:none; border:none;}
 	.rating-select-exam-resource {background:none; border:none;}
 	.rating-carousel-caption {position:static; color:black; text-shadow:none;}
-	.rating-detail-table thead tr th {text-align:center; vertical-align:middle;}
+	.rating-detail-table thead tr th {text-align:center; vertical-align:middle; width:120px;}
 	.rating-detail-table {width:auto; margin:auto;}
 	#rating-carousel {background:rgba(245,245,245,1);}
 	.rating-select-exam-list {margin-left:20px;}

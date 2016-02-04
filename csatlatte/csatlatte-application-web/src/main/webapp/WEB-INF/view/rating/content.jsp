@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix= "fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<div class="panel panel-default">
+<div class="panel panel-default rating-panel">
 	<div class="panel-heading">
 		<p><strong>시험은 잘 보셨나요?</strong></p>
 		<p>당신의 원점수와 등급을 비교해보세요.</p>
