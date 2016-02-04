@@ -73,7 +73,7 @@
 	<select id="selectListExam" parameterType="Map" resultMap="ExamVoMap">
 		SELECT csat_seq,exam_seq,exam_name
 		  FROM csat_exam
-		 WHERE csat_seq = #{csatSequence}
+		 WHERE SUBSTRING(exam_ymd,1,4) = #{year}
 		   AND ys_seq = #{yearStudentSequence}
 		 ORDER BY exam_seq ASC 
 	</select>

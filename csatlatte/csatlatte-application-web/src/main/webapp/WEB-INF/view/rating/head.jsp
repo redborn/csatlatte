@@ -26,38 +26,44 @@
 	.rating-detail-table {width:auto; margin:auto;}
 	#rating-carousel {background:rgba(245,245,245,1);}
 	.rating-select-exam-list {margin-left:20px;}
+	.rating-select-year-resource-active {background:#e8e4e1;}
+	.rating-select-yearstudent-resource-active {background:#e8e4e1;}
+	.rating-select-exam-resource-active {background:#e8e4e1;}
 </style>
 <script>
 	$(document).ready(function () {
 		
 		var yearStudentSequence;
-		var csatSequence;
+		var year;
 		
 		$(".rating-select-year").hide();
 		$(".rating-select-exam").hide();
 		
 		$('.rating-select-yearstudent-resource').on("click", function () {
 			yearStudentSequence = $(this).val();
+			$(this).addClass("rating-select-yearstudent-resource-active").siblings().removeClass("rating-select-yearstudent-resource-active");
 			$('.rating-select-year').slideDown("fast");
 			if($('.rating-select-exam').not(":hidden")) {
 				$('.rating-select-exam').slideUp("fast");
 			}
-			$('.rating-examcut').fadeTo(200,0);
+			$('#rating-carousel').fadeTo(200,0);
+			$('.rating-select-year-resource').removeClass("rating-select-year-resource-active");
 			setTimeout(function () {
-				$('.container-examcut').remove();
+				$('#rating-carousel').remove();
 			}, 200);
 		});
 		
 		var makeExam = function (exam) {
 			var html = '';
-			html += '<button class="rating-select-exam-resource" value="' + exam.examSequence + '">' + exam.examName + '</button>';
+			html += '<button class="rating-select-exam-resource" id="' + exam.csatSequence + '" value="' + exam.examSequence + '">' + exam.examName + '</button>';
 			return html;
 		}
 		
 		$('.rating-select-year-resource').on("click", function () {
-			csatSequence = $(this).val();
+			year = $(this).val();
+			$(this).addClass("rating-select-year-resource-active").siblings().removeClass("rating-select-year-resource-active");
 			$('.rating-select-exam-resource').remove();
-			$.ajax(contextPath + "/data/rating/exam/" + yearStudentSequence + "/" + csatSequence + ".json", {
+			$.ajax(contextPath + "/data/rating/exam/" + yearStudentSequence + "/" + year + ".json", {
 				dataType : "json",
 				type : "GET",
 				success : function (data) {
@@ -69,6 +75,8 @@
 						}
 						$('.rating-select-exam-resource').on("click", function () {
 							var examSequence = $(this).val();
+							var csatSequence = $(this).attr("id");
+							$(this).addClass("rating-select-exam-resource-active").siblings().removeClass("rating-select-exam-resource-active");
 							$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
 								dataType : "json",
 								type : "GET",
@@ -95,10 +103,7 @@
 				}
 			});
 			$('.rating-select-exam').slideDown("fast");
-			$('.rating-examcut').fadeTo(200,0);
-			setTimeout(function () {
-				$('.container-examcut').remove();
-			}, 200);
+			$('#rating-carousel').remove();
 		});
 		
 		var ratingCutInfo = function () {

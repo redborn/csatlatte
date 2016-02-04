@@ -21,7 +21,7 @@
 			<h5><strong>연도 선택</strong></h5>
 			<div class="rating-select-year-list">
 				<c:forEach items="${csatList}" var="csat">
-					<button class="rating-select-year-resource" value="${csat.csatSequence}">${fn:substring(csat.examYmd,0,4)}</button>
+					<button class="rating-select-year-resource" value="${fn:substring(csat.examYmd,0,4)}">${fn:substring(csat.examYmd,0,4)}</button>
 				</c:forEach>
 			</div>
 		</div>

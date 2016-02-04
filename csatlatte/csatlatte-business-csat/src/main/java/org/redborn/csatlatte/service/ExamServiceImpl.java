@@ -44,8 +44,8 @@ public class ExamServiceImpl implements ExamService {
 		return csatDao.selectListYear();
 	}
 	
-	public List<ExamVo> list(int csatSequence, int yearStudentSequence) {
-		return examDao.selectListExam(csatSequence, yearStudentSequence);
+	public List<ExamVo> list(String year, int yearStudentSequence) {
+		return examDao.selectListExam(year, yearStudentSequence);
 	}
 	
 	public List<ExamVo> listForManage(int csatSequence) {

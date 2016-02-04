@@ -18,11 +18,11 @@ public class Exam {
 	@Autowired
 	private ExamService examService;
 	
-	@RequestMapping(value="{yearStudentSequence}/{csatSequence}",method=RequestMethod.GET)
+	@RequestMapping(value="{yearStudentSequence}/{year}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="yearStudentSequence") int yearStudentSequence,
-			@PathVariable(value="csatSequence") int csatSequence) {
+			@PathVariable(value="year") String year) {
 		logger.info("data rating exam get view");
-		model.addAttribute("list", examService.list(csatSequence, yearStudentSequence));
+		model.addAttribute("list", examService.list(year, yearStudentSequence));
 	}
 	
 }
