@@ -8,6 +8,7 @@ public interface ExamDao {
 	
 	public int selectOneCount(int csatSequence, String search);
 	public List<ExamVo> selectListExam(String year, int yearStudedntSequence);
+	public List<String> selectListYear(int yearStudentSequence);
 	public List<ExamVo> selectListExamForManage(int csatSequence);
 	public int insert(ExamVo examVo);
 	public int update(ExamVo examVo);

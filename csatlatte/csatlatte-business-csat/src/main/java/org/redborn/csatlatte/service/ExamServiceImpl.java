@@ -44,6 +44,10 @@ public class ExamServiceImpl implements ExamService {
 		return csatDao.selectListYear();
 	}
 	
+	public List<String> yearList(int yearStudentSequence) {
+		return examDao.selectListYear(yearStudentSequence);
+	}
+	
 	public List<ExamVo> list(String year, int yearStudentSequence) {
 		return examDao.selectListExam(year, yearStudentSequence);
 	}

@@ -18,6 +18,12 @@ public class Exam {
 	@Autowired
 	private ExamService examService;
 	
+	@RequestMapping(value="{yearStudentSequence}",method=RequestMethod.GET)
+	public void get(Model model, @PathVariable(value="yearStudentSequence") int yearStudentSequence) {
+		logger.info("data rating exam get view");
+		model.addAttribute("yearList", examService.yearList(yearStudentSequence));
+	}
+	
 	@RequestMapping(value="{yearStudentSequence}/{year}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="yearStudentSequence") int yearStudentSequence,
 			@PathVariable(value="year") String year) {

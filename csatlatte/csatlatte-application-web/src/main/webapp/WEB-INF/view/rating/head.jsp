@@ -29,9 +29,83 @@
 		$(".rating-select-year").hide();
 		$(".rating-select-exam").hide();
 		
+		var makeYear = function (year) {
+			var html = '';
+			html += '<button class="rating-select-year-resource" value="' + year + '">' + year + '</button>';
+			return html;
+		}
+		
+		var makeExam = function (exam) {
+			var html = '';
+			html += '<button class="rating-select-exam-resource" id="' + exam.csatSequence + '" value="' + exam.examSequence + '">' + exam.examName + '</button>';
+			return html;
+		}
+		
 		$('.rating-select-yearstudent-resource').on("click", function () {
 			yearStudentSequence = $(this).val();
+			$('.rating-select-year-resource').remove();
 			$(this).addClass("rating-select-yearstudent-resource-active").siblings().removeClass("rating-select-yearstudent-resource-active");
+			$.ajax(contextPath + "/data/rating/exam/" + yearStudentSequence + ".json", {
+				dataType : "json",
+				type : "GET",
+				success : function (data) {
+					if (data.yearList != null) {
+						var yearList = data.yearList;
+						var yearListLength = yearList.length;
+						for (var index = 0; index < yearListLength; index++) {
+							$('.rating-select-year-list').append(makeYear(yearList[index]));
+						}
+						$('.rating-select-year-resource').on("click", function () {
+							year = $(this).val();
+							$(this).addClass("rating-select-year-resource-active").siblings().removeClass("rating-select-year-resource-active");
+							$('.rating-select-exam-resource').remove();
+							$.ajax(contextPath + "/data/rating/exam/" + yearStudentSequence + "/" + year + ".json", {
+								dataType : "json",
+								type : "GET",
+								success : function (data) {
+									if (data.list != null) {
+										var examList = data.list;
+										var examListLength = examList.length;
+										for (var index = 0; index < examListLength; index++) {
+											$('.rating-select-exam-list').append(makeExam(examList[index]));
+										}
+										$('.rating-select-exam-resource').on("click", function () {
+											var examSequence = $(this).val();
+											var csatSequence = $(this).attr("id");
+											$(this).addClass("rating-select-exam-resource-active").siblings().removeClass("rating-select-exam-resource-active");
+											$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
+												dataType : "json",
+												type : "GET",
+												success : function (data) {
+													if (data.list != null) {
+														var ratingCutList = data.list;
+														$.ajax(contextPath + "/data/exam/average/" + csatSequence + "/" + examSequence + ".json", {
+															dataType : "json",
+															type : "GET",
+															success : function (data) {
+																if (data.averageList != null) {
+																	var averageList = data.averageList;
+																	$('#rating-carousel').remove();
+																	$('.rating-table-view').append(makeRatingCutView(averageList, ratingCutList));
+																	$('.rating-table-view').insertBefore('.footer');
+																	$('.rating-table-view').fadeTo(0,0);
+																	$('.rating-table-view').fadeTo(400,1);
+																}
+															}
+														});
+													}
+												}
+											});
+										});
+									} 
+								}
+							});
+							$('.rating-select-exam').slideDown("fast");
+							$('#rating-carousel').remove();
+						});
+					}
+				}
+			});
 			$('.rating-select-year').slideDown("fast");
 			if($('.rating-select-exam').not(":hidden")) {
 				$('.rating-select-exam').slideUp("fast");
@@ -41,61 +115,6 @@
 			setTimeout(function () {
 				$('#rating-carousel').remove();
 			}, 200);
-		});
-		
-		var makeExam = function (exam) {
-			var html = '';
-			html += '<button class="rating-select-exam-resource" id="' + exam.csatSequence + '" value="' + exam.examSequence + '">' + exam.examName + '</button>';
-			return html;
-		}
-		
-		$('.rating-select-year-resource').on("click", function () {
-			year = $(this).val();
-			$(this).addClass("rating-select-year-resource-active").siblings().removeClass("rating-select-year-resource-active");
-			$('.rating-select-exam-resource').remove();
-			$.ajax(contextPath + "/data/rating/exam/" + yearStudentSequence + "/" + year + ".json", {
-				dataType : "json",
-				type : "GET",
-				success : function (data) {
-					if (data.list != null) {
-						var examList = data.list;
-						var examListLength = examList.length;
-						for (var index = 0; index < examListLength; index++) {
-							$('.rating-select-exam-list').append(makeExam(examList[index]));
-						}
-						$('.rating-select-exam-resource').on("click", function () {
-							var examSequence = $(this).val();
-							var csatSequence = $(this).attr("id");
-							$(this).addClass("rating-select-exam-resource-active").siblings().removeClass("rating-select-exam-resource-active");
-							$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
-								dataType : "json",
-								type : "GET",
-								success : function (data) {
-									if (data.list != null) {
-										var ratingCutList = data.list;
-										$.ajax(contextPath + "/data/exam/average/" + csatSequence + "/" + examSequence + ".json", {
-											dataType : "json",
-											type : "GET",
-											success : function (data) {
-												if (data.averageList != null) {
-													var averageList = data.averageList;
-													$('#rating-carousel').remove();
-													$('.rating-table-view').append(makeRatingCutView(averageList, ratingCutList));
-													$('.rating-table-view').insertBefore('.footer');
-													$('.rating-table-view').fadeTo(0,0);
-													$('.rating-table-view').fadeTo(400,1);
-												}
-											}
-										});
-									}
-								}
-							});
-						});
-					} 
-				}
-			});
-			$('.rating-select-exam').slideDown("fast");
-			$('#rating-carousel').remove();
 		});
 		
 		var ratingCutInfo = function () {
