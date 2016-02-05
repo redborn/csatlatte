@@ -1,10 +1,6 @@
 package org.redborn.csatlatte.controller.web;
 
-import java.util.Calendar;
-import java.util.List;
-
 import org.redborn.csatlatte.commons.tiles.TilesName;
-import org.redborn.csatlatte.domain.CsatVo;
 import org.redborn.csatlatte.service.ExamService;
 import org.redborn.csatlatte.service.StudentService;
 import org.slf4j.Logger;
@@ -37,28 +33,6 @@ public class Rating {
 	public String get(Model model) {
 		logger.info("rating view");
 		model.addAttribute("yearStudentList", studentService.yearStudentList());
-		List<CsatVo> csatList = examService.csatList();
-		int presentCsatSequence = 0;
-		
-		Calendar calendar = Calendar.getInstance();
-		int presentYear = calendar.get(Calendar.YEAR); 
-		
-		if (csatList != null) {
-			int csatListSize = csatList.size();
-			for (int index = 0; index < csatListSize; index++) {
-				CsatVo csatVo = csatList.get(index);
-				String examYmd = csatVo.getExamYmd();
-				if (examYmd != null && examYmd.length() >= 4) {
-					if (Integer.parseInt(examYmd.substring(0, 4)) == presentYear) {
-						presentCsatSequence = csatVo.getCsatSequence();
-						break;
-					}
-				}
-			}
-		}
-		
-		model.addAttribute("csatList", csatList);
-		model.addAttribute("presentCsatSequence", presentCsatSequence);
 		return TilesName.RATING;
 	}
 	
