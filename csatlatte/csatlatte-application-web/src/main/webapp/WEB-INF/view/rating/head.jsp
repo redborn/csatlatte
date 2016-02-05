@@ -85,11 +85,14 @@
 															success : function (data) {
 																if (data.averageList != null) {
 																	var averageList = data.averageList;
-																	$('#rating-carousel').remove();
-																	$('.rating-table-view').append(makeRatingCutView(averageList, ratingCutList));
-																	$('.rating-table-view').insertBefore('.footer');
-																	$('.rating-table-view').fadeTo(0,0);
-																	$('.rating-table-view').fadeTo(400,1);
+																	$('#rating-carousel').fadeTo(200,0);
+																	setTimeout(function () {
+																		$('#rating-carousel').remove();
+																		$('.rating-table-view').append(makeRatingCutView(averageList, ratingCutList));
+																		$('.rating-table-view').insertBefore('.footer');
+																		$('.rating-table-view').fadeTo(0,0);
+																		$('.rating-table-view').fadeTo(200,1);
+																	}, 200);
 																}
 															}
 														});
@@ -106,15 +109,11 @@
 					}
 				}
 			});
+			$('#rating-carousel').remove();
 			$('.rating-select-year').slideDown("fast");
 			if($('.rating-select-exam').not(":hidden")) {
-				$('.rating-select-exam').slideUp("fast");
+				$('.rating-select-exam').hide();
 			}
-			$('#rating-carousel').fadeTo(200,0);
-			$('.rating-select-year-resource').removeClass("rating-select-year-resource-active");
-			setTimeout(function () {
-				$('#rating-carousel').remove();
-			}, 200);
 		});
 		
 		var ratingCutInfo = function () {
