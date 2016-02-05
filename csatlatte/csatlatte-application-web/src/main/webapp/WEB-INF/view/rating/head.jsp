@@ -73,6 +73,7 @@
 											var examSequence = $(this).val();
 											var csatSequence = $(this).attr("id");
 											$(this).addClass("rating-select-exam-resource-active").siblings().removeClass("rating-select-exam-resource-active");
+											$('#rating-carousel').fadeTo(200,0);
 											$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
 												dataType : "json",
 												type : "GET",
@@ -85,7 +86,6 @@
 															success : function (data) {
 																if (data.averageList != null) {
 																	var averageList = data.averageList;
-																	$('#rating-carousel').fadeTo(200,0);
 																	setTimeout(function () {
 																		$('#rating-carousel').remove();
 																		$('.rating-table-view').append(makeRatingCutView(averageList, ratingCutList));
@@ -103,14 +103,14 @@
 									} 
 								}
 							});
-							$('.rating-select-exam').slideDown("fast");
+							$('.rating-select-exam').show();
 							$('#rating-carousel').remove();
 						});
 					}
 				}
 			});
 			$('#rating-carousel').remove();
-			$('.rating-select-year').slideDown("fast");
+			$('.rating-select-year').show();
 			if($('.rating-select-exam').not(":hidden")) {
 				$('.rating-select-exam').hide();
 			}
