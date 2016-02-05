@@ -13,7 +13,7 @@
 			<h5><strong>학년 선택</strong></h5>
 			<div class="rating-select-yearstudent-list">
 				<c:forEach items="${yearStudentList}" var="yearStudent">
-					<button class="rating-select-yearstudent-resource" value="${yearStudent.yearStudentSequence}">${yearStudent.yearStudentName}</button>
+					<button class="rating-select-yearstudent-resource btn btn-default" data-loading-text="Loading..." value="${yearStudent.yearStudentSequence}" id="rating-select-yearstudent-resource-${yearStudent.yearStudentSequence}">${yearStudent.yearStudentName}</button>
 				</c:forEach>
 			</div>
 		</div>

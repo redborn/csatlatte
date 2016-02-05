@@ -8,17 +8,18 @@
 	.rating-examcut {position:relative; margin-top:30px; width:100%; min-width:933px; height:auto; background:#EEEEEE; padding-top:15px; padding-bottom:15px; overflow:hidden; display:none;}
 	.rating-examcut .rating-animate-panel {position:relative; width:4000px; height:auto; overflow:hidden;}
 	.rating-examcut .rating-animate-panel .table {width:900px; display:inline-block;}
-	.rating-select-year-resource {background:none; border:none;}
-	.rating-select-yearstudent-resource {background:none; border:none;}
-	.rating-select-exam-resource {background:none; border:none;}
 	.rating-carousel-caption {position:static; color:black; text-shadow:none;}
 	.rating-detail-table thead tr th {text-align:center; vertical-align:middle; width:120px;}
 	.rating-detail-table {width:auto; margin:auto;}
-	#rating-carousel {background:rgba(245,245,245,1);}
 	.rating-select-exam-list {margin-left:20px;}
 	.rating-select-year-resource-active {background:#e8e4e1;}
 	.rating-select-yearstudent-resource-active {background:#e8e4e1;}
 	.rating-select-exam-resource-active {background:#e8e4e1;}
+	.rating-select-year-resource {margin-right:10px;}
+	.rating-select-yearstudent-resource {margin-right:7px;}
+	.rating-select-exam-resource {margin-right:10px;}
+	#rating-carousel .carousel-control.right {background-image:none; color:#7a6253;}
+	#rating-carousel .carousel-control.left {background-image:none; color:#7a6253;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -31,19 +32,20 @@
 		
 		var makeYear = function (year) {
 			var html = '';
-			html += '<button class="rating-select-year-resource" value="' + year + '">' + year + '</button>';
+			html += '<button class="rating-select-year-resource btn btn-default" data-loading-text="Loading..." value="' + year + '" id="rating-select-year-resource-' + year + '">' + year + '</button>';
 			return html;
 		}
 		
 		var makeExam = function (exam) {
 			var html = '';
-			html += '<button class="rating-select-exam-resource" id="' + exam.csatSequence + '" value="' + exam.examSequence + '">' + exam.examName + '</button>';
+			html += '<button class="rating-select-exam-resource btn btn-default" data-loading-text="Loading..." id="' + exam.csatSequence + '" value="' + exam.examSequence + '">' + exam.examName + '</button>';
 			return html;
 		}
 		
 		$('.rating-select-yearstudent-resource').on("click", function () {
 			yearStudentSequence = $(this).val();
 			$('.rating-select-year-resource').remove();
+			var $btnYearStudent = $(this).button('loading');
 			$(this).addClass("rating-select-yearstudent-resource-active").siblings().removeClass("rating-select-yearstudent-resource-active");
 			$.ajax(contextPath + "/data/rating/exam/" + yearStudentSequence + ".json", {
 				dataType : "json",
@@ -59,6 +61,7 @@
 							year = $(this).val();
 							$(this).addClass("rating-select-year-resource-active").siblings().removeClass("rating-select-year-resource-active");
 							$('.rating-select-exam-resource').remove();
+							var $btnYear = $(this).button('loading');
 							$.ajax(contextPath + "/data/rating/exam/" + yearStudentSequence + "/" + year + ".json", {
 								dataType : "json",
 								type : "GET",
@@ -73,6 +76,7 @@
 											var examSequence = $(this).val();
 											var csatSequence = $(this).attr("id");
 											$(this).addClass("rating-select-exam-resource-active").siblings().removeClass("rating-select-exam-resource-active");
+											var $btnExam = $(this).button('loading');
 											$('#rating-carousel').fadeTo(200,0);
 											$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
 												dataType : "json",
@@ -92,6 +96,9 @@
 																		$('.rating-table-view').insertBefore('.footer');
 																		$('.rating-table-view').fadeTo(0,0);
 																		$('.rating-table-view').fadeTo(200,1);
+																		setTimeout(function () {
+																			$btnExam.button('reset');
+																		}, 200);
 																	}, 200);
 																}
 															}
@@ -103,17 +110,23 @@
 									} 
 								}
 							});
-							$('.rating-select-exam').show();
-							$('#rating-carousel').remove();
+							$('.rating-select-exam').slideUp("fast");
+							$('.rating-select-exam').slideDown("fast");
+							$('#rating-carousel').slideUp("steady");
+							setTimeout(function () {
+								$btnYear.button('reset');
+							}, 200);
 						});
 					}
 				}
 			});
-			$('#rating-carousel').remove();
-			$('.rating-select-year').show();
-			if($('.rating-select-exam').not(":hidden")) {
-				$('.rating-select-exam').hide();
-			}
+			$('.rating-select-year').slideUp("fast");
+			$('.rating-select-year').slideDown("fast");
+			$('.rating-select-exam').slideUp("fast");
+			$('#rating-carousel').slideUp("steady");
+			setTimeout(function () {
+				$btnYearStudent.button('reset');
+			}, 200);
 		});
 		
 		var ratingCutInfo = function () {
