@@ -1,231 +1,281 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
-	h5 {margin-top:0px; margin-bottom:10px;}
-	.panel {width:933px; margin:auto; overflow:hidden;}
-	.panel .panel-body {font-size:13px;}
-	.rating-select-grade-list {margin-left:20px; margin-bottom:20px;}
+	.rating-panel h5 {margin-top:0px; margin-bottom:10px;}
+	.rating-panel h4 {margin-top:2px; margin-bottom:5px;}
+	.rating-select-yearstudent-list {margin-left:20px; margin-bottom:20px;}
 	.rating-select-year-list {margin-left:20px; margin-bottom:20px;}
-	.rating-select-exam-list img {margin-left:20px; width:100px;}
 	.rating-examcut {position:relative; margin-top:30px; width:100%; min-width:933px; height:auto; background:#EEEEEE; padding-top:15px; padding-bottom:15px; overflow:hidden; display:none;}
 	.rating-examcut .rating-animate-panel {position:relative; width:4000px; height:auto; overflow:hidden;}
 	.rating-examcut .rating-animate-panel .table {width:900px; display:inline-block;}
-	.table tr {width:auto;}
-	.table tr th {text-align:center; font-size:13px; width:120px;}
-	.table tr td {text-align:center; font-size:13px; width:120px;}
-	.table thead tr th {vertical-align:middle;}
-	.rating-btn-next {cursor:pointer; position:absolute; top:55px; right:50px;}
-	.rating-btn-prev {cursor:pointer; position:absolute; top:55px; left:50px;}
-	.container-examcut {padding-left:0px; padding-right:0px; text-align:left; margin-bottom:30px;}
+	.rating-carousel-caption {position:static; color:black; text-shadow:none;}
+	.rating-detail-table thead tr th {text-align:center; vertical-align:middle; width:120px;}
+	.rating-detail-table {width:auto; margin:auto; margin-bottom:30px;}
+	.rating-select-exam-list {margin-left:20px;}
+	.rating-select-year-resource-active {background:#e8e4e1;}
+	.rating-select-yearstudent-resource-active {background:#e8e4e1;}
+	.rating-select-exam-resource-active {background:#e8e4e1;}
+	.rating-select-year-resource {margin-right:10px;}
+	.rating-select-yearstudent-resource {margin-right:7px;}
+	.rating-select-exam-resource {margin-right:10px;}
+	#rating-carousel .carousel-control.right {background-image:none; color:#7a6253;}
+	#rating-carousel .carousel-control.left {background-image:none; color:#7a6253;}
+	.rating-carousel-indicators .active {background-color:#7a6253;}
+	.rating-carousel-indicators li {border:1px solid #7a6253;}
+	.rating-detail-table-average thead tr th {height:76px;}
 </style>
 <script>
+	
 	$(document).ready(function () {
-		var tableIndex = 0;
-		var examcut = '<div class="container-fluid container-examcut">';
-		examcut += '	<div class="rating-examcut">';
-		examcut += '		<div class="rating-animate-panel">';
-		examcut += '			<table class="table table-hover table-bordered">';
-		examcut += '				<thead>';
-		examcut += '					<tr>';
-		examcut += '						<th rowspan="2">과목</th>';
-		examcut += '						<th colspan="3">1등급</th>';
-		examcut += '						<th colspan="3">2등급</th>';
-		examcut += '						<th colspan="3">3등급</th>';
-		examcut += '					</tr>';
-		examcut += '					<tr>';
-		examcut += '						<th>원점수</th>';
-		examcut += '						<th>표준점수</th>';
-		examcut += '						<th>백분위</th>';
-		examcut += '						<th>원점수</th>';
-		examcut += '						<th>표준점수</th>';
-		examcut += '						<th>백분위</th>';
-		examcut += '						<th>원점수</th>';
-		examcut += '						<th>표준점수</th>';
-		examcut += '						<th>백분위</th>';
-		examcut += '					</tr>';
-		examcut += '				</thead>';
-		examcut += '				<tbody>';
-		examcut += '					<tr>';
-		examcut += '						<td>국어A</td>';
-		examcut += '						<td>98</td>';
-		examcut += '						<td>124</td>';
-		examcut += '						<td>96</td>';
-		examcut += '						<td>94</td>';
-		examcut += '						<td>121</td>';
-		examcut += '						<td>87</td>';
-		examcut += '						<td>89</td>';
-		examcut += '						<td>117</td>';
-		examcut += '						<td>77</td>';
-		examcut += '					</tr>';
-		examcut += '				</tbody>';
-		examcut += '			</table>';
-		examcut += '			<table class="table table-hover table-bordered">';
-		examcut += '				<thead>';
-		examcut += '					<tr>';
-		examcut += '						<th rowspan="2">과목</th>';
-		examcut += '						<th colspan="3">4등급</th>';
-		examcut += '						<th colspan="3">5등급</th>';
-		examcut += '						<th colspan="3">6등급</th>';
-		examcut += '					</tr>';
-		examcut += '					<tr>';
-		examcut += '						<th>원점수</th>';
-		examcut += '						<th>표준점수</th>';
-		examcut += '						<th>백분위</th>';
-		examcut += '						<th>원점수</th>';
-		examcut += '						<th>표준점수</th>';
-		examcut += '						<th>백분위</th>';
-		examcut += '						<th>원점수</th>';
-		examcut += '						<th>표준점수</th>';
-		examcut += '						<th>백분위</th>';
-		examcut += '					</tr>';
-		examcut += '				</thead>';
-		examcut += '				<tbody>';
-		examcut += '					<tr>';
-		examcut += '						<td>국어A</td>';
-		examcut += '						<td>98</td>';
-		examcut += '						<td>124</td>';
-		examcut += '						<td>96</td>';
-		examcut += '						<td>94</td>';
-		examcut += '						<td>121</td>';
-		examcut += '						<td>87</td>';
-		examcut += '						<td>89</td>';
-		examcut += '						<td>117</td>';
-		examcut += '						<td>77</td>';
-		examcut += '					</tr>';
-		examcut += '				</tbody>';
-		examcut += '			</table>';
-		examcut += '			<table class="table table-hover table-bordered">';
-		examcut += '				<thead>';
-		examcut += '					<tr>';
-		examcut += '						<th rowspan="2">과목</th>';
-		examcut += '						<th colspan="3">7등급</th>';
-		examcut += '						<th colspan="3">8등급</th>';
-		examcut += '						<th colspan="3">9등급</th>';
-		examcut += '					</tr>';
-		examcut += '					<tr>';
-		examcut += '						<th>원점수</th>';
-		examcut += '						<th>표준점수</th>';
-		examcut += '						<th>백분위</th>';
-		examcut += '						<th>원점수</th>';
-		examcut += '						<th>표준점수</th>';
-		examcut += '						<th>백분위</th>';
-		examcut += '						<th>원점수</th>';
-		examcut += '						<th>표준점수</th>';
-		examcut += '						<th>백분위</th>';
-		examcut += '					</tr>';
-		examcut += '				</thead>';
-		examcut += '				<tbody>';
-		examcut += '					<tr>';
-		examcut += '						<td>국어A</td>';
-		examcut += '						<td>98</td>';
-		examcut += '						<td>124</td>';
-		examcut += '						<td>96</td>';
-		examcut += '						<td>94</td>';
-		examcut += '						<td>121</td>';
-		examcut += '						<td>87</td>';
-		examcut += '						<td>89</td>';
-		examcut += '						<td>117</td>';
-		examcut += '						<td>77</td>';
-		examcut += '					</tr>';
-		examcut += '				</tbody>';
-		examcut += '			</table>';
-		examcut += '		</div>';
-		examcut += '		<img alt="왼쪽 보기" class="rating-btn-prev" src="<c:url value="/resources/csatlatte/images/btn/btn_left.png"/>">';
-		examcut += '		<img alt="오른쪽 보기" class="rating-btn-next" src="<c:url value="/resources/csatlatte/images/btn/btn_right.png"/>">';
-		examcut += '	</div>';
-		examcut += '</div>';
-		var tableMarginLeft = ($(window).width() - $('.table').width()) / 2;
-		$('.rating-animate-panel').css({"margin-left":tableMarginLeft + "px"});
+		
+		var yearStudentSequence;
+		var year;
 		
 		$(".rating-select-year").hide();
 		$(".rating-select-exam").hide();
 		
-		var moveNextSlider = function (tableIndex) {
-			var willMoveLeft = -(tableIndex * 904);
-			$('.table').eq(tableIndex-1).fadeTo(300, 0.2);
-			$('.table').eq(tableIndex).fadeTo(300, 1);
-			$('.rating-animate-panel').animate({left:willMoveLeft}, 'normal');
+		$('.rating-title').insertBefore('.container');
+		
+		var makeYear = function (year) {
+			var html = '';
+			html += '<button class="rating-select-year-resource btn btn-default" data-loading-text="Loading..." value="' + year + '" id="rating-select-year-resource-' + year + '">' + year + '</button>';
+			return html;
 		}
 		
-		var movePrevSlider = function (tableIndex) {
-			var willMoveLeft = -(tableIndex * $('.table').width());
-			$('.table').eq(tableIndex+1).fadeTo(300, 0.2);
-			$('.table').eq(tableIndex).fadeTo(300, 1);
-			$('.rating-animate-panel').animate({left:willMoveLeft}, 'normal');
+		var makeExam = function (exam) {
+			var html = '';
+			html += '<button class="rating-select-exam-resource btn btn-default" data-loading-text="Loading..." id="' + exam.csatSequence + '" value="' + exam.examSequence + '">' + exam.examName + '</button>';
+			return html;
 		}
 		
-		$('.rating-select-grade-resource').on("click", function () {
+		$('.rating-select-yearstudent-resource').on("click", function (e) {
+			e.preventDefault();
+			yearStudentSequence = $(this).val();
+			$('.rating-select-year-resource').remove();
+			var $btnYearStudent = $(this).button('loading');
+			$(this).addClass("rating-select-yearstudent-resource-active").siblings().removeClass("rating-select-yearstudent-resource-active");
+			$.ajax(contextPath + "/data/rating/exam/" + yearStudentSequence + ".json", {
+				dataType : "json",
+				type : "GET",
+				success : function (data) {
+					if (data.yearList != null) {
+						var yearList = data.yearList;
+						var yearListLength = yearList.length;
+						for (var index = 0; index < yearListLength; index++) {
+							$('.rating-select-year-list').append(makeYear(yearList[index]));
+						}
+						$('.rating-select-year-resource').on("click", function () {
+							year = $(this).val();
+							$(this).addClass("rating-select-year-resource-active").siblings().removeClass("rating-select-year-resource-active");
+							$('.rating-select-exam-resource').remove();
+							var $btnYear = $(this).button('loading');
+							$.ajax(contextPath + "/data/rating/exam/" + yearStudentSequence + "/" + year + ".json", {
+								dataType : "json",
+								type : "GET",
+								success : function (data) {
+									if (data.list != null) {
+										var examList = data.list;
+										var examListLength = examList.length;
+										for (var index = 0; index < examListLength; index++) {
+											$('.rating-select-exam-list').append(makeExam(examList[index]));
+										}
+										$('.rating-select-exam-resource').on("click", function () {
+											var examSequence = $(this).val();
+											var csatSequence = $(this).attr("id");
+											$(this).addClass("rating-select-exam-resource-active").siblings().removeClass("rating-select-exam-resource-active");
+											var $btnExam = $(this).button('loading');
+											$('#rating-carousel').fadeTo(200,0);
+											$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
+												dataType : "json",
+												type : "GET",
+												success : function (data) {
+													if (data.list != null) {
+														var ratingCutList = data.list;
+														$.ajax(contextPath + "/data/exam/average/" + csatSequence + "/" + examSequence + ".json", {
+															dataType : "json",
+															type : "GET",
+															success : function (data) {
+																if (data.averageList != null) {
+																	var averageList = data.averageList;
+																	setTimeout(function () {
+																		$('#rating-carousel').remove();
+																		$('.rating-table-view').append(makeRatingCutView(averageList, ratingCutList));
+																		$('.rating-table-view').insertBefore('.footer');
+																		$('.rating-table-view').fadeTo(0,0);
+																		$('.rating-table-view').fadeTo(200,1);
+																		setTimeout(function () {
+																			$btnExam.button('reset');
+																			setTimeout(function () {
+																				$('.rating-select-exam-resource').attr("disabled", false);
+																				$('.rating-select-exam-resource-active').attr("disabled", true);
+																			}, 1);
+																		}, 200);
+																	}, 200);
+																}
+															}
+														});
+													}
+												}
+											});
+										});
+									} 
+								}
+							});
+							$('.rating-select-exam').slideUp("fast");
+							$('.rating-select-exam').slideDown("fast");
+							$('#rating-carousel').slideUp("steady");
+							$('.rating-select-year-resource').attr("disabled", false);
+							setTimeout(function () {
+								$btnYear.button('reset');
+								setTimeout(function () {
+									$('.rating-select-year-resource-active').attr("disabled", true);
+								}, 1);
+							}, 200);
+						});
+					}
+				}
+			});
+			$('.rating-select-year').slideUp("fast");
 			$('.rating-select-year').slideDown("fast");
-			if($('.rating-select-exam').not(":hidden")) {
-				$('.rating-select-exam').slideUp("fast");
-			}
-			$('.rating-examcut').fadeTo(200,0);
+			$('.rating-select-exam').slideUp("fast");
+			$('#rating-carousel').slideUp("steady");
+			$('.rating-select-yearstudent-resource').attr("disabled", false);
 			setTimeout(function () {
-				$('.container-examcut').remove();
+				$btnYearStudent.button('reset');
+				setTimeout(function () {
+					$('.rating-select-yearstudent-resource-active').attr("disabled", true);
+				}, 1);
 			}, 200);
 		});
 		
-		$('.rating-select-year-resource').on("click", function () {
-			$('.rating-select-exam').slideDown("fast");
-			$('.rating-examcut').fadeTo(200,0);
-			setTimeout(function () {
-				$('.container-examcut').remove();
-			}, 200);
-		});
+		var ratingCutInfo = function () {
+			var subjectName;
+			var rawScore;
+			var standardScore;
+		}
 		
-		$('.rating-select-exam-resource').on("click", function() {
-			$('.rating-examcut').fadeTo(0,0);
-			$('.rating-examcut').css({display:"none"});
-			$('.container-examcut').remove();
-			tableIndex = 0;
-				
-			$(examcut).insertBefore($("footer"));
-			
-			var tableMarginLeft = ($(window).width() - $('.table').width()) / 2;
-			$('.rating-animate-panel').css({"margin-left":tableMarginLeft + "px"});
-			
-			$('.table').each(function (index) {
-				$(this).fadeTo(0, 0.2);
-			});
-			
-			$('.table').eq(0).fadeTo(600, 1);
-			
-			$('.rating-btn-next').on("click", function () {
-				if (tableIndex < 2) {
-					tableIndex = tableIndex + 1;
-					moveNextSlider(tableIndex);	
+		var makeRatingCutList = function (ratingCutList, startGrade) {
+			var index1 = 0;
+			var index2 = startGrade - 1;
+			var index3 = startGrade - 1;
+			var ratingCutListLength = ratingCutList.length;
+			var resultList = new Array();
+			while (index2 < ratingCutListLength) {
+				while (index3 < index2 + 3) {
+					resultList[index1] = new ratingCutInfo();
+					resultList[index1].subjectName = ratingCutList[index3].subjectName;
+					resultList[index1].rawScore = ratingCutList[index3].rawScore;
+					resultList[index1].standardScore = ratingCutList[index3].standardScore;
+					index1++;
+					index3++;
 				}
-			});
-			
-			$('.rating-btn-prev').on("click", function () {
-				if (tableIndex > 0) {
-					tableIndex = tableIndex - 1;
-					movePrevSlider(tableIndex);	
+				index2 += 9;
+				index3 += 6;
+			}
+			return resultList;
+		}
+		
+		var makeRatingCut = function (ratingCutList, startGrade) {
+			var html = '';
+			var index1 = 0;
+			var index2 = 0;
+			var ratingCutListLength = ratingCutList.length;
+			html += '		<div class="item">';
+			html += '			<div class="carousel-caption rating-carousel-caption">';
+			html += '				<table class="table table-bordered table-striped table-hover rating-detail-table">';
+			html += '					<thead>';
+			html += '						<tr>';
+			html += '							<th rowspan="2">과목</th>';
+			html += '							<th colspan="2">' + startGrade + '등급</th>';
+			html += '							<th colspan="2">' + (startGrade + 1) + '등급</th>';
+			html += '							<th colspan="2">' + (startGrade + 2) + '등급</th>';
+			html += '						</tr>';
+			html += '						<tr>';
+			html += '							<th>원점수</th>';
+			html += '							<th>표준점수</th>';
+			html += '							<th>원점수</th>';
+			html += '							<th>표준점수</th>';
+			html += '							<th>원점수</th>';
+			html += '							<th>표준점수</th>';
+			html += '						</tr>';
+			html += '					</thead>';
+			html += '					<tbody>';
+			while (index1 < ratingCutListLength) {
+				html += '<tr>';
+				html += '<td>' + ratingCutList[index1].subjectName + '</td>';
+				while (index2 < index1 + 3) {
+					html += '<td>' + ratingCutList[index2].rawScore + '</td>';
+					html += '<td>' + ratingCutList[index2].standardScore + '</td>';
+					index2++;
 				}
-			});
-			
-			$('.rating-examcut').fadeTo(500,1);
-		});
-		
-		$(window).scroll(function () {
-			var moveBtn = $(window).scrollTop() + 20;
-			if ($(this).scrollTop() >= 100) {
-				$('.rating-btn-prev').delay(0).animate({top:moveBtn + "px"},0);
-				$('.rating-btn-next').delay(0).animate({top:moveBtn + "px"},0);
-			} else {
-				$('.rating-btn-prev').css({top:"55px"});
-				$('.rating-btn-next').css({top:"55px"});
+				html += '</tr>';
+				index1 += 3;
 			}
-		});
+			html += '					</tbody>';
+			html += '				</table>';
+			html += '			</div>';
+			html += '		</div>';
+			return html;
+		}
 		
-		$(window).resize(function () {
-			if ($(window).width() > 933) {
-				var tableMarginLeft = ($(window).width() - $('.table').width()) / 2;
-				$('.rating-animate-panel').css({"margin-left":tableMarginLeft + "px"});
-			} else {
-				$('.rating-animate-panel').css({"margin-left":"18px"});
+		var makeAverageTable = function(averageList) {
+			var html = '';
+			html +=	'				<table class="table table-bordered table-hover table-striped rating-detail-table rating-detail-table-average">';
+			html += '					<thead>';
+			html += '						<tr>';
+			html += '							<th rowspan="2">과목</th>';
+			html += '							<th rowspan="2">평균</th>';
+			html += '							<th rowspan="2">표준편차</th>';
+			html += '						</tr>';
+			html += '					</thead>';
+			html += '					<tbody>';
+			if (averageList != null) {
+				var averageListLength = averageList.length;
+				for (var index = 0; index < averageListLength; index++) {
+					html += '<tr>';
+					html += '	<td>' + averageList[index].subjectName + '</td>';
+					html += '	<td>' + averageList[index].average + '</td>';
+					html += '	<td>' + averageList[index].standardDeviation + '</td>';
+					html += '</tr>';
+				}
 			}
-		});
+			html += '					</tbody>';
+			html += '				</table>';
+			return html;
+		}
+		
+		var makeRatingCutView = function (averageList, ratingCutList) {
+			var ratingCut1 = makeRatingCutList(ratingCutList, 1);
+			var ratingCut2 = makeRatingCutList(ratingCutList, 4);
+			var ratingCut3 = makeRatingCutList(ratingCutList, 7);
+			var html = '<div id="rating-carousel" class="carousel slide" data-ride="carousel" data-interval="false">';
+			html += '	<ol class="carousel-indicators rating-carousel-indicators">';
+		    html += '		<li data-target="#rating-carousel" data-slide-to="0" class="active"></li>';
+		    html += '		<li data-target="#rating-carousel" data-slide-to="1"></li>';
+			html += '		<li data-target="#rating-carousel" data-slide-to="2"></li>';
+			html += '		<li data-target="#rating-carousel" data-slide-to="3"></li>';
+			html += '	</ol>';
+			html += '	<div class="carousel-inner" role="listbox">';		
+			html += '		<div class="item active">';
+			html += '			<div class="carousel-caption rating-carousel-caption">';
+			html += makeAverageTable(averageList);
+			html += '			</div>';
+			html += '		</div>';
+			html += makeRatingCut(ratingCut1, 1);
+			html += makeRatingCut(ratingCut2, 4);
+			html += makeRatingCut(ratingCut3, 7);
+			html += '	</div>';
+			html += '	<a class="carousel-control left" href="#rating-carousel" role="button" data-slide="prev">';
+			html += '		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>';
+			html += '		<span class="sr-only">Previous</span>';
+			html += '	</a>';
+			html += '	<a class="carousel-control right" href="#rating-carousel" role="button" data-slide="next">';
+			html += '		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>';
+			html += '		<span class="sr-only">Next</span>';
+			html += '	</a>';
+			html += '</div>';
+			return html;
+		}
 	});
 </script>

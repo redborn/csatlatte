@@ -70,11 +70,22 @@
 		   AND ce.isttt_seq = ci.isttt_seq 
 	</select>
 
-	<select id="selectListExam" parameterType="int" resultMap="ExamVoMap">
+	<select id="selectListExam" parameterType="Map" resultMap="ExamVoMap">
 		SELECT csat_seq,exam_seq,exam_name
 		  FROM csat_exam
-		 WHERE csat_seq = #{csatSequence}
+		 WHERE SUBSTRING(exam_ymd,1,4) = #{year}
+		   AND ys_seq = #{yearStudentSequence}
+		   AND rating_cut_public_yn = 'Y'
 		 ORDER BY exam_seq ASC 
+	</select>
+	
+	<select id="selectListYear" parameterType="int" resultType="String">
+		SELECT SUBSTRING(exam_ymd, 1, 4) as year
+		  FROM csat_exam
+		 WHERE rating_cut_public_yn = 'Y'
+		   AND ys_seq = #{yearStudentSequence}
+		 GROUP BY year
+		 ORDER BY exam_ymd desc
 	</select>
 	
 	<select id="selectListExamForManage" parameterType="int" resultMap="ExamVoForManageMap">
