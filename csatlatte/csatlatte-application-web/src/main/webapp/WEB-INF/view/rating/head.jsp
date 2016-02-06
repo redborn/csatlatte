@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <style>
 	.rating-panel h5 {margin-top:0px; margin-bottom:10px;}
+	.rating-panel h4 {margin-top:2px; margin-bottom:5px;}
 	.rating-select-yearstudent-list {margin-left:20px; margin-bottom:20px;}
 	.rating-select-year-list {margin-left:20px; margin-bottom:20px;}
 	.rating-examcut {position:relative; margin-top:30px; width:100%; min-width:933px; height:auto; background:#EEEEEE; padding-top:15px; padding-bottom:15px; overflow:hidden; display:none;}
@@ -29,6 +30,8 @@
 		
 		$(".rating-select-year").hide();
 		$(".rating-select-exam").hide();
+		
+		$('.rating-title').insertBefore('.container');
 		
 		var makeYear = function (year) {
 			var html = '';
