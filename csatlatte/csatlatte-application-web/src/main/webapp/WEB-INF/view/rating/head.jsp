@@ -101,6 +101,10 @@
 																		$('.rating-table-view').fadeTo(200,1);
 																		setTimeout(function () {
 																			$btnExam.button('reset');
+																			setTimeout(function () {
+																				$('.rating-select-exam-resource').attr("disabled", false);
+																				$('.rating-select-exam-resource-active').attr("disabled", true);
+																			}, 1);
 																		}, 200);
 																	}, 200);
 																}
@@ -116,8 +120,12 @@
 							$('.rating-select-exam').slideUp("fast");
 							$('.rating-select-exam').slideDown("fast");
 							$('#rating-carousel').slideUp("steady");
+							$('.rating-select-year-resource').attr("disabled", false);
 							setTimeout(function () {
 								$btnYear.button('reset');
+								setTimeout(function () {
+									$('.rating-select-year-resource-active').attr("disabled", true);
+								}, 1);
 							}, 200);
 						});
 					}
@@ -127,8 +135,12 @@
 			$('.rating-select-year').slideDown("fast");
 			$('.rating-select-exam').slideUp("fast");
 			$('#rating-carousel').slideUp("steady");
+			$('.rating-select-yearstudent-resource').attr("disabled", false);
 			setTimeout(function () {
 				$btnYearStudent.button('reset');
+				setTimeout(function () {
+					$('.rating-select-yearstudent-resource-active').attr("disabled", true);
+				}, 1);
 			}, 200);
 		});
 		
