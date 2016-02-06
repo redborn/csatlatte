@@ -1,4 +1,4 @@
-package org.redborn.csatlatte.controller.web.myinfo;
+package org.redborn.csatlatte.controller.account;
 
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author 최순현
  */
 @Controller
-@RequestMapping("/myinfo/question")
+@RequestMapping("/{id}/question")
 public class Question {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -25,7 +25,7 @@ public class Question {
 	@RequestMapping(method=RequestMethod.GET)
 	public String get() {
 		logger.info("myinfo question list");
-		return TilesName.MYINFO_QUESTION_LIST;
+		return TilesName.PROFILE_QUESTION_LIST;
 	}
 
 	/**
@@ -34,7 +34,7 @@ public class Question {
 	@RequestMapping(value="{questionSequence}",method=RequestMethod.GET)
 	public String getDetail(@PathVariable int questionSequence) {
 		logger.info("myinfo question detail");
-		return TilesName.MYINFO_QUESTION_DETAIL;
+		return TilesName.PROFILE_QUESTION_DETAIL;
 	}
 
 }

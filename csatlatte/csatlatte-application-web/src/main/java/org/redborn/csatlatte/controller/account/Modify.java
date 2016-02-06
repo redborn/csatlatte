@@ -1,4 +1,4 @@
-package org.redborn.csatlatte.controller.web.myinfo;
+package org.redborn.csatlatte.controller.account;
 
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.slf4j.Logger;
@@ -9,34 +9,34 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 비밀번호를 변경하는 controller입니다.
+ * 사용자 정보를 수정하는 controller입니다.
  * 
  * @author 최순현
  */
 @Controller
-@RequestMapping("/myinfo/password")
-public class Password {
+@RequestMapping("/{id}/modify")
+public class Modify {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
-	 * 기존 비밀번호, 새 비밀번호를 입력하는 페이지입니다.
+	 * 닉네임 입력, 프로필 사진 등록, 수능을 선택하는 페이지입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get() {
-		logger.info("myinfo password view");
-		return TilesName.MYINFO_PASSWORD_WRITE;
+		logger.info("myinfo modify view");
+		return TilesName.PROFILE_MODIFY_WRITE;
 	}
 
 	/**
-	 * 비밀번호 변경 처리 영역입니다.
+	 * 내 정보 변경 처리 영역입니다. 
 	 * 
-	 * 입력한 값에 이상이 없는 경우 비밀번호 변경 처리 후 비밀번호 변경 완료 페이지(TilesName.MYINFO_PASSWORD_SUCCESS)를 출력합니다.
+	 * 변경한 프로필 사진, 닉네임, 수능을 변경 처리 후 내 정보 변경 완료 페이지(TilesName.MYINFO_MODIFY_SUCCESS)를 출력합니다.
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="success",required=false,defaultValue="0") int success) {
-		logger.info("myinfo password modify");
-		String result = TilesName.MYINFO_PASSWORD_SUCCESS;
+		logger.info("myinfo modify modify");
+		String result = TilesName.PROFILE_MODIFY_SUCCESS;
 		return result;
 	}
 

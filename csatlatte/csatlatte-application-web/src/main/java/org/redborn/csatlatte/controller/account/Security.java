@@ -1,4 +1,4 @@
-package org.redborn.csatlatte.controller.web.myinfo;
+package org.redborn.csatlatte.controller.account;
 
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.slf4j.Logger;
@@ -9,35 +9,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 사용자 정보를 수정하는 controller입니다.
+ * 아이디, 비밀번호를 찾을 때 질문과 답변을 변경하는 controller입니다.
  * 
  * @author 최순현
  */
 @Controller
-@RequestMapping("/myinfo/modify")
-public class Modify {
+@RequestMapping("/{id}/security")
+public class Security {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
-	 * 닉네임 입력, 프로필 사진 등록, 수능을 선택하는 페이지입니다.
+	 * 보안질문을 선택하고 보안답변을 입력하는 페이지입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get() {
-		logger.info("myinfo modify view");
-		return TilesName.MYINFO_MODIFY_WRITE;
+		logger.info("myinfo security view");
+		return TilesName.PROFILE_SECURITY_WRITE;
 	}
 
 	/**
-	 * 내 정보 변경 처리 영역입니다. 
+	 * 보안변경 처리 영역입니다.
 	 * 
-	 * 변경한 프로필 사진, 닉네임, 수능을 변경 처리 후 내 정보 변경 완료 페이지(TilesName.MYINFO_MODIFY_SUCCESS)를 출력합니다.
+	 * 선택한 질문과 입력한 답변으로 변경 처리 후 보안변경 완료 페이지(TilesName.MYINFO_SECURITY_SUCCESS)를 출력합니다.
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="success",required=false,defaultValue="0") int success) {
-		logger.info("myinfo modify modify");
-		String result = TilesName.MYINFO_MODIFY_SUCCESS;
+		logger.info("myinfo security modify");
+		String result = TilesName.PROFILE_SECURITY_SUCCESS;
 		return result;
 	}
-
+	
 }

@@ -1,4 +1,4 @@
-package org.redborn.csatlatte.controller.web.myinfo;
+package org.redborn.csatlatte.controller.account;
 
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author 최순현
  */
 @Controller
-@RequestMapping("/myinfo/authentication")
+@RequestMapping("/{id}/authentication")
 public class Authentication {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -25,7 +25,7 @@ public class Authentication {
 	@RequestMapping(method=RequestMethod.GET)
 	public String get() {
 		logger.info("myinfo authentication view");
-		return TilesName.MYINFO_AUTHENTICATION_WRITE;
+		return TilesName.PROFILE_AUTHENTICATION_WRITE;
 	}
 	
 	/**
@@ -38,9 +38,9 @@ public class Authentication {
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="success",required=false,defaultValue="0") int success) {
 		logger.info("myinfo authentication password wrote");
-		String result = TilesName.MYINFO;
+		String result = TilesName.PROFILE;
 		if (success != 0) {
-			result = TilesName.MYINFO_AUTHENTICATION_FAIL;
+			result = TilesName.PROFILE_AUTHENTICATION_FAIL;
 		}
 		return result;
 	}
