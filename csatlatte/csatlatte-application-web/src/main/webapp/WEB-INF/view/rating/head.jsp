@@ -11,7 +11,7 @@
 	.rating-examcut .rating-animate-panel .table {width:900px; display:inline-block;}
 	.rating-carousel-caption {position:static; color:black; text-shadow:none;}
 	.rating-detail-table thead tr th {text-align:center; vertical-align:middle; width:120px;}
-	.rating-detail-table {width:auto; margin:auto;}
+	.rating-detail-table {width:auto; margin:auto; margin-bottom:30px;}
 	.rating-select-exam-list {margin-left:20px;}
 	.rating-select-year-resource-active {background:#e8e4e1;}
 	.rating-select-yearstudent-resource-active {background:#e8e4e1;}
@@ -21,6 +21,8 @@
 	.rating-select-exam-resource {margin-right:10px;}
 	#rating-carousel .carousel-control.right {background-image:none; color:#7a6253;}
 	#rating-carousel .carousel-control.left {background-image:none; color:#7a6253;}
+	.rating-carousel-indicators .active {background-color:#7a6253;}
+	.rating-carousel-indicators li {border:1px solid #7a6253;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -245,6 +247,12 @@
 			var ratingCut2 = makeRatingCutList(ratingCutList, 4);
 			var ratingCut3 = makeRatingCutList(ratingCutList, 7);
 			var html = '<div id="rating-carousel" class="carousel slide" data-ride="carousel" data-interval="false">';
+			html += '	<ol class="carousel-indicators rating-carousel-indicators">';
+		    html += '		<li data-target="#rating-carousel" data-slide-to="0" class="active"></li>';
+		    html += '		<li data-target="#rating-carousel" data-slide-to="1"></li>';
+			html += '		<li data-target="#rating-carousel" data-slide-to="2"></li>';
+			html += '		<li data-target="#rating-carousel" data-slide-to="3"></li>';
+			html += '	</ol>';
 			html += '	<div class="carousel-inner" role="listbox">';		
 			html += '		<div class="item active">';
 			html += '			<div class="carousel-caption rating-carousel-caption">';
