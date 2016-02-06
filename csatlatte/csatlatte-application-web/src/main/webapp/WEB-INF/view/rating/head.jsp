@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 	.rating-panel h5 {margin-top:0px; margin-bottom:10px;}
 	.rating-panel h4 {margin-top:2px; margin-bottom:5px;}
@@ -23,8 +23,10 @@
 	#rating-carousel .carousel-control.left {background-image:none; color:#7a6253;}
 	.rating-carousel-indicators .active {background-color:#7a6253;}
 	.rating-carousel-indicators li {border:1px solid #7a6253;}
+	.rating-detail-table-average thead tr th {height:76px;}
 </style>
 <script>
+	
 	$(document).ready(function () {
 		
 		var yearStudentSequence;
@@ -47,7 +49,8 @@
 			return html;
 		}
 		
-		$('.rating-select-yearstudent-resource').on("click", function () {
+		$('.rating-select-yearstudent-resource').on("click", function (e) {
+			e.preventDefault();
 			yearStudentSequence = $(this).val();
 			$('.rating-select-year-resource').remove();
 			var $btnYearStudent = $(this).button('loading');
@@ -218,7 +221,7 @@
 		
 		var makeAverageTable = function(averageList) {
 			var html = '';
-			html +=	'				<table class="table table-bordered table-hover rating-detail-table">';
+			html +=	'				<table class="table table-bordered table-hover rating-detail-table rating-detail-table-average">';
 			html += '					<thead>';
 			html += '						<tr>';
 			html += '							<th rowspan="2">과목</th>';
