@@ -183,7 +183,7 @@
 			var ratingCutListLength = ratingCutList.length;
 			html += '		<div class="item">';
 			html += '			<div class="carousel-caption rating-carousel-caption">';
-			html += '				<table class="table table-bordered table-hover rating-detail-table">';
+			html += '				<table class="table table-bordered table-striped table-hover rating-detail-table">';
 			html += '					<thead>';
 			html += '						<tr>';
 			html += '							<th rowspan="2">과목</th>';
@@ -221,7 +221,7 @@
 		
 		var makeAverageTable = function(averageList) {
 			var html = '';
-			html +=	'				<table class="table table-bordered table-hover rating-detail-table rating-detail-table-average">';
+			html +=	'				<table class="table table-bordered table-hover table-striped rating-detail-table rating-detail-table-average">';
 			html += '					<thead>';
 			html += '						<tr>';
 			html += '							<th rowspan="2">과목</th>';
