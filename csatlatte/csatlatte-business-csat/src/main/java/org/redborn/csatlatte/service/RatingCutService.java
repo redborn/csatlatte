@@ -2,8 +2,9 @@ package org.redborn.csatlatte.service;
 
 import java.util.List;
 
-import org.redborn.csatlatte.domain.RatingCutScoreVo;
+import org.redborn.csatlatte.domain.AverageVo;
 import org.redborn.csatlatte.domain.RatingCutVo;
+import org.redborn.csatlatte.domain.SectionVo;
 import org.redborn.csatlatte.domain.SubjectVo;
 
 public interface RatingCutService {
@@ -14,6 +15,6 @@ public interface RatingCutService {
 	public boolean deleteSubject(int csatSequence, int examSequence);
 	public boolean deleteRatingCut(int csatSequence, int examSequence);
 	public boolean deleteStudentScore(int csatSequence, int examSequence);
-	public boolean register(SubjectVo subjectVo, int average, int standardDeviation, List<RatingCutScoreVo> ratingCutScoreVo);
+	public boolean register(SectionVo sectionVo, SubjectVo subjectVo, RatingCutVo ratingCutVo, AverageVo averageVo);
 	
 }
