@@ -1,5 +1,8 @@
 package org.redborn.csatlatte.controller.data;
 
+import java.io.IOException;
+
+import org.redborn.csatlatte.commons.poi.RatingCutReader;
 import org.redborn.csatlatte.service.ExamService;
 import org.redborn.csatlatte.service.RatingCutService;
 import org.slf4j.Logger;
@@ -10,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/data/rating")
@@ -34,6 +39,13 @@ public class Rating {
 		logger.info("data manage rating detail view");
 		
 		model.addAttribute("list", ratingCutService.list(csatSequence, examSequence));
+	}
+	
+	@RequestMapping(method=RequestMethod.POST)
+	public void post(@RequestParam(value="csatSequence",required=true) int csatSequence,
+			@RequestParam(value="examSequence",required=true) int examSequence,
+			@RequestParam(value="file",required=true) MultipartFile file) throws IOException {
+		RatingCutReader ratingCutReader = new RatingCutReader(file.getInputStream());
 	}
 	
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.DELETE)
