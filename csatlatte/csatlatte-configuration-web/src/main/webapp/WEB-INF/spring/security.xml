@@ -17,10 +17,9 @@
 		<intercept-url pattern="/rating" access="permitAll"/>
 		<intercept-url pattern="/grade" access="permitAll"/>
 		<intercept-url pattern="/grade/analysis" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/community" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/community" access="permitAll"/>
 		<intercept-url pattern="/support" access="permitAll"/>
 		<intercept-url pattern="/support/question" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/question" access="permitAll"/>
 		<intercept-url pattern="/manage/*" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/stats/*" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/id" access="permitAll"/>
