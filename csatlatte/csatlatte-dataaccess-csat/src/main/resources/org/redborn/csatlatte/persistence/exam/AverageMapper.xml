@@ -34,7 +34,7 @@
 
 	<insert id="insert" parameterType="AverageVo">
 		INSERT INTO csat_exam_avg
-		VALUES (#{csatSequence}, #{examSequence}, #{sectionSequence}, #{subjectSequence} 
+		VALUES (#{csatSequence}, #{examSequence}, #{sectionSequence}, #{subjectSequence},
 				#{average}, #{standardDeviation}) 
 	</insert>
 	
