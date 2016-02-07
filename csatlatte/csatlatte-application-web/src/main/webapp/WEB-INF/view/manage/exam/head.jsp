@@ -123,7 +123,7 @@
 								var ymd = $('#manage-exam-modify-ymd').val();
 								$.ajax(contextPath + "/data/exam.json", {
 									dataType : "json",
-									type : "POST",
+									type : "PUT",
 									data : {csatSequence : csatSequence,
 											examSequence : examSequence,
 											examName : examName,
@@ -243,7 +243,7 @@
 									var ymd = $('#manage-exam-modify-ymd').val();
 									$.ajax(contextPath + "/data/exam.json", {
 										dataType : "json",
-										type : "POST",
+										type : "PUT",
 										data : {csatSequence : csatSequence,
 												examSequence : examSequence,
 												examName : examName,
@@ -323,6 +323,210 @@
 				}
 			});
 		});
+		
+		$('.manage-exam-add').on("click", function () {
+			$('.manage-exam-register-content').remove();
+			$('#manage-exam-register-view-detail').append(makeExamRegister(institutionList, yearStudentList));
+			$('#manage-exam-register-ymd').datepicker({
+				format:"yyyymmdd",
+				startView:0,
+				minViewMode:0,
+				language:"kr",
+				autoclose:true,
+				todayHighlight:true,
+				setDate:new Date()
+			});
+			$('.manage-exam-register-accept').on("click", function () {
+				var examName = $('#manage-exam-register-name').val();
+				var institutionSequence = $('#manage-exam-register-institution').val();
+				var yearStudentSequence = $('#manage-exam-register-year-student').val();
+				var ymd = $('#manage-exam-register-ymd').val();
+				$.ajax(contextPath + "/data/exam.json", {
+					dataType : "json",
+					type : "POST",
+					data : {csatSequence : csatSequence,
+							examName : examName,
+							institutionSequence : institutionSequence,
+							yearStudentSequence : yearStudentSequence,
+							ymd : ymd},
+					success : function (data) {
+						if (data.examSequence != null) {
+							var examSequence = data.examSequence;
+							$('#manage-exam-register-view').modal("hide");
+							$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
+								dataType : "json",
+								type : "GET",
+								success : function (data) {
+									if (data.detail != null) {
+										//작성중
+										var exam = data.detail;
+										$('.manage-exam-row').prepend(makeExamRow(exam[0]));
+										$('.manage-exam-modify').on("click", function () {
+											examSequence = $(this).attr("id");
+											$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
+												dataType : "json",
+												type : "GET",
+												success : function (data) {
+													if (data.detail != null) {
+														var exam = data.detail;
+														$('#manage-exam-modify-view-detail').append(makeExamRowDetail(exam[0], institutionList, yearStudentList));
+													}
+													$('#manage-exam-modify-ymd').datepicker({
+														format:"yyyymmdd",
+														startView:0,
+														minViewMode:0,
+														language:"kr",
+														autoclose:true,
+														todayHighlight:true,
+														setDate:new Date()
+													});
+													$('.manage-exam-modify-accept').on("click", function () {
+														var examName = $('#manage-exam-modify-name').val();
+														var institutionSequence = $('#manage-exam-modify-institution').val();
+														var yearStudentSequence = $('#manage-exam-modify-year-student').val();
+														var ymd = $('#manage-exam-modify-ymd').val();
+														$.ajax(contextPath + "/data/exam.json", {
+															dataType : "json",
+															type : "PUT",
+															data : {csatSequence : csatSequence,
+																	examSequence : examSequence,
+																	examName : examName,
+																	institutionSequence : institutionSequence,
+																	yearStudentSequence : yearStudentSequence,
+																	ymd : ymd},
+															success : function () {
+																$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
+																	dataType : "json",
+																	type : "GET",
+																	success : function (data) {
+																		if (data.detail != null) {
+																			var exam = data.detail;
+																			$('#manage-exam-modify-view').modal("hide");
+																			$('#manage-exam-row-data-year-' + examSequence).remove();
+																			$('#manage-exam-row-data-name-' + examSequence).remove();
+																			$('#manage-exam-row-data-institution-' + examSequence).remove();
+																			$('#manage-exam-row-data-year-student-' + examSequence).remove();
+																			$('#manage-exam-row-td-year-' + examSequence).append(makeExamRowDataYear(ymd.substring(0, 4)));
+																			$('#manage-exam-row-td-name-' + examSequence).append(makeExamRowDataName(examName));
+																			$('#manage-exam-row-td-institution-' + examSequence).append(makeExamRowDataInstitution(exam[0].institutionName));
+																			$('#manage-exam-row-td-year-student-' + examSequence).append(makeExamRowDataYearStudent(yearStudentSequence));
+																		}
+																	}
+																});
+															}
+														});
+													});
+												}
+											});
+										});
+										$('.manage-exam-delete').on("click", function () {
+											examSequence = $(this).attr("id");
+											$.ajax(contextPath + "/data/exam/average/" + csatSequence + "/" + examSequence + ".json", {
+												dataType : "json",
+												type : "GET",
+												success : function (data1) {
+													if (data1.averageList != null) {
+														$.ajax(contextPath + "/data/exam/section/" + csatSequence + "/" + examSequence + ".json", {
+															dataType : "json",
+															type : "GET",
+															success : function (data2) {
+																if (data2.sectionList != null) {
+																	$.ajax(contextPath + "/data/exam/subject/" + csatSequence + "/" + examSequence + ".json", {
+																		dataType : "json",
+																		type : "GET",
+																		success : function (data3) {
+																			if (data3.subjectList != null) {
+																				if (data1.averageList.length != 0 || data2.sectionList != 0 || data3.subjectList != 0) {
+																					check = true;
+																				} else {
+																					check = false;
+																				}
+																				$('.manage-exam-delete-content').remove();
+																				$('#manage-exam-delete-view-detail').append(makeExamDeleteMessage(check));
+																				$('.manage-exam-delete-accept').on("click", function () {
+																					$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
+																						dataType : "json",
+																						type : "DELETE",
+																						data : {_method : "DELETE"},
+																						success : function () {
+																							$('#manage-exam-row-data-' + examSequence).remove();
+																							$('#manage-exam-delete-view').modal("hide");
+																						}
+																					});
+																				});
+																			} 
+																		}
+																	});
+																}
+															}
+														});
+													}
+												}
+											});
+										});
+									}
+								}
+							});
+						}
+					}
+				});
+			});
+			
+		});
+		
+		var makeExamRegister = function (institutionList, yearStudentList) {
+			var institutionListLength = institutionList.length;
+			var yearStudentListLength = yearStudentList.length;
+			var html = '';
+			html += '<div class="modal-content manage-exam-register-content">';
+			html += '	<div class="modal-header">';
+			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+			html += '		<h4 class="modal-title">모의고사 추가</h4>';
+			html += '	</div>';
+			html += '	<div class="modal-body">';
+			html += '		<div class="form-group row">';
+			html += '			<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-register-name">모의고사 이름</label>';
+			html += '			<div class="col-lg-6"><input type="text" maxlength="26" class="form-control" id="manage-exam-register-name"></div>';
+			html += '		</div>';
+			html += '		<div class="form-group row">';
+			html += '			<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-register-institution">주관 교육청</label>';
+			html += '			<div class="col-lg-4">';
+			html += '				<select class="form-control" id="manage-exam-register-institution">';
+			for (var index = 0; index < institutionListLength; index++) {
+				html += '<option value="' + institutionList[index].institutionSequence + '">' + institutionList[index].institutionName + '</option>';
+			}
+			html += '				</select>';
+			html += '			</div>';
+			html += '		</div>';
+			html += '		<div class="form-group row">';
+			html += '			<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-register-year-student">학년</label>';
+			html += '			<div class="col-lg-2">';
+			html += '				<select class="form-control" id="manage-exam-register-year-student">';
+			for (var index = 0; index < yearStudentListLength; index++) {
+				html += '<option value="' + yearStudentList[index].yearStudentSequence + '">' + yearStudentList[index].yearStudentName + '</option>';
+			}
+			html += '				</select>';
+			html += '			</div>';
+			html += '		</div>';
+			html += '		<div class="form-group row">';
+			html += '			<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-register-date">시험일자</label>';
+			html += '			<div class="col-lg-5">';
+			html += '				<div class="input-group">';
+			html += '					<input type="text" class="form-control" id="manage-exam-register-ymd">';
+			html += '					<div class="input-group-addon manage-exam-input-group-addon">';
+			html += '						<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>';
+			html += '					</div>';
+			html += '				</div>';
+			html += '			</div>';
+			html += '		</div>';
+			html += '	</div>';
+			html += '	<div class="modal-footer">';
+			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
+			html += '		<button type="button" class="btn btn-primary manage-exam-register-accept">확인</button>';
+			html += '	</div>';
+			html += '</div>';
+			return html;
+		}
 		
 		var makeExamRowDetail = function (exam, institutionList, yearStudentList) {
 			var institutionListLength = institutionList.length;

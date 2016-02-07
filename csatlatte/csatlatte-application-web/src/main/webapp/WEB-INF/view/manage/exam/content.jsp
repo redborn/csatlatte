@@ -18,7 +18,7 @@
 			<th class="col-lg-1 manage-exam-col-lg">연도</th>
 			<th class="col-lg-6 manage-exam-col-lg">모의고사</th>
 			<th class="col-lg-3 manage-exam-col-lg">주관교육청</th>
-			<th class="col-lg-2 manage-exam-col-lg">학년</th>
+			<th class="col-lg-1 manage-exam-col-lg">학년</th>
 			<th class="col-lg-1 manage-exam-col-lg"></th>
 			<th class="col-lg-1 manage-exam-col-lg"></th>
 		</tr>
@@ -27,7 +27,7 @@
 	</tbody>
 </table>
 <div class="manage-exam-btn-align">
-	<button class="btn btn-default manage-exam-add" data-toggle="modal" data-target="#manage-exam-add">모의고사 추가</button>
+	<button class="btn btn-default manage-exam-add" data-toggle="modal" data-target="#manage-exam-register-view">모의고사 추가</button>
 </div>
 <div class="modal fade" id="manage-exam-modify-view" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document" id="manage-exam-modify-view-detail">
@@ -35,5 +35,9 @@
 </div>
 <div class="modal fade" id="manage-exam-delete-view" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document" id="manage-exam-delete-view-detail">
+	</div>
+</div>
+<div class="modal fade" id="manage-exam-register-view" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document" id="manage-exam-register-view-detail">
 	</div>
 </div>

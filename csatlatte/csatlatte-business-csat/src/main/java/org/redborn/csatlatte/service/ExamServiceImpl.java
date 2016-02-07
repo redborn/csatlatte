@@ -40,6 +40,10 @@ public class ExamServiceImpl implements ExamService {
 	@Autowired
 	private ScoreDao scoreDao;
 	
+	public int examCountMax(int csatSequence) {
+		return examDao.selectOneCountMax(csatSequence);
+	}
+	
 	public List<CsatVo> csatList() {
 		return csatDao.selectListYear();
 	}
@@ -78,10 +82,6 @@ public class ExamServiceImpl implements ExamService {
 
 	public int delete(int csatSequence, int examSequence) {
 		return examDao.delete(csatSequence, examSequence);
-	}
-	
-	public int amountExam(int csatSequence, String search) {
-		return examDao.selectOneCount(csatSequence, search);
 	}
 	
 	public List<InstitutionVo> institutionList() {

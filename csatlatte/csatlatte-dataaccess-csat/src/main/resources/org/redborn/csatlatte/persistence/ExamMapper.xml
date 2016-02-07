@@ -28,15 +28,13 @@
 		<result column="exam_ymd" property="ymd"/>
 		<result column="ys_seq" property="yearStudentSequence"/>
 		<result column="isttt_name" property="institutionName"/>
+		<result column="year" property="year"/>
 	</resultMap>
-
-	<select id="selectOneCount" parameterType="Map" resultType="int">
-		SELECT COUNT(*)
-		  FROM csat_exam ce, csat_isttt ci
-		 WHERE ce.isttt_seq = ci.isttt_seq
-		   AND ce.csat_seq = #{csatSequence}
-		   AND ( ce.exam_name LIKE CONCAT('%', #{search}, '%')
-		          OR ci.isttt_name LIKE CONCAT('%', #{search}, '%') )
+	
+	<select id="selectOneCountMax" parameterType="int" resultType="int">
+		SELECT IFNULL(MAX(exam_seq),0) + 1 as exam_seq
+		  FROM csat_exam ce
+		 WHERE ce.csat_seq = #{csatSequence}
 	</select>
 	
 	<select id="selectOneCountForDelete" parameterType="Map" resultType="int">
@@ -63,7 +61,7 @@
 	</select>
 	
 	<select id="selectListExamOneForManage" parameterType="Map" resultMap="ExamVoForManageOneMap">
-		SELECT ce.csat_seq,ce.exam_seq,ce.isttt_seq,ce.exam_name,ce.exam_ymd,ce.ys_seq,ci.isttt_name
+		SELECT ce.csat_seq,ce.exam_seq,DATE_FORMAT(ce.exam_ymd, '%Y') AS year,ce.isttt_seq,ce.exam_name,ce.exam_ymd,ce.ys_seq,ci.isttt_name
 		  FROM csat_exam ce, csat_isttt ci
 		 WHERE ce.exam_seq = #{examSequence}
 		   AND ce.csat_seq = #{csatSequence}
@@ -98,12 +96,13 @@
 	
 	<insert id="insert" parameterType="ExamVo">
 		INSERT INTO csat_exam
-		            (csat_seq,exam_seq,isttt_seq,exam_name,exam_ymd)
 		     VALUES (#{csatSequence},
 		     		 #{examSequence}, 
-		     		 #{istttSequence},
-		     		 #{examSequence}, 
-		     		 #{examYmd}) 
+		     		 #{institutionSequence},
+		     		 #{examName}, 
+		     		 #{ymd},
+		     		 'N',
+		     		 #{yearStudentSequence}) 
 	</insert>
 	
 	<update id="update" parameterType="ExamVo">
