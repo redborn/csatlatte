@@ -129,7 +129,7 @@
 		   AND exam_seq = #{examSequence}
 	</delete>
 
-	<insert id="insert" parameterType="Map">
+	<insert id="insert" parameterType="RatingCutVo">
 		INSERT INTO csat_exam_rating_cut
 		VALUES (#{csatSequence}, #{ratingCode}, #{examSequence}, 
 				#{sectionSequence}, #{subjectSequence}, #{rawScore}, #{standardScore}) 

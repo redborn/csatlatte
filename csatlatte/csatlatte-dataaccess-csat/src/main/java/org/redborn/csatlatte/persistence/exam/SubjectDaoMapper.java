@@ -17,5 +17,9 @@ public class SubjectDaoMapper extends SqlSessionDaoSupport implements SubjectDao
 		params.put("examSequence", examSequence);
 		return getSqlSession().selectList("exam.subject.selectList", params);
 	}
+	
+	public int insert(SubjectVo subjectVo) {
+		return getSqlSession().insert("exam.subject.insert", subjectVo);
+	}
 
 }
