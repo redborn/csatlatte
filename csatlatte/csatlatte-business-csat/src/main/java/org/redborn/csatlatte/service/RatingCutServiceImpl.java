@@ -58,9 +58,45 @@ public class RatingCutServiceImpl implements RatingCutService {
 		return ratingCutDao.deleteStudentScore(csatSequence, examSequence) > 0;
 	}
 
-	public boolean register(SectionVo sectionVo, SubjectVo subjectVo, RatingCutVo ratingCutVo, AverageVo averageVo) {
-		return sectionDao.insert(sectionVo) == 1 && subjectDao.insert(subjectVo) == 1 && 
-				ratingCutDao.insert(ratingCutVo) == 1 && averageDao.insert(averageVo) == 1;
+	public boolean register(List<SectionVo> sectionList, List<SubjectVo> subjectList, List<RatingCutVo> ratingCutList, List<AverageVo> averageList) {
+		boolean result = false;
+		boolean sectionSuccess = false;
+		boolean subjectSuccess = false;
+		boolean ratingCutSuccess = false;
+		
+		if (sectionList != null) {
+			int sectionListSize = sectionList.size();
+			for (int index = 0; index < sectionListSize; index++) {
+				sectionDao.insert(sectionList.get(index));
+			}
+			sectionSuccess = true;
+		}
+			
+		if (subjectList != null && sectionSuccess) {
+			int subjectListSize = subjectList.size();
+			for (int index = 0; index < subjectListSize; index++) {
+				subjectDao.insert(subjectList.get(index));
+			}
+			subjectSuccess = true;
+		}
+			
+		if (ratingCutList != null && sectionSuccess && subjectSuccess) {
+			int ratingCutListSize = ratingCutList.size();
+			for (int index = 0; index < ratingCutListSize; index++) {
+				ratingCutDao.insert(ratingCutList.get(index));
+			}
+			ratingCutSuccess = true;
+		}
+		
+		if (averageList != null && sectionSuccess && subjectSuccess && ratingCutSuccess) {
+			int averageListSize = averageList.size();
+			for (int index = 0; index < averageListSize; index++) {
+				averageDao.insert(averageList.get(index));
+			}
+			result = true;
+		}
+		
+		return result;
 	}
 
 }

@@ -15,6 +15,6 @@ public interface RatingCutService {
 	public boolean deleteSubject(int csatSequence, int examSequence);
 	public boolean deleteRatingCut(int csatSequence, int examSequence);
 	public boolean deleteStudentScore(int csatSequence, int examSequence);
-	public boolean register(SectionVo sectionVo, SubjectVo subjectVo, RatingCutVo ratingCutVo, AverageVo averageVo);
+	public boolean register(List<SectionVo> sectionList, List<SubjectVo> subjectList, List<RatingCutVo> ratingCutList, List<AverageVo> averageList);
 	
 }
