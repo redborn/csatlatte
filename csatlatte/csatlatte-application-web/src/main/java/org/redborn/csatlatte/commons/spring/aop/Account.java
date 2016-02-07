@@ -23,7 +23,12 @@ public class Account {
 	
 	public Object compareId() {
 		String requestURI = request.getRequestURI();
-		return requestURI.substring(request.getContextPath().length() + 1, requestURI.indexOf("/", request.getContextPath().length() + 1)).equals(httpSessionValue.getId()) ? null: TilesName.ERROR_404;
+		int contextPathLength = request.getContextPath().length();
+		int endIndex = requestURI.indexOf("/", contextPathLength + 1);
+		if (endIndex < 0) {
+			endIndex = requestURI.length();
+		}
+		return requestURI.substring(contextPathLength + 1, endIndex).equals(httpSessionValue.getId()) ? null: TilesName.ERROR_404;
 	}
 
 }
