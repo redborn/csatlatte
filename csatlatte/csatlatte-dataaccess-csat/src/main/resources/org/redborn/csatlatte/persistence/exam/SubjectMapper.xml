@@ -23,7 +23,7 @@
 	</select>
 
 	<insert id="insert" parameterType="SubjectVo">
-		INSERT INTO csat_exam_avg
+		INSERT INTO csat_exam_subject
 		VALUES (#{csatSequence}, #{examSequence}, #{sectionSequence}, #{subjectSequence},
 				#{subjectName}, #{maxScore}) 
 	</insert>
