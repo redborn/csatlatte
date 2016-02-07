@@ -7,7 +7,8 @@ import org.redborn.csatlatte.domain.ExamVo;
 public interface ExamDao {
 	
 	public int selectOneCountMax(int csatSequence);
-	public List<ExamVo> selectListExam(int csatSequence);
+	public List<ExamVo> selectListExam(String year, int yearStudedntSequence);
+	public List<String> selectListYear(int yearStudentSequence);
 	public List<ExamVo> selectListExamForManage(int csatSequence);
 	public int insert(ExamVo examVo);
 	public int update(ExamVo examVo);
