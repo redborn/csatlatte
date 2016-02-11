@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
-<h4><strong>수능라떼 비밀번호 변경</strong></h4>
+<h5><strong>수능라떼 비밀번호 변경</strong></h5>
 <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/<session:id/>/password">
 	<div class="form-group">
 		<label for="profile-password-content-before" class="control-label col-sm-3">기존 비밀번호</label>
