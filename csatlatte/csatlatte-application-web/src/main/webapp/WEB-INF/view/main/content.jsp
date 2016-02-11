@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <div class="main-picture">
 	<div class="main-title">"미래를 위한<br/>현명한 준비"</div>
 	<session:isGuest>
 	<div class="main-login">
-		<form id="main-form" method="post" action='<c:url value="/login"/>'>
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+		<form:form id="main-form" method="post" servletRelativeAction="/login"> 
 			<div class="form-group">
 				<label for="main-input-id" class="sr-only">수능라떼 아이디</label>
 				<input type="text" name="id" class="form-control" placeholder="수능라떼 아이디" id="main-input-id"/>
@@ -35,7 +35,7 @@
 		<c:if test="${fail}">
 			<div class="form-group"><strong style="color:#ebccd1;">아이디 또는 비밀번호가 틀렸습니다.</strong></div>
 		</c:if>
-		</form>
+		</form:form>
 	</div>
 	</session:isGuest>
 	<session:isStudent>
