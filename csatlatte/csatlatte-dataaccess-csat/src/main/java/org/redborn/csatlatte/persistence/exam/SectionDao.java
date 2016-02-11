@@ -7,5 +7,6 @@ import org.redborn.csatlatte.domain.SectionVo;
 public interface SectionDao {
 	
 	public List<SectionVo> selectList(int csatSequence, int examSequence);
+	public int insert(SectionVo sectionVo);
 	
 }

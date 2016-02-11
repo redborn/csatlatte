@@ -20,10 +20,9 @@
 		   AND ces.exam_seq = #{examSequence}
 	</select>
 
-	<insert id="insert" parameterType="Map">
-		INSERT INTO csat_exam_avg
-		VALUES (#{csatSequence}, #{examSequence}, #{sectionSequence}, #{subjectSequence} 
-				#{average}, #{standardDeviation}) 
+	<insert id="insert" parameterType="SectionVo">
+		INSERT INTO csat_exam_section
+		VALUES (#{csatSequence}, #{examSequence}, #{sectionSequence}, #{sectionName}, #{selectCount}) 
 	</insert>
 	
 </mapper>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/layout/include/jquery/form.jsp" %>
 <style>
 	.manage-rating-col-lg {text-align:center;}
 	.manage-rating-btn-align {text-align:right;}
@@ -51,6 +52,16 @@
 									var detail = data.detail;
 									$('.manage-rating-modify-view').remove();
 									$('#manage-rating-modify-view-detail').append(makeModifyView(detail[0]));
+									$('.manage-rating-modify-accept').on("click", function () {
+										var fileData = $('#manage-rating-modify-file').val();
+										$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
+											dataType : "json",
+											type : "PUT",
+											data : {_method : "PUT", file : fileData},
+											success : function () {
+											}
+										});
+									});
 								}
 							}
 						});
@@ -132,6 +143,16 @@
 										var detail = data.detail;
 										$('.manage-rating-modify-view').remove();
 										$('#manage-rating-modify-view-detail').append(makeModifyView(detail[0]));
+										$('.manage-rating-modify-accept').on("click", function () {
+											var fileData = $('#manage-rating-modify-file').val();
+											$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
+												dataType : "json",
+												type : "PUT",
+												data : {_method : "PUT", file : fileData},
+												success : function () {
+												}
+											});
+										});
 									}
 								}
 							});
@@ -194,6 +215,8 @@
 			var listLength = list.length;
 			var html = '';
 			html += '<div class="modal-content manage-rating-create-view">';
+			html += '<form method="POST" class="manage-rating-create-form" enctype="multipart/form-data" action="' + contextPath + '/data/rating">';
+			html += '<input type="hidden" name="csatSequence" value="' + csatSequence + '">';
 			html += '	<div class="modal-header">';
 			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 			html += '		<h4 class="modal-title">등급컷 추가</h4>';
@@ -202,7 +225,7 @@
 			html += '		<div class="form-group row">';
 			html += '			<label class="col-lg-3 control-label manage-rating-label" for="manage-rating-create-rating-cut">모의고사 이름</label>';
 			html += '			<div class="col-lg-6">';
-			html += '				<select class="form-control" id="manage-rating-create-rating-cut">';
+			html += '				<select class="form-control" name="examSequence" id="manage-rating-create-rating-cut">';
 			for (var index = 0; index < listLength; index++) {
 				html += '<option value="' + list[index].examSequence + '">' + list[index].examName + '</option>';
 			}
@@ -211,13 +234,14 @@
 			html += '		</div>';
 			html += '		<div class="form-group row">';
 			html += '			<label class="col-lg-3 control-label manage-rating-label" for="manage-rating-create-file">파일 첨부</label>';
-			html += '			<div class="col-lg-6"><input type="file" id="manage-rating-create-file"></div>';
+			html += '			<div class="col-lg-6"><input type="file" name="file" id="manage-rating-create-file"></div>';
 			html += '		</div>';
 			html +=	'	</div>';
 			html += '	<div class="modal-footer">';
 			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
-			html += '		<button type="button" class="btn btn-primary">확인</button>';
+			html += '		<input type="submit" class="btn btn-primary " value="확인"></button>';
 			html += '	</div>';
+			html += '</form>';
 			html +=	'</div>';
 			return html;
 		}
@@ -231,6 +255,10 @@
 						var list = data.listForCreate;
 						$('.manage-rating-create-view').remove();
 						$('#manage-rating-create-view-detail').append(makeCreateView(list));
+						$('.manage-rating-create-form').ajaxForm({
+							success : function () {
+							}
+						});
 					}
 				}
 			});
@@ -239,6 +267,7 @@
 		var makeModifyView = function (detail) {
 			var html = '';
 			html += '<div class="modal-content manage-rating-modify-view">';
+			//html += '<form method="PUT" class="manage-rating-modify-form" enctype="multipart/form-data" action="' + contextPath + '/data/rating">';
 			html += '	<div class="modal-header">';
 			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 			html += '		<h4 class="modal-title">등급컷 수정</h4>';
@@ -250,13 +279,14 @@
 			html += '		</div>';
 			html += '		<div class="form-group row">';
 			html += '			<label class="col-lg-3 control-label manage-rating-label" for="manage-rating-modify-file">파일 첨부</label>';
-			html += '			<div class="col-lg-6"><input type="file" id="manage-rating-modify-file"></div>';
+			html += '			<div class="col-lg-6"><input type="file" name="file" id="manage-rating-modify-file"></div>';
 			html += '		</div>';
 			html += '	</div>';
 			html += '	<div class="modal-footer">';
 			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
-			html += '		<button type="button" class="btn btn-primary">확인</button>';
+			html += '		<button class="btn btn-primary manage-rating-modify-accept">확인</button>';
 			html += '	</div>';
+			//html += '</form>'
 			html += '</div>';
 			return html;
 		}

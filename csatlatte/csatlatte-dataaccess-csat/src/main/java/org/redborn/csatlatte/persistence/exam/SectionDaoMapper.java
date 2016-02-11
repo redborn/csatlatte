@@ -17,5 +17,9 @@ public class SectionDaoMapper extends SqlSessionDaoSupport implements SectionDao
 		params.put("examSequence", examSequence);
 		return getSqlSession().selectList("exam.section.selectList", params);
 	}
+	
+	public int insert(SectionVo sectionVo) {
+		return getSqlSession().insert("exam.section.insert", sectionVo);
+	}
 
 }
