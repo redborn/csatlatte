@@ -52,13 +52,13 @@ public class Rating {
 			@RequestParam(value="file",required=true) MultipartFile file) throws IOException {
 		logger.info("data rating post");
 		if (file != null) {
-			RatingCutReader ratingCutReader = new RatingCutReader(file.getInputStream());
+			RatingCutReader ratingCutReader = new RatingCutReader(file.getInputStream(), csatSequence, examSequence);
 			List<SectionVo> sectionList = ratingCutReader.sectionList();
 			List<SubjectVo> subjectList = ratingCutReader.subjectList();
 			List<RatingCutVo> ratingCutList = ratingCutReader.ratingCutList();
 			List<AverageVo> averageList = ratingCutReader.averageList();
 			if (sectionList != null && subjectList != null && ratingCutList != null && averageList != null) {
-				ratingCutService.register(csatSequence, examSequence, sectionList, subjectList, ratingCutList, averageList);
+				ratingCutService.register(sectionList, subjectList, ratingCutList, averageList);
 				logger.info("success register ratingcut");
 			}
 		}
@@ -70,18 +70,18 @@ public class Rating {
 			@RequestParam(value="file",required=false) MultipartFile file) throws IOException {
 		logger.info("data rating put");
 		if (file != null) {
+			RatingCutReader ratingCutReader = new RatingCutReader(file.getInputStream(), csatSequence, examSequence);
 			ratingCutService.deleteStudentScore(csatSequence, examSequence);
 			ratingCutService.deleteRatingCut(csatSequence, examSequence);
 			ratingCutService.deleteAverage(csatSequence, examSequence);
 			ratingCutService.deleteSubject(csatSequence, examSequence);
 			ratingCutService.deleteSection(csatSequence, examSequence);
-			RatingCutReader ratingCutReader = new RatingCutReader(file.getInputStream());
 			List<SectionVo> sectionList = ratingCutReader.sectionList();
 			List<SubjectVo> subjectList = ratingCutReader.subjectList();
 			List<RatingCutVo> ratingCutList = ratingCutReader.ratingCutList();
 			List<AverageVo> averageList = ratingCutReader.averageList();
 			if (sectionList != null && subjectList != null && ratingCutList != null && averageList != null) {
-				ratingCutService.register(csatSequence, examSequence, sectionList, subjectList, ratingCutList, averageList);
+				ratingCutService.register(sectionList, subjectList, ratingCutList, averageList);
 				logger.info("success register ratingcut");
 			}
 		}
