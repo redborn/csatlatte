@@ -13,6 +13,7 @@ import org.redborn.csatlatte.domain.SubjectVo;
 public interface ExamService {
 
 	public List<CsatVo> csatList();
+	public CsatVo csat(int csatSequence);
 	public List<String> yearList(int yearStudentSequence);
 	public List<ExamVo> list(String year, int yearStudentSequence);
 	public List<ExamVo> listForManage(int csatSequence);
