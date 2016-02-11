@@ -4,7 +4,7 @@
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <div class="profile">
 	<div class="profile-id">
-		<h5>수능라떼 아이디 및 비밀번호</h5>
+		<h5><strong>수능라떼 아이디 및 비밀번호</strong></h5>
 		<div class="profile-content">
 			<label>아이디</label>
 			<div class="profile-content-value"><session:id/></div>
@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	<div class="profile-security">
-		<h5>보안 질문 <small>아이디 혹은 비밀번호를 분실한 경우 필요한 정보입니다.</small></h5>
+		<h5><strong>보안 질문</strong> <small>아이디 혹은 비밀번호를 분실한 경우 필요한 정보입니다.</small></h5>
 		<div class="profile-content">
 			<label>질문</label>
 			<div class="profile-content-value">${securityQuestion}</div>
@@ -24,7 +24,7 @@
 		</div>
 	</div>
 	<div class="profile-info">
-		<h5>프로필 사진 및 닉네임 <small>커뮤니티를 이용 시에 사용되는 정보입니다.</small></h5>
+		<h5><strong>프로필 사진 및 닉네임</strong> <small>커뮤니티를 이용 시에 사용되는 정보입니다.</small></h5>
 		<div class="profile-content">
 			<label>프로필 사진</label>
 			<img alt="프로필사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
