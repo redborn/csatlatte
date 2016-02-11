@@ -7,8 +7,7 @@
 		<h5>수능라떼 아이디 및 비밀번호</h5>
 		<div class="profile-content">
 			<label>아이디</label>
-			<div class="profile-content-value">test1234</div>
-			<input id="profile-id-value" type="hidden" value="<session:id></session:id>">
+			<div class="profile-content-value"><session:id/></div>
 		</div>
 		<div class="profile-message">
 			<a href="${pageContext.request.contextPath}/<session:id/>/password">비밀번호 변경하기</a>
@@ -18,7 +17,7 @@
 		<h5>보안 질문 <small>아이디 혹은 비밀번호를 분실한 경우 필요한 정보입니다.</small></h5>
 		<div class="profile-content">
 			<label>질문</label>
-			<div class="profile-content-value">출신 초등학교가 어디인가요?</div>
+			<div class="profile-content-value">${securityQuestion}</div>
 		</div>
 		<div class="profile-message">
 			<a href="${pageContext.request.contextPath}/<session:id/>/security">보안질문 변경하기</a>
@@ -32,11 +31,11 @@
 		</div>
 		<div class="profile-content">
 			<label id="profile-for-align">닉네임</label>
-			<div class="profile-content-value">테스트</div>
+			<div class="profile-content-value"><session:nickname/></div>
 		</div>
 		<div class="profile-content">
 			<label>수능</label>
-			<div class="profile-content-value">2016학년도 대학수학능력시험 (현재 3학년 / N수생)</div>
+			<div class="profile-content-value">${csat.csatName}</div>
 		</div>
 		<div class="profile-message">
 			<a href="${pageContext.request.contextPath}/<session:id/>/modify">정보 변경하기</a>
