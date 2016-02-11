@@ -59,7 +59,6 @@
 											type : "PUT",
 											data : {_method : "PUT", file : fileData},
 											success : function () {
-												console.log("완료");
 											}
 										});
 									});
@@ -151,7 +150,6 @@
 												type : "PUT",
 												data : {_method : "PUT", file : fileData},
 												success : function () {
-													console.log("완료");
 												}
 											});
 										});
@@ -259,7 +257,6 @@
 						$('#manage-rating-create-view-detail').append(makeCreateView(list));
 						$('.manage-rating-create-form').ajaxForm({
 							success : function () {
-								console.log("끝");
 							}
 						});
 					}
