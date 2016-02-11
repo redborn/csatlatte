@@ -58,7 +58,7 @@ public class Rating {
 			List<RatingCutVo> ratingCutList = ratingCutReader.ratingCutList();
 			List<AverageVo> averageList = ratingCutReader.averageList();
 			if (sectionList != null && subjectList != null && ratingCutList != null && averageList != null) {
-				ratingCutService.register(sectionList, subjectList, ratingCutList, averageList);
+				ratingCutService.register(csatSequence, examSequence, sectionList, subjectList, ratingCutList, averageList);
 				logger.info("success register ratingcut");
 			}
 		}
@@ -69,10 +69,7 @@ public class Rating {
 			@PathVariable(value="examSequence") int examSequence,
 			@RequestParam(value="file",required=false) MultipartFile file) throws IOException {
 		logger.info("data rating put");
-		logger.info("값1 : " + csatSequence);
-		logger.info("값2 : " + examSequence);
-		logger.info("값3 : " + file);
-		/*if (file != null) {
+		if (file != null) {
 			ratingCutService.deleteStudentScore(csatSequence, examSequence);
 			ratingCutService.deleteRatingCut(csatSequence, examSequence);
 			ratingCutService.deleteAverage(csatSequence, examSequence);
@@ -84,10 +81,10 @@ public class Rating {
 			List<RatingCutVo> ratingCutList = ratingCutReader.ratingCutList();
 			List<AverageVo> averageList = ratingCutReader.averageList();
 			if (sectionList != null && subjectList != null && ratingCutList != null && averageList != null) {
-				ratingCutService.register(sectionList, subjectList, ratingCutList, averageList);
+				ratingCutService.register(csatSequence, examSequence, sectionList, subjectList, ratingCutList, averageList);
 				logger.info("success register ratingcut");
 			}
-		}*/
+		}
 	}
 	
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.DELETE)
