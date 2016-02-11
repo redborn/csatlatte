@@ -38,6 +38,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
+	<!-- encoding UTF-8 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -47,16 +48,25 @@
 		</init-param>
 	</filter>
 	
+	<!-- multipart -->
+	<filter>
+	    <filter-name>multipartFilter</filter-name>
+	    <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+	</filter>
+	
+	<!-- form method="PUT" params 전송 가능 -->
 	<filter>
 		<filter-name>httpPutFormContentFilter</filter-name>
 		<filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
 	</filter>
 	
+	<!-- form method PUT, DELETE 사용 -->
 	<filter>
 	    <filter-name>httpMethodFilter</filter-name>
 	    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
 	</filter>
 	
+	<!-- spring securiry -->
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -65,6 +75,11 @@
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+	    <filter-name>multipartFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
 	<filter-mapping>
