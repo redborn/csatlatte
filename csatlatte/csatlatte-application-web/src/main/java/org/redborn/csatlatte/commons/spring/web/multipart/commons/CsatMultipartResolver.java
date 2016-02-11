@@ -24,7 +24,7 @@ public class CsatMultipartResolver extends CommonsMultipartResolver {
 		boolean result = false;
 		if (request != null) {
 			String contentType = request.getContentType();
-			result = contentType != null && contentType.toLowerCase().equals("multipart/form-data");
+			result = contentType != null && contentType.toLowerCase().startsWith("multipart/form-data");
 		}
 		return result;
 	}
