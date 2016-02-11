@@ -52,15 +52,11 @@
 									var detail = data.detail;
 									$('.manage-rating-modify-view').remove();
 									$('#manage-rating-modify-view-detail').append(makeModifyView(detail[0]));
-									$('.manage-rating-modify-accept').on("click", function () {
-										var fileData = $('#manage-rating-modify-file').val();
-										$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
-											dataType : "json",
-											type : "PUT",
-											data : {_method : "PUT", file : fileData},
-											success : function () {
-											}
-										});
+									$('.manage-rating-modify-form').ajaxForm({
+										type : "PUT",
+										success : function () {
+											
+										}
 									});
 								}
 							}
@@ -143,15 +139,11 @@
 										var detail = data.detail;
 										$('.manage-rating-modify-view').remove();
 										$('#manage-rating-modify-view-detail').append(makeModifyView(detail[0]));
-										$('.manage-rating-modify-accept').on("click", function () {
-											var fileData = $('#manage-rating-modify-file').val();
-											$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
-												dataType : "json",
-												type : "PUT",
-												data : {_method : "PUT", file : fileData},
-												success : function () {
-												}
-											});
+										$('.manage-rating-modify-form').ajaxForm({
+											type : "PUT",
+											success : function () {
+												
+											}
 										});
 									}
 								}
@@ -267,7 +259,8 @@
 		var makeModifyView = function (detail) {
 			var html = '';
 			html += '<div class="modal-content manage-rating-modify-view">';
-			//html += '<form method="PUT" class="manage-rating-modify-form" enctype="multipart/form-data" action="' + contextPath + '/data/rating">';
+			html += '<form method="PUT" class="manage-rating-modify-form" enctype="multipart/form-data" action="' + contextPath + '/data/rating/' + csatSequence + '/' + examSequence + '">';
+			html += '	<input type="hidden" value="PUT" name="_method">';
 			html += '	<div class="modal-header">';
 			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 			html += '		<h4 class="modal-title">등급컷 수정</h4>';
@@ -286,7 +279,7 @@
 			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
 			html += '		<button class="btn btn-primary manage-rating-modify-accept">확인</button>';
 			html += '	</div>';
-			//html += '</form>'
+			html += '</form>'
 			html += '</div>';
 			return html;
 		}
