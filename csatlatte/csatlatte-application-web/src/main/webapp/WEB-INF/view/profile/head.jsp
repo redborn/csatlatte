@@ -5,7 +5,7 @@
 	#profile-question {margin-left:15px; margin-top:5px;}
 	.profile {font-size:13px;}
 	.profile-content {margin-left:30px;}
-	.profile-content label {margin-right:10px; width:80px; text-align:right;}
+	.profile-content label {margin-right:10px; width:60px; text-align:right;}
 	.profile-message {margin-left:100px; margin-top:5px;}
 	.profile-security {margin-top:20px;}
 	.profile-info {margin-top:20px;}
