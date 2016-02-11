@@ -1,8 +1,13 @@
 package org.redborn.csatlatte.controller.data;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.redborn.csatlatte.commons.poi.RatingCutReader;
+import org.redborn.csatlatte.domain.AverageVo;
+import org.redborn.csatlatte.domain.RatingCutVo;
+import org.redborn.csatlatte.domain.SectionVo;
+import org.redborn.csatlatte.domain.SubjectVo;
 import org.redborn.csatlatte.service.ExamService;
 import org.redborn.csatlatte.service.RatingCutService;
 import org.slf4j.Logger;
@@ -45,7 +50,44 @@ public class Rating {
 	public void post(@RequestParam(value="csatSequence",required=true) int csatSequence,
 			@RequestParam(value="examSequence",required=true) int examSequence,
 			@RequestParam(value="file",required=true) MultipartFile file) throws IOException {
-		RatingCutReader ratingCutReader = new RatingCutReader(file.getInputStream());
+		logger.info("data rating post");
+		if (file != null) {
+			RatingCutReader ratingCutReader = new RatingCutReader(file.getInputStream());
+			List<SectionVo> sectionList = ratingCutReader.sectionList();
+			List<SubjectVo> subjectList = ratingCutReader.subjectList();
+			List<RatingCutVo> ratingCutList = ratingCutReader.ratingCutList();
+			List<AverageVo> averageList = ratingCutReader.averageList();
+			if (sectionList != null && subjectList != null && ratingCutList != null && averageList != null) {
+				ratingCutService.register(sectionList, subjectList, ratingCutList, averageList);
+				logger.info("success register ratingcut");
+			}
+		}
+	}
+	
+	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.PUT)
+	public void put(@PathVariable(value="csatSequence") int csatSequence,
+			@PathVariable(value="examSequence") int examSequence,
+			@RequestParam(value="file",required=false) MultipartFile file) throws IOException {
+		logger.info("data rating put");
+		logger.info("값1 : " + csatSequence);
+		logger.info("값2 : " + examSequence);
+		logger.info("값3 : " + file);
+		/*if (file != null) {
+			ratingCutService.deleteStudentScore(csatSequence, examSequence);
+			ratingCutService.deleteRatingCut(csatSequence, examSequence);
+			ratingCutService.deleteAverage(csatSequence, examSequence);
+			ratingCutService.deleteSubject(csatSequence, examSequence);
+			ratingCutService.deleteSection(csatSequence, examSequence);
+			RatingCutReader ratingCutReader = new RatingCutReader(file.getInputStream());
+			List<SectionVo> sectionList = ratingCutReader.sectionList();
+			List<SubjectVo> subjectList = ratingCutReader.subjectList();
+			List<RatingCutVo> ratingCutList = ratingCutReader.ratingCutList();
+			List<AverageVo> averageList = ratingCutReader.averageList();
+			if (sectionList != null && subjectList != null && ratingCutList != null && averageList != null) {
+				ratingCutService.register(sectionList, subjectList, ratingCutList, averageList);
+				logger.info("success register ratingcut");
+			}
+		}*/
 	}
 	
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.DELETE)
