@@ -103,7 +103,7 @@
 		SELECT COUNT(*)
 		  FROM csat_student
 		 WHERE student_seq = #{studentSequence}
-		   AND student_password = CONCAT(DATE_FORMAT(create_date, '%f%S%i%H'), #{password,typeHandler=org.redborn.csatlatte.commons.mybatis.SHA512TypeHandler})
+		   AND student_password = #{password,typeHandler=org.redborn.csatlatte.commons.mybatis.SHA512TypeHandler}
 	</select>
 	
 	<select id="selectOneCountOverlapId" parameterType="String" resultType="int">
