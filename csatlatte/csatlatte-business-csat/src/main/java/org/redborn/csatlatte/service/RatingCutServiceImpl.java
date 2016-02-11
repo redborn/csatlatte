@@ -58,7 +58,7 @@ public class RatingCutServiceImpl implements RatingCutService {
 		return ratingCutDao.deleteStudentScore(csatSequence, examSequence) > 0;
 	}
 
-	public boolean register(int csatSequence, int examSequence, List<SectionVo> sectionList, List<SubjectVo> subjectList, List<RatingCutVo> ratingCutList, List<AverageVo> averageList) {
+	public boolean register(List<SectionVo> sectionList, List<SubjectVo> subjectList, List<RatingCutVo> ratingCutList, List<AverageVo> averageList) {
 		boolean result = false;
 		boolean sectionSuccess = false;
 		boolean subjectSuccess = false;
@@ -67,10 +67,7 @@ public class RatingCutServiceImpl implements RatingCutService {
 		if (sectionList != null) {
 			int sectionListSize = sectionList.size();
 			for (int index = 0; index < sectionListSize; index++) {
-				SectionVo sectionVo = sectionList.get(index);
-				sectionVo.setCsatSequence(csatSequence);
-				sectionVo.setExamSequence(examSequence);
-				sectionDao.insert(sectionVo);
+				sectionDao.insert(sectionList.get(index));
 			}
 			sectionSuccess = true;
 		}
@@ -78,10 +75,7 @@ public class RatingCutServiceImpl implements RatingCutService {
 		if (subjectList != null && sectionSuccess) {
 			int subjectListSize = subjectList.size();
 			for (int index = 0; index < subjectListSize; index++) {
-				SubjectVo subjectVo = subjectList.get(index);
-				subjectVo.setCsatSequence(csatSequence);
-				subjectVo.setExamSequence(examSequence);
-				subjectDao.insert(subjectVo);
+				subjectDao.insert(subjectList.get(index));
 			}
 			subjectSuccess = true;
 		}
@@ -89,10 +83,7 @@ public class RatingCutServiceImpl implements RatingCutService {
 		if (ratingCutList != null && sectionSuccess && subjectSuccess) {
 			int ratingCutListSize = ratingCutList.size();
 			for (int index = 0; index < ratingCutListSize; index++) {
-				RatingCutVo ratingCutVo = ratingCutList.get(index);
-				ratingCutVo.setCsatSequence(csatSequence);
-				ratingCutVo.setExamSequence(examSequence);
-				ratingCutDao.insert(ratingCutVo);
+				ratingCutDao.insert(ratingCutList.get(index));
 			}
 			ratingCutSuccess = true;
 		}
@@ -100,10 +91,7 @@ public class RatingCutServiceImpl implements RatingCutService {
 		if (averageList != null && sectionSuccess && subjectSuccess && ratingCutSuccess) {
 			int averageListSize = averageList.size();
 			for (int index = 0; index < averageListSize; index++) {
-				AverageVo averageVo = averageList.get(index);
-				averageVo.setCsatSequence(csatSequence);
-				averageVo.setExamSequence(examSequence);
-				averageDao.insert(averageVo);
+				averageDao.insert(averageList.get(index));
 			}
 			result = true;
 		}
