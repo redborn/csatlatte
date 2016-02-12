@@ -59,8 +59,8 @@ public class QnaServiceImpl implements QnaService {
 		QnaVo qnaVo = qnaDao.selectOne(qnaSequence);
 		List<String> answerContentList = answerDao.selectList(qnaSequence);
 		
-		if (studentSequence == qnaVo.getStudentSequence() && qnaVo.getUseYn().equals("Y")) {
-			if (qnaVo != null) {
+		if (qnaVo != null) {
+			if (studentSequence == qnaVo.getStudentSequence() && qnaVo.getUseYn().equals("Y")) {
 				List<String> contentList = contentDao.selectList(qnaSequence);
 				String content = "";
 				if (contentList != null) {
@@ -71,18 +71,20 @@ public class QnaServiceImpl implements QnaService {
 				}
 				qnaVo.setContent(content);
 				qnaVo.setFile(fileDao.selectList(qnaSequence));
-			}
-			
-			if (answerContentList != null) {
-				String answerContent = "";
-				int answerContentSize = answerContentList.size();
-				for (int index = 0; index < answerContentSize; index++) {
-					answerContent += answerContentList.get(index);
+				
+				
+				if (answerContentList != null) {
+					String answerContent = "";
+					int answerContentSize = answerContentList.size();
+					for (int index = 0; index < answerContentSize; index++) {
+						answerContent += answerContentList.get(index);
+					}
+					qnaVo.setAnswerContent(answerContent);
 				}
-				qnaVo.setAnswerContent(answerContent);
+				
+			} else {
+				qnaVo.setContent("");
 			}
-		} else {
-			qnaVo.setContent("");
 		}
 		
 		return qnaVo;
