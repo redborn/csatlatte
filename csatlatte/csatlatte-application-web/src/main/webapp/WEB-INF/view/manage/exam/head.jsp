@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/WEB-INF/layout/include/bootstrap/datepicker.jsp" %>
+<%@ include file="/WEB-INF/layout/include/jquery/ajax.jsp" %>
 <style>
 	.manage-exam-label {text-align:right; margin-top:6px;}
 	#manage-exam-nav {text-align:center;}

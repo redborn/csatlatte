@@ -3,6 +3,7 @@
 <%@ include file="/WEB-INF/layout/include/student.jsp" %>
 <%@ include file="/WEB-INF/layout/include/manager.jsp" %>
 <%@ include file="/WEB-INF/layout/include/jquery/form.jsp" %>
+<%@ include file="/WEB-INF/layout/include/jquery/ajax.jsp" %>
 <%@ include file="/WEB-INF/layout/include/banner.jsp" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <style>

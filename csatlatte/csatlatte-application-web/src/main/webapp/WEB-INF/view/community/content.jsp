@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="container">
 	<h2 style="color:#7a6253;">커뮤니티</h2>
 </div>
@@ -38,7 +39,7 @@
 <div id="community-report" class="modal fade" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-sm" role="document">
 		<div class="modal-content">
-			<form id="community-report-form" action="<c:url value="/data/community/report/"/>" method="post">
+			<form:form id="community-report-form" method="post" servletRelativeAction="/data/community/report/">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
 					<h4 class="modal-title">신고하기</h4>
@@ -57,14 +58,14 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					<button type="submit" class="btn btn-primary" disabled="disabled">확인</button>
 				</div>
-			</form>
+			</form:form>
 		</div>
 	</div>
 </div>
 <div id="community-comment-report" class="modal fade" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-sm" role="document">
 		<div class="modal-content">
-			<form id="community-comment-report-form" action="<c:url value="/data/community/comment/report/"/>" method="post">
+			<form:form id="community-comment-report-form" method="post" servletRelativeAction="/data/community/comment/report/">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
 					<h4 class="modal-title">신고하기</h4>
@@ -83,7 +84,7 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					<button type="submit" class="btn btn-primary" disabled="disabled">확인</button>
 				</div>
-			</form>
+			</form:form>
 		</div>
 	</div>
 </div>
@@ -91,7 +92,7 @@
 <div id="community-blind" class="modal fade" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-sm" role="document">
 		<div class="modal-content">
-			<form id="community-blind-form" action="<c:url value="/data/community/blind/"/>" method="post">
+			<form:form id="community-blind-form" method="post" servletRelativeAction="/data/community/blind/">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
 					<h4 class="modal-title">블라인드</h4>
@@ -110,14 +111,14 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					<button type="submit" class="btn btn-primary" disabled="disabled">확인</button>
 				</div>
-			</form>
+			</form:form>
 		</div>
 	</div>
 </div>
 <div id="community-comment-blind" class="modal fade" tabindex="-1" role="dialog">
 	<div class="modal-dialog modal-sm" role="document">
 		<div class="modal-content">
-			<form id="community-comment-blind-form" action="<c:url value="/data/community/comment/blind/"/>" method="post">
+			<form:form id="community-comment-blind-form" method="post" servletRelativeAction="/data/community/comment/blind/">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
 					<h4 class="modal-title">블라인드</h4>
@@ -136,7 +137,7 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					<button type="submit" class="btn btn-primary" disabled="disabled">확인</button>
 				</div>
-			</form>
+			</form:form>
 		</div>
 	</div>
 </div>
