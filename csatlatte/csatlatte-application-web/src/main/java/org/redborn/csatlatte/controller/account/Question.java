@@ -1,5 +1,6 @@
 package org.redborn.csatlatte.controller.account;
 
+import org.redborn.csatlatte.commons.servlet.http.HttpSessionValue;
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.redborn.csatlatte.service.QnaService;
 import org.slf4j.Logger;
@@ -23,13 +24,16 @@ public class Question {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private QnaService qnaService;
-
+	@Autowired
+	private HttpSessionValue httpSessionValue;
+	
 	/**
 	 * 문의사항의 제목 목록을 조회하는 페이지입니다.
 	 */
-	@RequestMapping(value="{studentSequence}",method=RequestMethod.GET)
-	public String get(Model model, @PathVariable(value="studentSequence") int studentSequence) {
+	@RequestMapping(method=RequestMethod.GET)
+	public String get(Model model) {
 		logger.info("myinfo question list");
+		int studentSequence = httpSessionValue.getStudentSequence();
 		model.addAttribute("questionList", qnaService.listForStudent(studentSequence));
 		return TilesName.PROFILE_QUESTION_LIST;
 	}
@@ -37,10 +41,10 @@ public class Question {
 	/**
 	 * 문의 제목, 문의 내용, 문의에 대한 답변의 상세 내용을 조회하는 페이지(TilesName.MYINFO_QUESTION_DETAIL)입니다.
 	 */
-	@RequestMapping(value="{studentSequence}/{qnaSequence}",method=RequestMethod.GET)
-	public String detail(Model model, @PathVariable int studentSequence, @PathVariable int qnaSequence) {
+	@RequestMapping(value="{qnaSequence}",method=RequestMethod.GET)
+	public String detail(Model model, @PathVariable int qnaSequence) {
 		logger.info("myinfo question detail");
-		model.addAttribute("", qnaService.detail(qnaSequence));
+		model.addAttribute("detail", qnaService.detail(qnaSequence));
 		return TilesName.PROFILE_QUESTION_DETAIL;
 	}
 
