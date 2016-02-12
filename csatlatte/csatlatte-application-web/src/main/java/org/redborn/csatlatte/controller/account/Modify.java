@@ -37,6 +37,7 @@ public class Modify {
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
 		logger.info("myinfo modify view");
+		model.addAttribute("studentId", httpSessionValue.getId());
 		model.addAttribute("studentCsat", httpSessionValue.getCsatSequence());
 		model.addAttribute("csatList", examService.csatList());
 		return TilesName.PROFILE_MODIFY_WRITE;
