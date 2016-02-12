@@ -2,6 +2,7 @@ package org.redborn.csatlatte.controller.account;
 
 import org.redborn.csatlatte.commons.servlet.http.HttpSessionValue;
 import org.redborn.csatlatte.commons.tiles.TilesName;
+import org.redborn.csatlatte.domain.QnaVo;
 import org.redborn.csatlatte.service.QnaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,9 +45,16 @@ public class Question {
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.GET)
 	public String detail(Model model, @PathVariable int qnaSequence) {
 		logger.info("myinfo question detail");
+		String result = TilesName.ERROR_404;
 		int studentSequence = httpSessionValue.getStudentSequence();
-		model.addAttribute("detail", qnaService.detailForStudent(studentSequence, qnaSequence));
-		return TilesName.PROFILE_QUESTION_DETAIL;
+		QnaVo qnaVo = qnaService.detailForStudent(studentSequence, qnaSequence);
+		if (qnaVo != null) {
+			if (!qnaVo.getContent().equals("")) {
+				model.addAttribute("detail", qnaVo);
+				result = TilesName.PROFILE_QUESTION_DETAIL;
+			}
+		}
+		return result;
 	}
 
 }
