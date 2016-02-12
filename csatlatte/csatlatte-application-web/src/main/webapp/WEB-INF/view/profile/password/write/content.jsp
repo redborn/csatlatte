@@ -4,7 +4,7 @@
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <h5><strong>수능라떼 비밀번호 변경</strong></h5>
-<form:form class="form-horizontal" method="post" servletRelativeAction="/<session:id/>/password">
+<form:form class="form-horizontal" method="post" servletRelativeAction="/${studentId}/password">
 	<div class="form-group">
 		<label for="profile-before-password" class="control-label col-sm-3">기존 비밀번호</label>
 		<div class="col-sm-4"><input maxlength="15" name="beforePassword" id="profile-before-password" type="password" class="form-control" placeholder="기존 비밀번호"/></div>
