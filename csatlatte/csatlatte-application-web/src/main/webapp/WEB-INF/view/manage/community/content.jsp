@@ -3,11 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <h4 class="manage-community-title">커뮤니티 관리</h4>
 <div class="manage-community-search">
-	<form method="get" action="<c:url value="/manage/community"/>">
+	<form:form method="get" servletRelativeAction="/manage/community">
 		<div class="col-lg-5 manage-community-col-lg"><input type="text" class="form-control" id="manage-community-search" placeholder="아이디 혹은 닉네임" name="search" value="${param.search}"></div>
-	</form>
+	</form:form>
 </div>
 
 <table class="table" id="manage-community-table">
