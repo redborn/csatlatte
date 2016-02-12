@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="progress">
 	<div class="progress-bar progress-bar-success progress-bar-striped active progress-first" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
 		1단계 아이디 입력
@@ -15,7 +16,7 @@
 		4단계 비밀번호 찾기 완료
 	</div>
 </div>
-<form id="password-write-form" class="form-horizontal" method="post" action="<c:url value="/password"/>">
+<form:form id="password-write-form" class="form-horizontal" method="post" servletRelativeAction="/password">
 	<div class="password-write">
 		<h4>아이디 정보</h4>
 		<div class="form-group">
@@ -27,4 +28,4 @@
 		<a class="btn btn-default" href="<c:url value="/main"/>">취소</a>
 		<input id="password-write-btn-success" type="submit" disabled="disabled" class="btn btn-success" value="다음단계">
 	</div>
-</form>
+</form:form>

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<form class="form-horizontal" id="join-write-form" method="POST" action="<c:url value="/join"/>">
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<form:form id="join-write-form" method="post" servletRelativeAction="/join" class="form-horizontal">
 	<div class="join">
 		<h4>수능라떼 아이디 정보</h4>
 		<div class="join-id">
@@ -69,4 +70,4 @@
 		<a class="btn btn-default" href="<c:url value="/main"/>">취소</a>
 		<input id="join-btn-success" type="submit" class="btn btn-primary" value="계정 만들기">
 	</div>
-</form>
+</form:form>
