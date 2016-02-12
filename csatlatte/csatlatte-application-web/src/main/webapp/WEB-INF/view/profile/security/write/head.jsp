@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <style>
+	#profile-security-return {margin-left:15px; margin-top:5px;}
 	.profile-security-button-group {text-align:right; width:auto; margin-top:230px;}
 	#profile-security-answer-message-area {padding-top:7px;}
 	.profile-security-answer-message-negative {color:#d9534f;}
