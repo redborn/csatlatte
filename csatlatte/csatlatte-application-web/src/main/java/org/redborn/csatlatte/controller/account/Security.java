@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,16 +26,6 @@ public class Security {
 	private StudentService studentService;
 	@Autowired
 	private HttpSessionValue httpSessionValue;
-	
-	/**
-	 * 보안질문을 선택하고 보안답변을 입력하는 페이지입니다.
-	 */
-	@RequestMapping(method=RequestMethod.GET)
-	public String get(Model model) {
-		logger.info("myinfo security view");
-		model.addAttribute("securityQuestionList", studentService.securityQuestionList());
-		return TilesName.PROFILE_SECURITY_WRITE;
-	}
 
 	/**
 	 * 보안변경 처리 영역입니다.
