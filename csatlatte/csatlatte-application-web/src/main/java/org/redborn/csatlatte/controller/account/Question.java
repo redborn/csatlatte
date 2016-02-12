@@ -44,7 +44,8 @@ public class Question {
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.GET)
 	public String detail(Model model, @PathVariable int qnaSequence) {
 		logger.info("myinfo question detail");
-		model.addAttribute("detail", qnaService.detail(qnaSequence));
+		int studentSequence = httpSessionValue.getStudentSequence();
+		model.addAttribute("detail", qnaService.detailForStudent(studentSequence, qnaSequence));
 		return TilesName.PROFILE_QUESTION_DETAIL;
 	}
 
