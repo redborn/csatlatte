@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/WEB-INF/layout/include/jquery/form.jsp" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="/WEB-INF/layout/include/jquery/ajax.jsp" %>
 <style>
 	.manage-rating-col-lg {text-align:center;}
@@ -209,7 +208,7 @@
 			var listLength = list.length;
 			var html = '';
 			html += '<div class="modal-content manage-rating-create-view">';
-			html += '<form:form class="manage-rating-create-form" method="post" servletRelativeAction="/data/rating" enctype="multipart/form-data">';
+			html += '<form class="manage-rating-create-form" method="post" servletRelativeAction="/data/rating" enctype="multipart/form-data">';
 			html += '<input type="hidden" name="csatSequence" value="' + csatSequence + '">';
 			html += '	<div class="modal-header">';
 			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
@@ -235,7 +234,7 @@
 			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
 			html += '		<input type="submit" class="btn btn-primary " value="확인"></button>';
 			html += '	</div>';
-			html += '</form:form>';
+			html += '</form>';
 			html +=	'</div>';
 			return html;
 		}
@@ -261,7 +260,7 @@
 		var makeModifyView = function (detail) {
 			var html = '';
 			html += '<div class="modal-content manage-rating-modify-view">';
-			html += '<form:form class="manage-rating-modify-form" method="put" servletRelativeAction="/data/rating/' + csatSequence + '/' + examSequence + '" enctype="multipart/form-data">';
+			html += '<form class="manage-rating-modify-form" method="put" servletRelativeAction="/data/rating/' + csatSequence + '/' + examSequence + '" enctype="multipart/form-data">';
 			html += '	<input type="hidden" value="PUT" name="_method">';
 			html += '	<div class="modal-header">';
 			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
@@ -281,7 +280,7 @@
 			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
 			html += '		<button class="btn btn-primary manage-rating-modify-accept">확인</button>';
 			html += '	</div>';
-			html += '</form:form>'
+			html += '</form>'
 			html += '</div>';
 			return html;
 		}
