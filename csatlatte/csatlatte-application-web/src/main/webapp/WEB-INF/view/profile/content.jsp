@@ -20,7 +20,7 @@
 			<div class="profile-content-value">${securityQuestion}</div>
 		</div>
 		<div class="profile-message">
-			<a href="${pageContext.request.contextPath}/<session:id/>/security">보안질문 변경하기</a>
+			<a href="${pageContext.request.contextPath}/<session:id/>/authentication">보안질문 변경하기</a>
 		</div>
 	</div>
 	<div class="profile-info">
