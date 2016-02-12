@@ -2,8 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <h5><strong>수능라떼 비밀번호 변경</strong></h5>
-<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/<session:id/>/password">
+<form:form class="form-horizontal" method="post" servletRelativeAction="/<session:id/>/password">
 	<div class="form-group">
 		<label for="profile-before-password" class="control-label col-sm-3">기존 비밀번호</label>
 		<div class="col-sm-4"><input maxlength="15" name="beforePassword" id="profile-before-password" type="password" class="form-control" placeholder="기존 비밀번호"/></div>
@@ -25,4 +26,4 @@
 		<a id="profile-password-btn-cancel" class="btn btn-default" href="${pageContext.request.contextPath}/<session:id/>">취소</a>
 		<input id="profile-password-btn-success" type="submit" class="btn btn-primary" value="변경 완료">
 	</div>
-</form>
+</form:form>

@@ -2,8 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <h5><strong>프로필 사진 및 닉네임</strong>&nbsp;<small>커뮤니티를 이용 시에 사용되는 정보입니다.</small></h5>
-<form class="form-horizontal" method="POST" action="${pageContext.request.contextPath}/<session:id/>/modify">
+<form:form class="form-horizontal" method="post" servletRelativeAction="/<session:id/>/modify">
 	<div class="form-group">
 		<label class="control-label col-sm-2">프로필 사진</label>
 		<div class="col-sm-5">
@@ -34,4 +35,4 @@
 		<a id="profile-modify-btn-cancel" class="btn btn-default" href="${pageContext.request.contextPath}/<session:id/>">취소</a>
 		<input id="profile-modify-btn-success" type="submit" class="btn btn-primary" value="변경 완료">
 	</div>
-</form>
+</form:form>
