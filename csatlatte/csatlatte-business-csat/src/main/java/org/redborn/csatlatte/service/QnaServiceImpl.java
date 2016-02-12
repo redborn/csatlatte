@@ -64,8 +64,8 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDao.selectListForManage(search, pageNumber, countQnaAnswer);
 	}
 
-	public List<QnaForStudentVo> listForStudent(int studentSequence, int pageNumber) {
-		return qnaDao.selectListForStudent(studentSequence, pageNumber);
+	public List<QnaForStudentVo> listForStudent(int studentSequence) {
+		return qnaDao.selectListForStudent(studentSequence);
 	}
 
 	public boolean delete(int qnaSequence) {

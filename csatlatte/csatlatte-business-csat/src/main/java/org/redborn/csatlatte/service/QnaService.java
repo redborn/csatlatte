@@ -12,7 +12,7 @@ public interface QnaService {
 
 	public QnaVo detail(int qnaSequence);
 	public List<QnaForManageVo> listForManage(String search, int pageNumber, int countQnaAnswer);
-	public List<QnaForStudentVo> listForStudent(int studentSequence, int pageNumber);
+	public List<QnaForStudentVo> listForStudent(int studentSequence);
 	public boolean delete(int qnaSequence);
 	public boolean write(QnaVo qnaVo, List<File> listFile);
 	public boolean answer(QnaAnswerVo qnaAnswerVo);
