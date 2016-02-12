@@ -14,6 +14,7 @@ public interface ExamService {
 
 	public int examCountMax(int csatSequence);
 	public List<CsatVo> csatList();
+	public CsatVo csat(int csatSequence);
 	public List<String> yearList(int yearStudentSequence);
 	public List<ExamVo> list(String year, int yearStudentSequence);
 	public List<ExamVo> listForManage(int csatSequence);

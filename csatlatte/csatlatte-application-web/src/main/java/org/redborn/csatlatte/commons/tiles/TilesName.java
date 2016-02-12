@@ -12,25 +12,25 @@ public class TilesName {
 	public static final String SUPPORT_QUESTION_WRITE = "/support/question/write";
 	public static final String SUPPORT_QUESTION_SUCCESS = "/support/question/success";
 	public static final String SUPPORT_QUESTION_FAIL = "/support/question/fail";
-	public static final String MYINFO = "/myinfo";
+	public static final String PROFILE = "/profile";
 	
-	public static final String MYINFO_AUTHENTICATION_WRITE = "/myinfo/authentication/write";
-	public static final String MYINFO_AUTHENTICATION_FAIL = "/myinfo/authentication/fail";
+	public static final String PROFILE_AUTHENTICATION_WRITE = "/profile/authentication/write";
+	public static final String PROFILE_AUTHENTICATION_FAIL = "/profile/authentication/fail";
 	
-	public static final String MYINFO_QUESTION_LIST = "/myinfo/question/list";
-	public static final String MYINFO_QUESTION_DETAIL = "/myinfo/question/detail";
+	public static final String PROFILE_QUESTION_LIST = "/profile/question/list";
+	public static final String PROFILE_QUESTION_DETAIL = "/profile/question/detail";
 	
-	public static final String MYINFO_PASSWORD_WRITE = "/myinfo/password/write";
-	public static final String MYINFO_PASSWORD_SUCCESS = "/myinfo/password/success";
-	public static final String MYINFO_PASSWORD_FAIL = "/myinfo/password/fail";
+	public static final String PROFILE_PASSWORD_WRITE = "/profile/password/write";
+	public static final String PROFILE_PASSWORD_SUCCESS = "/profile/password/success";
+	public static final String PROFILE_PASSWORD_FAIL = "/profile/password/fail";
 	
-	public static final String MYINFO_SECURITY_WRITE = "/myinfo/security/write";
-	public static final String MYINFO_SECURITY_SUCCESS = "/myinfo/security/success";
-	public static final String MYINFO_SECURITY_FAIL = "/myinfo/security/fail";
+	public static final String PROFILE_SECURITY_WRITE = "/profile/security/write";
+	public static final String PROFILE_SECURITY_SUCCESS = "/profile/security/success";
+	public static final String PROFILE_SECURITY_FAIL = "/profile/security/fail";
 	
-	public static final String MYINFO_MODIFY_WRITE = "/myinfo/modify/write";
-	public static final String MYINFO_MODIFY_SUCCESS = "/myinfo/modify/success";
-	public static final String MYINFO_MODIFY_FAIL = "/myinfo/modify/fail";
+	public static final String PROFILE_MODIFY_WRITE = "/profile/modify/write";
+	public static final String PROFILE_MODIFY_SUCCESS = "/profile/modify/success";
+	public static final String PROFILE_MODIFY_FAIL = "/profile/modify/fail";
 	
 	public static final String JOIN_WRITE = "/join/write";
 	public static final String JOIN_SUCCESS = "/join/success";
