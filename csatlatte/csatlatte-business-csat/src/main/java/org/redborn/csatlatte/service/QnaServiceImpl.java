@@ -33,28 +33,56 @@ public class QnaServiceImpl implements QnaService {
 		if (qnaVo != null) {
 			List<String> contentList = contentDao.selectList(qnaSequence);
 			String content = "";
-			
 			if (contentList != null) {
 				int contentSize = contentList.size();
 				for (int index = 0; index < contentSize; index++) {
 					content += contentList.get(index);
 				}
 			}
-			
 			qnaVo.setContent(content);
 			qnaVo.setFile(fileDao.selectList(qnaSequence));
 		}
 		
 		if (answerContentList != null) {
 			String answerContent = "";
-			
 			int answerContentSize = answerContentList.size();
-			
 			for (int index = 0; index < answerContentSize; index++) {
 				answerContent += answerContentList.get(index);
 			}
-			
 			qnaVo.setAnswerContent(answerContent);
+		}
+	
+		return qnaVo;
+	}
+	
+	public QnaVo detailForStudent (int studentSequence, int qnaSequence) {
+		QnaVo qnaVo = qnaDao.selectOne(qnaSequence);
+		List<String> answerContentList = answerDao.selectList(qnaSequence);
+		
+		if (studentSequence == qnaVo.getStudentSequence() && qnaVo.getUseYn().equals("Y")) {
+			if (qnaVo != null) {
+				List<String> contentList = contentDao.selectList(qnaSequence);
+				String content = "";
+				if (contentList != null) {
+					int contentSize = contentList.size();
+					for (int index = 0; index < contentSize; index++) {
+						content += contentList.get(index);
+					}
+				}
+				qnaVo.setContent(content);
+				qnaVo.setFile(fileDao.selectList(qnaSequence));
+			}
+			
+			if (answerContentList != null) {
+				String answerContent = "";
+				int answerContentSize = answerContentList.size();
+				for (int index = 0; index < answerContentSize; index++) {
+					answerContent += answerContentList.get(index);
+				}
+				qnaVo.setAnswerContent(answerContent);
+			}
+		} else {
+			qnaVo.setContent("");
 		}
 		
 		return qnaVo;

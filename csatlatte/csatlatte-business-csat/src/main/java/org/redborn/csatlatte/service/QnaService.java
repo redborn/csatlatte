@@ -11,6 +11,7 @@ import org.redborn.csatlatte.domain.QnaVo;
 public interface QnaService {
 
 	public QnaVo detail(int qnaSequence);
+	public QnaVo detailForStudent (int studentSequence, int qnaSequence);
 	public List<QnaForManageVo> listForManage(String search, int pageNumber, int countQnaAnswer);
 	public List<QnaForStudentVo> listForStudent(int studentSequence);
 	public boolean delete(int qnaSequence);
