@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/layout/include/bootstrap/datepicker.jsp" %>
 <%@ include file="/WEB-INF/layout/include/google/chart.jsp" %>
+<%@ include file="/WEB-INF/layout/include/jquery/ajax.jsp" %>
 <style>
 	.stats-join-form-control {margin-left:5px; display:inline-block; float:none; width:auto; height:30px;}
 	#stats-join-daily-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}

@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/WEB-INF/layout/include/jquery/form.jsp" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ include file="/WEB-INF/layout/include/jquery/ajax.jsp" %>
 <style>
 	.manage-rating-col-lg {text-align:center;}
 	.manage-rating-btn-align {text-align:right;}
