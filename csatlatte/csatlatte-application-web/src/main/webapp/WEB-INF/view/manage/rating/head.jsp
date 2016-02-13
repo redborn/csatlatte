@@ -33,89 +33,6 @@
 			return html;
 		}
 		
-		$.ajax(contextPath + "/data/rating/" + csatSequence + ".json", {
-			dataType : "json",
-			type : "GET",
-			success : function (data) {
-				if (data.list != null) {
-					var list = data.list;
-					var listLength = list.length;
-					for (var index = 0; index < listLength; index++) {
-						$('.manage-rating-row').append(makeRatingRow(list[index]));
-					}
-					$('.manage-rating-modify').on("click", function () {
-						examSequence = $(this).attr("id");
-						$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
-							dataType : "json",
-							type : "GET",
-							success : function (data) {
-								if (data.detail != null) {
-									var detail = data.detail;
-									$('.manage-rating-modify-view').remove();
-									$('#manage-rating-modify-view-detail').append(makeModifyView(detail[0]));
-									$('.manage-rating-modify-form').ajaxForm({
-										type : "PUT",
-										success : function () {
-											
-										}
-									});
-								}
-							}
-						});
-					});
-					$('.manage-rating-delete').on("click", function () {
-						examSequence = $(this).attr("id");
-						$.ajax(contextPath + "/data/exam/studentscore/" + csatSequence + "/" + examSequence + ".json", {
-							dataType : "json",
-							type : "GET",
-							success : function (data) {
-								if (data.examStudentList != null) {
-									var count = data.examStudentList.length;
-									$('.manage-rating-delete-view').remove();
-									$('#manage-rating-delete-view-detail').append(makeDeleteMessage(count));
-									$('.manage-rating-delete-accept').on("click", function() {
-										$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
-											dataType : "json",
-											type : "DELETE",
-											data : {_method : "DELETE"},
-											success : function () {
-												$('#manage-rating-row-data-' + examSequence).remove();
-												$('#manage-rating-delete-view').modal("hide");
-											}
-										});
-									});
-								}
-							}
-						});
-					});
-					$('.manage-rating-detail').on("click", function () {
-						$('.manage-rating-carousel').remove();
-						examSequence = $(this).attr("id");
-						$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
-							dataType : "json",
-							type : "GET",
-							success : function (data) {
-								if (data.list != null) {
-									var ratingCutList = data.list;
-									$.ajax(contextPath + "/data/exam/average/" + csatSequence + "/" + examSequence + ".json", {
-										dataType : "json",
-										type : "GET",
-										success : function (data) {
-											if (data.averageList != null) {
-												var averageList = data.averageList;
-												$('.manage-rating-cut-info').remove();
-												$('#manage-rating-detail-view-detail').append(makeRatingCutView(averageList, ratingCutList));
-											}
-										}
-									});
-								}
-							}
-						});
-					});
-				}
-			}
-		});
-		
 		$('#manage-rating-csat-list').on("change", function () {
 			csatSequence = $('#manage-rating-csat-list').val();
 			$('.manage-rating-row-data').remove();
@@ -204,6 +121,8 @@
 			});
 		});
 		
+		$('#manage-rating-csat-list').trigger("change");
+		
 		var makeCreateView = function (list) {
 			var listLength = list.length;
 			var html = '';
@@ -232,7 +151,7 @@
 			html +=	'	</div>';
 			html += '	<div class="modal-footer">';
 			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
-			html += '		<input type="submit" class="btn btn-primary " value="확인"></button>';
+			html += '		<input type="submit" id="manage-rating-create-accept" data-loading-text="Loading..." class="btn btn-primary " value="확인"></button>';
 			html += '	</div>';
 			html += '</form>';
 			html +=	'</div>';
@@ -248,8 +167,19 @@
 						var list = data.listForCreate;
 						$('.manage-rating-create-view').remove();
 						$('#manage-rating-create-view-detail').append(makeCreateView(list));
+						
+						var $btn;
+						$('#manage-rating-create-accept').on("click", function () {
+							$btn = $(this).button('loading');
+						});
 						$('.manage-rating-create-form').ajaxForm({
 							success : function () {
+								$btn.button('reset');
+								$('#manage-rating-create-view').modal('hide');
+								$('#manage-rating-csat-list').trigger("change");
+							},
+							error : function () {
+								$btn.button('reset');
 							}
 						});
 					}
