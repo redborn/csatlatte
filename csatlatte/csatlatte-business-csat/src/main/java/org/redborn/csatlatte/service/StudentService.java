@@ -10,6 +10,7 @@ import org.redborn.csatlatte.domain.YearStudentVo;
 
 public interface StudentService {
 
+	public boolean checkPassword(int studentSequence, String password);
 	public boolean changePassword(int studentSequence, String password, String newPassword);
 	public boolean changePassword(String studentId, String securityAnswer, String newPassword);
 	public boolean changeInformation(StudentVo studentVo);

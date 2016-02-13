@@ -37,6 +37,10 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private YearStudentDao yearStudentDao;
 	
+	public boolean checkPassword(int studentSequence, String password) {
+		return studentDao.selectOneCountPassword(studentSequence, makePassword(studentSequence, password)) == 1;
+	}
+	
 	public boolean changePassword(int studentSequence, String password, String newPassword) {
 		boolean result = false;
 		if (studentDao.selectOneCountPassword(studentSequence, makePassword(studentSequence, password)) == 1 

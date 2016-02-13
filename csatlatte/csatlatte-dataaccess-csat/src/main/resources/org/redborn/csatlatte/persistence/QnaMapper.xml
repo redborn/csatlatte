@@ -7,8 +7,11 @@
 <mapper namespace="qna">
 
 	<resultMap type="QnaVo" id="QnaVoMap">
+		<result column="qna_seq" property="qnaSequence"/>
+		<result column="student_seq" property="studentSequence"/>
 		<result column="write_date" property="writeDate"/>
 		<result column="title" property="title"/>
+		<result column="use_yn" property="useYn"/>
 	</resultMap>
 	
 	<resultMap type="QnaForManageVo" id="QnaForManageVoMap">
@@ -29,7 +32,7 @@
 	</resultMap>
 	
 	<select id="selectOne" parameterType="int" resultMap="QnaVoMap">
-		SELECT write_date, title
+		SELECT qna_seq, student_seq, write_date, title, use_yn
 		  FROM csat_qna
 		 WHERE qna_seq = #{qnaSequence}
 	</select>
@@ -72,12 +75,12 @@
 		 LIMIT #{pageNumber}, 10
 	</select>
 	
-	<select id="selectListForStudent" parameterType="Map" resultMap="QnaForStudentVoMap">
-		SELECT cq.qna_seq as qna_seq,cqc.content as content,cq.write_date as write_date
-		  FROM csat_qna cq,csat_qna_content cqc
-		 WHERE cq.qna_seq = cqc.qna_seq
-		   AND cq.student_seq = #{studentSequence}
-		 LIMIT #{pageNumber}, 10 
+	<select id="selectListForStudent" parameterType="int" resultMap="QnaForStudentVoMap">
+		SELECT cq.qna_seq as qna_seq, cq.title as title,cq.write_date as write_date
+		  FROM csat_qna cq
+		 WHERE cq.student_seq = #{studentSequence}
+		   AND cq.use_yn = 'Y'
+		 ORDER BY cq.qna_seq desc
 	</select>
 	
 	<insert id="insert" parameterType="Map">

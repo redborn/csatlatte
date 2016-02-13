@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <style>
+	#profile-password-return {margin-left:15px; margin-top:5px;}
 	.profile-password-button-group {text-align:right; width:auto; margin-top:140px;}
 	#profile-password-message-area {padding-top:7px;}
 	#profile-password-check-message-area {padding-top:7px;}

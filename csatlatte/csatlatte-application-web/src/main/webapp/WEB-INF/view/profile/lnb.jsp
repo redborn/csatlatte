@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <div id="profile-message1">
 	<h4>이 정보가 맞나요?</h4>
 	<p>회원가입 할 때 입력했던 정보입니다.</p>
@@ -13,4 +14,4 @@
 	<p>문의하신 사항에 대한 답변을</p>
 	<p>확인할 수 있습니다.</p>
 </div>
-<p id="profile-question"><a href="<c:url value="/profile/question"/>">문의내역 보기</a></p>
+<p id="profile-question"><a href="${pageContext.request.contextPath}/<session:id/>/question">문의내역 보기</a></p>

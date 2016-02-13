@@ -4,9 +4,9 @@
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <div class="profile-security-fail-message">
 	<h4>보안 질문 변경을 실패했습니다.</h4>
-	실패한 경우에는 여러가지 원인이 있을 수 있습니다.<br/>
-	인터넷 상태가 원활한지 확인하신 후 다시 시도해보세요.		
+	보안 답변 설정이 올바르지 않습니다.<br/>
+	다시한번 시도해주시기 바랍니다.		
 </div>
 <div class="profile-security-fail-return">
-	<a class="btn btn-default" href="<c:url value="/myinfo"/>">내 정보로 돌아가기</a>
+	<a class="btn btn-default" href="${pageContext.request.contextPath}/<session:id/>">내 정보로 돌아가기</a>
 </div>

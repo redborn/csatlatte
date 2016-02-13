@@ -37,7 +37,6 @@ public class Modify {
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
 		logger.info("myinfo modify view");
-		model.addAttribute("studentCsat", httpSessionValue.getCsatSequence());
 		model.addAttribute("csatList", examService.csatList());
 		return TilesName.PROFILE_MODIFY_WRITE;
 	}
@@ -53,16 +52,13 @@ public class Modify {
 		logger.info("myinfo modify modify");
 		String result = TilesName.PROFILE_MODIFY_FAIL;
 		StudentVo studentVo = new StudentVo();
-		int studentSequence = httpSessionValue.getStudentSequence();
-		int ruleSequence = httpSessionValue.getRuleSequence();
-		String id = httpSessionValue.getId();
-		studentVo.setStudentSequence(studentSequence);
+		studentVo.setStudentSequence(httpSessionValue.getRuleSequence());
 		studentVo.setCsatSequence(csatSequence);
 		studentVo.setNickname(nickname);
 		studentVo.setPhotoCode("MODIFY-TEST");
 		studentVo.setPhotoName("MODIFY-TEST");
-		httpSessionValue.setUser(id, studentSequence, nickname, ruleSequence, csatSequence);
 		if (studentService.changeInformation(studentVo)) {
+			httpSessionValue.setUser(httpSessionValue.getId(), httpSessionValue.getStudentSequence(), nickname, httpSessionValue.getRuleSequence(), csatSequence);
 			result = TilesName.PROFILE_MODIFY_SUCCESS;
 		}
 		return result;
