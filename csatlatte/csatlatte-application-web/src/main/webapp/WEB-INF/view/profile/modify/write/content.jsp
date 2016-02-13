@@ -6,6 +6,7 @@
 <h5><strong>프로필 사진 및 닉네임</strong>&nbsp;<small>커뮤니티를 이용 시에 사용되는 정보입니다.</small></h5>
 <form:form class="form-horizontal" method="post" servletRelativeAction="${url}">
 <c:url var="url" value="/<session:id/>/modify"/>
+<c:set var="studentCsat"><session:csatSequence/></c:set>
 	<div class="form-group">
 		<label class="control-label col-sm-2">프로필 사진</label>
 		<div class="col-sm-5">
