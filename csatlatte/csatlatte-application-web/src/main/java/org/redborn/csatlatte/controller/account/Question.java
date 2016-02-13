@@ -45,9 +45,9 @@ public class Question {
 	public String detail(Model model, @PathVariable int qnaSequence) {
 		logger.info("myinfo question detail");
 		String result = TilesName.ERROR_404;
-		QnaVo qnaVo = qnaService.detailForStudent(httpSessionValue.getStudentSequence(), qnaSequence);
+		QnaVo qnaVo = qnaService.detail(qnaSequence);
 		if (qnaVo != null) {
-			if (!qnaVo.getContent().equals("")) {
+			if (!qnaVo.getContent().equals("") && qnaVo.getStudentSequence() == httpSessionValue.getStudentSequence() && qnaVo.getUseYn().equals("Y")) {
 				model.addAttribute("detail", qnaVo);
 				result = TilesName.PROFILE_QUESTION_DETAIL;
 			}
