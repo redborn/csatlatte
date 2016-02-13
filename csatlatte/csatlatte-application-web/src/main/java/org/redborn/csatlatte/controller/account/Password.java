@@ -33,7 +33,6 @@ public class Password {
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
 		logger.info("myinfo password view");
-		model.addAttribute("studentId", httpSessionValue.getId());
 		return TilesName.PROFILE_PASSWORD_WRITE;
 	}
 

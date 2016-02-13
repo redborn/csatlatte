@@ -33,7 +33,6 @@ public class Authentication {
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
 		logger.info("myinfo authentication view");
-		model.addAttribute("studentId", httpSessionValue.getId());
 		return TilesName.PROFILE_AUTHENTICATION_WRITE;
 	}
 	
@@ -51,7 +50,6 @@ public class Authentication {
 		int studentSequence = httpSessionValue.getStudentSequence();
 		if (studentService.checkPassword(studentSequence, password)) {
 			model.addAttribute("securityQuestionList", studentService.securityQuestionList());
-			model.addAttribute("studentId", httpSessionValue.getId());
 			result = TilesName.PROFILE_SECURITY_WRITE;
 		}
 		return result;

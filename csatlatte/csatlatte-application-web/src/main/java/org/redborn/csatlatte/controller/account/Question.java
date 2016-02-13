@@ -47,11 +47,9 @@ public class Question {
 		logger.info("myinfo question detail");
 		String result = TilesName.ERROR_404;
 		int studentSequence = httpSessionValue.getStudentSequence();
-		String studentId = httpSessionValue.getId();
 		QnaVo qnaVo = qnaService.detailForStudent(studentSequence, qnaSequence);
 		if (qnaVo != null) {
 			if (!qnaVo.getContent().equals("")) {
-				model.addAttribute("studentId", studentId);
 				model.addAttribute("detail", qnaVo);
 				result = TilesName.PROFILE_QUESTION_DETAIL;
 			}
