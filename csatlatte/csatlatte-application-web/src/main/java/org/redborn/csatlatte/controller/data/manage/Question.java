@@ -28,6 +28,5 @@ public class Question {
 		qnaAnswerVo.setQnaSequence(qnaSequence);
 		qnaAnswerVo.setContent(answerContent);
 		qnaService.answer(qnaAnswerVo);
-		qnaService.delete(qnaSequence);
 	}
 }
