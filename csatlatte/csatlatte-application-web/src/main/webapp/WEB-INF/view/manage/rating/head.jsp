@@ -24,7 +24,7 @@
 		
 		var makeRatingRow = function (list) {
 			var html = '';
-			html += '<tr class="manage-rating-row-data" id="manage-rating-row-data-' + list.examSequence + '">';
+			html += '<tr class="manage-rating-row-data">';
 			html += '	<td>' + list.examSequence + '</td>';
 			html += '	<td><div id="' + list.examSequence + '" class="manage-rating-detail">' + list.examName + '</div></td>';
 			html += '	<td><button type="button" class="btn btn-default close manage-rating-icon"><span id="' + list.examSequence + '" data-toggle="modal" data-target="#manage-rating-modify-view" class="manage-rating-modify glyphicon glyphicon-pencil"></span></button></td>';
@@ -57,10 +57,26 @@
 										var detail = data.detail;
 										$('.manage-rating-modify-view').remove();
 										$('#manage-rating-modify-view-detail').append(makeModifyView(detail[0]));
+										
+										var $btn;
+										$('#manage-rating-modify-accept').on("click", function () {
+											$btn = $(this).button('loading');
+											$('.manage-rating-modify-cancel').attr("disabled", true);
+										});
 										$('.manage-rating-modify-form').ajaxForm({
 											type : "PUT",
 											success : function () {
-												
+												$btn.button('reset');
+												$('#manage-rating-modify-view').modal('hide');
+												$('#manage-rating-csat-list').trigger("change");
+											},
+											error : function () {
+												$btn.button('reset');
+												$('.manage-rating-modify-cancel').attr("disabled", false);
+												$('#manage-rating-modify-file').tooltip("show");
+												setTimeout(function () {
+													$('#manage-rating-modify-file').tooltip("destroy");
+												}, 1200);
 											}
 										});
 									}
@@ -83,8 +99,8 @@
 												type : "DELETE",
 												data : {_method : "DELETE"},
 												success : function () {
-													$('#manage-rating-row-data-' + examSequence).remove();
 													$('#manage-rating-delete-view').modal("hide");
+													$('#manage-rating-csat-list').trigger("change");
 												}
 											});
 										});
@@ -130,7 +146,7 @@
 			html += '<form class="manage-rating-create-form" method="post" action="' + contextPath + '/data/rating" enctype="multipart/form-data">';
 			html += '<input type="hidden" name="csatSequence" value="' + csatSequence + '">';
 			html += '	<div class="modal-header">';
-			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+			html += '		<button type="button" class="close manage-rating-create-cancel" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 			html += '		<h4 class="modal-title">등급컷 추가</h4>';
 			html += '	</div>';
 			html += '	<div class="modal-body">';
@@ -146,12 +162,12 @@
 			html += '		</div>';
 			html += '		<div class="form-group row">';
 			html += '			<label class="col-lg-3 control-label manage-rating-label" for="manage-rating-create-file">파일 첨부</label>';
-			html += '			<div class="col-lg-6"><input type="file" name="file" id="manage-rating-create-file"></div>';
+			html += '			<div class="col-lg-6"><input type="file" name="file" id="manage-rating-create-file" data-toggle="tooltip" data-placement="bottom" title="올바르지 않은 파일입니다."></div>';
 			html += '		</div>';
 			html +=	'	</div>';
 			html += '	<div class="modal-footer">';
-			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
-			html += '		<input type="submit" id="manage-rating-create-accept" data-loading-text="Loading..." class="btn btn-primary " value="확인"></button>';
+			html += '		<button type="button" class="btn btn-default manage-rating-create-cancel" data-dismiss="modal" aria-label="Close">닫기</button>';
+			html += '		<input type="submit" id="manage-rating-create-accept" data-loading-text="Loading..." class="btn btn-primary" value="확인"></button>';
 			html += '	</div>';
 			html += '</form>';
 			html +=	'</div>';
@@ -168,18 +184,23 @@
 						$('.manage-rating-create-view').remove();
 						$('#manage-rating-create-view-detail').append(makeCreateView(list));
 						
-						var $btn;
 						$('#manage-rating-create-accept').on("click", function () {
 							$btn = $(this).button('loading');
+							$('.manage-rating-create-cancel').attr("disabled", true);
 						});
 						$('.manage-rating-create-form').ajaxForm({
 							success : function () {
 								$btn.button('reset');
-								$('#manage-rating-create-view').modal('hide');
+								$('#manage-rating-create-view').modal("hide");
 								$('#manage-rating-csat-list').trigger("change");
 							},
 							error : function () {
 								$btn.button('reset');
+								$('.manage-rating-create-cancel').attr("disabled", false);
+								$('#manage-rating-create-file').tooltip("show");
+								setTimeout(function () {
+									$('#manage-rating-create-file').tooltip("destroy");
+								}, 1200);
 							}
 						});
 					}
@@ -193,7 +214,7 @@
 			html += '<form class="manage-rating-modify-form" method="put" action="' + contextPath + '/data/rating/' + csatSequence + '/' + examSequence + '" enctype="multipart/form-data">';
 			html += '	<input type="hidden" value="PUT" name="_method">';
 			html += '	<div class="modal-header">';
-			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+			html += '		<button type="button" class="close manage-rating-modify-cancel" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 			html += '		<h4 class="modal-title">등급컷 수정</h4>';
 			html += '	</div>';
 			html += '	<div class="modal-body">';
@@ -203,12 +224,12 @@
 			html += '		</div>';
 			html += '		<div class="form-group row">';
 			html += '			<label class="col-lg-3 control-label manage-rating-label" for="manage-rating-modify-file">파일 첨부</label>';
-			html += '			<div class="col-lg-6"><input type="file" name="file" id="manage-rating-modify-file"></div>';
+			html += '			<div class="col-lg-6"><input type="file" name="file" id="manage-rating-modify-file" data-toggle="tooltip" data-placement="bottom" title="올바르지 않은 파일입니다."></div>';
 			html += '		</div>';
 			html += '	</div>';
 			html += '	<div class="modal-footer">';
-			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
-			html += '		<button class="btn btn-primary manage-rating-modify-accept">확인</button>';
+			html += '		<button type="button" class="btn btn-default manage-rating-modify-cancel" data-dismiss="modal" aria-label="Close">닫기</button>';
+			html += '		<input type="submit" id="manage-rating-modify-accept" class="btn btn-primary" value="확인">';
 			html += '	</div>';
 			html += '</form>'
 			html += '</div>';
