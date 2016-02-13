@@ -2,8 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
-<input type="hidden" id="profile-question-detail-qna-sequence" value="${detail.qnaSequence}">
-<input type="hidden" id="profile-question-detail-id" value="<session:id/>">
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<c:if test="${detail.answerContent eq ''}">
+	<div class="alert alert-danger" role="alert">
+		관리자가 답변하지 않았습니다.
+	</div>
+</c:if>
 <div class="panel panel-default">
 	<div class="panel-body">
 		<h5><strong>문의하신 내용</strong></h5>
@@ -12,7 +16,6 @@
 		</div>
 		<h5><strong>답변 내용</strong></h5>
 		<div class="profile-question-detail-answer">
-			<c:if test="${detail.answerContent eq ''}">관리자가 답변하지 않았습니다.</c:if>
 			<xmp>${detail.answerContent}</xmp>
 		</div>
 	</div>
@@ -45,7 +48,9 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-				<button type="button" class="btn btn-primary" id="profile-question-detail-delete-accept">확인</button>
+				<form:form id="profile-question-detail-delete-form" method="delete" servletRelativeAction="/${studentId}/question/${detail.qnaSequence}">
+					<input type="submit" class="btn btn-primary" id="profile-question-detail-delete-accept" value="확인">
+				</form:form>
 			</div>
 		</div>
 	</div>
