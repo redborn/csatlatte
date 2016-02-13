@@ -47,9 +47,11 @@ public class Question {
 		logger.info("myinfo question detail");
 		String result = TilesName.ERROR_404;
 		int studentSequence = httpSessionValue.getStudentSequence();
+		String studentId = httpSessionValue.getId();
 		QnaVo qnaVo = qnaService.detailForStudent(studentSequence, qnaSequence);
 		if (qnaVo != null) {
 			if (!qnaVo.getContent().equals("")) {
+				model.addAttribute("studentId", studentId);
 				model.addAttribute("detail", qnaVo);
 				result = TilesName.PROFILE_QUESTION_DETAIL;
 			}
@@ -61,7 +63,14 @@ public class Question {
 	 * 사용자가 답변받지 않은 문의를 삭제하는 기능입니다.
 	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.DELETE)
-	public void delete(@PathVariable int qnaSequence) {
-		qnaService.delete(qnaSequence);
+	public String delete(Model model, @PathVariable int qnaSequence) {
+		logger.info("profile question delete");
+		String result = TilesName.ERROR_404;
+		if (qnaService.delete(qnaSequence)) {
+			int studentSequence = httpSessionValue.getStudentSequence();
+			model.addAttribute("questionList", qnaService.listForStudent(studentSequence));
+			result = TilesName.PROFILE_QUESTION_LIST;
+		}
+		return result;
 	}
 }
