@@ -57,16 +57,11 @@
 				$('#profile-nickname-check-message-area').append(nicknameNegativeMessage());
 				successNickname = false;
 			} else {
-				$('#profile-nickname-check-message-area').append(nicknamePositiveMessage());
+				//$('#profile-nickname-check-message-area').append(nicknamePositiveMessage());
 				successNickname = true;
 			}
-			$('#profile-modify-btn-success').attr("disabled", true);
-		});
-		
-		$('#profile-modify-nickname').focusout(function () {
+			
 			if (successNickname) {
-				$('.profile-nickname-check-message-positive').remove();
-				$('.profile-nickname-check-message-negative').remove();
 				var nickname = $('#profile-modify-nickname').val();
 				$.ajax(contextPath + "/data/join.json", {
 					dataType : "json",
@@ -74,20 +69,22 @@
 					data : {overlapValue : nickname, item : 2},
 					success : function(data) {
 						var beforeNickname = $('#profile-modify-before-nickname').val();
+						$('.profile-nickname-check-message-positive').remove();
+						$('.profile-nickname-check-message-negative').remove();
 						if (!data.overlapCheckNickname || nickname === beforeNickname) {
 							$('#profile-nickname-check-message-area').append(nicknamePositiveMessageOverlap());
 						} else {
 							$('#profile-nickname-check-message-area').append(nicknameNegativeMessageOverlap());
 							successNickname = false;
 						}
-						
-						if (!successNickname) {
-							$('#profile-modify-btn-success').attr("disabled", true);
-						} else {
-							$('#profile-modify-btn-success').attr("disabled", false);
-						}
 					}
 				});
+			}
+			
+			if (!successNickname) {
+				$('#profile-modify-btn-success').attr("disabled", true);
+			} else {
+				$('#profile-modify-btn-success').attr("disabled", false);
 			}
 		});
 	});
