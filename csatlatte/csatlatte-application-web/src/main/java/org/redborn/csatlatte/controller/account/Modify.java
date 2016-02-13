@@ -58,8 +58,8 @@ public class Modify {
 		studentVo.setNickname(nickname);
 		studentVo.setPhotoCode("MODIFY-TEST");
 		studentVo.setPhotoName("MODIFY-TEST");
-		httpSessionValue.setUser(httpSessionValue.getId(), httpSessionValue.getStudentSequence(), nickname, httpSessionValue.getRuleSequence(), csatSequence);
 		if (studentService.changeInformation(studentVo)) {
+			httpSessionValue.setUser(httpSessionValue.getId(), httpSessionValue.getStudentSequence(), nickname, httpSessionValue.getRuleSequence(), csatSequence);
 			result = TilesName.PROFILE_MODIFY_SUCCESS;
 		}
 		return result;
