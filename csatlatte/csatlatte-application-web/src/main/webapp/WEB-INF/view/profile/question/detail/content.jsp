@@ -56,7 +56,8 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-				<form:form id="profile-question-detail-delete-form" method="delete" servletRelativeAction="/${studentId}/question/${detail.qnaSequence}">
+				<form:form id="profile-question-detail-delete-form" method="delete" servletRelativeAction="${url}">
+				<c:url var="url" value="<session:id/>/question/${detail.qnaSequence}"/>
 					<input type="submit" class="btn btn-primary" id="profile-question-detail-delete-accept" value="확인">
 				</form:form>
 			</div>

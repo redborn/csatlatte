@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<form:form class="form-horizontal" method="post" servletRelativeAction="/${studentId}/authentication">
+<form:form class="form-horizontal" method="post" servletRelativeAction="${url}">
+<c:url var="url" value="/<session:id/>/authentication"/>
 <div class="profile-authentication">
 	<h5><strong>비밀번호 인증</strong></h5>
 	<div class="form-group">
