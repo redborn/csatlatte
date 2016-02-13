@@ -14,16 +14,24 @@
 		<div class="profile-question-detail-content">
 			<xmp>${detail.content}</xmp>
 		</div>
+		<c:if test="${!(detail.answerContent eq '')}">
 		<h5><strong>답변 내용</strong></h5>
 		<div class="profile-question-detail-answer">
 			<xmp>${detail.answerContent}</xmp>
 		</div>
+		</c:if>
 	</div>
 	<div class="panel-footer">
 		<div class="profile-question-detail-footer-content row">
 			<div class="profile-question-detail-message col-lg-8">
+			<c:if test="${!(detail.answerContent eq '')}">
 				<p><strong>원하시는 답이 아닌가요?</strong></p>
 				<p>궁금하신 사항이 해결되지 않았다면 다시한번 수능라떼 팀에게 문의해주세요.</p>
+			</c:if>
+			<c:if test="${detail.answerContent eq ''}">
+				<p><strong>다른 문의사항이 있으신가요?</strong></p>
+				<p>또 다른 궁금한 사항이 있으시면 수능라떼 팀에게 문의해주세요.</p>
+			</c:if>
 			</div>
 			<div class="profile-question-detail-btn col-lg-4">
 				<a class="btn btn-default" href="<c:url value="/support/question"/>">문의하기</a>
