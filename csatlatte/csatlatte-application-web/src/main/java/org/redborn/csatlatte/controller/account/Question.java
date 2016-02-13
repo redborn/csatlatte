@@ -34,8 +34,7 @@ public class Question {
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
 		logger.info("myinfo question list");
-		int studentSequence = httpSessionValue.getStudentSequence();
-		model.addAttribute("questionList", qnaService.listForStudent(studentSequence));
+		model.addAttribute("questionList", qnaService.listForStudent(httpSessionValue.getStudentSequence()));
 		return TilesName.PROFILE_QUESTION_LIST;
 	}
 
@@ -65,8 +64,7 @@ public class Question {
 		logger.info("profile question delete");
 		String result = TilesName.ERROR_404;
 		if (qnaService.delete(qnaSequence)) {
-			int studentSequence = httpSessionValue.getStudentSequence();
-			model.addAttribute("questionList", qnaService.listForStudent(studentSequence));
+			model.addAttribute("questionList", qnaService.listForStudent(httpSessionValue.getStudentSequence()));
 			result = TilesName.PROFILE_QUESTION_LIST;
 		}
 		return result;

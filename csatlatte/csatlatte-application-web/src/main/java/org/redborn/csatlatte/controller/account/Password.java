@@ -48,13 +48,11 @@ public class Password {
 		logger.info("myinfo password modify");
 		String result = TilesName.PROFILE_PASSWORD_FAIL;
 		int studentSequence = httpSessionValue.getStudentSequence();
-		
 		if (newPassword.equals(newPasswordCheck)) {
 			if (studentService.changePassword(studentSequence, beforePassword, newPassword)) {
 				result = TilesName.PROFILE_PASSWORD_SUCCESS;
 			}
 		}
-
 		return result;
 	}
 

@@ -42,11 +42,9 @@ public class Security {
 		studentSecurityQuestionVo.setStudentSequence(studentSequence);
 		studentSecurityQuestionVo.setSecurityQuestionSequence(securityQuestionSequence);
 		studentSecurityQuestionVo.setContent(answer);
-		
 		if (studentService.changeSecurity(studentSecurityQuestionVo)) {
 			result = TilesName.PROFILE_SECURITY_SUCCESS;
 		}
-		
 		return result;
 	}
 }

@@ -47,8 +47,7 @@ public class Authentication {
 	public String post(Model model, @RequestParam(value="password",required=true) String password) {
 		logger.info("myinfo authentication password wrote");
 		String result = TilesName.PROFILE_AUTHENTICATION_FAIL;
-		int studentSequence = httpSessionValue.getStudentSequence();
-		if (studentService.checkPassword(studentSequence, password)) {
+		if (studentService.checkPassword(httpSessionValue.getStudentSequence(), password)) {
 			model.addAttribute("securityQuestionList", studentService.securityQuestionList());
 			result = TilesName.PROFILE_SECURITY_WRITE;
 		}
