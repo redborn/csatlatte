@@ -8,12 +8,12 @@
 	<div class="panel-body">
 		<h5><strong>문의하신 내용</strong></h5>
 		<div class="profile-question-detail-content">
-			${detail.content}
+			<xmp>${detail.content}</xmp>
 		</div>
 		<h5><strong>답변 내용</strong></h5>
 		<div class="profile-question-detail-answer">
 			<c:if test="${detail.answerContent eq ''}">관리자가 답변하지 않았습니다.</c:if>
-			${detail.answerContent}
+			<xmp>${detail.answerContent}</xmp>
 		</div>
 	</div>
 	<div class="panel-footer">
