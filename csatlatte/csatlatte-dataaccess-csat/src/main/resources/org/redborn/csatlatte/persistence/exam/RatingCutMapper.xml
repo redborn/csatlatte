@@ -25,22 +25,22 @@
 		  FROM csat_exam ce
 		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS average
 		                          FROM csat_exam_avg
-		                         GROUP BY exam_seq) cea
+		                         GROUP BY csat_seq, exam_seq) cea
 		                    ON ( ce.csat_seq = cea.csat_seq
 		                         AND ce.exam_seq = cea.exam_seq )
 		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS subject
 		                          FROM csat_exam_subject
-		                         GROUP BY exam_seq) cest
+		                         GROUP BY csat_seq, exam_seq) cest
 		                    ON ( ce.csat_seq = cest.csat_seq
 		                         AND ce.exam_seq = cest.exam_seq )
 		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS section
 		                          FROM csat_exam_section
-		                         GROUP BY exam_seq) ces
+		                         GROUP BY csat_seq, exam_seq) ces
 		                    ON ( ce.csat_seq = ces.csat_seq
 		                         AND ce.exam_seq = ces.exam_seq )
 		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS ratingcut
 		                          FROM csat_exam_rating_cut
-		                         GROUP BY exam_seq) cerc
+		                         GROUP BY csat_seq, exam_seq) cerc
 		                    ON ( ce.csat_seq = cerc.csat_seq
 		                         AND ce.exam_seq = cerc.exam_seq )
 		 WHERE ce.csat_seq = #{csatSequence}
