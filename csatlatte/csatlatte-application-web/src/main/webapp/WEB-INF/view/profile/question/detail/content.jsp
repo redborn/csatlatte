@@ -12,7 +12,7 @@
 		</div>
 		<h5><strong>답변 내용</strong></h5>
 		<div class="profile-question-detail-answer">
-			<c:if test="${detail.answerContent eq ''}">관리자가 아직 답변을 작성하지 않았습니다.</c:if>
+			<c:if test="${detail.answerContent eq ''}">관리자가 답변하지 않았습니다.</c:if>
 			${detail.answerContent}
 		</div>
 	</div>
