@@ -30,7 +30,7 @@
 </div>
 <div class="profile-question-detail-btn-group">
 	<a class="btn btn-default" href="${pageContext.request.contextPath}/<session:id/>/question">목록보기</a>
-	<button data-toggle="modal" data-target="#profile-question-detail-delete" class="btn btn-danger" id="profile-question-detail-btn-delete">삭제하기</button>
+	<c:if test="${detail.answerContent eq ''}"><button data-toggle="modal" data-target="#profile-question-detail-delete" class="btn btn-danger" id="profile-question-detail-btn-delete">삭제하기</button></c:if>
 </div>
 <div class="modal fade" id="profile-question-detail-delete" tabindex="-1" role="dialog">
 	<div class="modal-dialog">
