@@ -47,9 +47,8 @@ public class Password {
 			@RequestParam(value="newPasswordCheck",required=true) String newPasswordCheck) {
 		logger.info("myinfo password modify");
 		String result = TilesName.PROFILE_PASSWORD_FAIL;
-		int studentSequence = httpSessionValue.getStudentSequence();
 		if (newPassword.equals(newPasswordCheck)) {
-			if (studentService.changePassword(studentSequence, beforePassword, newPassword)) {
+			if (studentService.changePassword(httpSessionValue.getStudentSequence(), beforePassword, newPassword)) {
 				result = TilesName.PROFILE_PASSWORD_SUCCESS;
 			}
 		}

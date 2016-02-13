@@ -53,15 +53,12 @@ public class Modify {
 		logger.info("myinfo modify modify");
 		String result = TilesName.PROFILE_MODIFY_FAIL;
 		StudentVo studentVo = new StudentVo();
-		int studentSequence = httpSessionValue.getStudentSequence();
-		int ruleSequence = httpSessionValue.getRuleSequence();
-		String id = httpSessionValue.getId();
-		studentVo.setStudentSequence(studentSequence);
+		studentVo.setStudentSequence(httpSessionValue.getRuleSequence());
 		studentVo.setCsatSequence(csatSequence);
 		studentVo.setNickname(nickname);
 		studentVo.setPhotoCode("MODIFY-TEST");
 		studentVo.setPhotoName("MODIFY-TEST");
-		httpSessionValue.setUser(id, studentSequence, nickname, ruleSequence, csatSequence);
+		httpSessionValue.setUser(httpSessionValue.getId(), httpSessionValue.getStudentSequence(), nickname, httpSessionValue.getRuleSequence(), csatSequence);
 		if (studentService.changeInformation(studentVo)) {
 			result = TilesName.PROFILE_MODIFY_SUCCESS;
 		}

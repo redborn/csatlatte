@@ -45,8 +45,7 @@ public class Question {
 	public String detail(Model model, @PathVariable int qnaSequence) {
 		logger.info("myinfo question detail");
 		String result = TilesName.ERROR_404;
-		int studentSequence = httpSessionValue.getStudentSequence();
-		QnaVo qnaVo = qnaService.detailForStudent(studentSequence, qnaSequence);
+		QnaVo qnaVo = qnaService.detailForStudent(httpSessionValue.getStudentSequence(), qnaSequence);
 		if (qnaVo != null) {
 			if (!qnaVo.getContent().equals("")) {
 				model.addAttribute("detail", qnaVo);

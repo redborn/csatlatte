@@ -37,9 +37,8 @@ public class Security {
 			@RequestParam(value="answer",required=true) String answer) {
 		logger.info("myinfo security modify");
 		String result = TilesName.PROFILE_SECURITY_FAIL;
-		int studentSequence = httpSessionValue.getStudentSequence();
 		StudentSecurityQuestionVo studentSecurityQuestionVo = new StudentSecurityQuestionVo();
-		studentSecurityQuestionVo.setStudentSequence(studentSequence);
+		studentSecurityQuestionVo.setStudentSequence(httpSessionValue.getStudentSequence());
 		studentSecurityQuestionVo.setSecurityQuestionSequence(securityQuestionSequence);
 		studentSecurityQuestionVo.setContent(answer);
 		if (studentService.changeSecurity(studentSecurityQuestionVo)) {
