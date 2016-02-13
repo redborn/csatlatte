@@ -21,6 +21,8 @@
 	.manage-question-answer-accept {margin-left:10px;}
 	.manage-question-form-group {text-align:left;}
 	.manage-question-content-count {text-align:right;}
+	.manage-question-form-group xmp {white-space:pre-wrap; word-break:break-all;}
+	.manage-question-title xmp {white-space:nowrap; width:160px; text-overflow:ellipsis; overflow:hidden;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -39,13 +41,13 @@
 			html += '			</div>';
 			html += '			<div class="form-group manage-question-form-group">';
 			html += '				<label>질문내용</label>';
-			html += '				<div>' + question.content + '</div>';
+			html += '				<div><xmp>' + question.content + '</xmp></div>';
 			html += '			</div>';
 			html += '		</div>';
 			if (question.answerContent != "") {
 				html += '	<div class="form-group manage-question-form-group">';
 				html += '		<label>답변내용</label>';
-				html += '		<div>' + question.answerContent + '</div>'; 
+				html += '		<div><xmp>' + question.answerContent + '</xmp></div>'; 
 				html += '	</div>';
 				html += '</div>';
 			} else {

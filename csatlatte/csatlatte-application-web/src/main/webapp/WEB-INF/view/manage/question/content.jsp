@@ -39,7 +39,7 @@
 			<td>${question.qnaSequence}</td>
 			<td>${question.studentId}</td>
 			<td>${question.nickname}</td>
-			<td>${question.title}</td>
+			<td><div class="manage-question-title"><xmp>${question.title}</xmp></div></td>
 			<td>${question.writeDate}</td>
 			<td id="manage-question-answer-button-${question.qnaSequence}">
 			<div id="manage-question-answer-button-div-${question.qnaSequence}">
