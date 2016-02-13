@@ -47,7 +47,7 @@ public class Question {
 		String result = TilesName.ERROR_404;
 		QnaVo qnaVo = qnaService.detail(qnaSequence);
 		if (qnaVo != null) {
-			if (!qnaVo.getContent().equals("") && qnaVo.getStudentSequence() == httpSessionValue.getStudentSequence() && qnaVo.getUseYn().equals("Y")) {
+			if (qnaVo.getStudentSequence() == httpSessionValue.getStudentSequence() && qnaVo.getUseYn().equals("Y")) {
 				model.addAttribute("detail", qnaVo);
 				result = TilesName.PROFILE_QUESTION_DETAIL;
 			}
