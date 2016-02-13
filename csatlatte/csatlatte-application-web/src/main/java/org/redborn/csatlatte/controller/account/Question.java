@@ -56,5 +56,12 @@ public class Question {
 		}
 		return result;
 	}
-
+	
+	/**
+	 * 사용자가 답변받지 않은 문의를 삭제하는 기능입니다.
+	 */
+	@RequestMapping(value="{qnaSequence}",method=RequestMethod.DELETE)
+	public void delete(@PathVariable int qnaSequence) {
+		qnaService.delete(qnaSequence);
+	}
 }
