@@ -12,7 +12,7 @@
 		var qnaSequence = $('#profile-question-detail-qna-sequence').val();
 		var studentId = $('#profile-question-detail-id').val();
 		$('#profile-question-detail-delete-accept').on("click", function () {
-			$.ajax(contextPath + "/data/question/" + qnaSequence + ".json", {
+			$.ajax(contextPath + "/" + studentId + "/question/" + qnaSequence + ".json", {
 				dataType : "json",
 				type : "DELETE",
 				data : {_method : "DELETE"},
