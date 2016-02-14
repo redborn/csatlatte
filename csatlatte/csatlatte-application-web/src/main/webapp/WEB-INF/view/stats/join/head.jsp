@@ -14,8 +14,6 @@
 	#stats-join-annual-datepicker {width:auto;}
 	.stats-join-input-group {display:inline-block; margin-top:4px;}
 	.stats-join-input-group-addon {width:auto;}
-	
-	.btn-default {width:100%; display:block;}
 </style>
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -177,6 +175,7 @@
 			google.setOnLoadCallback(drawDailyChart);
 			
 			$(window).resize(function() {
+				statsJoinDailyOptions.animation.duration = 0;
 				statsJoinDailyChart.draw(statsJoinDailyView, statsJoinDailyOptions);
 			});
 		}
@@ -228,6 +227,7 @@
 			google.setOnLoadCallback(drawMonthlyChart);
 			
 			$(window).resize(function() {
+				statsJoinMonthlyOptions.animation.duration = 0;
 				statsJoinMonthlyChart.draw(statsJoinMonthlyView, statsJoinMonthlyOptions);
 			});
 		}
@@ -279,6 +279,7 @@
 			google.setOnLoadCallback(drawAnnualChart);
 			
 			$(window).resize(function() {
+				statsJoinAnnualOptions.animation.duration = 0;
 				statsJoinAnnualChart.draw(statsJoinAnnualView, statsJoinAnnualOptions);
 			});
 		}

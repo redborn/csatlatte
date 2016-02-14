@@ -14,8 +14,6 @@
 	#stats-community-annual-datepicker {width:auto;}
 	.stats-community-input-group {display:inline-block; margin-top:4px;}
 	.stats-community-input-group-addon {width:auto;}
-	
-	.btn-default {width:100%; display:block;}
 </style>
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -177,6 +175,7 @@
 			google.setOnLoadCallback(drawDailyChart);
 			
 			$(window).resize(function() {
+				statsCommunityDailyOptions.animation.duration = 0;
 				statsCommunityDailyChart.draw(statsCommunityDailyView, statsCommunityDailyOptions);
 			});
 		}
@@ -228,6 +227,7 @@
 			google.setOnLoadCallback(drawMonthlyChart);
 			
 			$(window).resize(function() {
+				statsCommunityMonthlyOptions.animation.duration = 0;
 				statsCommunityMonthlyChart.draw(statsCommunityMonthlyView, statsCommunityMonthlyOptions);
 			});
 		}
@@ -279,6 +279,7 @@
 			google.setOnLoadCallback(drawAnnualChart);
 			
 			$(window).resize(function() {
+				statsCommunityAnnualOptions.animation.duration = 0;
 				statsCommunityAnnualChart.draw(statsCommunityAnnualView, statsCommunityAnnualOptions);
 			});
 		}
