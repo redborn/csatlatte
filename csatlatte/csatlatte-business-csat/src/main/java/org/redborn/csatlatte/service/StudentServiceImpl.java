@@ -4,7 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.redborn.csatlatte.domain.CountVo;
 import org.redborn.csatlatte.domain.SecurityQuestionVo;
@@ -108,7 +110,40 @@ public class StudentServiceImpl implements StudentService {
 	}
 	
 	public boolean overlapCheckId(String studentId) {
-		return studentDao.selectOneCountOverlapId(studentId) == 1;
+		boolean result = true;
+		if (studentDao.selectOneCountOverlapId(studentId) != 1) {
+			Set<String> url = new HashSet<String>();
+			url.add("main");
+			url.add("rating");
+			url.add("grade");
+			url.add("community");
+			url.add("support");
+			url.add("profile");
+			url.add("join");
+			url.add("id");
+			url.add("password");
+			url.add("data");
+			url.add("login");
+			url.add("manage");
+			url.add("stats");
+			url.add("error");
+			url.add("university");
+			url.add("college");
+			url.add("chart");
+			url.add("news");
+			url.add("column");
+			url.add("information");
+			url.add("major");
+			url.add("event");
+			url.add("notice");
+			url.add("ad");
+			url.add("aptitude");
+			url.add("map");
+			if (!url.contains(studentId)) {
+				result = false;
+			}
+		}
+		return result;
 	}
 	
 	public boolean overlapCheckNickname(String nickname) {
