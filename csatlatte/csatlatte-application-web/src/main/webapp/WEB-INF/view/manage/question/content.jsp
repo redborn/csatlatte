@@ -25,7 +25,7 @@
 <table class="table" id="manage-question-table">
 	<thead>
 		<tr>
-			<th class="col-lg-1 manage-question-sequence manage-question-col-lg">번호</th>
+			<th class="manage-question-sequence col-lg-1 manage-question-col-lg">번호</th>
 			<th class="col-lg-2 manage-question-col-lg">아이디</th>
 			<th class="col-lg-2 manage-question-col-lg">닉네임</th>
 			<th class="col-lg-3 manage-question-col-lg">제목</th>

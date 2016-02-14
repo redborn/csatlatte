@@ -18,6 +18,10 @@
 	.manage-question-content-count {text-align:right;}
 	.manage-question-form-group xmp {white-space:pre-wrap; word-break:break-all;}
 	.manage-question-title xmp {white-space:nowrap; width:80px; text-overflow:ellipsis; overflow:hidden;}
+	@media screen and (max-width:500px) {
+		.manage-question-sequence {display:none;}
+		#manage-question-table .manage-question-sequence {display:none;}
+	}
 </style>
 <script>
 	$(document).ready(function () {
@@ -146,14 +150,5 @@
 		$('#manage-question-answer-view').on('hidden.bs.modal', function () {
 			$('.manage-question-detail').remove();
 		});
-		
-		$(window).on("resize", function () {
-			if ($(window).width() < 500) {
-				$('.manage-question-sequence').hide();
-			} else {
-				$('.manage-question-sequence').show();
-			}
-		});
-		$(window).trigger("resize");
 	});
 </script>
