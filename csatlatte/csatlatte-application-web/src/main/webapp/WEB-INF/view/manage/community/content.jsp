@@ -42,7 +42,7 @@
 	<pagination:writer value="${paginationWriter}"/>
 </nav>
 <div class="modal fade" id="manage-community-id" tabindex="-1" role="dialog">
-	<div class="modal-dialog modal-dialog-user-info" role="document">
+	<div class="modal-dialog manage-community-user-info-modal" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -58,7 +58,7 @@
 	</div>
 </div>
 <div class="modal fade" id="manage-community-blind" tabindex="-1" role="dialog">
-	<div class="modal-dialog modal-dialog-user-info" role="document">
+	<div class="modal-dialog manage-community-user-info-modal" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
