@@ -4,18 +4,13 @@
 <%@ include file="/WEB-INF/layout/include/jquery/ajax.jsp" %>
 <style>
 	#manage-question-answer-textarea {resize:none; padding-top:5px; margin-bottom:10px; display:block; width:100%; height:150px;}
-	.modal-body h5 {display:inline-block;}
 	.manage-question-nav {text-align:center;}
 	#manage-question-table {margin-top:15px; text-align:center;}
 	.manage-question-col-lg {float:none; display:inline-block; text-align:center;}
 	.manage-question-search {text-align:right; width:auto;}
 	.manage-question-yn h5 {display:inline-block;}
 	.manage-question-yn .btn-default {width:auto; display:inline-block;}
-	.manage-question-btn-cancel {cursor:pointer;}
-	.manage-question-btn-accept {cursor:pointer;}
 	.manage-question-btn-group {margin-left:5px;}
-	.manage-question-qna-title-content {display:inline-block; margin-left:10px;}
-	.manage-question-qna-answer {margin-top:10px;}
 	.manage-question-detail {text-align:right;}
 	.manage-question-detail-content {text-align:left; margin-bottom:15px;}
 	.manage-question-answer-accept {margin-left:10px;}
