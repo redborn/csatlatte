@@ -8,13 +8,8 @@
 	#manage-exam-nav {text-align:center;}
 	#manage-exam-table {margin-top:15px; text-align:center;}
 	.manage-exam-col-lg {float:none; display:inline-block; text-align:center;}
-	.manage-exam-title {display:inline-block; width:380px;}
-	.manage-exam-modify {cursor:pointer;}
-	.manage-exam-delete {cursor:pointer;}
 	.manage-exam-btn-align {text-align:right;}
-	.manage-exam-add {width:100px; display:inline-block;}
 	.manage-exam-modal-footer {text-align:right;}
-	.manage-exam-icon {float:none;}
 	.manage-exam-input-group-addon {width:auto;}
 </style>
 <script>
@@ -376,17 +371,19 @@
 			html += '	</div>';
 			html += '</div>';
 			$('#manage-exam-delete-view-detail').append(html);
-			$('.manage-exam-delete-accept').on("click", function () {
-				$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
-					dataType : "json",
-					type : "DELETE",
-					data : {_method : "DELETE"},
-					success : function () {
-						$('#manage-exam-delete-view').modal("hide");
-						$('#manage-exam-csat-list').trigger("change");
-					}
+			if (!check) {
+				$('.manage-exam-delete-accept').on("click", function () {
+					$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
+						dataType : "json",
+						type : "DELETE",
+						data : {_method : "DELETE"},
+						success : function () {
+							$('#manage-exam-delete-view').modal("hide");
+							$('#manage-exam-csat-list').trigger("change");
+						}
+					});
 				});
-			});
+			}
 		}
 	});
 </script>
