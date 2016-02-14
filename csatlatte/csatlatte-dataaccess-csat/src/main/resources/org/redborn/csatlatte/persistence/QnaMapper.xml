@@ -58,7 +58,7 @@
 	<select id="selectListForManage" parameterType="Map" resultMap="QnaForManageVoMap">
 		SELECT cq.qna_seq as qna_seq,cs.student_id as student_id,
 			   cs.nickname as nickname,cqc.content as content,cq.title,
-			   cq.write_date as write_date,cq.use_yn,
+			   DATE_FORMAT(cq.write_date,'%Y-%m-%d') as write_date,cq.use_yn,
 			   cqa.count_qna_answer as count_qna_answer
 		  FROM csat_qna cq,csat_qna_content cqc,csat_student cs,
 		  	   (SELECT cq.qna_seq,COUNT(cqa.content) AS count_qna_answer

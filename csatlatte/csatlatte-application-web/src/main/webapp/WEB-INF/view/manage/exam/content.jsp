@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
-<h4 class="manage-exam-title">모의고사 관리</h4>
+<h4>모의고사 관리</h4>
 <div class="col-lg-5">
 	<select class="form-control" id="manage-exam-csat-list">
 		<c:forEach items="${csatList}" var="csat">

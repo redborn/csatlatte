@@ -4,23 +4,23 @@
 <%@ include file="/WEB-INF/layout/include/jquery/ajax.jsp" %>
 <style>
 	#manage-question-answer-textarea {resize:none; padding-top:5px; margin-bottom:10px; display:block; width:100%; height:150px;}
-	.modal-body h5 {display:inline-block;}
 	.manage-question-nav {text-align:center;}
 	#manage-question-table {margin-top:15px; text-align:center;}
 	.manage-question-col-lg {float:none; display:inline-block; text-align:center;}
 	.manage-question-search {text-align:right; width:auto;}
 	.manage-question-yn h5 {display:inline-block;}
 	.manage-question-yn .btn-default {width:auto; display:inline-block;}
-	.manage-question-btn-cancel {cursor:pointer;}
-	.manage-question-btn-accept {cursor:pointer;}
 	.manage-question-btn-group {margin-left:5px;}
-	.manage-question-qna-title-content {display:inline-block; margin-left:10px;}
-	.manage-question-qna-answer {margin-top:10px;}
 	.manage-question-detail {text-align:right;}
 	.manage-question-detail-content {text-align:left; margin-bottom:15px;}
 	.manage-question-answer-accept {margin-left:10px;}
 	.manage-question-form-group {text-align:left;}
 	.manage-question-content-count {text-align:right;}
+	.manage-question-form-group xmp {white-space:pre-wrap; word-break:break-all;}
+	.manage-question-title xmp {white-space:nowrap; width:80px; text-overflow:ellipsis; overflow:hidden;}
+	@media screen and (max-width:500px) {
+		#manage-question-table .manage-question-sequence {display:none;}
+	}
 </style>
 <script>
 	$(document).ready(function () {
@@ -39,13 +39,13 @@
 			html += '			</div>';
 			html += '			<div class="form-group manage-question-form-group">';
 			html += '				<label>질문내용</label>';
-			html += '				<div>' + question.content + '</div>';
+			html += '				<div><xmp>' + question.content + '</xmp></div>';
 			html += '			</div>';
 			html += '		</div>';
 			if (question.answerContent != "") {
 				html += '	<div class="form-group manage-question-form-group">';
 				html += '		<label>답변내용</label>';
-				html += '		<div>' + question.answerContent + '</div>'; 
+				html += '		<div><xmp>' + question.answerContent + '</xmp></div>'; 
 				html += '	</div>';
 				html += '</div>';
 			} else {
@@ -149,6 +149,5 @@
 		$('#manage-question-answer-view').on('hidden.bs.modal', function () {
 			$('.manage-question-detail').remove();
 		});
-		
 	});
 </script>

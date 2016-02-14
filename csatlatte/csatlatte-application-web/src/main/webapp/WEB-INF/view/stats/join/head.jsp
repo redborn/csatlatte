@@ -5,17 +5,15 @@
 <%@ include file="/WEB-INF/layout/include/jquery/ajax.jsp" %>
 <style>
 	.stats-join-form-control {margin-left:5px; display:inline-block; float:none; width:auto; height:30px;}
-	#stats-join-daily-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
-	#stats-join-monthly-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
-	#stats-join-annual-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
+	#stats-join-daily-chart {width:95%; height:400px; margin-top:15px; margin-left:15px;}
+	#stats-join-monthly-chart {width:95%; height:400px; margin-top:15px; margin-left:15px;}
+	#stats-join-annual-chart {width:95%; height:400px; margin-top:15px; margin-left:15px;}
 	.stats-join-col-lg-6 {float:none; display:inline-block;}
 	#stats-join-daily-datepicker {width:auto;}
 	#stats-join-monthly-datepicker {width:auto;}
 	#stats-join-annual-datepicker {width:auto;}
 	.stats-join-input-group {display:inline-block; margin-top:4px;}
 	.stats-join-input-group-addon {width:auto;}
-	
-	.btn-default {width:100%; display:block;}
 </style>
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -175,6 +173,11 @@
 			var statsJoinDailyChart = new google.visualization.ColumnChart(document.getElementById('stats-join-daily-chart'));
 			statsJoinDailyChart.draw(statsJoinDailyView, statsJoinDailyOptions);
 			google.setOnLoadCallback(drawDailyChart);
+			
+			$(window).resize(function() {
+				statsJoinDailyOptions.animation.duration = 0;
+				statsJoinDailyChart.draw(statsJoinDailyView, statsJoinDailyOptions);
+			});
 		}
 		
 		var drawMonthlyChart = function(monthlyJoin) {
@@ -222,6 +225,11 @@
 			var statsJoinMonthlyChart = new google.visualization.ColumnChart(document.getElementById('stats-join-monthly-chart'));
 			statsJoinMonthlyChart.draw(statsJoinMonthlyView, statsJoinMonthlyOptions);
 			google.setOnLoadCallback(drawMonthlyChart);
+			
+			$(window).resize(function() {
+				statsJoinMonthlyOptions.animation.duration = 0;
+				statsJoinMonthlyChart.draw(statsJoinMonthlyView, statsJoinMonthlyOptions);
+			});
 		}
 	
 		var drawAnnualChart = function(annualJoin) {
@@ -269,6 +277,11 @@
 			var statsJoinAnnualChart = new google.visualization.ColumnChart(document.getElementById('stats-join-annual-chart'));
 			statsJoinAnnualChart.draw(statsJoinAnnualView, statsJoinAnnualOptions);
 			google.setOnLoadCallback(drawAnnualChart);
+			
+			$(window).resize(function() {
+				statsJoinAnnualOptions.animation.duration = 0;
+				statsJoinAnnualChart.draw(statsJoinAnnualView, statsJoinAnnualOptions);
+			});
 		}
 	});
 </script>

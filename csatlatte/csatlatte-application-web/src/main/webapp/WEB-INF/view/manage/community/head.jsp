@@ -7,33 +7,29 @@
 	#manage-community-nav {text-align:center;}
 	#manage-community-table {margin-top:15px; text-align:center; float:none;}
 	.manage-community-title {display:inline-block; width:380px;}
-	.manage-community-delete {cursor:pointer;}
 	.manage-community-col-lg {float:none; display:inline-block; text-align:center;}
 	.manage-community-search {text-align:right;}
-	.manage-community-btn-align {text-align:right;}
-	.manage-community-apply {width:50px; display:inline-block;}
-	.modal-dialog-user-info {width:400px;}
-	.modal-dialog-user-info .modal-body {text-align:center;}
+	.manage-community-user-info-modal {width:400px;}
+	.manage-community-user-info-modal .modal-body {text-align:center;}
 	.manage-community-picture {width:100px; border-radius:5px; border:1px solid #7a6253;}
 	.manage-community-info {margin-top:10px;}
 	.manage-community-info-content {text-align:left; margin-left:40px; margin-top:5px;}
 	.manage-community-info-content-value {margin-left:10px; display:inline-block;}
 	.manage-community-id {cursor:pointer;}
 	.manage-community-text-detail {cursor:pointer;}
-	.modal-header .community-text .community-user-info {width:470px;}
-	.community-profile-picture {width:40px; height:40px; border-radius:5px; border:1px solid #7a6253; vertical-align:top;}
-	.community-text {text-align:left;}
-	.community-text .community-name {font-size:13px; display:inline;}
-	.community-text .community-calender {font-size:13px; color:gray;}
-	.community-text .community-user-info {display:inline-block; margin-left:3px; width:500px;}
-	.community-text .community-comment-content {font-size:13px; display:inline;}
-	.community-comment {position:relative; margin-top:5px; height:40px; text-align:left;}
-	.community-comment img {width:40px; height:40px; display:inline-block; border-radius:5px; border:1px solid #7a6253;}
-	.community-comment .form-control {margin-top:3px; width:500px; display:inline-block; float:none;}
-	.community-comment {margin-bottom:5px;}
-	.community-content xmp {white-space:pre-wrap; word-break:break-all;}
-	.community-comment-content xmp {white-space:pre-wrap; word-break:break-all; display:inline-block; margin-top:0px; margin-bottom:0px;}
-	.manage-community-text-detail xmp {white-space:nowrap; width:200px; text-overflow:ellipsis; overflow:hidden;}
+	.manage-community-profile-picture {width:40px; height:40px; border-radius:5px; border:1px solid #7a6253; vertical-align:top;}
+	.manage-community-text {text-align:left;}
+	.manage-community-text .manage-community-name {font-size:13px; display:inline;}
+	.manage-community-text .manage-community-calender {font-size:13px; color:gray;}
+	.manage-community-text .manage-community-user-info {display:inline-block; margin-left:3px; width:500px;}
+	.manage-community-text .manage-community-comment-content {font-size:13px; display:inline;}
+	.manage-community-comment {position:relative; margin-top:5px; height:40px; text-align:left;}
+	.manage-community-comment img {width:40px; height:40px; display:inline-block; border-radius:5px; border:1px solid #7a6253;}
+	.manage-community-comment .form-control {margin-top:3px; width:500px; display:inline-block; float:none;}
+	.manage-community-comment {margin-bottom:5px;}
+	.manage-community-content xmp {white-space:pre-wrap; word-break:break-all;}
+	.manage-community-comment-content xmp {white-space:pre-wrap; word-break:break-all; display:inline-block; margin-top:0px; margin-bottom:0px;}
+	.manage-community-text-detail xmp {white-space:nowrap; width:100px; text-overflow:ellipsis; overflow:hidden;}
 	#manage-community-blind .modal-body {text-align:left;}
 	.manage-community-blind {cursor:pointer;}
 	.manage-community-icon {float:none;}
@@ -68,11 +64,11 @@
 			html += '		<div class="modal-content" id="manage-community-text-content">';
 			html += '			<div class="modal-header">';
 			html += '				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-			html += '				<div class="community-text">';
-			html += '					<img alt="프로필사진" class="community-profile-picture" src="' + contextPath + '/resources/csatlatte/images/img/img_person.png">';
-			html += '					<div class="community-user-info">';
-			html += '						<div class="community-name"><strong>' + nickname + '</strong></div>';
-			html += '						<div class="community-calender">' + writeYmdhms + '</div>';
+			html += '				<div class="manage-community-text">';
+			html += '					<img alt="프로필사진" class="manage-community-profile-picture" src="' + contextPath + '/resources/csatlatte/images/img/img_person.png">';
+			html += '					<div class="manage-community-user-info">';
+			html += '						<div class="manage-community-name"><strong>' + nickname + '</strong></div>';
+			html += '						<div class="manage-community-calender" data-ymdhms="' + writeYmdhms + '">' + format(writeYmdhms) + '</div>';
 			html += '					</div>';
 			html += '				</div>';
 			html += '			</div>';
@@ -87,12 +83,12 @@
 		
 		var makeCommunityDetailComment = function(comment) {
 			var html = '';
-			html += '<div class="community-text community-comment">';
-			html += '	<img alt="프로필사진" class="community-profile-picture" src="' + contextPath + '/resources/csatlatte/images/img/img_person.png">';
-			html += '	<div class="community-user-info">';
-			html += '		<div class="community-name"><strong>' + comment.nickname + '</strong></div>';
-			html += '		<div class="community-comment-content"><xmp>' + comment.content + '</xmp></div>';
-			html += '		<div class="community-calender">' + format(comment.writeYmdhms) + '</div>';
+			html += '<div class="manage-community-text manage-community-comment">';
+			html += '	<img alt="프로필사진" class="manage-community-profile-picture" src="' + contextPath + '/resources/csatlatte/images/img/img_person.png">';
+			html += '	<div class="manage-community-user-info">';
+			html += '		<div class="manage-community-name"><strong>' + comment.nickname + '</strong></div>';
+			html += '		<div class="manage-community-comment-content"><xmp>' + comment.content + '</xmp></div>';
+			html += '		<div class="manage-community-calender" data-ymdhms="' + comment.writeYmdhms + '">' + format(comment.writeYmdhms) + '</div>';
 			html += '	</div>';
 			html += '</div>';
 			return html;
