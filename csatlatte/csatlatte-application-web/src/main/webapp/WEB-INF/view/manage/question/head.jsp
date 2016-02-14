@@ -19,7 +19,6 @@
 	.manage-question-form-group xmp {white-space:pre-wrap; word-break:break-all;}
 	.manage-question-title xmp {white-space:nowrap; width:80px; text-overflow:ellipsis; overflow:hidden;}
 	@media screen and (max-width:500px) {
-		.manage-question-sequence {display:none;}
 		#manage-question-table .manage-question-sequence {display:none;}
 	}
 </style>
