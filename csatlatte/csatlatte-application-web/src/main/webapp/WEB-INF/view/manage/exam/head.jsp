@@ -8,14 +8,12 @@
 	#manage-exam-nav {text-align:center;}
 	#manage-exam-table {margin-top:15px; text-align:center;}
 	.manage-exam-col-lg {float:none; display:inline-block; text-align:center;}
-	.manage-exam-info-content-value {margin-left:10px; display:inline-block; margin-top:5px;}
-	.manage-exam-info-content-value .form-control {width:auto;}
 	.manage-exam-title {display:inline-block; width:380px;}
 	.manage-exam-modify {cursor:pointer;}
 	.manage-exam-delete {cursor:pointer;}
 	.manage-exam-btn-align {text-align:right;}
 	.manage-exam-add {width:100px; display:inline-block;}
-	.modal-footer {text-align:right;}
+	.manage-exam-modal-footer {text-align:right;}
 	.manage-exam-icon {float:none;}
 	.manage-exam-input-group-addon {width:auto;}
 </style>
@@ -166,18 +164,7 @@
 															} else {
 																check = false;
 															}
-															$('#manage-exam-delete-view-detail').append(makeExamDeleteMessage(check));
-															$('.manage-exam-delete-accept').on("click", function () {
-																$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
-																	dataType : "json",
-																	type : "DELETE",
-																	data : {_method : "DELETE"},
-																	success : function () {
-																		$('#manage-exam-delete-view').modal("hide");
-																		$('#manage-exam-csat-list').trigger("change");
-																	}
-																});
-															});
+															makeExamDeleteMessage(check);
 														} 
 													}
 												});
@@ -292,7 +279,7 @@
 			html += '			</div>';
 			html += '		</div>';
 			html += '	</div>';
-			html += '	<div class="modal-footer">';
+			html += '	<div class="modal-footer manage-exam-modal-footer">';
 			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
 			html += '		<button type="button" class="btn btn-primary manage-exam-register-accept">확인</button>';
 			html += '	</div>';
@@ -354,7 +341,7 @@
 			html += '			</div>';
 			html += '		</div>';
 			html += '	</div>';
-			html += '	<div class="modal-footer">';
+			html += '	<div class="modal-footer manage-exam-modal-footer">';
 			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
 			html += '		<button type="button" class="btn btn-primary manage-exam-modify-accept">확인</button>';
 			html += '	</div>';
@@ -381,14 +368,25 @@
 				html += '이 모의고사를 정말로 삭제하시겠습니까?';
 			}
 			html += '	</div>';
-			html += '	<div class="modal-footer">';
+			html += '	<div class="modal-footer manage-exam-modal-footer">';
 			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
 			if (!check) {
 				html += '<button type="button" class="btn btn-primary manage-exam-delete-accept">확인</button>';
 			}
 			html += '	</div>';
 			html += '</div>';
-			return html;
+			$('#manage-exam-delete-view-detail').append(html);
+			$('.manage-exam-delete-accept').on("click", function () {
+				$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
+					dataType : "json",
+					type : "DELETE",
+					data : {_method : "DELETE"},
+					success : function () {
+						$('#manage-exam-delete-view').modal("hide");
+						$('#manage-exam-csat-list').trigger("change");
+					}
+				});
+			});
 		}
 	});
 </script>
