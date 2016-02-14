@@ -36,7 +36,7 @@
 	<tbody>
 	<c:forEach items="${list}" var="question">
 		<tr>
-			<td>${question.qnaSequence}</td>
+			<td class="manage-question-sequence">${question.qnaSequence}</td>
 			<td>${question.studentId}</td>
 			<td>${question.nickname}</td>
 			<td><div class="manage-question-title"><xmp>${question.title}</xmp></div></td>
