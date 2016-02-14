@@ -147,5 +147,13 @@
 			$('.manage-question-detail').remove();
 		});
 		
+		$(window).on("resize", function () {
+			if ($(window).width() < 500) {
+				$('.manage-question-sequence').hide();
+			} else {
+				$('.manage-question-sequence').show();
+			}
+		});
+		$(window).trigger("resize");
 	});
 </script>
