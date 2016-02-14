@@ -5,9 +5,9 @@
 <%@ include file="/WEB-INF/layout/include/jquery/ajax.jsp" %>
 <style>
 	.stats-community-form-control {margin-left:5px; display:inline-block; float:none; width:100px; height:30px;}
-	#stats-community-daily-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
-	#stats-community-monthly-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
-	#stats-community-annual-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
+	#stats-community-daily-chart {width:95%; height:400px; margin-top:15px; margin-left:15px;}
+	#stats-community-monthly-chart {width:95%; height:400px; margin-top:15px; margin-left:15px;}
+	#stats-community-annual-chart {width:95%; height:400px; margin-top:15px; margin-left:15px;}
 	.stats-community-col-lg-6 {float:none; display:inline-block;}
 	#stats-community-daily-datepicker {width:auto;}
 	#stats-community-monthly-datepicker {width:auto;}
@@ -175,6 +175,10 @@
 			var statsCommunityDailyChart = new google.visualization.ColumnChart(document.getElementById('stats-community-daily-chart'));
 			statsCommunityDailyChart.draw(statsCommunityDailyView, statsCommunityDailyOptions);
 			google.setOnLoadCallback(drawDailyChart);
+			
+			$(window).resize(function() {
+				statsCommunityDailyChart.draw(statsCommunityDailyView, statsCommunityDailyOptions);
+			});
 		}
 	
 		var drawMonthlyChart = function(monthlyActive) {
@@ -222,6 +226,10 @@
 			var statsCommunityMonthlyChart = new google.visualization.ColumnChart(document.getElementById('stats-community-monthly-chart'));
 			statsCommunityMonthlyChart.draw(statsCommunityMonthlyView, statsCommunityMonthlyOptions);
 			google.setOnLoadCallback(drawMonthlyChart);
+			
+			$(window).resize(function() {
+				statsCommunityMonthlyChart.draw(statsCommunityMonthlyView, statsCommunityMonthlyOptions);
+			});
 		}
 		
 		var drawAnnualChart = function (annualActive) {
@@ -269,6 +277,10 @@
 			var statsCommunityAnnualChart = new google.visualization.ColumnChart(document.getElementById('stats-community-annual-chart'));
 			statsCommunityAnnualChart.draw(statsCommunityAnnualView, statsCommunityAnnualOptions);
 			google.setOnLoadCallback(drawAnnualChart);
+			
+			$(window).resize(function() {
+				statsCommunityAnnualChart.draw(statsCommunityAnnualView, statsCommunityAnnualOptions);
+			});
 		}
 	});
 </script>

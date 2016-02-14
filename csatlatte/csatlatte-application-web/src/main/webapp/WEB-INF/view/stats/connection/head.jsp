@@ -5,9 +5,9 @@
 <%@ include file="/WEB-INF/layout/include/jquery/ajax.jsp" %>
 <style>
 	.stats-connection-form-control {margin-left:5px; display:inline-block; float:none; width:100px; height:30px;}
-	#stats-connection-daily-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
-	#stats-connection-monthly-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
-	#stats-connection-annual-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
+	#stats-connection-daily-chart {width:95%; height:400px; margin-top:15px; margin-left:15px;}
+	#stats-connection-monthly-chart {width:95%; height:400px; margin-top:15px; margin-left:15px;}
+	#stats-connection-annual-chart {width:95%; height:400px; margin-top:15px; margin-left:15px;}
 	.stats-connection-col-lg-6 {float:none; display:inline-block;}
 	#stats-connection-daily-datepicker {width:auto;}
 	#stats-connection-monthly-datepicker {width:auto;}
@@ -174,6 +174,10 @@
 			var statsConnectionDailyChart = new google.visualization.ColumnChart(document.getElementById('stats-connection-daily-chart'));
 			statsConnectionDailyChart.draw(statsConnectionDailyView, statsConnectionDailyOptions);
 			google.setOnLoadCallback(drawDailyChart);
+			
+			$(window).resize(function() {
+				statsConnectionDailyChart.draw(statsConnectionDailyView, statsConnectionDailyOptions);
+			});
 		}
 		
 		var drawMonthlyChart = function(monthlyConnection) {
@@ -220,6 +224,10 @@
 			var statsConnectionMonthlyChart = new google.visualization.ColumnChart(document.getElementById('stats-connection-monthly-chart'));
 			statsConnectionMonthlyChart.draw(statsConnectionMonthlyView, statsConnectionMonthlyOptions);
 			google.setOnLoadCallback(drawMonthlyChart);
+			
+			$(window).resize(function() {
+				statsConnectionMonthlyChart.draw(statsConnectionMonthlyView, statsConnectionMonthlyOptions);
+			});
 		}
 	
 		var drawAnnualChart = function(annualConnection) {
@@ -266,6 +274,10 @@
 			var statsConnectionAnnualChart = new google.visualization.ColumnChart(document.getElementById('stats-connection-annual-chart'));
 			statsConnectionAnnualChart.draw(statsConnectionAnnualView, statsConnectionAnnualOptions);
 			google.setOnLoadCallback(drawAnnualChart);
+			
+			$(window).resize(function() {
+				statsConnectionAnnualChart.draw(statsConnectionAnnualView, statsConnectionAnnualOptions);
+			});
 		}
 	});
 </script>
