@@ -17,7 +17,7 @@
 	.manage-question-form-group {text-align:left;}
 	.manage-question-content-count {text-align:right;}
 	.manage-question-form-group xmp {white-space:pre-wrap; word-break:break-all;}
-	.manage-question-title xmp {white-space:nowrap; width:160px; text-overflow:ellipsis; overflow:hidden;}
+	.manage-question-title xmp {white-space:nowrap; width:80px; text-overflow:ellipsis; overflow:hidden;}
 </style>
 <script>
 	$(document).ready(function () {

@@ -25,18 +25,16 @@
 <table class="table" id="manage-question-table">
 	<thead>
 		<tr>
-			<th class="col-lg-1 manage-question-col-lg">번호</th>
 			<th class="col-lg-2 manage-question-col-lg">아이디</th>
 			<th class="col-lg-2 manage-question-col-lg">닉네임</th>
 			<th class="col-lg-3 manage-question-col-lg">제목</th>
-			<th class="col-lg-2 manage-question-col-lg">문의날짜</th>
+			<th class="col-lg-2 manage-question-col-lg">날짜</th>
 			<th class="col-lg-1 manage-question-col-lg"></th>
 		</tr>
 	</thead>
 	<tbody>
 	<c:forEach items="${list}" var="question">
 		<tr>
-			<td>${question.qnaSequence}</td>
 			<td>${question.studentId}</td>
 			<td>${question.nickname}</td>
 			<td><div class="manage-question-title"><xmp>${question.title}</xmp></div></td>
