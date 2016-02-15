@@ -78,8 +78,9 @@ public class StudentServiceImpl implements StudentService {
 		studentVo.setStudentSequence(maxStudentSequence);
 		Date createDate = new Date();
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HHmmssSSS");
-		studentVo.setCreateDate(simpleDateFormat.format(createDate));
-		studentVo.setStudentPassword(new StringBuilder(simpleDateFormat.format(createDate)).append(studentVo.getStudentPassword()).toString());
+		studentVo.setCreateDate(createDate);
+		String resultPassword = new StringBuilder(simpleDateFormat.format(createDate)).append(studentVo.getStudentPassword()).toString();
+		studentVo.setStudentPassword(resultPassword);
 		studentSecurityQuestionVo.setStudentSequence(maxStudentSequence);
 		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
 		defaultTransactionDefinition.setName("Student Join Transaction");
