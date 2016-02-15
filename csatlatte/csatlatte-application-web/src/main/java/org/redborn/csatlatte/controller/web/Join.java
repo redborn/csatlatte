@@ -67,8 +67,11 @@ public class Join {
 		studentSecurityQuestionVo.setContent(answer);
 		
 		String result = TilesName.JOIN_FAIL;
-		if (studentService.join(studentVo, studentSecurityQuestionVo)) {
-			result = TilesName.JOIN_SUCCESS;
+		
+		if (!studentService.overlapCheckId(studentId) && !studentService.overlapCheckNickname(nickname)) {
+			if (studentService.join(studentVo, studentSecurityQuestionVo)) {
+				result = TilesName.JOIN_SUCCESS;
+			}
 		}
 		
 		return result;
