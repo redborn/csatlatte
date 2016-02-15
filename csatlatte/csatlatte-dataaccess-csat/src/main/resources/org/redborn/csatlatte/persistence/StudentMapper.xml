@@ -235,7 +235,7 @@
 	<insert id="insert" parameterType="StudentVo">
 		 INSERT INTO csat_student
 	     VALUES ( #{studentSequence}, #{studentId,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}, #{studentPassword,typeHandler=org.redborn.csatlatte.commons.mybatis.SHA512TypeHandler}, #{nickname,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}, 
-	     		  #{photoCode}, #{photoName}, #{csatSequence},'Y', #{createDate}) 
+	     		  #{photoCode}, #{photoName}, #{csatSequence},'Y', DATE_FORMAT(#{createDate},'%Y-%m-%d %H:%i:%S.%f')) 
 	</insert>
 	
 	<update id="updateInformation" parameterType="StudentVo">
