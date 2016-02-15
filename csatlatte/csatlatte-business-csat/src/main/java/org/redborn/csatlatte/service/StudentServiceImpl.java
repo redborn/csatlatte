@@ -77,8 +77,9 @@ public class StudentServiceImpl implements StudentService {
 		int maxStudentSequence = studentDao.selectOneMaxStudentSequence();
 		studentVo.setStudentSequence(maxStudentSequence);
 		Date createDate = new Date();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HHmmssSSS");
-		studentVo.setCreateDate(createDate);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		studentVo.setCreateDate(simpleDateFormat.format(createDate));
+		simpleDateFormat.applyPattern("HHmmssSSS");
 		String resultPassword = new StringBuilder(simpleDateFormat.format(createDate)).append(studentVo.getStudentPassword()).toString();
 		studentVo.setStudentPassword(resultPassword);
 		studentSecurityQuestionVo.setStudentSequence(maxStudentSequence);
