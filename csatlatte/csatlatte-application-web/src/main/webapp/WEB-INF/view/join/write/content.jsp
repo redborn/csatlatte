@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix= "fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <form:form id="join-write-form" method="post" servletRelativeAction="/join" class="form-horizontal">
 	<div class="join">
@@ -53,10 +54,10 @@
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="join-content-select-sat">수능 선택</label>
-				<div class="col-sm-5">
+				<div class="col-sm-6">
 					<select name="csat" id="join-content-select-sat" class="form-control">
 						<c:forEach items="${csatList}" var="csat">
-							<option value="${csat.csatSequence}">${csat.csatName}</option>
+							<option value="${csat.csatSequence}"<c:if test="${csat.csatSequence eq presentCsatSequence}"> selected</c:if>>${csat.csatName} (${fn:substring(csat.examYmd, 0, 4)}년 실시)</option>
 						</c:forEach>
 					</select>
 				</div>

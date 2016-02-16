@@ -1,6 +1,5 @@
 package org.redborn.csatlatte.domain;
 
-
 public class StudentVo {
 
 	private int studentSequence;

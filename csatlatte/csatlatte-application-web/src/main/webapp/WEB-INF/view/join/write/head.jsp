@@ -38,6 +38,16 @@
 		var patternEnglishNumberSpecial = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[~,!,@,#,$,*,(,),=,+,_,.,|]).*$/; // 8~15자리 영문, 숫자, 특수문자 최소 1개 포함
 		var patternKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 		
+		$('#join-btn-success').attr("disabled", true);
+		
+		var checkSuccess = function() {
+			if (successPasswordCheck && successPassword && successId && successNickname && successAnswer) {
+				$('#join-btn-success').attr("disabled", false);
+			} else {
+				$('#join-btn-success').attr("disabled", true);
+			}
+		}
+		
 		var passwordNegativeMessage = function () {
 			var html = '';
 			html += '<div class="join-password-message-negative">';
@@ -75,14 +85,6 @@
 			html += '<div class="join-id-check-message-negative">';
 			html += '	6~10자 이내 영문,숫자만 사용 가능';
 			html += '</div>';
-			return html;
-		}
-		
-		var idPositiveMessage = function () {
-			var html = '';
-			html += '<div class="join-id-check-message-positive">';
-			html += '	아이디가 올바릅니다.';
-			html += '</div>'; 
 			return html;
 		}
 		
@@ -126,14 +128,6 @@
 			return html;
 		}
 		
-		var nicknamePositiveMessage = function () {
-			var html = '';
-			html += '<div class="join-nickname-check-message-positive">';
-			html += '	올바른 닉네임입니다.';
-			html += '</div>';
-			return html;
-		}
-		
 		var nicknameNegativeMessageOverlap = function () {
 			var html = '';
 			html += '<div class="join-nickname-check-message-negative">';
@@ -157,26 +151,22 @@
 				$('#join-id-check-message-area').append(idNegativeMessage());
 				successId = false;
 			} else {
-				$('#join-id-check-message-area').append(idPositiveMessage());
-				successId = true;
-			}
-		});
-		
-		$('#join-content-id').focusout(function () {
-			if (successId) {
-				$('.join-id-check-message-positive').remove();
 				var studentId = $('#join-content-id').val();
 				$.ajax(contextPath + "/data/join.json", {
 					dataType : "json",
 					type : "GET",
 					data : {overlapValue : studentId, item : 1},
 					success : function (data) {
+						$('.join-id-check-message-negative').remove();
+						$('.join-id-check-message-positive').remove();
 						if (data.overlapCheckId) {
 							$('#join-id-check-message-area').append(idNegativeMessageOverlap());
 							successId = false;
 						} else {
 							$('#join-id-check-message-area').append(idPositiveMessageOverlap());
+							successId = true;
 						}
+						checkSuccess();
 					}
 				});
 			}
@@ -192,6 +182,7 @@
 				$('#join-answer-check-message-area').append(answerPositiveMessage());
 				successAnswer = true;
 			}
+			checkSuccess();
 		});
 		
 		$('#join-content-nickname').on("keyup", function () {
@@ -201,26 +192,22 @@
 				$('#join-nickname-check-message-area').append(nicknameNegativeMessage());
 				successNickname = false;
 			} else {
-				$('#join-nickname-check-message-area').append(nicknamePositiveMessage());
-				successNickname = true;
-			}
-		});
-		
-		$('#join-content-nickname').focusout(function () {
-			if (successNickname) {
-				$('.join-nickname-check-message-positive').remove();
 				var nickname = $('#join-content-nickname').val();
 				$.ajax(contextPath + "/data/join.json", {
 					dataType : "json",
 					type : "GET",
 					data : {overlapValue : nickname, item : 2},
 					success : function(data) {
+						$('.join-nickname-check-message-negative').remove();
+						$('.join-nickname-check-message-positive').remove();
 						if (data.overlapCheckNickname) {
 							$('#join-nickname-check-message-area').append(nicknameNegativeMessageOverlap());
 							successNickname = false;
 						} else {
 							$('#join-nickname-check-message-area').append(nicknamePositiveMessageOverlap());
+							successNickname = true;
 						}
+						checkSuccess();
 					}
 				});
 			}
@@ -246,6 +233,7 @@
 				$('#join-password-check-message-area').append(passwordCheckPositiveMessage());
 				successPasswordCheck = true;
 			}
+			checkSuccess();
 		});
 		
 		$('#join-content-password-check').on("keyup", function() {
@@ -258,16 +246,7 @@
 				$('#join-password-check-message-area').append(passwordCheckPositiveMessage());
 				successPasswordCheck = true;
 			}
+			checkSuccess();
 		});
-		
-		$("#join-write-form").on("submit", function() {
-			var result = false;
-			
-			if (successPasswordCheck && successPassword && successId && successNickname && successAnswer) {
-				result = true;
-			}
-			
-			return result;
-		});		
 	});
 </script>

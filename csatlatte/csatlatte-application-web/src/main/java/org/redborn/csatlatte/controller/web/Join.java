@@ -1,6 +1,10 @@
 package org.redborn.csatlatte.controller.web;
 
+import java.util.Calendar;
+import java.util.List;
+
 import org.redborn.csatlatte.commons.tiles.TilesName;
+import org.redborn.csatlatte.domain.CsatVo;
 import org.redborn.csatlatte.domain.StudentSecurityQuestionVo;
 import org.redborn.csatlatte.domain.StudentVo;
 import org.redborn.csatlatte.service.ExamService;
@@ -36,6 +40,27 @@ public class Join {
 	public String get(Model model) {
 		logger.info("join view");
 		
+		List<CsatVo> csatList = examService.csatList();
+		int presentCsatSequence = 0;
+		
+		Calendar calendar = Calendar.getInstance();
+		int presentYear = calendar.get(Calendar.YEAR); 
+		
+		if (csatList != null) {
+			int csatListSize = csatList.size();
+			for (int index = 0; index < csatListSize; index++) {
+				CsatVo csatVo = csatList.get(index);
+				String examYmd = csatVo.getExamYmd();
+				if (examYmd != null && examYmd.length() >= 4) {
+					if (Integer.parseInt(examYmd.substring(0, 4)) == presentYear) {
+						presentCsatSequence = csatVo.getCsatSequence();
+						break;
+					}
+				}
+			}
+		}
+		
+		model.addAttribute("presentCsatSequence", presentCsatSequence);
 		model.addAttribute("securityQuestionList", studentService.securityQuestionList());
 		model.addAttribute("csatList", examService.csatList());
 		
@@ -67,8 +92,11 @@ public class Join {
 		studentSecurityQuestionVo.setContent(answer);
 		
 		String result = TilesName.JOIN_FAIL;
-		if (studentService.join(studentVo, studentSecurityQuestionVo)) {
-			result = TilesName.JOIN_SUCCESS;
+		
+		if (!studentService.overlapCheckId(studentId) && !studentService.overlapCheckNickname(nickname)) {
+			if (studentService.join(studentVo, studentSecurityQuestionVo)) {
+				result = TilesName.JOIN_SUCCESS;
+			}
 		}
 		
 		return result;
