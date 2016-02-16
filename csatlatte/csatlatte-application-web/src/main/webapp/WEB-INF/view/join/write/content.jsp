@@ -53,10 +53,10 @@
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="join-content-select-sat">수능 선택</label>
-				<div class="col-sm-5">
+				<div class="col-sm-6">
 					<select name="csat" id="join-content-select-sat" class="form-control">
 						<c:forEach items="${csatList}" var="csat">
-							<option value="${csat.csatSequence}">${csat.csatName}</option>
+							<option value="${csat.csatSequence}"<c:if test="${csat.csatSequence eq presentCsatSequence}"> selected</c:if>>${csat.csatName}<c:if test="${csat.csatSequence eq presentCsatSequence}"> (2016년 실시)</c:if></option>
 						</c:forEach>
 					</select>
 				</div>
