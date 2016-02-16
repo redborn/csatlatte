@@ -199,24 +199,24 @@
 	<select id="selectListCountYmd" parameterType="String" resultMap="YmdCountVoMap">
 		SELECT CAST(DATE_FORMAT(create_date, '%H') AS SIGNED) AS hour,COUNT(student_seq) AS count_join
 		  FROM csat_student
-		 WHERE create_date &gt;= DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s')
-		   AND create_date &lt; DATE_ADD(DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s'), INTERVAL 1 day)
+		 WHERE create_date &gt;= STR_TO_DATE(#{ymd}, '%Y-%m-%d %H:%i:%s')
+		   AND create_date &lt; DATE_ADD(STR_TO_DATE(#{ymd}, '%Y-%m-%d %H:%i:%s'), INTERVAL 1 day)
 		 GROUP BY DATE_FORMAT(create_date, '%H')
 	</select>
 	
 	<select id="selectListCountYm" parameterType="String" resultMap="YmCountVoMap">
 		SELECT CAST(DATE_FORMAT(create_date, '%d') AS SIGNED) AS day,COUNT(student_seq) AS count_join
 		  FROM csat_student
-		 WHERE create_date &gt;= DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d')
-		   AND create_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d'), INTERVAL 1 month)
+		 WHERE create_date &gt;= STR_TO_DATE(CONCAT(#{ym}, '01'), '%Y-%m-%d')
+		   AND create_date &lt; DATE_ADD(STR_TO_DATE(CONCAT(#{ym}, '01'), '%Y-%m-%d'), INTERVAL 1 month)
 		 GROUP BY DATE_FORMAT(create_date, '%d')
 	</select>
 	
 	<select id="selectListCountYear" parameterType="String" resultMap="YearCountVoMap">
 		SELECT CAST(DATE_FORMAT(create_date, '%m') AS SIGNED) AS year,COUNT(student_seq) AS count_join
 		  FROM csat_student
-		 WHERE create_date &gt;= DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d')
-		   AND create_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d'), INTERVAL 1 year)
+		 WHERE create_date &gt;= STR_TO_DATE(CONCAT(#{year}, '0101'), '%Y-%m-%d')
+		   AND create_date &lt; DATE_ADD(STR_TO_DATE(CONCAT(#{year}, '0101'), '%Y-%m-%d'), INTERVAL 1 year)
 		 GROUP BY DATE_FORMAT(create_date, '%m')
 	</select>
 	
