@@ -9,7 +9,7 @@
 	<resultMap type="CommentVo" id="CommentVoMap">
 		<result column="comment_seq" property="commentSequence"/>
 		<result column="student_seq" property="studentSequence"/>
-		<result column="nickname" property="nickname"/>
+		<result column="nickname" property="nickname" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
 		<result column="content" property="content"/>
 		<result column="report" property="report" typeHandler="org.redborn.csatlatte.commons.mybatis.BooleanTypeHandler"/>
 		<result column="blind" property="blind" typeHandler="org.redborn.csatlatte.commons.mybatis.BooleanTypeHandler"/>
