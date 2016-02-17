@@ -1,5 +1,6 @@
 package org.redborn.csatlatte.service;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -8,6 +9,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3;
+import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3Prefix;
 import org.redborn.csatlatte.domain.CountVo;
 import org.redborn.csatlatte.domain.SecurityQuestionVo;
 import org.redborn.csatlatte.domain.StudentSecurityQuestionVo;
@@ -38,6 +41,8 @@ public class StudentServiceImpl implements StudentService {
 	private PlatformTransactionManager transactionManager;
 	@Autowired
 	private YearStudentDao yearStudentDao;
+	@Autowired
+	private CsatAmazonS3 csatAmazonS3;
 	
 	public boolean checkPassword(int studentSequence, String password) {
 		return studentDao.selectOneCountPassword(studentSequence, makePassword(studentSequence, password)) == 1;
@@ -72,16 +77,25 @@ public class StudentServiceImpl implements StudentService {
 		return studentSecurityQuestionDao.updateContent(studentSecurityQuestionVo) == 1;
 	}
 
-	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo) {
+	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo, File photo) {
 		boolean result = false;
 		int maxStudentSequence = studentDao.selectOneMaxStudentSequence();
 		studentVo.setStudentSequence(maxStudentSequence);
 		Date createDate = new Date();
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		
 		studentVo.setCreateDate(simpleDateFormat.format(createDate));
+		
 		simpleDateFormat.applyPattern("HHmmssSSS");
-		String resultPassword = new StringBuilder(simpleDateFormat.format(createDate)).append(studentVo.getStudentPassword()).toString();
-		studentVo.setStudentPassword(resultPassword);
+		
+		studentVo.setStudentPassword(new StringBuilder(simpleDateFormat.format(createDate)).append(studentVo.getStudentPassword()).toString());
+		
+		if (photo != null) {
+			studentVo.setPhotoName(photo.getName());
+			studentVo.setPhotoCode(csatAmazonS3.upload(photo, CsatAmazonS3Prefix.STUDENT_PROFILE));
+			photo.delete();
+		}
+		
 		studentSecurityQuestionVo.setStudentSequence(maxStudentSequence);
 		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
 		defaultTransactionDefinition.setName("Student Join Transaction");

@@ -1,5 +1,6 @@
 package org.redborn.csatlatte.service;
 
+import java.io.File;
 import java.util.List;
 
 import org.redborn.csatlatte.domain.CountVo;
@@ -15,7 +16,7 @@ public interface StudentService {
 	public boolean changePassword(String studentId, String securityAnswer, String newPassword);
 	public boolean changeInformation(StudentVo studentVo);
 	public boolean changeSecurity(StudentSecurityQuestionVo studentSecurityQuestionVo);
-	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo);
+	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo, File photo);
 	public String findId(String nickname, String securityAnswer);
 	public boolean isPassword(String id, String securityAnswer);
 	public boolean overlapCheckId(String studentId);
