@@ -1,8 +1,11 @@
 package org.redborn.csatlatte.controller.web;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
+import org.redborn.csatlatte.commons.io.FileDirectory;
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.redborn.csatlatte.domain.CsatVo;
 import org.redborn.csatlatte.domain.StudentSecurityQuestionVo;
@@ -17,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 수능라떼 사용자로 등록하는 controller입니다.
@@ -75,26 +79,31 @@ public class Join {
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="studentId",required=true) String studentId, @RequestParam(value="password",required=true) String password,
 			@RequestParam(value="securityQuestion",required=true) int securityQuestion, @RequestParam(value="answer",required=true) String answer, 
-			@RequestParam(value="nickname",required=true) String nickname, @RequestParam(value="csat",required=true) int csat) {
+			@RequestParam(value="nickname",required=true) String nickname, @RequestParam(value="csat",required=true) int csat, @RequestParam(value="photo",required=false) MultipartFile photo) {
 		logger.info("join success");
-		
-		StudentVo studentVo = new StudentVo();
-		StudentSecurityQuestionVo studentSecurityQuestionVo = new StudentSecurityQuestionVo();
-		
-		studentVo.setStudentId(studentId);
-		studentVo.setStudentPassword(password);
-		studentVo.setNickname(nickname);
-		studentVo.setCsatSequence(csat);
-		studentVo.setPhotoCode("TEST");
-		studentVo.setPhotoName("TEST");
-		
-		studentSecurityQuestionVo.setSecurityQuestionSequence(securityQuestion);
-		studentSecurityQuestionVo.setContent(answer);
-		
 		String result = TilesName.JOIN_FAIL;
-		
 		if (!studentService.overlapCheckId(studentId) && !studentService.overlapCheckNickname(nickname)) {
-			if (studentService.join(studentVo, studentSecurityQuestionVo)) {
+			StudentVo studentVo = new StudentVo();
+			StudentSecurityQuestionVo studentSecurityQuestionVo = new StudentSecurityQuestionVo();
+			
+			studentVo.setStudentId(studentId);
+			studentVo.setStudentPassword(password);
+			studentVo.setNickname(nickname);
+			studentVo.setCsatSequence(csat);
+			studentSecurityQuestionVo.setSecurityQuestionSequence(securityQuestion);
+			studentSecurityQuestionVo.setContent(answer);
+			File file = null; 
+			if (!photo.isEmpty()) {
+				file = new File(new StringBuilder(FileDirectory.TEMP).append("/").append(photo.getOriginalFilename()).toString());
+				try {
+					photo.transferTo(file);
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			if (studentService.join(studentVo, studentSecurityQuestionVo, file)) {
 				result = TilesName.JOIN_SUCCESS;
 			}
 		}
