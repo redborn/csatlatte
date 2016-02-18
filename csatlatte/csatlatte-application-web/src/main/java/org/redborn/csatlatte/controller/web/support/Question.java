@@ -66,20 +66,16 @@ public class Question {
 			int fileSize = file.size();
 			for (int index = 0; index < fileSize; index++) {
 				if (!file.get(index).isEmpty()) {
-					MultipartFile addFile = file.get(index);
-					String originalFileName = addFile.getOriginalFilename();
-					String extension = originalFileName.substring(originalFileName.length() - 3, originalFileName.length());
-					if (!(extension.equals("jpg") || extension.equals("png") || extension.equals("gif"))) {
-						return result;
-					}
-					files.add(index, new File(new StringBuilder(FileDirectory.TEMP).append("/").append(originalFileName).toString()));
+					MultipartFile addMultipartFile = file.get(index);
+					File addFile = new File(new StringBuilder(FileDirectory.TEMP).append("/").append(addMultipartFile.getOriginalFilename()).toString());
 					try {
-						addFile.transferTo(files.get(index));
+						addMultipartFile.transferTo(addFile);
 					} catch (IllegalStateException e) {
 						e.printStackTrace();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+					files.add(index, addFile);
 				}
 			}
 		}
