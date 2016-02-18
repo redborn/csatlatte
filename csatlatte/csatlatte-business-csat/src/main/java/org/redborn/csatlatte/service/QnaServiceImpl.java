@@ -3,6 +3,9 @@ package org.redborn.csatlatte.service;
 import java.io.File;
 import java.util.List;
 
+import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3;
+import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3Prefix;
+import org.redborn.csatlatte.domain.FileVo;
 import org.redborn.csatlatte.domain.QnaAnswerVo;
 import org.redborn.csatlatte.domain.QnaForManageVo;
 import org.redborn.csatlatte.domain.QnaForStudentVo;
@@ -25,6 +28,8 @@ public class QnaServiceImpl implements QnaService {
 	private FileDao fileDao;
 	@Autowired
 	private AnswerDao answerDao;
+	@Autowired
+	private CsatAmazonS3 csatAmazonS3;
 	
 	public QnaVo detail(int qnaSequence) {
 		QnaVo qnaVo = qnaDao.selectOne(qnaSequence);
@@ -67,7 +72,7 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDao.updateUseYnN(qnaSequence) == 1;
 	}
 
-	public boolean write(QnaVo qnaVo, List<File> listFile) {
+	public boolean write(QnaVo qnaVo, List<File> file) {
 		boolean result = false;
 		
 		int maxQnaSequence = qnaDao.selectOneMaxQnaSequence();
@@ -75,9 +80,6 @@ public class QnaServiceImpl implements QnaService {
 		String content = qnaVo.getContent();
 		int max = content.length() / 2000;
 		int beginIndex = 0;
-		
-		//int listFileSize = listFile.size();
-		//FileVo fileVo = new FileVo();
 		
 		qnaDao.insert(maxQnaSequence, qnaVo.getStudentSequence(), qnaVo.getTitle());
 		
@@ -90,13 +92,16 @@ public class QnaServiceImpl implements QnaService {
 			contentDao.insert(maxQnaSequence, content.substring(max * 2000, content.length()));
 		}
 		
-		//for (int index = 0; index < listFileSize; index++) {
-			// fileVo = listFile.get(index);
-			
-			// file처리에 대한 교육을 마친 후 진행해야 함
-			// List<File>을 fileVo로 담는 방법을 모름
-			//fileDao.insert(maxQnaSequence, fileVo);
-		//}
+		FileVo fileVo = new FileVo();
+		if (file != null) {
+			int fileSize = file.size();
+			for (int index = 0; index < fileSize; index++) {
+				fileVo.setFileName(file.get(index).getName());
+				fileVo.setFileCode(csatAmazonS3.upload(file.get(index), CsatAmazonS3Prefix.QNA));
+				file.get(index).delete();
+				fileDao.insert(maxQnaSequence, fileVo);
+			}
+		}
 		
 		return result;
 	}
