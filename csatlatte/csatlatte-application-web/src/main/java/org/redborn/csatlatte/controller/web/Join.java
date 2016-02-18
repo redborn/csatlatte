@@ -95,21 +95,24 @@ public class Join {
 			File file = null; 
 			if (!photo.isEmpty()) {
 				String originalFileName = photo.getOriginalFilename();
-				String extension = originalFileName.substring(originalFileName.length() - 3, originalFileName.length());
+				String extension = originalFileName.toLowerCase();
 				file = new File(new StringBuilder(FileDirectory.TEMP).append("/").append(originalFileName).toString());
-				if (!(extension.equals("jpg") || extension.equals("png") || extension.equals("gif"))) {
-					return result;
+				if (extension.endsWith("jpg") || extension.endsWith("gif") || extension.endsWith("png") || extension.endsWith("jpeg")) {
+					try {
+						photo.transferTo(file);
+					} catch (IllegalStateException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					if (studentService.join(studentVo, studentSecurityQuestionVo, file)) {
+						result = TilesName.JOIN_SUCCESS;
+					}
 				}
-				try {
-					photo.transferTo(file);
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
+			} else {
+				if (studentService.join(studentVo, studentSecurityQuestionVo, null)) {
+					result = TilesName.JOIN_SUCCESS;
 				}
-			}
-			if (studentService.join(studentVo, studentSecurityQuestionVo, file)) {
-				result = TilesName.JOIN_SUCCESS;
 			}
 		}
 		
