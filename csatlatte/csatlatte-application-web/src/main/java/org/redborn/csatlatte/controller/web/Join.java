@@ -82,6 +82,7 @@ public class Join {
 			@RequestParam(value="nickname",required=true) String nickname, @RequestParam(value="csat",required=true) int csat, @RequestParam(value="photo",required=false) MultipartFile photo) {
 		logger.info("join success");
 		String result = TilesName.JOIN_FAIL;
+		boolean fileError = false;
 		if (!studentService.overlapCheckId(studentId) && !studentService.overlapCheckNickname(nickname)) {
 			StudentVo studentVo = new StudentVo();
 			StudentSecurityQuestionVo studentSecurityQuestionVo = new StudentSecurityQuestionVo();
@@ -95,9 +96,9 @@ public class Join {
 			File file = null; 
 			if (!photo.isEmpty()) {
 				String originalFileName = photo.getOriginalFilename();
-				String extension = originalFileName.toLowerCase();
+				String originalFileNameLowerCase = originalFileName.toLowerCase();
 				file = new File(new StringBuilder(FileDirectory.TEMP).append("/").append(originalFileName).toString());
-				if (extension.endsWith("jpg") || extension.endsWith("gif") || extension.endsWith("png") || extension.endsWith("jpeg")) {
+				if (originalFileNameLowerCase.endsWith(".jpg") || originalFileNameLowerCase.endsWith(".gif") || originalFileNameLowerCase.endsWith(".png") || originalFileNameLowerCase.endsWith(".jpeg")) {
 					try {
 						photo.transferTo(file);
 					} catch (IllegalStateException e) {
@@ -105,11 +106,12 @@ public class Join {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					if (studentService.join(studentVo, studentSecurityQuestionVo, file)) {
-						result = TilesName.JOIN_SUCCESS;
-					}
+				} else {
+					fileError = true;
 				}
-			} else {
+			}
+			
+			if (!fileError) {
 				if (studentService.join(studentVo, studentSecurityQuestionVo, null)) {
 					result = TilesName.JOIN_SUCCESS;
 				}
