@@ -76,6 +76,9 @@ public class StudentServiceImpl implements StudentService {
 			studentVo.setPhotoCode(csatAmazonS3.upload(photo, CsatAmazonS3Prefix.STUDENT_PROFILE));
 			photo.delete();
 			csatAmazonS3.delete(CsatAmazonS3Prefix.STUDENT_PROFILE, beforeStudentVo.getPhotoCode());
+		} else {
+			studentVo.setPhotoCode(beforeStudentVo.getPhotoCode());
+			studentVo.setPhotoName(beforeStudentVo.getPhotoName());
 		}
 		return studentDao.updateInformation(studentVo) == 1;
 	}
