@@ -70,10 +70,12 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	public boolean changeInformation(StudentVo studentVo, File photo) {
+		StudentVo beforeStudentVo = studentDao.selectOneDetail(studentVo.getStudentSequence());
 		if (photo != null) {
 			studentVo.setPhotoName(photo.getName());
 			studentVo.setPhotoCode(csatAmazonS3.upload(photo, CsatAmazonS3Prefix.STUDENT_PROFILE));
 			photo.delete();
+			csatAmazonS3.delete(CsatAmazonS3Prefix.STUDENT_PROFILE, beforeStudentVo.getPhotoCode());
 		}
 		return studentDao.updateInformation(studentVo) == 1;
 	}
