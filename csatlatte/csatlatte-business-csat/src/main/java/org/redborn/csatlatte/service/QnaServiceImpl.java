@@ -72,8 +72,8 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDao.updateUseYnN(qnaSequence) == 1;
 	}
 
-	public boolean write(QnaVo qnaVo, List<File> file) {
-		boolean result = false;
+	public boolean write(QnaVo qnaVo, List<File> files) {
+		boolean result = true;
 		
 		int maxQnaSequence = qnaDao.selectOneMaxQnaSequence();
 		
@@ -81,25 +81,36 @@ public class QnaServiceImpl implements QnaService {
 		int max = content.length() / 2000;
 		int beginIndex = 0;
 		
-		qnaDao.insert(maxQnaSequence, qnaVo.getStudentSequence(), qnaVo.getTitle());
+		if (qnaDao.insert(maxQnaSequence, qnaVo.getStudentSequence(), qnaVo.getTitle()) != 1) {
+			result = false;
+		}
 		
 		for (int index = 0; index < max; index++) {
 			beginIndex = 2000 * index; 
-			contentDao.insert(maxQnaSequence, content.substring(beginIndex, beginIndex + 2000));
+			if (contentDao.insert(maxQnaSequence, content.substring(beginIndex, beginIndex + 2000)) != 1) {
+				result = false;
+			}
 		}
 		
 		if (content.length() % 2000 != 0) {
-			contentDao.insert(maxQnaSequence, content.substring(max * 2000, content.length()));
+			if (contentDao.insert(maxQnaSequence, content.substring(max * 2000, content.length())) != 1) {
+				result = false;
+			}
 		}
 		
 		FileVo fileVo = new FileVo();
-		if (file != null) {
-			int fileSize = file.size();
+		if (files != null) {
+			int fileSize = files.size();
 			for (int index = 0; index < fileSize; index++) {
-				fileVo.setFileName(file.get(index).getName());
-				fileVo.setFileCode(csatAmazonS3.upload(file.get(index), CsatAmazonS3Prefix.QNA));
-				file.get(index).delete();
-				fileDao.insert(maxQnaSequence, fileVo);
+				if (files.get(index) != null) {
+					File file = files.get(index);
+					fileVo.setFileName(file.getName());
+					fileVo.setFileCode(csatAmazonS3.upload(file, CsatAmazonS3Prefix.QNA));
+					file.delete();
+					if (fileDao.insert(maxQnaSequence, fileVo) != 1) {
+						result = false;
+					}
+				}
 			}
 		}
 		
