@@ -56,6 +56,7 @@ public class Modify {
 			@RequestParam(value="nickname",required=true) String nickname, @RequestParam(value="photo",required=false) MultipartFile photo) {
 		logger.info("myinfo modify modify");
 		String result = TilesName.PROFILE_MODIFY_FAIL;
+		boolean fileError = false;
 		StudentVo studentVo = new StudentVo();
 		studentVo.setStudentSequence(httpSessionValue.getRuleSequence());
 		studentVo.setCsatSequence(csatSequence);
@@ -63,8 +64,8 @@ public class Modify {
 		File file = null;
 		if (!photo.isEmpty()) {
 			String originalFileName = photo.getOriginalFilename();
-			String extension = originalFileName.toLowerCase();
-			if (extension.endsWith("jpg") || originalFileName.endsWith("png") || originalFileName.endsWith("gif") || originalFileName.endsWith("jpeg")) {
+			String originalFileNameLowerCase = originalFileName.toLowerCase();
+			if (originalFileNameLowerCase.endsWith(".jpg") || originalFileNameLowerCase.endsWith(".png") || originalFileNameLowerCase.endsWith(".gif") || originalFileNameLowerCase.endsWith(".jpeg")) {
 				file = new File(new StringBuilder(FileDirectory.TEMP).append("/").append(originalFileName).toString());
 				try {
 					photo.transferTo(file);
@@ -73,13 +74,12 @@ public class Modify {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				if (studentService.changeInformation(studentVo, file)) {
-					httpSessionValue.setUser(httpSessionValue.getId(), httpSessionValue.getStudentSequence(), nickname, httpSessionValue.getRuleSequence(), csatSequence);
-					result = TilesName.PROFILE_MODIFY_SUCCESS;
-				}
+			} else {
+				fileError = true;
 			}
-		} else {
-			if (studentService.changeInformation(studentVo, null)) {
+		}
+		if (!fileError) {
+			if (studentService.changeInformation(studentVo, file)) {
 				httpSessionValue.setUser(httpSessionValue.getId(), httpSessionValue.getStudentSequence(), nickname, httpSessionValue.getRuleSequence(), csatSequence);
 				result = TilesName.PROFILE_MODIFY_SUCCESS;
 			}
