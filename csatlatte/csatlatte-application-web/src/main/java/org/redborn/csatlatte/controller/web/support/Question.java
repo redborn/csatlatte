@@ -53,21 +53,28 @@ public class Question {
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="title",required=true) String title, @RequestParam(value="content", required=true) String content,
-			@RequestParam(value="photo",required=false) List<MultipartFile> photo) {
+			@RequestParam(value="file",required=false) List<MultipartFile> file) {
 		logger.info("support question write");
+		String result = TilesName.SUPPORT_QUESTION_FAIL;
 		QnaVo qnaVo = new QnaVo();
 		qnaVo.setTitle(title);
 		qnaVo.setContent(content);
 		qnaVo.setStudentSequence(httpSessionValue.getStudentSequence());
 		
-		List<File> file = new ArrayList<File>(); 
-		if (photo != null) {
-			int photoSize = photo.size();
-			for (int index = 0; index < photoSize; index++) {
-				if (!photo.get(index).isEmpty()) {
-					file.add(index, new File(new StringBuilder(FileDirectory.TEMP).append("/").append(photo.get(index).getOriginalFilename()).toString()));
+		List<File> files = new ArrayList<File>(); 
+		if (file != null) {
+			int fileSize = file.size();
+			for (int index = 0; index < fileSize; index++) {
+				if (!file.get(index).isEmpty()) {
+					MultipartFile addFile = file.get(index);
+					String originalFileName = addFile.getOriginalFilename();
+					String extension = originalFileName.substring(originalFileName.length() - 3, originalFileName.length());
+					if (!(extension.equals("jpg") || extension.equals("png") || extension.equals("gif"))) {
+						return result;
+					}
+					files.add(index, new File(new StringBuilder(FileDirectory.TEMP).append("/").append(originalFileName).toString()));
 					try {
-						photo.get(index).transferTo(file.get(index));
+						addFile.transferTo(files.get(index));
 					} catch (IllegalStateException e) {
 						e.printStackTrace();
 					} catch (IOException e) {
@@ -77,7 +84,9 @@ public class Question {
 			}
 		}
 		
-		qnaService.write(qnaVo, file);
-		return TilesName.SUPPORT_QUESTION_SUCCESS;
+		if (qnaService.write(qnaVo, files)) {
+			result = TilesName.SUPPORT_QUESTION_SUCCESS;
+		}
+		return result;
 	}
 }
