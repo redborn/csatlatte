@@ -20,11 +20,11 @@
 			</div>
 			<div class="form-group">
 				<label for="support-question-write-input-file">파일 첨부</label>
-				<input type="file" id="support-question-write-input-file" name="photo">
-				<input type="file" id="support-question-write-input-file" name="photo">
-				<input type="file" id="support-question-write-input-file" name="photo">
-				<input type="file" id="support-question-write-input-file" name="photo">
-				<input type="file" id="support-question-write-input-file" name="photo">
+				<input type="file" id="support-question-write-input-file" name="file">
+				<input type="file" id="support-question-write-input-file" name="file">
+				<input type="file" id="support-question-write-input-file" name="file">
+				<input type="file" id="support-question-write-input-file" name="file">
+				<input type="file" id="support-question-write-input-file" name="file">
 			</div>
 		</div>
 		<div class="panel-footer">
