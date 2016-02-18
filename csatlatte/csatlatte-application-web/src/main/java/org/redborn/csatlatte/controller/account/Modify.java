@@ -79,7 +79,7 @@ public class Modify {
 				}
 			}
 		} else {
-			if (studentService.changeInformation(studentVo, file)) {
+			if (studentService.changeInformation(studentVo, null)) {
 				httpSessionValue.setUser(httpSessionValue.getId(), httpSessionValue.getStudentSequence(), nickname, httpSessionValue.getRuleSequence(), csatSequence);
 				result = TilesName.PROFILE_MODIFY_SUCCESS;
 			}
