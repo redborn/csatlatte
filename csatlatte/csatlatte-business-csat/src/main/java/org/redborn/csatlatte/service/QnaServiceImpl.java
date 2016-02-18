@@ -102,8 +102,8 @@ public class QnaServiceImpl implements QnaService {
 		if (files != null) {
 			int fileSize = files.size();
 			for (int index = 0; index < fileSize; index++) {
-				if (files.get(index) != null) {
-					File file = files.get(index);
+				File file = files.get(index);
+				if (file != null) {
 					fileVo.setFileName(file.getName());
 					fileVo.setFileCode(csatAmazonS3.upload(file, CsatAmazonS3Prefix.QNA));
 					file.delete();
