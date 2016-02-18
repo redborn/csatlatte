@@ -63,22 +63,26 @@ public class Modify {
 		File file = null;
 		if (!photo.isEmpty()) {
 			String originalFileName = photo.getOriginalFilename();
-			String extension = originalFileName.substring(originalFileName.length() - 3, originalFileName.length());
-			if (!(extension.equals("jpg") || extension.equals("png") || extension.equals("gif"))) {
-				return result;
+			String extension = originalFileName.toLowerCase();
+			if (extension.endsWith("jpg") || originalFileName.endsWith("png") || originalFileName.endsWith("gif") || originalFileName.endsWith("jpeg")) {
+				file = new File(new StringBuilder(FileDirectory.TEMP).append("/").append(originalFileName).toString());
+				try {
+					photo.transferTo(file);
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				if (studentService.changeInformation(studentVo, file)) {
+					httpSessionValue.setUser(httpSessionValue.getId(), httpSessionValue.getStudentSequence(), nickname, httpSessionValue.getRuleSequence(), csatSequence);
+					result = TilesName.PROFILE_MODIFY_SUCCESS;
+				}
 			}
-			file = new File(new StringBuilder(FileDirectory.TEMP).append("/").append(originalFileName).toString());
-			try {
-				photo.transferTo(file);
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+		} else {
+			if (studentService.changeInformation(studentVo, file)) {
+				httpSessionValue.setUser(httpSessionValue.getId(), httpSessionValue.getStudentSequence(), nickname, httpSessionValue.getRuleSequence(), csatSequence);
+				result = TilesName.PROFILE_MODIFY_SUCCESS;
 			}
-		}
-		if (studentService.changeInformation(studentVo, file)) {
-			httpSessionValue.setUser(httpSessionValue.getId(), httpSessionValue.getStudentSequence(), nickname, httpSessionValue.getRuleSequence(), csatSequence);
-			result = TilesName.PROFILE_MODIFY_SUCCESS;
 		}
 		return result;
 	}
