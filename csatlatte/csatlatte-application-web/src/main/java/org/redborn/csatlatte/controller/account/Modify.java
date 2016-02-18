@@ -62,7 +62,12 @@ public class Modify {
 		studentVo.setNickname(nickname);
 		File file = null;
 		if (!photo.isEmpty()) {
-			file = new File(new StringBuilder(FileDirectory.TEMP).append("/").append(photo.getOriginalFilename()).toString());
+			String originalFileName = photo.getOriginalFilename();
+			String extension = originalFileName.substring(originalFileName.length() - 3, originalFileName.length());
+			if (!(extension.equals("jpg") || extension.equals("png") || extension.equals("gif"))) {
+				return result;
+			}
+			file = new File(new StringBuilder(FileDirectory.TEMP).append("/").append(originalFileName).toString());
 			try {
 				photo.transferTo(file);
 			} catch (IllegalStateException e) {
