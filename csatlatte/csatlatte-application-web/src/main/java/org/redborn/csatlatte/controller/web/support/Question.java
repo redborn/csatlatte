@@ -79,7 +79,6 @@ public class Question {
 				}
 			}
 		}
-		
 		if (qnaService.write(qnaVo, files)) {
 			result = TilesName.SUPPORT_QUESTION_SUCCESS;
 		}
