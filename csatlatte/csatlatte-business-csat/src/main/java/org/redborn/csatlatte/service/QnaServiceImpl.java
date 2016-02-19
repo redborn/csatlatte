@@ -1,6 +1,7 @@
 package org.redborn.csatlatte.service;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3;
@@ -152,6 +153,14 @@ public class QnaServiceImpl implements QnaService {
 	
 	public int amountQuestion(String search, int countQnaAnswer) {
 		return qnaDao.selectOneCount(search, countQnaAnswer);
+	}
+
+	public String getFilename(int qnaSequence, int fileSequence) {
+		return fileDao.selectFileName(qnaSequence, fileSequence);
+	}
+	
+	public InputStream getInputStream(int qnaSequence, int fileSequence) {
+		return csatAmazonS3.getInputStream(CsatAmazonS3Prefix.QNA, fileDao.selectFileCode(qnaSequence, fileSequence));
 	}
 
 }

@@ -1,6 +1,7 @@
 package org.redborn.csatlatte.service;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 import org.redborn.csatlatte.domain.QnaAnswerVo;
@@ -17,5 +18,7 @@ public interface QnaService {
 	public boolean write(QnaVo qnaVo, List<File> files);
 	public boolean answer(QnaAnswerVo qnaAnswerVo);
 	public int amountQuestion(String search, int countQnaAnswer);
+	public String getFilename(int qnaSequence, int fileSequence);
+	public InputStream getInputStream(int qnaSequence, int fileSequence);
 	
 }
