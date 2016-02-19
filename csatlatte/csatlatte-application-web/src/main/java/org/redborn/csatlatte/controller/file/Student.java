@@ -25,16 +25,20 @@ public class Student {
 	
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.GET)
 	public View get(@PathVariable(value="studentSequence") int studentSequence) {
-		logger.info(new StringBuilder("Controller student photo. studentSequence is ").append(studentSequence).append(".").toString());
-		
+		logger.info(new StringBuilder("Controller file student. studentSequence is ").append(studentSequence).append(".").toString());
+		View view = null;
 		String photoName = studentService.getPhotoName(studentSequence);
-		int beginIndex = photoName.lastIndexOf('.');
-		String extension = null;
-		if (beginIndex >= 0) {
-			extension = photoName.substring(beginIndex);
+		if (photoName != null) {
+			int beginIndex = photoName.lastIndexOf('.');
+			String extension = null;
+			if (beginIndex >= 0) {
+				extension = photoName.substring(beginIndex);
+			}
+			view = new FileOutputStreamView(studentService.getInputStream(studentSequence), extension, photoName);
+		} else {
+			view = new FileOutputStreamView(this.getClass().getResourceAsStream("/org/redborn/csatlatte/commons/spring/web/servlet/view/img_profile.png"), FileOutputStreamView.PNG, "img_profile.png");
 		}
-
-		return new FileOutputStreamView(studentService.getInputStream(studentSequence), extension, photoName);
+		return view;
 	}
 	
 }
