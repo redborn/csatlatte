@@ -14,11 +14,19 @@ import org.redborn.csatlatte.persistence.QnaDao;
 import org.redborn.csatlatte.persistence.qna.AnswerDao;
 import org.redborn.csatlatte.persistence.qna.ContentDao;
 import org.redborn.csatlatte.persistence.qna.FileDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 @Service
 public class QnaServiceImpl implements QnaService {
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private QnaDao qnaDao;
@@ -28,6 +36,8 @@ public class QnaServiceImpl implements QnaService {
 	private FileDao fileDao;
 	@Autowired
 	private AnswerDao answerDao;
+	@Autowired
+	private PlatformTransactionManager transactionManager;
 	@Autowired
 	private CsatAmazonS3 csatAmazonS3;
 	
@@ -73,45 +83,64 @@ public class QnaServiceImpl implements QnaService {
 	}
 
 	public boolean write(QnaVo qnaVo, List<File> files) {
-		boolean result = true;
-		
 		int maxQnaSequence = qnaDao.selectOneMaxQnaSequence();
 		
 		String content = qnaVo.getContent();
 		int max = content.length() / 2000;
 		int beginIndex = 0;
 		
-		if (qnaDao.insert(maxQnaSequence, qnaVo.getStudentSequence(), qnaVo.getTitle()) != 1) {
-			result = false;
-		}
+		boolean result = false;
 		
-		for (int index = 0; index < max; index++) {
-			beginIndex = 2000 * index; 
-			if (contentDao.insert(maxQnaSequence, content.substring(beginIndex, beginIndex + 2000)) != 1) {
-				result = false;
-			}
-		}
+		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
+		defaultTransactionDefinition.setName("qna write transaction");
+		defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
 		
-		if (content.length() % 2000 != 0) {
-			if (contentDao.insert(maxQnaSequence, content.substring(max * 2000, content.length())) != 1) {
-				result = false;
-			}
-		}
-		
-		FileVo fileVo = new FileVo();
-		if (files != null) {
-			int fileSize = files.size();
-			for (int index = 0; index < fileSize; index++) {
-				File file = files.get(index);
-				if (file != null) {
-					fileVo.setFileName(file.getName());
-					fileVo.setFileCode(csatAmazonS3.upload(file, CsatAmazonS3Prefix.QNA));
-					file.delete();
-					if (fileDao.insert(maxQnaSequence, fileVo) != 1) {
+		TransactionStatus transactionStatus = transactionManager.getTransaction(defaultTransactionDefinition);
+		try {
+			if (qnaDao.insert(maxQnaSequence, qnaVo.getStudentSequence(), qnaVo.getTitle()) == 1) {
+				result = true;
+				for (int index = 0; index < max; index++) {
+					beginIndex = 2000 * index; 
+					if (contentDao.insert(maxQnaSequence, content.substring(beginIndex, beginIndex + 2000)) != 1) {
+						result = false;
+						break;
+					}
+				}
+				if (result && content.length() % 2000 != 0) {
+					if (contentDao.insert(maxQnaSequence, content.substring(max * 2000, content.length())) != 1) {
 						result = false;
 					}
 				}
 			}
+			
+			if (result) {
+				FileVo fileVo = new FileVo();
+				if (files != null) {
+					int fileSize = files.size();
+					for (int index = 0; index < fileSize; index++) {
+						File file = files.get(index);
+						if (file != null) {
+							fileVo.setFileName(file.getName());
+							fileVo.setFileCode(csatAmazonS3.upload(file, CsatAmazonS3Prefix.QNA));
+							file.delete();
+							if (fileDao.insert(maxQnaSequence, fileVo) != 1) {
+								result = false;
+								break;
+							}
+						}
+					}
+				}
+			}
+			if (result) {
+				transactionManager.commit(transactionStatus);
+				logger.info(new StringBuilder("Business Layer qna write success. Writer is ").append(qnaVo.getStudentSequence()).toString());
+			} else {
+				transactionManager.rollback(transactionStatus);
+				logger.warn(new StringBuilder("Business Layer qna write fail. Writer is ").append(qnaVo.getStudentSequence()).toString());
+			}
+		} catch (RuntimeException e) {
+			transactionManager.rollback(transactionStatus);
+			logger.warn(new StringBuilder("Business Layer qna write exception. Writer is ").append(qnaVo.getStudentSequence()).toString());
 		}
 		
 		return result;
