@@ -1,6 +1,7 @@
 package org.redborn.csatlatte.service;
 
 import java.io.File;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -313,6 +314,14 @@ public class StudentServiceImpl implements StudentService {
 	
 	public int getStudentSequence(String studentId) {
 		return studentDao.selectOneStudentSequenceById(studentId);
+	}
+
+	public String getPhotoName(int studentSequence) {
+		return studentDao.selectPhotoName(studentSequence);
+	}
+	
+	public InputStream getInputStream(int studentSequence) {
+		return csatAmazonS3.getInputStream(CsatAmazonS3Prefix.STUDENT_PROFILE, studentDao.selectPhotoCode(studentSequence));
 	}
 
 }
