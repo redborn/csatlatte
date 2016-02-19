@@ -58,7 +58,7 @@ public class Modify {
 		String result = TilesName.PROFILE_MODIFY_FAIL;
 		boolean fileError = false;
 		StudentVo studentVo = new StudentVo();
-		studentVo.setStudentSequence(httpSessionValue.getRuleSequence());
+		studentVo.setStudentSequence(httpSessionValue.getStudentSequence());
 		studentVo.setCsatSequence(csatSequence);
 		studentVo.setNickname(nickname);
 		File file = null;
