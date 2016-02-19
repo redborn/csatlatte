@@ -160,6 +160,18 @@
 		 WHERE cs.student_id = #{studentId,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
 	</select>
 	
+	<select id="selectPhotoName" parameterType="int" resultType="String">
+		SELECT cs.photo_name
+		  FROM csat_student cs
+		 WHERE cs.student_seq = #{studentSequence}
+	</select>
+	
+	<select id="selectPhotoCode" parameterType="int" resultType="String">
+		SELECT cs.photo_code
+		  FROM csat_student cs
+		 WHERE cs.student_seq = #{studentSequence}
+	</select>
+	
 	<select id="selectList" parameterType="Map" resultMap="StudentVoMap">
 		SELECT cs.student_seq,cs.student_id,cs.nickname,cs.use_yn,cc.count_community,
 		       ccc.count_comment,cess.avg_score,ccs.count_connection,ccs.last_connection
