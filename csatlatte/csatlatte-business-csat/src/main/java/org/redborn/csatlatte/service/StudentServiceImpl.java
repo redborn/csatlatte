@@ -1,5 +1,6 @@
 package org.redborn.csatlatte.service;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -8,6 +9,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3;
+import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3Prefix;
 import org.redborn.csatlatte.domain.CountVo;
 import org.redborn.csatlatte.domain.SecurityQuestionVo;
 import org.redborn.csatlatte.domain.StudentSecurityQuestionVo;
@@ -16,6 +19,8 @@ import org.redborn.csatlatte.domain.YearStudentVo;
 import org.redborn.csatlatte.persistence.SecurityQuestionDao;
 import org.redborn.csatlatte.persistence.StudentDao;
 import org.redborn.csatlatte.persistence.YearStudentDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -25,6 +30,8 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 @Service
 public class StudentServiceImpl implements StudentService {
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private StudentDao studentDao;
@@ -35,9 +42,11 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private SecurityQuestionDao securityQuestionDao;
 	@Autowired
+	private YearStudentDao yearStudentDao;
+	@Autowired
 	private PlatformTransactionManager transactionManager;
 	@Autowired
-	private YearStudentDao yearStudentDao;
+	private CsatAmazonS3 csatAmazonS3;
 	
 	public boolean checkPassword(int studentSequence, String password) {
 		return studentDao.selectOneCountPassword(studentSequence, makePassword(studentSequence, password)) == 1;
@@ -64,7 +73,19 @@ public class StudentServiceImpl implements StudentService {
 		return result;
 	}
 
-	public boolean changeInformation(StudentVo studentVo) {
+	public boolean changeInformation(StudentVo studentVo, File photo) {
+		StudentVo beforeStudentVo = studentDao.selectOneDetail(studentVo.getStudentSequence());
+		
+		if (photo != null) {
+			studentVo.setPhotoName(photo.getName());
+			studentVo.setPhotoCode(csatAmazonS3.upload(photo, CsatAmazonS3Prefix.STUDENT_PROFILE));
+			photo.delete();
+			csatAmazonS3.delete(CsatAmazonS3Prefix.STUDENT_PROFILE, beforeStudentVo.getPhotoCode());
+		} else {
+			studentVo.setPhotoCode(beforeStudentVo.getPhotoCode());
+			studentVo.setPhotoName(beforeStudentVo.getPhotoName());
+		}
+		
 		return studentDao.updateInformation(studentVo) == 1;
 	}
 
@@ -72,34 +93,46 @@ public class StudentServiceImpl implements StudentService {
 		return studentSecurityQuestionDao.updateContent(studentSecurityQuestionVo) == 1;
 	}
 
-	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo) {
+	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo, File photo) {
 		boolean result = false;
 		int maxStudentSequence = studentDao.selectOneMaxStudentSequence();
 		studentVo.setStudentSequence(maxStudentSequence);
 		Date createDate = new Date();
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		
 		studentVo.setCreateDate(simpleDateFormat.format(createDate));
+		
 		simpleDateFormat.applyPattern("HHmmssSSS");
-		String resultPassword = new StringBuilder(simpleDateFormat.format(createDate)).append(studentVo.getStudentPassword()).toString();
-		studentVo.setStudentPassword(resultPassword);
+		
+		studentVo.setStudentPassword(new StringBuilder(simpleDateFormat.format(createDate)).append(studentVo.getStudentPassword()).toString());
+		
+		if (photo != null) {
+			studentVo.setPhotoName(photo.getName());
+			studentVo.setPhotoCode(csatAmazonS3.upload(photo, CsatAmazonS3Prefix.STUDENT_PROFILE));
+			photo.delete();
+		}
+		
 		studentSecurityQuestionVo.setStudentSequence(maxStudentSequence);
 		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
-		defaultTransactionDefinition.setName("Student Join Transaction");
+		defaultTransactionDefinition.setName("student join transaction");
 		defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
 		
 		TransactionStatus transactionStatus = transactionManager.getTransaction(defaultTransactionDefinition);
+		
 		try {
 			if (studentDao.insert(studentVo) == 1 && studentSecurityQuestionDao.insert(studentSecurityQuestionVo) == 1) {
 				result = true;
+				transactionManager.commit(transactionStatus);
+				logger.info(new StringBuilder("Business layer student join success. transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
+			} else {
+				transactionManager.rollback(transactionStatus);
+				logger.warn(new StringBuilder("Business layer student join fail. transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
 			}
 		} catch (RuntimeException e) {
 			transactionManager.rollback(transactionStatus);
+			logger.warn(new StringBuilder("Business layer student join exception. transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
 		}
-		if (result) {
-			transactionManager.commit(transactionStatus);
-		} else {
-			transactionManager.rollback(transactionStatus);
-		}
+		
 		return result;
 	}
 

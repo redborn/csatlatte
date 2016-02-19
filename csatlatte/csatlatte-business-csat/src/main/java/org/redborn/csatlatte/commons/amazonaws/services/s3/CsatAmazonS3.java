@@ -63,8 +63,18 @@ public class CsatAmazonS3 {
 	 */
 	public String upload(File file, String prefix) {
 		String fileCode = makeFileCode(prefix);
-		amazonS3.putObject(new PutObjectRequest(bucketName, new StringBuilder(prefix).append("/").append(fileCode).toString(), file));
+		amazonS3.putObject(new PutObjectRequest(bucketName, new StringBuilder(prefix).append(File.separator).append(fileCode).toString(), file));
 		return fileCode;
+	}
+	
+	/**
+	 * Amazon S3의 파일을 삭제 합니다.
+	 * 
+	 * @param prefix perfix
+	 * @param fileCode 파일 코드
+	 */
+	public void delete(String prefix, String fileCode) {
+		amazonS3.deleteObject(bucketName, new StringBuilder(prefix).append(File.separator).append(fileCode).toString());
 	}
 	
 	/**
@@ -77,7 +87,7 @@ public class CsatAmazonS3 {
 	public InputStream getInputStream(String prefix, String fileCode) {
 		InputStream inputStream = null;
 		try {
-			S3Object s3Object = amazonS3.getObject(new GetObjectRequest(bucketName, new StringBuilder(prefix).append("/").append(fileCode).toString()));
+			S3Object s3Object = amazonS3.getObject(new GetObjectRequest(bucketName, new StringBuilder(prefix).append(File.separator).append(fileCode).toString()));
 			inputStream = s3Object.getObjectContent();
 		} catch (AmazonS3Exception e) {
 			return null;
@@ -96,7 +106,7 @@ public class CsatAmazonS3 {
 		do {
 			fileCode = UUID.randomUUID().toString();
 			try {
-				amazonS3.getObjectMetadata(bucketName, new StringBuilder(prefix).append("/").append(fileCode).toString());
+				amazonS3.getObjectMetadata(bucketName, new StringBuilder(prefix).append(File.separator).append(fileCode).toString());
 			} catch (AmazonS3Exception e) {
 				if (e.getStatusCode() == HttpStatus.SC_NOT_FOUND) {
 					break;

@@ -3,6 +3,9 @@ package org.redborn.csatlatte.service;
 import java.io.File;
 import java.util.List;
 
+import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3;
+import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3Prefix;
+import org.redborn.csatlatte.domain.FileVo;
 import org.redborn.csatlatte.domain.QnaAnswerVo;
 import org.redborn.csatlatte.domain.QnaForManageVo;
 import org.redborn.csatlatte.domain.QnaForStudentVo;
@@ -11,11 +14,19 @@ import org.redborn.csatlatte.persistence.QnaDao;
 import org.redborn.csatlatte.persistence.qna.AnswerDao;
 import org.redborn.csatlatte.persistence.qna.ContentDao;
 import org.redborn.csatlatte.persistence.qna.FileDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 @Service
 public class QnaServiceImpl implements QnaService {
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private QnaDao qnaDao;
@@ -25,6 +36,10 @@ public class QnaServiceImpl implements QnaService {
 	private FileDao fileDao;
 	@Autowired
 	private AnswerDao answerDao;
+	@Autowired
+	private PlatformTransactionManager transactionManager;
+	@Autowired
+	private CsatAmazonS3 csatAmazonS3;
 	
 	public QnaVo detail(int qnaSequence) {
 		QnaVo qnaVo = qnaDao.selectOne(qnaSequence);
@@ -67,36 +82,66 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDao.updateUseYnN(qnaSequence) == 1;
 	}
 
-	public boolean write(QnaVo qnaVo, List<File> listFile) {
-		boolean result = false;
-		
+	public boolean write(QnaVo qnaVo, List<File> files) {
 		int maxQnaSequence = qnaDao.selectOneMaxQnaSequence();
 		
 		String content = qnaVo.getContent();
 		int max = content.length() / 2000;
 		int beginIndex = 0;
 		
-		//int listFileSize = listFile.size();
-		//FileVo fileVo = new FileVo();
+		boolean result = false;
 		
-		qnaDao.insert(maxQnaSequence, qnaVo.getStudentSequence(), qnaVo.getTitle());
+		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
+		defaultTransactionDefinition.setName("qna write transaction");
+		defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
 		
-		for (int index = 0; index < max; index++) {
-			beginIndex = 2000 * index; 
-			contentDao.insert(maxQnaSequence, content.substring(beginIndex, beginIndex + 2000));
-		}
-		
-		if (content.length() % 2000 != 0) {
-			contentDao.insert(maxQnaSequence, content.substring(max * 2000, content.length()));
-		}
-		
-		//for (int index = 0; index < listFileSize; index++) {
-			// fileVo = listFile.get(index);
+		TransactionStatus transactionStatus = transactionManager.getTransaction(defaultTransactionDefinition);
+		try {
+			if (qnaDao.insert(maxQnaSequence, qnaVo.getStudentSequence(), qnaVo.getTitle()) == 1) {
+				result = true;
+				for (int index = 0; index < max; index++) {
+					beginIndex = 2000 * index; 
+					if (contentDao.insert(maxQnaSequence, content.substring(beginIndex, beginIndex + 2000)) != 1) {
+						result = false;
+						break;
+					}
+				}
+				if (result && content.length() % 2000 != 0) {
+					if (contentDao.insert(maxQnaSequence, content.substring(max * 2000, content.length())) != 1) {
+						result = false;
+					}
+				}
+			}
 			
-			// file처리에 대한 교육을 마친 후 진행해야 함
-			// List<File>을 fileVo로 담는 방법을 모름
-			//fileDao.insert(maxQnaSequence, fileVo);
-		//}
+			if (result) {
+				FileVo fileVo = new FileVo();
+				if (files != null) {
+					int fileSize = files.size();
+					for (int index = 0; index < fileSize; index++) {
+						File file = files.get(index);
+						if (file != null) {
+							fileVo.setFileName(file.getName());
+							fileVo.setFileCode(csatAmazonS3.upload(file, CsatAmazonS3Prefix.QNA));
+							file.delete();
+							if (fileDao.insert(maxQnaSequence, fileVo) != 1) {
+								result = false;
+								break;
+							}
+						}
+					}
+				}
+			}
+			if (result) {
+				transactionManager.commit(transactionStatus);
+				logger.info(new StringBuilder("Business Layer qna write success. Writer is ").append(qnaVo.getStudentSequence()).toString());
+			} else {
+				transactionManager.rollback(transactionStatus);
+				logger.warn(new StringBuilder("Business Layer qna write fail. Writer is ").append(qnaVo.getStudentSequence()).toString());
+			}
+		} catch (RuntimeException e) {
+			transactionManager.rollback(transactionStatus);
+			logger.warn(new StringBuilder("Business Layer qna write exception. Writer is ").append(qnaVo.getStudentSequence()).toString());
+		}
 		
 		return result;
 	}

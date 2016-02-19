@@ -1,5 +1,11 @@
 package org.redborn.csatlatte.controller.web.support;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.redborn.csatlatte.commons.io.FileDirectory;
 import org.redborn.csatlatte.commons.servlet.http.HttpSessionValue;
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.redborn.csatlatte.domain.QnaVo;
@@ -12,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * FAQ(자주 묻는 질문)에서 해결되지 않은 궁금사항, 혹은 건의사항 작성에 대한 controller입니다.
@@ -45,13 +52,36 @@ public class Question {
 	 * SUPPORT_QUESTION_SUCCESS : 문의하기 완료
 	 */
 	@RequestMapping(method=RequestMethod.POST)
-	public String post(@RequestParam(value="title",required=true) String title, @RequestParam(value="content", required=true) String content) {
+	public String post(@RequestParam(value="title",required=true) String title, @RequestParam(value="content", required=true) String content,
+			@RequestParam(value="file",required=false) List<MultipartFile> file) {
 		logger.info("support question write");
+		String result = TilesName.SUPPORT_QUESTION_FAIL;
 		QnaVo qnaVo = new QnaVo();
 		qnaVo.setTitle(title);
 		qnaVo.setContent(content);
 		qnaVo.setStudentSequence(httpSessionValue.getStudentSequence());
-		qnaService.write(qnaVo, null);
-		return TilesName.SUPPORT_QUESTION_SUCCESS;
+		
+		List<File> files = new ArrayList<File>(); 
+		if (file != null) {
+			int fileSize = file.size();
+			for (int index = 0; index < fileSize; index++) {
+				if (!file.get(index).isEmpty()) {
+					MultipartFile addMultipartFile = file.get(index);
+					File addFile = new File(new StringBuilder(FileDirectory.TEMP).append("/").append(addMultipartFile.getOriginalFilename()).toString());
+					try {
+						addMultipartFile.transferTo(addFile);
+					} catch (IllegalStateException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					files.add(index, addFile);
+				}
+			}
+		}
+		if (qnaService.write(qnaVo, files)) {
+			result = TilesName.SUPPORT_QUESTION_SUCCESS;
+		}
+		return result;
 	}
 }

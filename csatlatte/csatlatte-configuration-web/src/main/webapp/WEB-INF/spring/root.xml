@@ -43,6 +43,7 @@
     </bean>
     
     <!-- Component Scan -->
+    <context:component-scan base-package="org.redborn.csatlatte.commons.amazonaws.services.s3" name-generator="org.redborn.csatlatte.commons.spring.beans.factory.support.CsatBeanNameGenerator"/>
     <context:component-scan base-package="org.redborn.csatlatte.persistence" name-generator="org.redborn.csatlatte.commons.spring.beans.factory.support.CsatBeanNameGenerator"/>
     <context:component-scan base-package="org.redborn.csatlatte.service" name-generator="org.redborn.csatlatte.commons.spring.beans.factory.support.CsatBeanNameGenerator"/>
 	<context:component-scan base-package="org.redborn.csatlatte.controller" name-generator="org.redborn.csatlatte.commons.spring.beans.factory.support.CsatBeanNameGenerator"/>

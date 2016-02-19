@@ -1,5 +1,9 @@
 package org.redborn.csatlatte.controller.account;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.redborn.csatlatte.commons.io.FileDirectory;
 import org.redborn.csatlatte.commons.servlet.http.HttpSessionValue;
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.redborn.csatlatte.domain.StudentVo;
@@ -13,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 사용자 정보를 수정하는 controller입니다.
@@ -48,18 +53,36 @@ public class Modify {
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="csatSequence",required=true) int csatSequence,
-			@RequestParam(value="nickname",required=true) String nickname) {
+			@RequestParam(value="nickname",required=true) String nickname, @RequestParam(value="photo",required=false) MultipartFile photo) {
 		logger.info("myinfo modify modify");
 		String result = TilesName.PROFILE_MODIFY_FAIL;
+		boolean fileError = false;
 		StudentVo studentVo = new StudentVo();
-		studentVo.setStudentSequence(httpSessionValue.getRuleSequence());
+		studentVo.setStudentSequence(httpSessionValue.getStudentSequence());
 		studentVo.setCsatSequence(csatSequence);
 		studentVo.setNickname(nickname);
-		studentVo.setPhotoCode("MODIFY-TEST");
-		studentVo.setPhotoName("MODIFY-TEST");
-		if (studentService.changeInformation(studentVo)) {
-			httpSessionValue.setUser(httpSessionValue.getId(), httpSessionValue.getStudentSequence(), nickname, httpSessionValue.getRuleSequence(), csatSequence);
-			result = TilesName.PROFILE_MODIFY_SUCCESS;
+		File file = null;
+		if (!photo.isEmpty()) {
+			String originalFileName = photo.getOriginalFilename();
+			String originalFileNameLowerCase = originalFileName.toLowerCase();
+			if (originalFileNameLowerCase.endsWith(".jpg") || originalFileNameLowerCase.endsWith(".png") || originalFileNameLowerCase.endsWith(".gif") || originalFileNameLowerCase.endsWith(".jpeg")) {
+				file = new File(new StringBuilder(FileDirectory.TEMP).append("/").append(originalFileName).toString());
+				try {
+					photo.transferTo(file);
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				fileError = true;
+			}
+		}
+		if (!fileError) {
+			if (studentService.changeInformation(studentVo, file)) {
+				httpSessionValue.setUser(httpSessionValue.getId(), httpSessionValue.getStudentSequence(), nickname, httpSessionValue.getRuleSequence(), csatSequence);
+				result = TilesName.PROFILE_MODIFY_SUCCESS;
+			}
 		}
 		return result;
 	}
