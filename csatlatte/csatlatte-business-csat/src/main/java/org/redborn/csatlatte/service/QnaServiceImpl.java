@@ -163,4 +163,9 @@ public class QnaServiceImpl implements QnaService {
 		return csatAmazonS3.getInputStream(CsatAmazonS3Prefix.QNA, fileDao.selectFileCode(qnaSequence, fileSequence));
 	}
 
+	public int getWriter(int qnaSequence) {
+		QnaVo qnaVo = qnaDao.selectOne(qnaSequence);
+		return qnaVo != null ? qnaVo.getStudentSequence() : -1;
+	}
+
 }

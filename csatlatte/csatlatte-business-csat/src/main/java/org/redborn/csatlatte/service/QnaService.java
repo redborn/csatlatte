@@ -18,6 +18,7 @@ public interface QnaService {
 	public boolean write(QnaVo qnaVo, List<File> files);
 	public boolean answer(QnaAnswerVo qnaAnswerVo);
 	public int amountQuestion(String search, int countQnaAnswer);
+	public int getWriter(int qnaSequence);
 	public String getFilename(int qnaSequence, int fileSequence);
 	public InputStream getInputStream(int qnaSequence, int fileSequence);
 	
