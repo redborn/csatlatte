@@ -19,6 +19,8 @@ import org.redborn.csatlatte.domain.YearStudentVo;
 import org.redborn.csatlatte.persistence.SecurityQuestionDao;
 import org.redborn.csatlatte.persistence.StudentDao;
 import org.redborn.csatlatte.persistence.YearStudentDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -28,6 +30,8 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 @Service
 public class StudentServiceImpl implements StudentService {
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private StudentDao studentDao;
@@ -38,9 +42,9 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private SecurityQuestionDao securityQuestionDao;
 	@Autowired
-	private PlatformTransactionManager transactionManager;
-	@Autowired
 	private YearStudentDao yearStudentDao;
+	@Autowired
+	private PlatformTransactionManager transactionManager;
 	@Autowired
 	private CsatAmazonS3 csatAmazonS3;
 	
@@ -110,22 +114,25 @@ public class StudentServiceImpl implements StudentService {
 		
 		studentSecurityQuestionVo.setStudentSequence(maxStudentSequence);
 		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
-		defaultTransactionDefinition.setName("Student Join Transaction");
+		defaultTransactionDefinition.setName("student join transaction");
 		defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
 		
 		TransactionStatus transactionStatus = transactionManager.getTransaction(defaultTransactionDefinition);
+		
 		try {
 			if (studentDao.insert(studentVo) == 1 && studentSecurityQuestionDao.insert(studentSecurityQuestionVo) == 1) {
 				result = true;
+				transactionManager.commit(transactionStatus);
+				logger.info(new StringBuilder("Business layer student join success. transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
+			} else {
+				transactionManager.rollback(transactionStatus);
+				logger.warn(new StringBuilder("Business layer student join fail. transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
 			}
 		} catch (RuntimeException e) {
 			transactionManager.rollback(transactionStatus);
+			logger.warn(new StringBuilder("Business layer student join exception. transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
 		}
-		if (result) {
-			transactionManager.commit(transactionStatus);
-		} else {
-			transactionManager.rollback(transactionStatus);
-		}
+		
 		return result;
 	}
 
