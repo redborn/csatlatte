@@ -78,6 +78,10 @@ public class QnaServiceImpl implements QnaService {
 	public List<QnaForStudentVo> listForStudent(int studentSequence) {
 		return qnaDao.selectListForStudent(studentSequence);
 	}
+	
+	public List<FileVo> listForDetail(int qnaSequence) {
+		return fileDao.selectListForDetail(qnaSequence);
+	}
 
 	public boolean delete(int qnaSequence) {
 		return qnaDao.updateUseYnN(qnaSequence) == 1;

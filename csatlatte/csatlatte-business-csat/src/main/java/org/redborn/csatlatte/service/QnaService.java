@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 
+import org.redborn.csatlatte.domain.FileVo;
 import org.redborn.csatlatte.domain.QnaAnswerVo;
 import org.redborn.csatlatte.domain.QnaForManageVo;
 import org.redborn.csatlatte.domain.QnaForStudentVo;
@@ -14,6 +15,7 @@ public interface QnaService {
 	public QnaVo detail(int qnaSequence);
 	public List<QnaForManageVo> listForManage(String search, int pageNumber, int countQnaAnswer);
 	public List<QnaForStudentVo> listForStudent(int studentSequence);
+	public List<FileVo> listForDetail(int qnaSequence);
 	public boolean delete(int qnaSequence);
 	public boolean write(QnaVo qnaVo, List<File> files);
 	public boolean answer(QnaAnswerVo qnaAnswerVo);
