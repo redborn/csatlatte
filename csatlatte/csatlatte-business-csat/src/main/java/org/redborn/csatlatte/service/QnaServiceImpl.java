@@ -79,7 +79,7 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDao.selectListForStudent(studentSequence);
 	}
 	
-	public List<FileVo> listForDetail(int qnaSequence) {
+	public List<FileVo> fileList(int qnaSequence) {
 		return fileDao.selectListForDetail(qnaSequence);
 	}
 

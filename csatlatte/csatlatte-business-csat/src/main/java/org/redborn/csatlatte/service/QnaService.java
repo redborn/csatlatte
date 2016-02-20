@@ -15,7 +15,7 @@ public interface QnaService {
 	public QnaVo detail(int qnaSequence);
 	public List<QnaForManageVo> listForManage(String search, int pageNumber, int countQnaAnswer);
 	public List<QnaForStudentVo> listForStudent(int studentSequence);
-	public List<FileVo> listForDetail(int qnaSequence);
+	public List<FileVo> fileList(int qnaSequence);
 	public boolean delete(int qnaSequence);
 	public boolean write(QnaVo qnaVo, List<File> files);
 	public boolean answer(QnaAnswerVo qnaAnswerVo);
