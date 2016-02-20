@@ -28,6 +28,10 @@ public class FileDaoMapper extends SqlSessionDaoSupport implements FileDao {
 	public List<FileVo> selectList(int qnaSequence) {
 		return getSqlSession().selectList("qna.file.selectList", qnaSequence);
 	}
+	
+	public List<FileVo> selectListForDetail(int qnaSequence) {
+		return getSqlSession().selectList("qna.file.selectListForDetail", qnaSequence);
+	}
 
 	public int insert(int qnaSequence, FileVo fileVo) {
 		Map<String, Object> params = new HashMap<String, Object>();
