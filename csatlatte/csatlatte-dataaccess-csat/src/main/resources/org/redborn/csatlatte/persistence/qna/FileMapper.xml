@@ -11,6 +11,12 @@
 		<result column="file_name" property="fileName"/>
 	</resultMap>
 	
+	<resultMap type="FileVo" id="FileVoForDetailMap">
+		<result column="qna_seq" property="qnaSequence"/>
+		<result column="file_seq" property="fileSequence"/>
+		<result column="file_name" property="fileName"/>
+	</resultMap>
+	
 	<select id="selectFileName" parameterType="Map" resultType="String">
 		SELECT file_name
 		  FROM csat_qna_file
@@ -29,6 +35,12 @@
 		SELECT file_code,file_name
 		  FROM csat_qna_file
 		 WHERE qna_seq = #{qnaSequence} 
+	</select>
+	
+	<select id="selectListForDetail" parameterType="int" resultMap="FileVoForDetailMap">
+		SELECT qna_seq, file_seq, file_name
+		  FROM csat_qna_file
+		 WHERE qna_seq = #{qnaSequence}
 	</select>
 	
 	<insert id="insert" parameterType="Map">
