@@ -18,6 +18,7 @@
 	
 	<resultMap type="CommunityVo" id="CommunityVoManageMap">
 		<result column="community_seq" property="communitySequence"/>
+		<result column="student_seq" property="studentSequence"/>
 		<result column="student_id" property="studentId" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
 		<result column="nickname" property="nickname" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
 		<result column="content" property="content"/>
@@ -144,7 +145,7 @@
 	</select>
 	
 	<select id="selectListForManage" parameterType="Map" resultMap="CommunityVoManageMap">
-		SELECT cc.community_seq,cs.student_id,cs.nickname,cc.content,DATE_FORMAT(cc.write_date, '%Y%m%d%H%i%s') as write_date,
+		SELECT cc.community_seq,cs.student_seq,cs.student_id,cs.nickname,cc.content,DATE_FORMAT(cc.write_date, '%Y%m%d%H%i%s') as write_date,
 		       IFNULL(ccb.blind, 0) AS blind, cs.student_seq
 		  FROM csat_community cc
 		       LEFT OUTER JOIN (SELECT ccb.community_seq,COUNT(ccb.community_seq) AS
