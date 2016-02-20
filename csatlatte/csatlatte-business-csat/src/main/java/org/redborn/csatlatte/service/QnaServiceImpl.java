@@ -1,6 +1,7 @@
 package org.redborn.csatlatte.service;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3;
@@ -77,6 +78,10 @@ public class QnaServiceImpl implements QnaService {
 	public List<QnaForStudentVo> listForStudent(int studentSequence) {
 		return qnaDao.selectListForStudent(studentSequence);
 	}
+	
+	public List<FileVo> fileList(int qnaSequence) {
+		return fileDao.selectListForDetail(qnaSequence);
+	}
 
 	public boolean delete(int qnaSequence) {
 		return qnaDao.updateUseYnN(qnaSequence) == 1;
@@ -152,6 +157,19 @@ public class QnaServiceImpl implements QnaService {
 	
 	public int amountQuestion(String search, int countQnaAnswer) {
 		return qnaDao.selectOneCount(search, countQnaAnswer);
+	}
+
+	public String getFilename(int qnaSequence, int fileSequence) {
+		return fileDao.selectFileName(qnaSequence, fileSequence);
+	}
+	
+	public InputStream getInputStream(int qnaSequence, int fileSequence) {
+		return csatAmazonS3.getInputStream(CsatAmazonS3Prefix.QNA, fileDao.selectFileCode(qnaSequence, fileSequence));
+	}
+
+	public int getWriter(int qnaSequence) {
+		QnaVo qnaVo = qnaDao.selectOne(qnaSequence);
+		return qnaVo != null ? qnaVo.getStudentSequence() : -1;
 	}
 
 }

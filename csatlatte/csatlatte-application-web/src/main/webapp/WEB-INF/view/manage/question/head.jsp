@@ -21,6 +21,8 @@
 	@media screen and (max-width:500px) {
 		#manage-question-table .manage-question-sequence {display:none;}
 	}
+	.manage-question-detail-file .col-lg-2 {white-space:nowrap; width:150px; text-overflow:ellipsis; overflow:hidden; float:none;}
+	.manage-question-detail-file.row {margin-left:0px;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -28,7 +30,7 @@
 		var target;
 		var answerCount;
 		
-		var makeQuestionDetailView = function(question) {
+		var makeQuestionDetailView = function(question, files) {
 			var html = '';
 			html += '<div class="manage-question-detail">';
 			html += '	<div class="modal-body">';
@@ -41,6 +43,20 @@
 			html += '				<label>질문내용</label>';
 			html += '				<div><xmp>' + question.content + '</xmp></div>';
 			html += '			</div>';
+			if (files != null) {
+				var filesLength = files.length;
+				if (filesLength != 0) {
+					html += '			<div class="manage-question-detail-file row">';
+					html += '				<label>첨부파일</label>';
+					for (var index = 0; index < filesLength; index++) {
+						var file = files[index];
+						html += '<div class="col-lg-2">';
+						html += '	<a href="' + contextPath + '/file/question/' + file.qnaSequence + '/' + file.fileSequence + '">' + file.fileName + '</a>';
+						html += '</div>';
+					}
+					html += '			</div>';
+				}
+			}
 			html += '		</div>';
 			if (question.answerContent != "") {
 				html += '	<div class="form-group manage-question-form-group">';
@@ -91,7 +107,8 @@
 				success : function(data) {
 					if (data.detail != null) {
 						var question = data.detail;
-						$("#manage-question-detail").append(makeQuestionDetailView(question));
+						var files = data.files;
+						$("#manage-question-detail").append(makeQuestionDetailView(question, files));
 						$('.manage-question-answer-accept').attr("disabled", true);
 						$('#manage-question-answer-textarea').on("keyup", function () {
 							answerCount = 2000 - $('#manage-question-answer-textarea').val().length;
@@ -120,7 +137,8 @@
 										success : function(data) {
 											if (data.detail != null) {
 												var question = data.detail;
-												$("#manage-question-detail").append(makeQuestionDetailView(question));
+												var files = data.files;
+												$("#manage-question-detail").append(makeQuestionDetailView(question, files));
 											}
 										}
 									});
@@ -133,7 +151,8 @@
 											success : function(data) {
 												if (data.detail != null) {
 													var question = data.detail;
-													$("#manage-question-detail").append(makeQuestionDetailView(question));
+													var files = data.files;
+													$("#manage-question-detail").append(makeQuestionDetailView(question, files));
 												}
 											}
 										});

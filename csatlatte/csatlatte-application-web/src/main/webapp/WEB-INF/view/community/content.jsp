@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<input type="hidden" id="community-studentseq" value="<session:studentSequence/>">
 <div class="container">
 	<h2 style="color:#7a6253;">커뮤니티</h2>
 </div>

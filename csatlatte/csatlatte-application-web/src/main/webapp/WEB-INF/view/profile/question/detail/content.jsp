@@ -14,6 +14,14 @@
 		<div class="profile-question-detail-content">
 			<xmp>${detail.content}</xmp>
 		</div>
+		<c:if test="${!(files eq '[]')}">
+			<h5><strong>첨부파일</strong></h5>
+			<c:forEach items="${files}" var="file">
+				<div class="profile-question-detail-file">
+					<a href="<c:url value="/file/question/${detail.qnaSequence}/${file.fileSequence}"/>">${file.fileName}</a>
+				</div>
+			</c:forEach>
+		</c:if>
 		<c:if test="${!(detail.answerContent eq '')}">
 		<h5><strong>답변 내용</strong></h5>
 		<div class="profile-question-detail-answer">

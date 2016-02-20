@@ -9,7 +9,7 @@
 	.profile-message {margin-left:100px; margin-top:5px;}
 	.profile-security {margin-top:20px;}
 	.profile-info {margin-top:20px;}
-	.profile-info img {width:100px; border:1px solid #7a6253; border-radius:4px; margin-bottom:10px;}
+	.profile-info img {width:100px; height:100px; border:1px solid #7a6253; border-radius:4px; margin-bottom:10px;}
 	.profile-content-value {display:inline;}
 	#profile-modify-password {cursor:pointer;}
 	#profile-modify-security {cursor:pointer;}

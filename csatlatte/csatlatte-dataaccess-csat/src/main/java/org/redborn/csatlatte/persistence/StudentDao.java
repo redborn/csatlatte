@@ -18,6 +18,8 @@ public interface StudentDao {
 	public int selectOneCount(String search);
 	public int selectOneStudentSequence(String nickname);
 	public int selectOneStudentSequenceById(String studentId);
+	public String selectPhotoName(int studentSequence);
+	public String selectPhotoCode(int studentSequence);
 	public List<StudentVo> selectList(String search, int pageNumber);
 	public List<CountVo> selectListCountYmd(String ymd);
 	public List<CountVo> selectListCountYm(String ym);

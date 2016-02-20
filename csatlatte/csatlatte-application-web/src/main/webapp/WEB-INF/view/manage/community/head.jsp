@@ -11,7 +11,7 @@
 	.manage-community-search {text-align:right;}
 	.manage-community-user-info-modal {width:400px;}
 	.manage-community-user-info-modal .modal-body {text-align:center;}
-	.manage-community-picture {width:100px; border-radius:5px; border:1px solid #7a6253;}
+	.manage-community-picture {width:100px; height:100px; border-radius:5px; border:1px solid #7a6253;}
 	.manage-community-info {margin-top:10px;}
 	.manage-community-info-content {text-align:left; margin-left:40px; margin-top:5px;}
 	.manage-community-info-content-value {margin-left:10px; display:inline-block;}
@@ -60,12 +60,13 @@
 			var nickname = $('#manage-community-nickname-' + communitySequence).val();
 			var writeYmdhms = $('#manage-community-writeYmdhms-' + communitySequence).val();
 			var content = $('#manage-community-content-' + communitySequence).val();
+			var studentSequence = $('#manage-community-studentseq-' + communitySequence).val();
 			var html = '';
 			html += '		<div class="modal-content" id="manage-community-text-content">';
 			html += '			<div class="modal-header">';
 			html += '				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 			html += '				<div class="manage-community-text">';
-			html += '					<img alt="프로필사진" class="manage-community-profile-picture" src="' + contextPath + '/resources/csatlatte/images/img/img_person.png">';
+			html += '					<img alt="프로필사진" class="manage-community-profile-picture" src="' + contextPath + '/file/student/' + studentSequence + '">';
 			html += '					<div class="manage-community-user-info">';
 			html += '						<div class="manage-community-name"><strong>' + nickname + '</strong></div>';
 			html += '						<div class="manage-community-calender" data-ymdhms="' + writeYmdhms + '">' + format(writeYmdhms) + '</div>';
@@ -84,7 +85,7 @@
 		var makeCommunityDetailComment = function(comment) {
 			var html = '';
 			html += '<div class="manage-community-text manage-community-comment">';
-			html += '	<img alt="프로필사진" class="manage-community-profile-picture" src="' + contextPath + '/resources/csatlatte/images/img/img_person.png">';
+			html += '	<img alt="프로필사진" class="manage-community-profile-picture" src="' + contextPath + '/file/student/' + comment.studentSequence + '">';
 			html += '	<div class="manage-community-user-info">';
 			html += '		<div class="manage-community-name"><strong>' + comment.nickname + '</strong></div>';
 			html += '		<div class="manage-community-comment-content"><xmp>' + comment.content + '</xmp></div>';
@@ -97,7 +98,7 @@
 		var makeStudentInformation = function (student) {
 			var html = '';
 			html += '<div class="manage-community-student-information">';
-			html += '	<img class="manage-community-picture" alt="회원사진" src="' + contextPath + '/resources/csatlatte/images/img/img_person.png">';
+			html += '	<img class="manage-community-picture" alt="회원사진" src="' + contextPath + '/file/student/' + student.studentSequence + '">';
 			html += '	<div class="manage-community-info">';
 			html +=	'		<div class="manage-community-info-content">';
 			html += '			<label class="manage-community-label">아이디</label>';

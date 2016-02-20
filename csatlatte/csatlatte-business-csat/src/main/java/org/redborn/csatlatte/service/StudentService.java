@@ -1,6 +1,7 @@
 package org.redborn.csatlatte.service;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 import org.redborn.csatlatte.domain.CountVo;
@@ -38,5 +39,7 @@ public interface StudentService {
 	public List<YearStudentVo> yearStudentList();
 	public List<SecurityQuestionVo> securityQuestionList();
 	public int getStudentSequence(String studentId);
+	public String getPhotoName(int studentSequence);
+	public InputStream getInputStream(int studentSequence);
 	
 }

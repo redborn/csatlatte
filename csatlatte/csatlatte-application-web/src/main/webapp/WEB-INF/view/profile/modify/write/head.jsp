@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <style>
 	#profile-modify-return {margin-left:15px; margin-top:5px;}
-	#profile-modify-content-image {width:100px; margin-bottom:5px; border:1px solid #7a6253; border-radius:4px;}
+	#profile-modify-content-image {width:100px; height:100px; margin-bottom:5px; border:1px solid #7a6253; border-radius:4px;}
 	.profile-modify-button-group {text-align:right; width:auto; margin-top:60px;}
 	#profile-nickname-check-message-area {padding-top:7px;}
 	.profile-nickname-check-message-negative {color:#d9534f;}
