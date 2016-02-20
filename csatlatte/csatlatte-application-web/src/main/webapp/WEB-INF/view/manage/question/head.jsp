@@ -43,18 +43,20 @@
 			html += '				<label>질문내용</label>';
 			html += '				<div><xmp>' + question.content + '</xmp></div>';
 			html += '			</div>';
-			html += '			<div class="manage-question-detail-file row">';
-			html += '				<label>첨부파일</label>';
 			if (files != null) {
 				var filesLength = files.length;
-				for (var index = 0; index < filesLength; index++) {
-					var file = files[index];
-					html += '<div class="col-lg-2">';
-					html += '	<a href="' + contextPath + '/file/question/' + file.qnaSequence + '/' + file.fileSequence + '">' + file.fileName + '</a>';
-					html += '</div>';
+				if (filesLength != 0) {
+					html += '			<div class="manage-question-detail-file row">';
+					html += '				<label>첨부파일</label>';
+					for (var index = 0; index < filesLength; index++) {
+						var file = files[index];
+						html += '<div class="col-lg-2">';
+						html += '	<a href="' + contextPath + '/file/question/' + file.qnaSequence + '/' + file.fileSequence + '">' + file.fileName + '</a>';
+						html += '</div>';
+					}
+					html += '			</div>';
 				}
 			}
-			html += '			</div>';
 			html += '		</div>';
 			if (question.answerContent != "") {
 				html += '	<div class="form-group manage-question-form-group">';
