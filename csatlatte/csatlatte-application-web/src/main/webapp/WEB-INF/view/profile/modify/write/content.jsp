@@ -7,10 +7,11 @@
 <form:form class="form-horizontal" method="post" servletRelativeAction="${url}" enctype="multipart/form-data">
 <c:url var="url" value="/<session:id/>/modify"/>
 <c:set var="studentCsat"><session:csatSequence/></c:set>
+<c:set var="studentSequence"><session:studentSequence/></c:set>
 	<div class="form-group">
 		<label class="control-label col-sm-2">프로필 사진</label>
 		<div class="col-sm-5">
-			<img id="profile-modify-content-image" alt="프로필사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
+			<img id="profile-modify-content-image" alt="프로필사진" src="<c:url value="/file/student/${studentSequence}"/>">
 			<input type="file" name="photo"/>
 		</div>
 	</div>
