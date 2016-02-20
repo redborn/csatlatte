@@ -48,7 +48,7 @@ public class Question {
 		QnaVo qnaVo = qnaService.detail(qnaSequence);
 		if (qnaVo != null) {
 			if (qnaVo.getStudentSequence() == httpSessionValue.getStudentSequence() && qnaVo.getUseYn().equals("Y")) {
-				model.addAttribute("files", qnaService.listForDetail(qnaSequence));
+				model.addAttribute("files", qnaService.fileList(qnaSequence));
 				model.addAttribute("detail", qnaVo);
 				result = TilesName.PROFILE_QUESTION_DETAIL;
 			}
