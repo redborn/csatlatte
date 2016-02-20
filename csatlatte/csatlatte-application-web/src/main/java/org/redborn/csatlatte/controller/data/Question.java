@@ -26,6 +26,7 @@ public class Question {
 	public void get(Model model, @RequestParam(value="qnaSequence",required=true) int qnaSequence) {
 		logger.info("data question view");
 		model.addAttribute("detail", qnaService.detail(qnaSequence));
+		model.addAttribute("files", qnaService.fileList(qnaSequence));
 	}
 	
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.DELETE)
