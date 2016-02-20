@@ -67,7 +67,7 @@ $(document).ready(function() {
 			}
 		}
 		html += '		</div>';
-		html += '		<img alt="프로필사진" class="community-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png">';
+		html += '		<img alt="프로필사진" class="community-picture" src="' + contextPath +  '/file/student/' + community.studentSequence + '">';
 		html += '		<div class="communuty-text-info">';
 		html += '			<div class="community-name"><strong>' + community.nickname + '</strong></div>';
 		html += '			<div class="community-date" data-ymdhms="' + community.writeYmdhms + '">' + format(community.writeYmdhms) + '</div>';
@@ -80,7 +80,7 @@ $(document).ready(function() {
 		html += '	</div>';
 		if (!community.blind) {
 			html += '	<div class="panel-footer community-text-comment-write">';
-			html += '		<img alt="프로필사진" class="community-comment-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png"/>';
+			html += '		<img alt="프로필사진" class="community-comment-picture" src="' + contextPath +  '/file/student/' + community.studentSequence + '"/>';
 			html += '		<div class="community-comment-write-count"">140</div>';
 			html += '		<div class="community-text-comment-write-div">';
 			html += '			<label for="community-text-comment-write-input-' + community.communitySequence + '" class="sr-only">' + (studentSequence !== 0 ?  '댓글을 입력하세요.' : '로그인 후 작성 할 수 있습니다.') + '</label>';
@@ -99,7 +99,7 @@ $(document).ready(function() {
 			show = true;
 		}
 		var html = '<div class="panel-footer community-text-comment" id="community-comment-' + communitySequence + '-' + comment.commentSequence + '" ' + (!show ? "style='display:none;'" : '') + '>';
-		html += '	<img alt="프로필사진" class="community-comment-picture" src="' + contextPath +  '/resources/csatlatte/images/img/img_person.png"/>';
+		html += '	<img alt="프로필사진" class="community-comment-picture" src="' + contextPath +  '/file/student/' + comment.studentSequence + '"/>';
 		html += '	<div class="community-text-comment-info">';
 		html += '		<div class="community-action">';
 		if (!comment.blind) {
