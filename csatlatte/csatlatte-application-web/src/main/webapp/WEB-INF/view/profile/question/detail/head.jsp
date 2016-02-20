@@ -9,5 +9,5 @@
 	#profile-question-detail-delete-form {display:inline-block;}
 	.profile-question-detail-content xmp {white-space:pre-wrap; word-break:break-all;}
 	.profile-question-detail-answer xmp {white-space:pre-wrap; word-break:break-all;}
-	.profile-question-detail-files .col-lg-2 {white-space:nowrap; width:150px; text-overflow:ellipsis; overflow:hidden;}
+	.profile-question-detail-file {white-space:nowrap; width:200px; text-overflow:ellipsis; overflow:hidden;}
 </style>
