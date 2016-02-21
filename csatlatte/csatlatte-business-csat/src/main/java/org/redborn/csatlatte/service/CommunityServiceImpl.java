@@ -55,11 +55,6 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDao.insert(communityVo) == 1;
 	}
 
-	public boolean modify(CommunityVo communityVo) {
-		return communityDao.selectOne(communityVo.getCommunityTypeSequence(), communityVo.getCommunitySequence(), communityVo.getStudentSequence()) == 1 
-				&& communityDao.update(communityVo) == 1;
-	}
-
 	public boolean delete(int communityTypeSequence, int communitySequence, int studentSequence) {
 		return communityDao.selectOne(communityTypeSequence, communitySequence, studentSequence) == 1 
 				&& communityDao.updateUseYnN(communityTypeSequence, communitySequence) == 1;
@@ -72,11 +67,6 @@ public class CommunityServiceImpl implements CommunityService {
 
 	public boolean writeComment(CommentVo commentVo) {
 		return commentDao.insert(commentVo) == 1;
-	}
-
-	public boolean modifyComment(CommentVo commentVo) {
-		return commentDao.selectOne(commentVo.getCommunityTypeSequence(), commentVo.getCommunitySequence(), commentVo.getCommentSequence(), commentVo.getStudentSequence()) == 1
-				&& commentDao.update(commentVo) == 1;
 	}
 
 	public boolean deleteComment(int communityTypeSequence, int communitySequence, int commentSequence, int studentSequence) {
