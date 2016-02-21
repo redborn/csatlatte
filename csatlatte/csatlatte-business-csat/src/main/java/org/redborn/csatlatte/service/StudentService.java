@@ -24,6 +24,7 @@ public interface StudentService {
 	public boolean overlapCheckNickname(String nickname);
 	public StudentVo information(String id, String password);
 	public StudentVo information(int studentSequence);
+	public boolean connection(int studentSequence, String userAgent, String sessionId, String ip);
 	public boolean lock(int studentSequence);
 	public boolean recovery(int studentSequence);
 	public List<CountVo> dailyJoinCountList(String ymd);

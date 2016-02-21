@@ -159,6 +159,7 @@ public class StudentServiceImpl implements StudentService {
 			url.add("id");
 			url.add("password");
 			url.add("data");
+			url.add("file");
 			url.add("login");
 			url.add("manage");
 			url.add("stats");
@@ -192,6 +193,11 @@ public class StudentServiceImpl implements StudentService {
 	
 	public StudentVo information(int studentSequence) {
 		return studentDao.selectOneDetail(studentSequence);
+	}
+
+	public boolean connection(int studentSequence, String userAgent,
+			String sessionId, String ip) {
+		return connectionStudentDao.insert(studentSequence, userAgent, sessionId, ip) == 1;
 	}
 
 	public boolean lock(int studentSequence) {
