@@ -89,10 +89,6 @@ public class CommunityDaoMapper extends SqlSessionDaoSupport implements Communit
 		return getSqlSession().insert("community.insert", communityVo);
 	}
 
-	public int update(CommunityVo communityVo) {
-		return getSqlSession().update("community.update", communityVo);
-	}
-
 	public int updateUseYnN(int communityTypeSequence, int communitySequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("communityTypeSequence", communityTypeSequence);

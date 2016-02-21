@@ -17,7 +17,6 @@ public interface CommunityDao {
 	public List<CommunityVo> selectListForManage(int communityTypeSequence, String search, int pageNumber);
 	public List<CommunityVo> selectListStudentText(int communityTypeSequence, int studentSequence);
 	public int insert(CommunityVo communityVo);
-	public int update(CommunityVo communityVo);
 	public int updateUseYnN(int communityTypeSequence, int communitySequence);
 	
 }

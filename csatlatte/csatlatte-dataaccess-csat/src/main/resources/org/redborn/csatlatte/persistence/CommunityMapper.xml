@@ -176,13 +176,6 @@
 		VALUES (#{communityTypeSequence}, (select IFNULL(max(cc.community_seq),0)+1 as community_seq from csat_community cc), #{studentSequence}, #{content}, NOW(3), 'Y');		
 	</insert>
 	
-	<update id="update" parameterType="CommunityVo">
-		UPDATE csat_community
-		   SET content = #{content}
-		 WEHRE community_type_seq = #{communityTypeSequence} 
-		   AND community_seq = #{communitySequence}
-	</update>
-	
 	<update id="updateUseYnN" parameterType="Map">
 		UPDATE csat_community
 		   SET use_yn = 'N'
