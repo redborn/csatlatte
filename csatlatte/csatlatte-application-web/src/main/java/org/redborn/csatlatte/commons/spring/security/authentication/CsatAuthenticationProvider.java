@@ -3,6 +3,7 @@ package org.redborn.csatlatte.commons.spring.security.authentication;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.redborn.csatlatte.commons.servlet.http.HttpServletRequestValue;
 import org.redborn.csatlatte.commons.servlet.http.HttpSessionValue;
 import org.redborn.csatlatte.domain.StudentVo;
 import org.redborn.csatlatte.service.StudentService;
@@ -23,6 +24,8 @@ public class CsatAuthenticationProvider implements AuthenticationProvider {
 	private StudentService studentService;
 	@Autowired
 	private HttpSessionValue httpSessionValue;
+	@Autowired
+	private HttpServletRequestValue httpServeltRequestValue;
 
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
@@ -40,6 +43,7 @@ public class CsatAuthenticationProvider implements AuthenticationProvider {
 				grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 			}
 			usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(id, password, grantedAuthorities);
+			studentService.connection(studentVo.getStudentSequence(), httpServeltRequestValue.getUserAgent(), httpServeltRequestValue.getSessionId(), httpServeltRequestValue.getIp());
 			httpSessionValue.setUser(id, studentVo.getStudentSequence(), studentVo.getNickname(), studentVo.getRuleSequence(), studentVo.getCsatSequence());
 			logger.info(new StringBuilder("login success. ID is ").append(studentVo.getStudentId()).toString());
 		}
