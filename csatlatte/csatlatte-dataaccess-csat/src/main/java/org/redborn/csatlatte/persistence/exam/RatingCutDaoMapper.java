@@ -6,9 +6,7 @@ import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.ExamVo;
-import org.redborn.csatlatte.domain.RatingCutScoreVo;
 import org.redborn.csatlatte.domain.RatingCutVo;
-import org.redborn.csatlatte.domain.SubjectVo;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -71,17 +69,8 @@ public class RatingCutDaoMapper extends SqlSessionDaoSupport implements
 		return getSqlSession().delete("exam.ratingcut.deleteStudentScore", params);
 	}
 
-	public int insert(SubjectVo subjectVo, RatingCutScoreVo ratingCutScoreVo) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("csatSequence", subjectVo.getCsatSequence());
-		params.put("examSequence", subjectVo.getExamSequence());
-		params.put("sectionSequence", subjectVo.getSectionSequence());
-		params.put("subjectSequence", subjectVo.getSubjectSequence());
-		params.put("ratingCode", ratingCutScoreVo.getRatingCode());
-		params.put("rawScore", ratingCutScoreVo.getRawScore());
-		params.put("standardScore", ratingCutScoreVo.getStandardScore());
-		
-		return getSqlSession().insert("exam.ratingcut.insert", params);
+	public int insert(RatingCutVo ratingCutVo) {
+		return getSqlSession().insert("exam.ratingcut.insert", ratingCutVo);
 	}
 
 }

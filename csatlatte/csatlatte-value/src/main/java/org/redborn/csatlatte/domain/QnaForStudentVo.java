@@ -3,7 +3,7 @@ package org.redborn.csatlatte.domain;
 public class QnaForStudentVo {
 	
 	private int qnaSequence;
-	private String content;
+	private String title;
 	private String writeDate;
 	
 	public int getQnaSequence() {
@@ -14,12 +14,12 @@ public class QnaForStudentVo {
 		this.qnaSequence = qnaSequence;
 	}
 	
-	public String getContent() {
-		return content;
+	public String getTitle() {
+		return title;
 	}
 	
-	public void setContent(String content) {
-		this.content = content;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	public String getWriteDate() {
@@ -32,8 +32,8 @@ public class QnaForStudentVo {
 
 	@Override
 	public String toString() {
-		return "QnaForStudentVo [qnaSequence=" + qnaSequence + ", content="
-				+ content + ", writeDate=" + writeDate + "]";
+		return "QnaForStudentVo [qnaSequence=" + qnaSequence + ", title="
+				+ title + ", writeDate=" + writeDate + "]";
 	}
 	
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="progress">
 	<div class="progress-bar progress-bar-warning progress-first" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100">
 		1단계 닉네임 입력
@@ -12,7 +13,7 @@
 		3단계 아이디 찾기 완료
 	</div>
 </div>
-<form id="id-security-write-form" class="form-horizontal" method="post" action="<c:url value="/id/security"/>">
+<form:form id="id-security-write-form" method="post" servletRelativeAction="/id/security" class="form-horizontal">
 	<div class="id-security-write">
 		<h4>보안 확인 <small>회원가입때 등록한 보안 질문과 답변입니다.</small></h4>
 		<div class="form-group">
@@ -29,4 +30,4 @@
 		<a class="btn btn-default" href="<c:url value="/main"/>">취소</a>
 		<input id="id-security-write-btn-success" type="submit" disabled="disabled" class="btn btn-success" value="다음단계">
 	</div>
-</form>
+</form:form>

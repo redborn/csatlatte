@@ -3,11 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <h4 class="manage-community-title">커뮤니티 관리</h4>
 <div class="manage-community-search">
-	<form method="get" action="<c:url value="/manage/community"/>">
+	<form:form method="get" servletRelativeAction="/manage/community">
 		<div class="col-lg-5 manage-community-col-lg"><input type="text" class="form-control" id="manage-community-search" placeholder="아이디 혹은 닉네임" name="search" value="${param.search}"></div>
-	</form>
+	</form:form>
 </div>
 
 <table class="table" id="manage-community-table">
@@ -25,6 +26,7 @@
 		<input type="hidden" id="manage-community-nickname-${community.communitySequence}" value="${community.nickname}">
 		<input type="hidden" id="manage-community-writeYmdhms-${community.communitySequence}" value="${community.writeYmdhms}">
 		<input type="hidden" id="manage-community-content-${community.communitySequence}" value="${community.content}">
+		<input type="hidden" id="manage-community-studentseq-${community.communitySequence}" value="${community.studentSequence}">
 		<tr>
 			<td>${community.communitySequence}</td>
 			<td><div id="${community.studentSequence}" data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">${community.studentId}</div></td>
@@ -41,7 +43,7 @@
 	<pagination:writer value="${paginationWriter}"/>
 </nav>
 <div class="modal fade" id="manage-community-id" tabindex="-1" role="dialog">
-	<div class="modal-dialog modal-dialog-user-info" role="document">
+	<div class="modal-dialog manage-community-user-info-modal" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -57,7 +59,7 @@
 	</div>
 </div>
 <div class="modal fade" id="manage-community-blind" tabindex="-1" role="dialog">
-	<div class="modal-dialog modal-dialog-user-info" role="document">
+	<div class="modal-dialog manage-community-user-info-modal" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

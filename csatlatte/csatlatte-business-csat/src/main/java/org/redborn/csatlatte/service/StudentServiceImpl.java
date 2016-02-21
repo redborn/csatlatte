@@ -1,11 +1,17 @@
 package org.redborn.csatlatte.service;
 
+import java.io.File;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3;
+import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3Prefix;
 import org.redborn.csatlatte.domain.CountVo;
 import org.redborn.csatlatte.domain.SecurityQuestionVo;
 import org.redborn.csatlatte.domain.StudentSecurityQuestionVo;
@@ -14,6 +20,8 @@ import org.redborn.csatlatte.domain.YearStudentVo;
 import org.redborn.csatlatte.persistence.SecurityQuestionDao;
 import org.redborn.csatlatte.persistence.StudentDao;
 import org.redborn.csatlatte.persistence.YearStudentDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -23,6 +31,8 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 @Service
 public class StudentServiceImpl implements StudentService {
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private StudentDao studentDao;
@@ -33,9 +43,15 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private SecurityQuestionDao securityQuestionDao;
 	@Autowired
+	private YearStudentDao yearStudentDao;
+	@Autowired
 	private PlatformTransactionManager transactionManager;
 	@Autowired
-	private YearStudentDao yearStudentDao;
+	private CsatAmazonS3 csatAmazonS3;
+	
+	public boolean checkPassword(int studentSequence, String password) {
+		return studentDao.selectOneCountPassword(studentSequence, makePassword(studentSequence, password)) == 1;
+	}
 	
 	public boolean changePassword(int studentSequence, String password, String newPassword) {
 		boolean result = false;
@@ -58,7 +74,19 @@ public class StudentServiceImpl implements StudentService {
 		return result;
 	}
 
-	public boolean changeInformation(StudentVo studentVo) {
+	public boolean changeInformation(StudentVo studentVo, File photo) {
+		StudentVo beforeStudentVo = studentDao.selectOneDetail(studentVo.getStudentSequence());
+		
+		if (photo != null) {
+			studentVo.setPhotoName(photo.getName());
+			studentVo.setPhotoCode(csatAmazonS3.upload(photo, CsatAmazonS3Prefix.STUDENT_PROFILE));
+			photo.delete();
+			csatAmazonS3.delete(CsatAmazonS3Prefix.STUDENT_PROFILE, beforeStudentVo.getPhotoCode());
+		} else {
+			studentVo.setPhotoCode(beforeStudentVo.getPhotoCode());
+			studentVo.setPhotoName(beforeStudentVo.getPhotoName());
+		}
+		
 		return studentDao.updateInformation(studentVo) == 1;
 	}
 
@@ -66,32 +94,46 @@ public class StudentServiceImpl implements StudentService {
 		return studentSecurityQuestionDao.updateContent(studentSecurityQuestionVo) == 1;
 	}
 
-	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo) {
+	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo, File photo) {
 		boolean result = false;
 		int maxStudentSequence = studentDao.selectOneMaxStudentSequence();
 		studentVo.setStudentSequence(maxStudentSequence);
 		Date createDate = new Date();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HHmmssSSS");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		
 		studentVo.setCreateDate(simpleDateFormat.format(createDate));
+		
+		simpleDateFormat.applyPattern("HHmmssSSS");
+		
 		studentVo.setStudentPassword(new StringBuilder(simpleDateFormat.format(createDate)).append(studentVo.getStudentPassword()).toString());
+		
+		if (photo != null) {
+			studentVo.setPhotoName(photo.getName());
+			studentVo.setPhotoCode(csatAmazonS3.upload(photo, CsatAmazonS3Prefix.STUDENT_PROFILE));
+			photo.delete();
+		}
+		
 		studentSecurityQuestionVo.setStudentSequence(maxStudentSequence);
 		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
-		defaultTransactionDefinition.setName("Student Join Transaction");
+		defaultTransactionDefinition.setName("student join transaction");
 		defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
 		
 		TransactionStatus transactionStatus = transactionManager.getTransaction(defaultTransactionDefinition);
+		
 		try {
 			if (studentDao.insert(studentVo) == 1 && studentSecurityQuestionDao.insert(studentSecurityQuestionVo) == 1) {
 				result = true;
+				transactionManager.commit(transactionStatus);
+				logger.info(new StringBuilder("Business layer student join success. transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
+			} else {
+				transactionManager.rollback(transactionStatus);
+				logger.warn(new StringBuilder("Business layer student join fail. transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
 			}
 		} catch (RuntimeException e) {
 			transactionManager.rollback(transactionStatus);
+			logger.warn(new StringBuilder("Business layer student join exception. transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
 		}
-		if (result) {
-			transactionManager.commit(transactionStatus);
-		} else {
-			transactionManager.rollback(transactionStatus);
-		}
+		
 		return result;
 	}
 
@@ -104,7 +146,40 @@ public class StudentServiceImpl implements StudentService {
 	}
 	
 	public boolean overlapCheckId(String studentId) {
-		return studentDao.selectOneCountOverlapId(studentId) == 1;
+		boolean result = true;
+		if (studentDao.selectOneCountOverlapId(studentId) != 1) {
+			Set<String> url = new HashSet<String>();
+			url.add("main");
+			url.add("rating");
+			url.add("grade");
+			url.add("community");
+			url.add("support");
+			url.add("profile");
+			url.add("join");
+			url.add("id");
+			url.add("password");
+			url.add("data");
+			url.add("login");
+			url.add("manage");
+			url.add("stats");
+			url.add("error");
+			url.add("university");
+			url.add("college");
+			url.add("chart");
+			url.add("news");
+			url.add("column");
+			url.add("information");
+			url.add("major");
+			url.add("event");
+			url.add("notice");
+			url.add("ad");
+			url.add("aptitude");
+			url.add("map");
+			if (!url.contains(studentId)) {
+				result = false;
+			}
+		}
+		return result;
 	}
 	
 	public boolean overlapCheckNickname(String nickname) {
@@ -239,6 +314,14 @@ public class StudentServiceImpl implements StudentService {
 	
 	public int getStudentSequence(String studentId) {
 		return studentDao.selectOneStudentSequenceById(studentId);
+	}
+
+	public String getPhotoName(int studentSequence) {
+		return studentDao.selectPhotoName(studentSequence);
+	}
+	
+	public InputStream getInputStream(int studentSequence) {
+		return csatAmazonS3.getInputStream(CsatAmazonS3Prefix.STUDENT_PROFILE, studentDao.selectPhotoCode(studentSequence));
 	}
 
 }

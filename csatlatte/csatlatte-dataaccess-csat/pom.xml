@@ -10,7 +10,7 @@
   	<dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-jdbc</artifactId>
-  		<version>4.1.6.RELEASE</version>
+  		<version>4.2.2.RELEASE</version>
   	</dependency>
   	<dependency>
   		<groupId>org.redborn.csatlatte</groupId>
@@ -35,7 +35,7 @@
   	<dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-context-support</artifactId>
-  		<version>4.1.6.RELEASE</version>
+  		<version>4.2.2.RELEASE</version>
   	</dependency>
   	<dependency>
   		<groupId>org.mybatis</groupId>

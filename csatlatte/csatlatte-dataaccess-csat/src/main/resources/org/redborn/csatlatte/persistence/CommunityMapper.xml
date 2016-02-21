@@ -18,6 +18,7 @@
 	
 	<resultMap type="CommunityVo" id="CommunityVoManageMap">
 		<result column="community_seq" property="communitySequence"/>
+		<result column="student_seq" property="studentSequence"/>
 		<result column="student_id" property="studentId" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
 		<result column="nickname" property="nickname" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
 		<result column="content" property="content"/>
@@ -68,8 +69,8 @@
 	<select id="selectListCountYmd" parameterType="Map" resultMap="YmdCountVoMap">
 		SELECT CAST(DATE_FORMAT(write_date, '%H') AS SIGNED) AS hour,COUNT(community_seq) AS count_write
 		  FROM csat_community
-		 WHERE write_date &gt;= DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s')
-		   AND write_date &lt; DATE_ADD(DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s'), INTERVAL 1 day)
+		 WHERE write_date &gt;= STR_TO_DATE(#{ymd}, '%Y%m%d')
+		   AND write_date &lt; DATE_ADD(STR_TO_DATE(#{ymd}, '%Y%m%d'), INTERVAL 1 day)
 		   AND community_type_seq = #{communityTypeSequence}
 		 GROUP BY DATE_FORMAT(write_date, '%H')
 	</select>
@@ -77,8 +78,8 @@
 	<select id="selectListCountYm" parameterType="Map" resultMap="YmCountVoMap">
 		SELECT CAST(DATE_FORMAT(write_date, '%d') AS SIGNED) AS day,COUNT(community_seq) AS count_write
 		  FROM csat_community
-		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d')
-		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d'), INTERVAL 1 month)
+		 WHERE write_date &gt;= STR_TO_DATE(CONCAT(#{ym}, '01'), '%Y%m%d')
+		   AND write_date &lt; DATE_ADD(STR_TO_DATE(CONCAT(#{ym}, '01'), '%Y%m%d'), INTERVAL 1 month)
 		   AND community_type_seq = #{communityTypeSequence}
 		 GROUP BY DATE_FORMAT(write_date, '%d')
 	</select>
@@ -86,8 +87,8 @@
 	<select id="selectListCountYear" parameterType="Map" resultMap="YearCountVoMap">
 		SELECT CAST(DATE_FORMAT(write_date, '%m') AS SIGNED) AS month,COUNT(community_seq) AS count_write
 		  FROM csat_community
-		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d')
-		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d'), INTERVAL 1 year)
+		 WHERE write_date &gt;= STR_TO_DATE(CONCAT(#{year}, '0101'), '%Y%m%d')
+		   AND write_date &lt; DATE_ADD(STR_TO_DATE(CONCAT(#{year}, '0101'), '%Y%m%d'), INTERVAL 1 year)
 		   AND community_type_seq = #{communityTypeSequence}
 		 GROUP BY DATE_FORMAT(write_date, '%m')
 	</select>
@@ -144,7 +145,7 @@
 	</select>
 	
 	<select id="selectListForManage" parameterType="Map" resultMap="CommunityVoManageMap">
-		SELECT cc.community_seq,cs.student_id,cs.nickname,cc.content,cc.write_date,
+		SELECT cc.community_seq,cs.student_seq,cs.student_id,cs.nickname,cc.content,DATE_FORMAT(cc.write_date, '%Y%m%d%H%i%s') as write_date,
 		       IFNULL(ccb.blind, 0) AS blind, cs.student_seq
 		  FROM csat_community cc
 		       LEFT OUTER JOIN (SELECT ccb.community_seq,COUNT(ccb.community_seq) AS
@@ -154,6 +155,7 @@
 		                    ON cc.community_seq = ccb.community_seq,csat_student cs
 		 WHERE cc.student_seq = cs.student_seq
 		   AND cc.community_type_seq = #{communityTypeSequence}
+		   AND cc.use_yn = 'Y'
 		   AND ( cs.student_id LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler})
 		          OR cs.nickname LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}))
 	  ORDER BY cc.community_seq desc

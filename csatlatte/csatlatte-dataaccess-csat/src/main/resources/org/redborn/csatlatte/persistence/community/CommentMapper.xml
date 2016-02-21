@@ -9,7 +9,7 @@
 	<resultMap type="CommentVo" id="CommentVoMap">
 		<result column="comment_seq" property="commentSequence"/>
 		<result column="student_seq" property="studentSequence"/>
-		<result column="nickname" property="nickname"/>
+		<result column="nickname" property="nickname" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
 		<result column="content" property="content"/>
 		<result column="report" property="report" typeHandler="org.redborn.csatlatte.commons.mybatis.BooleanTypeHandler"/>
 		<result column="blind" property="blind" typeHandler="org.redborn.csatlatte.commons.mybatis.BooleanTypeHandler"/>
@@ -43,8 +43,8 @@
 	<select id="selectListCountYmd" parameterType="Map" resultMap="YmdCountVoMap">
 		SELECT CAST(DATE_FORMAT(write_date, '%H') AS SIGNED) AS hour,COUNT(comment_seq) AS count_write
 		  FROM csat_community_comment
-		 WHERE write_date &gt;= DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s')
-		   AND write_date &lt; DATE_ADD(DATE_FORMAT(#{ymd}, '%Y-%m-%d %H:%i:%s'), INTERVAL 1 day)
+		 WHERE write_date &gt;= STR_TO_DATE(#{ymd}, '%Y%m%d')
+		   AND write_date &lt; DATE_ADD(STR_TO_DATE(#{ymd}, '%Y%m%d'), INTERVAL 1 day)
 		   AND community_type_seq = #{communityTypeSequence}
 		 GROUP BY DATE_FORMAT(write_date, '%H')
 	</select>
@@ -52,8 +52,8 @@
 	<select id="selectListCountYm" parameterType="Map" resultMap="YmCountVoMap">
 		SELECT CAST(DATE_FORMAT(write_date, '%d') AS SIGNED) AS day,COUNT(comment_seq) AS count_write
 		  FROM csat_community_comment
-		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d')
-		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{ym}, '01'), '%Y-%m-%d'), INTERVAL 1 month)
+		 WHERE write_date &gt;= STR_TO_DATE(CONCAT(#{ym}, '01'), '%Y%m%d')
+		   AND write_date &lt; DATE_ADD(STR_TO_DATE(CONCAT(#{ym}, '01'), '%Y%m%d'), INTERVAL 1 month)
 		   AND community_type_seq = #{communityTypeSequence}
 		 GROUP BY DATE_FORMAT(write_date, '%d') 
 	</select>
@@ -61,8 +61,8 @@
 	<select id="selectListCountYear" parameterType="Map" resultMap="YearCountVoMap">
 		SELECT CAST(DATE_FORMAT(write_date, '%m') AS SIGNED) AS month,COUNT(comment_seq) AS count_write
 		  FROM csat_community_comment
-		 WHERE write_date &gt;= DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d')
-		   AND write_date &lt; DATE_ADD(DATE_FORMAT(CONCAT(#{year}, '0101'), '%Y-%m-%d'), INTERVAL 1 year)
+		 WHERE write_date &gt;= STR_TO_DATE(CONCAT(#{year}, '0101'), '%Y%m%d')
+		   AND write_date &lt; DATE_ADD(STR_TO_DATE(CONCAT(#{year}, '0101'), '%Y%m%d'), INTERVAL 1 year)
 		   AND community_type_seq = #{communityTypeSequence}
 		 GROUP BY DATE_FORMAT(write_date, '%m') 
 	</select>

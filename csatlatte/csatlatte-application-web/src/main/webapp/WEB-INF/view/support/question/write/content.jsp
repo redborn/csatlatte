@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <div class="col-lg-12 support-question-write-col-lg">
-<form id="support-question-write-form" method="POST" action="<c:url value="/support/question"/>">
+<form:form id="support-question-write-form" method="post" servletRelativeAction="/support/question" enctype="multipart/form-data">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<p>서비스를 이용하시면서 불편한 사항이 있는 경우 언제든지 알려주세요.</p>
@@ -19,7 +20,11 @@
 			</div>
 			<div class="form-group">
 				<label for="support-question-write-input-file">파일 첨부</label>
-				<input type="file" id="support-question-write-input-file">
+				<input type="file" id="support-question-write-input-file" name="file">
+				<input type="file" id="support-question-write-input-file" name="file">
+				<input type="file" id="support-question-write-input-file" name="file">
+				<input type="file" id="support-question-write-input-file" name="file">
+				<input type="file" id="support-question-write-input-file" name="file">
 			</div>
 		</div>
 		<div class="panel-footer">
@@ -34,5 +39,5 @@
 			</div>
 		</div>
 	</div>
-</form>
+</form:form>
 </div>

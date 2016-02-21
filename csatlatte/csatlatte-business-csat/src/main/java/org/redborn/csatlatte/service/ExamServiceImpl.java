@@ -44,12 +44,24 @@ public class ExamServiceImpl implements ExamService {
 		return csatDao.selectOne(csatSequence);
 	}
 	
+	public int examCountMax(int csatSequence) {
+		return examDao.selectOneCountMax(csatSequence);
+	}
+	
 	public List<CsatVo> csatList() {
 		return csatDao.selectListYear();
 	}
 	
-	public List<ExamVo> list(int csatSequence) {
-		return examDao.selectListExam(csatSequence);
+	public CsatVo csat(int csatSequence) {
+		return csatDao.selectOne(csatSequence);
+	}
+	
+	public List<String> yearList(int yearStudentSequence) {
+		return examDao.selectListYear(yearStudentSequence);
+	}
+	
+	public List<ExamVo> list(String year, int yearStudentSequence) {
+		return examDao.selectListExam(year, yearStudentSequence);
 	}
 	
 	public List<ExamVo> listForManage(int csatSequence) {
@@ -78,10 +90,6 @@ public class ExamServiceImpl implements ExamService {
 
 	public int delete(int csatSequence, int examSequence) {
 		return examDao.delete(csatSequence, examSequence);
-	}
-	
-	public int amountExam(int csatSequence, String search) {
-		return examDao.selectOneCount(csatSequence, search);
 	}
 	
 	public List<InstitutionVo> institutionList() {

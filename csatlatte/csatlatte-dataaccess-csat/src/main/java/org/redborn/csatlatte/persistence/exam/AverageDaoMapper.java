@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.AverageVo;
-import org.redborn.csatlatte.domain.SubjectVo;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -20,16 +19,8 @@ public class AverageDaoMapper extends SqlSessionDaoSupport implements AverageDao
 		return getSqlSession().selectList("exam.average.selectList", params);
 	}
 	
-	public int insert(SubjectVo subjectVo, int average, int standardDeviation) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("csatSequence", subjectVo.getCsatSequence());
-		params.put("examSequence", subjectVo.getExamSequence());
-		params.put("sectionSequence", subjectVo.getSectionSequence());
-		params.put("subjectSequence", subjectVo.getSubjectSequence());
-		params.put("average", average);
-		params.put("standardDeviation", standardDeviation);
-		
-		return getSqlSession().insert("exam.average.insert", params);
+	public int insert(AverageVo averageVo) {
+		return getSqlSession().insert("exam.average.insert", averageVo);
 	}
 
 }

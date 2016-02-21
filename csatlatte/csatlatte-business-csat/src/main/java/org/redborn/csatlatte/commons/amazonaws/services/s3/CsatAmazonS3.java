@@ -1,5 +1,7 @@
 package org.redborn.csatlatte.commons.amazonaws.services.s3;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,6 +22,7 @@ import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.util.IOUtils;
 
 /**
  * 수능라떼의 Amazon S3와 연동하여 파일을 처리합니다. 
@@ -63,8 +66,18 @@ public class CsatAmazonS3 {
 	 */
 	public String upload(File file, String prefix) {
 		String fileCode = makeFileCode(prefix);
-		amazonS3.putObject(new PutObjectRequest(bucketName, new StringBuilder(prefix).append("/").append(fileCode).toString(), file));
+		amazonS3.putObject(new PutObjectRequest(bucketName, new StringBuilder(prefix).append(File.separator).append(fileCode).toString(), file));
 		return fileCode;
+	}
+	
+	/**
+	 * Amazon S3의 파일을 삭제 합니다.
+	 * 
+	 * @param prefix perfix
+	 * @param fileCode 파일 코드
+	 */
+	public void delete(String prefix, String fileCode) {
+		amazonS3.deleteObject(bucketName, new StringBuilder(prefix).append(File.separator).append(fileCode).toString());
 	}
 	
 	/**
@@ -77,8 +90,16 @@ public class CsatAmazonS3 {
 	public InputStream getInputStream(String prefix, String fileCode) {
 		InputStream inputStream = null;
 		try {
-			S3Object s3Object = amazonS3.getObject(new GetObjectRequest(bucketName, new StringBuilder(prefix).append("/").append(fileCode).toString()));
-			inputStream = s3Object.getObjectContent();
+			S3Object s3Object = amazonS3.getObject(new GetObjectRequest(bucketName, new StringBuilder(prefix).append(File.separator).append(fileCode).toString()));
+			if (s3Object != null) {
+				ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+				try {
+					IOUtils.copy(s3Object.getObjectContent(), byteArrayOutputStream);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				inputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+			}
 		} catch (AmazonS3Exception e) {
 			return null;
 		}
@@ -96,7 +117,7 @@ public class CsatAmazonS3 {
 		do {
 			fileCode = UUID.randomUUID().toString();
 			try {
-				amazonS3.getObjectMetadata(bucketName, new StringBuilder(prefix).append("/").append(fileCode).toString());
+				amazonS3.getObjectMetadata(bucketName, new StringBuilder(prefix).append(File.separator).append(fileCode).toString());
 			} catch (AmazonS3Exception e) {
 				if (e.getStatusCode() == HttpStatus.SC_NOT_FOUND) {
 					break;

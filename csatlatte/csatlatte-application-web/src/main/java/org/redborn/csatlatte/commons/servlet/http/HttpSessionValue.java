@@ -119,7 +119,7 @@ public class HttpSessionValue {
 	public int getCsatSequence() {
 		return getCsatSequence(this.session);
 	}
-	
+
 	/**
 	 * 수능 일련번호 입니다.
 	 * 

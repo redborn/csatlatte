@@ -2,19 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/layout/include/bootstrap/datepicker.jsp" %>
 <%@ include file="/WEB-INF/layout/include/google/chart.jsp" %>
+<%@ include file="/WEB-INF/layout/include/jquery/ajax.jsp" %>
 <style>
 	.stats-connection-form-control {margin-left:5px; display:inline-block; float:none; width:100px; height:30px;}
-	#stats-connection-daily-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
-	#stats-connection-monthly-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
-	#stats-connection-annual-chart {width:580px; height:400px; margin-top:15px; margin-left:15px;}
+	#stats-connection-daily-chart {width:95%; height:400px; margin-top:15px; margin-left:15px;}
+	#stats-connection-monthly-chart {width:95%; height:400px; margin-top:15px; margin-left:15px;}
+	#stats-connection-annual-chart {width:95%; height:400px; margin-top:15px; margin-left:15px;}
 	.stats-connection-col-lg-6 {float:none; display:inline-block;}
 	#stats-connection-daily-datepicker {width:auto;}
 	#stats-connection-monthly-datepicker {width:auto;}
 	#stats-connection-annual-datepicker {width:auto;}
 	.stats-connection-input-group {display:inline-block; margin-top:4px;}
 	.stats-connection-input-group-addon {width:auto;}
-	
-	.btn-default {width:100%; display:block;}
 </style>
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -173,6 +172,11 @@
 			var statsConnectionDailyChart = new google.visualization.ColumnChart(document.getElementById('stats-connection-daily-chart'));
 			statsConnectionDailyChart.draw(statsConnectionDailyView, statsConnectionDailyOptions);
 			google.setOnLoadCallback(drawDailyChart);
+			
+			$(window).resize(function() {
+				statsConnectionDailyOptions.animation.duration = 0;
+				statsConnectionDailyChart.draw(statsConnectionDailyView, statsConnectionDailyOptions);
+			});
 		}
 		
 		var drawMonthlyChart = function(monthlyConnection) {
@@ -219,6 +223,11 @@
 			var statsConnectionMonthlyChart = new google.visualization.ColumnChart(document.getElementById('stats-connection-monthly-chart'));
 			statsConnectionMonthlyChart.draw(statsConnectionMonthlyView, statsConnectionMonthlyOptions);
 			google.setOnLoadCallback(drawMonthlyChart);
+			
+			$(window).resize(function() {
+				statsConnectionMonthlyOptions.animation.duration = 0;
+				statsConnectionMonthlyChart.draw(statsConnectionMonthlyView, statsConnectionMonthlyOptions);
+			});
 		}
 	
 		var drawAnnualChart = function(annualConnection) {
@@ -265,6 +274,11 @@
 			var statsConnectionAnnualChart = new google.visualization.ColumnChart(document.getElementById('stats-connection-annual-chart'));
 			statsConnectionAnnualChart.draw(statsConnectionAnnualView, statsConnectionAnnualOptions);
 			google.setOnLoadCallback(drawAnnualChart);
+			
+			$(window).resize(function() {
+				statsConnectionAnnualOptions.animation.duration = 0;
+				statsConnectionAnnualChart.draw(statsConnectionAnnualView, statsConnectionAnnualOptions);
+			});
 		}
 	});
 </script>

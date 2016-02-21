@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="pagination" uri="/WEB-INF/tld/pagination.tld" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <h4 class="manage-question-title">문의 관리</h4>
 <div class="row">
 	<div class="col-lg-6">
@@ -16,29 +17,29 @@
 	</div>
 	</div>
 	<div class="manage-question-search">
-		<form method="get" action="<c:url value="/manage/question"/>">
+		<form:form method="get" servletRelativeAction="/manage/question">
 			<div class="col-lg-5 manage-question-col-lg"><input type="text" class="form-control" id="manage-question-search" placeholder="아이디 혹은 닉네임" name="search" value="${param.search}"></div>
-		</form>
+		</form:form>
 	</div>
 </div>
 <table class="table" id="manage-question-table">
 	<thead>
 		<tr>
-			<th class="col-lg-1 manage-question-col-lg">번호</th>
+			<th class="manage-question-sequence col-lg-1 manage-question-col-lg">번호</th>
 			<th class="col-lg-2 manage-question-col-lg">아이디</th>
 			<th class="col-lg-2 manage-question-col-lg">닉네임</th>
 			<th class="col-lg-3 manage-question-col-lg">제목</th>
-			<th class="col-lg-2 manage-question-col-lg">문의날짜</th>
+			<th class="col-lg-2 manage-question-col-lg">날짜</th>
 			<th class="col-lg-1 manage-question-col-lg"></th>
 		</tr>
 	</thead>
 	<tbody>
 	<c:forEach items="${list}" var="question">
 		<tr>
-			<td>${question.qnaSequence}</td>
+			<td class="manage-question-sequence">${question.qnaSequence}</td>
 			<td>${question.studentId}</td>
 			<td>${question.nickname}</td>
-			<td>${question.title}</td>
+			<td><div class="manage-question-title"><xmp>${question.title}</xmp></div></td>
 			<td>${question.writeDate}</td>
 			<td id="manage-question-answer-button-${question.qnaSequence}">
 			<div id="manage-question-answer-button-div-${question.qnaSequence}">

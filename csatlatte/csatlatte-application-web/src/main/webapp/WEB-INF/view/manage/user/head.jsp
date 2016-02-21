@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/WEB-INF/layout/include/jquery/ajax.jsp" %>
 <style>
 	.manage-user-label {display:inline-block; width:80px; text-align:right; display:inline-block;}
 	#manage-user-nav {text-align:center;}
@@ -8,12 +9,9 @@
 	.manage-user-col-lg {float:none; display:inline-block; text-align:center;}
 	.manage-user-search {text-align:right;}
 	.manage-user-title {display:inline-block; width:380px;}
-	.manage-user-apply {width:50px; display:inline-block;}
-	.manage-user-apply-align {text-align:right;}
 	.manage-user-id {cursor:pointer;}
 	#manage-user-id .modal-body {text-align:center;}
-	.manage-user-modal-dialog {width:400px;}
-	.manage-user-picture {width:100px; border-radius:5px; border:1px solid #7a6253;}
+	.manage-user-picture {width:100px; height:100px; border-radius:5px; border:1px solid #7a6253;}
 	.manage-user-info {margin-top:10px;}
 	.manage-user-info-content {text-align:left; margin-left:40px; margin-top:5px;}
 	.manage-user-info-content-value {margin-left:10px; display:inline-block;}
@@ -30,7 +28,7 @@
 		var makeStudentInformation = function (student) {
 			var html = '';
 			html += '<div class="manage-user-student-information">';
-			html += '	<img class="manage-user-picture" alt="회원사진" src="' + contextPath + '/resources/csatlatte/images/img/img_person.png">';
+			html += '	<img class="manage-user-picture" alt="회원사진" src="' + contextPath + '/file/student/' + student.studentSequence + '">';
 			html += '	<div class="manage-user-info">';
 			html +=	'		<div class="manage-user-info-content">';
 			html += '			<label class="manage-user-label">아이디</label>';

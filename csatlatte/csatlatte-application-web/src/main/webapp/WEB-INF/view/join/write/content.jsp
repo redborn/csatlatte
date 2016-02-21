@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<form class="form-horizontal" id="join-write-form" method="POST" action="<c:url value="/join"/>">
+<%@ taglib prefix= "fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<form:form id="join-write-form" method="post" servletRelativeAction="/join" class="form-horizontal" enctype="multipart/form-data">
 	<div class="join">
 		<h4>수능라떼 아이디 정보</h4>
 		<div class="join-id">
@@ -44,6 +46,7 @@
 			<div class="form-group">
 				<label class="col-sm-2 control-label" id="join-profile-picture">프로필 사진</label>
 				<img class="join-image" alt="프로필사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
+				<input type="file" name="photo"/>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="join-content-nickname">닉네임</label>
@@ -52,10 +55,10 @@
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="join-content-select-sat">수능 선택</label>
-				<div class="col-sm-5">
+				<div class="col-sm-6">
 					<select name="csat" id="join-content-select-sat" class="form-control">
 						<c:forEach items="${csatList}" var="csat">
-							<option value="${csat.csatSequence}">${csat.csatName}</option>
+							<option value="${csat.csatSequence}"<c:if test="${csat.csatSequence eq presentCsatSequence}"> selected</c:if>>${csat.csatName} (${fn:substring(csat.examYmd, 0, 4)}년 실시)</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -69,4 +72,4 @@
 		<a class="btn btn-default" href="<c:url value="/main"/>">취소</a>
 		<input id="join-btn-success" type="submit" class="btn btn-primary" value="계정 만들기">
 	</div>
-</form>
+</form:form>

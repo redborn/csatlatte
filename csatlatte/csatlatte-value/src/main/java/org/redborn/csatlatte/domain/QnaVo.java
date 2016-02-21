@@ -12,6 +12,7 @@ public class QnaVo {
 	private String answerContent;
 	private String title;
 	private List<FileVo> file;
+	private String useYn;
 	
 	public int getQnaSequence() {
 		return qnaSequence;
@@ -69,11 +70,20 @@ public class QnaVo {
 		this.file = file;
 	}
 	
+	public String getUseYn() {
+		return useYn;
+	}
+	
+	public void setUseYn(String useYn) {
+		this.useYn = useYn;
+	}
+
 	@Override
 	public String toString() {
 		return "QnaVo [qnaSequence=" + qnaSequence + ", studentSequence="
 				+ studentSequence + ", writeDate=" + writeDate + ", content="
-				+ content + ", title=" + title + ", file=" + file + "]";
+				+ content + ", answerContent=" + answerContent + ", title="
+				+ title + ", file=" + file + ", useYn=" + useYn + "]";
 	}
-
+	
 }
