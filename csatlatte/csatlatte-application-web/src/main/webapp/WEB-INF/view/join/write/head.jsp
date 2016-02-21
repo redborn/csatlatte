@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/layout/include/jquery/ajax.jsp" %>
+<%@ include file="/WEB-INF/layout/include/jquery/fileupload.jsp" %>
 <style>
 	.join {font-size:13px;}
 	.join-id {margin-left:20px; margin-bottom:35px;}
 	.join-security {margin-left:20px; margin-bottom:35px;}
 	.join-info {margin-left:20px; margin-bottom:35px;}
 	.join-content-label {text-align:right; width:120px; margin-right:5px;}
+	#join-content-photo-img {width: 100px; height: 100px; border: 1px solid #7a6253; border-radius: 4px; margin-bottom: 10px; display:none;}
+	#join-content-photo-minus {display:none;}
+	#join-content-photo-message {color:#d9534f; line-height:34px;}
 	.join-message {margin-left:70px; margin-top:5px;}
 	.join-image {width:100px; border:1px solid #7a6253; border-radius:4px; margin-left:15px;}
 	.join-button-group {text-align:right; width:auto; margin-top:20px;}
@@ -37,6 +41,7 @@
 		var patternEnglishNumber = /^[A-Za-z0-9+]*$/;
 		var patternEnglishNumberSpecial = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[~,!,@,#,$,*,(,),=,+,_,.,|]).*$/; // 8~15자리 영문, 숫자, 특수문자 최소 1개 포함
 		var patternKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+		var inputFile = $("#join-write-form input[type='file']");
 		
 		$('#join-btn-success').attr("disabled", true);
 		
@@ -143,6 +148,39 @@
 			html += '</div>';
 			return html;
 		}
+		
+		$("#join-write-form input[type='file']").on("change", function() {
+			var data = this;
+			if (data) {
+				var files = data.files;
+				if (files && files[0]) {
+					var file = files[0];
+					if (file.size >= 1000000) {
+						$("#join-content-photo-message").text("파일 크기는 10MB 이하만 사용 할 수 있습니다.").show();
+						$("#join-content-photo-minus").trigger("click");
+					} else {
+						if (!file.name.match(/\.(gif|jpg|jpeg|png)$/i)) {
+							$("#join-content-photo-message").text("이미지 파일(gif, jpg, jpeg, png)만 사용 할 수 있습니다.").show();
+							$("#join-content-photo-minus").trigger("click");
+						} else {
+							$("#join-content-photo-message").hide();
+							var reader = new FileReader();
+							reader.onload = function(e) {
+								$("#join-content-photo-img").attr("src", e.target.result).slideDown("fast");
+								$("#join-content-photo-minus").fadeIn("fast").css("display", "inline-block");
+							}
+							reader.readAsDataURL(file);
+						}
+					}
+				}
+			}
+		});
+		
+		$("#join-content-photo-minus").on("click", function() {
+			inputFile.replaceWith(inputFile.clone(true));
+			$("#join-content-photo-img").slideUp("fast");
+			$(this).fadeOut("fast");
+		});
 		
 		$('#join-content-id').on("keyup", function () {
 			$('.join-id-check-message-negative').remove();

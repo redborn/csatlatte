@@ -44,9 +44,20 @@
 		<h4>프로필 사진 및 닉네임 <small>커뮤니티를 이용 시에 사용되는 정보입니다.</small></h4>
 		<div class="join-info">
 			<div class="form-group">
-				<label class="col-sm-2 control-label" id="join-profile-picture">프로필 사진</label>
-				<img class="join-image" alt="프로필사진" src="<c:url value="/resources/csatlatte/images/img/img_person.png"/>">
-				<input type="file" name="photo"/>
+				<label class="col-sm-2 control-label" for="join-content-photo">프로필 사진</label>
+				<div class="col-sm-3">
+					<img id="join-content-photo-img"/>
+					<div>
+						<span class="btn btn-default fileinput-button">
+							<i class="glyphicon glyphicon-plus"></i>
+							<input type="file" name="photo" id="join-content-photo" accept="image/gif,image/jpeg,image/jpg,image/png"/>
+						</span>
+						<span class="btn btn-default" id="join-content-photo-minus"><i class="glyphicon glyphicon-minus"></i></span>
+					</div>
+				</div>
+				<div class="col-sm-7">
+					<span id="join-content-photo-message"></span>
+				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="join-content-nickname">닉네임</label>
