@@ -87,7 +87,7 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDao.updateUseYnN(qnaSequence) == 1;
 	}
 
-	public boolean write(QnaVo qnaVo, List<File> files) {
+	public boolean write(QnaVo qnaVo, List<File> files, String userAgent, String sessionId, String ip) {
 		int maxQnaSequence = qnaDao.selectOneMaxQnaSequence();
 		
 		String content = qnaVo.getContent();
@@ -102,7 +102,7 @@ public class QnaServiceImpl implements QnaService {
 		
 		TransactionStatus transactionStatus = transactionManager.getTransaction(defaultTransactionDefinition);
 		try {
-			if (qnaDao.insert(maxQnaSequence, qnaVo.getStudentSequence(), qnaVo.getTitle()) == 1) {
+			if (qnaDao.insert(maxQnaSequence, qnaVo.getStudentSequence(), qnaVo.getTitle(), userAgent, sessionId, ip) == 1) {
 				result = true;
 				for (int index = 0; index < max; index++) {
 					beginIndex = 2000 * index; 
