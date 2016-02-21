@@ -1,5 +1,6 @@
 package org.redborn.csatlatte.controller.data.community;
 
+import org.redborn.csatlatte.commons.servlet.http.HttpServletRequestValue;
 import org.redborn.csatlatte.commons.servlet.http.HttpSessionValue;
 import org.redborn.csatlatte.domain.CommentVo;
 import org.redborn.csatlatte.service.CommunityService;
@@ -22,6 +23,8 @@ public class Comment {
 	private CommunityService communityService;
 	@Autowired
 	private HttpSessionValue httpSessionValue;
+	@Autowired
+	private HttpServletRequestValue httpServletRequestValue;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model, @RequestParam(value="communitySequence",required=true) int communitySequence) {
@@ -37,7 +40,7 @@ public class Comment {
 		commentVo.setCommunitySequence(communitySequence);
 		commentVo.setStudentSequence(httpSessionValue.getStudentSequence());
 		commentVo.setContent(content);
-		model.addAttribute("result", communityService.writeComment(commentVo));
+		model.addAttribute("result", communityService.writeComment(commentVo, httpServletRequestValue.getUserAgent(), httpServletRequestValue.getSessionId(), httpServletRequestValue.getIp()));
 	}
 	
 	@RequestMapping(value="{communitySequence}/{commentSequence}",method=RequestMethod.DELETE)

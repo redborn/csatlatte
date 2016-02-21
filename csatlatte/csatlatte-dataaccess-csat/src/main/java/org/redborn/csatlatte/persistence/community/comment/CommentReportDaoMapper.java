@@ -19,13 +19,16 @@ public class CommentReportDaoMapper extends SqlSessionDaoSupport implements Comm
 		return getSqlSession().selectOne("community.comment.report.selectOne", params);
 	}
 
-	public int insert(int communityTypeSequence, int communitySequence, int commentSequence, int studentSequence, int reportTypeSequence) {
+	public int insert(int communityTypeSequence, int communitySequence, int commentSequence, int studentSequence, int reportTypeSequence, String userAgent, String sessionId, String ip) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("communityTypeSequence", communityTypeSequence);
 		params.put("communitySequence", communitySequence);
 		params.put("commentSequence", commentSequence);
 		params.put("studentSequence", studentSequence);
 		params.put("reportTypeSequence", reportTypeSequence);
+		params.put("userAgent", userAgent);
+		params.put("sessionId", sessionId);
+		params.put("ip", ip);
 		
 		return getSqlSession().insert("community.comment.report.insert", params);
 	}

@@ -9,5 +9,6 @@ public interface StudentDao {
 	public List<CountVo> selectListCountYmd(String ymd);
 	public List<CountVo> selectListCountYm(String ym);
 	public List<CountVo> selectListCountYear(String year);
+	public int insert(int studentSequence, String userAgent, String sessionId, String ip);
 	
 }

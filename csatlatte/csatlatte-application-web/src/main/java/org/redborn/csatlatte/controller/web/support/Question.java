@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.redborn.csatlatte.commons.io.FileDirectory;
+import org.redborn.csatlatte.commons.servlet.http.HttpServletRequestValue;
 import org.redborn.csatlatte.commons.servlet.http.HttpSessionValue;
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.redborn.csatlatte.domain.QnaVo;
@@ -34,6 +35,8 @@ public class Question {
 	private QnaService qnaService;
 	@Autowired
     private HttpSessionValue httpSessionValue;
+	@Autowired
+	private HttpServletRequestValue httpServletRequestValue;
 	
 	/**
 	 * 문의 제목, 내용을 입력하는 페이지입니다.
@@ -79,7 +82,7 @@ public class Question {
 				}
 			}
 		}
-		if (qnaService.write(qnaVo, files)) {
+		if (qnaService.write(qnaVo, files, httpServletRequestValue.getUserAgent(), httpServletRequestValue.getSessionId(), httpServletRequestValue.getIp())) {
 			result = TilesName.SUPPORT_QUESTION_SUCCESS;
 		}
 		return result;
