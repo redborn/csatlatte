@@ -15,8 +15,8 @@
 	</select>
 	
 	<insert id="insert" parameterType="Map">
-		INSERT INTO csat_community_report(community_type_seq, community_seq, student_seq, report_type_seq, report_date)
-		VALUES (#{communityTypeSequence}, #{communitySequence}, #{studentSequence}, #{reportTypeSequence}, NOW(3))
+		INSERT INTO csat_community_report(community_type_seq, community_seq, student_seq, report_type_seq, report_date, user_agent, session_id, ip)
+		VALUES (#{communityTypeSequence}, #{communitySequence}, #{studentSequence}, #{reportTypeSequence}, NOW(3), #{userAgent}, #{sessionId}, #{ip})
 	</insert>
 	
 </mapper>

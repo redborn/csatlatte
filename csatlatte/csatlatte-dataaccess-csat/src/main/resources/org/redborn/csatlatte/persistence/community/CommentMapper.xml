@@ -96,9 +96,9 @@
 		   AND ccc.community_seq = #{communitySequence}
 	</select>
 	
-	<insert id="insert" parameterType="CommentVo">
-		INSERT INTO csat_community_comment(community_type_seq, community_seq, comment_seq, student_seq, content, write_date, use_yn)
-		VALUES (#{communityTypeSequence}, #{communitySequence}, (SELECT IFNULL(max(ccc.comment_seq),0)+1 as comment_seq FROM csat_community_comment ccc WHERE ccc.community_type_seq = #{communityTypeSequence} AND community_seq = #{communitySequence}), #{studentSequence}, #{content}, NOW(3), 'Y')	
+	<insert id="insert" parameterType="Map">
+		INSERT INTO csat_community_comment(community_type_seq, community_seq, comment_seq, student_seq, content, write_date, use_yn, user_agent, session_id, ip)
+		VALUES (#{communityTypeSequence}, #{communitySequence}, (SELECT IFNULL(max(ccc.comment_seq),0)+1 as comment_seq FROM csat_community_comment ccc WHERE ccc.community_type_seq = #{communityTypeSequence} AND community_seq = #{communitySequence}), #{studentSequence}, #{content}, NOW(3), 'Y', #{userAgent}, #{sessionId}, #{ip})	
 	</insert>
 	
 	<update id="updateUseYnN" parameterType="Map">

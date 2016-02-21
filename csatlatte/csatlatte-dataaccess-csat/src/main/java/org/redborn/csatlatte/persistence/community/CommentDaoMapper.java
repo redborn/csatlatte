@@ -55,8 +55,16 @@ public class CommentDaoMapper extends SqlSessionDaoSupport implements CommentDao
 		return getSqlSession().selectList("community.comment.selectList", params);
 	}
 	
-	public int insert(CommentVo commentVo) {
-		return getSqlSession().insert("community.comment.insert", commentVo);
+	public int insert(CommentVo commentVo, String userAgent, String sessionId, String ip) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("communityTypeSequence", commentVo.getCommunityTypeSequence());
+		params.put("communitySequence", commentVo.getCommunitySequence());
+		params.put("studentSequence", commentVo.getStudentSequence());
+		params.put("content", commentVo.getContent());
+		params.put("userAgent", userAgent);
+		params.put("sessionId", sessionId);
+		params.put("ip", ip);
+		return getSqlSession().insert("community.comment.insert", params);
 	}
 
 	public int updateUseYnN(int communityTypeSequence, int communitySequence, int commentSequence, int studentSequence) {
