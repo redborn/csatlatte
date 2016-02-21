@@ -101,15 +101,6 @@
 		VALUES (#{communityTypeSequence}, #{communitySequence}, (SELECT IFNULL(max(ccc.comment_seq),0)+1 as comment_seq FROM csat_community_comment ccc WHERE ccc.community_type_seq = #{communityTypeSequence} AND community_seq = #{communitySequence}), #{studentSequence}, #{content}, NOW(3), 'Y')	
 	</insert>
 	
-	<update id="update" parameterType="CommentVo">
-		UPDATE csat_community_comment
-		   SET content = #{content}
-		 WHERE community_seq = #{communitySequence}
-		   AND comment_seq = #{commentSequence}
-		   AND community_type_seq = #{communityTypeSequence}
-		   AND use_yn = 'Y'
-	</update>
-	
 	<update id="updateUseYnN" parameterType="Map">
 		UPDATE csat_community_comment
 		   SET use_yn = 'N'
