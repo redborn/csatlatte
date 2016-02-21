@@ -51,8 +51,8 @@ public class CommunityServiceImpl implements CommunityService {
 		return blindDao.selectOne(communityTypeSequence, communitySequence) == 0;
 	}
 
-	public boolean write(CommunityVo communityVo) {
-		return communityDao.insert(communityVo) == 1;
+	public boolean write(CommunityVo communityVo, String userAgent, String sessionId, String ip) {
+		return communityDao.insert(communityVo, userAgent, sessionId, ip) == 1;
 	}
 
 	public boolean delete(int communityTypeSequence, int communitySequence, int studentSequence) {
@@ -65,8 +65,8 @@ public class CommunityServiceImpl implements CommunityService {
 				&& commentBlindDao.insert(communityTypeSequence, communitySequence, commentSequence, blindTypeSequence) == 1;
 	}
 
-	public boolean writeComment(CommentVo commentVo) {
-		return commentDao.insert(commentVo) == 1;
+	public boolean writeComment(CommentVo commentVo, String userAgent, String sessionId, String ip) {
+		return commentDao.insert(commentVo, userAgent, sessionId, ip) == 1;
 	}
 
 	public boolean deleteComment(int communityTypeSequence, int communitySequence, int commentSequence, int studentSequence) {
@@ -101,14 +101,14 @@ public class CommunityServiceImpl implements CommunityService {
 		return reportTypeDao.selectList();
 	}
 
-	public boolean report(int studentSequence, int communityTypeSequence, int communitySequence, int reportTypeSequence) {
+	public boolean report(int studentSequence, int communityTypeSequence, int communitySequence, int reportTypeSequence, String userAgent, String sessionId, String ip) {
 		return reportDao.selectOne(communitySequence, studentSequence) == 0
-				&& reportDao.insert(communityTypeSequence, communitySequence, studentSequence, reportTypeSequence) == 1;
+				&& reportDao.insert(communityTypeSequence, communitySequence, studentSequence, reportTypeSequence, userAgent, sessionId, ip) == 1;
 	}
 
-	public boolean reportComment(int studentSequence, int communityTypeSequence, int communitySequence, int commentSequence, int reportTypeSequence) {
+	public boolean reportComment(int studentSequence, int communityTypeSequence, int communitySequence, int commentSequence, int reportTypeSequence, String userAgent, String sessionId, String ip) {
 		return commentReportDao.selectOne(communityTypeSequence, communitySequence, commentSequence, studentSequence) == 0
-				&& commentReportDao.insert(communityTypeSequence, communitySequence, commentSequence, studentSequence, reportTypeSequence) == 1;
+				&& commentReportDao.insert(communityTypeSequence, communitySequence, commentSequence, studentSequence, reportTypeSequence, userAgent, sessionId, ip) == 1;
 	}
 	
 	private List<CountVo> margeCountVoList(List<CountVo> communityYmdCountVos, List<CountVo> commentYmdCountVos, int begin, int end) {
