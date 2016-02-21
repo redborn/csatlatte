@@ -177,7 +177,7 @@
 		});
 		
 		$("#join-content-photo-minus").on("click", function() {
-			inputFile.replaceWith(inputFile.clone(true));
+			inputFile.replaceWith(inputFile = inputFile.clone(true));
 			$("#join-content-photo-img").slideUp("fast");
 			$(this).fadeOut("fast");
 		});
