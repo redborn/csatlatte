@@ -20,7 +20,7 @@
 		<result column="month" property="key"/>
 		<result column="count_connection" property="count"/>
 	</resultMap>
-
+	
 	<select id="selectListCountYmd" parameterType="String" resultMap="YmdCountVoMap">
 		SELECT CAST(DATE_FORMAT(connection_date, '%H') AS SIGNED) as hour,COUNT(student_seq) as count_connection
 		  FROM csat_connection_student
@@ -44,5 +44,11 @@
 		   AND connection_date &lt; DATE_ADD(STR_TO_DATE(CONCAT(#{year},'0101'), '%Y%m%d'), INTERVAL 1 year)
 		 GROUP BY DATE_FORMAT(connection_date, '%m') 
 	</select>
+	
+	<insert id="insert" parameterType="Map">
+		INSERT INTO csat_connection_student
+		            (connection_seq,student_seq,connection_date,user_agent,session_id,ip)
+		     VALUES((select IFNULL(max(ccs.connection_seq),0)+1 as connection_seq from csat_connection_student ccs), #{studentSequence}, NOW(3), #{userAgent}, #{sessionId}, #{ip}); 
+	</insert>
 	
 </mapper>
