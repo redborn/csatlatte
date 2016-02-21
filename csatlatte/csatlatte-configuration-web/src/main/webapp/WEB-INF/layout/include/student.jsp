@@ -3,4 +3,5 @@
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <script type="text/javascript">
 	var studentSequence = <session:studentSequence/>;
+	var csatSequence = <session:csatSequence/>;
 </script>

@@ -6,10 +6,13 @@
 
 <mapper namespace="exam.student.score">
 
-	<resultMap type="GradeVo" id="GradeVoMap">
+	<resultMap type="GradeListVo" id="GradeListVoMap">
 		<result column="section_seq" property="sectionSequence"/>
 		<result column="subject_seq" property="subjectSequence"/>
+		<result column="subject_name" property="subjectName"/>
 		<result column="score" property="score"/>
+		<result column="standard_score" property="standardScore"/>
+		<result column="rating_code" property="ratingCode"/>
 	</resultMap>
 	
 	<resultMap type="GradeVo" id="GradeVoExamStudentMap">
@@ -30,12 +33,51 @@
 		<result column="standard_score" property="standardscore"/>
 	</resultMap>
 
-	<select id="selectList" parameterType="GradeVo" resultMap="GradeVoMap">
-		SELECT section_seq,subject_seq,score
-		  FROM csat_exam_student_score
-		 WHERE csat_seq = #{csatSequence}
-		   AND exam_seq = #{examSequence}
-		   AND student_seq = #{studentSequence} 	
+	<select id="selectList" parameterType="Map" resultMap="GradeListVoMap">
+		SELECT cess.section_seq,cess.subject_seq,ces.subject_name,cess.score,
+		       TRUNCATE(( ( cess.score - cea.avg ) / cea.standard_deviation ) * (
+		       ces.max_score / 5 ) +
+		       ces.max_score, 0) AS standard_score,cerc.rating_code
+		  FROM csat_exam_student_score cess
+		       INNER JOIN csat_exam_subject ces
+		               ON cess.exam_seq = ces.exam_seq
+		                  AND cess.section_seq = ces.section_seq
+		                  AND cess.subject_seq = ces.subject_seq
+		       INNER JOIN csat_exam_avg cea
+		               ON cess.csat_seq = cea.csat_seq
+		                  AND cess.exam_seq = cea.exam_seq
+		                  AND cess.section_seq = cea.section_seq
+		                  AND cess.subject_seq = cea.subject_seq
+		       INNER JOIN (SELECT
+		       cerc1.csat_seq,cerc1.rating_code,cerc1.exam_seq,cerc1.section_seq,
+		                  cerc1.subject_seq,cerc1.raw_score AS min_raw_score,
+		                         IFNULL(cerc2.raw_score, ces.max_score + 1) AS max_raw_score
+		                     FROM csat_exam_rating_cut cerc1
+		                          LEFT OUTER JOIN csat_exam_rating_cut cerc2
+		                                       ON cerc1.csat_seq = cerc2.csat_seq
+		                                          AND cerc1.exam_seq = cerc2.exam_seq
+		                                          AND cerc1.section_seq =
+		                                              cerc2.section_seq
+		                                          AND cerc1.subject_seq =
+		                                              cerc2.subject_seq
+		                                          AND cerc1.rating_code =
+		                                              cerc2.rating_code + 1
+		                          INNER JOIN csat_exam_subject ces
+		                                  ON cerc1.csat_seq = ces.csat_seq
+		                                     AND cerc1.exam_seq = ces.exam_seq
+		                                     AND cerc1.section_seq = ces.section_seq
+		                                     AND cerc1.subject_seq = ces.subject_seq
+		                    WHERE cerc1.csat_seq = #{csatSequence}
+		                      AND cerc1.exam_seq = #{examSequence}) cerc
+		               ON cess.csat_seq = cerc.csat_seq
+		                  AND cess.exam_seq = cerc.exam_seq
+		                  AND cess.section_seq = cerc.section_seq
+		                  AND cess.subject_seq = cerc.subject_seq
+		                  AND cess.score &gt;= cerc.min_raw_score 
+		                  AND cess.score &lt; cerc.max_raw_score
+		 WHERE cess.csat_seq = #{csatSequence}
+		   AND cess.exam_seq = #{examSequence}
+		   AND cess.student_seq = #{studentSequence}
 	</select>
 	
 	<select id="selectListExamStudent" parameterType="Map" resultMap="GradeVoExamStudentMap">

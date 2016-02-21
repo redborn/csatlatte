@@ -2,6 +2,7 @@ package org.redborn.csatlatte.service;
 
 import java.util.List;
 
+import org.redborn.csatlatte.domain.GradeListVo;
 import org.redborn.csatlatte.domain.GradeRatingVo;
 import org.redborn.csatlatte.domain.GradeStandardscoreVo;
 import org.redborn.csatlatte.domain.GradeVo;
@@ -27,7 +28,7 @@ public class GradeServiceImpl implements GradeService {
 		return scoreDao.delete(studentSequence, csatSequence, examSequence, sectionSequence, subjectSequence) == 1;
 	}
 
-	public List<GradeVo> list(int csatSequence, int examSequence, int studentSequence) {
+	public List<GradeListVo> list(int csatSequence, int examSequence, int studentSequence) {
 		return scoreDao.selectList(csatSequence, examSequence, studentSequence);
 	}
 

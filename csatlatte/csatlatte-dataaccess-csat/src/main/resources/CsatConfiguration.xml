@@ -16,6 +16,7 @@
 		<typeAlias alias="GradeRatingVo" type="org.redborn.csatlatte.domain.GradeRatingVo"/>
 		<typeAlias alias="GradeStandardscoreVo" type="org.redborn.csatlatte.domain.GradeStandardscoreVo"/>
 		<typeAlias alias="GradeVo" type="org.redborn.csatlatte.domain.GradeVo"/>
+		<typeAlias alias="GradeListVo" type="org.redborn.csatlatte.domain.GradeListVo"/>
 		<typeAlias alias="QnaAnswerVo" type="org.redborn.csatlatte.domain.QnaAnswerVo"/>
 		<typeAlias alias="QnaContentVo" type="org.redborn.csatlatte.domain.QnaContentVo"/>
 		<typeAlias alias="QnaForManageVo" type="org.redborn.csatlatte.domain.QnaForManageVo"/>

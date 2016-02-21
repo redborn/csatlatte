@@ -111,7 +111,6 @@ public class HttpSessionValue {
 		return (String) session.getAttribute(NICKNAME);
 	}
 	
-	
 	/**
 	 * 수능 일련번호 입니다.
 	 * 
