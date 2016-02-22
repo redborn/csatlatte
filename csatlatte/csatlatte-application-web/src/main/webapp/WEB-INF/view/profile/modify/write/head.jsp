@@ -23,7 +23,7 @@
 		$("#profile-modify-form input[type='file']").on("change", function () {
 			var data = this;
 			if (data) {
-				$('#profile-modify-image-delete').val("false");
+				$('#profile-modify-image-delete').val(false);
 				var files = data.files;
 				if (files && files[0]) {
 					var file = files[0];
@@ -49,7 +49,7 @@
 		});
 		$("#profile-modify-photo-minus").on("click", function () {
 			inputFile.replaceWith(inputFile = inputFile.clone(true));
-			$('#profile-modify-image-delete').val("true");
+			$('#profile-modify-image-delete').val(true);
 			$("#profile-modify-image").slideUp("fast");
 			$(this).fadeOut("fast");
 		});
