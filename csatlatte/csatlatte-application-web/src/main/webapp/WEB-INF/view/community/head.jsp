@@ -7,6 +7,9 @@
 <%@ include file="/WEB-INF/layout/include/banner/930x180.jsp" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <style>
+	body > div.container:first-of-type {padding-top:80px;}
+	.community-delete,.community-comment-delete,.community-report,.community-comment-report {font-size:14px;}
+	
 	.community-write-btn {text-align:right;}
 	.community-write-text {padding:0;}
 	.community-write-text textarea {width:100%; resize:none; border:none; padding-top:5px;}
