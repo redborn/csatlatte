@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/layout/include/bootstrap/datepicker.jsp" %>
+<%@ include file="/WEB-INF/layout/include/banner/250x250.jsp" %>
 <style>
 	#grade-analysis-rating-average-chart {width:600px; height:500px;}
 	#grade-analysis-standard-score-chart {width:600px; height:500px;}

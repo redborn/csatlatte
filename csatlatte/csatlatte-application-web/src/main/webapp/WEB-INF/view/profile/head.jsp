@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/layout/include/banner/250x250.jsp" %>
 <style>
 	#profile-message2 {margin-top:30px;}
 	#profile-question {margin-left:15px; margin-top:5px;}

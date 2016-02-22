@@ -15,3 +15,4 @@
 	<p>확인할 수 있습니다.</p>
 </div>
 <p id="profile-question"><a href="${pageContext.request.contextPath}/<session:id/>/question">문의내역 보기</a></p>
+<%@ include file="/WEB-INF/layout/attribute/banner/250x250.jsp" %>
