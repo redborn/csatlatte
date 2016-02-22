@@ -36,14 +36,14 @@
 			});
 			
 			$("#support-question-write-form input[type='file']").eq(index).on("change", function() {
+				var fileIndex = $("#support-question-write-form input[type='file']").index(this);
 				var data = this;
 				if (data) {
 					var files = data.files;
 					if (files && files[0]) {
 						var file = files[0];
-						console.log(file);
 						if (file.size >= 1000000) {
-							$(".support-question-write-file-div").eq(index).slideUp("fast", function() {
+							$(".support-question-write-file-div").eq(fileIndex).slideUp("fast", function() {
 								$(this).remove();
 							});
 							$("#support-question-write-file-message").fadeIn("fast", function() {
@@ -52,7 +52,7 @@
 								}, 5000);
 							});
 						} else {
-							$(".support-question-write-file-name").eq(index).text(file.name);
+							$(".support-question-write-file-name").eq(fileIndex).text(file.name);
 						}
 					}
 				}
