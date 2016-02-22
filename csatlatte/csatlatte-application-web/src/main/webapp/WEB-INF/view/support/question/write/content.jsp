@@ -20,15 +20,15 @@
 			</div>
 			<div class="form-group support-question-write-file-group">
 				<label for="support-question-write-input-file">파일 첨부</label>
-				<div id="support-question-write-file-list"></div>
-				<div>
+				<div class="support-question-write-file-div">
 					<span class="btn btn-default fileinput-button">
-						<i class="glyphicon glyphicon-plus"></i>
-						<input type="file" name="file" id="support-question-write-input-file"/>
+						<span>파일 선택</span>
+						<input type="file" name="file" class="support-question-write-input-file"/>
 					</span>
-					<span class="btn btn-default" id="support-question-write-input-minus"><i class="glyphicon glyphicon-minus"></i></span>
+					<span class="btn btn-default support-question-write-file-minus"><i class="glyphicon glyphicon-minus"></i></span>
+					<span class="support-question-write-file-name"></span>
 				</div>
-				<div id="support-question-write-input-message"></div>
+				<span class="btn btn-default" id="support-question-write-file-plus"><i class="glyphicon glyphicon-plus"></i></span><span id="support-question-write-file-message">파일 크기는 10MB 이하만 사용할 수 있습니다.</span>
 			</div>
 		</div>
 		<div class="panel-footer">

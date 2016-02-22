@@ -8,9 +8,8 @@
 	.support-question-write-guide .support-question-write-guide-message {font-size:13px;}
 	.support-question-write-guide .support-question-write-btn-align-right {text-align:right; margin-top:3px;}
 	.support-question-write-col-lg {float:none;}
-	#support-question-write-input-minus {display:none;}
-	#support-question-write-input-message {color:#d9534f; margin-top:5px;}
-	#support-question-write-file-list {margin-bottom:5px;}
+	#support-question-write-file-message {color:#d9534f; margin-left:10px; display:none;}
+	.support-question-write-file-div {margin : 4px 0;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -26,33 +25,63 @@
 			return html;
 		}
 		
-		var inputFile = $("#support-question-write-form input[type='file']");
-		$("#support-question-write-form input[type='file']").on("change", function() {
-			var data = this;
-			if (data) {
-				var files = data.files;
-				if (files && files[0]) {
-					var file = files[0];
-					if (file.size >= 1000000) {
-						$("#support-question-write-input-message").text("파일 크기는 10MB 이하만 사용할 수 있습니다.").show();
-						$("#support-question-write-input-minus").trigger("click");
-					} else {
-						$("#support-question-write-input-message").hide();
-						var reader = new FileReader();
-						reader.onload = function (e) {
-							$(".support-question-write-file-resource").remove();
-							$("#support-question-write-file-list").append(makeFileList($("#support-question-write-input-file").val()));
-							$("#support-question-write-input-minus").fadeIn("fast").css("display", "inline-block");
+		var setInputFileEvent = function(index) {
+			$(".support-question-write-file-minus").eq(index).on("click", function() {
+				$(".support-question-write-file-div").eq($(".support-question-write-file-minus").index(this)).slideUp("fast", function() {
+					$(this).remove();
+				});
+				if ($(".support-question-write-file-div").size() <= 5) {
+					$("#support-question-write-file-plus").slideDown("fast");
+				}
+			});
+			
+			$("#support-question-write-form input[type='file']").eq(index).on("change", function() {
+				var data = this;
+				if (data) {
+					var files = data.files;
+					if (files && files[0]) {
+						var file = files[0];
+						console.log(file);
+						if (file.size >= 1000000) {
+							$(".support-question-write-file-div").eq(index).slideUp("fast", function() {
+								$(this).remove();
+							});
+							$("#support-question-write-file-message").fadeIn("fast", function() {
+								setTimeout(function() {
+									$("#support-question-write-file-message").fadeOut("fast");
+								}, 5000);
+							});
+						} else {
+							$(".support-question-write-file-name").eq(index).text(file.name);
 						}
-						reader.readAsDataURL(file);
 					}
 				}
+			});
+		};
+		
+		setInputFileEvent(0);
+		
+		$("#support-question-write-file-plus").on("click", function() {
+			var size = $(".support-question-write-file-div").size();
+			if (size <= 4) {
+				var html = '<div class="support-question-write-file-div" style="display:none;">';
+				html += '	<span class="btn btn-default fileinput-button">';
+				html += '		<span>파일 선택</span>';
+				html += '		<input type="file" name="file" class="support-question-write-input-file"/>';
+				html += '	</span>';
+				html += '	<span class="btn btn-default support-question-write-file-minus"><i class="glyphicon glyphicon-minus"></i></span>';
+				html += '	<span class="support-question-write-file-name"></span>';
+				html += '</div>';
+				var $html = $(html);
+				$(this).before($html);
+				$html.slideDown("fast");
+				
+				setInputFileEvent(size);
+				
+				if (size == 4) {
+					$("#support-question-write-file-plus").slideUp("fast");
+				}
 			}
-		});
-		$("#support-question-write-input-minus").on("click", function () {
-			inputFile.replaceWith(inputFile.clone(true));
-			$(".support-question-write-file-resource").remove();
-			$(this).fadeOut("fast");
 		});
 		
 		$('#support-question-write-submit').attr('disabled',true);
