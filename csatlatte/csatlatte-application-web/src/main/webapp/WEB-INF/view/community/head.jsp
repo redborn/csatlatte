@@ -4,7 +4,7 @@
 <%@ include file="/WEB-INF/layout/include/manager.jsp" %>
 <%@ include file="/WEB-INF/layout/include/jquery/form.jsp" %>
 <%@ include file="/WEB-INF/layout/include/jquery/ajax.jsp" %>
-<%@ include file="/WEB-INF/layout/include/banner.jsp" %>
+<%@ include file="/WEB-INF/layout/include/banner/930x180.jsp" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <style>
 	.community-write-btn {text-align:right;}
@@ -132,7 +132,7 @@ $(document).ready(function() {
 			bannerSequence = (parseInt((Math.random()) * 10) % 3) + 1
 		}
 		var html = '<div class="banner-width">';
-		html += '	<img class="img-responsive" src="' + contextPath + '/resources/csatlatte/images/ad_csat_width' + bannerSequence + '.png"/>';
+		html += '	<img class="img-responsive" src="' + contextPath + '/resources/csatlatte/images/ad_csat_930x180_' + bannerSequence + '.png"/>';
 		html += '</div>';
 		return html;
 	}
