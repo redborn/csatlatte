@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="connection.uri">
+	
+	<insert id="insert" parameterType="Map">
+		INSERT INTO csat_connection_uri
+		            (connection_seq,connection_date,uri,user_agent,session_id,ip)
+		     VALUES((select IFNULL(max(ccu.connection_seq),0)+1 as connection_seq from csat_connection_uri ccu), NOW(3), #{uri}, #{userAgent}, #{sessionId}, #{ip}) 
+	</insert>
+	
+</mapper>
