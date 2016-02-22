@@ -15,7 +15,7 @@
 	$(document).ready(function () {
 		var patternSpace = /\s/g;
 		var patternEnglishNumber = /^[A-Za-z0-9+]*$/;
-		var patternEnglishNumberSpecial = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[~,!,@,#,$,*,(,),=,+,_,.,|]).*$/; // 8~15자리 영문, 숫자, 특수문자 최소 1개 포함
+		var patternEnglishNumberSpecial = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[~,!,@,#,$,*,(,),=,+,_,.,|]).*$/;
 		var patternKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 		var successNickname = true;
 		
@@ -23,7 +23,7 @@
 		$("#profile-modify-form input[type='file']").on("change", function () {
 			var data = this;
 			if (data) {
-				$('#profile-modify-image-delete').attr("value", "false");
+				$('#profile-modify-image-delete').val("false");
 				var files = data.files;
 				if (files && files[0]) {
 					var file = files[0];
@@ -49,7 +49,7 @@
 		});
 		$("#profile-modify-photo-minus").on("click", function () {
 			inputFile.replaceWith(inputFile = inputFile.clone(true));
-			$('#profile-modify-image-delete').attr("value", "true");
+			$('#profile-modify-image-delete').val("true");
 			$("#profile-modify-image").slideUp("fast");
 			$(this).fadeOut("fast");
 		});
@@ -93,7 +93,6 @@
 				$('#profile-nickname-check-message-area').append(nicknameNegativeMessage());
 				successNickname = false;
 			} else {
-				//$('#profile-nickname-check-message-area').append(nicknamePositiveMessage());
 				successNickname = true;
 			}
 			
