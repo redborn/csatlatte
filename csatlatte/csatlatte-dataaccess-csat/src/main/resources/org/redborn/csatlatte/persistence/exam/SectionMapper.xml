@@ -11,10 +11,11 @@
 		<result column="exam_seq" property="examSequence"/>
 		<result column="section_seq" property="sectionSequence"/>
 		<result column="section_name" property="sectionName"/>
+		<result column="select_count" property="selectCount"/>
 	</resultMap>
 
 	<select id="selectList" parameterType="Map" resultMap="SectionVoMap">
-		SELECT ces.csat_seq, ces.exam_seq, ces.section_seq, ces.section_name
+		SELECT ces.csat_seq, ces.exam_seq, ces.section_seq, ces.section_name, ces.select_count
 		  FROM csat_exam_section ces
 		 WHERE ces.csat_seq = #{csatSequence}
 		   AND ces.exam_seq = #{examSequence}
