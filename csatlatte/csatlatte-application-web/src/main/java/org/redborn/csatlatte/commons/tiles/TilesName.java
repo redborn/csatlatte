@@ -62,4 +62,5 @@ public class TilesName {
 	
 	private static final String ERROR = "/error";
 	public static final String ERROR_404 = ERROR + "/404";
+	public static final String ERROR_500 = ERROR + "/500";
 }
