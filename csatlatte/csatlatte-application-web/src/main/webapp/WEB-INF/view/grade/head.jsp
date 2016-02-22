@@ -70,7 +70,7 @@
 			html += '			<tbody>';
 			html += '			</tbody>';
 			html += '		</table>';
-			html += '		<div class="grade-section-add-btn"><button class="btn btn-default close" data-toggle="modal" data-target="#grade-add" data-section="' + section.sectionSequence + '"><span class="glyphicon glyphicon-plus"></span></button></div>';
+			html += '		<div class="grade-section-add-btn"><button class="btn btn-default close" data-toggle="modal" data-target="#grade-add" data-section="' + section.sectionSequence + '" data-select-count="' + section.selectCount + '"><span class="glyphicon glyphicon-plus"></span></button></div>';
 			html += '	</div>';
 			return html;
 		};
@@ -157,6 +157,11 @@
 												}
 												$("#grade-rating").text("등급 평균 : " + Math.round(ratingSum / gradeListLength * 100) / 100 + "등급");
 												$("#grade-standardscore").text("표준 점수 : " + standardScore + "점");
+												for (var index = 0; index < sectionListLength; index++) {
+													if ($("#grade-section-" + sectionList[index].sectionSequence + " tbody tr").size() == $("#grade-section-" + sectionList[index].sectionSequence + " .grade-section-add-btn button").data("select-count")) {
+														$("#grade-section-" + sectionList[index].sectionSequence + " .grade-section-add-btn button").hide();
+													}
+												}
 											} else {
 												$("#grade-rating").text("등급 평균 : -");
 												$("#grade-standardscore").text("표준 점수 : -");
