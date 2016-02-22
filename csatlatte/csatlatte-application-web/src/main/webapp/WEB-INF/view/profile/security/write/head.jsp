@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/layout/include/banner/250x250.jsp" %>
 <style>
 	#profile-security-return {margin-left:15px; margin-top:5px;}
 	.profile-security-button-group {text-align:right; width:auto; margin-top:230px;}

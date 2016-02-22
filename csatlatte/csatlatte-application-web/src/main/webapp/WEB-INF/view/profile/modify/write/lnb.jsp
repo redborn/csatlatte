@@ -12,3 +12,4 @@
 	<p>성적을 관리하게 됩니다.</p>
 </div>
 <p id="profile-modify-return"><a href="${pageContext.request.contextPath}/<session:id/>">내 정보로 돌아가기</a></p>
+<%@ include file="/WEB-INF/layout/attribute/banner/250x250.jsp" %>

@@ -6,3 +6,4 @@
 <p>아이디 혹은 비밀번호를 분실한 경우</p>
 <p>다시 되찾을때 필요한 정보를 수정할 수 있습니다.</p>
 <p id="profile-security-return"><a href="${pageContext.request.contextPath}/<session:id/>">내 정보로 돌아가기</a></p>
+<%@ include file="/WEB-INF/layout/attribute/banner/250x250.jsp" %>

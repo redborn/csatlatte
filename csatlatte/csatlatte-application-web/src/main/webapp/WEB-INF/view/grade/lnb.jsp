@@ -14,3 +14,4 @@
 		</a>
 	</div>
 </div>
+<%@ include file="/WEB-INF/layout/attribute/banner/250x250.jsp" %>

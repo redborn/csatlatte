@@ -6,3 +6,4 @@
 <p>답변이 필요없는 문의사항은 삭제를 통해</p>
 <p>문의를 취소할 수도 있습니다.</p>
 <p id="profile-question-return"><a href="${pageContext.request.contextPath}/<session:id/>">내 정보로 돌아가기</a></p>
+<%@ include file="/WEB-INF/layout/attribute/banner/250x250.jsp" %>

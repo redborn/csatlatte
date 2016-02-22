@@ -10,3 +10,4 @@
 		<a href="<c:url value="/grade"/>">내 성적 등록하러 가기</a>
 	</div>
 </div>
+<%@ include file="/WEB-INF/layout/attribute/banner/250x250.jsp" %>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/layout/include/jquery/fileupload.jsp" %>
+<%@ include file="/WEB-INF/layout/include/banner/250x250.jsp" %>
 <style>
 	#profile-modify-return {margin-left:15px; margin-top:5px;}
 	#profile-modify-image {width:100px; height:100px; margin-bottom:5px; border:1px solid #7a6253; border-radius:4px;}
