@@ -13,6 +13,7 @@
 	.grade-synopsis {margin-top:10px;}
 	.grade-score-message {color:#d9534f; padding-top:7px;}
 	.grade-btn {font-size:14px;}
+	.grade-nosection p {color:red;}
 </style>
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -165,6 +166,13 @@
 											} else {
 												$("#grade-rating").text("등급 평균 : -");
 												$("#grade-standardscore").text("표준 점수 : -");
+											}
+											if (sectionListLength > 0) {
+												$(".grade-nosection").hide();
+												$(".grade-transcript").show();
+											} else {
+												$(".grade-transcript").hide();
+												$(".grade-nosection").show();
 											}
 										}
 									}
