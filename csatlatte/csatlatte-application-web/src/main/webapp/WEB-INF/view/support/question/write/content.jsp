@@ -18,13 +18,17 @@
 				<label for="support-question-write-content">문의하실 내용</label>
 				<textarea name="content" data-toggle="tooltip-content" data-placement="bottom" title="내용이 없으면 도와드리기 어려워요.." cols="40" rows="12" class="form-control" id="support-question-write-content" placeholder="내용을 입력하세요."></textarea>
 			</div>
-			<div class="form-group">
+			<div class="form-group support-question-write-file-group">
 				<label for="support-question-write-input-file">파일 첨부</label>
-				<input type="file" id="support-question-write-input-file" name="file">
-				<input type="file" id="support-question-write-input-file" name="file">
-				<input type="file" id="support-question-write-input-file" name="file">
-				<input type="file" id="support-question-write-input-file" name="file">
-				<input type="file" id="support-question-write-input-file" name="file">
+				<div class="support-question-write-file-div">
+					<span class="btn btn-default fileinput-button">
+						<span>파일 선택</span>
+						<input type="file" name="file" class="support-question-write-input-file"/>
+					</span>
+					<span class="btn btn-default support-question-write-file-minus"><i class="glyphicon glyphicon-minus"></i></span>
+					<span class="support-question-write-file-name"></span>
+				</div>
+				<span class="btn btn-default" id="support-question-write-file-plus"><i class="glyphicon glyphicon-plus"></i></span><span id="support-question-write-file-message">파일 크기는 10MB 이하만 사용할 수 있습니다.</span>
 			</div>
 		</div>
 		<div class="panel-footer">

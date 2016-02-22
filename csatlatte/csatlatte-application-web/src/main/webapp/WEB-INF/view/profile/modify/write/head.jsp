@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/layout/include/jquery/fileupload.jsp" %>
 <style>
 	#profile-modify-return {margin-left:15px; margin-top:5px;}
-	#profile-modify-content-image {width:100px; height:100px; margin-bottom:5px; border:1px solid #7a6253; border-radius:4px;}
+	#profile-modify-image {width:100px; height:100px; margin-bottom:5px; border:1px solid #7a6253; border-radius:4px;}
 	.profile-modify-button-group {text-align:right; width:auto; margin-top:60px;}
 	#profile-nickname-check-message-area {padding-top:7px;}
 	.profile-nickname-check-message-negative {color:#d9534f;}
@@ -14,9 +15,44 @@
 	$(document).ready(function () {
 		var patternSpace = /\s/g;
 		var patternEnglishNumber = /^[A-Za-z0-9+]*$/;
-		var patternEnglishNumberSpecial = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[~,!,@,#,$,*,(,),=,+,_,.,|]).*$/; // 8~15자리 영문, 숫자, 특수문자 최소 1개 포함
+		var patternEnglishNumberSpecial = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[~,!,@,#,$,*,(,),=,+,_,.,|]).*$/;
 		var patternKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 		var successNickname = true;
+		
+		var inputFile = $("#profile-modify-form input[type='file']");
+		$("#profile-modify-form input[type='file']").on("change", function () {
+			var data = this;
+			if (data) {
+				$('#profile-modify-image-delete').val(false);
+				var files = data.files;
+				if (files && files[0]) {
+					var file = files[0];
+					if (file.size >= 1000000) {
+						$("#profile-modify-image-message").text("파일 크기는 10MB이하만 사용할 수 있습니다.").show();
+						$("#profile-modify-photo-minus").trigger("click");
+					} else {
+						if (!file.name.match(/\.(gif|jpg|jpeg|png)$/i)) {
+							$("#profile-modify-photo-message").text("이미지 파일(gif, jpg, jpeg, png)만 사용할 수 있습니다.").show();
+							$("#profile-modify-photo-minus").trigger("click");
+						} else {
+							$("#profile-modify-photo-message").hide();
+							var reader = new FileReader();
+							reader.onload = function (e) {
+								$("#profile-modify-image").attr("src", e.target.result).slideDown("fast");
+								$("#profile-modify-photo-minus").fadeIn("fast").css("display", "inline-block");
+							}
+							reader.readAsDataURL(file);
+						}
+					}
+				}
+			}
+		});
+		$("#profile-modify-photo-minus").on("click", function () {
+			inputFile.replaceWith(inputFile = inputFile.clone(true));
+			$('#profile-modify-image-delete').val(true);
+			$("#profile-modify-image").slideUp("fast");
+			$(this).fadeOut("fast");
+		});
 		
 		var nicknameNegativeMessage = function () {
 			var html = '';
@@ -57,7 +93,6 @@
 				$('#profile-nickname-check-message-area').append(nicknameNegativeMessage());
 				successNickname = false;
 			} else {
-				//$('#profile-nickname-check-message-area').append(nicknamePositiveMessage());
 				successNickname = true;
 			}
 			

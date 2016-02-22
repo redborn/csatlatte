@@ -4,16 +4,24 @@
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <h5><strong>프로필 사진 및 닉네임</strong>&nbsp;<small>커뮤니티를 이용 시에 사용되는 정보입니다.</small></h5>
-<form:form class="form-horizontal" method="post" servletRelativeAction="${url}" enctype="multipart/form-data">
+<form:form class="form-horizontal" id="profile-modify-form" method="post" servletRelativeAction="${url}" enctype="multipart/form-data">
 <c:url var="url" value="/<session:id/>/modify"/>
 <c:set var="studentCsat"><session:csatSequence/></c:set>
 <c:set var="studentSequence"><session:studentSequence/></c:set>
 	<div class="form-group">
 		<label class="control-label col-sm-2">프로필 사진</label>
 		<div class="col-sm-5">
-			<img id="profile-modify-content-image" alt="프로필사진" src="<c:url value="/file/student/${studentSequence}"/>">
-			<input type="file" name="photo"/>
+			<img id="profile-modify-image" alt="프로필사진" src="<c:url value="/file/student/${studentSequence}"/>">
+			<input type="hidden" value="false" name="photoDelete" id="profile-modify-image-delete"/>
+			<div>
+				<span class="btn btn-default fileinput-button">
+					<i class="glyphicon glyphicon-plus"></i>
+					<input type="file" name="photo" id="profile-modify-photo" accept="image/gif,image/jpeg,image/jpg,image/png"/>
+				</span>
+				<span class="btn btn-default" id="profile-modify-photo-minus"><i class="glyphicon glyphicon-minus"></i></span>
+			</div>
 		</div>
+		<div class="col-sm-5"><div id="profile-modify-image-message"></div></div>
 	</div>
 	<div class="form-group">
 		<label for="profile-modify-nickname" class="control-label col-sm-2">닉네임</label>

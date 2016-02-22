@@ -74,7 +74,7 @@ public class StudentServiceImpl implements StudentService {
 		return result;
 	}
 
-	public boolean changeInformation(StudentVo studentVo, File photo) {
+	public boolean changeInformation(StudentVo studentVo, File photo, boolean photoDelete) {
 		StudentVo beforeStudentVo = studentDao.selectOneDetail(studentVo.getStudentSequence());
 		
 		if (photo != null) {
@@ -83,8 +83,14 @@ public class StudentServiceImpl implements StudentService {
 			photo.delete();
 			csatAmazonS3.delete(CsatAmazonS3Prefix.STUDENT_PROFILE, beforeStudentVo.getPhotoCode());
 		} else {
-			studentVo.setPhotoCode(beforeStudentVo.getPhotoCode());
-			studentVo.setPhotoName(beforeStudentVo.getPhotoName());
+			if (photoDelete) {
+				studentVo.setPhotoCode(null);
+				studentVo.setPhotoName(null);
+				csatAmazonS3.delete(CsatAmazonS3Prefix.STUDENT_PROFILE, beforeStudentVo.getPhotoCode());
+			} else {
+				studentVo.setPhotoCode(beforeStudentVo.getPhotoCode());
+				studentVo.setPhotoName(beforeStudentVo.getPhotoName());
+			}
 		}
 		
 		return studentDao.updateInformation(studentVo) == 1;

@@ -53,7 +53,8 @@ public class Modify {
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="csatSequence",required=true) int csatSequence,
-			@RequestParam(value="nickname",required=true) String nickname, @RequestParam(value="photo",required=false) MultipartFile photo) {
+			@RequestParam(value="nickname",required=true) String nickname, @RequestParam(value="photo",required=false) MultipartFile photo, 
+			@RequestParam(value="photoDelete",required=false,defaultValue="false") boolean photoDelete) {
 		logger.info("myinfo modify modify");
 		String result = TilesName.PROFILE_MODIFY_FAIL;
 		boolean fileError = false;
@@ -79,7 +80,7 @@ public class Modify {
 			}
 		}
 		if (!fileError) {
-			if (studentService.changeInformation(studentVo, file)) {
+			if (studentService.changeInformation(studentVo, file, photoDelete)) {
 				httpSessionValue.setUser(httpSessionValue.getId(), httpSessionValue.getStudentSequence(), nickname, httpSessionValue.getRuleSequence(), csatSequence);
 				result = TilesName.PROFILE_MODIFY_SUCCESS;
 			}
