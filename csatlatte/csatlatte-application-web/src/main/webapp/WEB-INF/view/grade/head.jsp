@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/layout/include/student.jsp" %>
+<%@ include file="/WEB-INF/layout/include/jquery/ajax.jsp" %>
 <%@ include file="/WEB-INF/layout/include/banner/250x250.jsp" %>
 <style>
 	.table {margin-bottom:0px;}
