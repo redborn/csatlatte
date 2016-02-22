@@ -48,7 +48,7 @@
 	<insert id="insert" parameterType="Map">
 		INSERT INTO csat_connection_student
 		            (connection_seq,student_seq,connection_date,user_agent,session_id,ip)
-		     VALUES((select IFNULL(max(ccs.connection_seq),0)+1 as connection_seq from csat_connection_student ccs), #{studentSequence}, NOW(3), #{userAgent}, #{sessionId}, #{ip}); 
+		     VALUES((select IFNULL(max(ccs.connection_seq),0)+1 as connection_seq from csat_connection_student ccs), #{studentSequence}, NOW(3), #{userAgent}, #{sessionId}, #{ip}) 
 	</insert>
 	
 </mapper>

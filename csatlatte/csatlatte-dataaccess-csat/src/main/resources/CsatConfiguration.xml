@@ -47,6 +47,7 @@
 		<mapper resource="org/redborn/csatlatte/persistence/blind/Type.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/report/Type.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/connection/StudentMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/connection/UriMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/student/SecurityQuestionMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/qna/AnswerMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/qna/ContentMapper.xml"/>

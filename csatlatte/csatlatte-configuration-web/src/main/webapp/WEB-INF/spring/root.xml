@@ -14,24 +14,6 @@
 		http://www.springframework.org/schema/aop 
 		http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
 		
-	<!-- Database -->
-	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="java:/comp/env/jdbc/csat"/>
-	</bean>
-	
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="configLocation" value="classpath:/CsatConfiguration.xml" />
-    </bean>
-    
-    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-        <constructor-arg ref="sqlSessionFactory"/>
-    </bean>
-    
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-    	<property name="dataSource" ref="dataSource"/>
-    </bean>
-    
     <!-- File IO -->
     <bean id="uploadTempDir" class="org.springframework.core.io.FileSystemResource">
     	<constructor-arg value="/data/csat/file/temp"/>
@@ -54,11 +36,16 @@
 	<mvc:resources mapping="/resources/**" location="/resources/"/>
 	
 	<!-- aop -->
+	<bean id="aop.uri" class="org.redborn.csatlatte.commons.spring.aop.Uri"/>
 	<bean id="aop.account" class="org.redborn.csatlatte.commons.spring.aop.Account"/>
 	<aop:config>
-		<aop:pointcut id="accountPointCut" expression="execution(* org.redborn.csatlatte.controller.account.*.*(..))"/>
-		<aop:aspect ref="aop.account">
-			<aop:before pointcut-ref="accountPointCut" method="compareId"/>
+		<aop:aspect id="uriAspect" ref="aop.uri">
+			<aop:pointcut id="uriPointCut" expression="execution(* org.redborn.csatlatte.controller.web..*.*(..))"/>
+			<aop:around pointcut-ref="uriPointCut" method="connection"/>
+		</aop:aspect>
+		<aop:aspect id="accountAspect" ref="aop.account">
+			<aop:pointcut id="accountPointCut" expression="execution(* org.redborn.csatlatte.controller.account..*.*(..))"/>
+			<aop:around pointcut-ref="accountPointCut" method="compareId"/>
 		</aop:aspect>
 	</aop:config>
 	
