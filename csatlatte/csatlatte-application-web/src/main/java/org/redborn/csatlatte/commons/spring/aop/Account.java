@@ -2,8 +2,11 @@ package org.redborn.csatlatte.commons.spring.aop;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.redborn.csatlatte.commons.servlet.http.HttpServletRequestValue;
 import org.redborn.csatlatte.commons.servlet.http.HttpSessionValue;
 import org.redborn.csatlatte.commons.tiles.TilesName;
+import org.redborn.csatlatte.service.UriService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -19,16 +22,25 @@ public class Account {
 	@Autowired
 	private HttpServletRequest request;
 	@Autowired
+	private UriService uriService;
+	@Autowired
 	private HttpSessionValue httpSessionValue; 
+	@Autowired
+	private HttpServletRequestValue httpServletRequestValue;
 	
-	public Object compareId() {
+	public Object compareId(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 		String requestURI = request.getRequestURI();
 		int contextPathLength = request.getContextPath().length();
 		int endIndex = requestURI.indexOf("/", contextPathLength + 1);
 		if (endIndex < 0) {
 			endIndex = requestURI.length();
 		}
-		return requestURI.substring(contextPathLength + 1, endIndex).equals(httpSessionValue.getId()) ? null: TilesName.ERROR_404;
+		Object result = TilesName.ERROR_404;
+		if (requestURI.substring(contextPathLength + 1, endIndex).equals(httpSessionValue.getId())) {
+			result = proceedingJoinPoint.proceed();
+			uriService.connection(new StringBuilder("/{id}").append(requestURI.substring(endIndex)).toString(), httpServletRequestValue.getUserAgent(), httpServletRequestValue.getSessionId(), httpServletRequestValue.getIp());
+		}
+		return result;
 	}
 
 }
