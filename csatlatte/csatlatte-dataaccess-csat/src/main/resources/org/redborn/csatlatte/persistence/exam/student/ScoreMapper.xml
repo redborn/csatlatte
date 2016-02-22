@@ -40,7 +40,8 @@
 		       ces.max_score, 0) AS standard_score,cerc.rating_code
 		  FROM csat_exam_student_score cess
 		       INNER JOIN csat_exam_subject ces
-		               ON cess.exam_seq = ces.exam_seq
+		               ON cess.csat_seq = ces.csat_seq
+               	  		  AND cess.exam_seq = ces.exam_seq
 		                  AND cess.section_seq = ces.section_seq
 		                  AND cess.subject_seq = ces.subject_seq
 		       INNER JOIN csat_exam_avg cea
