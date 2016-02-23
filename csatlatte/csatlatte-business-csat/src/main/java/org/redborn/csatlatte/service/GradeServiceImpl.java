@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.redborn.csatlatte.domain.GradeListVo;
 import org.redborn.csatlatte.domain.GradeRatingVo;
-import org.redborn.csatlatte.domain.GradeStandardscoreVo;
+import org.redborn.csatlatte.domain.GradeStandardScoreVo;
 import org.redborn.csatlatte.domain.GradeVo;
 import org.redborn.csatlatte.persistence.exam.student.ScoreDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class GradeServiceImpl implements GradeService {
 		return scoreDao.selectListRating(csatSequence, studentSequence);
 	}
 
-	public List<GradeStandardscoreVo> standardScoreList(int csatSequence, int studentSequence) {
+	public List<GradeStandardScoreVo> standardScoreList(int csatSequence, int studentSequence) {
 		return scoreDao.selectListStandardScore(csatSequence, studentSequence);
 	}
 
