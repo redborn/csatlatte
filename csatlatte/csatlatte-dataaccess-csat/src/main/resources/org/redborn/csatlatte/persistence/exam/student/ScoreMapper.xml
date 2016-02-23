@@ -120,6 +120,7 @@
 		                    WHERE csat_seq = #{csatSequence}) ce
 		               ON cess.csat_seq = ce.csat_seq
 		                  AND cess.exam_seq = ce.exam_seq
+		 ORDER BY cess.exam_seq
 	</select>
 	
 	<select id="selectListStandardScore" parameterType="int" resultMap="GradeStandardScoreVoMap">
