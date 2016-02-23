@@ -13,7 +13,7 @@ public interface GradeService {
 	public boolean modify(GradeVo gradeVo);
 	public boolean delete(int studentSequence, int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
 	public List<GradeListVo> list(int csatSequence, int examSequence, int studentSequence);
-	public List<GradeRatingVo> ratingcutHistory(int csatSequence, int examSequence, int studentSequence);
-	public List<GradeStandardscoreVo> standardscoreHistory(int csatSequence, int examSequence, int studentSequence);
+	public List<GradeRatingVo> ratingCutList(int csatSequence, int studentSequence);
+	public List<GradeStandardscoreVo> standardScoreList(int csatSequence, int studentSequence);
 	
 }

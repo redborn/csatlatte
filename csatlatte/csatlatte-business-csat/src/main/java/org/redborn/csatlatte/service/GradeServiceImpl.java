@@ -32,12 +32,12 @@ public class GradeServiceImpl implements GradeService {
 		return scoreDao.selectList(csatSequence, examSequence, studentSequence);
 	}
 
-	public List<GradeRatingVo> ratingcutHistory(int csatSequence, int examSequence, int studentSequence) {
-		return scoreDao.selectListRating(csatSequence, examSequence, studentSequence);
+	public List<GradeRatingVo> ratingCutList(int csatSequence, int studentSequence) {
+		return scoreDao.selectListRating(csatSequence, studentSequence);
 	}
 
-	public List<GradeStandardscoreVo> standardscoreHistory(int csatSequence, int examSequence, int studentSequence) {
-		return scoreDao.selectListStandardscore(csatSequence, examSequence, studentSequence);
+	public List<GradeStandardscoreVo> standardScoreList(int csatSequence, int studentSequence) {
+		return scoreDao.selectListStandardScore(csatSequence, studentSequence);
 	}
 
 }
