@@ -6,8 +6,8 @@
 <%@ include file="/WEB-INF/layout/include/banner/250x250.jsp" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <style>
-	#grade-analysis-rating-average-chart {height:500px; margin-top:10px;}
-	#grade-analysis-standard-score-chart {height:500px; margin-top:10px;}
+	#grade-analysis-rating-average-chart {height:500px; margin-top:20px;}
+	#grade-analysis-standard-score-chart {height:500px; margin-top:20px;}
 	.grade-analysis-add-score {margin-left:15px; margin-top:5px; font-size:13px;}
 </style>
 
@@ -25,10 +25,7 @@ $(document).ready(function() {
 			width : '90%',
 			height : '80%'
 		},
-		title : "등급 평균 변화 그래프",
-		hAxis : {
-			title : "모의고사"
-		},
+		title : "등급 평균",
 		vAxis: {
 			title : "등급 평균",
 			minValue : 1.0,
@@ -50,16 +47,13 @@ $(document).ready(function() {
 			width : '90%',
 			height : '80%'
 		},
-		title : "표준점수 합계 변화 그래프",
-		hAxis : {
-			title : "모의고사"
-		},
+		title : "표준점수 합계",
 		vAxis: {
 			title : "표준 점수 합계",
-			direction : -1,
 			gridlines : {
 				count:9
-			}
+			},
+			minValue : 1
 		},
 		animation : {
 			duration : 0
