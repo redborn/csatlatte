@@ -23,6 +23,8 @@
 	.main-login .btn {background:#7a6253; width:270px; color:white; border-color:#7a6253;}
 	
 	.main-profile-picture {width:120px; height:120px; border-radius:4px; border:1px solid white;}
+	.main-link {color:white;}
+	.main-link:hover {color:white;}
 </style>
 <session:isGuest>
 <script type="text/javascript">

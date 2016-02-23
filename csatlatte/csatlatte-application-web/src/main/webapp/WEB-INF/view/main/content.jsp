@@ -25,11 +25,11 @@
 			</div>
 			<div class="form-group" id="main-account">
 				<div class="main-join">
-					<a href="<c:url value="/join"/>">회원가입</a>
+					<a href="<c:url value="/join"/>" class="main-link">회원가입</a>
 				</div>
 				<div class="main-find-info">
-					<a id="main-find-id" href="<c:url value="/id"/>">아이디 찾기</a>|
-					<a id="main-find-password" href="<c:url value="/password"/>">비밀번호 찾기</a>
+					<a id="main-find-id" href="<c:url value="/id"/>" class="main-link">아이디 찾기</a> |
+					<a id="main-find-password" href="<c:url value="/password"/>" class="main-link">비밀번호 찾기</a>
 				</div>
 			</div>
 		<c:if test="${fail}">
