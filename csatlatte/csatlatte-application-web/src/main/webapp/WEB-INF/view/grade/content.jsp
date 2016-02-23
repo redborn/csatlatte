@@ -24,6 +24,11 @@
 </div>
 <div class="grade-transcript">
 </div>
+<div class="grade-nosection">
+	<h4>이 시험은 성적과 관련된 정보가 부족합니다.</h4>
+	<h5>기관에서 자료 공개를 하지 않았거나 성적에 관련된 정보를 정리하는 중 입니다.</h5>
+	<p>한국교육평가원에서 주관하는 시험인 경우 해당 기관에서 성적과 관련된 자료를 공개하지 않아 수능라떼에서 성적 관리를 할 수 가 없습니다.</p>
+</div>
 <div class="modal fade" id="grade-add" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
