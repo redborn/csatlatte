@@ -26,7 +26,7 @@
 		<result column="rating_avg" property="ratingAverage"/>
 	</resultMap>
 	
-	<resultMap type="GradeStandardscoreVo" id="GradeStandardScoreVoMap">
+	<resultMap type="GradeStandardScoreVo" id="GradeStandardScoreVoMap">
 		<result column="exam_name" property="examName"/>
 		<result column="standard_score_sum" property="standardScoreSum"/>
 	</resultMap>
