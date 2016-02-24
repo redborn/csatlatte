@@ -51,8 +51,9 @@ $(document).ready(function() {
 		vAxis: {
 			title : "표준 점수 합계",
 			gridlines : {
-				count:9
+				count: 10
 			},
+			maxValue : 900,
 			minValue : 1
 		},
 		animation : {
