@@ -9,6 +9,8 @@
 	#grade-analysis-rating-average-chart {height:500px; margin-top:20px;}
 	#grade-analysis-standard-score-chart {height:500px; margin-top:20px;}
 	.grade-analysis-add-score {margin-left:15px; margin-top:5px; font-size:13px;}
+	#grade-analysis-nograde {display:none;}
+	#grade-analysis-nograde div {text-align:right; margin-bottom:20px;}
 </style>
 
 <script type="text/javascript">
@@ -75,34 +77,47 @@ $(document).ready(function() {
 			if (data && data.list) {
 				var list = data.list;
 				var listLength = list.length;
-				for (var index = 0; index < listLength; index++) {
-					var ratingAverage = list[index];
-					ratingAverageDataTable.addRow([ratingAverage.examName, ratingAverage.ratingAverage]);
+				if (listLength > 0) {
+					for (var index = 0; index < listLength; index++) {
+						var ratingAverage = list[index];
+						ratingAverageDataTable.addRow([ratingAverage.examName, ratingAverage.ratingAverage]);
+					}
+					ratingAverageChart = new google.visualization.LineChart(document.getElementById('grade-analysis-rating-average-chart'));
+					ratingAverageChart.draw(ratingAverageDataTable, ratingAverageOption);
+					
+					$.ajax(contextPath + "/" + id + "/data/grade/standardscore.json", {
+						dataType : "json",
+						success : function(data) {
+							if (data && data.list) {
+								var list = data.list;
+								var listLength = list.length;
+								if (listLength > 0) {
+									for (var index = 0; index < listLength; index++) {
+										var standardScore = list[index];
+										standardScoreDataTable.addRow([standardScore.examName, standardScore.standardScoreSum]);
+									}
+									standardScoreChart = new google.visualization.LineChart(document.getElementById('grade-analysis-standard-score-chart'));
+									standardScoreChart.draw(standardScoreDataTable, standardScoreOption);
+									
+									$(window).resize(function() {
+										standardScoreChart.draw(standardScoreDataTable, standardScoreOption);
+									});
+								}
+							}
+						}
+					});
+					
+					$(window).resize(function() {
+						ratingAverageChart.draw(ratingAverageDataTable, ratingAverageOption);
+					});
+				} else {
+					$("#grade-analysis-chart").hide();
+					$("#grade-analysis-nograde").show();
 				}
-				ratingAverageChart = new google.visualization.LineChart(document.getElementById('grade-analysis-rating-average-chart'));
-				ratingAverageChart.draw(ratingAverageDataTable, ratingAverageOption);
 			}
 		}
 	});
-	$.ajax(contextPath + "/" + id + "/data/grade/standardscore.json", {
-		dataType : "json",
-		success : function(data) {
-			if (data && data.list) {
-				var list = data.list;
-				var listLength = list.length;
-				for (var index = 0; index < listLength; index++) {
-					var standardScore = list[index];
-					standardScoreDataTable.addRow([standardScore.examName, standardScore.standardScoreSum]);
-				}
-				standardScoreChart = new google.visualization.LineChart(document.getElementById('grade-analysis-standard-score-chart'));
-				standardScoreChart.draw(standardScoreDataTable, standardScoreOption);
-			}
-		}
-	});
-	$(window).resize(function() {
-		ratingAverageChart.draw(ratingAverageDataTable, ratingAverageOption);
-		standardScoreChart.draw(standardScoreDataTable, standardScoreOption);
-	});
+	
 	
 });
 </script>
