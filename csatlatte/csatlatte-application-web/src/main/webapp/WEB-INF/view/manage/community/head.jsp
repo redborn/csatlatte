@@ -34,6 +34,7 @@
 	.manage-community-icon {float:none;}
 	@media screen and (max-width:500px) {
 		#manage-community-table .manage-community-sequence {display:none;}
+		.manage-community-text-detail xmp {width:50px}
 	}
 </style>
 <script>
