@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <div class="main-picture">
-	<div class="main-title">"미래를 위한<br/>현명한 준비"</div>
+	<div class="main-title">"미래를 위한&nbsp;&nbsp;<br/>&nbsp;&nbsp;현명한 준비"</div>
 	<session:isGuest>
 	<div class="main-login">
 		<form:form id="main-form" method="post" servletRelativeAction="/login"> 
