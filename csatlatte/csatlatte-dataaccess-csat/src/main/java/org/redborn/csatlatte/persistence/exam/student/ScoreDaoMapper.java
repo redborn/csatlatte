@@ -7,7 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.GradeListVo;
 import org.redborn.csatlatte.domain.GradeRatingVo;
-import org.redborn.csatlatte.domain.GradeStandardscoreVo;
+import org.redborn.csatlatte.domain.GradeStandardScoreVo;
 import org.redborn.csatlatte.domain.GradeVo;
 import org.springframework.stereotype.Repository;
 
@@ -51,23 +51,20 @@ public class ScoreDaoMapper extends SqlSessionDaoSupport implements ScoreDao {
 		return getSqlSession().selectList("exam.student.score.selectListExamStudent", params);
 	}
 
-	public List<GradeRatingVo> selectListRating(int csatSequence, int examSequence, int studentSequence) {
+	public List<GradeRatingVo> selectListRating(int csatSequence, int studentSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);
-		params.put("examSequence", examSequence);
 		params.put("studentSequence", studentSequence);
-		
 		
 		return getSqlSession().selectList("exam.student.score.selectListRating", params);
 	}
 
-	public List<GradeStandardscoreVo> selectListStandardscore(int csatSequence, int examSequence, int studentSequence) {
+	public List<GradeStandardScoreVo> selectListStandardScore(int csatSequence, int studentSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);
-		params.put("examSequence", examSequence);
 		params.put("studentSequence", studentSequence);
 		
-		return getSqlSession().selectList("exam.student.score.selectListStandardscore", params);
+		return getSqlSession().selectList("exam.student.score.selectListStandardScore", params);
 	}
 
 }
