@@ -27,7 +27,7 @@
 		<tr>
 			<th class="manage-question-sequence col-lg-1 manage-question-col-lg">번호</th>
 			<th class="col-lg-2 manage-question-col-lg">아이디</th>
-			<th class="col-lg-2 manage-question-col-lg">닉네임</th>
+			<th class="col-lg-2 manage-question-col-lg manage-question-nickname">닉네임</th>
 			<th class="col-lg-3 manage-question-col-lg">제목</th>
 			<th class="col-lg-2 manage-question-col-lg">날짜</th>
 			<th class="col-lg-1 manage-question-col-lg"></th>
@@ -38,7 +38,7 @@
 		<tr>
 			<td class="manage-question-sequence">${question.qnaSequence}</td>
 			<td>${question.studentId}</td>
-			<td>${question.nickname}</td>
+			<td class="manage-question-nickname">${question.nickname}</td>
 			<td><div class="manage-question-title"><xmp>${question.title}</xmp></div></td>
 			<td>${question.writeDate}</td>
 			<td id="manage-question-answer-button-${question.qnaSequence}">
