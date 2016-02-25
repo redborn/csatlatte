@@ -8,7 +8,6 @@
 	#manage-user-table {margin-top:15px; text-align:center;}
 	.manage-user-col-lg {float:none; display:inline-block; text-align:center;}
 	.manage-user-search {text-align:right;}
-	.manage-user-title {display:inline-block; width:380px;}
 	.manage-user-id {cursor:pointer;}
 	#manage-user-id .modal-body {text-align:center;}
 	.manage-user-picture {width:100px; height:100px; border-radius:5px; border:1px solid #7a6253;}
@@ -18,6 +17,9 @@
 	.manage-user-blind {cursor:pointer;}
 	.manage-user-recovery {cursor:pointer;}
 	.manage-user-icon {float:none;}
+	@media screen and (max-width:500px) {
+		#manage-user-table .manage-user-sequence {display:none;}
+	}
 </style>
 <script>
 	$(document).ready(function () {
