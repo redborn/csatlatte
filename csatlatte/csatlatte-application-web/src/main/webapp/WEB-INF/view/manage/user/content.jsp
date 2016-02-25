@@ -13,19 +13,19 @@
 <table class="table" id="manage-user-table">
 	<thead>
 		<tr>
-			<th class="col-lg-1 manage-user-col-lg">번호</th>
-			<th class="col-lg-1 manage-user-col-lg">아이디</th>
-			<th class="col-lg-1 manage-user-col-lg">닉네임</th>
+			<th class="col-lg-1 manage-user-col-lg manage-user-sequence">번호</th>
+			<th class="col-lg-2 manage-user-col-lg">아이디</th>
+			<th class="col-lg-2 manage-user-col-lg">닉네임</th>
 			<th class="col-lg-1 manage-user-col-lg">접속횟수</th>
 			<th class="col-lg-1 manage-user-col-lg">활동점수</th>
-			<th class="col-lg-1 manage-user-col-lg">성적평균</th>
+			<th class="col-lg-2 manage-user-col-lg">성적평균</th>
 			<th class="col-lg-1 manage-user-col-lg">차단</th>
 		</tr>
 	</thead>
 	<tbody>
 	<c:forEach items="${userList}" var="user">
 		<tr>
-			<td>${user.studentSequence}</td>
+			<td class="manage-user-sequence">${user.studentSequence}</td>
 			<td><div id="${user.studentSequence}" data-toggle="modal" data-target="#manage-user-id" class="manage-user-id">${user.studentId}</div></td>
 			<td>${user.nickname}</td>
 			<td>${user.countConnection}</td>

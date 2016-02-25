@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <div class="main-picture">
-	<div class="main-title">"미래를 위한<br/>현명한 준비"</div>
+	<div class="main-title">"미래를 위한&nbsp;&nbsp;<br/>&nbsp;&nbsp;현명한 준비"</div>
 	<session:isGuest>
 	<div class="main-login">
 		<form:form id="main-form" method="post" servletRelativeAction="/login"> 
@@ -41,14 +41,14 @@
 	<session:isStudent>
 	<div class="main-login">
 		<c:set var="studentSequence"><session:studentSequence/></c:set>
-		<img alt="프로필사진" class="main-profile-picture" src="<c:url value="/file/student/${studentSequence}"/>">
+		<img alt="프로필사진" class="main-profile-photo" src="<c:url value="/file/student/${studentSequence}"/>">
 		<h4>어서오세요! 회원님!</h4>
 	</div>
 	</session:isStudent>
 	<session:isManager>
 	<div class="main-login">
 		<c:set var="studentSequence"><session:studentSequence/></c:set>
-		<img alt="프로필사진" class="main-profile-picture" src="<c:url value="/file/student/${studentSequence}"/>">
+		<img alt="프로필사진" class="main-profile-photo" src="<c:url value="/file/student/${studentSequence}"/>">
 		<h4>어서오세요! 관리자님!</h4>
 		<a class="btn btn-default" href="<c:url value="/stats/join"/>">관리자 페이지</a>
 	</div>

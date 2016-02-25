@@ -7,7 +7,7 @@
 	.manage-question-nav {text-align:center;}
 	#manage-question-table {margin-top:15px; text-align:center;}
 	.manage-question-col-lg {float:none; display:inline-block; text-align:center;}
-	.manage-question-search {text-align:right; width:auto;}
+	.manage-question-search {text-align:right; width:auto; margin-top:10px;}
 	.manage-question-yn h5 {display:inline-block;}
 	.manage-question-yn .btn-default {width:auto; display:inline-block;}
 	.manage-question-btn-group {margin-left:5px;}
@@ -20,9 +20,11 @@
 	.manage-question-title xmp {white-space:nowrap; width:80px; text-overflow:ellipsis; overflow:hidden;}
 	@media screen and (max-width:500px) {
 		#manage-question-table .manage-question-sequence {display:none;}
+		#manage-question-table .manage-question-nickname {display:none;}
+		.manage-question-title xmp {width:40px;}
 	}
-	.manage-question-detail-file .col-lg-2 {white-space:nowrap; width:150px; text-overflow:ellipsis; overflow:hidden; float:none;}
-	.manage-question-detail-file.row {margin-left:0px;}
+	.manage-question-detail-file-list .manage-question-detail-file {white-space:nowrap; width:150px; text-overflow:ellipsis; overflow:hidden; float:none;}
+	.manage-question-detail-file-list.row {margin-left:0px;}
 </style>
 <script>
 	$(document).ready(function () {
@@ -46,11 +48,11 @@
 			if (files != null) {
 				var filesLength = files.length;
 				if (filesLength != 0) {
-					html += '			<div class="manage-question-detail-file row">';
+					html += '			<div class="manage-question-detail-file-list row">';
 					html += '				<label>첨부파일</label>';
 					for (var index = 0; index < filesLength; index++) {
 						var file = files[index];
-						html += '<div class="col-lg-2">';
+						html += '<div class="col-lg-2 manage-question-detail-file">';
 						html += '	<a href="' + contextPath + '/file/question/' + file.qnaSequence + '/' + file.fileSequence + '">' + file.fileName + '</a>';
 						html += '</div>';
 					}

@@ -18,11 +18,16 @@
 	<tiles:insertAttribute name="header"/>
 	<div class="error">
 		<div class="error-message">
-			<tiles:insertAttribute name="content"/>
-			<p><a href="<c:url value="/main"/>">홈으로 돌아가기</a></p>
-		</div>
-		<div class="error-logo">
-			<img alt="프로필사진" src="<c:url value="/resources/csatlatte/images/img/img_logo2.png"/>">
+			<div class="row">
+				<div class="col-xs-8">
+					<tiles:insertAttribute name="content"/>
+					<br/>
+					<p><a href="<c:url value="/main"/>">홈으로 돌아가기</a></p>
+				</div>
+				<div class="col-xs-4">
+					<img alt="수능라떼" src="<c:url value="/resources/csatlatte/images/img/img_logo2.png"/>"/>
+				</div>
+			</div>
 		</div>
 	</div>
 	<tiles:insertAttribute name="footer"/>

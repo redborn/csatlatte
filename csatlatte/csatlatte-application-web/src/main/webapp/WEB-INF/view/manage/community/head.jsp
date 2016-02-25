@@ -6,7 +6,6 @@
 	.manage-community-label {display:inline-block; width:80px; text-align:right; display:inline-block;}
 	#manage-community-nav {text-align:center;}
 	#manage-community-table {margin-top:15px; text-align:center; float:none;}
-	.manage-community-title {display:inline-block; width:380px;}
 	.manage-community-col-lg {float:none; display:inline-block; text-align:center;}
 	.manage-community-search {text-align:right;}
 	.manage-community-user-info-modal {width:400px;}
@@ -21,7 +20,7 @@
 	.manage-community-text {text-align:left;}
 	.manage-community-text .manage-community-name {font-size:13px; display:inline;}
 	.manage-community-text .manage-community-calender {font-size:13px; color:gray;}
-	.manage-community-text .manage-community-user-info {display:inline-block; margin-left:3px; width:500px;}
+	.manage-community-text .manage-community-user-info {display:inline-block; margin-left:3px;}
 	.manage-community-text .manage-community-comment-content {font-size:13px; display:inline;}
 	.manage-community-comment {position:relative; margin-top:5px; height:40px; text-align:left;}
 	.manage-community-comment img {width:40px; height:40px; display:inline-block; border-radius:5px; border:1px solid #7a6253;}
@@ -33,6 +32,10 @@
 	#manage-community-blind .modal-body {text-align:left;}
 	.manage-community-blind {cursor:pointer;}
 	.manage-community-icon {float:none;}
+	@media screen and (max-width:500px) {
+		#manage-community-table .manage-community-sequence {display:none;}
+		.manage-community-text-detail xmp {width:50px}
+	}
 </style>
 <script>
 	$(document).ready(function () {

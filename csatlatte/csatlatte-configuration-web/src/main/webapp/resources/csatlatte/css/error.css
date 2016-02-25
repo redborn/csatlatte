@@ -1,4 +1,4 @@
 @CHARSET "UTF-8";
-.error {width:440px; margin:auto; margin-top:250px;}
-.error-message {color:#7a6253; display:inline-block; margin-top:5px; width:325px;}
-.error-logo {display:inline-block; vertical-align:top; margin-left:10px;}
+.error {margin :auto; max-width:550px; margin-top:200px;}
+.error-message {margin-left:15px; margin-right:15px;}
+.error .col-xs-4 {text-align:center;}

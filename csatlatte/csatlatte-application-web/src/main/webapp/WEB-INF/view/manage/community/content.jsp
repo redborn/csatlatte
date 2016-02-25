@@ -14,7 +14,7 @@
 <table class="table" id="manage-community-table">
 	<thead>
 		<tr>
-			<th class="col-lg-2 manage-community-col-lg">번호</th>
+			<th class="col-lg-1 manage-community-col-lg manage-community-sequence">번호</th>
 			<th class="col-lg-2 manage-community-col-lg">아이디</th>
 			<th class="col-lg-2 manage-community-col-lg">닉네임</th>
 			<th class="col-lg-4 manage-community-col-lg">내용</th>
@@ -28,7 +28,7 @@
 		<input type="hidden" id="manage-community-content-${community.communitySequence}" value="${community.content}">
 		<input type="hidden" id="manage-community-studentseq-${community.communitySequence}" value="${community.studentSequence}">
 		<tr>
-			<td>${community.communitySequence}</td>
+			<td class="manage-community-sequence">${community.communitySequence}</td>
 			<td><div id="${community.studentSequence}" data-toggle="modal" data-target="#manage-community-id" class="manage-community-id">${community.studentId}</div></td>
 			<td>${community.nickname}</td>
 			<td><div id="${community.communitySequence}" data-toggle="modal" data-target="#manage-community-text-detail" class="manage-community-text-detail"><xmp>${community.content}</xmp></div></td>
