@@ -21,6 +21,7 @@
 	@media screen and (max-width:500px) {
 		#manage-question-table .manage-question-sequence {display:none;}
 		#manage-question-table .manage-question-nickname {display:none;}
+		.manage-question-title xmp {width:40px;}
 	}
 	.manage-question-detail-file-list .manage-question-detail-file {white-space:nowrap; width:150px; text-overflow:ellipsis; overflow:hidden; float:none;}
 	.manage-question-detail-file-list.row {margin-left:0px;}
