@@ -9,7 +9,6 @@ import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3Prefix;
 import org.redborn.csatlatte.domain.FileVo;
 import org.redborn.csatlatte.domain.QnaAnswerVo;
 import org.redborn.csatlatte.domain.QnaForManageVo;
-import org.redborn.csatlatte.domain.QnaForStudentVo;
 import org.redborn.csatlatte.domain.QnaVo;
 import org.redborn.csatlatte.persistence.QnaDao;
 import org.redborn.csatlatte.persistence.qna.AnswerDao;
@@ -75,7 +74,7 @@ public class QnaServiceImpl implements QnaService {
 		return qnaDao.selectListForManage(search, pageNumber, countQnaAnswer);
 	}
 
-	public List<QnaForStudentVo> listForStudent(int studentSequence) {
+	public List<QnaVo> listForStudent(int studentSequence) {
 		return qnaDao.selectListForStudent(studentSequence);
 	}
 	
