@@ -21,5 +21,13 @@ public class SectionDaoMapper extends SqlSessionDaoSupport implements SectionDao
 	public int insert(SectionVo sectionVo) {
 		return getSqlSession().insert("exam.section.insert", sectionVo);
 	}
+	
+	public int delete(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		
+		return getSqlSession().delete("exam.section.delete", params);
+	}
 
 }

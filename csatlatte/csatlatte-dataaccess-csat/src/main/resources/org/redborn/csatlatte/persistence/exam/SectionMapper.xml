@@ -26,4 +26,10 @@
 		VALUES (#{csatSequence}, #{examSequence}, #{sectionSequence}, #{sectionName}, #{selectCount}) 
 	</insert>
 	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_exam_section
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</delete>
+	
 </mapper>
