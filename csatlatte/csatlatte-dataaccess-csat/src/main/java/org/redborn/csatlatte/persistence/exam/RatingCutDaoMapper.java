@@ -29,44 +29,12 @@ public class RatingCutDaoMapper extends SqlSessionDaoSupport implements
 		return getSqlSession().selectList("exam.ratingcut.selectListForCreate", csatSequence);
 	}
 	
-	public int deleteAverage(int csatSequence, int examSequence) {
+	public int delete(int csatSequence, int examSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);
 		params.put("examSequence", examSequence);
 		
-		return getSqlSession().delete("exam.ratingcut.deleteAverage", params);
-	}
-	
-	public int deleteSection(int csatSequence, int examSequence) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("csatSequence", csatSequence);
-		params.put("examSequence", examSequence);
-		
-		return getSqlSession().delete("exam.ratingcut.deleteSection", params);
-	}
-	
-	public int deleteSubject(int csatSequence, int examSequence) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("csatSequence", csatSequence);
-		params.put("examSequence", examSequence);
-		
-		return getSqlSession().delete("exam.ratingcut.deleteSubject", params);
-	}
-	
-	public int deleteRatingCut(int csatSequence, int examSequence) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("csatSequence", csatSequence);
-		params.put("examSequence", examSequence);
-		
-		return getSqlSession().delete("exam.ratingcut.deleteRatingCut", params);
-	}
-	
-	public int deleteStudentScore(int csatSequence, int examSequence) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("csatSequence", csatSequence);
-		params.put("examSequence", examSequence);
-		
-		return getSqlSession().delete("exam.ratingcut.deleteStudentScore", params);
+		return getSqlSession().delete("exam.ratingcut.delete", params);
 	}
 
 	public int insert(RatingCutVo ratingCutVo) {

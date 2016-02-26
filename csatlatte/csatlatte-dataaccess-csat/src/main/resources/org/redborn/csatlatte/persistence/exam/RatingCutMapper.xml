@@ -99,32 +99,8 @@
 		         AND IFNULL(cerc.ratingcut, 0) = 0 ) 
 	</select>
 	
-	<delete id="deleteAverage" parameterType="Map">
-		DELETE FROM csat_exam_avg
-		 WHERE csat_seq = #{csatSequence}
-		   AND exam_seq = #{examSequence}
-	</delete>
-	
-	<delete id="deleteSection" parameterType="Map">
-		DELETE FROM csat_exam_section
-		 WHERE csat_seq = #{csatSequence}
-		   AND exam_seq = #{examSequence}
-	</delete>
-	
-	<delete id="deleteSubject" parameterType="Map">
-		DELETE FROM csat_exam_subject
-		 WHERE csat_seq = #{csatSequence}
-		   AND exam_seq = #{examSequence}
-	</delete>
-	
-	<delete id="deleteRatingCut" parameterType="Map">
+	<delete id="delete" parameterType="Map">
 		DELETE FROM csat_exam_rating_cut
-		 WHERE csat_seq = #{csatSequence}
-		   AND exam_seq = #{examSequence}
-	</delete>
-	
-	<delete id="deleteStudentScore" parameterType="Map">
-		DELETE FROM csat_exam_student_score
 		 WHERE csat_seq = #{csatSequence}
 		   AND exam_seq = #{examSequence}
 	</delete>
