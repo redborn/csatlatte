@@ -25,9 +25,6 @@
 		<typeAlias alias="StudentSecurityQuestionVo" type="org.redborn.csatlatte.domain.StudentSecurityQuestionVo"/>
 		<typeAlias alias="StudentVo" type="org.redborn.csatlatte.domain.StudentVo"/>
 		<typeAlias alias="TypeVo" type="org.redborn.csatlatte.domain.TypeVo"/>
-		<typeAlias alias="YearCountVo" type="org.redborn.csatlatte.domain.YearCountVo"/>
-		<typeAlias alias="YmCountVo" type="org.redborn.csatlatte.domain.YmCountVo"/>
-		<typeAlias alias="YmdCountVo" type="org.redborn.csatlatte.domain.YmdCountVo"/>
 		<typeAlias alias="InstitutionVo" type="org.redborn.csatlatte.domain.InstitutionVo"/>
 		<typeAlias alias="YearStudentVo" type="org.redborn.csatlatte.domain.YearStudentVo"/>
 		<typeAlias alias="SecurityQuestionVo" type="org.redborn.csatlatte.domain.SecurityQuestionVo"/>
