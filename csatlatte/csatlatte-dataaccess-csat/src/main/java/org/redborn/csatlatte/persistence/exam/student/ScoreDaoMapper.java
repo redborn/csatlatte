@@ -33,6 +33,14 @@ public class ScoreDaoMapper extends SqlSessionDaoSupport implements ScoreDao {
 		
 		return getSqlSession().delete("exam.student.score.delete", params);
 	}
+	
+	public int deleteForManage(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		
+		return getSqlSession().delete("exam.student.score.deleteForManage", params);
+	}
 
 	public List<GradeListVo> selectList(int csatSequence, int examSequence, int studentSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
