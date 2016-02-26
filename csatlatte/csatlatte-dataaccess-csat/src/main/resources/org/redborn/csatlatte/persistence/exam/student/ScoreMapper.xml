@@ -166,13 +166,19 @@
 		   AND subject_seq = #{subjectSequence} 
 	</update>
 	
-	<delete id="delete" parameterType="GradeVo">
+	<delete id="delete" parameterType="Map">
 		DELETE FROM csat_exam_student_score
 		 WHERE student_seq = #{studentSequence}
 		   AND csat_seq = #{csatSequence}
 		   AND exam_seq = #{examSequence}
 		   AND section_seq = #{sectionSequence}
 		   AND subject_seq = #{subjectSequence} 
+	</delete>
+	
+	<delete id="deleteForManage" parameterType="Map">
+		DELETE FROM csat_exam_student_score
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
 	</delete>
 	
 </mapper>
