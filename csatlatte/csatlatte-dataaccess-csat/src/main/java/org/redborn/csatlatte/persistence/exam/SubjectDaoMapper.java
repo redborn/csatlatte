@@ -21,5 +21,13 @@ public class SubjectDaoMapper extends SqlSessionDaoSupport implements SubjectDao
 	public int insert(SubjectVo subjectVo) {
 		return getSqlSession().insert("exam.subject.insert", subjectVo);
 	}
+	
+	public int delete(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		
+		return getSqlSession().delete("exam.subject.delete", params);
+	}
 
 }
