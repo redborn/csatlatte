@@ -20,7 +20,6 @@
 		<typeAlias alias="QnaAnswerVo" type="org.redborn.csatlatte.domain.QnaAnswerVo"/>
 		<typeAlias alias="QnaContentVo" type="org.redborn.csatlatte.domain.QnaContentVo"/>
 		<typeAlias alias="QnaForManageVo" type="org.redborn.csatlatte.domain.QnaForManageVo"/>
-		<typeAlias alias="QnaForStudentVo" type="org.redborn.csatlatte.domain.QnaForStudentVo"/>
 		<typeAlias alias="QnaVo" type="org.redborn.csatlatte.domain.QnaVo"/>
 		<typeAlias alias="StudentSecurityQuestionVo" type="org.redborn.csatlatte.domain.StudentSecurityQuestionVo"/>
 		<typeAlias alias="StudentVo" type="org.redborn.csatlatte.domain.StudentVo"/>
