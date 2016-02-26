@@ -97,7 +97,7 @@ public class ExamServiceImpl implements ExamService {
 	}
 	
 	public List<ExamVo> detail(int csatSequence, int examSequence) {
-		return examDao.selectListExamOneForManage(csatSequence, examSequence);
+		return examDao.selectListDetailForManage(csatSequence, examSequence);
 	}
 	
 	public List<ExamVo> listForRatingManage(int csatSequence) {
