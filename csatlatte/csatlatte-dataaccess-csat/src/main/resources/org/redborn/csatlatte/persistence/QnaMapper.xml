@@ -25,7 +25,7 @@
 		<result column="count_qna_answer" property="countQnaAnswer"/>
 	</resultMap>
 	
-	<resultMap type="QnaForStudentVo" id="QnaForStudentVoMap">
+	<resultMap type="QnaVo" id="QnaVoForStudentMap">
 		<result column="qna_seq" property="qnaSequence"/>
 		<result column="content" property="content"/>
 		<result column="write_date" property="writeDate"/>
@@ -75,7 +75,7 @@
 		 LIMIT #{pageNumber}, 10
 	</select>
 	
-	<select id="selectListForStudent" parameterType="int" resultMap="QnaForStudentVoMap">
+	<select id="selectListForStudent" parameterType="int" resultMap="QnaVoForStudentMap">
 		SELECT cq.qna_seq as qna_seq, cq.title as title,cq.write_date as write_date
 		  FROM csat_qna cq
 		 WHERE cq.student_seq = #{studentSequence}
