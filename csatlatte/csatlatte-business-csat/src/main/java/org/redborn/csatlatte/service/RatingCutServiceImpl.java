@@ -11,6 +11,7 @@ import org.redborn.csatlatte.persistence.exam.AverageDao;
 import org.redborn.csatlatte.persistence.exam.RatingCutDao;
 import org.redborn.csatlatte.persistence.exam.SectionDao;
 import org.redborn.csatlatte.persistence.exam.SubjectDao;
+import org.redborn.csatlatte.persistence.exam.student.ScoreDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,8 @@ public class RatingCutServiceImpl implements RatingCutService {
 	private SectionDao sectionDao;
 	@Autowired
 	private SubjectDao subjectDao;
+	@Autowired
+	private ScoreDao scoreDao;
 	
 	public List<RatingCutVo> list(int csatSequence, int examSequence) {
 		return ratingCutDao.selectListDetail(csatSequence, examSequence);
@@ -39,23 +42,23 @@ public class RatingCutServiceImpl implements RatingCutService {
 	}
 	
 	public boolean deleteAverage(int csatSequence, int examSequence) {
-		return ratingCutDao.deleteAverage(csatSequence, examSequence) > 0;
+		return averageDao.delete(csatSequence, examSequence) > 0;
 	}
 	
 	public boolean deleteSection(int csatSequence, int examSequence) {
-		return ratingCutDao.deleteSection(csatSequence, examSequence) > 0;
+		return sectionDao.delete(csatSequence, examSequence) > 0;
 	}
 	
 	public boolean deleteSubject(int csatSequence, int examSequence) {
-		return ratingCutDao.deleteSubject(csatSequence, examSequence) > 0;
+		return subjectDao.delete(csatSequence, examSequence) > 0;
 	}
 	
 	public boolean deleteRatingCut(int csatSequence, int examSequence) {
-		return ratingCutDao.deleteRatingCut(csatSequence, examSequence) > 0;
+		return ratingCutDao.delete(csatSequence, examSequence) > 0;
 	}
 	
 	public boolean deleteStudentScore(int csatSequence, int examSequence) {
-		return ratingCutDao.deleteStudentScore(csatSequence, examSequence) > 0;
+		return scoreDao.deleteForManage(csatSequence, examSequence) > 0;
 	}
 
 	public boolean register(List<SectionVo> sectionList, List<SubjectVo> subjectList, List<RatingCutVo> ratingCutList, List<AverageVo> averageList) {
