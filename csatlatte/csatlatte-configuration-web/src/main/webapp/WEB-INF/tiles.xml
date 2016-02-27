@@ -70,6 +70,12 @@
 		<put-attribute name="content" value="/WEB-INF/view/profile/question/detail/content.jsp"/>
 	</definition>
 	
+	<definition name="/profile/security/authentication/write" extends="csatlatte.layout.function1">
+		<put-attribute name="head" value="/WEB-INF/view/profile/security/authentication/write/head.jsp"/>
+		<put-attribute name="lnb" value="/WEB-INF/view/profile/security/authentication/write/lnb.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/profile/security/authentication/write/content.jsp"/>
+	</definition>
+	
 	<definition name="/error/*" extends="csatlatte.layout.error">
 		<put-attribute name="content" value="/WEB-INF/view/error/{1}.jsp"/>
 	</definition>
