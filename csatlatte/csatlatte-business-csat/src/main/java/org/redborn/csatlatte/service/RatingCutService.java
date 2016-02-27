@@ -10,11 +10,7 @@ import org.redborn.csatlatte.domain.SubjectVo;
 public interface RatingCutService {
 
 	public List<RatingCutVo> list(int csatSequence, int examSequence);
-	public boolean deleteAverage(int csatSequence, int examSequence);
-	public boolean deleteSection(int csatSequence, int examSequence);
-	public boolean deleteSubject(int csatSequence, int examSequence);
-	public boolean deleteRatingCut(int csatSequence, int examSequence);
-	public boolean deleteStudentScore(int csatSequence, int examSequence);
+	public boolean delete(int csatSequence, int examSequence);
 	public boolean register(List<SectionVo> sectionList, List<SubjectVo> subjectList, List<RatingCutVo> ratingCutList, List<AverageVo> averageList);
 	
 }

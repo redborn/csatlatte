@@ -41,24 +41,14 @@ public class RatingCutServiceImpl implements RatingCutService {
 		return ratingCutDao.selectListForCreate(csatSequence);
 	}
 	
-	public boolean deleteAverage(int csatSequence, int examSequence) {
-		return averageDao.delete(csatSequence, examSequence) > 0;
-	}
-	
-	public boolean deleteSection(int csatSequence, int examSequence) {
-		return sectionDao.delete(csatSequence, examSequence) > 0;
-	}
-	
-	public boolean deleteSubject(int csatSequence, int examSequence) {
-		return subjectDao.delete(csatSequence, examSequence) > 0;
-	}
-	
-	public boolean deleteRatingCut(int csatSequence, int examSequence) {
-		return ratingCutDao.delete(csatSequence, examSequence) > 0;
-	}
-	
-	public boolean deleteStudentScore(int csatSequence, int examSequence) {
-		return scoreDao.deleteForManage(csatSequence, examSequence) > 0;
+	public boolean delete(int csatSequence, int examSequence) {
+		boolean result = false;
+		if (scoreDao.deleteForManage(csatSequence, examSequence) > 0 && ratingCutDao.delete(csatSequence, examSequence) > 0
+				&& averageDao.delete(csatSequence, examSequence) > 0 && subjectDao.delete(csatSequence, examSequence) > 0
+				&& sectionDao.delete(csatSequence, examSequence) > 0) {
+			result = true;
+		}
+		return result;
 	}
 
 	public boolean register(List<SectionVo> sectionList, List<SubjectVo> subjectList, List<RatingCutVo> ratingCutList, List<AverageVo> averageList) {
