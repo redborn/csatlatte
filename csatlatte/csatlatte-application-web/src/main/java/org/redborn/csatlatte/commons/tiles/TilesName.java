@@ -14,8 +14,8 @@ public class TilesName {
 	public static final String SUPPORT_QUESTION_FAIL = "/support/question/fail";
 	public static final String PROFILE = "/profile";
 	
-	public static final String PROFILE_AUTHENTICATION_WRITE = "/profile/authentication/write";
-	public static final String PROFILE_AUTHENTICATION_FAIL = "/profile/authentication/fail";
+	public static final String PROFILE_SECURITY_AUTHENTICATION_WRITE = "/profile/security/authentication/write";
+	public static final String PROFILE_SECURITY_AUTHENTICATION_FAIL = "/profile/security/authentication/fail";
 	
 	public static final String PROFILE_QUESTION_LIST = "/profile/question/list";
 	public static final String PROFILE_QUESTION_DETAIL = "/profile/question/detail";
