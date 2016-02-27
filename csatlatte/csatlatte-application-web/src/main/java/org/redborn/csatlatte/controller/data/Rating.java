@@ -71,11 +71,7 @@ public class Rating {
 		logger.info("data rating put");
 		if (file != null) {
 			RatingCutReader ratingCutReader = new RatingCutReader(file.getInputStream(), csatSequence, examSequence);
-			ratingCutService.deleteStudentScore(csatSequence, examSequence);
-			ratingCutService.deleteRatingCut(csatSequence, examSequence);
-			ratingCutService.deleteAverage(csatSequence, examSequence);
-			ratingCutService.deleteSubject(csatSequence, examSequence);
-			ratingCutService.deleteSection(csatSequence, examSequence);
+			ratingCutService.delete(csatSequence, examSequence);
 			List<SectionVo> sectionList = ratingCutReader.sectionList();
 			List<SubjectVo> subjectList = ratingCutReader.subjectList();
 			List<RatingCutVo> ratingCutList = ratingCutReader.ratingCutList();
@@ -91,11 +87,7 @@ public class Rating {
 	public void delete(@PathVariable(value="csatSequence") int csatSequence, 
 			@PathVariable(value="examSequence") int examSequence) {
 		logger.info("data manage rating delete");
-		ratingCutService.deleteStudentScore(csatSequence, examSequence);
-		ratingCutService.deleteRatingCut(csatSequence, examSequence);
-		ratingCutService.deleteAverage(csatSequence, examSequence);
-		ratingCutService.deleteSubject(csatSequence, examSequence);
-		ratingCutService.deleteSection(csatSequence, examSequence);
+		ratingCutService.delete(csatSequence, examSequence);
 	}
 	
 }
