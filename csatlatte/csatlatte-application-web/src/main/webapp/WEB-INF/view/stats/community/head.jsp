@@ -123,12 +123,9 @@ $(document).ready(function () {
 		dailyActiveDataTable = new google.visualization.DataTable();
 		dailyActiveDataTable.addColumn("string", "hour");
 		dailyActiveDataTable.addColumn("number", "커뮤니티 활성");
-		$.ajax(contextPath + "/data/community/stats/daily.json", {
+		$.ajax(contextPath + "/data/community/stats/daily/" + $('#stats-community-daily-datepicker').val() + ".json", {
 			dataType : "json",
 			type : "GET",
-			data : {
-				ymd : $('#stats-community-daily-datepicker').val()
-			},
 			success : function(data) {
 				if (data.dailyActive != null) {
 					var dailyActiveList = data.dailyActive;
@@ -150,12 +147,9 @@ $(document).ready(function () {
 			monthlyActiveDataTable = new google.visualization.DataTable();
 			monthlyActiveDataTable.addColumn("string", "day");
 			monthlyActiveDataTable.addColumn("number", "커뮤니티 활성");
-			$.ajax(contextPath + "/data/community/stats/monthly.json", {
+			$.ajax(contextPath + "/data/community/stats/monthly/" + $('#stats-community-monthly-datepicker').val() + ".json", {
 				dataType : "json",
 				type : "GET",
-				data : {
-					ym : $('#stats-community-monthly-datepicker').val()
-				},
 				success : function(data) {
 					if (data.monthlyActive != null) {
 						var monthlyActiveList = data.monthlyActive;
@@ -178,12 +172,9 @@ $(document).ready(function () {
 			annualActiveDataTable = new google.visualization.DataTable();
 			annualActiveDataTable.addColumn("string", "month");
 			annualActiveDataTable.addColumn("number", "커뮤니티 활성");
-			$.ajax(contextPath + "/data/community/stats/annual.json", {
+			$.ajax(contextPath + "/data/community/stats/annual/" + $('#stats-community-annual-datepicker').val() + ".json", {
 				dataType : "json",
 				type : "GET",
-				data : {
-					year : $('#stats-community-annual-datepicker').val()
-				},
 				success : function(data) {
 					if (data.annualActive != null) {
 						var annualActiveList = data.annualActive;

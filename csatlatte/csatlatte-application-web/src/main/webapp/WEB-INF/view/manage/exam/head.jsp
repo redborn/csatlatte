@@ -108,27 +108,27 @@
 										}, 1200);
 									}
 									if (examName !== "" && institutionSequence !== "" && yearStudentSequence !== "" && ymd !== "") {
-										$.ajax(contextPath + "/data/exam.json", {
+										$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
 											dataType : "json",
 											type : "PUT",
-											data : {csatSequence : csatSequence,
-													examSequence : examSequence,
-													examName : examName,
+											data : {examName : examName,
 													institutionSequence : institutionSequence,
 													yearStudentSequence : yearStudentSequence,
 													ymd : ymd},
-											success : function () {
-												$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
-													dataType : "json",
-													type : "GET",
-													success : function (data) {
-														if (data.detail != null) {
-															var exam = data.detail;
-															$('#manage-exam-modify-view').modal("hide");
-															$('#manage-exam-csat-list').trigger("change");
+											success : function (data) {
+												if (data.result) {
+													$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
+														dataType : "json",
+														type : "GET",
+														success : function (data) {
+															if (data.detail != null) {
+																var exam = data.detail;
+																$('#manage-exam-modify-view').modal("hide");
+																$('#manage-exam-csat-list').trigger("change");
+															}
 														}
-													}
-												});
+													});
+												}
 											}
 										});
 									}
@@ -207,17 +207,18 @@
 					}, 1200);
 				}
 				if (examName !== "" && institutionSequence !== "" && yearStudentSequence !== "" && ymd !== "") {
-					$.ajax(contextPath + "/data/exam.json", {
+					$.ajax(contextPath + "/data/exam/" + csatSequence + ".json", {
 						dataType : "json",
 						type : "POST",
-						data : {csatSequence : csatSequence,
-								examName : examName,
+						data : {examName : examName,
 								institutionSequence : institutionSequence,
 								yearStudentSequence : yearStudentSequence,
 								ymd : ymd},
 						success : function (data) {
-							$('#manage-exam-register-view').modal("hide");
-							$('#manage-exam-csat-list').trigger("change");
+							if (data.result) {
+								$('#manage-exam-register-view').modal("hide");
+								$('#manage-exam-csat-list').trigger("change");
+							}
 						}
 					});
 				}
@@ -374,9 +375,11 @@
 						dataType : "json",
 						type : "DELETE",
 						data : {_method : "DELETE"},
-						success : function () {
-							$('#manage-exam-delete-view').modal("hide");
-							$('#manage-exam-csat-list').trigger("change");
+						success : function (data) {
+							if (data.result) {
+								$('#manage-exam-delete-view').modal("hide");
+								$('#manage-exam-csat-list').trigger("change");
+							}
 						}
 					});
 				});

@@ -99,10 +99,9 @@
 			
 			if (successNickname) {
 				var nickname = $('#profile-modify-nickname').val();
-				$.ajax(contextPath + "/data/nickname.json", {
+				$.ajax(contextPath + "/data/nickname/" + nickname + ".json", {
 					dataType : "json",
 					type : "GET",
-					data : {nickname : nickname},
 					success : function(data) {
 						var beforeNickname = $('#profile-modify-before-nickname').val();
 						$('.profile-nickname-check-message-positive').remove();

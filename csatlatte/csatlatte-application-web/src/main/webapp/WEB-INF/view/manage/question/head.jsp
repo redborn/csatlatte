@@ -102,10 +102,9 @@
 		
 		$('.manage-question-answer-view').on("click", function () {
 			target = $(this).attr("id");
-			$.ajax(contextPath + "/data/question.json", {
+			$.ajax(contextPath + "/data/question/" + target + ".json", {
 				dataType : "json",
 				type : "GET",
-				data : {qnaSequence : target},
 				success : function(data) {
 					if (data.detail != null) {
 						var question = data.detail;
@@ -124,32 +123,18 @@
 						});
 						$('.manage-question-answer-accept').on("click", function () {
 							var answerContent = $('.manage-question-answer-textarea').val().replace(/\n/g, '<br>');
-							$.ajax(contextPath + "/data/manage/question.json", {
+							$.ajax(contextPath + "/data/manage/question/" + target + ".json", {
 								dataType : "json",
 								type : "POST",
-								data : {qnaSequence : target, answerContent : answerContent},
-								success : function () {
-									$('#manage-question-answer-button-div-' + target).remove();
-									$('#manage-question-answer-button-' + target).append(changeToViewButton());
-									$('.manage-question-detail').remove();
-									$.ajax(contextPath + "/data/question.json", {
-										dataType : "json",
-										type : "GET",
-										data : {qnaSequence : target},
-										success : function(data) {
-											if (data.detail != null) {
-												var question = data.detail;
-												var files = data.files;
-												$("#manage-question-detail").append(makeQuestionDetailView(question, files));
-											}
-										}
-									});
-									$('#' + target).on("click", function () {
-										target = $(this).attr("id");
-										$.ajax(contextPath + "/data/question.json", {
+								data : {answerContent : answerContent},
+								success : function (data) {
+									if (data.result) {
+										$('#manage-question-answer-button-div-' + target).remove();
+										$('#manage-question-answer-button-' + target).append(changeToViewButton());
+										$('.manage-question-detail').remove();
+										$.ajax(contextPath + "/data/question/" + target + ".json", {
 											dataType : "json",
 											type : "GET",
-											data : {qnaSequence : target},
 											success : function(data) {
 												if (data.detail != null) {
 													var question = data.detail;
@@ -158,7 +143,21 @@
 												}
 											}
 										});
-									});
+										$('#' + target).on("click", function () {
+											target = $(this).attr("id");
+											$.ajax(contextPath + "/data/question/" + target + ".json", {
+												dataType : "json",
+												type : "GET",
+												success : function(data) {
+													if (data.detail != null) {
+														var question = data.detail;
+														var files = data.files;
+														$("#manage-question-detail").append(makeQuestionDetailView(question, files));
+													}
+												}
+											});
+										});
+									}
 								}
 							});
 						});

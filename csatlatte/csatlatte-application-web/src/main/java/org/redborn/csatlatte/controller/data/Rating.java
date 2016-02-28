@@ -46,8 +46,8 @@ public class Rating {
 		model.addAttribute("list", ratingCutService.list(csatSequence, examSequence));
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public void post(@RequestParam(value="csatSequence",required=true) int csatSequence,
+	@RequestMapping(value="{csatSequence}",method=RequestMethod.POST)
+	public void post(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@RequestParam(value="examSequence",required=true) int examSequence,
 			@RequestParam(value="file",required=true) MultipartFile file) throws IOException {
 		logger.info("data rating post");
@@ -58,14 +58,14 @@ public class Rating {
 			List<RatingCutVo> ratingCutList = ratingCutReader.ratingCutList();
 			List<AverageVo> averageList = ratingCutReader.averageList();
 			if (sectionList != null && subjectList != null && ratingCutList != null && averageList != null) {
-				ratingCutService.register(sectionList, subjectList, ratingCutList, averageList);
+				model.addAttribute("result", ratingCutService.register(sectionList, subjectList, ratingCutList, averageList));
 				logger.info("success register ratingcut");
 			}
 		}
 	}
 	
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.PUT)
-	public void put(@PathVariable(value="csatSequence") int csatSequence,
+	public void put(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@PathVariable(value="examSequence") int examSequence,
 			@RequestParam(value="file",required=false) MultipartFile file) throws IOException {
 		logger.info("data rating put");
@@ -77,17 +77,17 @@ public class Rating {
 			List<RatingCutVo> ratingCutList = ratingCutReader.ratingCutList();
 			List<AverageVo> averageList = ratingCutReader.averageList();
 			if (sectionList != null && subjectList != null && ratingCutList != null && averageList != null) {
-				ratingCutService.register(sectionList, subjectList, ratingCutList, averageList);
+				model.addAttribute("result", ratingCutService.register(sectionList, subjectList, ratingCutList, averageList));
 				logger.info("success register ratingcut");
 			}
 		}
 	}
 	
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.DELETE)
-	public void delete(@PathVariable(value="csatSequence") int csatSequence, 
+	public void delete(Model model, @PathVariable(value="csatSequence") int csatSequence, 
 			@PathVariable(value="examSequence") int examSequence) {
 		logger.info("data manage rating delete");
-		ratingCutService.delete(csatSequence, examSequence);
+		model.addAttribute("result", ratingCutService.delete(csatSequence, examSequence));
 	}
 	
 }

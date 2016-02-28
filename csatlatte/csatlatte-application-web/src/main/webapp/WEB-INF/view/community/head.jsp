@@ -141,12 +141,9 @@ $(document).ready(function() {
 	}
 	
 	var ajaxComment = function(communitySequence, callback) {
-		$.ajax(contextPath + "/data/community/comment.json", {
+		$.ajax(contextPath + "/data/community/comment/" + communitySequence + ".json", {
 			dataType : "json",
 			type : "GET",
-			data : {
-				communitySequence : communitySequence
-			},
 			success : function(data) {
 				callback(data);
 			}
@@ -248,11 +245,10 @@ $(document).ready(function() {
 			var $this = $(this);
 			$("#community-" + communitySequence + " .community-comment-write-count").text(140 - $(this).val().length);
 			if (event.which === 13 && $.trim($(this).val()) != "") {
-				$.ajax(contextPath + "/data/community/comment.json", {
+				$.ajax(contextPath + "/data/community/comment/" + communitySequence + ".json", {
 					dataType : "json",
 					type : "POST",
 					data : {
-						communitySequence : communitySequence,
 						content : $(this).val()
 					},
 					success : function(data) {

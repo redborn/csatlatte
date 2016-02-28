@@ -26,14 +26,14 @@ public class Comment {
 	@Autowired
 	private HttpServletRequestValue httpServletRequestValue;
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public void get(Model model, @RequestParam(value="communitySequence",required=true) int communitySequence) {
+	@RequestMapping(value="{communitySequence}",method=RequestMethod.GET)
+	public void get(Model model, @PathVariable(value="communitySequence") int communitySequence) {
 		logger.info(new StringBuilder("data community comment list... community is ").append(communitySequence).toString());
 		model.addAttribute("list", communityService.commentList(CommunityService.COMMUNITY, communitySequence, httpSessionValue.getStudentSequence()));
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public void post(Model model, @RequestParam(value="communitySequence",required=true) int communitySequence, @RequestParam(value="content",required=true) String content) {
+	@RequestMapping(value="{communitySequence}",method=RequestMethod.POST)
+	public void post(Model model, @PathVariable(value="communitySequence") int communitySequence, @RequestParam(value="content",required=true) String content) {
 		logger.info(new StringBuilder("data community comment write... community is ").append(communitySequence).toString());
 		CommentVo commentVo = new CommentVo();
 		commentVo.setCommunityTypeSequence(CommunityService.COMMUNITY);
