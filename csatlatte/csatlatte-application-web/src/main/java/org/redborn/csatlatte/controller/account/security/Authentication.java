@@ -1,4 +1,4 @@
-package org.redborn.csatlatte.controller.account;
+package org.redborn.csatlatte.controller.account.security;
 
 import org.redborn.csatlatte.commons.servlet.http.HttpSessionValue;
 import org.redborn.csatlatte.commons.tiles.TilesName;
