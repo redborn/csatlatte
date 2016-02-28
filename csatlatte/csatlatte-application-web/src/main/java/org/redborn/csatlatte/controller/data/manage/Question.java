@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +21,7 @@ public class Question {
 	private QnaService qnaService;
 	
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.POST)
-	public void post(@PathVariable(value="qnaSequence") int qnaSequence, 
+	public void post(Model model, @PathVariable(value="qnaSequence") int qnaSequence, 
 			@RequestParam(value="answerContent",required=true) String answerContent) {
 		logger.info("data manage question post insert");
 		
@@ -28,6 +29,6 @@ public class Question {
 		
 		qnaAnswerVo.setQnaSequence(qnaSequence);
 		qnaAnswerVo.setContent(answerContent);
-		qnaService.answer(qnaAnswerVo);
+		model.addAttribute("result", qnaService.answer(qnaAnswerVo));
 	}
 }
