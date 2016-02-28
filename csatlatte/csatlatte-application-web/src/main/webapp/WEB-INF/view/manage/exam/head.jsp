@@ -108,12 +108,10 @@
 										}, 1200);
 									}
 									if (examName !== "" && institutionSequence !== "" && yearStudentSequence !== "" && ymd !== "") {
-										$.ajax(contextPath + "/data/exam.json", {
+										$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
 											dataType : "json",
 											type : "PUT",
-											data : {csatSequence : csatSequence,
-													examSequence : examSequence,
-													examName : examName,
+											data : {examName : examName,
 													institutionSequence : institutionSequence,
 													yearStudentSequence : yearStudentSequence,
 													ymd : ymd},
@@ -209,11 +207,10 @@
 					}, 1200);
 				}
 				if (examName !== "" && institutionSequence !== "" && yearStudentSequence !== "" && ymd !== "") {
-					$.ajax(contextPath + "/data/exam.json", {
+					$.ajax(contextPath + "/data/exam/" + csatSequence + ".json", {
 						dataType : "json",
 						type : "POST",
-						data : {csatSequence : csatSequence,
-								examName : examName,
+						data : {examName : examName,
 								institutionSequence : institutionSequence,
 								yearStudentSequence : yearStudentSequence,
 								ymd : ymd},
