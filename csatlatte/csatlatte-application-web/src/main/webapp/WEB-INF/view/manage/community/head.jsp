@@ -139,10 +139,9 @@
 		$('.manage-community-id').on("click", function () {
 			var target = $(this).attr("id");
 			if (target != null) {
-				$.ajax(contextPath + "/data/student.json", {
+				$.ajax(contextPath + "/data/student/" + target + ".json", {
 					dataType : "json",
 					type : "GET",
-					data : {studentSequence : target},
 					success : function(data) {
 						var student = data.information;
 						$("#manage-community-student-information").append(makeStudentInformation(student));
