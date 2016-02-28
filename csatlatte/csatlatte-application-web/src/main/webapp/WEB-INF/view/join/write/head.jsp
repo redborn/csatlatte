@@ -190,10 +190,9 @@
 				successId = false;
 			} else {
 				var studentId = $('#join-content-id').val();
-				$.ajax(contextPath + "/data/id.json", {
+				$.ajax(contextPath + "/data/id/" + studentId + ".json", {
 					dataType : "json",
 					type : "GET",
-					data : {studentId : studentId},
 					success : function (data) {
 						$('.join-id-check-message-negative').remove();
 						$('.join-id-check-message-positive').remove();
@@ -231,10 +230,9 @@
 				successNickname = false;
 			} else {
 				var nickname = $('#join-content-nickname').val();
-				$.ajax(contextPath + "/data/nickname.json", {
+				$.ajax(contextPath + "/data/nickname/" + nickname + ".json", {
 					dataType : "json",
 					type : "GET",
-					data : {nickname : nickname},
 					success : function(data) {
 						$('.join-nickname-check-message-negative').remove();
 						$('.join-nickname-check-message-positive').remove();
