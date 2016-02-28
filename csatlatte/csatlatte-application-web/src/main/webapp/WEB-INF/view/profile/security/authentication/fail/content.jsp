@@ -8,5 +8,5 @@
 	로그인 시 입력한 비밀번호를 입력하세요.	
 </div>
 <div class="profile-authentication-fail-return">
-	<a class="btn btn-default" href="${pageContext.request.contextPath}/<session:id/>/authentication">다시 시도하기</a>
+	<a class="btn btn-default" href="${pageContext.request.contextPath}/<session:id/>/security/authentication">다시 시도하기</a>
 </div>
