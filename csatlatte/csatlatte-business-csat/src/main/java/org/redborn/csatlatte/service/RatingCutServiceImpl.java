@@ -11,12 +11,20 @@ import org.redborn.csatlatte.persistence.exam.AverageDao;
 import org.redborn.csatlatte.persistence.exam.RatingCutDao;
 import org.redborn.csatlatte.persistence.exam.SectionDao;
 import org.redborn.csatlatte.persistence.exam.SubjectDao;
+import org.redborn.csatlatte.persistence.exam.student.ScoreDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 @Service
 public class RatingCutServiceImpl implements RatingCutService {
 
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private AverageDao averageDao;
 	@Autowired
@@ -25,6 +33,10 @@ public class RatingCutServiceImpl implements RatingCutService {
 	private SectionDao sectionDao;
 	@Autowired
 	private SubjectDao subjectDao;
+	@Autowired
+	private ScoreDao scoreDao;
+	@Autowired
+	private PlatformTransactionManager transactionManager;
 	
 	public List<RatingCutVo> list(int csatSequence, int examSequence) {
 		return ratingCutDao.selectListDetail(csatSequence, examSequence);
@@ -38,24 +50,30 @@ public class RatingCutServiceImpl implements RatingCutService {
 		return ratingCutDao.selectListForCreate(csatSequence);
 	}
 	
-	public boolean deleteAverage(int csatSequence, int examSequence) {
-		return ratingCutDao.deleteAverage(csatSequence, examSequence) > 0;
-	}
-	
-	public boolean deleteSection(int csatSequence, int examSequence) {
-		return ratingCutDao.deleteSection(csatSequence, examSequence) > 0;
-	}
-	
-	public boolean deleteSubject(int csatSequence, int examSequence) {
-		return ratingCutDao.deleteSubject(csatSequence, examSequence) > 0;
-	}
-	
-	public boolean deleteRatingCut(int csatSequence, int examSequence) {
-		return ratingCutDao.deleteRatingCut(csatSequence, examSequence) > 0;
-	}
-	
-	public boolean deleteStudentScore(int csatSequence, int examSequence) {
-		return ratingCutDao.deleteStudentScore(csatSequence, examSequence) > 0;
+	public boolean delete(int csatSequence, int examSequence) {
+		boolean result = false;
+		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
+		defaultTransactionDefinition.setName("ratingCut delete transaction");
+		defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		
+		TransactionStatus transactionStatus = transactionManager.getTransaction(defaultTransactionDefinition);
+		try {
+			if (scoreDao.deleteForManage(csatSequence, examSequence) > 0 && ratingCutDao.delete(csatSequence, examSequence) > 0
+					&& averageDao.delete(csatSequence, examSequence) > 0 && subjectDao.delete(csatSequence, examSequence) > 0
+					&& sectionDao.delete(csatSequence, examSequence) > 0) {
+				transactionManager.commit(transactionStatus);
+				result = true;
+				logger.info(new StringBuilder("Business layer ratingCut delete success. transaction rollback. CsatSequence is ").append(csatSequence).append(". ExamSequence is ").append(examSequence).append(".").toString());
+			} else {
+				transactionManager.rollback(transactionStatus);
+				logger.warn(new StringBuilder("Business layer ratingCut delete fail. transaction rollback. CsatSequence is ").append(csatSequence).append(". ExamSequence is ").append(examSequence).append(".").toString());
+			}
+		} catch (RuntimeException e) {
+			transactionManager.rollback(transactionStatus);
+			logger.warn(new StringBuilder("Business layer ratingCut delete exception. transaction rollback. CsatSequence is ").append(csatSequence).append(". ExamSequence is ").append(examSequence).append(".").toString());
+		}
+		
+		return result;
 	}
 
 	public boolean register(List<SectionVo> sectionList, List<SubjectVo> subjectList, List<RatingCutVo> ratingCutList, List<AverageVo> averageList) {

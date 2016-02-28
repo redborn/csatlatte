@@ -82,7 +82,7 @@ public class Join {
 			@RequestParam(value="nickname",required=true) String nickname, @RequestParam(value="csat",required=true) int csat, @RequestParam(value="photo",required=false) MultipartFile photo) {
 		logger.info("join success");
 		String result = TilesName.JOIN_FAIL;
-		if (!studentService.overlapCheckId(studentId) && !studentService.overlapCheckNickname(nickname)) {
+		if (!studentService.isId(studentId) && !studentService.isNickname(nickname)) {
 			StudentVo studentVo = new StudentVo();
 			StudentSecurityQuestionVo studentSecurityQuestionVo = new StudentSecurityQuestionVo();
 			

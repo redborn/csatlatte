@@ -47,16 +47,12 @@ public class Exam {
 		logger.info("data exam post view");
 		ExamVo examVo = new ExamVo();
 		
-		int examSequence = examService.examCountMax(csatSequence);
-		
 		examVo.setCsatSequence(csatSequence);
-		examVo.setExamSequence(examSequence);
 		examVo.setExamName(examName);
 		examVo.setInstitutionSequence(institutionSequence);
 		examVo.setYearStudentSequence(yearStudentSequence);
 		examVo.setYmd(ymd);
 		
-		model.addAttribute("examSequence", examSequence);
 		examService.register(examVo);
 	}
 	

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author 최순현
  */
 @Controller
-@RequestMapping("/{id}/authentication")
+@RequestMapping("/{id}/security/authentication")
 public class Authentication {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -33,7 +33,7 @@ public class Authentication {
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
 		logger.info("myinfo authentication view");
-		return TilesName.PROFILE_AUTHENTICATION_WRITE;
+		return TilesName.PROFILE_SECURITY_AUTHENTICATION_WRITE;
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public class Authentication {
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(Model model, @RequestParam(value="password",required=true) String password) {
 		logger.info("myinfo authentication password wrote");
-		String result = TilesName.PROFILE_AUTHENTICATION_FAIL;
+		String result = TilesName.PROFILE_SECURITY_AUTHENTICATION_FAIL;
 		if (studentService.checkPassword(httpSessionValue.getStudentSequence(), password)) {
 			model.addAttribute("securityQuestionList", studentService.securityQuestionList());
 			result = TilesName.PROFILE_SECURITY_WRITE;

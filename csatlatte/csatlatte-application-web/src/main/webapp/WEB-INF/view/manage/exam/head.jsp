@@ -216,11 +216,8 @@
 								yearStudentSequence : yearStudentSequence,
 								ymd : ymd},
 						success : function (data) {
-							if (data.examSequence != null) {
-								var examSequence = data.examSequence;
-								$('#manage-exam-register-view').modal("hide");
-								$('#manage-exam-csat-list').trigger("change");
-							}
+							$('#manage-exam-register-view').modal("hide");
+							$('#manage-exam-csat-list').trigger("change");
 						}
 					});
 				}

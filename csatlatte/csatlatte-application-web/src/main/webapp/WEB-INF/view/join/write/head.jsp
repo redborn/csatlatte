@@ -190,14 +190,14 @@
 				successId = false;
 			} else {
 				var studentId = $('#join-content-id').val();
-				$.ajax(contextPath + "/data/join.json", {
+				$.ajax(contextPath + "/data/id.json", {
 					dataType : "json",
 					type : "GET",
-					data : {overlapValue : studentId, item : 1},
+					data : {studentId : studentId},
 					success : function (data) {
 						$('.join-id-check-message-negative').remove();
 						$('.join-id-check-message-positive').remove();
-						if (data.overlapCheckId) {
+						if (data.isId) {
 							$('#join-id-check-message-area').append(idNegativeMessageOverlap());
 							successId = false;
 						} else {
@@ -231,14 +231,14 @@
 				successNickname = false;
 			} else {
 				var nickname = $('#join-content-nickname').val();
-				$.ajax(contextPath + "/data/join.json", {
+				$.ajax(contextPath + "/data/nickname.json", {
 					dataType : "json",
 					type : "GET",
-					data : {overlapValue : nickname, item : 2},
+					data : {nickname : nickname},
 					success : function(data) {
 						$('.join-nickname-check-message-negative').remove();
 						$('.join-nickname-check-message-positive').remove();
-						if (data.overlapCheckNickname) {
+						if (data.isNickname) {
 							$('#join-nickname-check-message-area').append(nicknameNegativeMessageOverlap());
 							successNickname = false;
 						} else {

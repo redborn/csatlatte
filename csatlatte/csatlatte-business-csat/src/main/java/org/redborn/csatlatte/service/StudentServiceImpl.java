@@ -151,7 +151,7 @@ public class StudentServiceImpl implements StudentService {
 		return studentDao.selectOneCountIsPassword(id, securityAnswer) == 1;
 	}
 	
-	public boolean overlapCheckId(String studentId) {
+	public boolean isId(String studentId) {
 		boolean result = true;
 		if (studentDao.selectOneCountOverlapId(studentId) != 1) {
 			Set<String> url = new HashSet<String>();
@@ -189,7 +189,7 @@ public class StudentServiceImpl implements StudentService {
 		return result;
 	}
 	
-	public boolean overlapCheckNickname(String nickname) {
+	public boolean isNickname(String nickname) {
 		return studentDao.selectOneCountOverlapNickname(nickname) == 1;
 	}
 

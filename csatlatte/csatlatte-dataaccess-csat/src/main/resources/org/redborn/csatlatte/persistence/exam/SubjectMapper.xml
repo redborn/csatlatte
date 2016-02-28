@@ -28,4 +28,10 @@
 				#{subjectName}, #{maxScore}) 
 	</insert>
 	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_exam_subject
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</delete>
+	
 </mapper>

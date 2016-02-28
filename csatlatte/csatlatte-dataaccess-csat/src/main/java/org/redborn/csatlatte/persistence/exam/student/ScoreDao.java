@@ -12,6 +12,7 @@ public interface ScoreDao {
 	public int insert(GradeVo gradeVo);
 	public int update(GradeVo gradeVo);
 	public int delete(int studentSequence, int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	public int deleteForManage(int csatSequence, int examSequence);
 	public List<GradeListVo> selectList(int csatSequence, int examSequence, int studentSequence);
 	public List<GradeVo> selectListExamStudent(int csatSequence, int examSequence);
 	public List<GradeRatingVo> selectListRating(int csatSequence, int studentSequence);

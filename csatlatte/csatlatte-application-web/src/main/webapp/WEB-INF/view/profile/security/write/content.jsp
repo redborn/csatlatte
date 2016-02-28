@@ -4,7 +4,8 @@
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <h5><strong>보안 질문</strong>&nbsp;<small>아이디 혹은 비밀번호를 분실한 경우 필요한 정보입니다.</small></h5>
-<form:form class="form-horizontal" method="post" servletRelativeAction="security">
+<form:form class="form-horizontal" method="post" servletRelativeAction="/${id}/security">
+<c:set var="id"><session:id/></c:set>
 	<div class="form-group">
 		<label for="profile-security-question" class="control-label col-sm-2">질문 선택</label>
 		<div class="col-sm-7">

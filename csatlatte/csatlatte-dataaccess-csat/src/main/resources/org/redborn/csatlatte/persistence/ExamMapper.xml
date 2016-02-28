@@ -37,30 +37,7 @@
 		 WHERE ce.csat_seq = #{csatSequence}
 	</select>
 	
-	<select id="selectOneCountForDelete" parameterType="Map" resultType="int">
-		SELECT COUNT(*)
-		  FROM csat_exam
-		 WHERE (SELECT COUNT(*) AS avg_count
-		          FROM csat_exam_avg
-		         WHERE csat_seq = #{csatSequence}
-		           AND exam_seq = #{examSequence}) > 0
-		   AND (SELECT COUNT(*) AS section_count
-		          FROM csat_exam_section
-		         WHERE csat_seq = #{csatSequence}
-		           AND exam_seq = #{examSequence}) > 0
-		   AND (SELECT COUNT(*) AS subject_count
-		          FROM csat_exam_subject
-		         WHERE csat_seq = #{csatSequence}
-		           AND exam_seq = #{examSequence}) > 0
-		   AND (SELECT COUNT(*) AS rating_count
-		   		  FROM csat_exam_rating_cut
-		   		 WHERE csat_seq = #{csatSequence}
-		   		   AND exam_seq = #{examSequence}) > 0
-		   AND csat_seq = #{csatSequence}
-		   AND exam_seq = #{examSequence}
-	</select>
-	
-	<select id="selectListExamOneForManage" parameterType="Map" resultMap="ExamVoForManageOneMap">
+	<select id="selectListDetailForManage" parameterType="Map" resultMap="ExamVoForManageOneMap">
 		SELECT ce.csat_seq,ce.exam_seq,DATE_FORMAT(ce.exam_ymd, '%Y') AS year,ce.isttt_seq,ce.exam_name,ce.exam_ymd,ce.ys_seq,ci.isttt_name
 		  FROM csat_exam ce, csat_isttt ci
 		 WHERE ce.exam_seq = #{examSequence}

@@ -22,5 +22,13 @@ public class AverageDaoMapper extends SqlSessionDaoSupport implements AverageDao
 	public int insert(AverageVo averageVo) {
 		return getSqlSession().insert("exam.average.insert", averageVo);
 	}
+	
+	public int delete(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		
+		return getSqlSession().delete("exam.average.delete", params);
+	}
 
 }

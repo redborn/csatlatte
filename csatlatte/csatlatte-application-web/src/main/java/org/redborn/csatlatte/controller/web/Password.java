@@ -45,7 +45,7 @@ public class Password {
 		logger.info("find password id");
 		
 		String result = TilesName.PASSWORD_FAIL;
-		if (studentService.overlapCheckId(studentId)) {
+		if (studentService.isId(studentId)) {
 			model.addAttribute("securityQuestion", studentService.securityQuestion(studentService.getStudentSequence(studentId)));
 			result = TilesName.PASSWORD_SECURITY_WRITE;
 		}
