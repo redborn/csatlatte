@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/data/question")
@@ -22,8 +21,8 @@ public class Question {
 	@Autowired
     private HttpSessionValue httpSessionValue;
 	
-	@RequestMapping(method=RequestMethod.GET)
-	public void get(Model model, @RequestParam(value="qnaSequence",required=true) int qnaSequence) {
+	@RequestMapping(value="{qnaSequence}",method=RequestMethod.GET)
+	public void get(Model model, @PathVariable(value="qnaSequence") int qnaSequence) {
 		logger.info("data question view");
 		model.addAttribute("detail", qnaService.detail(qnaSequence));
 		model.addAttribute("files", qnaService.fileList(qnaSequence));
