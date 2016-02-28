@@ -29,9 +29,9 @@ public class Question {
 	}
 	
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.DELETE)
-	public void delete(@PathVariable(value="qnaSequence") int qnaSequence) {
+	public void delete(Model model, @PathVariable(value="qnaSequence") int qnaSequence) {
 		logger.info("data question delete");
-		qnaService.delete(qnaSequence);
+		model.addAttribute("result", qnaService.delete(qnaSequence));
 	}
 
 }
