@@ -45,7 +45,7 @@ public class Id {
 		logger.info("find id nickname");
 		
 		String result = TilesName.ID_FAIL;
-		if (studentService.overlapCheckNickname(nickname)) {
+		if (studentService.isNickname(nickname)) {
 			model.addAttribute("securityQuestion", studentService.securityQuestion(nickname));
 			result = TilesName.ID_SECURITY_WRITE;
 		}
