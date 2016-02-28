@@ -99,15 +99,15 @@
 			
 			if (successNickname) {
 				var nickname = $('#profile-modify-nickname').val();
-				$.ajax(contextPath + "/data/join.json", {
+				$.ajax(contextPath + "/data/nickname.json", {
 					dataType : "json",
 					type : "GET",
-					data : {overlapValue : nickname, item : 2},
+					data : {nickname : nickname},
 					success : function(data) {
 						var beforeNickname = $('#profile-modify-before-nickname').val();
 						$('.profile-nickname-check-message-positive').remove();
 						$('.profile-nickname-check-message-negative').remove();
-						if (!data.overlapCheckNickname || nickname === beforeNickname) {
+						if (!data.isNickname || nickname === beforeNickname) {
 							$('#profile-nickname-check-message-area').append(nicknamePositiveMessageOverlap());
 						} else {
 							$('#profile-nickname-check-message-area').append(nicknameNegativeMessageOverlap());
