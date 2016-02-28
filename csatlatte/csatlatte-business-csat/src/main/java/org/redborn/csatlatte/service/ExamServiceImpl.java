@@ -44,10 +44,6 @@ public class ExamServiceImpl implements ExamService {
 		return csatDao.selectOne(csatSequence);
 	}
 	
-	public int examCountMax(int csatSequence) {
-		return examDao.selectOneCountMax(csatSequence);
-	}
-	
 	public List<CsatVo> csatList() {
 		return csatDao.selectListYear();
 	}
@@ -77,6 +73,7 @@ public class ExamServiceImpl implements ExamService {
 	}
 
 	public int register(ExamVo examVo) {
+		examVo.setExamSequence(examDao.selectOneCountMax(examVo.getCsatSequence()));
 		return examDao.insert(examVo);
 	}
 
