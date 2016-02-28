@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
 <div class="panel panel-default col-lg-12">
+<c:set var="studentId"><session:id/></c:set>
 	<div class="panel-body">
 		<div class="support-question-success">
 			<h4>문의가 성공적으로 전달되었습니다.</h4>
@@ -13,7 +15,7 @@
 				<p>문의에 대한 답변을 받기 이전까지 문의하신 사항을 내 정보에서 문의내역 삭제를 통하여 문의를 취소하실 수 있습니다.</p><br/>
 			</div>
 			<div class="support-question-success-view-quesiton">
-				<a class="btn btn-default" href="<c:url value="/myinfo/question"/>">문의내역 보기</a>
+				<a class="btn btn-default" href="<c:url value="/${studentId}/question"/>">문의내역 보기</a>
 			</div>
 		</div>
 	</div>
