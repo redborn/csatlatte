@@ -125,12 +125,9 @@
 			dailyJoinDataTable = new google.visualization.DataTable();
 			dailyJoinDataTable.addColumn("string", "hour");
 			dailyJoinDataTable.addColumn("number", "가입자 수");
-			$.ajax(contextPath + "/data/student/join/stats/daily.json", {
+			$.ajax(contextPath + "/data/student/join/stats/daily/" + $('#stats-join-daily-datepicker').val() + ".json", {
 				dataType : "json",
 				type : "GET",
-				data : {
-					ymd : $('#stats-join-daily-datepicker').val()
-				},
 				success : function(data) {
 					if (data.dailyJoin != null) {
 						var dailyJoinList = data.dailyJoin;
@@ -152,12 +149,9 @@
 				monthlyJoinDataTable = new google.visualization.DataTable();
 				monthlyJoinDataTable.addColumn("string", "day");
 				monthlyJoinDataTable.addColumn("number", "가입자 수");
-				$.ajax(contextPath + "/data/student/join/stats/monthly.json", {
+				$.ajax(contextPath + "/data/student/join/stats/monthly/" + $('#stats-join-monthly-datepicker').val() + ".json", {
 					dataType : "json",
 					type : "GET",
-					data : {
-						ym : $('#stats-join-monthly-datepicker').val()
-					},
 					success : function(data) {
 						if (data.monthlyJoin != null) {
 							var monthlyJoinList = data.monthlyJoin;
@@ -180,12 +174,9 @@
 				annualJoinDataTable = new google.visualization.DataTable();
 				annualJoinDataTable.addColumn("string", "month");
 				annualJoinDataTable.addColumn("number", "가입자 수");
-				$.ajax(contextPath + "/data/student/join/stats/annual.json", {
+				$.ajax(contextPath + "/data/student/join/stats/annual/" + $('#stats-join-annual-datepicker').val() + ".json", {
 					dataType : "json",
 					type : "GET",
-					data : {
-						year : $('#stats-join-annual-datepicker').val()
-					},
 					success : function(data) {
 						if (data.annualJoin != null) {
 							var annualJoinList = data.annualJoin;

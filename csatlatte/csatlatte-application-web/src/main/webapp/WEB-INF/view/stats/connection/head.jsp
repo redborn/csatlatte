@@ -125,12 +125,9 @@
 			dailyConnectionDataTable = new google.visualization.DataTable();
 			dailyConnectionDataTable.addColumn("string", "hour");
 			dailyConnectionDataTable.addColumn("number", "접속자 수");
-			$.ajax(contextPath + "/data/student/connection/stats/daily.json", {
+			$.ajax(contextPath + "/data/student/connection/stats/daily/" + $('#stats-connection-daily-datepicker').val() + ".json", {
 				dataType : "json",
 				type : "GET",
-				data : {
-					ymd : $('#stats-connection-daily-datepicker').val()
-				},
 				success : function(data) {
 					if (data.dailyConnection != null) {
 						var dailyConnectionList = data.dailyConnection;
@@ -152,12 +149,9 @@
 				monthlyConnectionDataTable = new google.visualization.DataTable();
 				monthlyConnectionDataTable.addColumn("string", "day");
 				monthlyConnectionDataTable.addColumn("number", "접속자 수");
-				$.ajax(contextPath + "/data/student/connection/stats/monthly.json" , {
+				$.ajax(contextPath + "/data/student/connection/stats/monthly/" + $('#stats-connection-monthly-datepicker').val() + ".json" , {
 					dataType : "json",
 					type : "GET",
-					data : {
-						ym : $('#stats-connection-monthly-datepicker').val()
-					},
 					success : function(data) {
 						if (data.monthlyConnection != null) {
 							var monthlyConnectionList = data.monthlyConnection;
@@ -180,12 +174,9 @@
 				annualConnectionDataTable = new google.visualization.DataTable();
 				annualConnectionDataTable.addColumn("string", "month");
 				annualConnectionDataTable.addColumn("number", "접속자 수");
-				$.ajax(contextPath + "/data/student/connection/stats/annual.json", {
+				$.ajax(contextPath + "/data/student/connection/stats/annual/" + $('#stats-connection-annual-datepicker').val() + ".json", {
 					dataType : "json",
 					type : "GET",
-					data : {
-						year : $('#stats-connection-annual-datepicker').val()
-					},
 					success : function(data) {
 						if (data.annualConnection != null) {
 							var annualConnectionList = data.annualConnection;
