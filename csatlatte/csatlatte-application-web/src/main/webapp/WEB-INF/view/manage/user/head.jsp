@@ -106,13 +106,15 @@
 					dataType : "json",
 					type : "DELETE",
 					data : {_method : "DELETE"},
-					success : function() {
-						$('#manage-user-blind').modal("hide");
-						$('#blind-' + studentSequence).remove();
-						$('#manage-user-blind-button-area-' + studentSequence).append(makeRecoveryButton(studentSequence));
-						$('.manage-user-recovery').on("click", function () {
-							recoveryTarget = $(this).attr("id");
-						});
+					success : function(data) {
+						if (data.result) {
+							$('#manage-user-blind').modal("hide");
+							$('#blind-' + studentSequence).remove();
+							$('#manage-user-blind-button-area-' + studentSequence).append(makeRecoveryButton(studentSequence));
+							$('.manage-user-recovery').on("click", function () {
+								recoveryTarget = $(this).attr("id");
+							});
+						}
 					}
 				});
 			}
@@ -132,13 +134,15 @@
 				$.ajax(contextPath + "/data/manage/student/" + studentSequence + ".json", {
 					dataType : "json",
 					type : "POST",
-					success : function () {
-						$('#manage-user-recovery').modal("hide");
-						$('#recovery-' + studentSequence).remove();
-						$('#manage-user-blind-button-area-' + studentSequence).append(makeBlindButton(studentSequence));
-						$('.manage-user-blind').on("click", function () {
-							blindTarget = $(this).attr("id");
-						});
+					success : function (data) {
+						if (data.result) {
+							$('#manage-user-recovery').modal("hide");
+							$('#recovery-' + studentSequence).remove();
+							$('#manage-user-blind-button-area-' + studentSequence).append(makeBlindButton(studentSequence));
+							$('.manage-user-blind').on("click", function () {
+								blindTarget = $(this).attr("id");
+							});
+						}
 					}
 				});
 			}
