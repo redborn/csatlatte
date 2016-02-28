@@ -11,25 +11,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/data/join")
-public class Join {
-
+@RequestMapping("/data/id")
+public class Id {
+	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private StudentService studentService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public void get(Model model, @RequestParam(value="overlapValue",required=true) String overlapValue,
-			@RequestParam(value="item",required=true) int item) {
-		logger.info("data join view");
-		
-		switch(item) {
-		case 1:
-			model.addAttribute("overlapCheckId", studentService.isId(overlapValue));
-			break;
-		case 2:
-			model.addAttribute("overlapCheckNickname", studentService.isNickname(overlapValue));
-			break;
-		}
+	public void get(Model model, @RequestParam(value="studentId",required=true) String studentId) {
+		logger.info("data id view");
+		model.addAttribute("isId", studentService.isId(studentId));
 	}
 }
