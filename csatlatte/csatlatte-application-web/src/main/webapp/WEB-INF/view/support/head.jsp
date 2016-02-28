@@ -26,28 +26,9 @@
 			return html;
 		}
 		
-		$.ajax(contextPath + "/data/support.json", {
-			dataType : "json",
-			type : "GET",
-			data : {faqTypeSequence : 1},
-			success : function (data) {
-				if (data.list != null) {
-					var faqList = data.list;
-					var faqListLength = faqList.length;
-					for (var index = 0; index < faqListLength; index++) {
-						var faq = faqList[index];
-						$('#support-content').append(makeFaqList(faq));
-					}
-					$(".support-question").on("click", function () {
-						$(".support-answer").eq($(".support-question").index($(this))).slideToggle("fast");
-					});
-				}
-			}
-		});
-		
 		$("#support-category").on("change", function () {
 			var faqTypeSequence = $(this).val();
-			$.ajax(contextPath + "/data/support.json", {
+			$.ajax(contextPath + "/data/support/" + faqTypeSequence + ".json", {
 				dataType : "json",
 				type : "GET",
 				data : {faqTypeSequence : faqTypeSequence},
@@ -67,5 +48,6 @@
 				}
 			});
 		});
+		$("#support-category").trigger("change");
 	});
 </script>
