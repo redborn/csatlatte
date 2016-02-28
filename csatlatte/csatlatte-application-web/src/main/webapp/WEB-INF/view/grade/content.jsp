@@ -3,11 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="grade-synopsis">
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<h5><strong id="grade-rating">등급 평균 : -</strong></h5>
 			<h5><strong id="grade-standardscore">표준 점수 : -</strong> <img alt="표준점수 뜻" src="<c:url value="/resources/csatlatte/images/btn/btn_help.png"/>" data-toggle="tooltip" data-placement="bottom" title="표준점수란 과목의 상대적 서열로 계산된 입시에 반영되는 점수입니다."></h5>
 		</div>
-		<div class="col-md-8" style="text-align:right;">
+		<div class="col-md-9" style="text-align:right;">
 			<div class="col-sm-3">
 				<select id="grade-yearstudent" class="form-control">
 				<c:forEach items="${yearStudentList}" var="yearStudent">
