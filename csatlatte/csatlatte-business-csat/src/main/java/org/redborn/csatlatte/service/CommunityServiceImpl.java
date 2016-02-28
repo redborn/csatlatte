@@ -38,7 +38,7 @@ public class CommunityServiceImpl implements CommunityService {
 	@Autowired
 	private org.redborn.csatlatte.persistence.blind.TypeDao blindTypeDao;
 	
-	public int amountCommunity(String search) {
+	public int getCount(String search) {
 		return communityDao.selectOneCount(search);
 	}
 	

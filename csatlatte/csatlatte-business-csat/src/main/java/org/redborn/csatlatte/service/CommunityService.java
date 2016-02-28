@@ -11,7 +11,7 @@ public interface CommunityService {
 	
 	public static final int COMMUNITY = 1;
 
-	public int amountCommunity(String search);
+	public int getCount(String search);
 	public boolean blind(int communityTypeSequence, int communitySequence, int blindTypeSequence);
 	public boolean blindCheck(int communityTypeSequence, int communitySequence);
 	public boolean write(CommunityVo communityVo, String userAgent, String sessionId, String ip);
