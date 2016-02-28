@@ -25,10 +25,10 @@ public class Join {
 		
 		switch(item) {
 		case 1:
-			model.addAttribute("overlapCheckId", studentService.overlapCheckId(overlapValue));
+			model.addAttribute("overlapCheckId", studentService.isId(overlapValue));
 			break;
 		case 2:
-			model.addAttribute("overlapCheckNickname", studentService.overlapCheckNickname(overlapValue));
+			model.addAttribute("overlapCheckNickname", studentService.isNickname(overlapValue));
 			break;
 		}
 	}
