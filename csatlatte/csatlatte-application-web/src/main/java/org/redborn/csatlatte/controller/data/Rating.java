@@ -46,8 +46,8 @@ public class Rating {
 		model.addAttribute("list", ratingCutService.list(csatSequence, examSequence));
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public void post(@RequestParam(value="csatSequence",required=true) int csatSequence,
+	@RequestMapping(value="{csatSequence}",method=RequestMethod.POST)
+	public void post(@PathVariable(value="csatSequence") int csatSequence,
 			@RequestParam(value="examSequence",required=true) int examSequence,
 			@RequestParam(value="file",required=true) MultipartFile file) throws IOException {
 		logger.info("data rating post");
