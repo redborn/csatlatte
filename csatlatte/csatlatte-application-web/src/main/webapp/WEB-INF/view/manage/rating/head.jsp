@@ -143,8 +143,7 @@
 			var listLength = list.length;
 			var html = '';
 			html += '<div class="modal-content manage-rating-create-view">';
-			html += '<form class="manage-rating-create-form" method="post" action="' + contextPath + '/data/rating" enctype="multipart/form-data">';
-			html += '<input type="hidden" name="csatSequence" value="' + csatSequence + '">';
+			html += '<form class="manage-rating-create-form" method="post" action="' + contextPath + '/data/rating/' + csatSequence + '" enctype="multipart/form-data">';
 			html += '	<div class="modal-header">';
 			html += '		<button type="button" class="close manage-rating-create-cancel" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 			html += '		<h4 class="modal-title">등급컷 추가</h4>';
