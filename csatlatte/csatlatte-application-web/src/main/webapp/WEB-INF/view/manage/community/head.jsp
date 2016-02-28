@@ -190,10 +190,9 @@
 			var target = $(this).attr("id");
 			if (target != null) {
 				$("#manage-community-text-dialog").append(makeCommunityDetail(target));
-				$.ajax(contextPath + "/data/community/comment.json", {
+				$.ajax(contextPath + "/data/community/comment/" + target + ".json", {
 					dataType : "json",
 					type : "GET",
-					data : {communitySequence : target},
 					success : function(commentData) {
 						if(commentData.list != null) {
 							var commentList = commentData.list;
