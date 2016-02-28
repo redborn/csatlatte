@@ -39,7 +39,7 @@
 		var successAnswer = false;
 		var patternSpace = /\s/g;
 		var patternEnglishNumber = /^[A-Za-z0-9+]*$/;
-		var patternEnglishNumberSpecial = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[~,!,@,#,$,*,^,%,(,),=,+,_,.,|]).*$/; // 8~15자리 영문, 숫자, 특수문자 최소 1개 포함
+		var patternEnglishNumberSpecial = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[`,/,?,>,<,~,!,@,#,$,*,^,&,%,(,),=,+,_,.,;,:]).*$/; // 8~15자리 영문, 숫자, 특수문자 최소 1개 포함
 		var patternKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 		var inputFile = $("#join-write-form input[type='file']");
 		
