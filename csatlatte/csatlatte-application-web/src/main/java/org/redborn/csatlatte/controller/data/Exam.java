@@ -38,8 +38,8 @@ public class Exam {
 		model.addAttribute("detail", examService.detail(csatSequence, examSequence));
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public void post(Model model, @RequestParam(value="csatSequence",required=true) int csatSequence,
+	@RequestMapping(value="{csatSequence}",method=RequestMethod.POST)
+	public void post(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@RequestParam(value="examName",required=true) String examName,
 			@RequestParam(value="institutionSequence",required=true) int institutionSequence,
 			@RequestParam(value="yearStudentSequence",required=true) int yearStudentSequence,
@@ -56,9 +56,9 @@ public class Exam {
 		model.addAttribute("result", examService.register(examVo));
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT)
-	public void put(Model model, @RequestParam(value="examSequence",required=true) int examSequence,
-			@RequestParam(value="csatSequence",required=true) int csatSequence,
+	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.PUT)
+	public void put(Model model, @PathVariable(value="csatSequence") int csatSequence, 
+			@PathVariable(value="examSequence") int examSequence,
 			@RequestParam(value="examName",required=true) String examName,
 			@RequestParam(value="institutionSequence",required=true) int institutionSequence,
 			@RequestParam(value="yearStudentSequence",required=true) int yearStudentSequence,
