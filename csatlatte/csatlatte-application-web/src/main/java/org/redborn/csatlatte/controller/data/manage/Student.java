@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,17 +19,17 @@ public class Student {
 	private StudentService studentService;
 	
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.POST)
-	public void post(@PathVariable(value="studentSequence") int studentSequence) {
+	public void post(Model model, @PathVariable(value="studentSequence") int studentSequence) {
 		logger.info("data student update to useYn = 'Y'");
 		
-		studentService.recovery(studentSequence);
+		model.addAttribute("result", studentService.recovery(studentSequence));
 	}
 	
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.DELETE)
-	public void delete(@PathVariable int studentSequence) {
+	public void delete(Model model, @PathVariable int studentSequence) {
 		logger.info("data student update to useYn = 'N'");
 		
-		studentService.lock(studentSequence);
+		model.addAttribute("result", studentService.lock(studentSequence));
 	}
 
 }
