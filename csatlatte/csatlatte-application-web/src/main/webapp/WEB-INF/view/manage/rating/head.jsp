@@ -98,9 +98,11 @@
 												dataType : "json",
 												type : "DELETE",
 												data : {_method : "DELETE"},
-												success : function () {
-													$('#manage-rating-delete-view').modal("hide");
-													$('#manage-rating-csat-list').trigger("change");
+												success : function (data) {
+													if (data.result) {
+														$('#manage-rating-delete-view').modal("hide");
+														$('#manage-rating-csat-list').trigger("change");
+													}
 												}
 											});
 										});
