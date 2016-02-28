@@ -40,7 +40,7 @@ public class Community {
 		
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("search", search); 
-		Pagination pagination = new Pagination(pageNumber, communityService.amountCommunity(search));
+		Pagination pagination = new Pagination(pageNumber, communityService.getCount(search));
 		
 		model.addAttribute("list", communityService.list(CommunityService.COMMUNITY, search, pagination.getBeginRow() - 1));
 		model.addAttribute("paginationWriter", new BootstrapPaginationWriter(pagination, new StringBuilder(request.getContextPath()).append("/manage/community").toString(), params, "pageNumber"));
