@@ -102,10 +102,9 @@
 		
 		$('.manage-question-answer-view').on("click", function () {
 			target = $(this).attr("id");
-			$.ajax(contextPath + "/data/question.json", {
+			$.ajax(contextPath + "/data/question/" + target + ".json", {
 				dataType : "json",
 				type : "GET",
-				data : {qnaSequence : target},
 				success : function(data) {
 					if (data.detail != null) {
 						var question = data.detail;
@@ -124,18 +123,17 @@
 						});
 						$('.manage-question-answer-accept').on("click", function () {
 							var answerContent = $('.manage-question-answer-textarea').val().replace(/\n/g, '<br>');
-							$.ajax(contextPath + "/data/manage/question.json", {
+							$.ajax(contextPath + "/data/manage/question/" + target + ".json", {
 								dataType : "json",
 								type : "POST",
-								data : {qnaSequence : target, answerContent : answerContent},
+								data : {answerContent : answerContent},
 								success : function () {
 									$('#manage-question-answer-button-div-' + target).remove();
 									$('#manage-question-answer-button-' + target).append(changeToViewButton());
 									$('.manage-question-detail').remove();
-									$.ajax(contextPath + "/data/question.json", {
+									$.ajax(contextPath + "/data/question/" + target + ".json", {
 										dataType : "json",
 										type : "GET",
-										data : {qnaSequence : target},
 										success : function(data) {
 											if (data.detail != null) {
 												var question = data.detail;
@@ -146,10 +144,9 @@
 									});
 									$('#' + target).on("click", function () {
 										target = $(this).attr("id");
-										$.ajax(contextPath + "/data/question.json", {
+										$.ajax(contextPath + "/data/question/" + target + ".json", {
 											dataType : "json",
 											type : "GET",
-											data : {qnaSequence : target},
 											success : function(data) {
 												if (data.detail != null) {
 													var question = data.detail;
