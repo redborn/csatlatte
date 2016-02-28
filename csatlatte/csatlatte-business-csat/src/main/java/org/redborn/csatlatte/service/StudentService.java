@@ -20,8 +20,8 @@ public interface StudentService {
 	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo, File photo);
 	public String findId(String nickname, String securityAnswer);
 	public boolean isPassword(String id, String securityAnswer);
-	public boolean overlapCheckId(String studentId);
-	public boolean overlapCheckNickname(String nickname);
+	public boolean isId(String studentId);
+	public boolean isNickname(String nickname);
 	public StudentVo information(String id, String password);
 	public StudentVo information(int studentSequence);
 	public boolean connection(int studentSequence, String userAgent, String sessionId, String ip);
