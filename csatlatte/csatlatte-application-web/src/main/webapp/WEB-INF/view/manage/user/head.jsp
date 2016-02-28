@@ -83,10 +83,9 @@
 		
 		$('.manage-user-id').on("click", function() {
 			var target = $(this).attr("id");
-			$.ajax(contextPath + "/data/student.json", {
+			$.ajax(contextPath + "/data/student/" + target + ".json", {
 				dataType : "json",
 				type : "GET",
-				data : {studentSequence : target},
 				success : function(data) {
 					if (data.information != null) {
 						var student = data.information;
@@ -130,10 +129,9 @@
 		$('.manage-user-recovery-apply').on("click", function () {
 			var studentSequence = recoveryTarget;
 			if (studentSequence != null) {
-				$.ajax(contextPath + "/data/manage/student.json", {
+				$.ajax(contextPath + "/data/manage/student/" + studentSequence + ".json", {
 					dataType : "json",
 					type : "POST",
-					data : {studentSequence : studentSequence},
 					success : function () {
 						$('#manage-user-recovery').modal("hide");
 						$('#recovery-' + studentSequence).remove();
