@@ -1,4 +1,4 @@
-package org.redborn.csatlatte.controller.data;
+package org.redborn.csatlatte.controller.data.exam.student;
 
 import org.redborn.csatlatte.service.ExamService;
 import org.slf4j.Logger;
@@ -11,17 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/data/subject")
-public class Subject {
-	
+@RequestMapping("/data/exam/student/score")
+public class Score {
+
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private ExamService examService;
 	
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.GET)
-	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence, @PathVariable(value="examSequence") int examSequence) {
-		logger.info("data subject list");
-		model.addAttribute("list", examService.subjectList(csatSequence, examSequence));
+	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence,
+			@PathVariable(value="examSequence") int examSequence) {
+		logger.info("data exam studentscore get view");
+		model.addAttribute("examStudentList", examService.examStudentList(csatSequence, examSequence));
 	}
-
+	
 }

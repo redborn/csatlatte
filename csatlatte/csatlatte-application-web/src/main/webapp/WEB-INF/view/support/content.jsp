@@ -7,17 +7,14 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h4>환영합니다.<br/><small>궁금하신 사항을 아래 분류를 선택하면 쉽게 찾을 수 있습니다.</small><br/></h4>
-			<div class="col-lg-3 support-col-lg">
-				<select id="support-category" class="form-control">
-					<c:forEach items="${typeList}" var="type">
-						<option value="${type.typeSequence}" <c:if test="${param.faqTypeSequence eq type.typeSequence}">selected</c:if>>${type.description}</option>
-					</c:forEach>
-				</select>
-			</div>
 		</div>
 		<div class="panel-body" id="support-content">
+		<c:forEach items="${list}" var="faq">
 			<div class="support-faq">
+				<div class="support-question"><p><strong>${faq.title}</strong></p></div>
+				<div class="support-answer">${faq.content}</div>
 			</div>
+		</c:forEach>
 		</div>
 		<div class="panel-footer">
 			<div class="row support-guide">

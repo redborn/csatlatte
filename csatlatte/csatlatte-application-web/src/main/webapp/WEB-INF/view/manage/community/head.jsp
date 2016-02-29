@@ -165,20 +165,13 @@
 		$('.manage-community-accept').on("click", function () {
 			var reason = $(':radio[name="optionsRadios"]:checked').val();
 			if (blindTarget != null) {
-				$.ajax(contextPath + "/data/community/blind.json", {
+				$.ajax(contextPath + "/data/community/blind/" + blindTarget + ".json", {
 					dataType : "json",
-					type : "GET",
-					data : {communitySequence : blindTarget},
+					type : "POST",
+					data : {blindTypeSequence : reason},
 					success : function(data) {
-						if (data.check == true) {
-							$.ajax(contextPath + "/data/community/blind/" + blindTarget + ".json", {
-								dataType : "json",
-								type : "POST",
-								data : {blindTypeSequence : reason},
-								success : function() {
-									$('#blind-' + blindTarget).remove();
-								}
-							});
+						if (data.result) {
+							$('#blind-' + blindTarget).remove();
 						}
 					}
 				});

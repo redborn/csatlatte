@@ -1,4 +1,4 @@
-package org.redborn.csatlatte.controller.data.manage;
+package org.redborn.csatlatte.controller.data.question;
 
 import org.redborn.csatlatte.domain.QnaAnswerVo;
 import org.redborn.csatlatte.service.QnaService;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/data/manage/question")
-public class Question {
+@RequestMapping("/data/question/answer")
+public class Answer {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired

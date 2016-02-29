@@ -16,38 +16,5 @@
 		$(".support-question").on("click", function () {
 			$(".support-answer").eq($(".support-question").index($(this))).slideToggle("fast");
 		});
-		
-		var makeFaqList = function (faq) {
-			var html = '';
-			html += '<div class="support-faq">';
-			html += '	<div class="support-question"><p><strong>' + faq.title + '</strong></p></div>';
-			html += '	<div class="support-answer">' + faq.content + '</div>';
-			html += '</div>';
-			return html;
-		}
-		
-		$("#support-category").on("change", function () {
-			var faqTypeSequence = $(this).val();
-			$.ajax(contextPath + "/data/support/" + faqTypeSequence + ".json", {
-				dataType : "json",
-				type : "GET",
-				data : {faqTypeSequence : faqTypeSequence},
-				success : function(data) {
-					$('.support-faq').remove();
-					if (data.list != null) {
-						var faqList = data.list;
-						var faqListLength = faqList.length;
-						for (var index = 0; index < faqListLength; index++) {
-							var faq = faqList[index];
-							$('#support-content').append(makeFaqList(faq));
-						}
-						$(".support-question").on("click", function () {
-							$(".support-answer").eq($(".support-question").index($(this))).slideToggle("fast");
-						});
-					}
-				}
-			});
-		});
-		$("#support-category").trigger("change");
 	});
 </script>
