@@ -265,8 +265,6 @@
 			if (ratingCutList.length == 0) {
 				html += '<div class="alert alert-danger rating-alert-danger" role="alert">';
 				html += '	<h4><strong>이 시험은 등급컷과 관련된 정보가 부족합니다.</strong></h4>';
-				html +=	'	<p>기관에서 자료 공개를 하지 않았거나 성적에 관련된 정보를 정리하는 중입니다.<p>';
-				html += '	<p>한국교육평가원에서 주관하는 시험인 경우 해당 기관에서 성적과 관련된 자료를 공개하지 않아 수능라떼에서 성적 관리를 할 수 가 없습니다.</p>';
 				html += '</div>';
 			} else {
 				html += '<div id="rating-carousel" class="carousel slide" data-ride="carousel" data-interval="false">';
