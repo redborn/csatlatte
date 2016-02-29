@@ -123,7 +123,7 @@
 						});
 						$('.manage-question-answer-accept').on("click", function () {
 							var answerContent = $('.manage-question-answer-textarea').val().replace(/\n/g, '<br>');
-							$.ajax(contextPath + "/data/manage/question/" + target + ".json", {
+							$.ajax(contextPath + "/data/question/answer/" + target + ".json", {
 								dataType : "json",
 								type : "POST",
 								data : {answerContent : answerContent},
