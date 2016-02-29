@@ -48,7 +48,6 @@
 		<mapper resource="org/redborn/csatlatte/persistence/qna/AnswerMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/qna/ContentMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/qna/FileMapper.xml"/>
-		<mapper resource="org/redborn/csatlatte/persistence/faq/TypeMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/exam/student/ScoreMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/community/BlindMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/community/CommentMapper.xml"/>
