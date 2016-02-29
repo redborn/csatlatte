@@ -26,7 +26,7 @@ public interface StudentService {
 	public StudentVo information(int studentSequence);
 	public boolean connection(int studentSequence, String userAgent, String sessionId, String ip);
 	public boolean lock(int studentSequence);
-	public boolean recovery(int studentSequence);
+	public boolean unlock(int studentSequence);
 	public List<CountVo> dailyJoinCountList(String ymd);
 	public List<CountVo> monthlyJoinCountList(String ym);
 	public List<CountVo> annualJoinCountList(String year);

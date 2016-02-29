@@ -210,7 +210,7 @@ public class StudentServiceImpl implements StudentService {
 		return studentDao.updateUseYnN(studentSequence) == 1;
 	}
 	
-	public boolean recovery(int studentSequence) {
+	public boolean unlock(int studentSequence) {
 		return studentDao.updateUseYnNRecovery(studentSequence) == 1;
 	}
 	
