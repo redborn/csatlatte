@@ -266,7 +266,7 @@
 				html += '<div class="alert alert-danger rating-alert-danger" role="alert">';
 				html += '	<h4><strong>이 시험은 등급컷과 관련된 정보가 부족합니다.</strong></h4>';
 				html +=	'	<p>등급컷에 대한 분석이 끝나지 않았거나 등급컷에 관련된 정보를 정리하는 중입니다.<p>';
-				html += '	<p>한국교육과정평가원에서 주관하는 시험인 경우 해당 기관에서 성적과 관련된 자료를 공개하지 않아 예측 등급컷만 제공될 수 있습니다.</p>';
+				html += '	<p>한국교육과정평가원에서 주관하는 시험인 경우 해당 기관에서 성적과 관련된 자료를 공개하지 않아 등급컷이 제공되지 않습니다.</p>';
 				html += '</div>';
 			} else {
 				html += '<div id="rating-carousel" class="carousel slide" data-ride="carousel" data-interval="false">';
