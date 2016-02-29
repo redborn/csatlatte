@@ -122,7 +122,7 @@
 							$('.manage-question-content-count').append(makeAnswerCount(answerCount));
 						});
 						$('.manage-question-answer-accept').on("click", function () {
-							var answerContent = $('.manage-question-answer-textarea').val().replace(/\n/g, '<br>');
+							var answerContent = $('.manage-question-answer-textarea').val();
 							$.ajax(contextPath + "/data/question/answer/" + target + ".json", {
 								dataType : "json",
 								type : "POST",
