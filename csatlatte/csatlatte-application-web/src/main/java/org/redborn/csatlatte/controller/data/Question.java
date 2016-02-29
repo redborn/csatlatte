@@ -28,10 +28,4 @@ public class Question {
 		model.addAttribute("files", qnaService.fileList(qnaSequence));
 	}
 	
-	@RequestMapping(value="{qnaSequence}",method=RequestMethod.DELETE)
-	public void delete(Model model, @PathVariable(value="qnaSequence") int qnaSequence) {
-		logger.info("data question delete");
-		model.addAttribute("result", qnaService.delete(qnaSequence));
-	}
-
 }
