@@ -6,6 +6,7 @@ public class ExamVo {
 	private int examSequence;
 	private int institutionSequence;
 	private int yearStudentSequence;
+	private String ratingCutPublicYn;
 	private String ymd;
 	private String year;
 	private String examName;
@@ -43,6 +44,14 @@ public class ExamVo {
 		this.yearStudentSequence = yearStudentSequence;
 	}
 	
+	public String getRatingCutPublicYn() {
+		return ratingCutPublicYn;
+	}
+	
+	public void setRatingCutPublicYn(String ratingCutPublicYn) {
+		this.ratingCutPublicYn = ratingCutPublicYn;
+	}
+	
 	public String getYmd() {
 		return ymd;
 	}
@@ -74,14 +83,15 @@ public class ExamVo {
 	public void setInstitutionName(String institutionName) {
 		this.institutionName = institutionName;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "ExamVo [csatSequence=" + csatSequence + ", examSequence="
 				+ examSequence + ", institutionSequence=" + institutionSequence
-				+ ", yearStudentSequence=" + yearStudentSequence + ", ymd=" + ymd + ", year="
-				+ year + ", examName=" + examName + ", institutionName="
-				+ institutionName + "]";
+				+ ", yearStudentSequence=" + yearStudentSequence
+				+ ", ratingCutPublicYn=" + ratingCutPublicYn + ", ymd=" + ymd
+				+ ", year=" + year + ", examName=" + examName
+				+ ", institutionName=" + institutionName + "]";
 	}
 	
 }
