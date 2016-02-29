@@ -1,4 +1,4 @@
-package org.redborn.csatlatte.controller.data.manage;
+package org.redborn.csatlatte.controller.data.student;
 
 import org.redborn.csatlatte.service.StudentService;
 import org.slf4j.Logger;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/data/manage/student")
-public class Student {
+@RequestMapping("/data/student/lock")
+public class Lock {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
@@ -20,16 +20,16 @@ public class Student {
 	
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="studentSequence") int studentSequence) {
-		logger.info("data student update to useYn = 'Y'");
+		logger.info("data student update to useYn = 'N'");
 		
-		model.addAttribute("result", studentService.recovery(studentSequence));
+		model.addAttribute("result", studentService.lock(studentSequence));
 	}
 	
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.DELETE)
 	public void delete(Model model, @PathVariable int studentSequence) {
-		logger.info("data student update to useYn = 'N'");
+		logger.info("data student update to useYn = 'Y'");
 		
-		model.addAttribute("result", studentService.lock(studentSequence));
+		model.addAttribute("result", studentService.unlock(studentSequence));
 	}
 
 }
