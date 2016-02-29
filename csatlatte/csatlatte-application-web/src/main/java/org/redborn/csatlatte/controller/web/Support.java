@@ -29,7 +29,7 @@ public class Support {
 	@RequestMapping(method = RequestMethod.GET)
 	public String get(Model model, @RequestParam(value="faqTypeSequence",required=false,defaultValue="1") int faqTypeSequence) {
 		logger.info("support view");
-		model.addAttribute("typeList", faqService.typeList());
+		model.addAttribute("list", faqService.list(faqTypeSequence));
 		return TilesName.SUPPORT;
 	}
 
