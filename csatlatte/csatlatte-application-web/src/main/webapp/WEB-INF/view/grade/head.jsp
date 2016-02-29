@@ -130,18 +130,18 @@
 		
 		$("#grade-exam").on("change", function() {
 			var examSequence = $(this).val();
-			$.ajax(contextPath + "/data/section/" + csatSequence + "/" + examSequence + ".json", {
+			$.ajax(contextPath + "/data/exam/section/" + csatSequence + "/" + examSequence + ".json", {
 				success : function(data) {
 					$(".grade-transcript .grade-section").remove();
-					var sectionList = data.list;
+					var sectionList = data.sectionList;
 					if (sectionList != null) {
 						var sectionListLength = sectionList.length;
 						for (var index = 0; index < sectionListLength; index++) {
 							$(".grade-transcript").append(makeSectionTable(sectionList[index]));
 						}
-						$.ajax(contextPath + "/data/subject/" + csatSequence + "/" + examSequence + ".json", {
+						$.ajax(contextPath + "/data/exam/subject/" + csatSequence + "/" + examSequence + ".json", {
 							success : function(data) {
-								subjectList = data.list;
+								subjectList = data.subjectList;
 								$.ajax(contextPath + "/data/grade/" + examSequence + ".json", {
 									success : function(data) {
 										var gradeList = data.list;
