@@ -10,6 +10,7 @@
 		<result column="csat_seq" property="csatSequence"/>
 		<result column="exam_seq" property="examSequence"/>
 		<result column="exam_name" property="examName"/>
+		<result column="rating_cut_public_yn" property="ratingCutPublicYn"/>
 	</resultMap>
 
 	<resultMap type="ExamVo" id="ExamVoForManageMap">
@@ -46,11 +47,10 @@
 	</select>
 
 	<select id="selectListExam" parameterType="Map" resultMap="ExamVoMap">
-		SELECT csat_seq,exam_seq,exam_name
+		SELECT csat_seq,exam_seq,exam_name,rating_cut_public_yn
 		  FROM csat_exam
 		 WHERE SUBSTRING(exam_ymd,1,4) = #{year}
 		   AND ys_seq = #{yearStudentSequence}
-		   AND rating_cut_public_yn = 'Y'
 		 ORDER BY exam_seq ASC 
 	</select>
 	
