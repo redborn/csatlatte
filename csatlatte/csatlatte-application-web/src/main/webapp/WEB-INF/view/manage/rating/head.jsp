@@ -85,7 +85,7 @@
 						});
 						$('.manage-rating-delete').on("click", function () {
 							examSequence = $(this).attr("id");
-							$.ajax(contextPath + "/data/exam/studentscore/" + csatSequence + "/" + examSequence + ".json", {
+							$.ajax(contextPath + "/data/exam/student/score/" + csatSequence + "/" + examSequence + ".json", {
 								dataType : "json",
 								type : "GET",
 								success : function (data) {
