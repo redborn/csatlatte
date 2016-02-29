@@ -102,10 +102,9 @@
 		$('.manage-user-blind-apply').on("click", function () {
 			var studentSequence = blindTarget;
 			if (studentSequence != null) {
-				$.ajax(contextPath + "/data/manage/student/" + studentSequence + ".json", {
+				$.ajax(contextPath + "/data/student/lock/" + studentSequence + ".json", {
 					dataType : "json",
-					type : "DELETE",
-					data : {_method : "DELETE"},
+					type : "POST",
 					success : function(data) {
 						if (data.result) {
 							$('#manage-user-blind').modal("hide");
@@ -131,9 +130,9 @@
 		$('.manage-user-recovery-apply').on("click", function () {
 			var studentSequence = recoveryTarget;
 			if (studentSequence != null) {
-				$.ajax(contextPath + "/data/manage/student/" + studentSequence + ".json", {
+				$.ajax(contextPath + "/data/student/lock/" + studentSequence + ".json", {
 					dataType : "json",
-					type : "POST",
+					type : "DELETE",
 					success : function (data) {
 						if (data.result) {
 							$('#manage-user-recovery').modal("hide");
