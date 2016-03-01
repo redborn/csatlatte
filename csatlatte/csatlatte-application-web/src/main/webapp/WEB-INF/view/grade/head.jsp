@@ -13,6 +13,7 @@
 	.grade-synopsis {margin-top:10px;}
 	.grade-score-message {color:#d9534f; padding-top:7px;}
 	.grade-btn {font-size:14px;}
+	.grade-nosection {display:none;}
 	.grade-nosection p {color:red;}
 </style>
 <script type="text/javascript">
