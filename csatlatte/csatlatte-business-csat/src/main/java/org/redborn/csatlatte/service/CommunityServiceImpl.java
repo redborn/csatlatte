@@ -46,10 +46,6 @@ public class CommunityServiceImpl implements CommunityService {
 		return blindDao.selectOne(communityTypeSequence, communitySequence) == 0 
 				&& blindDao.insert(communityTypeSequence, communitySequence, blindTypeSequence) == 1;
 	}
-	
-	public boolean blindCheck(int communityTypeSequence, int communitySequence) {
-		return blindDao.selectOne(communityTypeSequence, communitySequence) == 0;
-	}
 
 	public boolean write(CommunityVo communityVo, String userAgent, String sessionId, String ip) {
 		return communityDao.insert(communityVo, userAgent, sessionId, ip) == 1;
