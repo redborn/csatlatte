@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * 내가 작성한 커뮤니티 글에 대한 controller입니다.
+ * 내가 작성한 글 커뮤니티입니다.
  */
 @Controller
 @RequestMapping("/{id}/community")
@@ -25,7 +25,8 @@ public class Community {
 	private HttpSessionValue httpSessionValue;
 	
 	/**
-	 * 내가 작성한 커뮤니티 글만 나타나는 커뮤니티 페이지(TilesName.COMMUNITY)로 이동합니다.
+	 * 내가 작성한 글 커뮤니티에서 신고사유, 블라인드사유 목록입니다.
+	 * 
 	 * @param model
 	 */
 	@RequestMapping(method=RequestMethod.GET)

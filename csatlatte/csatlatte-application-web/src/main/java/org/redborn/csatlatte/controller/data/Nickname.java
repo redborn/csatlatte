@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * 닉네임에 관련한 기능을 수행하는 data controller입니다.
+ * 닉네임 관련 기능입니다.
  */
 @Controller
 @RequestMapping("/data/nickname")
@@ -22,7 +22,8 @@ public class Nickname {
 	private StudentService studentService;
 	
 	/**
-	 * 닉네임 존재 여부(중복)를 조회하는 method입니다.
+	 * 닉네임 중복검사입니다.
+	 * 
 	 * @param model
 	 * @param nickname 중복 검사할 닉네임 값입니다.
 	 */

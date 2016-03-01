@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * 커뮤니티 controller입니다.
+ * 커뮤니티입니다.
  */
 @Controller
 @RequestMapping("/community")
@@ -25,7 +25,7 @@ public class Community {
 	private HttpSessionValue httpSessionValue;
 
 	/**
-	 * 사용자 본인과 다른 사용자가 작성한 글, 댓글을 조회 및 새로운 글, 댓글을 작성, 수정하는 페이지입니다.
+	 * 커뮤니티입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {

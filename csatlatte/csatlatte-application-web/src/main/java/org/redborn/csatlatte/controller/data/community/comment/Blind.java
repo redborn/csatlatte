@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 댓글 블라인드에 대한 data controller입니다.
+ * 커뮤니티 댓글 블라인드입니다.
  */
 @Controller
 @RequestMapping("/data/community/comment/blind")
@@ -23,7 +23,8 @@ public class Blind {
 	private CommunityService communityService;
 	
 	/**
-	 * 댓글 블라인드를 추가하는 method입니다.
+	 * 커뮤니티 댓글 블라인드입니다.
+	 * 
 	 * @param model
 	 * @param communitySequence 댓글의 커뮤니티 글 번호입니다.
 	 * @param commentSequence 댓글의 번호입니다.

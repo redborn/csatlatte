@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 비밀번호 찾기에서 새 비밀번호를 설정하는 controller입니다.
+ * 비밀번호 찾기 새 비밀번호 설정입니다.
  */
 @Controller
 @RequestMapping("/password/new")
@@ -22,9 +22,7 @@ public class New {
 	private StudentService studentService;
 
 	/**
-	 * 기존 비밀번호, 새 비밀번호를 입력하는 페이지입니다.
-	 * 
-	 * 입력한 값에 이상이 없는 경우 비밀번호 변경 처리 후 비밀번호 찾기 완료 페이지(TilesName.PASSWORD_NEW_SUCCESS)를 출력합니다.
+	 * 새 비밀번호 처리입니다.
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="studentId",required=true) String studentId,

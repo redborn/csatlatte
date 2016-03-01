@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 커뮤니티 글 신고에 대한 data controller입니다.
+ * 커뮤니티 글 신고입니다.
  */
 @Controller
 @RequestMapping("/data/community/report")
@@ -29,9 +29,10 @@ public class Report {
 	private HttpServletRequestValue httpServletRequestValue;
 	
 	/**
-	 * 커뮤니티 글 신고를 추가하는 method입니다.
+	 * 커뮤니티 글 신고입니다.
+	 * 
 	 * @param model
-	 * @param communitySequence 신고하고자 하는 대상 커뮤니티 글 번호입니다.
+	 * @param communitySequence 커뮤니티 글 번호입니다.
 	 * @param reportTypeSequence 신고 사유 번호입니다.
 	 */
 	@RequestMapping(value="{communitySequence}",method=RequestMethod.POST)

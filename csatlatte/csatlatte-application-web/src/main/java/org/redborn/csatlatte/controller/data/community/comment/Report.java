@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 커뮤니티 댓글 신고에 대한 data controller 영역입니다.
+ * 커뮤니티 댓글 신고입니다.
  */
 @Controller
 @RequestMapping("/data/community/comment/report")
@@ -29,7 +29,8 @@ public class Report {
 	private HttpServletRequestValue httpServletRequestValue;
 
 	/**
-	 * 커뮤니티 댓글 신고를 추가하는 method입니다.
+	 * 커뮤니티 댓글 신고입니다.
+	 * 
 	 * @param model
 	 * @param communitySequence 댓글의 커뮤니티 글 번호입니다.
 	 * @param commentSequence 댓글의 번호입니다.

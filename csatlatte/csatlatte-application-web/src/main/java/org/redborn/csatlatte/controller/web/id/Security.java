@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 아이디 찾기를 진행 중 사용자 본인임을 확인하는 controller 입니다.
+ * 아이디 찾기 보안확인입니다.
  */
 @Controller
 @RequestMapping("/id/security")
@@ -23,11 +23,7 @@ public class Security {
 	private StudentService studentService;
 	
 	/**
-	 * 아이디 찾기에 필요한 보안확인 인증을 처리합니다.
-	 * 
-	 * 입력한 답변이 찾으려는 아이디의 보안답변과 일치하는 경우 아이디 찾기 완료 페이지(TilesName.ID_SECURITY_SUCCESS)로 이동합니다.
-	 * 
-	 * 입력한 답변이 해당 아이디의 보안답변과 일치하지 않는 경우 아이디 찾기 보안확인 실패 페이지(TilesName.ID_SECURITY_FAIL)를 출력합니다.
+	 * 아이디 찾기에 보안확인 인증을 처리합니다.
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(Model model, @RequestParam(value="nickname",required=true) String nickname,

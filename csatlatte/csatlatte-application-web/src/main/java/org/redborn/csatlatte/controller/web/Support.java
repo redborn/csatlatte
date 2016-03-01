@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 사용자가 서비스 이용 중 문제가 발생했을 때 이용하는 controller 입니다.
+ * 고객지원입니다.
  */
 @Controller
 @RequestMapping("/support")
@@ -21,8 +21,9 @@ public class Support {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private FaqService faqService;
+	
 	/**
-	 * FAQ(자주 묻는 질문) 조회 페이지 입니다.
+	 * FAQ입니다.
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String get(Model model, @RequestParam(value="faqTypeSequence",required=false,defaultValue="1") int faqTypeSequence) {

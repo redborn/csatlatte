@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * 수능라떼 웹사이트의 첫 페이지입니다.
+ * 메인페이지입니다.
  */
 @Controller
 @RequestMapping("/main")
@@ -17,7 +17,7 @@ public class Main {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	/**
-	 * 수능라뗴 메인 페이지입니다.
+	 * 메인페이지입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get() {

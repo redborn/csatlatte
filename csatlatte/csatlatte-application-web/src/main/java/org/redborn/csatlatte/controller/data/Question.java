@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * 문의 data controller입니다.
+ * 문의입니다.
  */
 @Controller
 @RequestMapping("/data/question")
@@ -25,9 +25,10 @@ public class Question {
     private HttpSessionValue httpSessionValue;
 	
 	/**
-	 * 문의 글의 상세내용을 조회하는 method입니다.
+	 * 문의 상세내용을 조회합니다.
+	 * 
 	 * @param model
-	 * @param qnaSequence 조회하고자 하는 문의 글의 번호입니다.
+	 * @param qnaSequence 문의번호입니다.
 	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="qnaSequence") int qnaSequence) {

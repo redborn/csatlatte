@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 커뮤니티 댓글에 대한 data controller 영역입니다.
+ * 커뮤니티 댓글입니다.
  */
 @Controller
 @RequestMapping("/data/community/comment")
@@ -30,9 +30,10 @@ public class Comment {
 	private HttpServletRequestValue httpServletRequestValue;
 	
 	/**
-	 * 커뮤니티 댓글 목록을 조회하는 method입니다.
+	 * 커뮤니티 댓글 목록입니다.
+	 * 
 	 * @param model
-	 * @param communitySequence 댓글 목록을 조회하고자 하는 커뮤니티 글 번호입니다.
+	 * @param communitySequence 커뮤니티 글 번호입니다.
 	 */
 	@RequestMapping(value="{communitySequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="communitySequence") int communitySequence) {
@@ -41,9 +42,10 @@ public class Comment {
 	}
 	
 	/**
-	 * 커뮤니티 댓글을 추가하는 method입니다.
+	 * 커뮤니티 댓글 추가입니다.
+	 * 
 	 * @param model
-	 * @param communitySequence 댓글이 추가될 커뮤니티 글 번호입니다.
+	 * @param communitySequence 커뮤니티 글 번호입니다.
 	 * @param content 댓글 내용입니다.
 	 */
 	@RequestMapping(value="{communitySequence}",method=RequestMethod.POST)
@@ -58,7 +60,8 @@ public class Comment {
 	}
 	
 	/**
-	 * 커뮤니티 댓글 삭제 method입니다.
+	 * 커뮤니티 댓글 삭제입니다.
+	 * 
 	 * @param model
 	 * @param communitySequence 댓글의 커뮤니티 글 번호입니다.
 	 * @param commentSequence 댓글의 번호입니다.

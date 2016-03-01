@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 커뮤니티 블라인드에 대한 data controller 영역입니다.
+ * 커뮤니티 블라인드입니다.
  */
 @Controller
 @RequestMapping("/data/community/blind")
@@ -23,9 +23,10 @@ public class Blind {
 	private CommunityService communityService;
 	
 	/**
-	 * 커뮤니티 글을 블라인드하는 method입니다.
+	 * 커뮤니티 블라인드입니다.
+	 * 
 	 * @param model
-	 * @param communitySequence 블라인드 대상의 커뮤니티 글 번호입니다.
+	 * @param communitySequence 커뮤니티 글 번호입니다.
 	 * @param blindTypeSequence 블라인드 사유 번호입니다.
 	 */
 	@RequestMapping(value="{communitySequence}",method=RequestMethod.POST)

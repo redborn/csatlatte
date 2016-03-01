@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * 월간 가입자 통계에 대한 data controller 영역입니다.
+ * 월간 가입자 통계입니다.
  */
 @Controller
 @RequestMapping("/data/student/join/stats/monthly")
@@ -22,9 +22,10 @@ public class Monthly {
 	private StudentService studentService;
 	
 	/**
-	 * 특정 월의 가입자 수치를 조회하는 method입니다.
+	 * 월간 가입자 통계입니다.
+	 * 
 	 * @param model
-	 * @param ym 조회하고자 하는 월 값입니다.
+	 * @param ym 월입니다.
 	 */
 	@RequestMapping(value="{ym}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="ym") String ym) {

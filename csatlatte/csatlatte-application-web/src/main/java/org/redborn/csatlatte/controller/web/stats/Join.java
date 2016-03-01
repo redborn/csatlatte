@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * 가입자 통계에 대한 controller 영역입니다.
+ * 가입자 통계입니다.
  */
 @Controller
 @RequestMapping("/stats/join")
@@ -17,7 +17,7 @@ public class Join {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
-	 * 가입자 통계 페이지입니다.
+	 * 가입자 통계입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get() {

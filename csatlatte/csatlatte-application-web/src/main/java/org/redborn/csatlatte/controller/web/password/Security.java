@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 비밀번호를 찾을때 사용자 본인임을 확인하는 controller 입니다.  
+ * 비밀번호 찾기 보안확인입니다.  
  */
 @Controller
 @RequestMapping("/password/security")
@@ -22,11 +22,7 @@ public class Security {
 	private StudentService studentService;
 
 	/**
-	 * 비밀번호 찾기에 필요한 보안확인 인증을 처리합니다.
-	 * 
-	 * 입력한 답변이 찾으려는 아이디의 보안답변과 일치하는 경우 새 비밀번호 설정 페이지(TilesName.PASSWORD_NEW_WRITE)로 이동합니다.
-	 * 
-	 * 입력한 답변이 해당 아이디의 보안답변과 일치하지 않는 경우 비밀번호 찾기 보안확인 실패 페이지(TilesName.PASSWORD_SECURITY_FAIL)를 출력합니다.
+	 * 비밀번호 찾기 보안확인 인증입니다.
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="securityAnswer",required=true) String securityAnswer,

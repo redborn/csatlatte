@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * 모의고사 등급컷 조회에 필요한 목록들에 대한 data controller입니다.
+ * 모의고사 등급컷 시험정보입니다.
  */
 @Controller
 @RequestMapping("/data/rating/exam")
@@ -22,9 +22,10 @@ public class Exam {
 	private ExamService examService;
 	
 	/**
-	 * 특정 학년에 해당하는 시험의 연도 목록을 조회하는 method입니다.
+	 * 모의고사 등급컷 연도 목록입니다.
+	 * 
 	 * @param model
-	 * @param yearStudentSequence 학년 번호입니다.
+	 * @param yearStudentSequence 학년번호입니다.
 	 */
 	@RequestMapping(value="{yearStudentSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="yearStudentSequence") int yearStudentSequence) {
@@ -33,7 +34,8 @@ public class Exam {
 	}
 	
 	/**
-	 * 특정 학년과 연도에 해당하는 모의고사 목록을 조회하는 method입니다.
+	 * 모의고사 등급컷 목록입니다.
+	 * 
 	 * @param model
 	 * @param yearStudentSequence 학년 번호입니다.
 	 * @param year 연도 값입니다.

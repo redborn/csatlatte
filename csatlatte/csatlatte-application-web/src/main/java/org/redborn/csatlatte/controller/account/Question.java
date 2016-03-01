@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * 사용자가 문의한 목록을 조회하는 controller입니다.
+ * 사용자 문의내역입니다.
  */
 @Controller
 @RequestMapping("/{id}/question")
@@ -37,7 +37,7 @@ public class Question {
 	}
 
 	/**
-	 * 특정 문의에 대하여 문의 제목, 문의 내용, 문의에 대한 답변의 상세 내용, 첨부한 파일을 조회하는 페이지입니다.
+	 * 문의 상세 내용, 첨부한 파일을 조회하는 페이지입니다.
 	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.GET)
 	public String detail(Model model, @PathVariable int qnaSequence) {
@@ -55,7 +55,7 @@ public class Question {
 	}
 	
 	/**
-	 * 사용자가 답변받지 않은 문의를 삭제하는 기능입니다.
+	 * 문의를 삭제하는 기능입니다.
 	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.DELETE)
 	public String delete(Model model, @PathVariable int qnaSequence) {

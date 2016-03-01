@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * 주관 교육청 data controller 입니다.
+ * 주관 교육청입니다.
  */
 @Controller
 @RequestMapping("/data/institution")
@@ -21,7 +21,8 @@ public class Institution {
 	private ExamService examService;
 	
 	/**
-	 * 주관 교육청 목록을 조회하는 method입니다.
+	 * 주관 교육청 목록입니다.
+	 * 
 	 * @param model
 	 */
 	@RequestMapping(method=RequestMethod.GET)

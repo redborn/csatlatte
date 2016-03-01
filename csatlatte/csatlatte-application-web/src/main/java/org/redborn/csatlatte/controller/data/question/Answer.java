@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 문의 답변에 대한 data controller 영역입니다.
+ * 문의답변입니다.
  */
 @Controller
 @RequestMapping("/data/question/answer")
@@ -24,10 +24,11 @@ public class Answer {
 	private QnaService qnaService;
 	
 	/**
-	 * 문의 답변을 추가하는 method입니다.
+	 * 문의답변 추가입니다.
+	 * 
 	 * @param model
-	 * @param qnaSequence 답변이 추가 될 대상 문의 번호입니다.
-	 * @param answerContent 답변 내용입니다.
+	 * @param qnaSequence 문의번호입니다.
+	 * @param answerContent 답변내용입니다.
 	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="qnaSequence") int qnaSequence, 

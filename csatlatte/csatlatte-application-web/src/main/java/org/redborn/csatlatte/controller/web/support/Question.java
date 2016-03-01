@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * FAQ(자주 묻는 질문)에서 해결되지 않은 궁금사항, 혹은 건의사항 작성에 대한 controller입니다.
+ * 문의하기입니다.
  */
 @Controller
 @RequestMapping("/support/question")
@@ -47,10 +47,6 @@ public class Question {
 
 	/**
 	 * 문의제목, 문의내용을 처리하는 영역입니다.
-	 * 
-	 * 처리가 성공적으로 완료된 경우 완료 페이지(TilesName.SUPPORT_QUESTION_SUCCESS)로 이동합니다.
-	 * 
-	 * 처리 과정 중 문제가 발생하거나 실패한 경우 실패 페이지(TilesName.SUPPORT_QUESTION_FAIL)로 이동합니다.
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="title",required=true) String title, @RequestParam(value="content", required=true) String content,
