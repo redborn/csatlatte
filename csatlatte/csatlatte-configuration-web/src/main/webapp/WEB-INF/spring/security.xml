@@ -9,25 +9,114 @@
 		http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 		
 	<http auto-config="true">
-		<intercept-url pattern="/resources/**" access="permitAll"/>
-		<intercept-url pattern="/error/*" access="permitAll"/>
-		<intercept-url pattern="/data/**" access="permitAll"/>
-		<intercept-url pattern="/main" access="permitAll"/>
-		<intercept-url pattern="/login/*" access="permitAll"/>
-		<intercept-url pattern="/rating" access="permitAll"/>
-		<intercept-url pattern="/grade" access="permitAll"/>
-		<intercept-url pattern="/grade/analysis" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/community" access="permitAll"/>
-		<intercept-url pattern="/support" access="permitAll"/>
-		<intercept-url pattern="/support/question" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/manage/*" access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="/stats/*" access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="/id" access="permitAll"/>
-		<intercept-url pattern="/id/*" access="permitAll"/>
-		<intercept-url pattern="/join" access="permitAll"/>
-		<intercept-url pattern="/password" access="permitAll"/>
-		<intercept-url pattern="/password/*" access="permitAll"/>
-		<intercept-url pattern="/**" access="permitAll"/>
+	
+		<intercept-url pattern="/resources/**" access="permitAll" method="GET"/>
+		
+		<intercept-url pattern="/main" access="permitAll" method="GET"/>
+		<intercept-url pattern="/rating" access="permitAll" method="GET"/>
+		<intercept-url pattern="/grade" access="permitAll" method="GET"/>
+		<intercept-url pattern="/grade/analysis" access="hasRole('ROLE_USER')" method="GET"/>
+		<intercept-url pattern="/community" access="permitAll" method="GET"/>
+		<intercept-url pattern="/support" access="permitAll" method="GET"/>
+		<intercept-url pattern="/support/question" access="hasRole('ROLE_USER')" method="GET"/>
+		<intercept-url pattern="/support/question" access="hasRole('ROLE_USER')" method="POST"/>
+		<intercept-url pattern="/stats/join" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/stats/connection" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/stats/community" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/manage/user" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/manage/exam" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/manage/rating" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/manage/community" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/manage/question" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/error/400" access="permitAll" method="GET"/>
+		<intercept-url pattern="/error/401" access="permitAll" method="GET"/>
+		<intercept-url pattern="/error/402" access="permitAll" method="GET"/>
+		<intercept-url pattern="/error/403" access="permitAll" method="GET"/>
+		<intercept-url pattern="/error/404" access="permitAll" method="GET"/>
+		<intercept-url pattern="/error/405" access="permitAll" method="GET"/>
+		<intercept-url pattern="/error/500" access="permitAll" method="GET"/>
+		<intercept-url pattern="/error/501" access="permitAll" method="GET"/>
+		<intercept-url pattern="/error/502" access="permitAll" method="GET"/>
+		<intercept-url pattern="/error/503" access="permitAll" method="GET"/>
+		<intercept-url pattern="/join" access="anonymous" method="GET"/>
+		<intercept-url pattern="/join" access="anonymous" method="POST"/>
+		<intercept-url pattern="/id" access="anonymous" method="GET"/>
+		<intercept-url pattern="/id" access="anonymous" method="POST"/>
+		<intercept-url pattern="/id/security" access="anonymous" method="POST"/>
+		<intercept-url pattern="/password" access="anonymous" method="GET"/>
+		<intercept-url pattern="/password" access="anonymous" method="POST"/>
+		<intercept-url pattern="/password/security" access="anonymous" method="POST"/>
+		<intercept-url pattern="/login" access="anonymous" method="POST"/>
+		<intercept-url pattern="/logout" access="hasRole('ROLE_USER')" method="GET"/>
+		
+		<intercept-url pattern="/data/grade/*" access="hasRole('ROLE_USER')" method="GET"/>
+		<intercept-url pattern="/data/grade/*/*" access="hasRole('ROLE_USER')" method="POST"/>
+		<intercept-url pattern="/data/grade/*/*" access="hasRole('ROLE_USER')" method="PUT"/>
+		<intercept-url pattern="/data/grade/*/*" access="hasRole('ROLE_USER')" method="DELETE"/>
+		<intercept-url pattern="/data/community" access="permitAll" method="GET"/>
+		<intercept-url pattern="/data/community" access="hasRole('ROLE_USER')" method="POST"/>
+		<intercept-url pattern="/data/community/report/*" access="hasRole('ROLE_USER')" method="POST"/>
+		<intercept-url pattern="/data/community/blind/*" access="hasRole('ROLE_ADMIN')" method="POST"/>
+		<intercept-url pattern="/data/community/comment" access="permitAll" method="GET"/>
+		<intercept-url pattern="/data/community/comment" access="hasRole('ROLE_USER')" method="POST"/>
+		<intercept-url pattern="/data/community/comment/*/*" access="hasRole('ROLE_USER')" method="DELETE"/>
+		<intercept-url pattern="/data/community/comment/report/*/*" access="hasRole('ROLE_USER')" method="POST"/>
+		<intercept-url pattern="/data/community/comment/blind/*/*" access="hasRole('ROLE_ADMIN')" method="POST"/>
+		<intercept-url pattern="/data/community/*" access="hasRole('ROLE_USER')" method="DELETE"/>
+		<intercept-url pattern="/data/question/*" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/data/exam/*" access="permitAll" method="GET"/>
+		<intercept-url pattern="/data/exam/*/*" access="permitAll" method="GET"/>
+		<intercept-url pattern="/data/exam/*" access="hasRole('ROLE_ADMIN')" method="POST"/>
+		<intercept-url pattern="/data/exam/*/*" access="hasRole('ROLE_ADMIN')" method="PUT"/>
+		<intercept-url pattern="/data/exam/*/*" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
+		<intercept-url pattern="/data/institution" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
+		<intercept-url pattern="/data/rating/exam/*" access="permitAll" method="GET"/>
+		<intercept-url pattern="/data/rating/exam/*/*" access="permitAll" method="GET"/>
+		<intercept-url pattern="/data/rating/*" access="permitAll" method="GET"/>
+		<intercept-url pattern="/data/rating/*/*" access="permitAll" method="GET"/>
+		<intercept-url pattern="/data/rating/*" access="hasRole('ROLE_ADMIN')" method="POST"/>
+		<intercept-url pattern="/data/rating/*/*" access="hasRole('ROLE_ADMIN')" method="PUT"/>
+		<intercept-url pattern="/data/rating/*/*" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
+		<intercept-url pattern="/data/exam/average/*/*" access="permitAll" method="GET"/>
+		<intercept-url pattern="/data/exam/section/*/*" access="permitAll" method="GET"/>
+		<intercept-url pattern="/data/exam/subject/*/*" access="permitAll" method="GET"/>
+		<intercept-url pattern="/data/exam/student/score/*/*" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/data/id/*" access="anonymous" method="GET"/>
+		<intercept-url pattern="/data/nickname/*" access="permitAll" method="GET"/>
+		<intercept-url pattern="/data/student/*" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/data/student/lock/*" access="hasRole('ROLE_ADMIN')" method="POST"/>
+		<intercept-url pattern="/data/student/lock/*" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
+		<intercept-url pattern="/data/yearstudent" access="permitAll" method="GET"/>
+		<intercept-url pattern="/data/question/answer/*" access="hasRole('ROLE_ADMIN')" method="POST"/>
+		<intercept-url pattern="/data/community/stats/daily/*" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/data/community/stats/monthly/*" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/data/community/stats/annual/*" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/data/student/join/stats/daily/*" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/data/student/join/stats/monthly/*" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/data/student/join/stats/annual/*" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/data/student/connection/stats/daily/*" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/data/student/connection/stats/monthly/*" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/data/student/connection/stats/annual/*" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		
+		<intercept-url pattern="/file/question/*/*" access="hasRole('ROLE_USER')" method="GET"/>
+		<intercept-url pattern="/file/student/*" access="permitAll" method="GET"/>
+		
+		<intercept-url pattern="/*/community" access="hasRole('ROLE_USER')" method="GET"/>
+		<intercept-url pattern="/*" access="hasRole('ROLE_USER')" method="GET"/>
+		<intercept-url pattern="/*/password" access="hasRole('ROLE_USER')" method="GET"/>
+		<intercept-url pattern="/*/modify" access="hasRole('ROLE_USER')" method="GET"/>
+		<intercept-url pattern="/*/modify" access="hasRole('ROLE_USER')" method="POST"/>
+		<intercept-url pattern="/*/question" access="hasRole('ROLE_USER')" method="GET"/>
+		<intercept-url pattern="/*/question/*" access="hasRole('ROLE_USER')" method="GET"/>
+		<intercept-url pattern="/*/question/*" access="hasRole('ROLE_USER')" method="DELETE"/>
+		<intercept-url pattern="/*/security/authentication" access="hasRole('ROLE_USER')" method="GET"/>
+		<intercept-url pattern="/*/security/authentication" access="hasRole('ROLE_USER')" method="POST"/>
+		<intercept-url pattern="/*/security" access="hasRole('ROLE_USER')" method="POST"/>
+		
+		<intercept-url pattern="/*/data/grade/rating" access="hasRole('ROLE_USER')" method="GET"/>
+		<intercept-url pattern="/*/data/grade/standardscore" access="hasRole('ROLE_USER')" method="GET"/>
+		<intercept-url pattern="/*/data/community" access="hasRole('ROLE_USER')" method="GET"/>
+		
 		<form-login login-page="/main"
 					login-processing-url="/login"
 					username-parameter="id"
