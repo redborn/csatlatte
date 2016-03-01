@@ -9,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * 학년에 대한 data controller입니다.
+ */
 @Controller
 @RequestMapping("/data/yearstudent")
 public class YearStudent {
@@ -17,6 +20,10 @@ public class YearStudent {
 	@Autowired
 	private StudentService studentService;
 	
+	/**
+	 * 학년 목록을 조회하는 method입니다.
+	 * @param model
+	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model) {
 		logger.info("data yearStudentList get view");

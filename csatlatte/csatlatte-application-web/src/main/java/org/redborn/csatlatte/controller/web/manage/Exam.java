@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * 새 모의고사를 작성하거나 기존 모의고사의 정보를 수정하는 controller입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/manage/exam")

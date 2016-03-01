@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 비밀번호를 변경하는 controller입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/{id}/password")
@@ -39,7 +37,9 @@ public class Password {
 	/**
 	 * 비밀번호 변경 처리 영역입니다.
 	 * 
-	 * 입력한 값에 이상이 없는 경우 비밀번호 변경 처리 후 비밀번호 변경 완료 페이지(TilesName.MYINFO_PASSWORD_SUCCESS)를 출력합니다.
+	 * 입력한 값에 이상이 없는 경우 비밀번호 변경 처리 후 비밀번호 변경 완료 페이지(TilesName.PROFILE_PASSWORD_SUCCESS)를 출력합니다.
+	 * 
+	 * 입력한 값이 문제가 있는 경우 비밀번호 변경 실패 페이지(TilesName.PROFILE_PASSWORD_FAIL)을 출력합니다.
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="beforePassword",required=true) String beforePassword,

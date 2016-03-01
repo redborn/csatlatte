@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * 모의고사 등급컷 data controller입니다.
+ */
 @Controller
 @RequestMapping("/data/rating")
 public class Rating {
@@ -31,6 +34,11 @@ public class Rating {
 	@Autowired
 	private RatingCutService ratingCutService;
 	
+	/**
+	 * 특정 수능의 등급컷이 등록되어 있는 모의고사 목록을 조회하는 method입니다.
+	 * @param model
+	 * @param csatSequence 등급컷 목록의 수능 번호입니다.
+	 */
 	@RequestMapping(value="{csatSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence) {
 		logger.info("data manage rating get view");
@@ -38,6 +46,12 @@ public class Rating {
 		model.addAttribute("listForCreate",examService.listForRatingCreate(csatSequence));
 	}
 	
+	/**
+	 * 등급컷의 상세내용을 조회하는 method입니다.
+	 * @param model
+	 * @param csatSequence 조회하고자 하는 등급컷의 수능 번호입니다.
+	 * @param examSequence 조회하고자 하는 등급컷의 시험 번호입니다.
+	 */
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.GET)
 	public void detail(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@PathVariable(value="examSequence") int examSequence) {
@@ -46,6 +60,14 @@ public class Rating {
 		model.addAttribute("list", ratingCutService.list(csatSequence, examSequence));
 	}
 	
+	/**
+	 * 등급컷 추가 method입니다.
+	 * @param model
+	 * @param csatSequence 추가할 등급컷의 수능 번호입니다.
+	 * @param examSequence 추가할 등급컷의 시험 번호입니다.
+	 * @param file 추가할 등급컷의 데이터를 담고 있는 파일(Excel)입니다.
+	 * @throws IOException
+	 */
 	@RequestMapping(value="{csatSequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@RequestParam(value="examSequence",required=true) int examSequence,
@@ -64,6 +86,14 @@ public class Rating {
 		}
 	}
 	
+	/**
+	 * 등급컷 수정 method입니다.
+	 * @param model
+	 * @param csatSequence 수정할 등급컷의 수능 번호입니다.
+	 * @param examSequence 수정할 등급컷의 시험 번호입니다.
+	 * @param file 수정할 등급컷의 데이터를 담고 있는 파일(Excel)입니다.
+	 * @throws IOException
+	 */
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.PUT)
 	public void put(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@PathVariable(value="examSequence") int examSequence,
@@ -83,6 +113,12 @@ public class Rating {
 		}
 	}
 	
+	/**
+	 * 등급컷 삭제 method입니다.
+	 * @param model
+	 * @param csatSequence 삭제할 등급컷의 수능 번호입니다.
+	 * @param examSequence 삭제할 등급컷의 시험 번호입니다.
+	 */
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.DELETE)
 	public void delete(Model model, @PathVariable(value="csatSequence") int csatSequence, 
 			@PathVariable(value="examSequence") int examSequence) {

@@ -9,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * 주관 교육청 data controller 입니다.
+ */
 @Controller
 @RequestMapping("/data/institution")
 public class Institution {
@@ -17,6 +20,10 @@ public class Institution {
 	@Autowired
 	private ExamService examService;
 	
+	/**
+	 * 주관 교육청 목록을 조회하는 method입니다.
+	 * @param model
+	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model) {
 		logger.info("data institutionList get view");

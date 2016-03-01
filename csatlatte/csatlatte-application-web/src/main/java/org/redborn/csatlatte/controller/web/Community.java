@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * 사용자간의 소통을 하는 controller입니다.
- * 
- * @author 최순현
+ * 커뮤니티 controller입니다.
  */
 @Controller
 @RequestMapping("/community")

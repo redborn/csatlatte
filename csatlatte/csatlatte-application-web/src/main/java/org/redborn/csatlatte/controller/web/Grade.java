@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * 사용자가 직접 입력을 통해 사용자 본인의 성적을 관리하는 controller 입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/grade")

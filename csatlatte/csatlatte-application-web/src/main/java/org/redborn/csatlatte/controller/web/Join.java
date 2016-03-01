@@ -24,8 +24,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 수능라떼 사용자로 등록하는 controller입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/join")

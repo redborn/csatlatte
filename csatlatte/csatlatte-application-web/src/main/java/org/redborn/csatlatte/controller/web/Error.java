@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * 예상하지 못한 오류가 발생하는 경우에 대한 controller 입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/error/*")

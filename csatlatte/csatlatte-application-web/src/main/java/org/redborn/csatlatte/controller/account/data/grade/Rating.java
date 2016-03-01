@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * 사용자의 모의고사 성적 등급에 대한 분석을 위한 data controller 영역입니다.
+ */
 @Controller
 @RequestMapping("/{id}/data/grade/rating")
 public class Rating {
@@ -20,6 +23,10 @@ public class Rating {
 	@Autowired
 	private HttpSessionValue httpSessionValue;
 	
+	/**
+	 * 사용자가 등록한 성적의 모의고사 성적등급 목록을 조회하는 method 입니다.
+	 * @param model
+	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model) {
 		logger.info("Controller data grade.");

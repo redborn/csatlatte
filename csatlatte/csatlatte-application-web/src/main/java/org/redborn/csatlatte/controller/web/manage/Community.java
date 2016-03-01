@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 커뮤니티 게시글을 관리하는 controller입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/manage/community")
@@ -30,6 +28,7 @@ public class Community {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private CommunityService communityService;
+	
 	/**
 	 * 커뮤니티 게시글 목록을 조회하는 페이지입니다.
 	 */

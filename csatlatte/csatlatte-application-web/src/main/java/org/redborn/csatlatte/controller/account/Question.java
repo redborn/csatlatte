@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * 사용자가 문의한 목록을 조회하는 controller입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/{id}/question")
@@ -39,7 +37,7 @@ public class Question {
 	}
 
 	/**
-	 * 문의 제목, 문의 내용, 문의에 대한 답변의 상세 내용을 조회하는 페이지(TilesName.MYINFO_QUESTION_DETAIL)입니다.
+	 * 특정 문의에 대하여 문의 제목, 문의 내용, 문의에 대한 답변의 상세 내용, 첨부한 파일을 조회하는 페이지입니다.
 	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.GET)
 	public String detail(Model model, @PathVariable int qnaSequence) {

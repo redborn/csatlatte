@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 문의를 조회하고 답변을 작성할 수 있는 controller입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/manage/question")
@@ -30,6 +28,7 @@ public class Question {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private QnaService qnaService;
+	
 	/**
 	 * 문의목록을 조회하는 페이지입니다.
 	 */

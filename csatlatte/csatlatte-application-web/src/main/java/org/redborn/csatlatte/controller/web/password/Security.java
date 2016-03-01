@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 비밀번호를 찾을때 사용자 본인임을 확인하는 controller 입니다.  
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/password/security")

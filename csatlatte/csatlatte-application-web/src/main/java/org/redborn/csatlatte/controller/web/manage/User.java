@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 사용자 정보를 조회하고 관리자 권한, 계정에 대한 차단 등을 설정하는 controller 입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/manage/user")

@@ -14,6 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * 등급컷 관리 페이지 controller 입니다.
+ */
 @Controller
 @RequestMapping("/manage/rating")
 public class Rating {
@@ -22,6 +25,9 @@ public class Rating {
 	@Autowired
 	private ExamService examService;
 	
+	/**
+	 * 등급컷 목록을 조회하는 페이지입니다.
+	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
 		logger.info("manage rating get view");

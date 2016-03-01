@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 사용자가 서비스 이용 중 문제가 발생했을 때 이용하는 controller 입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/support")

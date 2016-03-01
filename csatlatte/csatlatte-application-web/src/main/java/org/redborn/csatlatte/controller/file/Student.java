@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.View;
 
+/**
+ * 사용자의 프로필 사진에 대한 controller 영역입니다.
+ */
 @Controller
 @RequestMapping("/file/student")
 public class Student {
@@ -23,6 +26,10 @@ public class Student {
 	@Autowired
 	private HttpSessionValue httpSessionValue;
 	
+	/**
+	 * 사용자의 프로필 사진을 조회하는 경로입니다.
+	 * @param studentSequence 조회하고자 하는 사용자의 번호입니다.
+	 */
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.GET)
 	public View get(@PathVariable(value="studentSequence") int studentSequence) {
 		logger.info(new StringBuilder("Controller file student. studentSequence is ").append(studentSequence).append(".").toString());

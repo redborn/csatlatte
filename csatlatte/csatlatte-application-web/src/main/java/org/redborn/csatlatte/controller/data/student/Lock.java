@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * 사용자 계정 블라인드에 대한 data controller 영역입니다.
+ */
 @Controller
 @RequestMapping("/data/student/lock")
 public class Lock {
@@ -18,6 +21,11 @@ public class Lock {
 	@Autowired
 	private StudentService studentService;
 	
+	/**
+	 * 특정 사용자를 블라인드하는 method입니다.
+	 * @param model
+	 * @param studentSequence 블라인드 대상 사용자 번호입니다.
+	 */
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="studentSequence") int studentSequence) {
 		logger.info("data student update to useYn = 'N'");
@@ -25,6 +33,11 @@ public class Lock {
 		model.addAttribute("result", studentService.lock(studentSequence));
 	}
 	
+	/**
+	 * 특정 사용자의 블라인드 상태를 해제하는 method입니다.
+	 * @param model
+	 * @param studentSequence 블라인드 해제 대상 사용자 번호입니다.
+	 */
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.DELETE)
 	public void delete(Model model, @PathVariable int studentSequence) {
 		logger.info("data student update to useYn = 'Y'");

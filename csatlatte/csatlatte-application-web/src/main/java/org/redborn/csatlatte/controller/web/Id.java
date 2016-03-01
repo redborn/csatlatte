@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 분실한 아이디를 찾는 controller입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/id")

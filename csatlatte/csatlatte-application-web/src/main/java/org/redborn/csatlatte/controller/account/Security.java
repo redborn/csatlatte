@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 아이디, 비밀번호를 찾을 때 질문과 답변을 변경하는 controller입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/{id}/security")

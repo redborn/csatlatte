@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * 수능라떼 웹사이트의 첫 페이지입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/main")

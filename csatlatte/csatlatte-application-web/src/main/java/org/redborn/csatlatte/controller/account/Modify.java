@@ -21,8 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 사용자 정보를 수정하는 controller입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/{id}/modify")
@@ -38,6 +36,7 @@ public class Modify {
 
 	/**
 	 * 닉네임 입력, 프로필 사진 등록, 수능을 선택하는 페이지입니다.
+	 * @param model
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {

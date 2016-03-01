@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 분실한 비밀번호를 재설정할 수 있는 controller 입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/password")

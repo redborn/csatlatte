@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * 성적분석
- * 
- * @author 최순현
+ * 성적분석 controller 영역입니다.
  */
 @Controller
 @RequestMapping("/grade/analysis")

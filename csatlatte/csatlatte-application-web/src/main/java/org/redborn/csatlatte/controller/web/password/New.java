@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 비밀번호 찾기에서 새 비밀번호를 설정하는 controller입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/password/new")

@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * 모의고사 등급컷을 조회하는 controller 입니다.
- * 
- * @author 최순현
  */
 @Controller
 @RequestMapping("/rating")
