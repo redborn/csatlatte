@@ -32,8 +32,8 @@ public class Report {
 	 * 커뮤니티 글 신고입니다.
 	 * 
 	 * @param model
-	 * @param communitySequence 커뮤니티 글 번호입니다.
-	 * @param reportTypeSequence 신고 사유 번호입니다.
+	 * @param communitySequence 커뮤니티 일련번호
+	 * @param reportTypeSequence 신고 일련번호
 	 */
 	@RequestMapping(value="{communitySequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="communitySequence") int communitySequence, @RequestParam(value="reportTypeSequence",required=true) int reportTypeSequence) {

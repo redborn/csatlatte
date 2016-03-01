@@ -25,7 +25,7 @@ public class Lock {
 	 * 사용자 계정 블라인드입니다.
 	 * 
 	 * @param model
-	 * @param studentSequence 사용자 번호입니다.
+	 * @param studentSequence 학생 일련번호
 	 */
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="studentSequence") int studentSequence) {
@@ -38,7 +38,7 @@ public class Lock {
 	 * 사용자 계정 블라인드 해제입니다.
 	 * 
 	 * @param model
-	 * @param studentSequence 사용자 번호입니다.
+	 * @param studentSequence 학생 일련번호
 	 */
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.DELETE)
 	public void delete(Model model, @PathVariable int studentSequence) {

@@ -25,7 +25,7 @@ public class Daily {
 	 * 일간 가입자 통계입니다.
 	 * 
 	 * @param model
-	 * @param ymd 날짜입니다.
+	 * @param ymd 연월일
 	 */
 	@RequestMapping(value="{ymd}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="ymd") String ymd) {

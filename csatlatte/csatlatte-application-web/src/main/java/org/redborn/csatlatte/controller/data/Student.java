@@ -25,7 +25,7 @@ public class Student {
 	 * 사용자 상세정보 조회입니다.
 	 * 
 	 * @param model
-	 * @param studentSequence 사용자 번호입니다.
+	 * @param studentSequence 학생 일련번호
 	 */
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.GET)
 	public void detail(Model model, @PathVariable(value="studentSequence") int studentSequence) {

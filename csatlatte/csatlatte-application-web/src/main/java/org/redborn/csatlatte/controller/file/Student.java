@@ -29,7 +29,7 @@ public class Student {
 	/**
 	 * 사용자 프로필 사진입니다.
 	 * 
-	 * @param studentSequence 사용자 번호입니다.
+	 * @param studentSequence 학생 일련번호
 	 */
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.GET)
 	public View get(@PathVariable(value="studentSequence") int studentSequence) {

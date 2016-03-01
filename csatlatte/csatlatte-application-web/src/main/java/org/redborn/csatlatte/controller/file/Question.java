@@ -29,8 +29,8 @@ public class Question {
 	/**
 	 * 문의하기 파일입니다.
 	 * 
-	 * @param qnaSequence 문의번호입니다.
-	 * @param fileSequence 파일번호입니다.
+	 * @param qnaSequence 문의 일련번호
+	 * @param fileSequence 파일 일련번호
 	 * @return
 	 */
 	@RequestMapping(value="{qnaSequence}/{fileSequence}",method=RequestMethod.GET)

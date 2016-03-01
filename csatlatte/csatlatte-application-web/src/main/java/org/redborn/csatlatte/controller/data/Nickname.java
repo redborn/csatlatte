@@ -25,7 +25,7 @@ public class Nickname {
 	 * 닉네임 중복검사입니다.
 	 * 
 	 * @param model
-	 * @param nickname 중복 검사할 닉네임 값입니다.
+	 * @param nickname 닉네임
 	 */
 	@RequestMapping(value="{nickname}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="nickname") String nickname) {

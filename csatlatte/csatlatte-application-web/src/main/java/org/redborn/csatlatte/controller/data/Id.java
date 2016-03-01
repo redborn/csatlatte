@@ -25,7 +25,7 @@ public class Id {
 	 * 아이디 중복검사입니다.
 	 * 
 	 * @param model
-	 * @param studentId 중복 검사할 아이디 값입니다.
+	 * @param studentId 학생 아이디
 	 */
 	@RequestMapping(value="{studentId}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="studentId") String studentId) {

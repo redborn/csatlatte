@@ -25,7 +25,7 @@ public class Monthly {
 	 * 월간 가입자 통계입니다.
 	 * 
 	 * @param model
-	 * @param ym 월입니다.
+	 * @param ym 연월
 	 */
 	@RequestMapping(value="{ym}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="ym") String ym) {

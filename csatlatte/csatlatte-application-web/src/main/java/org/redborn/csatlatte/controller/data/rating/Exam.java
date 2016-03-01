@@ -25,7 +25,7 @@ public class Exam {
 	 * 모의고사 등급컷 연도 목록입니다.
 	 * 
 	 * @param model
-	 * @param yearStudentSequence 학년번호입니다.
+	 * @param yearStudentSequence 학년 일련번호
 	 */
 	@RequestMapping(value="{yearStudentSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="yearStudentSequence") int yearStudentSequence) {
@@ -37,8 +37,8 @@ public class Exam {
 	 * 모의고사 등급컷 목록입니다.
 	 * 
 	 * @param model
-	 * @param yearStudentSequence 학년 번호입니다.
-	 * @param year 연도 값입니다.
+	 * @param yearStudentSequence 학년 일련번호
+	 * @param year 연도
 	 */
 	@RequestMapping(value="{yearStudentSequence}/{year}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="yearStudentSequence") int yearStudentSequence,

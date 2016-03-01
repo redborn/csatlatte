@@ -38,7 +38,7 @@ public class Rating {
 	 * 등급컷 목록입니다.
 	 * 
 	 * @param model
-	 * @param csatSequence 수능번호입니다.
+	 * @param csatSequence 수능 일련번호
 	 */
 	@RequestMapping(value="{csatSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence) {
@@ -51,8 +51,8 @@ public class Rating {
 	 * 등급컷 상세내용 조회입니다.
 	 * 
 	 * @param model
-	 * @param csatSequence 수능번호입니다.
-	 * @param examSequence 시험번호입니다.
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 모의고사 일련번호
 	 */
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.GET)
 	public void detail(Model model, @PathVariable(value="csatSequence") int csatSequence,
@@ -66,9 +66,9 @@ public class Rating {
 	 * 등급컷 추가입니다.
 	 * 
 	 * @param model
-	 * @param csatSequence 수능번호입니다.
-	 * @param examSequence 시험번호입니다.
-	 * @param file 등급컷 데이터를 담고 있는 파일(Excel)입니다.
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 모의고사 일련번호
+	 * @param file 등급컷 파일
 	 * @throws IOException
 	 */
 	@RequestMapping(value="{csatSequence}",method=RequestMethod.POST)
@@ -93,9 +93,9 @@ public class Rating {
 	 * 등급컷 수정입니다.
 	 * 
 	 * @param model
-	 * @param csatSequence 수능번호입니다.
-	 * @param examSequence 시험번호입니다.
-	 * @param file 등급컷 데이터를 담고 있는 파일(Excel)입니다.
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 모의고사 일련번호
+	 * @param file 등급컷 파일
 	 * @throws IOException
 	 */
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.PUT)
@@ -121,8 +121,8 @@ public class Rating {
 	 * 등급컷 삭제입니다.
 	 * 
 	 * @param model
-	 * @param csatSequence 수능번호입니다.
-	 * @param examSequence 시험번호입니다.
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 모의고사 일련번호
 	 */
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.DELETE)
 	public void delete(Model model, @PathVariable(value="csatSequence") int csatSequence, 

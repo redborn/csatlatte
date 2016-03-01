@@ -30,7 +30,7 @@ public class Grade {
 	 * 성적 목록입니다.
 	 * 
 	 * @param model
-	 * @param examSequence 시험 번호입니다.
+	 * @param examSequence 모의고사 일련번호
 	 */
 	@RequestMapping(value="{examSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="examSequence") int examSequence) {
@@ -42,10 +42,10 @@ public class Grade {
 	 * 성적 추가입니다.
 	 * 
 	 * @param model
-	 * @param examSequence 시험 번호입니다.
-	 * @param sectionSequence 영역번호입니다.
-	 * @param subjectSequence 과목번호입니다.
-	 * @param score 과목의 점수입니다.
+	 * @param examSequence 모의고사 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param score 점수
 	 */
 	@RequestMapping(value="{examSequence}/{sectionSequence}/{subjectSequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="examSequence") int examSequence, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence, @RequestParam(value="score",required=true) int score) {
@@ -64,10 +64,10 @@ public class Grade {
 	 * 성적 수정입니다.
 	 * 
 	 * @param model
-	 * @param examSequence 시험 번호입니다.
-	 * @param sectionSequence 영역번호입니다.
-	 * @param subjectSequence 과목번호입니다.
-	 * @param score 과목의 점수입니다.
+	 * @param examSequence 모의고사 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param score 점수
 	 */
 	@RequestMapping(value="{examSequence}/{sectionSequence}/{subjectSequence}",method=RequestMethod.PUT)
 	public void put(Model model, @PathVariable(value="examSequence") int examSequence, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence, @RequestParam(value="score",required=true) int score) {
@@ -86,9 +86,9 @@ public class Grade {
 	 * 성적 삭제입니다.
 	 * 
 	 * @param model
-	 * @param examSequence 시험번호입니다.
-	 * @param sectionSequence 영역번호입니다.
-	 * @param subjectSequence 과목번호입니다.
+	 * @param examSequence 모의고사 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
 	 */
 	@RequestMapping(value="{examSequence}/{sectionSequence}/{subjectSequence}",method=RequestMethod.DELETE)
 	public void delete(Model model, @PathVariable(value="examSequence") int examSequence, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence) {

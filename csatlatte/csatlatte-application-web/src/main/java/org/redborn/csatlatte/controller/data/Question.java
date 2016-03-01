@@ -28,7 +28,7 @@ public class Question {
 	 * 문의 상세내용을 조회합니다.
 	 * 
 	 * @param model
-	 * @param qnaSequence 문의번호입니다.
+	 * @param qnaSequence 문의 일련번호
 	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="qnaSequence") int qnaSequence) {

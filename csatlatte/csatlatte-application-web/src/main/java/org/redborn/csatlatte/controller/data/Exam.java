@@ -30,7 +30,7 @@ public class Exam {
 	 * 모의고사 목록입니다.
 	 * 
 	 * @param model
-	 * @param csatSequence 수능 번호입니다.
+	 * @param csatSequence 수능 일련번호
 	 */
 	@RequestMapping(value="{csatSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence) {
@@ -43,8 +43,8 @@ public class Exam {
 	 * 모의고사 상세정보입니다.
 	 * 
 	 * @param model
-	 * @param csatSequence 수능 번호입니다.
-	 * @param examSequence 모의고사 번호입니다.
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 모의고사 일련번호
 	 */
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.GET) 
 	public void detail(Model model, @PathVariable(value="csatSequence") int csatSequence,
@@ -58,11 +58,11 @@ public class Exam {
 	 * 모의고사 추가입니다.
 	 * 
 	 * @param model
-	 * @param csatSequence 수능 번호입니다.
-	 * @param examName 모의고사의 이름입니다.
-	 * @param institutionSequence 주관 교육청 번호입니다.
-	 * @param yearStudentSequence 학년 번호입니다.
-	 * @param ymd 모의고사가 실시된 날짜입니다.
+	 * @param csatSequence 수능 일련번호
+	 * @param examName 모의고사 이름
+	 * @param institutionSequence 주관 교육청 일련번호
+	 * @param yearStudentSequence 학년 일련번호
+	 * @param ymd 모의고사 날짜
 	 */
 	@RequestMapping(value="{csatSequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="csatSequence") int csatSequence,
@@ -86,12 +86,12 @@ public class Exam {
 	 * 모의고사 수정입니다.
 	 * 
 	 * @param model
-	 * @param csatSequence 수능 번호입니다.
-	 * @param examSequence 시험의 번호입니다.
-	 * @param examName 시험 이름입니다.
-	 * @param institutionSequence 주관 교육청 번호입니다. 
-	 * @param yearStudentSequence 학년 번호입니다.
-	 * @param ymd 시험이 실시된 날짜입니다.
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 모의고사 일련번호
+	 * @param examName 모의고사 이름
+	 * @param institutionSequence 주관 교육청 일련번호 
+	 * @param yearStudentSequence 학년 일련번호
+	 * @param ymd 모의고사 날짜
 	 */
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.PUT)
 	public void put(Model model, @PathVariable(value="csatSequence") int csatSequence, 
@@ -118,8 +118,8 @@ public class Exam {
 	 * 모의고사 삭제입니다.
 	 * 
 	 * @param model
-	 * @param csatSequence 수능 번호입니다.
-	 * @param examSequence 시험의 번호입니다.
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 모의고사 일련번호
 	 */
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.DELETE)
 	public void delete(Model model, @PathVariable(value="csatSequence") int csatSequence,

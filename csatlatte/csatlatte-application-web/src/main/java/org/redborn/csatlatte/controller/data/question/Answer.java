@@ -27,8 +27,8 @@ public class Answer {
 	 * 문의답변 추가입니다.
 	 * 
 	 * @param model
-	 * @param qnaSequence 문의번호입니다.
-	 * @param answerContent 답변내용입니다.
+	 * @param qnaSequence 문의 일련번호
+	 * @param answerContent 답변내용
 	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="qnaSequence") int qnaSequence, 

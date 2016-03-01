@@ -33,9 +33,9 @@ public class Community {
 	 * 커뮤니티 글 목록입니다.
 	 * 
 	 * @param model
-	 * @param start 첫번째 커뮤니티 글 번호입니다.
-	 * @param end 마지막 커뮤니티 글 번호입니다.
-	 * @param limit 페이지에 출력할 글의 갯수입니다.
+	 * @param start 첫번째 커뮤니티 글 번호
+	 * @param end 마지막 커뮤니티 글 번호
+	 * @param limit 커뮤니티 글 수
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model, @RequestParam(value="start",required=false,defaultValue="-1") int start, @RequestParam(value="end",required=false,defaultValue="-1") int end, @RequestParam(value="limit",required=false,defaultValue="10") int limit) {
@@ -45,8 +45,9 @@ public class Community {
 
 	/**
 	 * 커뮤니티 글 작성입니다.
+	 * 
 	 * @param model
-	 * @param content 커뮤니티 글의 내용입니다.
+	 * @param content 내용
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public void post(Model model, @RequestParam(value="content",required=true) String content) {
@@ -60,8 +61,9 @@ public class Community {
 	
 	/**
 	 * 커뮤니티 글 삭제입니다.
+	 * 
 	 * @param model
-	 * @param communitySequence 커뮤니티 글 번호입니다.
+	 * @param communitySequence 커뮤니티 일련번호
 	 */
 	@RequestMapping(value="{communitySequence}",method=RequestMethod.DELETE)
 	public void delete(Model model, @PathVariable int communitySequence) {

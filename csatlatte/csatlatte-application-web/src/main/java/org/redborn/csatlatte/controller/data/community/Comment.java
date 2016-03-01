@@ -33,7 +33,7 @@ public class Comment {
 	 * 커뮤니티 댓글 목록입니다.
 	 * 
 	 * @param model
-	 * @param communitySequence 커뮤니티 글 번호입니다.
+	 * @param communitySequence 커뮤니티 일련번호
 	 */
 	@RequestMapping(value="{communitySequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="communitySequence") int communitySequence) {
@@ -45,8 +45,8 @@ public class Comment {
 	 * 커뮤니티 댓글 추가입니다.
 	 * 
 	 * @param model
-	 * @param communitySequence 커뮤니티 글 번호입니다.
-	 * @param content 댓글 내용입니다.
+	 * @param communitySequence 커뮤니티 일련번호
+	 * @param content 내용
 	 */
 	@RequestMapping(value="{communitySequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="communitySequence") int communitySequence, @RequestParam(value="content",required=true) String content) {
@@ -63,8 +63,8 @@ public class Comment {
 	 * 커뮤니티 댓글 삭제입니다.
 	 * 
 	 * @param model
-	 * @param communitySequence 댓글의 커뮤니티 글 번호입니다.
-	 * @param commentSequence 댓글의 번호입니다.
+	 * @param communitySequence 커뮤니티 일련번호
+	 * @param commentSequence 댓글 일련번호
 	 */
 	@RequestMapping(value="{communitySequence}/{commentSequence}",method=RequestMethod.DELETE)
 	public void delete(Model model, @PathVariable(value="communitySequence") int communitySequence, @PathVariable(value="commentSequence") int commentSequence) {

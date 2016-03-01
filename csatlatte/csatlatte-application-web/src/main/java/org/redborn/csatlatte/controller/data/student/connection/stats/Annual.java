@@ -25,7 +25,7 @@ public class Annual {
 	 * 연간 접속자 통계입니다.
 	 * 
 	 * @param model
-	 * @param year 연도입니다.
+	 * @param year 연도
 	 */
 	@RequestMapping(value="{year}", method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="year") String year) {

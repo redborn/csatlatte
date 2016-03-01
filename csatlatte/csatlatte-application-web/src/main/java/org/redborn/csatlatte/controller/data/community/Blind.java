@@ -26,8 +26,8 @@ public class Blind {
 	 * 커뮤니티 블라인드입니다.
 	 * 
 	 * @param model
-	 * @param communitySequence 커뮤니티 글 번호입니다.
-	 * @param blindTypeSequence 블라인드 사유 번호입니다.
+	 * @param communitySequence 커뮤니티 일련번호
+	 * @param blindTypeSequence 블라인드 일련번호
 	 */
 	@RequestMapping(value="{communitySequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="communitySequence") int communitySequence, @RequestParam(value="blindTypeSequence",required=true) int blindTypeSequence) {

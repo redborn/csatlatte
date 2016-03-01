@@ -25,8 +25,8 @@ public class Score {
 	 * 시험의 학생 성적 목록입니다.
 	 * 
 	 * @param model
-	 * @param csatSequence 수능번호입니다.
-	 * @param examSequence 시험번호입니다.
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 모의고사 일련번호
 	 */
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence,
