@@ -107,6 +107,15 @@ public class CommunityServiceImpl implements CommunityService {
 				&& commentReportDao.insert(communityTypeSequence, communitySequence, commentSequence, studentSequence, reportTypeSequence, userAgent, sessionId, ip) == 1;
 	}
 	
+	/**
+	 * 통계값을 배열에 맞게 조정해줍니다.
+	 * 
+	 * @param communityYmdCountVos
+	 * @param commentYmdCountVos
+	 * @param begin
+	 * @param end
+	 * @return 통계 배열
+	 */
 	private List<CountVo> margeCountVoList(List<CountVo> communityYmdCountVos, List<CountVo> commentYmdCountVos, int begin, int end) {
 		List<CountVo> ymdCountVos = new ArrayList<CountVo>();
 		

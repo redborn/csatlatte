@@ -214,6 +214,14 @@ public class StudentServiceImpl implements StudentService {
 		return studentDao.updateUseYnNRecovery(studentSequence) == 1;
 	}
 	
+	/**
+	 * 통계값을 배열에 맞게 조정해줍니다.
+	 * 
+	 * @param connectionYmdCountVos
+	 * @param begin
+	 * @param end
+	 * @return 통계 배열
+	 */
 	private List<CountVo> margeCountVoList(List<CountVo> connectionYmdCountVos, int begin, int end) {
 		List<CountVo> ymdCountVos = new ArrayList<CountVo>();
 		
