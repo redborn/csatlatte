@@ -27,7 +27,7 @@ public class Question {
 	private HttpSessionValue httpSessionValue;
 	
 	/**
-	 * 문의사항의 제목 목록을 조회하는 페이지입니다.
+	 * 문의내역 목록입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
@@ -37,7 +37,7 @@ public class Question {
 	}
 
 	/**
-	 * 문의 상세 내용, 첨부한 파일을 조회하는 페이지입니다.
+	 * 문의 내용입니다.
 	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.GET)
 	public String detail(Model model, @PathVariable int qnaSequence) {
@@ -55,7 +55,7 @@ public class Question {
 	}
 	
 	/**
-	 * 문의를 삭제하는 기능입니다.
+	 * 문의 삭제입니다.
 	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.DELETE)
 	public String delete(Model model, @PathVariable int qnaSequence) {

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.View;
 
 /**
- * 사용자 프로필 사진입니다.
+ * 학생 프로필 사진입니다.
  */
 @Controller
 @RequestMapping("/file/student")
@@ -27,7 +27,7 @@ public class Student {
 	private HttpSessionValue httpSessionValue;
 	
 	/**
-	 * 사용자 프로필 사진입니다.
+	 * 학생 프로필 사진입니다.
 	 * 
 	 * @param studentSequence 학생 일련번호
 	 */

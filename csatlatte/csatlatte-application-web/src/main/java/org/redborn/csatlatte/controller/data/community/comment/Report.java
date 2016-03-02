@@ -29,7 +29,7 @@ public class Report {
 	private HttpServletRequestValue httpServletRequestValue;
 
 	/**
-	 * 커뮤니티 댓글 신고입니다.
+	 * 커뮤니티 댓글을 신고합니다.
 	 * 
 	 * @param model
 	 * @param communitySequence 커뮤니티 일련번호

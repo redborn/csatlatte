@@ -22,7 +22,7 @@ public class Lock {
 	private StudentService studentService;
 	
 	/**
-	 * 사용자 계정 블라인드입니다.
+	 * 학생 계정을 잠굽니다.
 	 * 
 	 * @param model
 	 * @param studentSequence 학생 일련번호
@@ -35,7 +35,7 @@ public class Lock {
 	}
 	
 	/**
-	 * 사용자 계정 블라인드 해제입니다.
+	 * 학생 계정 잠금을 해제합니다.
 	 * 
 	 * @param model
 	 * @param studentSequence 학생 일련번호

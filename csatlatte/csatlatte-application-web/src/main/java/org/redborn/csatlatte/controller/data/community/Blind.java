@@ -23,7 +23,7 @@ public class Blind {
 	private CommunityService communityService;
 	
 	/**
-	 * 커뮤니티 블라인드입니다.
+	 * 글을 블라인드합니다.
 	 * 
 	 * @param model
 	 * @param communitySequence 커뮤니티 일련번호

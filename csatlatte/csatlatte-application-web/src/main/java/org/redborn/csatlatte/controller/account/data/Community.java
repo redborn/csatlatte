@@ -28,9 +28,9 @@ public class Community {
 	 * 내가 작성한 커뮤니티 글 목록입니다.
 	 * 
 	 * @param model
-	 * @param start 첫번째 커뮤니티 글 번호
-	 * @param end 마지막 커뮤니티 글 번호
-	 * @param limit 커뮤니티 글 수
+	 * @param start 첫번째 커뮤니티 일련번호
+	 * @param end 마지막 커뮤니티 일련번호
+	 * @param limit 글 수
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model, @RequestParam(value="start",required=false,defaultValue="-1") int start, @RequestParam(value="end",required=false,defaultValue="-1") int end, @RequestParam(value="limit",required=false,defaultValue="10") int limit) {

@@ -27,7 +27,7 @@ public class Question {
 	private HttpSessionValue httpSessionValue;
 	
 	/**
-	 * 문의하기 파일입니다.
+	 * 문의 파일을 가져옵니다.
 	 * 
 	 * @param qnaSequence 문의 일련번호
 	 * @param fileSequence 파일 일련번호

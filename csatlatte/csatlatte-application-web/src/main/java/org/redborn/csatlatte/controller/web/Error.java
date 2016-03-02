@@ -17,7 +17,7 @@ public class Error {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	/**
-	 * 에러 페이지입니다.
+	 * 코드에 맞는 에러페이지를 나타냅니다.
 	 */
 	@RequestMapping(value="{code}",method=RequestMethod.GET)
 	public String get(@PathVariable String code) {
