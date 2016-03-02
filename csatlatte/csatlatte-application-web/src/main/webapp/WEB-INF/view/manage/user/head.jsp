@@ -29,7 +29,7 @@
 		
 		var makeStudentInformation = function (student) {
 			var html = '';
-			html += '<div class="manage-user-student-information">';
+			html += '<div class="modal-body manage-user-student-information">';
 			html += '	<img class="manage-user-picture" alt="회원사진" src="' + contextPath + '/file/student/' + student.studentSequence + '">';
 			html += '	<div class="manage-user-info">';
 			html +=	'		<div class="manage-user-info-content">';
@@ -60,7 +60,7 @@
 			html += '			<label class="manage-user-label">성적평균</label>';
 			html += '			<div class="manage-user-info-content-value">' + student.averageScore + '</div>';
 			html += '		</div>';
-			html += '	</div>'; 
+			html += '	</div>';
 			html += '</div>';
 			return html;
 		}
@@ -89,7 +89,7 @@
 				success : function(data) {
 					if (data.information != null) {
 						var student = data.information;
-						$('#manage-user-student-information').append(makeStudentInformation(student));
+						$('.manage-user-modal-content').append(makeStudentInformation(student));
 					}
 				}
 			});
