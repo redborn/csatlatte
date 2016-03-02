@@ -69,7 +69,7 @@
 		<intercept-url pattern="/data/exam/*" access="hasRole('ROLE_ADMIN')" method="POST"/>
 		<intercept-url pattern="/data/exam/*/*" access="hasRole('ROLE_ADMIN')" method="PUT"/>
 		<intercept-url pattern="/data/exam/*/*" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
-		<intercept-url pattern="/data/institution" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
+		<intercept-url pattern="/data/institution" access="hasRole('ROLE_ADMIN')" method="GET"/>
 		<intercept-url pattern="/data/rating/exam/*" access="permitAll" method="GET"/>
 		<intercept-url pattern="/data/rating/exam/*/*" access="permitAll" method="GET"/>
 		<intercept-url pattern="/data/rating/*" access="permitAll" method="GET"/>
@@ -123,6 +123,7 @@
 					password-parameter="password"
 					default-target-url="/main"
 					authentication-failure-url="/login/fail" />
+					
 		<csrf/>
 	</http>
 	
