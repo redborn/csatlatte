@@ -97,6 +97,56 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<error-page>
+		<error-code>400</error-code>
+		<location>/error/400</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>401</error-code>
+		<location>/error/401</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>402</error-code>
+		<location>/error/402</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>403</error-code>
+		<location>/error/403</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/404</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>405</error-code>
+		<location>/error/405</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error/500</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>501</error-code>
+		<location>/error/501</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>502</error-code>
+		<location>/error/502</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>503</error-code>
+		<location>/error/503</location>
+	</error-page>
+	
 	<distributable/>
 	
 	<welcome-file-list>
