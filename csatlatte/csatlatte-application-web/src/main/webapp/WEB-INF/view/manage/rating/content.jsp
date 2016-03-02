@@ -27,15 +27,34 @@
 	<button class="btn btn-default" id="manage-rating-create" data-toggle="modal" data-target="#manage-rating-create-view">등급컷 추가</button>
 </div>
 <div class="modal fade" id="manage-rating-modify-view" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document" id="manage-rating-modify-view-detail">
+	<div class="modal-dialog" role="document">
+		<input type="hidden" value="PUT" name="_method">
+		<div class="modal-content" id="manage-rating-modify-view-detail">
+			<div class="modal-header">
+				<button type="button" class="close manage-rating-modify-cancel" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">등급컷 수정</h4>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="modal fade" id="manage-rating-delete-view" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document" id="manage-rating-delete-view-detail">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" id="manage-rating-delete-view-detail">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">등급컷 삭제</h4>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="modal fade" id="manage-rating-create-view" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document" id="manage-rating-create-view-detail">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" id="manage-rating-create-view-detail">
+			<div class="modal-header">
+				<button type="button" class="close manage-rating-create-cancel" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">등급컷 추가</h4>
+			</div>
+		</div>
 	</div>
 </div>
 <div id="manage-rating-detail-view-detail"></div>

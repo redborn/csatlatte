@@ -230,11 +230,7 @@
 			var institutionListLength = institutionList.length;
 			var yearStudentListLength = yearStudentList.length;
 			var html = '';
-			html += '<div class="modal-content manage-exam-register-content">';
-			html += '	<div class="modal-header">';
-			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-			html += '		<h4 class="modal-title">모의고사 추가</h4>';
-			html += '	</div>';
+			html += '<div class="manage-exam-register-content">';
 			html += '	<div class="modal-body">';
 			html += '		<div class="form-group row">';
 			html += '			<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-register-name">모의고사 이름</label>';
@@ -284,11 +280,7 @@
 			var institutionListLength = institutionList.length;
 			var yearStudentListLength = yearStudentList.length;
 			var html = '';
-			html += '<div class="modal-content manage-exam-modify-content">';
-			html += '	<div class="modal-header">';
-			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-			html += '		<h4 class="modal-title">모의고사 수정</h4>';
-			html += '	</div>';
+			html += '<div class="manage-exam-modify-content">';
 			html += '	<div class="modal-body">';
 			html += '		<div class="form-group row">';
 			html += '			<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-modify-name">모의고사 이름</label>';
@@ -338,7 +330,7 @@
 			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
 			html += '		<button type="button" class="btn btn-primary manage-exam-modify-accept">확인</button>';
 			html += '	</div>';
-			html += '</div>';
+			html += '</div>'
 			return html;
 		}
 		
@@ -348,11 +340,7 @@
 		
 		var makeExamDeleteMessage = function (check) {
 			var html = '';
-			html += '<div class="modal-content manage-exam-delete-content">';
-			html += '	<div class="modal-header">';
-			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-			html += '		<h4 class="modal-title">모의고사 삭제</h4>';
-			html += '	</div>';
+			html += '<div class="manage-exam-delete-content">';
 			html += '	<div class="modal-body">';
 			if (check) {
 				html += '<p>해당 모의고사는 등급컷 정보가 등록되어 있습니다.</p>';

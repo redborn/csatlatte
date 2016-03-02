@@ -8,7 +8,6 @@
 	#manage-community-table {margin-top:15px; text-align:center; float:none;}
 	.manage-community-col-lg {float:none; display:inline-block; text-align:center;}
 	.manage-community-search {text-align:right;}
-	.manage-community-user-info-modal {width:400px;}
 	.manage-community-user-info-modal .modal-body {text-align:center;}
 	.manage-community-picture {width:100px; height:100px; border-radius:5px; border:1px solid #7a6253;}
 	.manage-community-info {margin-top:10px;}
@@ -101,6 +100,7 @@
 		var makeStudentInformation = function (student) {
 			var html = '';
 			html += '<div class="manage-community-student-information">';
+			html += '<div class="modal-body">';
 			html += '	<img class="manage-community-picture" alt="회원사진" src="' + contextPath + '/file/student/' + student.studentSequence + '">';
 			html += '	<div class="manage-community-info">';
 			html +=	'		<div class="manage-community-info-content">';
@@ -132,6 +132,7 @@
 			html += '			<div class="manage-community-info-content-value">' + student.averageScore + '</div>';
 			html += '		</div>';
 			html += '	</div>'; 
+			html += '</div>';
 			html += '</div>';
 			return html;
 		}

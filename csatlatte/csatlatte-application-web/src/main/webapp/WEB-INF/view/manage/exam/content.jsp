@@ -30,14 +30,32 @@
 	<button class="btn btn-default manage-exam-add" data-toggle="modal" data-target="#manage-exam-register-view">모의고사 추가</button>
 </div>
 <div class="modal fade" id="manage-exam-modify-view" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document" id="manage-exam-modify-view-detail">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" id="manage-exam-modify-view-detail">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">모의고사 수정</h4>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="modal fade" id="manage-exam-delete-view" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document" id="manage-exam-delete-view-detail">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" id="manage-exam-delete-view-detail">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">모의고사 삭제</h4>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="modal fade" id="manage-exam-register-view" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document" id="manage-exam-register-view-detail">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" id="manage-exam-register-view-detail">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">모의고사 추가</h4>
+			</div>
+		</div>
 	</div>
 </div>

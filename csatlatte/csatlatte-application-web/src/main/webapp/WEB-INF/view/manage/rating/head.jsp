@@ -144,19 +144,15 @@
 		var makeCreateView = function (list) {
 			var listLength = list.length;
 			var html = '';
-			html += '<div class="modal-content manage-rating-create-view">';
 			html += '<form class="manage-rating-create-form" method="post" action="' + contextPath + '/data/rating/' + csatSequence + '" enctype="multipart/form-data">';
-			html += '	<div class="modal-header">';
-			html += '		<button type="button" class="close manage-rating-create-cancel" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-			html += '		<h4 class="modal-title">등급컷 추가</h4>';
-			html += '	</div>';
+			html += '<div class="manage-rating-create-view">';
 			html += '	<div class="modal-body">';
 			html += '		<div class="form-group row">';
 			html += '			<label class="col-lg-3 control-label manage-rating-label" for="manage-rating-create-rating-cut">모의고사 이름</label>';
 			html += '			<div class="col-lg-6">';
 			html += '				<select class="form-control" name="examSequence" id="manage-rating-create-rating-cut">';
 			for (var index = 0; index < listLength; index++) {
-				html += '<option value="' + list[index].examSequence + '">' + list[index].examName + '</option>';
+				html += '<option value="' + list[index].examSequence + '" name="examSequence">' + list[index].examName + '</option>';
 			}
 			html += '				</select>';
 			html += '			</div>';
@@ -168,10 +164,10 @@
 			html +=	'	</div>';
 			html += '	<div class="modal-footer">';
 			html += '		<button type="button" class="btn btn-default manage-rating-create-cancel" data-dismiss="modal" aria-label="Close">닫기</button>';
-			html += '		<input type="submit" id="manage-rating-create-accept" data-loading-text="Loading..." class="btn btn-primary" value="확인"></button>';
+			html += '		<input type="submit" id="manage-rating-create-accept" data-loading-text="Loading..." class="btn btn-primary" value="확인">';
 			html += '	</div>';
+			html += '</div>';
 			html += '</form>';
-			html +=	'</div>';
 			return html;
 		}
 		
@@ -211,13 +207,8 @@
 		
 		var makeModifyView = function (detail) {
 			var html = '';
-			html += '<div class="modal-content manage-rating-modify-view">';
 			html += '<form class="manage-rating-modify-form" method="put" action="' + contextPath + '/data/rating/' + csatSequence + '/' + examSequence + '" enctype="multipart/form-data">';
-			html += '	<input type="hidden" value="PUT" name="_method">';
-			html += '	<div class="modal-header">';
-			html += '		<button type="button" class="close manage-rating-modify-cancel" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-			html += '		<h4 class="modal-title">등급컷 수정</h4>';
-			html += '	</div>';
+			html += '<div class="manage-rating-modify-view">';
 			html += '	<div class="modal-body">';
 			html += '		<div class="form-group row">';
 			html += '			<label class="col-lg-3 control-label manage-rating-label">모의고사 이름</label>';
@@ -232,18 +223,14 @@
 			html += '		<button type="button" class="btn btn-default manage-rating-modify-cancel" data-dismiss="modal" aria-label="Close">닫기</button>';
 			html += '		<input type="submit" id="manage-rating-modify-accept" class="btn btn-primary" value="확인">';
 			html += '	</div>';
-			html += '</form>'
 			html += '</div>';
+			html += '</form>';
 			return html;
 		}
 		
 		var makeDeleteMessage = function (count) {
 			var html = '';
-			html += '<div class="modal-content manage-rating-delete-view">';
-			html += '	<div class="modal-header">';
-			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-			html += '		<h4 class="modal-title">등급컷 삭제</h4>';
-			html += '	</div>';
+			html += '<div class="manage-rating-delete-view">';
 			html += '	<div class="modal-body">';
 			if (count > 0) {
 				html += '<p class="manage-rating-delete-alert"><b>이 등급컷은 ' + count + '명의 학생이 성적을 등록했습니다.</b></p>';
