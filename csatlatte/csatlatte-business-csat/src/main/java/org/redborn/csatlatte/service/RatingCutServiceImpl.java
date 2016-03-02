@@ -25,6 +25,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 public class RatingCutServiceImpl implements RatingCutService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private AverageDao averageDao;
 	@Autowired
@@ -39,18 +40,22 @@ public class RatingCutServiceImpl implements RatingCutService {
 	private PlatformTransactionManager transactionManager;
 	
 	public List<RatingCutVo> list(int csatSequence, int examSequence) {
+		logger.info("Business layer ratingcut list.");
 		return ratingCutDao.selectListDetail(csatSequence, examSequence);
 	}
 	
 	public List<ExamVo> listForRatingManage(int csatSequence) {
+		logger.info("Business layer ratingcut listForRatingManage.");
 		return ratingCutDao.selectList(csatSequence);
 	}
 	
 	public List<ExamVo> listForRatingCreate(int csatSequence) {
+		logger.info("Business layer ratingcut listForRatingCreate.");
 		return ratingCutDao.selectListForCreate(csatSequence);
 	}
 	
 	public boolean delete(int csatSequence, int examSequence) {
+		logger.info("Business layer ratingcut delete.");
 		boolean result = false;
 		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
 		defaultTransactionDefinition.setName("ratingCut delete transaction");
@@ -77,6 +82,7 @@ public class RatingCutServiceImpl implements RatingCutService {
 	}
 
 	public boolean register(List<SectionVo> sectionList, List<SubjectVo> subjectList, List<RatingCutVo> ratingCutList, List<AverageVo> averageList) {
+		logger.info("Business layer ratingcut register.");
 		boolean result = false;
 		boolean sectionSuccess = false;
 		boolean subjectSuccess = false;

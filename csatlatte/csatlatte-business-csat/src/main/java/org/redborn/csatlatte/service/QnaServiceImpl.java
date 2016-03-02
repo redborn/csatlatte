@@ -42,6 +42,7 @@ public class QnaServiceImpl implements QnaService {
 	private CsatAmazonS3 csatAmazonS3;
 	
 	public QnaVo detail(int qnaSequence) {
+		logger.info("Business layer qna detail.");
 		QnaVo qnaVo = qnaDao.selectOne(qnaSequence);
 		List<String> answerContentList = answerDao.selectList(qnaSequence);
 		
@@ -71,22 +72,27 @@ public class QnaServiceImpl implements QnaService {
 	}
 	
 	public List<QnaForManageVo> listForManage(String search, int pageNumber, int countQnaAnswer) {
+		logger.info("Business layer qna listForManage.");
 		return qnaDao.selectListForManage(search, pageNumber, countQnaAnswer);
 	}
 
 	public List<QnaVo> listForStudent(int studentSequence) {
+		logger.info("Business layer qna listForStudent.");
 		return qnaDao.selectListForStudent(studentSequence);
 	}
 	
 	public List<FileVo> fileList(int qnaSequence) {
+		logger.info("Business layer qna fileList.");
 		return fileDao.selectListForDetail(qnaSequence);
 	}
 
 	public boolean delete(int qnaSequence) {
+		logger.info("Business layer qna delete.");
 		return qnaDao.updateUseYnN(qnaSequence) == 1;
 	}
 
 	public boolean write(QnaVo qnaVo, List<File> files, String userAgent, String sessionId, String ip) {
+		logger.info("Business layer qna write.");
 		int maxQnaSequence = qnaDao.selectOneMaxQnaSequence();
 		
 		String content = qnaVo.getContent();
@@ -151,22 +157,27 @@ public class QnaServiceImpl implements QnaService {
 	}
 
 	public boolean answer(QnaAnswerVo qnaAnswerVo) {
+		logger.info("Business layer qna answer.");
 		return answerDao.insert(qnaAnswerVo) == 1;
 	}
 	
 	public int amountQuestion(String search, int countQnaAnswer) {
+		logger.info("Business layer qna amountQuestion.");
 		return qnaDao.selectOneCount(search, countQnaAnswer);
 	}
 
 	public String getFilename(int qnaSequence, int fileSequence) {
+		logger.info("Business layer qna getFilename.");
 		return fileDao.selectFileName(qnaSequence, fileSequence);
 	}
 	
 	public InputStream getInputStream(int qnaSequence, int fileSequence) {
+		logger.info("Business layer qna getInputStream.");
 		return csatAmazonS3.getInputStream(CsatAmazonS3Prefix.QNA, fileDao.selectFileCode(qnaSequence, fileSequence));
 	}
 
 	public int getWriter(int qnaSequence) {
+		logger.info("Business layer qna getWriter.");
 		QnaVo qnaVo = qnaDao.selectOne(qnaSequence);
 		return qnaVo != null ? qnaVo.getStudentSequence() : -1;
 	}
