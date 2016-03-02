@@ -42,7 +42,7 @@ public class Lock {
 	 */
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.DELETE)
 	public void delete(Model model, @PathVariable int studentSequence) {
-		logger.info("Controller data student lock GET.");
+		logger.info("Controller data student lock DELETE.");
 		
 		model.addAttribute("result", studentService.unlock(studentSequence));
 	}

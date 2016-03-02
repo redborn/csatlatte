@@ -33,7 +33,7 @@ public class Student {
 	 */
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.GET)
 	public View get(@PathVariable(value="studentSequence") int studentSequence) {
-		logger.info(new StringBuilder("Controller file student. studentSequence is ").append(studentSequence).append(".").toString());
+		logger.info("Controller file student GET.");
 		View view = null;
 		String photoName = studentService.getPhotoName(studentSequence);
 		if (photoName != null) {

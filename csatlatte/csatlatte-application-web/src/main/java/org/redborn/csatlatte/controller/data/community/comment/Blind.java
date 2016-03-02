@@ -32,7 +32,8 @@ public class Blind {
 	 */
 	@RequestMapping(value="{communitySequence}/{commentSequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="communitySequence") int communitySequence, @PathVariable(value="commentSequence") int commentSequence, @RequestParam(value="blindTypeSequence",required=true) int blindTypeSequence) {
-		logger.info(new StringBuilder("Controller data community comment blind... communitySequence is ").append(communitySequence).append(" commentSequence is ").append(commentSequence).toString());
+		
+		logger.info("Controller data community comment blind POST");
 		model.addAttribute("result", communityService.blindComment(CommunityService.COMMUNITY, communitySequence, commentSequence, blindTypeSequence));
 	}
 

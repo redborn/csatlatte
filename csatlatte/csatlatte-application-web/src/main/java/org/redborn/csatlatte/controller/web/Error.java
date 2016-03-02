@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * 에러 페이지입니다.
  */
 @Controller
-@RequestMapping("/error/*")
+@RequestMapping("/error")
 public class Error {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -21,7 +21,7 @@ public class Error {
 	 */
 	@RequestMapping(value="{code}",method=RequestMethod.GET)
 	public String get(@PathVariable String code) {
-		logger.info("error " + code);
+		logger.info("Controller error GET");
 		return "/error/" + code;
 	}
 }

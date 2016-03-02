@@ -59,7 +59,7 @@ public class Question {
 	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.DELETE)
 	public String delete(Model model, @PathVariable int qnaSequence) {
-		logger.info("profile question delete");
+		logger.info("Controller account question DELETE.");
 		String result = TilesName.ERROR_404;
 		if (qnaService.delete(qnaSequence)) {
 			model.addAttribute("questionList", qnaService.listForStudent(httpSessionValue.getStudentSequence()));

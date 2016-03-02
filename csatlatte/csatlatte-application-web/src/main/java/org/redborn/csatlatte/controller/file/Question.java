@@ -35,7 +35,7 @@ public class Question {
 	 */
 	@RequestMapping(value="{qnaSequence}/{fileSequence}",method=RequestMethod.GET)
 	public View get(@PathVariable(value="qnaSequence") int qnaSequence, @PathVariable(value="fileSequence") int fileSequence) {
-		logger.info(new StringBuilder("Controller file question. qnaSequence is ").append(qnaSequence).append(". fileSequence is ").append(fileSequence).append(".").toString());
+		logger.info("Controller file question GET.");
 		View view = null;
 		if (qnaService.getWriter(qnaSequence) == httpSessionValue.getStudentSequence() || httpSessionValue.getRuleSequence() == HttpSessionValue.MANAGER) {
 			String filename = qnaService.getFilename(qnaSequence, fileSequence);
