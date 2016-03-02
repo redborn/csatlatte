@@ -22,7 +22,7 @@ public interface RatingCutService {
 	public List<RatingCutVo> list(int csatSequence, int examSequence);
 	
 	/**
-	 * 모의고사 등급컷 삭제입니다.
+	 * 모의고사 등급컷을 삭제합니다.
 	 * 
 	 * @param csatSequence 수능 일련번호
 	 * @param examSequence 모의고사 일련번호
@@ -31,7 +31,7 @@ public interface RatingCutService {
 	public boolean delete(int csatSequence, int examSequence);
 	
 	/**
-	 * 모의고사 등급컷 추가
+	 * 모의고사 등급컷을 추가합니다.
 	 * 
 	 * @param sectionList 영역 목록
 	 * @param subjectList 과목 목록

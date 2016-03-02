@@ -83,7 +83,7 @@ public interface ExamService {
 	public List<SubjectVo> subjectList(int csatSequence, int examSequence);
 	
 	/**
-	 * 모의고사 추가입니다.
+	 * 모의고사를 추가합니다.
 	 * 
 	 * @param examVo 모의고사 값
 	 * @return
@@ -91,7 +91,7 @@ public interface ExamService {
 	public int register(ExamVo examVo);
 	
 	/**
-	 * 모의고사 수정입니다.
+	 * 모의고사를 수정합니다.
 	 * 
 	 * @param examVo 모의고사 값
 	 * @return
@@ -99,7 +99,7 @@ public interface ExamService {
 	public int modify(ExamVo examVo);
 	
 	/**
-	 * 모의고사 삭제입니다.
+	 * 모의고사를 삭제합니다.
 	 * 
 	 * @param csatSequence 수능 일련번호
 	 * @param examSequence 모의고사 일련번호

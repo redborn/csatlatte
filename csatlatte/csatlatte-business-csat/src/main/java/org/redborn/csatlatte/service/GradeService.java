@@ -13,7 +13,7 @@ import org.redborn.csatlatte.domain.GradeVo;
 public interface GradeService {
 	
 	/**
-	 * 성적 추가입니다.
+	 * 성적을 추가합니다.
 	 * 
 	 * @param gradeVo 성적 값
 	 * @return
@@ -21,7 +21,7 @@ public interface GradeService {
 	public boolean register(GradeVo gradeVo);
 	
 	/**
-	 * 성적 수정입니다.
+	 * 성적을 수정합니다.
 	 * 
 	 * @param gradeVo 성적 값
 	 * @return
@@ -30,7 +30,7 @@ public interface GradeService {
 	
 	
 	/**
-	 * 성적 삭제입니다.
+	 * 성적을 삭제합니다.
 	 * 
 	 * @param studentSequence 사용자 일련번호
 	 * @param csatSequence 수능 일련번호

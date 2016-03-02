@@ -49,7 +49,7 @@ public interface QnaService {
 	public List<FileVo> fileList(int qnaSequence);
 	
 	/**
-	 * 문의 삭제입니다.
+	 * 문의를 삭제합니다.
 	 * 
 	 * @param qnaSequence 문의 일련번호
 	 * @return
@@ -57,7 +57,7 @@ public interface QnaService {
 	public boolean delete(int qnaSequence);
 	
 	/**
-	 * 문의 작성입니다.
+	 * 문의를 작성합니다.
 	 * 
 	 * @param qnaVo 문의 값
 	 * @param files 첨부파일
@@ -69,7 +69,7 @@ public interface QnaService {
 	public boolean write(QnaVo qnaVo, List<File> files, String userAgent, String sessionId, String ip);
 	
 	/**
-	 * 답변 작성입니다.
+	 * 답변을 작성합니다.
 	 * 
 	 * @param qnaAnswerVo 문의답변 값
 	 * @return

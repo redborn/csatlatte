@@ -12,10 +12,13 @@ import org.redborn.csatlatte.domain.TypeVo;
  */
 public interface CommunityService {
 	
+	/**
+	 * 기본 커뮤니티 일련번호
+	 */
 	public static final int COMMUNITY = 1;
 
 	/**
-	 * 커뮤니티 글 갯수입니다.
+	 * 글 갯수입니다.
 	 * 
 	 * @param search 검색
 	 * @return
@@ -23,7 +26,7 @@ public interface CommunityService {
 	public int getCount(String search);
 	
 	/**
-	 * 커뮤니티 글 블라인드입니다.
+	 * 글을 블라인드합니다.
 	 * 
 	 * @param communityTypeSequence 게시판 일련번호
 	 * @param communitySequence 커뮤니티 일련번호
@@ -33,7 +36,7 @@ public interface CommunityService {
 	public boolean blind(int communityTypeSequence, int communitySequence, int blindTypeSequence);
 	
 	/**
-	 * 커뮤니티 작성입니다.
+	 * 글을 작성합니다.
 	 * 
 	 * @param communityVo 커뮤니티 값
 	 * @param userAgent 사용자 기기
@@ -44,7 +47,7 @@ public interface CommunityService {
 	public boolean write(CommunityVo communityVo, String userAgent, String sessionId, String ip);
 	
 	/**
-	 * 커뮤니티 삭제입니다.
+	 * 글을 삭제합니다.
 	 * 
 	 * @param communityTypeSequence 게시판 일련번호
 	 * @param communitySequence 커뮤니티 일련번호
@@ -54,7 +57,7 @@ public interface CommunityService {
 	public boolean delete(int communityTypeSequence, int communitySequence, int studentSequence);
 	
 	/**
-	 * 커뮤니티 댓글 블라인드입니다.
+	 * 댓글을 블라인드합니다.
 	 * 
 	 * @param communityTypeSequence 게시판 일련번호
 	 * @param communitySequence 커뮤니티 일련번호
@@ -65,7 +68,7 @@ public interface CommunityService {
 	public boolean blindComment(int communityTypeSequence, int communitySequence, int commentSequence, int blindTypeSequence);
 	
 	/**
-	 * 커뮤니티 댓글 작성입니다.
+	 * 댓글을 작성합니다.
 	 * 
 	 * @param commentVo 댓글 값
 	 * @param userAgent 사용자 기기
@@ -76,7 +79,7 @@ public interface CommunityService {
 	public boolean writeComment(CommentVo commentVo, String userAgent, String sessionId, String ip);
 	
 	/**
-	 * 커뮤니티 댓글 삭제입니다.
+	 * 댓글을 삭제합니다.
 	 * 
 	 * @param communityTypeSequence 게시판 일련번호
 	 * @param communitySequence 커뮤니티 일련번호
@@ -87,7 +90,7 @@ public interface CommunityService {
 	public boolean deleteComment(int communityTypeSequence, int communitySequence, int commentSequence, int studentSequence);
 	
 	/**
-	 * 커뮤니티 목록입니다.
+	 * 글 목록입니다.
 	 * 
 	 * @param communityTypeSequence 게시판 일련번호
 	 * @param start 첫번째 커뮤니티 일련번호
@@ -99,7 +102,7 @@ public interface CommunityService {
 	public List<CommunityVo> list(int communityTypeSequence, int start, int end, int limit, int studentSequence);
 	
 	/**
-	 * 커뮤니티 목록입니다.
+	 * 글 목록입니다.
 	 * 
 	 * @param communityTypeSequence 게시판 일련번호
 	 * @param start 첫번째 커뮤니티 일련번호
@@ -122,7 +125,7 @@ public interface CommunityService {
 	public List<CommunityVo> list(int communityTypeSequence, String search, int pageNumber);
 	
 	/**
-	 * 내가 작성한 글 커뮤니티 목록입니다.
+	 * 내가 작성한 글 목록입니다.
 	 * 
 	 * @param communityTypeSequence 게시판 일련번호
 	 * @param studentSequence 사용자 일련번호
@@ -131,7 +134,7 @@ public interface CommunityService {
 	public List<CommunityVo> list(int communityTypeSequence, int studentSequence);
 	
 	/**
-	 * 커뮤니티 댓글 목록입니다.
+	 * 댓글 목록입니다.
 	 * 
 	 * @param communityTypeSequence 게시판 일련번호
 	 * @param communitySequence 커뮤니티 일련번호
@@ -155,7 +158,7 @@ public interface CommunityService {
 	public List<TypeVo> reportTypeList();
 	
 	/**
-	 * 신고하기입니다.
+	 * 글을 신고합니다.
 	 * 
 	 * @param studentSequence 사용자 일련번호
 	 * @param communityTypeSequence 게시판 일련번호
@@ -169,7 +172,7 @@ public interface CommunityService {
 	public boolean report(int studentSequence,int communityTypeSequence, int communitySequence, int reportTypeSequence, String userAgent, String sessionId, String ip);
 	
 	/**
-	 * 댓글 신고하기입니다.
+	 * 댓글을 신고합니다.
 	 * 
 	 * @param studentSequence 사용자 일련번호
 	 * @param communityTypeSequence 게시판 일련번호
@@ -211,7 +214,7 @@ public interface CommunityService {
 	public List<CountVo> annualActive(int communityTypeSequence, String year);
 	
 	/**
-	 * 커뮤니티 상세내용입니다.
+	 * 글 상세내용입니다.
 	 * 
 	 * @param communityTypeSequence 게시판 일련번호
 	 * @param communitySequence 커뮤니티 일련번호

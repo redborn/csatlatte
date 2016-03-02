@@ -16,7 +16,7 @@ import org.redborn.csatlatte.domain.YearStudentVo;
 public interface StudentService {
 
 	/**
-	 * 비밀번호 확인입니다.
+	 * 비밀번호를 검사합니다.
 	 * 
 	 * @param studentSequence 사용자 일련번호
 	 * @param password 비밀번호
@@ -25,7 +25,7 @@ public interface StudentService {
 	public boolean checkPassword(int studentSequence, String password);
 	
 	/**
-	 * 비밀번호 변경입니다.
+	 * 비밀번호를 변경합니다.
 	 * 
 	 * @param studentSequence 사용자 일련번호
 	 * @param password 비밀번호
@@ -35,7 +35,7 @@ public interface StudentService {
 	public boolean changePassword(int studentSequence, String password, String newPassword);
 	
 	/**
-	 * 비밀번호 찾기 변경입니다.
+	 * 비밀번호를 변경합니다.
 	 * 
 	 * @param studentId 사용자 아이디
 	 * @param securityAnswer 보안답변
@@ -45,7 +45,7 @@ public interface StudentService {
 	public boolean changePassword(String studentId, String securityAnswer, String newPassword);
 	
 	/**
-	 * 정보 변경입니다.
+	 * 정보를 변경합니다.
 	 * 
 	 * @param studentVo 사용자 값
 	 * @param photo 사진
@@ -55,7 +55,7 @@ public interface StudentService {
 	public boolean changeInformation(StudentVo studentVo, File photo, boolean photoDelete);
 	
 	/**
-	 * 보안질문 변경입니다.
+	 * 보안질문을 변경합니다.
 	 * 
 	 * @param studentSecurityQuestionVo 보안질문 값
 	 * @return
@@ -63,7 +63,7 @@ public interface StudentService {
 	public boolean changeSecurity(StudentSecurityQuestionVo studentSecurityQuestionVo);
 	
 	/**
-	 * 가입입니다.
+	 * 새로운 아이디를 생성합니다.
 	 * 
 	 * @param studentVo 사용자 값
 	 * @param studentSecurityQuestionVo 보안질문 값
@@ -73,7 +73,7 @@ public interface StudentService {
 	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo, File photo);
 	
 	/**
-	 * 아이디 찾기입니다.
+	 * 아이디를 찾습니다.
 	 * 
 	 * @param nickname 닉네임
 	 * @param securityAnswer 보안답변
@@ -82,7 +82,7 @@ public interface StudentService {
 	public String findId(String nickname, String securityAnswer);
 	
 	/**
-	 * 비밀번호 찾기
+	 * 비밀번호를 찾습니다.
 	 * 
 	 * @param id 아이디
 	 * @param securityAnswer 보안답변
@@ -91,7 +91,7 @@ public interface StudentService {
 	public boolean isPassword(String id, String securityAnswer);
 	
 	/**
-	 * 아이디 중복 확인입니다.
+	 * 아이디 중복을 확인합니다.
 	 * 
 	 * @param studentId 학생 아이디
 	 * @return
@@ -99,7 +99,7 @@ public interface StudentService {
 	public boolean isId(String studentId);
 	
 	/**
-	 * 닉네임 중복 확인입니다.
+	 * 닉네임 중복을 확인합니다.
 	 * 
 	 * @param nickname 닉네임
 	 * @return
@@ -116,7 +116,7 @@ public interface StudentService {
 	public StudentVo information(String id, String password);
 	
 	/**
-	 * 관리자메뉴 사용자 상세정보입니다.
+	 * 사용자 상세정보입니다.
 	 * 
 	 * @param studentSequence 사용자 일련번호
 	 * @return
@@ -124,7 +124,7 @@ public interface StudentService {
 	public StudentVo information(int studentSequence);
 	
 	/**
-	 * 사용자 접속입니다.
+	 * 사용자 접속을 처리합니다.
 	 * 
 	 * @param studentSequence 사용자 일련번호
 	 * @param userAgent 사용자 기기
@@ -135,7 +135,7 @@ public interface StudentService {
 	public boolean connection(int studentSequence, String userAgent, String sessionId, String ip);
 	
 	/**
-	 * 아이디 블라인드입니다.
+	 * 아이디를 블라인드합니다.
 	 * 
 	 * @param studentSequence 사용자 일련번호
 	 * @return
@@ -143,7 +143,7 @@ public interface StudentService {
 	public boolean lock(int studentSequence);
 	
 	/**
-	 * 아이디 블라인드 해제입니다.
+	 * 아이디의 블라인드를 해제합니다.
 	 * 
 	 * @param studentSequence 사용자 일련번호
 	 * @return
