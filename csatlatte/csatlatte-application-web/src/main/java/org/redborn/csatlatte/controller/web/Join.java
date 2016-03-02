@@ -98,9 +98,9 @@ public class Join {
 					try {
 						photo.transferTo(file);
 					} catch (IllegalStateException e) {
-						e.printStackTrace();
+						logger.error("Controller join POST IllegalStateException. Exception is " + e.getStackTrace());
 					} catch (IOException e) {
-						e.printStackTrace();
+						logger.error("Controller join POST IOException. Exception is " + e.getStackTrace());
 					}
 				} else {
 					fileError = true;

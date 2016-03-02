@@ -68,9 +68,9 @@ public class Question {
 					try {
 						addMultipartFile.transferTo(addFile);
 					} catch (IllegalStateException e) {
-						e.printStackTrace();
+						logger.error("Controller support question POST IllegalStateException. Exception is " + e.getStackTrace());
 					} catch (IOException e) {
-						e.printStackTrace();
+						logger.error("Controller support question POST IOException. Exception is " + e.getStackTrace());
 					}
 					files.add(index, addFile);
 				}
