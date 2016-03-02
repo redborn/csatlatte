@@ -72,17 +72,17 @@ public class ExamServiceImpl implements ExamService {
 		return subjectDao.selectList(csatSequence, examSequence);
 	}
 
-	public int register(ExamVo examVo) {
+	public boolean register(ExamVo examVo) {
 		examVo.setExamSequence(examDao.selectOneCountMax(examVo.getCsatSequence()));
-		return examDao.insert(examVo);
+		return examDao.insert(examVo) == 1;
 	}
 
-	public int modify(ExamVo examVo) {
-		return examDao.update(examVo);
+	public boolean modify(ExamVo examVo) {
+		return examDao.update(examVo) == 1;
 	}
 
-	public int delete(int csatSequence, int examSequence) {
-		return examDao.delete(csatSequence, examSequence);
+	public boolean delete(int csatSequence, int examSequence) {
+		return examDao.delete(csatSequence, examSequence) == 1;
 	}
 	
 	public List<InstitutionVo> institutionList() {
