@@ -128,15 +128,15 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	
 	/**
-	 * 통계값을 배열에 맞게 조정해줍니다.
+	 * 글 활성도, 댓글 활성도를 합쳐줍니다.
 	 * 
 	 * @param communityYmdCountVos 글 수 배열
 	 * @param commentYmdCountVos 댓글 수 배열
-	 * @param begin 날짜 시작
-	 * @param end 날짜 마지막
+	 * @param begin 시작 날짜
+	 * @param end 마지막 날짜
 	 * @return 통계 배열
 	 */
-	private List<CountVo> margeCountVoList(List<CountVo> communityYmdCountVos, List<CountVo> commentYmdCountVos, int begin, int end) {
+	private List<CountVo> mergeCountVoList(List<CountVo> communityYmdCountVos, List<CountVo> commentYmdCountVos, int begin, int end) {
 		logger.info("Business layer community margeCountVoList.");
 		List<CountVo> ymdCountVos = new ArrayList<CountVo>();
 		
@@ -177,19 +177,19 @@ public class CommunityServiceImpl implements CommunityService {
 
 	public List<CountVo> dailyActive(int communityTypeSequence, String ymd) {
 		logger.info("Business layer community dailyActive.");
-		return margeCountVoList(communityDao.selectListCountYmd(communityTypeSequence, ymd), commentDao.selectListCountYmd(communityTypeSequence, ymd), 0, 23);
+		return mergeCountVoList(communityDao.selectListCountYmd(communityTypeSequence, ymd), commentDao.selectListCountYmd(communityTypeSequence, ymd), 0, 23);
 	}
 
 	public List<CountVo> monthlyActive(int communityTypeSequence, String ym) {
 		logger.info("Business layer community monthlyActive.");
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Integer.parseInt(ym.substring(0, 4)), Integer.parseInt(ym.substring(5, 6)) - 1, 1);
-		return margeCountVoList(communityDao.selectListCountYm(communityTypeSequence, ym), commentDao.selectListCountYm(communityTypeSequence, ym), 1, calendar.getActualMaximum(Calendar.DATE));
+		return mergeCountVoList(communityDao.selectListCountYm(communityTypeSequence, ym), commentDao.selectListCountYm(communityTypeSequence, ym), 1, calendar.getActualMaximum(Calendar.DATE));
 	}
 
 	public List<CountVo> annualActive(int communityTypeSequence, String year) {
 		logger.info("Business layer community annualActive.");
-		return margeCountVoList(communityDao.selectListCountYear(communityTypeSequence, year), commentDao.selectListCountYear(communityTypeSequence, year), 1, 12);
+		return mergeCountVoList(communityDao.selectListCountYear(communityTypeSequence, year), commentDao.selectListCountYear(communityTypeSequence, year), 1, 12);
 	}
 	
 	public CommunityVo detail(int communityTypeSequence, int communitySequence) {
