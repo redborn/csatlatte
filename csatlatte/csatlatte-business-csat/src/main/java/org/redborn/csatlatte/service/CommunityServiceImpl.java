@@ -128,7 +128,7 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	
 	/**
-	 * 글 활성도, 댓글 활성도를 합쳐줍니다.
+	 * 글 활성도, 댓글 활성도를 합칩니다.
 	 * 
 	 * @param communityYmdCountVos 글 수 배열
 	 * @param commentYmdCountVos 댓글 수 배열
@@ -137,7 +137,6 @@ public class CommunityServiceImpl implements CommunityService {
 	 * @return 통계 배열
 	 */
 	private List<CountVo> mergeCountVoList(List<CountVo> communityYmdCountVos, List<CountVo> commentYmdCountVos, int begin, int end) {
-		logger.info("Business layer community margeCountVoList.");
 		List<CountVo> ymdCountVos = new ArrayList<CountVo>();
 		
 		int communityYmdCountVosIndex = 0;

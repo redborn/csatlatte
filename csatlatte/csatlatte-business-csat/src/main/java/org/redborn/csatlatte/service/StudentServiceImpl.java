@@ -136,14 +136,14 @@ public class StudentServiceImpl implements StudentService {
 			if (studentDao.insert(studentVo) == 1 && studentSecurityQuestionDao.insert(studentSecurityQuestionVo) == 1) {
 				result = true;
 				transactionManager.commit(transactionStatus);
-				logger.info(new StringBuilder("Business layer student join success. transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
+				logger.info(new StringBuilder("Business layer student join success. Transaction commit. Student id is ").append(studentVo.getStudentId()).toString());
 			} else {
 				transactionManager.rollback(transactionStatus);
-				logger.warn(new StringBuilder("Business layer student join fail. transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
+				logger.warn(new StringBuilder("Business layer student join fail. Transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
 			}
 		} catch (RuntimeException e) {
 			transactionManager.rollback(transactionStatus);
-			logger.warn(new StringBuilder("Business layer student join exception. transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
+			logger.warn(new StringBuilder("Business layer student join exception. Transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
 		}
 		
 		return result;
@@ -230,7 +230,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 	
 	/**
-	 * 통계 배열을 만들어줍니다.
+	 * 통계 배열을 만듭니다.
 	 * 
 	 * @param connectionYmdCountVos 연결 수 배열
 	 * @param begin 시작 날짜
@@ -238,7 +238,6 @@ public class StudentServiceImpl implements StudentService {
 	 * @return 통계 배열
 	 */
 	private List<CountVo> makeCountVoList(List<CountVo> YmdCountVos, int begin, int end) {
-		logger.info("Business layer student margeCountVoList.");
 		List<CountVo> ymdCountVos = new ArrayList<CountVo>();
 		
 		int YmdCountVosIndex = 0;

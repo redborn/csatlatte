@@ -143,14 +143,14 @@ public class QnaServiceImpl implements QnaService {
 			}
 			if (result) {
 				transactionManager.commit(transactionStatus);
-				logger.info(new StringBuilder("Business Layer qna write success. Writer is ").append(qnaVo.getStudentSequence()).toString());
+				logger.info(new StringBuilder("Business layer qna write success. Transaction commit. Writer is ").append(qnaVo.getStudentSequence()).toString());
 			} else {
 				transactionManager.rollback(transactionStatus);
-				logger.warn(new StringBuilder("Business Layer qna write fail. Writer is ").append(qnaVo.getStudentSequence()).toString());
+				logger.warn(new StringBuilder("Business layer qna write fail. Transaction rollback. Writer is ").append(qnaVo.getStudentSequence()).toString());
 			}
 		} catch (RuntimeException e) {
 			transactionManager.rollback(transactionStatus);
-			logger.warn(new StringBuilder("Business Layer qna write exception. Writer is ").append(qnaVo.getStudentSequence()).toString());
+			logger.warn(new StringBuilder("Business layer qna write exception. Transaction rollback. Writer is ").append(qnaVo.getStudentSequence()).toString());
 		}
 		
 		return result;

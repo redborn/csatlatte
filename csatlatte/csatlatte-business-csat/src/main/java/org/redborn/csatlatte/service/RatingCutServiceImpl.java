@@ -68,14 +68,14 @@ public class RatingCutServiceImpl implements RatingCutService {
 					&& sectionDao.delete(csatSequence, examSequence) > 0) {
 				transactionManager.commit(transactionStatus);
 				result = true;
-				logger.info(new StringBuilder("Business layer ratingCut delete success. transaction rollback. CsatSequence is ").append(csatSequence).append(". ExamSequence is ").append(examSequence).append(".").toString());
+				logger.info(new StringBuilder("Business layer RatingCut delete success. Transaction commit. CsatSequence is ").append(csatSequence).append(". ExamSequence is ").append(examSequence).append(".").toString());
 			} else {
 				transactionManager.rollback(transactionStatus);
-				logger.warn(new StringBuilder("Business layer ratingCut delete fail. transaction rollback. CsatSequence is ").append(csatSequence).append(". ExamSequence is ").append(examSequence).append(".").toString());
+				logger.warn(new StringBuilder("Business layer RatingCut delete fail. Transaction rollback. CsatSequence is ").append(csatSequence).append(". ExamSequence is ").append(examSequence).append(".").toString());
 			}
 		} catch (RuntimeException e) {
 			transactionManager.rollback(transactionStatus);
-			logger.warn(new StringBuilder("Business layer ratingCut delete exception. transaction rollback. CsatSequence is ").append(csatSequence).append(". ExamSequence is ").append(examSequence).append(".").toString());
+			logger.warn(new StringBuilder("Business layer RatingCut delete exception. Transaction rollback. CsatSequence is ").append(csatSequence).append(". ExamSequence is ").append(examSequence).append(".").toString());
 		}
 		
 		return result;
