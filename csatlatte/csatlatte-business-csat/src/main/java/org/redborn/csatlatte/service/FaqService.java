@@ -10,9 +10,9 @@ import org.redborn.csatlatte.domain.FaqVo;
 public interface FaqService {
 	
 	/**
-	 * FAQ 목록입니다.
+	 * FAQ 리스트입니다.
 	 * @param faqTypeSequence FAQ 카테고리입니다.
-	 * @return
+	 * @return FAQ 리스트
 	 */
 	public List<FaqVo> list(int faqTypeSequence);
 

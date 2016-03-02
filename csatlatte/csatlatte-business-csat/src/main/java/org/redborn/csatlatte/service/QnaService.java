@@ -15,36 +15,36 @@ import org.redborn.csatlatte.domain.QnaVo;
 public interface QnaService {
 
 	/**
-	 * 문의 상세내용입니다.
+	 * 문의 내용입니다.
 	 * 
 	 * @param qnaSequence 문의 일련번호
-	 * @return
+	 * @return 문의 내용
 	 */
 	public QnaVo detail(int qnaSequence);
 	
 	/**
-	 * 문의관리 목록입니다.
+	 * 문의관리 리스트입니다.
 	 * 
 	 * @param search 검색
 	 * @param pageNumber 페이지 번호
 	 * @param countQnaAnswer 답변 유무
-	 * @return
+	 * @return 문의 리스트
 	 */
 	public List<QnaForManageVo> listForManage(String search, int pageNumber, int countQnaAnswer);
 	
 	/**
-	 * 문의내역 목록입니다.
+	 * 문의내역 리스트입니다.
 	 * 
-	 * @param studentSequence 사용자 일련번호
-	 * @return
+	 * @param studentSequence 학생 일련번호
+	 * @return 문의 리스트
 	 */
 	public List<QnaVo> listForStudent(int studentSequence);
 	
 	/**
-	 * 파일 목록입니다.
+	 * 파일 리스트입니다.
 	 * 
 	 * @param qnaSequence 문의 일련번호
-	 * @return
+	 * @return 파일 리스트
 	 */
 	public List<FileVo> fileList(int qnaSequence);
 	
@@ -52,7 +52,7 @@ public interface QnaService {
 	 * 문의를 삭제합니다.
 	 * 
 	 * @param qnaSequence 문의 일련번호
-	 * @return
+	 * @return 문의 삭제 성공 여부
 	 */
 	public boolean delete(int qnaSequence);
 	
@@ -61,10 +61,10 @@ public interface QnaService {
 	 * 
 	 * @param qnaVo 문의 값
 	 * @param files 첨부파일
-	 * @param userAgent 사용자 기기
-	 * @param sessionId 사용자 아이디
-	 * @param ip 사용자 아이피
-	 * @return
+	 * @param userAgent 학생 기기
+	 * @param sessionId 학생 아이디
+	 * @param ip 학생 아이피
+	 * @return 문의 작성 성공 여부
 	 */
 	public boolean write(QnaVo qnaVo, List<File> files, String userAgent, String sessionId, String ip);
 	
@@ -72,7 +72,7 @@ public interface QnaService {
 	 * 답변을 작성합니다.
 	 * 
 	 * @param qnaAnswerVo 문의답변 값
-	 * @return
+	 * @return 답변 작성 성공 여부
 	 */
 	public boolean answer(QnaAnswerVo qnaAnswerVo);
 	
@@ -81,7 +81,7 @@ public interface QnaService {
 	 * 
 	 * @param search 검색
 	 * @param countQnaAnswer 답변 유무
-	 * @return
+	 * @return 문의 수
 	 */
 	public int amountQuestion(String search, int countQnaAnswer);
 	
@@ -89,7 +89,7 @@ public interface QnaService {
 	 * 작성자입니다.
 	 * 
 	 * @param qnaSequence 문의 일련번호
-	 * @return
+	 * @return 작성자 학생 일련번호
 	 */
 	public int getWriter(int qnaSequence);
 	
@@ -98,7 +98,7 @@ public interface QnaService {
 	 * 
 	 * @param qnaSequence 문의 일련번호
 	 * @param fileSequence 파일 일련번호
-	 * @return
+	 * @return 파일 이름
 	 */
 	public String getFilename(int qnaSequence, int fileSequence);
 	
@@ -107,7 +107,7 @@ public interface QnaService {
 	 * 
 	 * @param qnaSequence 문의 일련번호
 	 * @param fileSequence 파일 일련번호
-	 * @return
+	 * @return InputStream
 	 */
 	public InputStream getInputStream(int qnaSequence, int fileSequence);
 	

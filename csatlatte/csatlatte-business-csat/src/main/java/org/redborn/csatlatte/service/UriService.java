@@ -12,7 +12,7 @@ public interface UriService {
 	 * @param userAgent 사용자 기기
 	 * @param sessionId 사용자 아이디
 	 * @param ip 사용자 아이피
-	 * @return
+	 * @return 접속 성공 여부
 	 */
 	public boolean connection(String uri, String userAgent, String sessionId, String ip);
 
