@@ -230,30 +230,30 @@ public class StudentServiceImpl implements StudentService {
 	}
 	
 	/**
-	 * 통계값을 배열에 맞게 조정해줍니다.
+	 * 통계 배열을 만들어줍니다.
 	 * 
 	 * @param connectionYmdCountVos 연결 수 배열
 	 * @param begin 시작 날짜
 	 * @param end 마지막 날짜
 	 * @return 통계 배열
 	 */
-	private List<CountVo> margeCountVoList(List<CountVo> connectionYmdCountVos, int begin, int end) {
+	private List<CountVo> makeCountVoList(List<CountVo> YmdCountVos, int begin, int end) {
 		logger.info("Business layer student margeCountVoList.");
 		List<CountVo> ymdCountVos = new ArrayList<CountVo>();
 		
-		int connectionYmdCountVosIndex = 0;
-		int connectionYmdCountVosSize = connectionYmdCountVos != null ? connectionYmdCountVos.size() : 0;
+		int YmdCountVosIndex = 0;
+		int YmdCountVossSize = YmdCountVos != null ? YmdCountVos.size() : 0;
 		
 		for (int index = begin; index <= end; index++) {
 			CountVo ymdCountVo = new CountVo();
 			
 			int sumCount = 0;
 			
-			if (connectionYmdCountVosIndex < connectionYmdCountVosSize) {
-				CountVo connectionCountVo = connectionYmdCountVos.get(connectionYmdCountVosIndex);
+			if (YmdCountVosIndex < YmdCountVossSize) {
+				CountVo connectionCountVo = YmdCountVos.get(YmdCountVosIndex);
 				if (connectionCountVo.getKey() == index) {
 					sumCount = connectionCountVo.getCount();
-					connectionYmdCountVosIndex++;
+					YmdCountVosIndex++;
 				}
 			}
 			
@@ -268,36 +268,36 @@ public class StudentServiceImpl implements StudentService {
 
 	public List<CountVo> dailyJoinCountList(String ymd) {
 		logger.info("Business layer student dailyJoinCountList.");
-		return margeCountVoList(studentDao.selectListCountYmd(ymd), 0, 23);
+		return makeCountVoList(studentDao.selectListCountYmd(ymd), 0, 23);
 	}
 
 	public List<CountVo> monthlyJoinCountList(String ym) {
 		logger.info("Business layer student monthlyJoinCountList.");
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Integer.parseInt(ym.substring(0, 4)), Integer.parseInt(ym.substring(5, 6)) - 1, 1);
-		return margeCountVoList(studentDao.selectListCountYm(ym), 1, calendar.getActualMaximum(Calendar.DATE));
+		return makeCountVoList(studentDao.selectListCountYm(ym), 1, calendar.getActualMaximum(Calendar.DATE));
 	}
 
 	public List<CountVo> annualJoinCountList(String year) {
 		logger.info("Business layer student annualJoinCountList.");
-		return margeCountVoList(studentDao.selectListCountYear(year), 1, 12);
+		return makeCountVoList(studentDao.selectListCountYear(year), 1, 12);
 	}
 
 	public List<CountVo> dailyConnectionCount(String ymd) {
 		logger.info("Business layer student dailyConnectionCount.");
-		return margeCountVoList(connectionStudentDao.selectListCountYmd(ymd), 0, 23);
+		return makeCountVoList(connectionStudentDao.selectListCountYmd(ymd), 0, 23);
 	}
 
 	public List<CountVo> monthlyConnectionCount(String ym) {
 		logger.info("Business layer student monthlyConnectionCount.");
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Integer.parseInt(ym.substring(0, 4)), Integer.parseInt(ym.substring(5, 6)) - 1, 1);
-		return margeCountVoList(connectionStudentDao.selectListCountYm(ym), 1, calendar.getActualMaximum(Calendar.DATE));
+		return makeCountVoList(connectionStudentDao.selectListCountYm(ym), 1, calendar.getActualMaximum(Calendar.DATE));
 	}
 
 	public List<CountVo> annualConnectionCount(String year) {
 		logger.info("Business layer student annualConnectionCount.");
-		return margeCountVoList(connectionStudentDao.selectListCountYear(year), 1, 12);
+		return makeCountVoList(connectionStudentDao.selectListCountYear(year), 1, 12);
 	}
 
 	public List<StudentVo> userList(String search, int pageNumber) {
