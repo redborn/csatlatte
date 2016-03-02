@@ -64,23 +64,23 @@
 			var content = $('#manage-community-content-' + communitySequence).val();
 			var studentSequence = $('#manage-community-studentseq-' + communitySequence).val();
 			var html = '';
-			html += '		<div class="modal-content" id="manage-community-text-content">';
-			html += '			<div class="modal-header">';
-			html += '				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-			html += '				<div class="manage-community-text">';
-			html += '					<img alt="프로필사진" class="manage-community-profile-picture" src="' + contextPath + '/file/student/' + studentSequence + '">';
-			html += '					<div class="manage-community-user-info">';
-			html += '						<div class="manage-community-name"><strong>' + nickname + '</strong></div>';
-			html += '						<div class="manage-community-calender" data-ymdhms="' + writeYmdhms + '">' + format(writeYmdhms) + '</div>';
-			html += '					</div>';
-			html += '				</div>';
-			html += '			</div>';
-			html += '			<div class="modal-body">';
-			html += '				<div class="community-content"><xmp>' + content + '</xmp></div>';
-			html += '			</div>';
-			html += '			<div id="comment-area" class="modal-footer">';
+			html += '<div class="manage-community-text-content">';
+			html += '	<div class="modal-header">';
+			html += '		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+			html += '		<div class="manage-community-text">';
+			html += '			<img alt="프로필사진" class="manage-community-profile-picture" src="' + contextPath + '/file/student/' + studentSequence + '">';
+			html += '			<div class="manage-community-user-info">';
+			html += '				<div class="manage-community-name"><strong>' + nickname + '</strong></div>';
+			html += '				<div class="manage-community-calender" data-ymdhms="' + writeYmdhms + '">' + format(writeYmdhms) + '</div>';
 			html += '			</div>';
 			html += '		</div>';
+			html += '	</div>';
+			html += '	<div class="modal-body">';
+			html += '		<div class="community-content"><xmp>' + content + '</xmp></div>';
+			html += '	</div>';
+			html += '	<div id="comment-area" class="modal-footer">';
+			html += '	</div>';
+			html += '</div>';
 			return html;
 		}
 		
@@ -202,7 +202,7 @@
 		});
 		
 		$('#manage-community-text-detail').on('hidden.bs.modal', function () {
-			$('#manage-community-text-content').remove();
+			$('.manage-community-text-content').remove();
 		});
 		
 		$('#manage-community-blind').on('hidden.bs.modal', function () {

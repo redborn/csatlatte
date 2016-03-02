@@ -53,7 +53,9 @@
 	</div>
 </div>
 <div class="modal fade" id="manage-community-text-detail" tabindex="-1" role="dialog">
-	<div class="modal-dialog" id="manage-community-text-dialog" role="document">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content" id="manage-community-text-dialog">
+		</div>
 	</div>
 </div>
 <div class="modal fade" id="manage-community-blind" tabindex="-1" role="dialog">
