@@ -40,7 +40,7 @@ public class Join {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("join view");
+		logger.info("Controller join GET.");
 		
 		List<CsatVo> csatList = examService.csatList();
 		int presentCsatSequence = 0;
@@ -76,7 +76,7 @@ public class Join {
 	public String post(@RequestParam(value="studentId",required=true) String studentId, @RequestParam(value="password",required=true) String password,
 			@RequestParam(value="securityQuestion",required=true) int securityQuestion, @RequestParam(value="answer",required=true) String answer, 
 			@RequestParam(value="nickname",required=true) String nickname, @RequestParam(value="csat",required=true) int csat, @RequestParam(value="photo",required=false) MultipartFile photo) {
-		logger.info("join success");
+		logger.info("Controller join POST.");
 		String result = TilesName.JOIN_FAIL;
 		if (!studentService.isId(studentId) && !studentService.isNickname(nickname)) {
 			StudentVo studentVo = new StudentVo();

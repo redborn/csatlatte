@@ -41,7 +41,7 @@ public class Modify {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("myinfo modify view");
+		logger.info("Controller account modify GET.");
 		model.addAttribute("csatList", examService.csatList());
 		return TilesName.PROFILE_MODIFY_WRITE;
 	}
@@ -53,7 +53,7 @@ public class Modify {
 	public String post(@RequestParam(value="csatSequence",required=true) int csatSequence,
 			@RequestParam(value="nickname",required=true) String nickname, @RequestParam(value="photo",required=false) MultipartFile photo, 
 			@RequestParam(value="photoDelete",required=false,defaultValue="false") boolean photoDelete) {
-		logger.info("myinfo modify modify");
+		logger.info("Controller account modify POST.");
 		String result = TilesName.PROFILE_MODIFY_FAIL;
 		boolean fileError = false;
 		StudentVo studentVo = new StudentVo();

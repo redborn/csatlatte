@@ -27,7 +27,7 @@ public class Institution {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model) {
-		logger.info("data institutionList get view");
+		logger.info("Controller data institution GET.");
 		
 		model.addAttribute("institutionList", examService.institutionList());
 	}

@@ -27,7 +27,7 @@ public class Security {
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="securityAnswer",required=true) String securityAnswer,
 			@RequestParam(value="studentId",required=true) String studentId) {
-		logger.info("find password new");
+		logger.info("Controller password security POST.");
 
 		String result = TilesName.PASSWORD_SECURITY_FAIL;
 		if (studentService.isPassword(studentId, securityAnswer)) {

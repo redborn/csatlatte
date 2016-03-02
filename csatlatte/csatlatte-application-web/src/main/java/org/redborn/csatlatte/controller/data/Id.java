@@ -29,7 +29,7 @@ public class Id {
 	 */
 	@RequestMapping(value="{studentId}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="studentId") String studentId) {
-		logger.info("data id view");
+		logger.info("Controller data id GET.");
 		model.addAttribute("isId", studentService.isId(studentId));
 	}
 }

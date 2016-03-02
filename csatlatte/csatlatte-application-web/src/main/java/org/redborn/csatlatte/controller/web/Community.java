@@ -29,7 +29,7 @@ public class Community {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("community view");
+		logger.info("Controller community GET.");
 		model.addAttribute("reportTypeList", communityService.reportTypeList());
 		if (httpSessionValue.getRuleSequence() == HttpSessionValue.MANAGER) {
 			model.addAttribute("blindTypeList", communityService.blindTypeList());

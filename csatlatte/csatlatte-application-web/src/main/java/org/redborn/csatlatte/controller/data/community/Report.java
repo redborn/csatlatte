@@ -37,7 +37,7 @@ public class Report {
 	 */
 	@RequestMapping(value="{communitySequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="communitySequence") int communitySequence, @RequestParam(value="reportTypeSequence",required=true) int reportTypeSequence) {
-		logger.info(new StringBuilder("data community report... communitySequence is ").append(communitySequence).toString());
+		logger.info(new StringBuilder("Controller data community report... communitySequence is ").append(communitySequence).toString());
 		model.addAttribute("result", communityService.report(httpSessionValue.getStudentSequence(), CommunityService.COMMUNITY, communitySequence, reportTypeSequence, httpServletRequestValue.getUserAgent(), httpServletRequestValue.getSessionId(), httpServletRequestValue.getIp()));
 	}
 

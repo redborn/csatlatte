@@ -21,7 +21,7 @@ public class Connection {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get() {
-		logger.info("stats connection view");
+		logger.info("Controller stats connection GET.");
 		return TilesName.STATS_CONNECTION;
 	}
 }

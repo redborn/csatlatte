@@ -27,7 +27,7 @@ public class Id {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get() {
-		logger.info("find id view");
+		logger.info("Controller id GET.");
 		return TilesName.ID_WRITE;
 	}
 
@@ -36,7 +36,7 @@ public class Id {
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(Model model, @RequestParam(value="nickname",required=true) String nickname) {
-		logger.info("find id nickname");
+		logger.info("Controller id POST.");
 		
 		String result = TilesName.ID_FAIL;
 		if (studentService.isNickname(nickname)) {

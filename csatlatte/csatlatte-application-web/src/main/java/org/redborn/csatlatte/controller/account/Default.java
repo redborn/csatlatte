@@ -34,7 +34,7 @@ public class Default {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("account default view");
+		logger.info("Controller account default GET.");
 		model.addAttribute("csat", examService.getCsat(httpSessionValue.getCsatSequence()));
 		model.addAttribute("securityQuestion", studentService.securityQuestion(httpSessionValue.getStudentSequence()));
 		return TilesName.PROFILE;

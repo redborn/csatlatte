@@ -35,7 +35,7 @@ public class Question {
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model, HttpServletRequest request, @RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber,
 			@RequestParam(value="countQnaAnswer",required=false,defaultValue="2") String countQnaAnswerString) {
-		logger.info("manage question view");
+		logger.info("Controller manage question GET.");
 		
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("search", search);

@@ -27,7 +27,7 @@ public class Password {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get() {
-		logger.info("find password view");
+		logger.info("Controller password GET.");
 		return TilesName.PASSWORD_WRITE;
 	}
 
@@ -36,7 +36,7 @@ public class Password {
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(Model model, @RequestParam(value="studentId",required=true) String studentId) {
-		logger.info("find password id");
+		logger.info("Controller password POST.");
 		
 		String result = TilesName.PASSWORD_FAIL;
 		if (studentService.isId(studentId)) {

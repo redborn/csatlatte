@@ -30,7 +30,7 @@ public class Rating {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("manage rating get view");
+		logger.info("Controller manage rating GET.");
 		
 		List<CsatVo> csatList = examService.csatList();
 		int presentCsatSequence = 0;

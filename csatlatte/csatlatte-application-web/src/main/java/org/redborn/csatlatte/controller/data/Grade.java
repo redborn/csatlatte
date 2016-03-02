@@ -34,7 +34,7 @@ public class Grade {
 	 */
 	@RequestMapping(value="{examSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="examSequence") int examSequence) {
-		logger.info("data grade list");
+		logger.info("Controller data grade GET.");
 		model.addAttribute("list", gradeService.list(httpSessionValue.getCsatSequence(), examSequence, httpSessionValue.getStudentSequence()));
 	}
 	
@@ -49,7 +49,7 @@ public class Grade {
 	 */
 	@RequestMapping(value="{examSequence}/{sectionSequence}/{subjectSequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="examSequence") int examSequence, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence, @RequestParam(value="score",required=true) int score) {
-		logger.info("data grade register");
+		logger.info("Controller data grade POST.");
 		GradeVo gradeVo = new GradeVo();
 		gradeVo.setCsatSequence(httpSessionValue.getCsatSequence());
 		gradeVo.setStudentSequence(httpSessionValue.getStudentSequence());
@@ -71,7 +71,7 @@ public class Grade {
 	 */
 	@RequestMapping(value="{examSequence}/{sectionSequence}/{subjectSequence}",method=RequestMethod.PUT)
 	public void put(Model model, @PathVariable(value="examSequence") int examSequence, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence, @RequestParam(value="score",required=true) int score) {
-		logger.info("data grade modify");
+		logger.info("Controller data grade PUT.");
 		GradeVo gradeVo = new GradeVo();
 		gradeVo.setCsatSequence(httpSessionValue.getCsatSequence());
 		gradeVo.setStudentSequence(httpSessionValue.getStudentSequence());
@@ -92,7 +92,7 @@ public class Grade {
 	 */
 	@RequestMapping(value="{examSequence}/{sectionSequence}/{subjectSequence}",method=RequestMethod.DELETE)
 	public void delete(Model model, @PathVariable(value="examSequence") int examSequence, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence) {
-		logger.info("data grade delete");
+		logger.info("Controller data grade DELETE.");
 		model.addAttribute("result", gradeService.delete(httpSessionValue.getStudentSequence(), httpSessionValue.getCsatSequence(), examSequence, sectionSequence, subjectSequence));
 	}
 	

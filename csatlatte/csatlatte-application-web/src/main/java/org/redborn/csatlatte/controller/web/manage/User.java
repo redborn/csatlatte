@@ -35,7 +35,7 @@ public class User {
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model, HttpServletRequest request, @RequestParam(value="search",required=false,defaultValue="") String search, 
 			@RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
-		logger.info("manage user view");
+		logger.info("Controller manage user GET.");
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("search", search);

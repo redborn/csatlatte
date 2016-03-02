@@ -24,7 +24,7 @@ public class Logout {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get() {
-		logger.info(new StringBuilder("logout. ID is ").append(httpSessionValue.getId()).toString());;
+		logger.info(new StringBuilder("Controller logout. ID is ").append(httpSessionValue.getId()).toString());;
 		httpSessionValue.invalidate();
 		return "redirect:/main";
 	}

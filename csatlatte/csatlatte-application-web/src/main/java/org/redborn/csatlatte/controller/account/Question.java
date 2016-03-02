@@ -31,7 +31,7 @@ public class Question {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("myinfo question list");
+		logger.info("Controller account question GET");
 		model.addAttribute("questionList", qnaService.listForStudent(httpSessionValue.getStudentSequence()));
 		return TilesName.PROFILE_QUESTION_LIST;
 	}
@@ -41,7 +41,7 @@ public class Question {
 	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.GET)
 	public String detail(Model model, @PathVariable int qnaSequence) {
-		logger.info("myinfo question detail");
+		logger.info("Controller account question DETAIL.");
 		String result = TilesName.ERROR_404;
 		QnaVo qnaVo = qnaService.detail(qnaSequence);
 		if (qnaVo != null) {

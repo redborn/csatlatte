@@ -29,7 +29,7 @@ public class Annual {
 	 */
 	@RequestMapping(value="{year}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="year") String year) {
-		logger.info("data stats annualjoin view");
+		logger.info("Controller data student join stats annual GET.");
 		
 		model.addAttribute("annualJoin", studentService.annualJoinCountList(year));
 	}

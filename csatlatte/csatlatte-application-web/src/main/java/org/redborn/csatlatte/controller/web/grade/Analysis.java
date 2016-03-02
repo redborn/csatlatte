@@ -21,7 +21,7 @@ public class Analysis {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get() {
-		logger.info("grade analysis view");
+		logger.info("Controller grade analysis GET.");
 		return TilesName.GRADE_ANALYSIS;
 	}
 }

@@ -37,7 +37,7 @@ public class Comment {
 	 */
 	@RequestMapping(value="{communitySequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="communitySequence") int communitySequence) {
-		logger.info(new StringBuilder("data community comment list... community is ").append(communitySequence).toString());
+		logger.info(new StringBuilder("Controller data community comment list... community is ").append(communitySequence).toString());
 		model.addAttribute("list", communityService.commentList(CommunityService.COMMUNITY, communitySequence, httpSessionValue.getStudentSequence()));
 	}
 	
@@ -50,7 +50,7 @@ public class Comment {
 	 */
 	@RequestMapping(value="{communitySequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="communitySequence") int communitySequence, @RequestParam(value="content",required=true) String content) {
-		logger.info(new StringBuilder("data community comment write... community is ").append(communitySequence).toString());
+		logger.info(new StringBuilder("Controller data community comment write... community is ").append(communitySequence).toString());
 		CommentVo commentVo = new CommentVo();
 		commentVo.setCommunityTypeSequence(CommunityService.COMMUNITY);
 		commentVo.setCommunitySequence(communitySequence);
@@ -68,7 +68,7 @@ public class Comment {
 	 */
 	@RequestMapping(value="{communitySequence}/{commentSequence}",method=RequestMethod.DELETE)
 	public void delete(Model model, @PathVariable(value="communitySequence") int communitySequence, @PathVariable(value="commentSequence") int commentSequence) {
-		logger.info(new StringBuilder("data community comment delete... community is ").append(communitySequence).append("... and comment is ").append(commentSequence).toString());
+		logger.info(new StringBuilder("Controller data community comment delete... community is ").append(communitySequence).append("... and comment is ").append(commentSequence).toString());
 		model.addAttribute("result", communityService.deleteComment(CommunityService.COMMUNITY, communitySequence, commentSequence, httpSessionValue.getStudentSequence()));
 	}
 

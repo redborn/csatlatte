@@ -29,7 +29,7 @@ public class Nickname {
 	 */
 	@RequestMapping(value="{nickname}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="nickname") String nickname) {
-		logger.info("data nickname view");
+		logger.info("Controller data nickname GET.");
 		model.addAttribute("isNickname", studentService.isNickname(nickname));
 	}
 	

@@ -29,7 +29,7 @@ public class Student {
 	 */
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.GET)
 	public void detail(Model model, @PathVariable(value="studentSequence") int studentSequence) {
-		logger.info("data manage student view");
+		logger.info("Controller data student GET.");
 		
 		model.addAttribute("information", studentService.information(studentSequence));
 	}

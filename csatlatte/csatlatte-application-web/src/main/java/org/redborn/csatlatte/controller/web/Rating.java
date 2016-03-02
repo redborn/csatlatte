@@ -29,7 +29,7 @@ public class Rating {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("rating view");
+		logger.info("Controller rating GET.");
 		model.addAttribute("yearStudentList", studentService.yearStudentList());
 		return TilesName.RATING;
 	}

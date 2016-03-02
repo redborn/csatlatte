@@ -29,7 +29,7 @@ public class Monthly {
 	 */
 	@RequestMapping(value="{ym}", method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="ym") String ym) {
-		logger.info("data stats monthlycommunity view");
+		logger.info("Controller data community stats monthly GET.");
 	
 		model.addAttribute("monthlyActive", communityService.monthlyActive(CommunityService.COMMUNITY, ym));
 	}

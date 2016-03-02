@@ -31,7 +31,7 @@ public class Section {
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@PathVariable(value="examSequence") int examSequence) {
-		logger.info("data exam section get view");
+		logger.info("Controller data exam section GET.");
 		model.addAttribute("sectionList", examService.sectionList(csatSequence, examSequence));
 	}
 }

@@ -33,7 +33,7 @@ public class Exam {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("manage exam view");
+		logger.info("Controller manage exam GET.");
 		
 		List<CsatVo> csatList = examService.csatList();
 		int presentCsatSequence = 0;

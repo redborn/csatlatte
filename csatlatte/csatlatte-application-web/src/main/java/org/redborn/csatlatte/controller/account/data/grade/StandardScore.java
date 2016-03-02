@@ -30,7 +30,7 @@ public class StandardScore {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model) {
-		logger.info("Controller data grade.");
+		logger.info("Controller data grade standardscore GET.");
 		model.addAttribute("list", gradeService.standardScoreList(httpSessionValue.getCsatSequence(), httpSessionValue.getStudentSequence()));
 	}
 

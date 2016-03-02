@@ -28,7 +28,7 @@ public class Security {
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(Model model, @RequestParam(value="nickname",required=true) String nickname,
 			@RequestParam(value="securityAnswer",required=true) String securityAnswer) {
-		logger.info("find id security");
+		logger.info("Controller id security POST.");
 		
 		String findId = studentService.findId(nickname, securityAnswer);
 

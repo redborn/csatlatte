@@ -21,7 +21,7 @@ public class Join {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get() {
-		logger.info("stats join view");
+		logger.info("Controller stats join GET.");
 		return TilesName.STATS_JOIN;
 	}
 }

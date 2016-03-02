@@ -34,7 +34,7 @@ public class Exam {
 	 */
 	@RequestMapping(value="{csatSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence) {
-		logger.info("data manage exam get view");
+		logger.info("data exam GET.");
 		
 		model.addAttribute("list", examService.listForManage(csatSequence));
 	}
@@ -49,7 +49,7 @@ public class Exam {
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.GET) 
 	public void detail(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@PathVariable(value="examSequence") int examSequence) {
-		logger.info("data manage exam detail view");
+		logger.info("Controller data exam DETAIL.");
 
 		model.addAttribute("detail", examService.detail(csatSequence, examSequence));
 	}
@@ -70,7 +70,7 @@ public class Exam {
 			@RequestParam(value="institutionSequence",required=true) int institutionSequence,
 			@RequestParam(value="yearStudentSequence",required=true) int yearStudentSequence,
 			@RequestParam(value="ymd",required=true) String ymd) {
-		logger.info("data exam post view");
+		logger.info("Controller data exam POST.");
 		ExamVo examVo = new ExamVo();
 		
 		examVo.setCsatSequence(csatSequence);
@@ -100,7 +100,7 @@ public class Exam {
 			@RequestParam(value="institutionSequence",required=true) int institutionSequence,
 			@RequestParam(value="yearStudentSequence",required=true) int yearStudentSequence,
 			@RequestParam(value="ymd",required=true) String ymd) {
-		logger.info("data manage exam put view");
+		logger.info("Controller data exam PUT.");
 		
 		ExamVo examVo = new ExamVo();
 		
@@ -124,7 +124,7 @@ public class Exam {
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.DELETE)
 	public void delete(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@PathVariable(value="examSequence") int examSequence) {
-		logger.info("data manage exam delete");
+		logger.info("Controller data exam DELETE.");
 		model.addAttribute("result", examService.delete(csatSequence, examSequence));
 	}
 }

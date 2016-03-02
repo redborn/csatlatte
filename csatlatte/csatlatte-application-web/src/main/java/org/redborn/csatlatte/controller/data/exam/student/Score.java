@@ -31,7 +31,7 @@ public class Score {
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@PathVariable(value="examSequence") int examSequence) {
-		logger.info("data exam studentscore get view");
+		logger.info("Controller data exam student score GET.");
 		model.addAttribute("examStudentList", examService.examStudentList(csatSequence, examSequence));
 	}
 	

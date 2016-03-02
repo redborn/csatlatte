@@ -28,7 +28,7 @@ public class New {
 	public String post(@RequestParam(value="studentId",required=true) String studentId,
 			@RequestParam(value="securityAnswer",required=true) String securityAnswer,
 			@RequestParam(value="newPassword",required=true) String newPassword) {
-		logger.info("find password success");
+		logger.info("Controller password new POST.");
 		
 		String result = TilesName.PASSWORD_NEW_FAIL;
 		if (studentService.changePassword(studentId, securityAnswer, newPassword)) {

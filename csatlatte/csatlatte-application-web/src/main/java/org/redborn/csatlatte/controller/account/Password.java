@@ -30,7 +30,7 @@ public class Password {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("myinfo password view");
+		logger.info("Controller account password GET.");
 		return TilesName.PROFILE_PASSWORD_WRITE;
 	}
 

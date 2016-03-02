@@ -30,7 +30,7 @@ public class Rating {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model) {
-		logger.info("Controller data grade.");
+		logger.info("Controller data grade rating GET.");
 		model.addAttribute("list", gradeService.ratingCutList(httpSessionValue.getCsatSequence(), httpSessionValue.getStudentSequence()));
 	}
 

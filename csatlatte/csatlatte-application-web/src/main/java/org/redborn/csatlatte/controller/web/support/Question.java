@@ -41,7 +41,7 @@ public class Question {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("support question view");
+		logger.info("Controller support question GET.");
 		return TilesName.SUPPORT_QUESTION_WRITE;
 	}
 
@@ -51,7 +51,7 @@ public class Question {
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="title",required=true) String title, @RequestParam(value="content", required=true) String content,
 			@RequestParam(value="file",required=false) List<MultipartFile> file) {
-		logger.info("support question write");
+		logger.info("Controller support question POST.");
 		String result = TilesName.SUPPORT_QUESTION_FAIL;
 		QnaVo qnaVo = new QnaVo();
 		qnaVo.setTitle(title);

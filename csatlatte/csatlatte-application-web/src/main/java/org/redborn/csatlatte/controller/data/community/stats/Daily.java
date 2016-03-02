@@ -29,7 +29,7 @@ public class Daily {
 	 */
 	@RequestMapping(value="{ymd}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="ymd") String ymd) {
-		logger.info("data stats dailycommunity view");
+		logger.info("Controller data community stats daily GET.");
 		
 		model.addAttribute("dailyActive", communityService.dailyActive(CommunityService.COMMUNITY, ymd));
 	}

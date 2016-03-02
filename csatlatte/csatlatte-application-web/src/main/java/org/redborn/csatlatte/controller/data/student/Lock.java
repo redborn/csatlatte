@@ -29,7 +29,7 @@ public class Lock {
 	 */
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="studentSequence") int studentSequence) {
-		logger.info("data student update to useYn = 'N'");
+		logger.info("Controller data student lock POST.");
 		
 		model.addAttribute("result", studentService.lock(studentSequence));
 	}
@@ -42,7 +42,7 @@ public class Lock {
 	 */
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.DELETE)
 	public void delete(Model model, @PathVariable int studentSequence) {
-		logger.info("data student update to useYn = 'Y'");
+		logger.info("Controller data student lock GET.");
 		
 		model.addAttribute("result", studentService.unlock(studentSequence));
 	}

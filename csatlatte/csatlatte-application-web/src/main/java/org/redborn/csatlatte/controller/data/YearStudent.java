@@ -27,7 +27,7 @@ public class YearStudent {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model) {
-		logger.info("data yearStudentList get view");
+		logger.info("Controller data yearstudent GET.");
 		
 		model.addAttribute("yearStudentList", studentService.yearStudentList());
 	}

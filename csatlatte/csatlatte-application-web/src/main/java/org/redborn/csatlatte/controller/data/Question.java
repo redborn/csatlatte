@@ -32,7 +32,7 @@ public class Question {
 	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="qnaSequence") int qnaSequence) {
-		logger.info("data question view");
+		logger.info("Controller data question GET.");
 		model.addAttribute("detail", qnaService.detail(qnaSequence));
 		model.addAttribute("files", qnaService.fileList(qnaSequence));
 	}

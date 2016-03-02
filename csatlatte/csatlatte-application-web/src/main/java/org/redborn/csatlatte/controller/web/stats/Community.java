@@ -21,7 +21,7 @@ public class Community {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get() {
-		logger.info("stats community view");
+		logger.info("Controller stats community GET.");
 		return TilesName.STATS_COMMUNITY;
 	}
 }

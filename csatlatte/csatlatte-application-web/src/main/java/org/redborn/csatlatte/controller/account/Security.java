@@ -31,7 +31,7 @@ public class Security {
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="securityQuestionSequence",required=true) int securityQuestionSequence,
 			@RequestParam(value="answer",required=true) String answer) {
-		logger.info("myinfo security modify");
+		logger.info("Controller account security POST.");
 		String result = TilesName.PROFILE_SECURITY_FAIL;
 		StudentSecurityQuestionVo studentSecurityQuestionVo = new StudentSecurityQuestionVo();
 		studentSecurityQuestionVo.setStudentSequence(httpSessionValue.getStudentSequence());

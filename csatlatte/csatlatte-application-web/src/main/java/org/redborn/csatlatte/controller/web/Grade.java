@@ -35,7 +35,7 @@ public class Grade {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("grade view");
+		logger.info("Controller grade GET.");
 		String result = TilesName.GRADE;
 		
 		if (httpSessionValue.getStudentSequence() != 0) {

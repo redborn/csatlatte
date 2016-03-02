@@ -27,7 +27,7 @@ public class Support {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String get(Model model, @RequestParam(value="faqTypeSequence",required=false,defaultValue="1") int faqTypeSequence) {
-		logger.info("support view");
+		logger.info("Controller support GET.");
 		model.addAttribute("list", faqService.list(faqTypeSequence));
 		return TilesName.SUPPORT;
 	}

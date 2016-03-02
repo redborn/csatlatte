@@ -21,7 +21,7 @@ public class Main {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get() {
-		logger.info("main view");
+		logger.info("Controller main GET.");
 		return TilesName.MAIN;
 	}
 }

@@ -30,7 +30,7 @@ public class Authentication {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("myinfo authentication view");
+		logger.info("Controller account security authentication GET.");
 		return TilesName.PROFILE_SECURITY_AUTHENTICATION_WRITE;
 	}
 	
@@ -39,7 +39,7 @@ public class Authentication {
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(Model model, @RequestParam(value="password",required=true) String password) {
-		logger.info("myinfo authentication password wrote");
+		logger.info("Controller account security authentication POST.");
 		String result = TilesName.PROFILE_SECURITY_AUTHENTICATION_FAIL;
 		if (studentService.checkPassword(httpSessionValue.getStudentSequence(), password)) {
 			model.addAttribute("securityQuestionList", studentService.securityQuestionList());

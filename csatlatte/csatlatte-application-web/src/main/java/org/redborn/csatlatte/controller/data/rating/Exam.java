@@ -29,7 +29,7 @@ public class Exam {
 	 */
 	@RequestMapping(value="{yearStudentSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="yearStudentSequence") int yearStudentSequence) {
-		logger.info("data rating exam get view");
+		logger.info("Controller data rating exam GET.");
 		model.addAttribute("yearList", examService.yearList(yearStudentSequence));
 	}
 	
@@ -43,7 +43,7 @@ public class Exam {
 	@RequestMapping(value="{yearStudentSequence}/{year}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="yearStudentSequence") int yearStudentSequence,
 			@PathVariable(value="year") String year) {
-		logger.info("data rating exam get view");
+		logger.info("Controller data rating exam GET.");
 		model.addAttribute("list", examService.list(year, yearStudentSequence));
 	}
 	

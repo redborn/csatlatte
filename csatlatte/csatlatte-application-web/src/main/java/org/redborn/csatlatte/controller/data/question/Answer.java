@@ -33,7 +33,7 @@ public class Answer {
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="qnaSequence") int qnaSequence, 
 			@RequestParam(value="answerContent",required=true) String answerContent) {
-		logger.info("data manage question post insert");
+		logger.info("Controller data question answer POST.");
 		
 		QnaAnswerVo qnaAnswerVo = new QnaAnswerVo();
 		

@@ -29,7 +29,7 @@ public class Daily {
 	 */
 	@RequestMapping(value="{ymd}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="ymd") String ymd) {
-		logger.info("data stats dailyjoin view");
+		logger.info("Controller data student join stats daily GET.");
 		
 		model.addAttribute("dailyJoin", studentService.dailyJoinCountList(ymd));
 	}

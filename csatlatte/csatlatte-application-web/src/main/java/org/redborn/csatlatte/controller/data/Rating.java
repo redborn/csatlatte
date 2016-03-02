@@ -42,7 +42,7 @@ public class Rating {
 	 */
 	@RequestMapping(value="{csatSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence) {
-		logger.info("data manage rating get view");
+		logger.info("Controller data rating GET.");
 		model.addAttribute("list",examService.listForRatingManage(csatSequence));
 		model.addAttribute("listForCreate",examService.listForRatingCreate(csatSequence));
 	}
@@ -57,7 +57,7 @@ public class Rating {
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.GET)
 	public void detail(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@PathVariable(value="examSequence") int examSequence) {
-		logger.info("data manage rating detail view");
+		logger.info("Controller data rating DETAIL.");
 		
 		model.addAttribute("list", ratingCutService.list(csatSequence, examSequence));
 	}
@@ -75,7 +75,7 @@ public class Rating {
 	public void post(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@RequestParam(value="examSequence",required=true) int examSequence,
 			@RequestParam(value="file",required=true) MultipartFile file) throws IOException {
-		logger.info("data rating post");
+		logger.info("Controller data rating POST.");
 		if (file != null) {
 			RatingCutReader ratingCutReader = new RatingCutReader(file.getInputStream(), csatSequence, examSequence);
 			List<SectionVo> sectionList = ratingCutReader.sectionList();
@@ -102,7 +102,7 @@ public class Rating {
 	public void put(Model model, @PathVariable(value="csatSequence") int csatSequence,
 			@PathVariable(value="examSequence") int examSequence,
 			@RequestParam(value="file",required=false) MultipartFile file) throws IOException {
-		logger.info("data rating put");
+		logger.info("Controller data rating PUT.");
 		if (file != null) {
 			RatingCutReader ratingCutReader = new RatingCutReader(file.getInputStream(), csatSequence, examSequence);
 			ratingCutService.delete(csatSequence, examSequence);
@@ -127,7 +127,7 @@ public class Rating {
 	@RequestMapping(value="{csatSequence}/{examSequence}",method=RequestMethod.DELETE)
 	public void delete(Model model, @PathVariable(value="csatSequence") int csatSequence, 
 			@PathVariable(value="examSequence") int examSequence) {
-		logger.info("data manage rating delete");
+		logger.info("Controller data rating DELETE.");
 		model.addAttribute("result", ratingCutService.delete(csatSequence, examSequence));
 	}
 	
