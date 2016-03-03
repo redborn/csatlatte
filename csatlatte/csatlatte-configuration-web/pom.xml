@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.redborn.csatlatte</groupId>
     <artifactId>csatlatte</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
   </parent>
   <artifactId>csatlatte-configuration-web</artifactId>
   <packaging>war</packaging>
