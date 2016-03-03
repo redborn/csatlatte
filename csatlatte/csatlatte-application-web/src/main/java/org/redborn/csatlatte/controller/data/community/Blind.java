@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * 커뮤니티 블라인드입니다.
+ */
 @Controller
 @RequestMapping("/data/community/blind")
 public class Blind {
@@ -19,9 +22,16 @@ public class Blind {
 	@Autowired
 	private CommunityService communityService;
 	
+	/**
+	 * 글을 블라인드합니다.
+	 * 
+	 * @param model
+	 * @param communitySequence 커뮤니티 일련번호
+	 * @param blindTypeSequence 블라인드 일련번호
+	 */
 	@RequestMapping(value="{communitySequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="communitySequence") int communitySequence, @RequestParam(value="blindTypeSequence",required=true) int blindTypeSequence) {
-		logger.info(new StringBuilder("data community blind... communitySequence is ").append(communitySequence).toString());
+		logger.info("Controller data community blind POST");
 		model.addAttribute("result", communityService.blind(CommunityService.COMMUNITY, communitySequence, blindTypeSequence));
 	}
 

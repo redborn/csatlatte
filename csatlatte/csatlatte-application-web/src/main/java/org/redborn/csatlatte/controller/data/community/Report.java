@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * 커뮤니티 글 신고입니다.
+ */
 @Controller
 @RequestMapping("/data/community/report")
 public class Report {
@@ -25,9 +28,16 @@ public class Report {
 	@Autowired
 	private HttpServletRequestValue httpServletRequestValue;
 	
+	/**
+	 * 커뮤니티 글을 신고합니다.
+	 * 
+	 * @param model
+	 * @param communitySequence 커뮤니티 일련번호
+	 * @param reportTypeSequence 신고 일련번호
+	 */
 	@RequestMapping(value="{communitySequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="communitySequence") int communitySequence, @RequestParam(value="reportTypeSequence",required=true) int reportTypeSequence) {
-		logger.info(new StringBuilder("data community report... communitySequence is ").append(communitySequence).toString());
+		logger.info("Controller data community report POST");
 		model.addAttribute("result", communityService.report(httpSessionValue.getStudentSequence(), CommunityService.COMMUNITY, communitySequence, reportTypeSequence, httpServletRequestValue.getUserAgent(), httpServletRequestValue.getSessionId(), httpServletRequestValue.getIp()));
 	}
 

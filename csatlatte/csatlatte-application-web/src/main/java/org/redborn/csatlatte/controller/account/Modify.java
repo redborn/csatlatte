@@ -20,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * 사용자 정보를 수정하는 controller입니다.
- * 
- * @author 최순현
+ * 사용자 정보 수정입니다.
  */
 @Controller
 @RequestMapping("/{id}/modify")
@@ -38,24 +36,24 @@ public class Modify {
 
 	/**
 	 * 닉네임 입력, 프로필 사진 등록, 수능을 선택하는 페이지입니다.
+	 * 
+	 * @param model
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("myinfo modify view");
+		logger.info("Controller account modify GET.");
 		model.addAttribute("csatList", examService.csatList());
 		return TilesName.PROFILE_MODIFY_WRITE;
 	}
 
 	/**
 	 * 내 정보 변경 처리 영역입니다. 
-	 * 
-	 * 변경한 프로필 사진, 닉네임, 수능을 변경 처리 후 내 정보 변경 완료 페이지(TilesName.MYINFO_MODIFY_SUCCESS)를 출력합니다.
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="csatSequence",required=true) int csatSequence,
 			@RequestParam(value="nickname",required=true) String nickname, @RequestParam(value="photo",required=false) MultipartFile photo, 
 			@RequestParam(value="photoDelete",required=false,defaultValue="false") boolean photoDelete) {
-		logger.info("myinfo modify modify");
+		logger.info("Controller account modify POST.");
 		String result = TilesName.PROFILE_MODIFY_FAIL;
 		boolean fileError = false;
 		StudentVo studentVo = new StudentVo();
@@ -71,9 +69,9 @@ public class Modify {
 				try {
 					photo.transferTo(file);
 				} catch (IllegalStateException e) {
-					e.printStackTrace();
+					logger.error("Controller account modify POST IllegalStateException. Exception is " + e.getStackTrace());
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.error("Controller account modify POST IOException. Exception is " + e.getStackTrace());
 				}
 			} else {
 				fileError = true;

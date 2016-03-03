@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 문의를 조회하고 답변을 작성할 수 있는 controller입니다.
- * 
- * @author 최순현
+ * 문의관리입니다.
  */
 @Controller
 @RequestMapping("/manage/question")
@@ -30,13 +28,14 @@ public class Question {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private QnaService qnaService;
+	
 	/**
-	 * 문의목록을 조회하는 페이지입니다.
+	 * 문의 목록입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model, HttpServletRequest request, @RequestParam(value="search",required=false,defaultValue="") String search, @RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber,
 			@RequestParam(value="countQnaAnswer",required=false,defaultValue="2") String countQnaAnswerString) {
-		logger.info("manage question view");
+		logger.info("Controller manage question GET.");
 		
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("search", search);

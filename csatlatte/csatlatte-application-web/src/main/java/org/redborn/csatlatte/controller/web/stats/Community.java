@@ -7,15 +7,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * 커뮤니티 통계입니다.
+ */
 @Controller
 @RequestMapping("/stats/community")
 public class Community {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	/**
+	 * 커뮤니티 통계입니다.
+	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get() {
-		logger.info("stats community view");
+		logger.info("Controller stats community GET.");
 		return TilesName.STATS_COMMUNITY;
 	}
 }

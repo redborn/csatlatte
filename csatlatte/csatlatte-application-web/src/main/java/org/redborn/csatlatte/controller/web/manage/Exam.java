@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * 새 모의고사를 작성하거나 기존 모의고사의 정보를 수정하는 controller입니다.
- * 
- * @author 최순현
+ * 모의고사 관리입니다.
  */
 @Controller
 @RequestMapping("/manage/exam")
@@ -31,11 +29,11 @@ public class Exam {
 	private StudentService studentService;
 	
 	/**
-	 * 모의고사 목록을 조회하는 페이지입니다.
+	 * 모의고사 목록입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("manage exam view");
+		logger.info("Controller manage exam GET.");
 		
 		List<CsatVo> csatList = examService.csatList();
 		int presentCsatSequence = 0;

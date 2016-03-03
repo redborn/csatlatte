@@ -25,6 +25,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 public class RatingCutServiceImpl implements RatingCutService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private AverageDao averageDao;
 	@Autowired
@@ -39,18 +40,22 @@ public class RatingCutServiceImpl implements RatingCutService {
 	private PlatformTransactionManager transactionManager;
 	
 	public List<RatingCutVo> list(int csatSequence, int examSequence) {
+		logger.info("Business layer ratingcut list.");
 		return ratingCutDao.selectListDetail(csatSequence, examSequence);
 	}
 	
 	public List<ExamVo> listForRatingManage(int csatSequence) {
+		logger.info("Business layer ratingcut listForRatingManage.");
 		return ratingCutDao.selectList(csatSequence);
 	}
 	
 	public List<ExamVo> listForRatingCreate(int csatSequence) {
+		logger.info("Business layer ratingcut listForRatingCreate.");
 		return ratingCutDao.selectListForCreate(csatSequence);
 	}
 	
 	public boolean delete(int csatSequence, int examSequence) {
+		logger.info("Business layer ratingcut delete.");
 		boolean result = false;
 		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
 		defaultTransactionDefinition.setName("ratingCut delete transaction");
@@ -68,13 +73,14 @@ public class RatingCutServiceImpl implements RatingCutService {
 			logger.info(new StringBuilder("Business layer ratingCut delete success. transaction rollback. CsatSequence is ").append(csatSequence).append(". ExamSequence is ").append(examSequence).append(".").toString());
 		} catch (RuntimeException e) {
 			transactionManager.rollback(transactionStatus);
-			logger.warn(new StringBuilder("Business layer ratingCut delete exception. transaction rollback. CsatSequence is ").append(csatSequence).append(". ExamSequence is ").append(examSequence).append(".").toString());
+			logger.warn(new StringBuilder("Business layer RatingCut delete exception. Transaction rollback. CsatSequence is ").append(csatSequence).append(". ExamSequence is ").append(examSequence).append(".").toString());
 		}
 		
 		return result;
 	}
 
 	public boolean register(List<SectionVo> sectionList, List<SubjectVo> subjectList, List<RatingCutVo> ratingCutList, List<AverageVo> averageList) {
+		logger.info("Business layer ratingcut register.");
 		boolean result = false;
 		boolean sectionSuccess = false;
 		boolean subjectSuccess = false;

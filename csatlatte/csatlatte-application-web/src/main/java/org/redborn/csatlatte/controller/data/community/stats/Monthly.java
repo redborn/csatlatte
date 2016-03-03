@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * 월간 커뮤니티 통계입니다.
+ */
 @Controller
 @RequestMapping("/data/community/stats/monthly")
 public class Monthly {
@@ -18,9 +21,15 @@ public class Monthly {
 	@Autowired
 	private CommunityService communityService;
 	
+	/**
+	 * 월간 커뮤니티 통계입니다.
+	 * 
+	 * @param model
+	 * @param ym 연월
+	 */
 	@RequestMapping(value="{ym}", method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="ym") String ym) {
-		logger.info("data stats monthlycommunity view");
+		logger.info("Controller data community stats monthly GET.");
 	
 		model.addAttribute("monthlyActive", communityService.monthlyActive(CommunityService.COMMUNITY, ym));
 	}

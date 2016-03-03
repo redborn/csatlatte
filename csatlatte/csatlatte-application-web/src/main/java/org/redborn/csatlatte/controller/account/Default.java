@@ -12,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * 사용자 정보입니다.
+ */
 @Controller
 @RequestMapping("/{id}")
 public class Default {
@@ -24,9 +27,14 @@ public class Default {
 	@Autowired
 	private HttpSessionValue httpSessionValue;
 	
+	/**
+	 * 사용자 정보입니다.
+	 * 
+	 * @param model
+	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("account default view");
+		logger.info("Controller account default GET.");
 		model.addAttribute("csat", examService.getCsat(httpSessionValue.getCsatSequence()));
 		model.addAttribute("securityQuestion", studentService.securityQuestion(httpSessionValue.getStudentSequence()));
 		return TilesName.PROFILE;

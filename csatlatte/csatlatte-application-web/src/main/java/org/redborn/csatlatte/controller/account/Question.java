@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * 사용자가 문의한 목록을 조회하는 controller입니다.
- * 
- * @author 최순현
+ * 사용자 문의내역입니다.
  */
 @Controller
 @RequestMapping("/{id}/question")
@@ -29,21 +27,21 @@ public class Question {
 	private HttpSessionValue httpSessionValue;
 	
 	/**
-	 * 문의사항의 제목 목록을 조회하는 페이지입니다.
+	 * 문의내역 목록입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("myinfo question list");
+		logger.info("Controller account question GET");
 		model.addAttribute("questionList", qnaService.listForStudent(httpSessionValue.getStudentSequence()));
 		return TilesName.PROFILE_QUESTION_LIST;
 	}
 
 	/**
-	 * 문의 제목, 문의 내용, 문의에 대한 답변의 상세 내용을 조회하는 페이지(TilesName.MYINFO_QUESTION_DETAIL)입니다.
+	 * 문의 내용입니다.
 	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.GET)
 	public String detail(Model model, @PathVariable int qnaSequence) {
-		logger.info("myinfo question detail");
+		logger.info("Controller account question DETAIL.");
 		String result = TilesName.ERROR_404;
 		QnaVo qnaVo = qnaService.detail(qnaSequence);
 		if (qnaVo != null) {
@@ -57,11 +55,11 @@ public class Question {
 	}
 	
 	/**
-	 * 사용자가 답변받지 않은 문의를 삭제하는 기능입니다.
+	 * 문의 삭제입니다.
 	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.DELETE)
 	public String delete(Model model, @PathVariable int qnaSequence) {
-		logger.info("profile question delete");
+		logger.info("Controller account question DELETE.");
 		String result = TilesName.ERROR_404;
 		if (qnaService.delete(qnaSequence)) {
 			model.addAttribute("questionList", qnaService.listForStudent(httpSessionValue.getStudentSequence()));

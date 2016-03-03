@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * 문의입니다.
+ */
 @Controller
 @RequestMapping("/data/question")
 public class Question {
@@ -21,9 +24,15 @@ public class Question {
 	@Autowired
     private HttpSessionValue httpSessionValue;
 	
+	/**
+	 * 문의 상세내용을 조회합니다.
+	 * 
+	 * @param model
+	 * @param qnaSequence 문의 일련번호
+	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="qnaSequence") int qnaSequence) {
-		logger.info("data question view");
+		logger.info("Controller data question GET.");
 		model.addAttribute("detail", qnaService.detail(qnaSequence));
 		model.addAttribute("files", qnaService.fileList(qnaSequence));
 	}

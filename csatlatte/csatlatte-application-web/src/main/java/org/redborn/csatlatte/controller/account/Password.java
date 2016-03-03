@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 비밀번호를 변경하는 controller입니다.
- * 
- * @author 최순현
+ * 사용자 비밀번호 변경입니다.
  */
 @Controller
 @RequestMapping("/{id}/password")
@@ -32,14 +30,12 @@ public class Password {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("myinfo password view");
+		logger.info("Controller account password GET.");
 		return TilesName.PROFILE_PASSWORD_WRITE;
 	}
 
 	/**
 	 * 비밀번호 변경 처리 영역입니다.
-	 * 
-	 * 입력한 값에 이상이 없는 경우 비밀번호 변경 처리 후 비밀번호 변경 완료 페이지(TilesName.MYINFO_PASSWORD_SUCCESS)를 출력합니다.
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="beforePassword",required=true) String beforePassword,

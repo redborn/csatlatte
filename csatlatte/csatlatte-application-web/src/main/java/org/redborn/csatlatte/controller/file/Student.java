@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.View;
 
+/**
+ * 학생 프로필 사진입니다.
+ */
 @Controller
 @RequestMapping("/file/student")
 public class Student {
@@ -23,9 +26,14 @@ public class Student {
 	@Autowired
 	private HttpSessionValue httpSessionValue;
 	
+	/**
+	 * 학생 프로필 사진입니다.
+	 * 
+	 * @param studentSequence 학생 일련번호
+	 */
 	@RequestMapping(value="{studentSequence}",method=RequestMethod.GET)
 	public View get(@PathVariable(value="studentSequence") int studentSequence) {
-		logger.info(new StringBuilder("Controller file student. studentSequence is ").append(studentSequence).append(".").toString());
+		logger.info("Controller file student GET.");
 		View view = null;
 		String photoName = studentService.getPhotoName(studentSequence);
 		if (photoName != null) {

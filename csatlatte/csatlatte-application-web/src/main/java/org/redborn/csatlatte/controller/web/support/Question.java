@@ -22,9 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * FAQ(자주 묻는 질문)에서 해결되지 않은 궁금사항, 혹은 건의사항 작성에 대한 controller입니다.
- * 
- * @author 최순현
+ * 문의하기입니다.
  */
 @Controller
 @RequestMapping("/support/question")
@@ -43,21 +41,17 @@ public class Question {
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("support question view");
+		logger.info("Controller support question GET.");
 		return TilesName.SUPPORT_QUESTION_WRITE;
 	}
 
 	/**
-	 * SUPPORT_QUESTION_SUCCESS : 문의 작성 완료
-	 * --> 문의제목, 문의내용을 처리하는 영역입니다.
-	 * 
-	 * 처리 결과
-	 * SUPPORT_QUESTION_SUCCESS : 문의하기 완료
+	 * 문의제목, 문의내용을 처리하는 영역입니다.
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="title",required=true) String title, @RequestParam(value="content", required=true) String content,
 			@RequestParam(value="file",required=false) List<MultipartFile> file) {
-		logger.info("support question write");
+		logger.info("Controller support question POST.");
 		String result = TilesName.SUPPORT_QUESTION_FAIL;
 		QnaVo qnaVo = new QnaVo();
 		qnaVo.setTitle(title);
@@ -74,9 +68,9 @@ public class Question {
 					try {
 						addMultipartFile.transferTo(addFile);
 					} catch (IllegalStateException e) {
-						e.printStackTrace();
+						logger.error("Controller support question POST IllegalStateException. Exception is " + e.getStackTrace());
 					} catch (IOException e) {
-						e.printStackTrace();
+						logger.error("Controller support question POST IOException. Exception is " + e.getStackTrace());
 					}
 					files.add(index, addFile);
 				}
