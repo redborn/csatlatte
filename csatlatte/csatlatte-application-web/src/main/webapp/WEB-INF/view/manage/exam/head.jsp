@@ -10,6 +10,7 @@
 	.manage-exam-col-lg {float:none; display:inline-block; text-align:center;}
 	.manage-exam-btn-align {text-align:right;}
 	.manage-exam-modal-footer {text-align:right;}
+	.manage-exam-delete-footer {display:inline-block;}
 	.manage-exam-input-group-addon {width:auto;}
 </style>
 <script>
@@ -160,6 +161,20 @@
 																check = false;
 															}
 															makeExamDeleteMessage(check);
+															$('.manage-exam-modal-footer').append(makeExamDeleteFooter(check));
+															$('.manage-exam-delete-accept').on("click", function () {
+																$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
+																	dataType : "json",
+																	type : "DELETE",
+																	data : {_method : "DELETE"},
+																	success : function (data) {
+																		if (data.result) {
+																			$('#manage-exam-delete-view').modal("hide");
+																			$('#manage-exam-csat-list').trigger("change");
+																		}
+																	}
+																});
+															});
 														} 
 													}
 												});
@@ -231,46 +246,40 @@
 			var yearStudentListLength = yearStudentList.length;
 			var html = '';
 			html += '<div class="manage-exam-register-content">';
-			html += '	<div class="modal-body">';
-			html += '		<div class="form-group row">';
-			html += '			<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-register-name">모의고사 이름</label>';
-			html += '			<div class="col-lg-6"><input type="text" maxlength="26" class="form-control" id="manage-exam-register-name" data-toggle="tooltip" data-placement="bottom" title="잘못된 모의고사 이름입니다."></div>';
-			html += '		</div>';
-			html += '		<div class="form-group row">';
-			html += '			<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-register-institution">주관 교육청</label>';
-			html += '			<div class="col-lg-4">';
-			html += '				<select class="form-control" id="manage-exam-register-institution">';
+			html += '	<div class="form-group row">';
+			html += '		<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-register-name">모의고사 이름</label>';
+			html += '		<div class="col-lg-6"><input type="text" maxlength="26" class="form-control" id="manage-exam-register-name" data-toggle="tooltip" data-placement="bottom" title="잘못된 모의고사 이름입니다."></div>';
+			html += '	</div>';
+			html += '	<div class="form-group row">';
+			html += '		<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-register-institution">주관 교육청</label>';
+			html += '		<div class="col-lg-4">';
+			html += '			<select class="form-control" id="manage-exam-register-institution">';
 			for (var index = 0; index < institutionListLength; index++) {
 				html += '<option value="' + institutionList[index].institutionSequence + '">' + institutionList[index].institutionName + '</option>';
 			}
-			html += '				</select>';
-			html += '			</div>';
+			html += '			</select>';
 			html += '		</div>';
-			html += '		<div class="form-group row">';
-			html += '			<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-register-year-student">학년</label>';
-			html += '			<div class="col-lg-2">';
-			html += '				<select class="form-control" id="manage-exam-register-year-student">';
+			html += '	</div>';
+			html += '	<div class="form-group row">';
+			html += '		<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-register-year-student">학년</label>';
+			html += '		<div class="col-lg-2">';
+			html += '			<select class="form-control" id="manage-exam-register-year-student">';
 			for (var index = 0; index < yearStudentListLength; index++) {
 				html += '<option value="' + yearStudentList[index].yearStudentSequence + '">' + yearStudentList[index].yearStudentName + '</option>';
 			}
-			html += '				</select>';
-			html += '			</div>';
+			html += '			</select>';
 			html += '		</div>';
-			html += '		<div class="form-group row">';
-			html += '			<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-register-date">시험일자</label>';
-			html += '			<div class="col-lg-5">';
-			html += '				<div class="input-group">';
-			html += '					<input type="text" class="form-control" id="manage-exam-register-ymd" data-toggle="tooltip" data-placement="bottom" title="잘못된 날짜입니다.">';
-			html += '					<div class="input-group-addon manage-exam-input-group-addon">';
-			html += '						<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>';
-			html += '					</div>';
+			html += '	</div>';
+			html += '	<div class="form-group row">';
+			html += '		<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-register-date">시험일자</label>';
+			html += '		<div class="col-lg-5">';
+			html += '			<div class="input-group">';
+			html += '				<input type="text" class="form-control" id="manage-exam-register-ymd" data-toggle="tooltip" data-placement="bottom" title="잘못된 날짜입니다.">';
+			html += '				<div class="input-group-addon manage-exam-input-group-addon">';
+			html += '					<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>';
 			html += '				</div>';
 			html += '			</div>';
 			html += '		</div>';
-			html += '	</div>';
-			html += '	<div class="modal-footer manage-exam-modal-footer">';
-			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
-			html += '		<button type="button" class="btn btn-primary manage-exam-register-accept">확인</button>';
 			html += '	</div>';
 			html += '</div>';
 			return html;
@@ -281,7 +290,6 @@
 			var yearStudentListLength = yearStudentList.length;
 			var html = '';
 			html += '<div class="manage-exam-modify-content">';
-			html += '	<div class="modal-body">';
 			html += '		<div class="form-group row">';
 			html += '			<label class="col-lg-3 control-label manage-exam-label" for="manage-exam-modify-name">모의고사 이름</label>';
 			html += '			<div class="col-lg-6"><input type="text" maxlength="26" class="form-control" id="manage-exam-modify-name" value="' + exam.examName + '" data-toggle="tooltip" data-placement="bottom" title="잘못된 모의고사 이름입니다."></div>';
@@ -325,11 +333,6 @@
 			html += '				</div>';
 			html += '			</div>';
 			html += '		</div>';
-			html += '	</div>';
-			html += '	<div class="modal-footer manage-exam-modal-footer">';
-			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
-			html += '		<button type="button" class="btn btn-primary manage-exam-modify-accept">확인</button>';
-			html += '	</div>';
 			html += '</div>'
 			return html;
 		}
@@ -338,40 +341,31 @@
 			$('.manage-exam-modify-content').remove();
 		});
 		
+		var makeExamDeleteFooter = function (check) {
+			var html = '';
+			if (!check) {
+				html += '<div class="manage-exam-delete-footer">';
+				html += '	<button type="button" class="btn btn-primary manage-exam-delete-accept">확인</button>';
+				html += '</div>';
+			}
+			return html;
+		}
+		
 		var makeExamDeleteMessage = function (check) {
 			var html = '';
 			html += '<div class="manage-exam-delete-content">';
-			html += '	<div class="modal-body">';
 			if (check) {
 				html += '<p>해당 모의고사는 등급컷 정보가 등록되어 있습니다.</p>';
 				html += '<p>우선 등급컷 정보를 삭제 후 진행할 수 있습니다.</p>';
 			} else {
 				html += '이 모의고사를 정말로 삭제하시겠습니까?';
 			}
-			html += '	</div>';
-			html += '	<div class="modal-footer manage-exam-modal-footer">';
-			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
-			if (!check) {
-				html += '<button type="button" class="btn btn-primary manage-exam-delete-accept">확인</button>';
-			}
-			html += '	</div>';
 			html += '</div>';
 			$('#manage-exam-delete-view-detail').append(html);
-			if (!check) {
-				$('.manage-exam-delete-accept').on("click", function () {
-					$.ajax(contextPath + "/data/exam/" + csatSequence + "/" + examSequence + ".json", {
-						dataType : "json",
-						type : "DELETE",
-						data : {_method : "DELETE"},
-						success : function (data) {
-							if (data.result) {
-								$('#manage-exam-delete-view').modal("hide");
-								$('#manage-exam-csat-list').trigger("change");
-							}
-						}
-					});
-				});
-			}
 		}
+		
+		$('#manage-exam-delete-view').on('hide.bs.modal', function () {
+			$('.manage-exam-delete-footer').remove();
+		})
 	});
 </script>

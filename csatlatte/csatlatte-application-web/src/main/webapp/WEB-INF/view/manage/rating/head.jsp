@@ -62,6 +62,8 @@
 										$('#manage-rating-modify-accept').on("click", function () {
 											$btn = $(this).button('loading');
 											$('.manage-rating-modify-cancel').attr("disabled", true);
+											var action = $('.manage-rating-modify-form').attr("action");
+											$('.manage-rating-modify-form').attr("action", action.substring(0, action.lastIndexOf("rating/") + 7) + csatSequence + "/" + examSequence + ".json");
 										});
 										$('.manage-rating-modify-form').ajaxForm({
 											type : "PUT",
@@ -144,30 +146,22 @@
 		var makeCreateView = function (list) {
 			var listLength = list.length;
 			var html = '';
-			html += '<form class="manage-rating-create-form" method="post" action="' + contextPath + '/data/rating/' + csatSequence + '" enctype="multipart/form-data">';
 			html += '<div class="manage-rating-create-view">';
-			html += '	<div class="modal-body">';
-			html += '		<div class="form-group row">';
-			html += '			<label class="col-lg-3 control-label manage-rating-label" for="manage-rating-create-rating-cut">모의고사 이름</label>';
-			html += '			<div class="col-lg-6">';
-			html += '				<select class="form-control" name="examSequence" id="manage-rating-create-rating-cut">';
+			html += '	<div class="form-group row">';
+			html += '		<label class="col-lg-3 control-label manage-rating-label" for="manage-rating-create-rating-cut">모의고사 이름</label>';
+			html += '		<div class="col-lg-6">';
+			html += '			<select class="form-control" name="examSequence" id="manage-rating-create-rating-cut">';
 			for (var index = 0; index < listLength; index++) {
 				html += '<option value="' + list[index].examSequence + '" name="examSequence">' + list[index].examName + '</option>';
 			}
-			html += '				</select>';
-			html += '			</div>';
+			html += '			</select>';
 			html += '		</div>';
-			html += '		<div class="form-group row">';
-			html += '			<label class="col-lg-3 control-label manage-rating-label" for="manage-rating-create-file">파일 첨부</label>';
-			html += '			<div class="col-lg-6"><input type="file" name="file" id="manage-rating-create-file" data-toggle="tooltip" data-placement="bottom" title="올바르지 않은 파일입니다."></div>';
-			html += '		</div>';
-			html +=	'	</div>';
-			html += '	<div class="modal-footer">';
-			html += '		<button type="button" class="btn btn-default manage-rating-create-cancel" data-dismiss="modal" aria-label="Close">닫기</button>';
-			html += '		<input type="submit" id="manage-rating-create-accept" data-loading-text="Loading..." class="btn btn-primary" value="확인">';
+			html += '	</div>';
+			html += '	<div class="form-group row">';
+			html += '		<label class="col-lg-3 control-label manage-rating-label" for="manage-rating-create-file">파일 첨부</label>';
+			html += '		<div class="col-lg-6"><input type="file" name="file" id="manage-rating-create-file" data-toggle="tooltip" data-placement="bottom" title="올바르지 않은 파일입니다."></div>';
 			html += '	</div>';
 			html += '</div>';
-			html += '</form>';
 			return html;
 		}
 		
@@ -184,6 +178,9 @@
 						$('#manage-rating-create-accept').on("click", function () {
 							$btn = $(this).button('loading');
 							$('.manage-rating-create-cancel').attr("disabled", true);
+							var action = $('.manage-rating-create-form').attr("action");
+							$('.manage-rating-create-form').attr("action", action.substring(0, action.lastIndexOf("rating/") + 7) + csatSequence + ".json");
+							
 						});
 						$('.manage-rating-create-form').ajaxForm({
 							success : function () {
@@ -207,40 +204,26 @@
 		
 		var makeModifyView = function (detail) {
 			var html = '';
-			html += '<form class="manage-rating-modify-form" method="put" action="' + contextPath + '/data/rating/' + csatSequence + '/' + examSequence + '" enctype="multipart/form-data">';
 			html += '<div class="manage-rating-modify-view">';
-			html += '	<div class="modal-body">';
-			html += '		<div class="form-group row">';
-			html += '			<label class="col-lg-3 control-label manage-rating-label">모의고사 이름</label>';
-			html += '			<div class="col-lg-6">' + detail.examName + '</div>';
-			html += '		</div>';
-			html += '		<div class="form-group row">';
-			html += '			<label class="col-lg-3 control-label manage-rating-label" for="manage-rating-modify-file">파일 첨부</label>';
-			html += '			<div class="col-lg-6"><input type="file" name="file" id="manage-rating-modify-file" data-toggle="tooltip" data-placement="bottom" title="올바르지 않은 파일입니다."></div>';
-			html += '		</div>';
+			html += '	<div class="form-group row">';
+			html += '		<label class="col-lg-3 control-label manage-rating-label">모의고사 이름</label>';
+			html += '		<div class="col-lg-6">' + detail.examName + '</div>';
 			html += '	</div>';
-			html += '	<div class="modal-footer">';
-			html += '		<button type="button" class="btn btn-default manage-rating-modify-cancel" data-dismiss="modal" aria-label="Close">닫기</button>';
-			html += '		<input type="submit" id="manage-rating-modify-accept" class="btn btn-primary" value="확인">';
+			html += '	<div class="form-group row">';
+			html += '		<label class="col-lg-3 control-label manage-rating-label" for="manage-rating-modify-file">파일 첨부</label>';
+			html += '		<div class="col-lg-6"><input type="file" name="file" id="manage-rating-modify-file" data-toggle="tooltip" data-placement="bottom" title="올바르지 않은 파일입니다."></div>';
 			html += '	</div>';
 			html += '</div>';
-			html += '</form>';
 			return html;
 		}
 		
 		var makeDeleteMessage = function (count) {
 			var html = '';
 			html += '<div class="manage-rating-delete-view">';
-			html += '	<div class="modal-body">';
 			if (count > 0) {
 				html += '<p class="manage-rating-delete-alert"><b>이 등급컷은 ' + count + '명의 학생이 성적을 등록했습니다.</b></p>';
 			}
-			html += '		<p>정말로 이 등급컷을 삭제하시겠습니까?</p>';
-			html += '	</div>';
-			html += '	<div class="modal-footer">';
-			html += '		<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>';
-			html += '		<button type="button" class="btn btn-primary manage-rating-delete-accept">확인</button>';
-			html += '	</div>';
+			html += '	<p>정말로 이 등급컷을 삭제하시겠습니까?</p>';
 			html += '</div>';
 			return html;
 		}

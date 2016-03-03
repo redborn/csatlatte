@@ -29,7 +29,7 @@
 		
 		var makeStudentInformation = function (student) {
 			var html = '';
-			html += '<div class="modal-body manage-user-student-information">';
+			html += '<div class="manage-user-student-information">';
 			html += '	<img class="manage-user-picture" alt="회원사진" src="' + contextPath + '/file/student/' + student.studentSequence + '">';
 			html += '	<div class="manage-user-info">';
 			html +=	'		<div class="manage-user-info-content">';

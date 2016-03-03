@@ -55,10 +55,14 @@
 </nav>
 <div class="modal fade" id="manage-question-answer-view" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
-		<div class="modal-content" id="manage-question-detail">
+		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">문의 답변</h4>
+			</div>
+			<div class="modal-body" id="manage-question-detail">
+			</div>
+			<div class="modal-footer" id="manage-question-detail-footer">
 			</div>
 		</div>
 	</div>

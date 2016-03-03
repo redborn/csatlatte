@@ -44,17 +44,25 @@
 </nav>
 <div class="modal fade" id="manage-community-id" tabindex="-1" role="dialog">
 	<div class="modal-dialog manage-community-user-info-modal" role="document">
-		<div class="modal-content" id="manage-community-student-information">
+		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">회원정보</h4>
+			</div>
+			<div class="modal-body" id="manage-community-student-information"> 
 			</div>
 		</div>
 	</div>
 </div>
 <div class="modal fade" id="manage-community-text-detail" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
-		<div class="modal-content" id="manage-community-text-dialog">
+		<div class="modal-content">
+			<div class="modal-header" id="manage-community-text-dialog">
+			</div>
+			<div class="modal-body" id="manage-community-text-detail-content">
+			</div>
+			<div class="modal-footer" id="comment-area">
+			</div>
 		</div>
 	</div>
 </div>
