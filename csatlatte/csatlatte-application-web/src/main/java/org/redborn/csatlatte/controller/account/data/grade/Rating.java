@@ -10,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * 등급 성적 분석입니다.
+ */
 @Controller
 @RequestMapping("/{id}/data/grade/rating")
 public class Rating {
@@ -20,9 +23,14 @@ public class Rating {
 	@Autowired
 	private HttpSessionValue httpSessionValue;
 	
+	/**
+	 * 등급 성적 분석입니다.
+	 * 
+	 * @param model
+	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public void get(Model model) {
-		logger.info("Controller data grade.");
+		logger.info("Controller data grade rating GET.");
 		model.addAttribute("list", gradeService.ratingCutList(httpSessionValue.getCsatSequence(), httpSessionValue.getStudentSequence()));
 	}
 

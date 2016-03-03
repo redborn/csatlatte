@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * 일간 커뮤니티 통계입니다.
+ */
 @Controller
 @RequestMapping("/data/community/stats/daily")
 public class Daily {
@@ -18,9 +21,15 @@ public class Daily {
 	@Autowired
 	private CommunityService communityService;
 	
+	/**
+	 * 일간 커뮤니티 통계입니다.
+	 * 
+	 * @param model
+	 * @param ymd 연월일
+	 */
 	@RequestMapping(value="{ymd}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="ymd") String ymd) {
-		logger.info("data stats dailycommunity view");
+		logger.info("Controller data community stats daily GET.");
 		
 		model.addAttribute("dailyActive", communityService.dailyActive(CommunityService.COMMUNITY, ymd));
 	}

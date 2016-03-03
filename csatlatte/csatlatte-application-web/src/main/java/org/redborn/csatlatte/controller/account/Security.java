@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 아이디, 비밀번호를 찾을 때 질문과 답변을 변경하는 controller입니다.
- * 
- * @author 최순현
+ * 사용자 보안질문을 변경합니다.
  */
 @Controller
 @RequestMapping("/{id}/security")
@@ -29,13 +27,11 @@ public class Security {
 
 	/**
 	 * 보안변경 처리 영역입니다.
-	 * 
-	 * 선택한 질문과 입력한 답변으로 변경 처리 후 보안변경 완료 페이지(TilesName.MYINFO_SECURITY_SUCCESS)를 출력합니다.
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="securityQuestionSequence",required=true) int securityQuestionSequence,
 			@RequestParam(value="answer",required=true) String answer) {
-		logger.info("myinfo security modify");
+		logger.info("Controller account security POST.");
 		String result = TilesName.PROFILE_SECURITY_FAIL;
 		StudentSecurityQuestionVo studentSecurityQuestionVo = new StudentSecurityQuestionVo();
 		studentSecurityQuestionVo.setStudentSequence(httpSessionValue.getStudentSequence());

@@ -50,10 +50,12 @@ public class StudentServiceImpl implements StudentService {
 	private CsatAmazonS3 csatAmazonS3;
 	
 	public boolean checkPassword(int studentSequence, String password) {
+		logger.info("Business layer student checkPassword.");
 		return studentDao.selectOneCountPassword(studentSequence, makePassword(studentSequence, password)) == 1;
 	}
 	
 	public boolean changePassword(int studentSequence, String password, String newPassword) {
+		logger.info("Business layer student changePassword.");
 		boolean result = false;
 		if (studentDao.selectOneCountPassword(studentSequence, makePassword(studentSequence, password)) == 1 
 				&& studentDao.updatePassword(studentSequence, makePassword(studentSequence, newPassword)) == 1) {
@@ -64,6 +66,7 @@ public class StudentServiceImpl implements StudentService {
 
 	public boolean changePassword(String studentId, String securityAnswer,
 			String newPassword) {
+		logger.info("Business layer student checkPassword.");
 		boolean result = false;
 		if (isPassword(studentId, securityAnswer)) {
 			int studentSequence = getStudentSequence(studentId);
@@ -75,6 +78,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	public boolean changeInformation(StudentVo studentVo, File photo, boolean photoDelete) {
+		logger.info("Business layer student changeInformation.");
 		StudentVo beforeStudentVo = studentDao.selectOneDetail(studentVo.getStudentSequence());
 		
 		if (photo != null) {
@@ -97,10 +101,12 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	public boolean changeSecurity(StudentSecurityQuestionVo studentSecurityQuestionVo) {
+		logger.info("Business layer student changeSecurity.");
 		return studentSecurityQuestionDao.updateContent(studentSecurityQuestionVo) == 1;
 	}
 
 	public boolean join(StudentVo studentVo, StudentSecurityQuestionVo studentSecurityQuestionVo, File photo) {
+		logger.info("Business layer student join.");
 		boolean result = false;
 		int maxStudentSequence = studentDao.selectOneMaxStudentSequence();
 		studentVo.setStudentSequence(maxStudentSequence);
@@ -130,28 +136,31 @@ public class StudentServiceImpl implements StudentService {
 			if (studentDao.insert(studentVo) == 1 && studentSecurityQuestionDao.insert(studentSecurityQuestionVo) == 1) {
 				result = true;
 				transactionManager.commit(transactionStatus);
-				logger.info(new StringBuilder("Business layer student join success. transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
+				logger.info(new StringBuilder("Business layer student join success. Transaction commit. Student id is ").append(studentVo.getStudentId()).toString());
 			} else {
 				transactionManager.rollback(transactionStatus);
-				logger.warn(new StringBuilder("Business layer student join fail. transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
+				logger.warn(new StringBuilder("Business layer student join fail. Transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
 			}
 		} catch (RuntimeException e) {
 			transactionManager.rollback(transactionStatus);
-			logger.warn(new StringBuilder("Business layer student join exception. transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
+			logger.warn(new StringBuilder("Business layer student join exception. Transaction rollback. Student id is ").append(studentVo.getStudentId()).toString());
 		}
 		
 		return result;
 	}
 
 	public String findId(String nickname, String securityAnswer) {
+		logger.info("Business layer student findId.");
 		return studentDao.selectOneId(nickname, securityAnswer);
 	}
 
 	public boolean isPassword(String id, String securityAnswer) {
+		logger.info("Business layer student isPassword.");
 		return studentDao.selectOneCountIsPassword(id, securityAnswer) == 1;
 	}
 	
 	public boolean isId(String studentId) {
+		logger.info("Business layer student isId.");
 		boolean result = true;
 		if (studentDao.selectOneCountOverlapId(studentId) != 1) {
 			Set<String> url = new HashSet<String>();
@@ -190,46 +199,60 @@ public class StudentServiceImpl implements StudentService {
 	}
 	
 	public boolean isNickname(String nickname) {
+		logger.info("Business layer student isNickname.");
 		return studentDao.selectOneCountOverlapNickname(nickname) == 1;
 	}
 
 	public StudentVo information(String id, String password) {
+		logger.info("Business layer student information.");
 		return studentDao.selectOne(id, makePassword(id, password));
 	}
 	
 	public StudentVo information(int studentSequence) {
+		logger.info("Business layer student information.");
 		return studentDao.selectOneDetail(studentSequence);
 	}
 
 	public boolean connection(int studentSequence, String userAgent,
 			String sessionId, String ip) {
+		logger.info("Business layer student connection.");
 		return connectionStudentDao.insert(studentSequence, userAgent, sessionId, ip) == 1;
 	}
 
 	public boolean lock(int studentSequence) {
+		logger.info("Business layer student lock.");
 		return studentDao.updateUseYnN(studentSequence) == 1;
 	}
 	
 	public boolean unlock(int studentSequence) {
+		logger.info("Business layer student unlock.");
 		return studentDao.updateUseYnNRecovery(studentSequence) == 1;
 	}
 	
-	private List<CountVo> margeCountVoList(List<CountVo> connectionYmdCountVos, int begin, int end) {
+	/**
+	 * 통계 배열을 만듭니다.
+	 * 
+	 * @param connectionYmdCountVos 연결 수 배열
+	 * @param begin 시작 날짜
+	 * @param end 마지막 날짜
+	 * @return 통계 배열
+	 */
+	private List<CountVo> makeCountVoList(List<CountVo> YmdCountVos, int begin, int end) {
 		List<CountVo> ymdCountVos = new ArrayList<CountVo>();
 		
-		int connectionYmdCountVosIndex = 0;
-		int connectionYmdCountVosSize = connectionYmdCountVos != null ? connectionYmdCountVos.size() : 0;
+		int YmdCountVosIndex = 0;
+		int YmdCountVossSize = YmdCountVos != null ? YmdCountVos.size() : 0;
 		
 		for (int index = begin; index <= end; index++) {
 			CountVo ymdCountVo = new CountVo();
 			
 			int sumCount = 0;
 			
-			if (connectionYmdCountVosIndex < connectionYmdCountVosSize) {
-				CountVo connectionCountVo = connectionYmdCountVos.get(connectionYmdCountVosIndex);
+			if (YmdCountVosIndex < YmdCountVossSize) {
+				CountVo connectionCountVo = YmdCountVos.get(YmdCountVosIndex);
 				if (connectionCountVo.getKey() == index) {
 					sumCount = connectionCountVo.getCount();
-					connectionYmdCountVosIndex++;
+					YmdCountVosIndex++;
 				}
 			}
 			
@@ -243,50 +266,61 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	public List<CountVo> dailyJoinCountList(String ymd) {
-		return margeCountVoList(studentDao.selectListCountYmd(ymd), 0, 23);
+		logger.info("Business layer student dailyJoinCountList.");
+		return makeCountVoList(studentDao.selectListCountYmd(ymd), 0, 23);
 	}
 
 	public List<CountVo> monthlyJoinCountList(String ym) {
+		logger.info("Business layer student monthlyJoinCountList.");
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Integer.parseInt(ym.substring(0, 4)), Integer.parseInt(ym.substring(5, 6)) - 1, 1);
-		return margeCountVoList(studentDao.selectListCountYm(ym), 1, calendar.getActualMaximum(Calendar.DATE));
+		return makeCountVoList(studentDao.selectListCountYm(ym), 1, calendar.getActualMaximum(Calendar.DATE));
 	}
 
 	public List<CountVo> annualJoinCountList(String year) {
-		return margeCountVoList(studentDao.selectListCountYear(year), 1, 12);
+		logger.info("Business layer student annualJoinCountList.");
+		return makeCountVoList(studentDao.selectListCountYear(year), 1, 12);
 	}
 
 	public List<CountVo> dailyConnectionCount(String ymd) {
-		return margeCountVoList(connectionStudentDao.selectListCountYmd(ymd), 0, 23);
+		logger.info("Business layer student dailyConnectionCount.");
+		return makeCountVoList(connectionStudentDao.selectListCountYmd(ymd), 0, 23);
 	}
 
 	public List<CountVo> monthlyConnectionCount(String ym) {
+		logger.info("Business layer student monthlyConnectionCount.");
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Integer.parseInt(ym.substring(0, 4)), Integer.parseInt(ym.substring(5, 6)) - 1, 1);
-		return margeCountVoList(connectionStudentDao.selectListCountYm(ym), 1, calendar.getActualMaximum(Calendar.DATE));
+		return makeCountVoList(connectionStudentDao.selectListCountYm(ym), 1, calendar.getActualMaximum(Calendar.DATE));
 	}
 
 	public List<CountVo> annualConnectionCount(String year) {
-		return margeCountVoList(connectionStudentDao.selectListCountYear(year), 1, 12);
+		logger.info("Business layer student annualConnectionCount.");
+		return makeCountVoList(connectionStudentDao.selectListCountYear(year), 1, 12);
 	}
 
 	public List<StudentVo> userList(String search, int pageNumber) {
+		logger.info("Business layer student userList.");
 		return studentDao.selectList(search, pageNumber);
 	}
 
 	public String securityQuestion(String nickname) {
+		logger.info("Business layer student securityQuestion.");
 		return securityQuestion(studentDao.selectOneStudentSequence(nickname));
 	}
 
 	public String securityQuestion(int studentSequence) {
+		logger.info("Business layer student securityQuestion.");
 		return securityQuestionDao.selectOne(studentSequence);
 	}
 	
 	public int amountStudent(String search) {
+		logger.info("Business layer student amountStudent.");
 		return studentDao.selectOneCount(search);
 	}
 	
 	public List<YearStudentVo> yearStudentList() {
+		logger.info("Business layer student yearStudentList.");
 		return yearStudentDao.selectList();
 	}
 	
@@ -298,6 +332,7 @@ public class StudentServiceImpl implements StudentService {
 	 * @return 생성된 비밀번호
 	 */
 	private String makePassword(String studentId, String password) {
+		logger.info("Business layer student makePassword.");
 		String hmsm = studentDao.selectOneCreateHmsmWhereStudentId(studentId);
 		if (hmsm == null) {
 			hmsm = "";
@@ -313,6 +348,7 @@ public class StudentServiceImpl implements StudentService {
 	 * @return 생성된 비밀번호
 	 */
 	private String makePassword(int studentSequence, String password) {
+		logger.info("Business layer student makePassword.");
 		String hmsm = studentDao.selectOneCreateHmsmWhereStudentSequence(studentSequence);
 		if (hmsm == null) {
 			hmsm = "";
@@ -321,18 +357,22 @@ public class StudentServiceImpl implements StudentService {
 	}
 	
 	public List<SecurityQuestionVo> securityQuestionList() {
+		logger.info("Business layer student securityQuestionList.");
 		return securityQuestionDao.selectList();
 	}
 	
 	public int getStudentSequence(String studentId) {
+		logger.info("Business layer student getStudentSequence.");
 		return studentDao.selectOneStudentSequenceById(studentId);
 	}
 
 	public String getPhotoName(int studentSequence) {
+		logger.info("Business layer student getPhotoName.");
 		return studentDao.selectPhotoName(studentSequence);
 	}
 	
 	public InputStream getInputStream(int studentSequence) {
+		logger.info("Business layer student InputStream.");
 		return csatAmazonS3.getInputStream(CsatAmazonS3Prefix.STUDENT_PROFILE, studentDao.selectPhotoCode(studentSequence));
 	}
 

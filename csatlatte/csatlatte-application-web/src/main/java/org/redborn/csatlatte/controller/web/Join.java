@@ -23,9 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * 수능라떼 사용자로 등록하는 controller입니다.
- * 
- * @author 최순현
+ * 회원가입입니다.
  */
 @Controller
 @RequestMapping("/join")
@@ -38,11 +36,11 @@ public class Join {
 	private ExamService examService;
 
 	/**
-	 * 사용자 등록에 필요한 정보를 입력하는 페이지입니다.
+	 * 회원가입입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model) {
-		logger.info("join view");
+		logger.info("Controller join GET.");
 		
 		List<CsatVo> csatList = examService.csatList();
 		int presentCsatSequence = 0;
@@ -72,15 +70,13 @@ public class Join {
 	}
 	
 	/**
-	 * 입력한 사용자 정보 등록 처리 영역입니다.
-	 * 
-	 * 입력한 사용자 정보에 이상이 없는 경우 회원가입 처리 후 회원가입 완료 페이지(TilesName.JOIN_SUCCESS)를 출력합니다.
+	 * 회원가입 처리입니다.
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public String post(@RequestParam(value="studentId",required=true) String studentId, @RequestParam(value="password",required=true) String password,
 			@RequestParam(value="securityQuestion",required=true) int securityQuestion, @RequestParam(value="answer",required=true) String answer, 
 			@RequestParam(value="nickname",required=true) String nickname, @RequestParam(value="csat",required=true) int csat, @RequestParam(value="photo",required=false) MultipartFile photo) {
-		logger.info("join success");
+		logger.info("Controller join POST.");
 		String result = TilesName.JOIN_FAIL;
 		if (!studentService.isId(studentId) && !studentService.isNickname(nickname)) {
 			StudentVo studentVo = new StudentVo();
@@ -102,9 +98,9 @@ public class Join {
 					try {
 						photo.transferTo(file);
 					} catch (IllegalStateException e) {
-						e.printStackTrace();
+						logger.error("Controller join POST IllegalStateException. Exception is " + e.getStackTrace());
 					} catch (IOException e) {
-						e.printStackTrace();
+						logger.error("Controller join POST IOException. Exception is " + e.getStackTrace());
 					}
 				} else {
 					fileError = true;

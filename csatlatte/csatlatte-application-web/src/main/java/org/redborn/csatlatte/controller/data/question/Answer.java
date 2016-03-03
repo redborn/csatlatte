@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * 문의답변입니다.
+ */
 @Controller
 @RequestMapping("/data/question/answer")
 public class Answer {
@@ -20,10 +23,17 @@ public class Answer {
 	@Autowired
 	private QnaService qnaService;
 	
+	/**
+	 * 문의답변 추가입니다.
+	 * 
+	 * @param model
+	 * @param qnaSequence 문의 일련번호
+	 * @param answerContent 답변내용
+	 */
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="qnaSequence") int qnaSequence, 
 			@RequestParam(value="answerContent",required=true) String answerContent) {
-		logger.info("data manage question post insert");
+		logger.info("Controller data question answer POST.");
 		
 		QnaAnswerVo qnaAnswerVo = new QnaAnswerVo();
 		

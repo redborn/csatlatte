@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
- * 사용자 정보를 조회하고 관리자 권한, 계정에 대한 차단 등을 설정하는 controller 입니다.
- * 
- * @author 최순현
+ * 회원관리입니다.
  */
 @Controller
 @RequestMapping("/manage/user")
@@ -32,12 +30,12 @@ public class User {
 	private StudentService studentService;
 
 	/**
-	 * 사용자 정보를 관리하는 페이지입니다.
+	 * 회원 목록입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(Model model, HttpServletRequest request, @RequestParam(value="search",required=false,defaultValue="") String search, 
 			@RequestParam(value="pageNumber",required=false,defaultValue="1") int pageNumber) {
-		logger.info("manage user view");
+		logger.info("Controller manage user GET.");
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("search", search);

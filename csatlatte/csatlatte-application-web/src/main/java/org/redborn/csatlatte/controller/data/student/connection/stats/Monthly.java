@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * 월간 접속자 통계입니다.
+ */
 @Controller
 @RequestMapping("/data/student/connection/stats/monthly")
 public class Monthly {
@@ -18,9 +21,15 @@ public class Monthly {
 	@Autowired
 	private StudentService studentService;
 	
+	/**
+	 * 월간 접속자 통계입니다.
+	 * 
+	 * @param model
+	 * @param ym 연월
+	 */
 	@RequestMapping(value="{ym}", method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="ym") String ym) {
-		logger.info("data stats monthlyconnection view");
+		logger.info("Controller data student connection stats monthly GET.");
 
 		model.addAttribute("monthlyConnection", studentService.monthlyConnectionCount(ym));
 	}
