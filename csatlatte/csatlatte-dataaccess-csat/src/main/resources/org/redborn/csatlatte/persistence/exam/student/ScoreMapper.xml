@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="exam.student.score">
+
+	<resultMap type="GradeListVo" id="GradeListVoMap">
+		<result column="section_seq" property="sectionSequence"/>
+		<result column="subject_seq" property="subjectSequence"/>
+		<result column="subject_name" property="subjectName"/>
+		<result column="score" property="score"/>
+		<result column="standard_score" property="standardScore"/>
+		<result column="rating_code" property="ratingCode"/>
+	</resultMap>
+	
+	<resultMap type="GradeVo" id="GradeVoExamStudentMap">
+		<result column="student_seq" property="studentSequence"/>
+		<result column="csat_seq" property="csatSequence"/>
+		<result column="exam_seq" property="examSequence"/>
+	</resultMap>
+	
+	<resultMap type="GradeRatingVo" id="GradeRatingVoMap">
+		<result column="exam_name" property="examName"/>
+		<result column="rating_avg" property="ratingAverage"/>
+	</resultMap>
+	
+	<resultMap type="GradeStandardScoreVo" id="GradeStandardScoreVoMap">
+		<result column="exam_name" property="examName"/>
+		<result column="standard_score_sum" property="standardScoreSum"/>
+	</resultMap>
+
+	<select id="selectList" parameterType="Map" resultMap="GradeListVoMap">
+		SELECT cess.section_seq,cess.subject_seq,ces.subject_name,cess.score,
+		       TRUNCATE(( ( cess.score - cea.avg ) / cea.standard_deviation ) * (
+		       ces.max_score / 5 ) +
+		       ces.max_score, 0) AS standard_score,cerc.rating_code
+		  FROM csat_exam_student_score cess
+		       INNER JOIN csat_exam_subject ces
+		               ON cess.csat_seq = ces.csat_seq
+               	  		  AND cess.exam_seq = ces.exam_seq
+		                  AND cess.section_seq = ces.section_seq
+		                  AND cess.subject_seq = ces.subject_seq
+		       INNER JOIN csat_exam_avg cea
+		               ON cess.csat_seq = cea.csat_seq
+		                  AND cess.exam_seq = cea.exam_seq
+		                  AND cess.section_seq = cea.section_seq
+		                  AND cess.subject_seq = cea.subject_seq
+		       INNER JOIN (SELECT
+		       cerc1.csat_seq,cerc1.rating_code,cerc1.exam_seq,cerc1.section_seq,
+		                  cerc1.subject_seq,cerc1.raw_score AS min_raw_score,
+		                         IFNULL(cerc2.raw_score, ces.max_score + 1) AS max_raw_score
+		                     FROM csat_exam_rating_cut cerc1
+		                          LEFT OUTER JOIN csat_exam_rating_cut cerc2
+		                                       ON cerc1.csat_seq = cerc2.csat_seq
+		                                          AND cerc1.exam_seq = cerc2.exam_seq
+		                                          AND cerc1.section_seq =
+		                                              cerc2.section_seq
+		                                          AND cerc1.subject_seq =
+		                                              cerc2.subject_seq
+		                                          AND cerc1.rating_code =
+		                                              cerc2.rating_code + 1
+		                          INNER JOIN csat_exam_subject ces
+		                                  ON cerc1.csat_seq = ces.csat_seq
+		                                     AND cerc1.exam_seq = ces.exam_seq
+		                                     AND cerc1.section_seq = ces.section_seq
+		                                     AND cerc1.subject_seq = ces.subject_seq
+		                    WHERE cerc1.csat_seq = #{csatSequence}
+		                      AND cerc1.exam_seq = #{examSequence}) cerc
+		               ON cess.csat_seq = cerc.csat_seq
+		                  AND cess.exam_seq = cerc.exam_seq
+		                  AND cess.section_seq = cerc.section_seq
+		                  AND cess.subject_seq = cerc.subject_seq
+		                  AND cess.score &gt;= cerc.min_raw_score 
+		                  AND cess.score &lt; cerc.max_raw_score
+		 WHERE cess.csat_seq = #{csatSequence}
+		   AND cess.exam_seq = #{examSequence}
+		   AND cess.student_seq = #{studentSequence}
+	</select>
+	
+	<select id="selectListExamStudent" parameterType="Map" resultMap="GradeVoExamStudentMap">
+		SELECT student_seq, csat_seq, exam_seq
+		  FROM csat_exam_student_score
+	 	 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		 GROUP BY student_seq
+	</select>
+	
+	<select id="selectListRating" parameterType="Map" resultMap="GradeRatingVoMap">
+		SELECT ce.exam_name,cess.rating_avg
+		  FROM (SELECT cess.csat_seq,cess.exam_seq,TRUNCATE(AVG(cerc.rating_code), 2) AS rating_avg
+		          FROM csat_exam_student_score cess
+		               INNER JOIN (SELECT cerc1.csat_seq,cerc1.rating_code,cerc1.exam_seq,cerc1.section_seq,cerc1.subject_seq,cerc1.raw_score AS min_raw_score,
+		                                                                                  IFNULL(cerc2.raw_score, ces.max_score + 1) AS max_raw_score
+		                             FROM csat_exam_rating_cut cerc1
+		                                  LEFT OUTER JOIN csat_exam_rating_cut cerc2
+		                                               ON cerc1.csat_seq = cerc2.csat_seq
+		                                                  AND cerc1.exam_seq = cerc2.exam_seq
+		                                                  AND cerc1.section_seq = cerc2.section_seq
+		                                                  AND cerc1.subject_seq = cerc2.subject_seq
+		                                                  AND cerc1.rating_code = cerc2.rating_code + 1
+		                                  INNER JOIN csat_exam_subject ces
+		                                          ON cerc1.csat_seq = ces.csat_seq
+		                                             AND cerc1.exam_seq = ces.exam_seq
+		                                             AND cerc1.section_seq = ces.section_seq
+		                                             AND cerc1.subject_seq = ces.subject_seq
+		                            WHERE cerc1.csat_seq = #{csatSequence}) cerc
+		                       ON cess.csat_seq = cerc.csat_seq
+		                          AND cess.exam_seq = cerc.exam_seq
+		                          AND cess.section_seq = cerc.section_seq
+		                          AND cess.subject_seq = cerc.subject_seq
+		                          AND cess.score &gt;= cerc.min_raw_score
+		                          AND cess.score &lt; cerc.max_raw_score
+		         WHERE cess.student_seq = #{studentSequence}
+		           AND cess.csat_seq = #{csatSequence}
+		         GROUP BY exam_seq) cess
+		       INNER JOIN (SELECT csat_seq,exam_seq,exam_name
+		                     FROM csat_exam
+		                    WHERE csat_seq = #{csatSequence}) ce
+		               ON cess.csat_seq = ce.csat_seq
+		                  AND cess.exam_seq = ce.exam_seq
+		 ORDER BY cess.exam_seq
+	</select>
+	
+	<select id="selectListStandardScore" parameterType="int" resultMap="GradeStandardScoreVoMap">
+		SELECT ce.exam_name,cess.standard_score_sum
+		  FROM(SELECT cess.csat_seq,cess.exam_seq,SUM(TRUNCATE(( ( cess.score - cea.avg ) / cea.standard_deviation ) * ( ces.max_score / 5 ) + ces.max_score, 0)) AS
+		                                                standard_score_sum
+		         FROM csat_exam_student_score cess
+		              INNER JOIN csat_exam_subject ces
+		                      ON cess.csat_seq = ces.csat_seq
+		                         AND cess.exam_seq = ces.exam_seq
+		                         AND cess.section_seq = ces.section_seq
+		                         AND cess.subject_seq = ces.subject_seq
+		              INNER JOIN csat_exam_avg cea
+		                      ON cess.csat_seq = cea.csat_seq
+		                         AND cess.exam_seq = cea.exam_seq
+		                         AND cess.section_seq = cea.section_seq
+		                         AND cess.subject_seq = cea.subject_seq
+		        WHERE cess.csat_seq = #{csatSequence}
+		          AND cess.student_seq = #{studentSequence}
+		        GROUP BY csat_seq,exam_seq) cess
+		      INNER JOIN (SELECT csat_seq,exam_seq,exam_name
+		                    FROM csat_exam
+		                   WHERE csat_seq = #{csatSequence}) ce
+		              ON cess.csat_seq = ce.csat_seq
+		                 AND cess.exam_seq = ce.exam_seq
+		 ORDER BY cess.exam_seq
+	</select>
+
+	<insert id="insert" parameterType="GradeVo">
+		INSERT INTO csat_exam_student_score
+		       (student_seq,csat_seq,exam_seq,section_seq,subject_seq,score)
+		VALUES (#{studentSequence},#{csatSequence},#{examSequence},
+				#{sectionSequence},#{subjectSequence},#{score}) 
+	</insert>
+	
+	<update id="update" parameterType="GradeVo">
+		UPDATE csat_exam_student_score
+		   SET score = #{score}
+		 WHERE student_seq = #{studentSequence}
+		   AND csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence} 
+	</update>
+	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_exam_student_score
+		 WHERE student_seq = #{studentSequence}
+		   AND csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence} 
+	</delete>
+	
+	<delete id="deleteForManage" parameterType="Map">
+		DELETE FROM csat_exam_student_score
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</delete>
+	
+</mapper>

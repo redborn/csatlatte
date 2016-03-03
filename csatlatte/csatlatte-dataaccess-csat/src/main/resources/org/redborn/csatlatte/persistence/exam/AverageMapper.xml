@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="exam.average">
+
+	<resultMap type="AverageVo" id="AverageVoMap">
+		<result column="csat_seq" property="csatSequence"/>
+		<result column="exam_seq" property="examSequence"/>
+		<result column="section_seq" property="sectionSequence"/>
+		<result column="subject_seq" property="subjectSequence"/>
+		<result column="avg" property="average"/>
+		<result column="standard_deviation" property="standardDeviation"/>
+		<result column="subject_name" property="subjectName"/>
+	</resultMap>
+
+	<select id="selectList" parameterType="Map" resultMap="AverageVoMap">
+		SELECT cea.csat_seq,cea.exam_seq,cea.section_seq,cea.subject_seq,cea.avg,
+		       cea.standard_deviation,ces.subject_name
+		  FROM csat_exam_avg cea
+		       LEFT OUTER JOIN (SELECT *
+		                          FROM csat_exam_subject
+		                         WHERE csat_seq = #{csatSequence}
+		                           AND exam_seq = #{examSequence}) ces
+		                    ON ( ces.csat_seq = cea.csat_seq
+		                         AND ces.exam_seq = cea.exam_seq
+		                         AND ces.section_seq = cea.section_seq
+		                         AND ces.subject_seq = cea.subject_seq )
+		 WHERE cea.csat_seq = #{csatSequence}
+		   AND cea.exam_seq = #{examSequence} 
+	</select>
+
+	<insert id="insert" parameterType="AverageVo">
+		INSERT INTO csat_exam_avg
+		VALUES (#{csatSequence}, #{examSequence}, #{sectionSequence}, #{subjectSequence},
+				#{average}, #{standardDeviation}) 
+	</insert>
+	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_exam_avg
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</delete>
+	
+</mapper>

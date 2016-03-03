@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="community">
+
+	<resultMap type="CommunityVo" id="CommunityVoMap">
+		<result column="community_seq" property="communitySequence"/>
+		<result column="student_seq" property="studentSequence"/>
+		<result column="nickname" property="nickname" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
+		<result column="content" property="content"/>
+		<result column="report" property="report" typeHandler="org.redborn.csatlatte.commons.mybatis.BooleanTypeHandler"/>
+		<result column="blind" property="blind" typeHandler="org.redborn.csatlatte.commons.mybatis.BooleanTypeHandler"/>
+		<result column="write_ymdhms" property="writeYmdhms"/>
+	</resultMap>
+	
+	<resultMap type="CommunityVo" id="CommunityVoManageMap">
+		<result column="community_seq" property="communitySequence"/>
+		<result column="student_seq" property="studentSequence"/>
+		<result column="student_id" property="studentId" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
+		<result column="nickname" property="nickname" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
+		<result column="content" property="content"/>
+		<result column="write_date" property="writeYmdhms"/>
+		<result column="blind" property="blind"/>
+		<result column="student_seq" property="studentSequence"/>
+	</resultMap>
+	
+	<resultMap type="CountVo" id="YmdCountVoMap">
+		<result column="hour" property="key"/>
+		<result column="count_write" property="count"/>
+	</resultMap>
+	
+	<resultMap type="CountVo" id="YmCountVoMap">
+		<result column="day" property="key"/>
+		<result column="count_write" property="count"/>
+	</resultMap>
+	
+	<resultMap type="CountVo" id="YearCountVoMap">
+		<result column="month" property="key"/>
+		<result column="count_write" property="count"/>
+	</resultMap>
+	
+	<select id="selectOne" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_community
+		 WHERE community_type_seq = #{communityTypeSequence}
+		   AND community_seq = #{communitySequence}
+		   AND student_seq = #{studentSequence}
+	</select>
+	
+	<select id="selectOneCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_community cc, csat_student cs
+		 WHERE cc.student_seq = cs.student_seq
+		   AND ( cs.student_id LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler})
+		          OR cs.nickname LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}))
+	</select>
+	
+	<select id="selectOneDetail" parameterType="Map" resultMap="CommunityVoMap">
+		SELECT cc.community_seq, cs.nickname, cc.content, DATE_FORMAT(cc.write_date, '%Y%m%d%H%i%s') AS write_ymdhms
+		  FROM csat_community cc, csat_student cs
+		 WHERE cc.student_seq = cs.student_seq
+		   AND cc.community_type_seq = #{communityTypeSequence}
+		   AND cc.community_seq = #{communitySequence}
+	</select>
+	
+	<select id="selectListCountYmd" parameterType="Map" resultMap="YmdCountVoMap">
+		SELECT CAST(DATE_FORMAT(write_date, '%H') AS SIGNED) AS hour,COUNT(community_seq) AS count_write
+		  FROM csat_community
+		 WHERE write_date &gt;= STR_TO_DATE(#{ymd}, '%Y%m%d')
+		   AND write_date &lt; DATE_ADD(STR_TO_DATE(#{ymd}, '%Y%m%d'), INTERVAL 1 day)
+		   AND community_type_seq = #{communityTypeSequence}
+		 GROUP BY DATE_FORMAT(write_date, '%H')
+	</select>
+	
+	<select id="selectListCountYm" parameterType="Map" resultMap="YmCountVoMap">
+		SELECT CAST(DATE_FORMAT(write_date, '%d') AS SIGNED) AS day,COUNT(community_seq) AS count_write
+		  FROM csat_community
+		 WHERE write_date &gt;= STR_TO_DATE(CONCAT(#{ym}, '01'), '%Y%m%d')
+		   AND write_date &lt; DATE_ADD(STR_TO_DATE(CONCAT(#{ym}, '01'), '%Y%m%d'), INTERVAL 1 month)
+		   AND community_type_seq = #{communityTypeSequence}
+		 GROUP BY DATE_FORMAT(write_date, '%d')
+	</select>
+	
+	<select id="selectListCountYear" parameterType="Map" resultMap="YearCountVoMap">
+		SELECT CAST(DATE_FORMAT(write_date, '%m') AS SIGNED) AS month,COUNT(community_seq) AS count_write
+		  FROM csat_community
+		 WHERE write_date &gt;= STR_TO_DATE(CONCAT(#{year}, '0101'), '%Y%m%d')
+		   AND write_date &lt; DATE_ADD(STR_TO_DATE(CONCAT(#{year}, '0101'), '%Y%m%d'), INTERVAL 1 year)
+		   AND community_type_seq = #{communityTypeSequence}
+		 GROUP BY DATE_FORMAT(write_date, '%m')
+	</select>
+	
+	<select id="selectList" parameterType="Map" resultMap="CommunityVoMap">
+		SELECT cc.community_seq,cc.student_seq,cs.nickname,
+			   IF (IFNULL(ccb.community_type_seq, 0) = 0, cc.content, NULL) AS content,
+		       DATE_FORMAT(cc.write_date, '%Y%m%d%H%i%s') AS write_ymdhms,
+		       IF (IFNULL(ccr.community_type_seq, 0) = 0, 0, 1) AS report,
+		       IF (IFNULL(ccb.community_type_seq, 0) = 0, 0, 1) AS blind
+		  FROM csat_community cc
+		       INNER JOIN csat_student cs
+		               ON cc.student_seq = cs.student_seq
+		       LEFT OUTER JOIN (SELECT community_type_seq,community_seq
+		                          FROM csat_community_report
+		                         WHERE student_seq = #{studentSequence}
+		                           AND community_type_seq = #{communityTypeSequence}
+								<if test="start > 0">
+								   AND community_seq &lt;= #{start}
+								</if>
+								<if test="end > 0">
+								   AND community_seq &gt;= #{end}
+								</if>
+		                        ) ccr
+		                    ON cc.community_type_seq = ccr.community_type_seq
+		                       AND cc.community_seq = ccr.community_seq
+				LEFT OUTER JOIN (SELECT community_type_seq,community_seq
+		                          FROM csat_community_blind
+		                         WHERE community_type_seq = #{communityTypeSequence}
+		                        <if test="start > 0">
+								   AND community_seq &lt;= #{start}
+								</if>
+								<if test="end > 0">
+								   AND community_seq &gt;= #{end}
+								</if>
+								) ccb
+		                    ON cc.community_type_seq = ccb.community_type_seq
+		                       AND cc.community_seq = ccb.community_seq
+		 WHERE cc.use_yn = 'Y'
+		   AND cc.community_type_seq = #{communityTypeSequence}
+		<if test="searchStudentSequence > 0">
+		   AND cc.student_seq = #{searchStudentSequence}
+		</if>
+		<if test="start > 0">
+		   AND cc.community_seq &lt;= #{start}
+		</if>
+		<if test="end > 0">
+		   AND cc.community_seq &gt;= #{end}
+		</if>
+		 ORDER BY community_seq DESC
+		<if test="limit > 0">
+		 LIMIT 0, #{limit}
+		</if>
+	</select>
+	
+	<select id="selectListForManage" parameterType="Map" resultMap="CommunityVoManageMap">
+		SELECT cc.community_seq,cs.student_seq,cs.student_id,cs.nickname,cc.content,DATE_FORMAT(cc.write_date, '%Y%m%d%H%i%s') as write_date,
+		       IFNULL(ccb.blind, 0) AS blind, cs.student_seq
+		  FROM csat_community cc
+		       LEFT OUTER JOIN (SELECT ccb.community_seq,COUNT(ccb.community_seq) AS
+		                                                 blind
+		                          FROM csat_community_blind ccb
+		                         GROUP BY ccb.community_seq) ccb
+		                    ON cc.community_seq = ccb.community_seq,csat_student cs
+		 WHERE cc.student_seq = cs.student_seq
+		   AND cc.community_type_seq = #{communityTypeSequence}
+		   AND cc.use_yn = 'Y'
+		   AND ( cs.student_id LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler})
+		          OR cs.nickname LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}))
+	  ORDER BY cc.community_seq desc
+		 LIMIT #{pageNumber}, 10
+	</select>
+	
+	<select id="selectListStudentText" parameterType="Map" resultMap="CommunityVoMap">
+		SELECT cc.community_seq,cc.student_seq,cs.nickname,cc.content,DATE_FORMAT(cc.write_date, '%Y%m%d%H%i%s') AS write_ymdhms
+		  FROM csat_community cc, csat_student cs
+		 WHERE cc.use_yn = 'Y'
+		   AND cc.student_seq = cs.student_seq
+		   AND cc.student_seq = #{studentSequence}
+		   AND cc.community_type_seq = #{communityTypeSequence}
+	</select>
+	
+	<insert id="insert" parameterType="Map">
+		INSERT INTO csat_community(community_type_seq, community_seq, student_seq, content, write_date, use_yn, user_agent, session_id, ip)
+		VALUES (#{communityTypeSequence}, (select IFNULL(max(cc.community_seq),0)+1 as community_seq from csat_community cc), #{studentSequence}, #{content}, NOW(3), 'Y', #{userAgent}, #{sessionId}, #{ip})
+	</insert>
+	
+	<update id="updateUseYnN" parameterType="Map">
+		UPDATE csat_community
+		   SET use_yn = 'N'
+		 WHERE community_type_seq = #{communityTypeSequence} 
+		   AND community_seq = #{communitySequence}
+	</update>
+	
+</mapper>

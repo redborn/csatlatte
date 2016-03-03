@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="connection.student">
+	
+	<resultMap type="CountVo" id="YmdCountVoMap">
+		<result column="hour" property="key"/>
+		<result column="count_connection" property="count"/>
+	</resultMap>
+	
+	<resultMap type="CountVo" id="YmCountVoMap">
+		<result column="day" property="key"/>
+		<result column="count_connection" property="count"/>
+	</resultMap>
+
+	<resultMap type="CountVo" id="YearCountVoMap">
+		<result column="month" property="key"/>
+		<result column="count_connection" property="count"/>
+	</resultMap>
+	
+	<select id="selectListCountYmd" parameterType="String" resultMap="YmdCountVoMap">
+		SELECT CAST(DATE_FORMAT(connection_date, '%H') AS SIGNED) as hour,COUNT(student_seq) as count_connection
+		  FROM csat_connection_student
+		 WHERE connection_date &gt;= STR_TO_DATE(#{ymd}, '%Y%m%d')
+		   AND connection_date &lt; DATE_ADD(STR_TO_DATE(#{ymd}, '%Y%m%d'), INTERVAL 1 day)
+		 GROUP BY DATE_FORMAT(connection_date, '%H') 
+	</select>
+	
+	<select id="selectListCountYm" parameterType="String" resultMap="YmCountVoMap">
+		SELECT CAST(DATE_FORMAT(connection_date, '%d') AS SIGNED) as day,COUNT(student_seq) as count_connection
+		  FROM csat_connection_student
+		 WHERE connection_date &gt;= STR_TO_DATE(CONCAT(#{ym},'01'), '%Y%m%d')
+		   AND connection_date &lt; DATE_ADD(STR_TO_DATE(CONCAT(#{ym},'01'), '%Y%m%d'), INTERVAL 1 month)
+		 GROUP BY DATE_FORMAT(connection_date, '%d') 
+	</select>
+	
+	<select id="selectListCountYear" parameterType="String" resultMap="YearCountVoMap">
+		SELECT CAST(DATE_FORMAT(connection_date, '%m') AS SIGNED) as month,COUNT(student_seq) as count_connection
+		  FROM csat_connection_student
+		 WHERE connection_date &gt;= STR_TO_DATE(CONCAT(#{year},'0101'), '%Y%m%d')
+		   AND connection_date &lt; DATE_ADD(STR_TO_DATE(CONCAT(#{year},'0101'), '%Y%m%d'), INTERVAL 1 year)
+		 GROUP BY DATE_FORMAT(connection_date, '%m') 
+	</select>
+	
+	<insert id="insert" parameterType="Map">
+		INSERT INTO csat_connection_student
+		            (connection_seq,student_seq,connection_date,user_agent,session_id,ip)
+		     VALUES((select IFNULL(max(ccs.connection_seq),0)+1 as connection_seq from csat_connection_student ccs), #{studentSequence}, NOW(3), #{userAgent}, #{sessionId}, #{ip}) 
+	</insert>
+	
+</mapper>

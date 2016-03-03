@@ -13,5 +13,5 @@
 	</div>
 </div>
 <div id="join-success-btn-group">
-	<a class="btn btn-default" href="<c:url value="/grade"/>">내 성적 입력하기</a>
+	<a class="btn btn-default" href="<c:url value="/main"/>">로그인 하기</a>
 </div>

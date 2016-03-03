@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd" >
+
+<taglib>
+	<tlib-version>1.2</tlib-version>
+	<jsp-version>2.2</jsp-version>
+	<short-name>session</short-name>
+	<tag>
+		<name>isGuest</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.IsGuestTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+	<tag>
+		<name>isLogin</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.IsLoginTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+	<tag>
+		<name>isStudent</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.IsStudentTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+	<tag>
+		<name>isManager</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.IsManagerTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+	<tag>
+		<name>isStudentSequence</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.IsStudentSequenceTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>studentSequence</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>id</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.IdTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+	<tag>
+		<name>nickname</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.NicknameTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+	<tag>
+		<name>studentSequence</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.StudentSequenceTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+	<tag>
+		<name>csatSequence</name>
+		<tag-class>org.redborn.csatlatte.commons.tag.el.servlet.http.CsatSequenceTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+</taglib>

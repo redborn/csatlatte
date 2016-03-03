@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="csat">
+
+	<resultMap type="CsatVo" id="CsatVoMap">
+		<result column="csat_seq" property="csatSequence"/>
+		<result column="csat_name" property="csatName"/>
+		<result column="exam_ymd" property="examYmd"/>
+	</resultMap>
+
+	<select id="selectOne" parameterType="int" resultMap="CsatVoMap">
+		SELECT csat_seq,csat_name,exam_ymd
+		  FROM csat
+		 WHERE csat_seq = #{csatSequence} 
+		   AND use_yn = 'Y'
+	</select>
+
+	<select id="selectListYear" resultMap="CsatVoMap">
+		SELECT csat_seq,csat_name,exam_ymd
+		  FROM csat
+		 WHERE use_yn = 'Y'
+		 ORDER BY csat_seq DESC
+	</select>
+	
+</mapper>

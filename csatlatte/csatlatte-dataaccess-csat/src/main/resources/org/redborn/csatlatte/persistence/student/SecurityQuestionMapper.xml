@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="student.securityQuestion">
+	
+	<insert id="insert" parameterType="StudentSecurityQuestionVo">
+		INSERT INTO csat_student_scqs
+		     VALUES (#{studentSequence},#{securityQuestionSequence},#{content,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}) 
+	</insert>
+
+	<update id="updateContent" parameterType="StudentSecurityQuestionVo">
+		UPDATE csat_student_scqs
+		   SET content = #{content,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}, scqs_seq = #{securityQuestionSequence}
+		 WHERE student_seq = #{studentSequence}
+	</update>
+	
+</mapper>

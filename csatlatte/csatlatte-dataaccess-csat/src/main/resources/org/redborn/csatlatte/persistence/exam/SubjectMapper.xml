@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="exam.subject">
+
+	<resultMap type="SubjectVo" id="SubjectVoMap">
+		<result column="csat_seq" property="csatSequence"/>
+		<result column="exam_seq" property="examSequence"/>
+		<result column="section_seq" property="sectionSequence"/>
+		<result column="subject_seq" property="subjectSequence"/>
+		<result column="subject_name" property="subjectName"/>
+		<result column="max_score" property="maxScore"/>
+	</resultMap>
+
+	<select id="selectList" parameterType="Map" resultMap="SubjectVoMap">
+		SELECT ces.csat_seq, ces.exam_seq, ces.section_seq, ces.subject_seq, ces.subject_name, ces.max_score
+		  FROM csat_exam_subject ces
+		 WHERE ces.csat_seq = #{csatSequence}
+		   AND ces.exam_seq = #{examSequence}
+	</select>
+
+	<insert id="insert" parameterType="SubjectVo">
+		INSERT INTO csat_exam_subject
+		VALUES (#{csatSequence}, #{examSequence}, #{sectionSequence}, #{subjectSequence},
+				#{subjectName}, #{maxScore}) 
+	</insert>
+	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_exam_subject
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</delete>
+	
+</mapper>

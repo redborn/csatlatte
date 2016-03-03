@@ -16,10 +16,10 @@
 	</div>
 </div>
 <div class="password-write">
-	<h5>비밀번호 찾기에 실패했습니다.</h5>
+	<h4>비밀번호 찾기에 실패했습니다.</h4>
 	<p>보안확인에 대한 답변이 올바르지 않습니다.</p>
 	<p>다시 시도하시려면 우측 하단의 버튼을 클릭해주세요.</p>
 </div>
 <div id="password-write-btn-group">
-	<a id="password-write-btn-cancel" class="btn btn-default" href="<c:url value="/password"/>">처음으로 돌아가기</a>
+	<a class="btn btn-danger" href="<c:url value="/password"/>">처음으로 돌아가기</a>
 </div>

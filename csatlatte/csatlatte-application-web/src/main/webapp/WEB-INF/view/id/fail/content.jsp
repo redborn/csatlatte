@@ -13,10 +13,10 @@
 	</div>
 </div>
 <div class="id-fail">
-	<h5>아이디를 찾지 못했습니다.</h5>
+	<h4>아이디를 찾지 못했습니다.</h4>
 	<p>찾으려는 아이디의 닉네임이 존재하지 않습니다.</p>
 	<p>다시 시도하시려면 우측 하단의 버튼을 클릭해주세요.</p>
 </div>
 <div id="id-fail-btn-group">
-	<a id="id-fail-btn-cancel" class="btn btn-default" href="<c:url value="/id"/>">처음으로 돌아가기</a>
+	<a id="id-fail-btn-cancel" class="btn btn-danger" href="<c:url value="/id"/>">처음으로 돌아가기</a>
 </div>

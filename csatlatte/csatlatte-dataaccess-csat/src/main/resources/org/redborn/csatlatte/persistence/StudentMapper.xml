@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="student">
+
+	<resultMap type="StudentVo" id="StudentVoMap">
+		<result column="student_seq" property="studentSequence" />
+		<result column="student_id" property="studentId" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
+		<result column="nickname" property="nickname" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
+		<result column="use_yn" property="useYn" />
+		<result column="count_community" property="countCommunity" />
+		<result column="count_comment" property="countComment" />
+		<result column="avg_score" property="averageScore" />
+		<result column="count_connection" property="countConnection" />
+		<result column="last_connection" property="lastConnection" />
+		<result column="create_date" property="createDate" />
+		<result column="photo_code" property="photoCode" />
+		<result column="photo_name" property="photoName" />
+	</resultMap>
+	
+	<resultMap type="StudentVo" id="StudentInformationVoMap">
+		<result column="student_seq" property="studentSequence"/>
+		<result column="student_id" property="studentId" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
+		<result column="content" property="securityQuestionContent"/>
+		<result column="photo_code" property="photoCode"/>
+		<result column="photo_name" property="photoName"/>
+		<result column="nickname" property="nickname" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
+		<result column="csat_seq" property="csatSequence"/>
+		<result column="rule_seq" property="ruleSequence"/>
+	</resultMap>
+	
+	<resultMap type="CountVo" id="YmdCountVoMap">
+		<result column="hour" property="key"/>
+		<result column="count_join" property="count"/>
+	</resultMap>
+	
+	<resultMap type="CountVo" id="YmCountVoMap">
+		<result column="day" property="key"/>
+		<result column="count_join" property="count"/>
+	</resultMap>
+	
+	<resultMap type="CountVo" id="YearCountVoMap">
+		<result column="year" property="key"/>
+		<result column="count_join" property="count"/>
+	</resultMap>
+
+	<resultMap type="java.util.HashMap" id="FindIdMap">
+		<result column="student_id" property="studentId" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
+	</resultMap>
+
+	<select id="selectOne" parameterType="Map" resultMap="StudentInformationVoMap">
+		SELECT cs.student_seq,cs.student_id,csc.content,cs.photo_code,cs.photo_name,
+		       cs.nickname,cs.csat_seq,IF (IFNULL(cm.student_seq, 0) = 0, 1, 2) AS
+		                               rule_seq
+		  FROM csat_student cs
+		       INNER JOIN csat_student_scqs css
+		               ON cs.student_seq = css.student_seq
+		       INNER JOIN csat_scqs csc
+		               ON css.scqs_seq = csc.scqs_seq
+		       LEFT OUTER JOIN csat_manager cm
+		                    ON cs.student_seq = cm.student_seq
+		 WHERE student_id = #{id,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
+		   AND student_password = #{password,typeHandler=org.redborn.csatlatte.commons.mybatis.SHA512TypeHandler}
+	</select>
+
+	<select id="selectOneDetail" parameterType="int" resultMap="StudentVoMap">
+		SELECT cs.student_seq,cs.student_id,cs.nickname,cs.use_yn,cc.count_community,cs.photo_code,cs.photo_name,
+		       ccc.count_comment,cess.avg_score,ccs.count_connection,ccs.last_connection,DATE_FORMAT(cs.create_date, '%Y-%m-%d %H:%i:%s') as create_date
+		  FROM csat_student cs
+		       LEFT OUTER JOIN (SELECT cs.student_seq,COUNT(cc.community_seq) AS
+		                                              count_community
+		                          FROM csat_student cs
+		                               LEFT OUTER JOIN csat_community cc
+		                                            ON cs.student_seq = cc.student_seq
+		                         GROUP BY cs.student_seq) cc
+		                    ON cs.student_seq = cc.student_seq
+		       LEFT OUTER JOIN (SELECT cs.student_seq,COUNT(ccc.comment_seq) AS
+		                                              count_comment
+		                          FROM csat_student cs
+		                               LEFT OUTER JOIN csat_community_comment ccc
+		                                            ON cs.student_seq = ccc.student_seq
+		                         GROUP BY cs.student_seq) ccc
+		                    ON cs.student_seq = ccc.student_seq
+		       LEFT OUTER JOIN (SELECT cs.student_seq,AVG(cess.score) AS avg_score
+		                          FROM csat_student cs
+		                               LEFT OUTER JOIN csat_exam_student_score cess
+		                                            ON cs.student_seq = cess.student_seq
+		                         GROUP BY cs.student_seq) cess
+		                    ON cs.student_seq = cess.student_seq
+		       LEFT OUTER JOIN (SELECT ccs.student_seq,COUNT(ccs.connection_seq) AS
+		                                               count_connection,
+		                       DATE_FORMAT(MAX(ccs.connection_date), '%Y-%m-%d %H:%i:%s'
+		                       ) AS
+		                       last_connection
+		                          FROM csat_connection_student ccs
+		                         GROUP BY ccs.student_seq) ccs
+		                    ON cs.student_seq = ccs.student_seq
+		 WHERE cs.student_seq = #{studentSequence};
+	</select> 
+
+	<select id="selectOneCountPassword" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_student
+		 WHERE student_seq = #{studentSequence}
+		   AND student_password = #{password,typeHandler=org.redborn.csatlatte.commons.mybatis.SHA512TypeHandler}
+	</select>
+	
+	<select id="selectOneCountOverlapId" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_student cs
+		 WHERE cs.student_id = #{studentId,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
+	</select>
+	
+	<select id="selectOneCountOverlapNickname" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_student cs
+		 WHERE cs.nickname = #{nickname,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
+	</select>
+	
+	<select id="selectOneCountIsPassword" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_student cs,csat_student_scqs css
+		 WHERE cs.student_seq = css.student_seq
+		   AND cs.student_id = #{id,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
+		   AND css.content = #{securityAnswer,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
+	</select>
+	
+	<select id="selectOneId" parameterType="Map" resultMap="FindIdMap">
+		SELECT cs.student_id
+		  FROM csat_student cs,csat_student_scqs css
+		 WHERE cs.student_seq = css.student_seq
+		   AND cs.nickname = #{nickname,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
+		   AND css.content = #{securityAnswer,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
+	</select>
+	
+	<select id="selectOneMaxStudentSequence" resultType="int">
+		SELECT IFNULL(MAX(student_seq), 0) + 1
+		  FROM csat_student 
+	</select>
+	
+	<select id="selectOneCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_student
+	  	 WHERE ( student_id LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler})
+		      OR nickname LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}))
+	</select>
+	
+	<select id="selectOneStudentSequence" parameterType="String" resultType="int">
+		SELECT cs.student_seq
+		  FROM csat_student cs
+		 WHERE cs.nickname = #{nickname,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
+	</select>
+	
+	<select id="selectOneStudentSequenceById" parameterType="String" resultType="int">
+		SELECT cs.student_seq
+		  FROM csat_student cs
+		 WHERE cs.student_id = #{studentId,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
+	</select>
+	
+	<select id="selectPhotoName" parameterType="int" resultType="String">
+		SELECT cs.photo_name
+		  FROM csat_student cs
+		 WHERE cs.student_seq = #{studentSequence}
+	</select>
+	
+	<select id="selectPhotoCode" parameterType="int" resultType="String">
+		SELECT cs.photo_code
+		  FROM csat_student cs
+		 WHERE cs.student_seq = #{studentSequence}
+	</select>
+	
+	<select id="selectList" parameterType="Map" resultMap="StudentVoMap">
+		SELECT cs.student_seq,cs.student_id,cs.nickname,cs.use_yn,cc.count_community,
+		       ccc.count_comment,cess.avg_score,ccs.count_connection,ccs.last_connection
+		  FROM csat_student cs
+		       LEFT OUTER JOIN (SELECT cs.student_seq,COUNT(cc.community_seq) AS
+		                                              count_community
+		                          FROM csat_student cs
+		                               LEFT OUTER JOIN csat_community cc
+		                                            ON cs.student_seq = cc.student_seq
+		                         GROUP BY cs.student_seq) cc
+		                    ON cs.student_seq = cc.student_seq
+		       LEFT OUTER JOIN (SELECT cs.student_seq,COUNT(ccc.comment_seq) AS
+		                                              count_comment
+		                          FROM csat_student cs
+		                               LEFT OUTER JOIN csat_community_comment ccc
+		                                            ON cs.student_seq = ccc.student_seq
+		                         GROUP BY cs.student_seq) ccc
+		                    ON cs.student_seq = ccc.student_seq
+		       LEFT OUTER JOIN (SELECT cs.student_seq,AVG(cess.score) AS avg_score
+		                          FROM csat_student cs
+		                               LEFT OUTER JOIN csat_exam_student_score cess
+		                                            ON cs.student_seq = cess.student_seq
+		                         GROUP BY cs.student_seq) cess
+		                    ON cs.student_seq = cess.student_seq
+		       LEFT OUTER JOIN (SELECT ccs.student_seq,COUNT(ccs.connection_seq) AS
+		                                               count_connection,
+		                       DATE_FORMAT(MAX(ccs.connection_date), '%Y-%m-%d %H:%i:%s'
+		                       ) AS
+		                       last_connection
+		                          FROM csat_connection_student ccs
+		                         GROUP BY ccs.student_seq) ccs
+		                    ON cs.student_seq = ccs.student_seq
+		 WHERE ( student_id LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler})
+		      OR nickname LIKE IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}))
+	  ORDER BY cs.student_seq desc 
+		 LIMIT #{pageNumber}, 10 
+	</select>
+	
+	<select id="selectListCountYmd" parameterType="String" resultMap="YmdCountVoMap">
+		SELECT CAST(DATE_FORMAT(create_date, '%H') AS SIGNED) AS hour,COUNT(student_seq) AS count_join
+		  FROM csat_student
+		 WHERE create_date &gt;= STR_TO_DATE(#{ymd}, '%Y%m%d')
+		   AND create_date &lt; DATE_ADD(STR_TO_DATE(#{ymd}, '%Y%m%d'), INTERVAL 1 day)
+		 GROUP BY DATE_FORMAT(create_date, '%H')
+	</select>
+	
+	<select id="selectListCountYm" parameterType="String" resultMap="YmCountVoMap">
+		SELECT CAST(DATE_FORMAT(create_date, '%d') AS SIGNED) AS day,COUNT(student_seq) AS count_join
+		  FROM csat_student
+		 WHERE create_date &gt;= STR_TO_DATE(CONCAT(#{ym}, '01'), '%Y%m%d')
+		   AND create_date &lt; DATE_ADD(STR_TO_DATE(CONCAT(#{ym}, '01'), '%Y%m%d'), INTERVAL 1 month)
+		 GROUP BY DATE_FORMAT(create_date, '%d')
+	</select>
+	
+	<select id="selectListCountYear" parameterType="String" resultMap="YearCountVoMap">
+		SELECT CAST(DATE_FORMAT(create_date, '%m') AS SIGNED) AS year,COUNT(student_seq) AS count_join
+		  FROM csat_student
+		 WHERE create_date &gt;= STR_TO_DATE(CONCAT(#{year}, '0101'), '%Y%m%d')
+		   AND create_date &lt; DATE_ADD(STR_TO_DATE(CONCAT(#{year}, '0101'), '%Y%m%d'), INTERVAL 1 year)
+		 GROUP BY DATE_FORMAT(create_date, '%m')
+	</select>
+	
+	<select id="selectOneCreateHmsmWhereStudentSequence" parameterType="int" resultType="String">
+		SELECT SUBSTR(DATE_FORMAT(create_date, '%H%i%S%f'), 1, 9)
+		  FROM csat_student
+		 WHERE student_seq = #{studentSequence}
+	</select>
+	
+	<select id="selectOneCreateHmsmWhereStudentId" parameterType="String" resultType="String">
+		SELECT SUBSTR(DATE_FORMAT(create_date, '%H%i%S%f'), 1, 9)
+		  FROM csat_student
+		 WHERE student_id = #{studentId,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}
+	</select>
+	
+	<insert id="insert" parameterType="StudentVo">
+		 INSERT INTO csat_student
+	     VALUES ( #{studentSequence}, #{studentId,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}, #{studentPassword,typeHandler=org.redborn.csatlatte.commons.mybatis.SHA512TypeHandler}, #{nickname,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}, 
+	     		  #{photoCode}, #{photoName}, #{csatSequence},'Y', STR_TO_DATE(#{createDate},'%Y%m%d%H%i%S%f'))
+	</insert>
+	
+	<update id="updateInformation" parameterType="StudentVo">
+		UPDATE csat_student
+		   SET nickname = #{nickname,typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}, photo_code = #{photoCode}, photo_name = #{photoName}, csat_seq = #{csatSequence}
+		 WHERE student_seq = #{studentSequence}
+	</update>
+
+	<update id="updatePassword" parameterType="Map">
+		UPDATE csat_student
+		   SET student_password = #{newPassword,typeHandler=org.redborn.csatlatte.commons.mybatis.SHA512TypeHandler}
+		 WHERE student_seq = #{studentSequence}
+	</update>
+	
+	<update id="updateUseYnN" parameterType="int">
+		UPDATE csat_student
+		   SET use_yn = 'N'
+		 WHERE student_seq = #{studentSequence} 
+	</update>
+	
+	<update id="updateUseYnNRecovery" parameterType="int">
+		UPDATE csat_student
+		   SET use_yn = 'Y'
+		 WHERE student_seq = #{studentSequence}
+	</update>
+	
+</mapper>

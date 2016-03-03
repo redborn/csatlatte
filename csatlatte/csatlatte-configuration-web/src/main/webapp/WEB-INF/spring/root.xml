@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+		
+    <!-- File IO -->
+    <bean id="uploadTempDir" class="org.springframework.core.io.FileSystemResource">
+    	<constructor-arg value="/data/csat/file/temp"/>
+    </bean>
+    
+    <bean id="filterMultipartResolver" class="org.redborn.csatlatte.commons.spring.web.multipart.commons.CsatMultipartResolver">
+    	<property name="maxUploadSize" value="10485760"/>
+    	<property name="uploadTempDir" ref="uploadTempDir"/>
+    </bean>
+    
+    <!-- Component Scan -->
+    <context:component-scan base-package="org.redborn.csatlatte.commons.amazonaws.services.s3" name-generator="org.redborn.csatlatte.commons.spring.beans.factory.support.CsatBeanNameGenerator"/>
+    <context:component-scan base-package="org.redborn.csatlatte.persistence" name-generator="org.redborn.csatlatte.commons.spring.beans.factory.support.CsatBeanNameGenerator"/>
+    <context:component-scan base-package="org.redborn.csatlatte.service" name-generator="org.redborn.csatlatte.commons.spring.beans.factory.support.CsatBeanNameGenerator"/>
+	<context:component-scan base-package="org.redborn.csatlatte.controller" name-generator="org.redborn.csatlatte.commons.spring.beans.factory.support.CsatBeanNameGenerator"/>
+	<context:component-scan base-package="org.redborn.csatlatte.commons.servlet.http" name-generator="org.redborn.csatlatte.commons.spring.beans.factory.support.CsatBeanNameGenerator"/>
+	
+	<!-- mvc -->
+	<mvc:resources mapping="/robots.txt" location="/robots.txt" order="0"/>
+	<mvc:resources mapping="/resources/**" location="/resources/" order="0"/>
+	<mvc:annotation-driven/>
+	
+	<!-- aop -->
+	<bean id="aop.uri" class="org.redborn.csatlatte.commons.spring.aop.Uri"/>
+	<bean id="aop.account" class="org.redborn.csatlatte.commons.spring.aop.Account"/>
+	<aop:config>
+		<aop:aspect id="uriAspect" ref="aop.uri">
+			<aop:pointcut id="uriPointCut" expression="execution(* org.redborn.csatlatte.controller.web..*.*(..))"/>
+			<aop:around pointcut-ref="uriPointCut" method="connection"/>
+		</aop:aspect>
+		<aop:aspect id="accountAspect" ref="aop.account">
+			<aop:pointcut id="accountPointCut" expression="execution(* org.redborn.csatlatte.controller.account..*.*(..))"/>
+			<aop:around pointcut-ref="accountPointCut" method="compareId"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<!-- View -->
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="contentNegotiationManager">
+			<bean class="org.springframework.web.accept.ContentNegotiationManager">
+				<constructor-arg>
+					<bean class="org.springframework.web.accept.PathExtensionContentNegotiationStrategy">
+						<constructor-arg>
+							<map>
+								<entry key="json" value="application/json"/>
+							</map>
+						</constructor-arg>
+					</bean>
+				</constructor-arg>
+			</bean>
+		</property>
+		<property name="viewResolvers">
+			<list>
+				<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+					<property name="order" value="1"/>
+				</bean>
+			</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+			</list>
+		</property>
+	</bean>
+	
+</beans>

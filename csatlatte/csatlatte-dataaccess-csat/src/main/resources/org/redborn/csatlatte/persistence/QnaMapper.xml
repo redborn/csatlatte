@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="qna">
+
+	<resultMap type="QnaVo" id="QnaVoMap">
+		<result column="qna_seq" property="qnaSequence"/>
+		<result column="student_seq" property="studentSequence"/>
+		<result column="write_date" property="writeDate"/>
+		<result column="title" property="title"/>
+		<result column="use_yn" property="useYn"/>
+	</resultMap>
+	
+	<resultMap type="QnaForManageVo" id="QnaForManageVoMap">
+		<result column="qna_seq" property="qnaSequence"/>
+		<result column="student_id" property="studentId" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
+		<result column="nickname" property="nickname" typeHandler="org.redborn.csatlatte.commons.mybatis.AES256TypeHandler"/>
+		<result column="content" property="content"/>
+		<result column="write_date" property="writeDate"/>
+		<result column="use_yn" property="useYn"/>
+		<result column="title" property="title"/>
+		<result column="count_qna_answer" property="countQnaAnswer"/>
+	</resultMap>
+	
+	<resultMap type="QnaVo" id="QnaVoForStudentMap">
+		<result column="qna_seq" property="qnaSequence"/>
+		<result column="content" property="content"/>
+		<result column="write_date" property="writeDate"/>
+	</resultMap>
+	
+	<select id="selectOne" parameterType="int" resultMap="QnaVoMap">
+		SELECT qna_seq, student_seq, write_date, title, use_yn
+		  FROM csat_qna
+		 WHERE qna_seq = #{qnaSequence}
+	</select>
+	
+	<select id="selectOneMaxQnaSequence" resultType="int">
+		SELECT IFNULL(MAX(qna_seq), 0) + 1
+		  FROM csat_qna 
+	</select>
+	
+	<select id="selectOneCount" parameterType="Map" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_qna cq, csat_student cs, 
+			   (SELECT cq.qna_seq,COUNT(cqa.content) AS count_qna_answer
+				  FROM csat_qna cq LEFT OUTER JOIN csat_qna_answer cqa
+					ON cq.qna_seq = cqa.qna_seq GROUP BY cq.qna_seq) cqa
+		 WHERE cq.student_seq = cs.student_seq
+		   AND cq.qna_seq = cqa.qna_seq
+		   AND (cs.student_id like IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}) 
+		   		OR cs.nickname like IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}))
+		   AND IF(#{countQnaAnswer} = 2, cqa.count_qna_answer = 1 OR cqa.count_qna_answer = 0, cqa.count_qna_answer = #{countQnaAnswer})
+	</select>
+	
+	<select id="selectListForManage" parameterType="Map" resultMap="QnaForManageVoMap">
+		SELECT cq.qna_seq as qna_seq,cs.student_id as student_id,
+			   cs.nickname as nickname,cqc.content as content,cq.title,
+			   DATE_FORMAT(cq.write_date,'%Y-%m-%d') as write_date,cq.use_yn,
+			   cqa.count_qna_answer as count_qna_answer
+		  FROM csat_qna cq,csat_qna_content cqc,csat_student cs,
+		  	   (SELECT cq.qna_seq,COUNT(cqa.content) AS count_qna_answer
+				  FROM csat_qna cq LEFT OUTER JOIN csat_qna_answer cqa
+					ON cq.qna_seq = cqa.qna_seq GROUP BY cq.qna_seq) cqa
+		 WHERE cq.qna_seq = cqc.qna_seq
+		   AND cq.qna_seq = cqa.qna_seq
+		   AND cq.student_seq = cs.student_seq
+		   AND IF(#{countQnaAnswer} = 2, cqa.count_qna_answer = 1 OR cqa.count_qna_answer = 0, cqa.count_qna_answer = #{countQnaAnswer})
+		   AND (cs.student_id like IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}) 
+		   		OR cs.nickname like IF(#{search} = '', '%%', #{search, typeHandler=org.redborn.csatlatte.commons.mybatis.AES256TypeHandler}))
+	  GROUP BY cq.qna_seq
+	  ORDER BY cq.qna_seq desc
+		 LIMIT #{pageNumber}, 10
+	</select>
+	
+	<select id="selectListForStudent" parameterType="int" resultMap="QnaVoForStudentMap">
+		SELECT cq.qna_seq as qna_seq, cq.title as title,cq.write_date as write_date
+		  FROM csat_qna cq
+		 WHERE cq.student_seq = #{studentSequence}
+		   AND cq.use_yn = 'Y'
+		 ORDER BY cq.qna_seq desc
+	</select>
+	
+	<insert id="insert" parameterType="Map">
+		 INSERT INTO csat_qna(qna_seq, student_seq, title, write_date, use_yn, user_agent, session_id, ip)
+	     VALUES (#{qnaSequence}, #{studentSequence}, #{title}, NOW(3),'Y', #{userAgent}, #{sessionId}, #{ip}) 
+	</insert>
+	
+	<update id="updateUseYnN" parameterType="int">
+		UPDATE csat_qna
+		   SET use_yn = 'N'
+		 WHERE qna_seq = #{qnaSequence} 
+	</update>
+	
+</mapper>

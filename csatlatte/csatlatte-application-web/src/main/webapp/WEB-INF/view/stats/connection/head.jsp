@@ -1,18 +1,99 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/layout/include/bootstrap/datepicker.jsp" %>
+<%@ include file="/WEB-INF/layout/include/google/chart.jsp" %>
+<%@ include file="/WEB-INF/layout/include/jquery/ajax.jsp" %>
 <style>
-	h5 {display:inline-block;}
-	.input-group .form-control {margin-left:5px; display:inline-block; float:none; width:100px; height:30px;}
-	#stats-connection-daily-chart {width:600px; height:400px; margin-top:15px; margin-left:15px;}
-	#stats-connection-monthly-chart {width:600px; height:400px; margin-top:15px; margin-left:15px;}
-	#stats-connection-annual-chart {width:600px; height:400px; margin-top:15px; margin-left:15px;}
-	
-	.btn-default {width:100%; display:block;}
+	.stats-connection-form-control {margin-left:5px; display:inline-block; float:none; width:100px; height:30px;}
+	#stats-connection-daily-chart {width:95%; height:400px; margin-top:15px; margin-left:15px;}
+	#stats-connection-monthly-chart {width:95%; height:400px; margin-top:15px; margin-left:15px;}
+	#stats-connection-annual-chart {width:95%; height:400px; margin-top:15px; margin-left:15px;}
+	.stats-connection-col-lg-6 {float:none; display:inline-block;}
+	#stats-connection-daily-datepicker {width:auto;}
+	#stats-connection-monthly-datepicker {width:auto;}
+	#stats-connection-annual-datepicker {width:auto;}
+	.stats-connection-input-group {display:inline-block; margin-top:4px;}
+	.stats-connection-input-group-addon {width:auto;}
 </style>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
+		var dailyConnectionDataTable;
+		var monthlyConnectionDataTable;
+		var annualConnectionDataTable;
+		
+		var statsConnectionDailyChart;
+		var statsConnectionMonthlyChart;
+		var statsConnectionAnnualChart;
+		
+		var statsConnectionDailyOptions = {
+			chartArea:{left:50,top:10,width:'90%',height:'80%'},
+			animation:{
+				startup:true,
+		        duration:2000,
+		        easing:'out',
+	    	},
+			legend : {
+				position : 'none'
+			},
+			hAxis: {
+				title:'시간'
+			},
+			vAxis: {
+				title:'접속자 수',
+				minValue:0,
+				format:'',
+				viewWindow:{
+					min:0,
+				},
+			}
+		};
+		
+		var statsConnectionMonthlyOptions = {
+			chartArea:{left:50,top:10,width:'90%',height:'80%'},
+			animation:{
+				startup:true,
+		        duration:2000,
+		        easing:'out',
+		    },
+			legend : {
+				position : 'none'
+			},
+			hAxis: {
+				title:'일'
+			},
+			vAxis: {
+				title:'접속자 수',
+				minValue:0,
+				format:'',
+				viewWindow:{
+					min:0,
+				},
+			}
+		};
+		
+		var statsConnectionAnnualOptions = {
+			chartArea:{left:50,top:10,width:'90%',height:'80%'},
+			animation:{
+				startup:true,
+		        duration:2000,
+		        easing:'out',
+		    },
+			legend : {
+				position : 'none'
+			},
+			hAxis: {
+				title:'월'
+			},
+			vAxis: {
+				title:'접속자 수',
+				minValue:0,
+				format:'',
+				viewWindow:{
+					min:0,
+				},
+			}
+		};
+		
 		$('#stats-connection-daily-datepicker').datepicker({
 			format:"yyyymmdd",
 			startView:0,
@@ -35,64 +116,101 @@
 			language:"kr",
 			autoclose:true
 		});
+		
+		$('#stats-connection-daily-datepicker').datepicker("setDate", new Date());
+		$('#stats-connection-monthly-datepicker').datepicker("setDate", new Date());
+		$('#stats-connection-annual-datepicker').datepicker("setDate", new Date());
+		
+		$('#stats-connection-daily-datepicker').on("changeDate", function () {
+			dailyConnectionDataTable = new google.visualization.DataTable();
+			dailyConnectionDataTable.addColumn("string", "hour");
+			dailyConnectionDataTable.addColumn("number", "접속자 수");
+			$.ajax(contextPath + "/data/student/connection/stats/daily/" + $('#stats-connection-daily-datepicker').val() + ".json", {
+				dataType : "json",
+				type : "GET",
+				success : function(data) {
+					if (data.dailyConnection != null) {
+						var dailyConnectionList = data.dailyConnection;
+						var dailyConnectionLength = dailyConnectionList.length;
+						for (var index = 0; index < dailyConnectionLength; index++) {
+							var dailyConnection = dailyConnectionList[index];
+							dailyConnectionDataTable.addRow([dailyConnection.key.toString(), dailyConnection.count]);
+						}
+						statsConnectionDailyChart = new google.visualization.ColumnChart(document.getElementById('stats-connection-daily-chart'));
+						statsConnectionDailyOptions.animation.duration = 2000;
+						statsConnectionDailyChart.draw(dailyConnectionDataTable, statsConnectionDailyOptions);
+					}
+				}
+			});
+		});
+		
+		$('#stats-connection-monthly-datepicker').on("changeMonth", function () {
+			setTimeout(function () {
+				monthlyConnectionDataTable = new google.visualization.DataTable();
+				monthlyConnectionDataTable.addColumn("string", "day");
+				monthlyConnectionDataTable.addColumn("number", "접속자 수");
+				$.ajax(contextPath + "/data/student/connection/stats/monthly/" + $('#stats-connection-monthly-datepicker').val() + ".json" , {
+					dataType : "json",
+					type : "GET",
+					success : function(data) {
+						if (data.monthlyConnection != null) {
+							var monthlyConnectionList = data.monthlyConnection;
+							var monthlyConnectionLength = monthlyConnectionList.length;
+							for (var index = 0; index < monthlyConnectionLength; index++) {
+								var monthlyConnection = monthlyConnectionList[index];
+								monthlyConnectionDataTable.addRow([monthlyConnection.key.toString(), monthlyConnection.count]);
+							}
+							statsConnectionMonthlyChart = new google.visualization.ColumnChart(document.getElementById('stats-connection-monthly-chart'));
+							statsConnectionMonthlyOptions.animation.duration = 2000;
+							statsConnectionMonthlyChart.draw(monthlyConnectionDataTable, statsConnectionMonthlyOptions);
+						}
+					}
+				});
+			}, 1);
+		});
+		
+		$('#stats-connection-annual-datepicker').on("changeYear", function() {
+			setTimeout(function () {
+				annualConnectionDataTable = new google.visualization.DataTable();
+				annualConnectionDataTable.addColumn("string", "month");
+				annualConnectionDataTable.addColumn("number", "접속자 수");
+				$.ajax(contextPath + "/data/student/connection/stats/annual/" + $('#stats-connection-annual-datepicker').val() + ".json", {
+					dataType : "json",
+					type : "GET",
+					success : function(data) {
+						if (data.annualConnection != null) {
+							var annualConnectionList = data.annualConnection;
+							var annualConnectionLength = annualConnectionList.length;
+							for (var index = 0; index < annualConnectionLength; index++) {
+								var annualConnection = annualConnectionList[index];
+								annualConnectionDataTable.addRow([annualConnection.key.toString(), annualConnection.count]);
+							}
+							statsConnectionAnnualChart = new google.visualization.ColumnChart(document.getElementById('stats-connection-annual-chart'));
+							statsConnectionAnnualOptions.animation.duration = 2000;
+							statsConnectionAnnualChart.draw(annualConnectionDataTable, statsConnectionAnnualOptions);
+						}
+					}
+				});
+			}, 1);
+		});
+		
+		$(window).resize(function() {
+			if (statsConnectionDailyChart != null) {
+				statsConnectionDailyOptions.animation.duration = 0;
+				statsConnectionDailyChart.draw(dailyConnectionDataTable, statsConnectionDailyOptions);
+			}
+			if (statsConnectionMonthlyChart != null) {
+				statsConnectionMonthlyOptions.animation.duration = 0;
+				statsConnectionMonthlyChart.draw(monthlyConnectionDataTable, statsConnectionMonthlyOptions);
+			}
+			if (statsConnectionAnnualChart != null) {
+				statsConnectionAnnualOptions.animation.duration = 0;
+				statsConnectionAnnualChart.draw(annualConnectionDataTable, statsConnectionAnnualOptions);
+			}
+		});
+		
+		$('#stats-connection-daily-datepicker').trigger("changeDate");
+		$('#stats-connection-monthly-datepicker').trigger("changeMonth");
+		$('#stats-connection-annual-datepicker').trigger("changeYear");
 	});
-
-	google.load("visualization", "1", {packages: ["corechart"]});
-	var drawChart = function() {
-		var statsConnectionDailyData = google.visualization.arrayToDataTable([
-			[ '시간', '접속자' ], [ '00', 165 ], [ '01', 165 ], [ '02', 157 ],
-			[ '03', 157 ], [ '04', 139 ], [ '05', 139 ], [ '06', 167 ],
-			[ '07', 101 ], [ '08', 193 ], [ '09', 124 ], [ '10', 163 ],
-			[ '11', 112 ], [ '12', 181 ], [ '13', 119 ], [ '14', 138 ],
-			[ '15', 110 ], [ '16', 100 ], [ '17', 192 ], [ '18', 181 ],
-			[ '19', 137 ], [ '20', 148 ], [ '21', 189 ], [ '22', 112 ],
-			[ '23', 110 ], [ '24', 12 ] ]);
-
-		var statsConnectionDailyOptions = {
-			chartArea:{left:30,top:10,width:'90%',height:'80%'},
-			legend : {
-				position : 'none'
-			}
-		};
-		
-		var statsConnectionDailyChart = new google.visualization.ColumnChart(document.getElementById('stats-connection-daily-chart'));
-		statsConnectionDailyChart.draw(statsConnectionDailyData, statsConnectionDailyOptions);
-		
-		var statsConnectionMonthlyData = google.visualization.arrayToDataTable([
-			[ '날짜', '접속자' ], [ '1', 165 ], [ '2', 165 ], [ '3', 157 ],
-			[ '4', 157 ], [ '5', 139 ], [ '6', 139 ], [ '7', 167 ],
-			[ '8', 101 ], [ '9', 193 ], [ '10', 124 ], [ '11', 163 ],
-			[ '12', 112 ], [ '13', 181 ], [ '14', 119 ], [ '15', 138 ],
-			[ '16', 110 ], [ '17', 100 ], [ '18', 192 ], [ '19', 137 ], 
-			[ '20', 148 ], [ '21', 189 ], [ '22', 112 ], [ '23', 110 ], 
-			[ '24', 148 ], [ '25', 189 ], [ '26', 112 ], [ '27', 110 ], 
-			[ '28', 148 ], [ '29', 189 ], [ '30', 112 ]]);
-
-		var statsConnectionMonthlyOptions = {
-			chartArea:{left:30,top:10,width:'90%',height:'80%'},
-			legend : {
-				position : 'none'
-			}
-		};
-
-		var statsConnectionMonthlyChart = new google.visualization.ColumnChart(document.getElementById('stats-connection-monthly-chart'));
-		statsConnectionMonthlyChart.draw(statsConnectionMonthlyData, statsConnectionMonthlyOptions);
-
-		var statsConnectionAnnualData = google.visualization.arrayToDataTable([
-			[ '날짜', '접속자' ], [ '1', 165 ], [ '2', 165 ], [ '3', 157 ],
-			[ '4', 157 ], [ '5', 139 ], [ '6', 139 ], [ '7', 167 ],
-			[ '8', 101 ], [ '9', 193 ], [ '10', 124 ], [ '11', 163 ],
-			[ '12', 112 ]]);
-
-		var statsConnectionAnnualOptions = {
-			chartArea:{left:30,top:10,width:'90%',height:'80%'},
-			legend : {
-				position : 'none'
-			}
-		};
-
-		var statsConnectionAnnualChart = new google.visualization.ColumnChart(document.getElementById('stats-connection-annual-chart'));
-		statsConnectionAnnualChart.draw(statsConnectionAnnualData, statsConnectionAnnualOptions);
-	};
-	google.setOnLoadCallback(drawChart);
 </script>

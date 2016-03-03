@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="exam.ratingcut">
+
+	<resultMap type="ExamVo" id="ExamVoMap">
+		<result column="exam_seq" property="examSequence"/>
+		<result column="exam_name" property="examName"/>
+	</resultMap>
+	
+	<resultMap type="RatingCutVo" id="RatingCutVoMap">
+		<result column="csat_seq" property="csatSequence"/>
+		<result column="exam_seq" property="examSequence"/>
+		<result column="rating_code" property="ratingCode"/>
+		<result column="subject_name" property="subjectName"/>
+		<result column="raw_score" property="rawScore"/>
+		<result column="standard_score" property="standardScore"/>
+	</resultMap>
+	
+	<select id="selectList" parameterType="int" resultMap="ExamVoMap">
+		SELECT ce.exam_seq,ce.exam_name
+		  FROM csat_exam ce
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS average
+		                          FROM csat_exam_avg
+		                         GROUP BY csat_seq, exam_seq) cea
+		                    ON ( ce.csat_seq = cea.csat_seq
+		                         AND ce.exam_seq = cea.exam_seq )
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS subject
+		                          FROM csat_exam_subject
+		                         GROUP BY csat_seq, exam_seq) cest
+		                    ON ( ce.csat_seq = cest.csat_seq
+		                         AND ce.exam_seq = cest.exam_seq )
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS section
+		                          FROM csat_exam_section
+		                         GROUP BY csat_seq, exam_seq) ces
+		                    ON ( ce.csat_seq = ces.csat_seq
+		                         AND ce.exam_seq = ces.exam_seq )
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS ratingcut
+		                          FROM csat_exam_rating_cut
+		                         GROUP BY csat_seq, exam_seq) cerc
+		                    ON ( ce.csat_seq = cerc.csat_seq
+		                         AND ce.exam_seq = cerc.exam_seq )
+		 WHERE ce.csat_seq = #{csatSequence}
+		   AND !( IFNULL(cea.average, 0) = 0
+		         AND IFNULL(cest.subject, 0) = 0
+		         AND IFNULL(ces.section, 0) = 0
+		         AND IFNULL(cerc.ratingcut, 0) = 0 )
+		 ORDER BY ce.exam_seq desc 
+	</select>
+	
+	<select id="selectListDetail" parameterType="Map" resultMap="RatingCutVoMap">
+		SELECT cerc.csat_seq,cerc.exam_seq,cerc.rating_code,ces.subject_name,
+		       cerc.raw_score,
+		       cerc.standard_score
+		  FROM csat_exam_rating_cut cerc
+		       LEFT OUTER JOIN (SELECT *
+		                          FROM csat_exam_subject
+		                         WHERE csat_seq = #{csatSequence}
+		                           AND exam_seq = #{examSequence}) ces
+		                    ON ( cerc.csat_seq = ces.csat_seq
+		                         AND cerc.exam_seq = ces.exam_seq
+		                         AND cerc.section_seq = ces.section_seq
+		                         AND cerc.subject_seq = ces.subject_seq )
+		 WHERE cerc.csat_seq = #{csatSequence}
+		   AND cerc.exam_seq = #{examSequence}
+		 ORDER BY cerc.section_seq,cerc.subject_seq,cerc.rating_code
+	</select>
+	
+	<select id="selectListForCreate" parameterType="int" resultMap="ExamVoMap">
+		SELECT ce.exam_seq,ce.exam_name
+		  FROM csat_exam ce
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS average
+		                          FROM csat_exam_avg
+		                         GROUP BY csat_seq, exam_seq) cea
+		                    ON ( ce.csat_seq = cea.csat_seq
+		                         AND ce.exam_seq = cea.exam_seq )
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS subject
+		                          FROM csat_exam_subject
+		                         GROUP BY csat_seq, exam_seq) cest
+		                    ON ( ce.csat_seq = cest.csat_seq
+		                         AND ce.exam_seq = cest.exam_seq )
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS section
+		                          FROM csat_exam_section
+		                         GROUP BY csat_seq, exam_seq) ces
+		                    ON ( ce.csat_seq = ces.csat_seq
+		                         AND ce.exam_seq = ces.exam_seq )
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS ratingcut
+		                          FROM csat_exam_rating_cut
+		                         GROUP BY csat_seq, exam_seq) cerc
+		                    ON ( ce.csat_seq = cerc.csat_seq
+		                         AND ce.exam_seq = cerc.exam_seq )
+		 WHERE ce.csat_seq = #{csatSequence}
+		   AND ( IFNULL(cea.average, 0) = 0
+		         AND IFNULL(cest.subject, 0) = 0
+		         AND IFNULL(ces.section, 0) = 0
+		         AND IFNULL(cerc.ratingcut, 0) = 0 ) 
+	</select>
+	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_exam_rating_cut
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</delete>
+
+	<insert id="insert" parameterType="RatingCutVo">
+		INSERT INTO csat_exam_rating_cut
+		VALUES (#{csatSequence}, #{ratingCode}, #{examSequence}, 
+				#{sectionSequence}, #{subjectSequence}, #{rawScore}, #{standardScore}) 
+	</insert>
+	
+</mapper>

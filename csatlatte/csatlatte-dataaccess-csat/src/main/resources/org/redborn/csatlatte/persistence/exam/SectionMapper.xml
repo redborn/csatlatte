@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="exam.section">
+	
+	<resultMap type="SectionVo" id="SectionVoMap">
+		<result column="csat_seq" property="csatSequence"/>
+		<result column="exam_seq" property="examSequence"/>
+		<result column="section_seq" property="sectionSequence"/>
+		<result column="section_name" property="sectionName"/>
+		<result column="select_count" property="selectCount"/>
+	</resultMap>
+
+	<select id="selectList" parameterType="Map" resultMap="SectionVoMap">
+		SELECT ces.csat_seq, ces.exam_seq, ces.section_seq, ces.section_name, ces.select_count
+		  FROM csat_exam_section ces
+		 WHERE ces.csat_seq = #{csatSequence}
+		   AND ces.exam_seq = #{examSequence}
+	</select>
+
+	<insert id="insert" parameterType="SectionVo">
+		INSERT INTO csat_exam_section
+		VALUES (#{csatSequence}, #{examSequence}, #{sectionSequence}, #{sectionName}, #{selectCount}) 
+	</insert>
+	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_exam_section
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</delete>
+	
+</mapper>

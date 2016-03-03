@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * 
- * 
- * @author 최순현
+ * 가입자 통계입니다.
  */
 @Controller
 @RequestMapping("/stats/join")
@@ -19,11 +17,11 @@ public class Join {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
-	 * 등급 평균 변화 그래프, 표준점수 변화 그래프 조회
+	 * 가입자 통계입니다.
 	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public String get() {
-		logger.info("stats join view");
+		logger.info("Controller stats join GET.");
 		return TilesName.STATS_JOIN;
 	}
 }
