@@ -8,10 +8,11 @@
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 	
-	<http auto-config="true">
+	<http pattern="/" security="none"/>
+	<http pattern="/robots.txt" security="none"/>
+	<http pattern="/resources/**" security="none"/>
 	
-		<intercept-url pattern="/robots.txt" access="permitAll" method="GET"/>
-		<intercept-url pattern="/resources/**" access="permitAll" method="GET"/>
+	<http auto-config="true">
 		
 		<intercept-url pattern="/main" access="permitAll" method="GET"/>
 		<intercept-url pattern="/rating" access="permitAll" method="GET"/>

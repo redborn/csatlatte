@@ -11,7 +11,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="<c:url value="/main"/>">
+			<a class="navbar-brand" href="<c:url value="/"/>">
 				<img alt="Brand" src="<c:url value="/resources/csatlatte/images/header/img_logo.png"/>" />
 			</a>
 		</div> 
