@@ -49,13 +49,21 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">회원정보</h4>
 			</div>
-			<div class="modal-body" id="manage-community-student-information">
+			<div class="modal-body" id="manage-community-student-information"> 
 			</div>
 		</div>
 	</div>
 </div>
 <div class="modal fade" id="manage-community-text-detail" tabindex="-1" role="dialog">
-	<div class="modal-dialog" id="manage-community-text-dialog" role="document">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header" id="manage-community-text-dialog">
+			</div>
+			<div class="modal-body" id="manage-community-text-detail-content">
+			</div>
+			<div class="modal-footer" id="comment-area">
+			</div>
+		</div>
 	</div>
 </div>
 <div class="modal fade" id="manage-community-blind" tabindex="-1" role="dialog">
@@ -66,21 +74,11 @@
 				<h4 class="modal-title">블라인드</h4>
 			</div>
 			<div class="modal-body">
+				<c:forEach items="${blindTypeList}" var="blindType">
 				<div class="radio">
-					<label>
-						<input type="radio" name="optionsRadios" value="1">불쾌한 내용이 포함되어 있습니다.
-					</label>
+					<label><input type="radio" name="optionsRadios" value="${blindType.typeSequence}">${blindType.description}</label>
 				</div>
-				<div class="radio">
-					<label>
-						<input type="radio" name="optionsRadios" value="2">수능라떼에 올바르지 않은 게시물입니다.
-					</label>
-				</div>
-				<div class="radio">
-					<label>
-						<input type="radio" name="optionsRadios" value="3">스팸 게시물입니다.
-					</label>
-				</div>
+				</c:forEach>
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-default manage-community-accept">완료</button>

@@ -35,16 +35,15 @@
 		var makeQuestionDetailView = function(question, files) {
 			var html = '';
 			html += '<div class="manage-question-detail">';
-			html += '	<div class="modal-body">';
-			html += '		<div class="manage-question-detail-content">';
-			html += '			<div class="form-group manage-question-form-group">';
-			html += '				<label>질문제목</label>';
-			html += '				<div>' + question.title + '</div>' 
-			html += '			</div>';
-			html += '			<div class="form-group manage-question-form-group">';
-			html += '				<label>질문내용</label>';
-			html += '				<div><xmp>' + question.content + '</xmp></div>';
-			html += '			</div>';
+			html += '	<div class="manage-question-detail-content">';
+			html += '		<div class="form-group manage-question-form-group">';
+			html += '			<label>질문제목</label>';
+			html += '			<div>' + question.title + '</div>' 
+			html += '		</div>';
+			html += '		<div class="form-group manage-question-form-group">';
+			html += '			<label>질문내용</label>';
+			html += '			<div><xmp>' + question.content + '</xmp></div>';
+			html += '		</div>';
 			if (files != null) {
 				var filesLength = files.length;
 				if (filesLength != 0) {
@@ -65,7 +64,6 @@
 				html += '		<label>답변내용</label>';
 				html += '		<div><xmp>' + question.answerContent + '</xmp></div>'; 
 				html += '	</div>';
-				html += '</div>';
 			} else {
 				html += '	<div class="form-group manage-question-form-group">';
 				html += '		<label for="manage-question-answer-textarea">답변내용</label>';
@@ -76,11 +74,6 @@
 				html += '			2000';
 				html += '		</div>';
 				html += '	</div>';
-				html += '</div>';
-				html += '<div class="modal-footer">';
-				html += '<input type="submit" class="btn btn-default"  data-dismiss="modal" aria-label="Close" value="닫기">';
-				html += '<input type="submit" class="btn btn-primary manage-question-answer-accept" value="완료">';
-				html += '</div>';
 			}
 			html += '</div>';
 			return html;
@@ -100,6 +93,15 @@
 			return html;
 		}
 		
+		var makeQuestionDetailFooter = function () {
+			var html = '';
+			html += '<div class="manage-question-detail-footer">';
+			html += '	<input type="submit" class="btn btn-default"  data-dismiss="modal" aria-label="Close" value="닫기">';
+			html += '	<input type="submit" class="btn btn-primary manage-question-answer-accept" value="완료">';
+			html += '</div>';
+			return html;
+		}
+		
 		$('.manage-question-answer-view').on("click", function () {
 			target = $(this).attr("id");
 			$.ajax(contextPath + "/data/question/" + target + ".json", {
@@ -110,6 +112,9 @@
 						var question = data.detail;
 						var files = data.files;
 						$("#manage-question-detail").append(makeQuestionDetailView(question, files));
+						if (question.answerContent == "") {
+							$("#manage-question-detail-footer").append(makeQuestionDetailFooter());
+						}
 						$('.manage-question-answer-accept').attr("disabled", true);
 						$('#manage-question-answer-textarea').on("keyup", function () {
 							answerCount = 2000 - $('#manage-question-answer-textarea').val().length;
@@ -132,6 +137,7 @@
 										$('#manage-question-answer-button-div-' + target).remove();
 										$('#manage-question-answer-button-' + target).append(changeToViewButton());
 										$('.manage-question-detail').remove();
+										$('.manage-question-detail-footer').remove();
 										$.ajax(contextPath + "/data/question/" + target + ".json", {
 											dataType : "json",
 											type : "GET",
@@ -168,6 +174,7 @@
 		
 		$('#manage-question-answer-view').on('hidden.bs.modal', function () {
 			$('.manage-question-detail').remove();
+			$('.manage-question-detail-footer').remove();
 		});
 	});
 </script>

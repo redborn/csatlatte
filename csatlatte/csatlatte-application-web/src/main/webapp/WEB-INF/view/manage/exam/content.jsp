@@ -30,14 +30,49 @@
 	<button class="btn btn-default manage-exam-add" data-toggle="modal" data-target="#manage-exam-register-view">모의고사 추가</button>
 </div>
 <div class="modal fade" id="manage-exam-modify-view" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document" id="manage-exam-modify-view-detail">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">모의고사 수정</h4>
+			</div>
+			<div class="modal-body" id="manage-exam-modify-view-detail">
+			</div>
+			<div class="modal-footer manage-exam-modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>
+				<button type="button" class="btn btn-primary manage-exam-modify-accept">확인</button>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="modal fade" id="manage-exam-delete-view" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document" id="manage-exam-delete-view-detail">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">모의고사 삭제</h4>
+			</div>
+			<div class="modal-body"  id="manage-exam-delete-view-detail">
+			</div>
+			<div class="modal-footer manage-exam-modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="modal fade" id="manage-exam-register-view" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document" id="manage-exam-register-view-detail">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">모의고사 추가</h4>
+			</div>
+			<div class="modal-body" id="manage-exam-register-view-detail">
+			</div>
+			<div class="modal-footer manage-exam-modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">닫기</button>
+				<button type="button" class="btn btn-primary manage-exam-register-accept">확인</button>
+			</div>
+		</div>
 	</div>
 </div>

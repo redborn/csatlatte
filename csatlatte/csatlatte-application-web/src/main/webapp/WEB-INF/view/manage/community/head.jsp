@@ -8,7 +8,6 @@
 	#manage-community-table {margin-top:15px; text-align:center; float:none;}
 	.manage-community-col-lg {float:none; display:inline-block; text-align:center;}
 	.manage-community-search {text-align:right;}
-	.manage-community-user-info-modal {width:400px;}
 	.manage-community-user-info-modal .modal-body {text-align:center;}
 	.manage-community-picture {width:100px; height:100px; border-radius:5px; border:1px solid #7a6253;}
 	.manage-community-info {margin-top:10px;}
@@ -59,29 +58,28 @@
 			return result;
 		};
 		
+		var makeCommunityContent = function(communitySequence) {
+			var content = $('#manage-community-content-' + communitySequence).val();
+			var html = '';
+			html += '	<div class="community-content manage-community-detail-content"><xmp>' + content + '</xmp></div>';
+			return html;
+		}
+		
 		var makeCommunityDetail = function(communitySequence) {
 			var nickname = $('#manage-community-nickname-' + communitySequence).val();
 			var writeYmdhms = $('#manage-community-writeYmdhms-' + communitySequence).val();
-			var content = $('#manage-community-content-' + communitySequence).val();
 			var studentSequence = $('#manage-community-studentseq-' + communitySequence).val();
 			var html = '';
-			html += '		<div class="modal-content" id="manage-community-text-content">';
-			html += '			<div class="modal-header">';
-			html += '				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-			html += '				<div class="manage-community-text">';
-			html += '					<img alt="프로필사진" class="manage-community-profile-picture" src="' + contextPath + '/file/student/' + studentSequence + '">';
-			html += '					<div class="manage-community-user-info">';
-			html += '						<div class="manage-community-name"><strong>' + nickname + '</strong></div>';
-			html += '						<div class="manage-community-calender" data-ymdhms="' + writeYmdhms + '">' + format(writeYmdhms) + '</div>';
-			html += '					</div>';
-			html += '				</div>';
-			html += '			</div>';
-			html += '			<div class="modal-body">';
-			html += '				<div class="community-content"><xmp>' + content + '</xmp></div>';
-			html += '			</div>';
-			html += '			<div id="comment-area" class="modal-footer">';
-			html += '			</div>';
+			html += '<div class="manage-community-text-content">';
+			html += '	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+			html += '	<div class="manage-community-text">';
+			html += '		<img alt="프로필사진" class="manage-community-profile-picture" src="' + contextPath + '/file/student/' + studentSequence + '">';
+			html += '		<div class="manage-community-user-info">';
+			html += '			<div class="manage-community-name"><strong>' + nickname + '</strong></div>';
+			html += '			<div class="manage-community-calender" data-ymdhms="' + writeYmdhms + '">' + format(writeYmdhms) + '</div>';
 			html += '		</div>';
+			html += '	</div>';
+			html += '</div>';
 			return html;
 		}
 		
@@ -183,6 +181,7 @@
 			var target = $(this).attr("id");
 			if (target != null) {
 				$("#manage-community-text-dialog").append(makeCommunityDetail(target));
+				$("#manage-community-text-detail-content").append(makeCommunityContent(target));
 				$.ajax(contextPath + "/data/community/comment/" + target + ".json", {
 					dataType : "json",
 					type : "GET",
@@ -201,7 +200,9 @@
 		});
 		
 		$('#manage-community-text-detail').on('hidden.bs.modal', function () {
-			$('#manage-community-text-content').remove();
+			$('.manage-community-text-content').remove();
+			$('.manage-community-detail-content').remove();
+			$('.manage-community-comment').remove();
 		});
 		
 		$('#manage-community-blind').on('hidden.bs.modal', function () {

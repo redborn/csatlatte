@@ -60,7 +60,7 @@
 			html += '			<label class="manage-user-label">성적평균</label>';
 			html += '			<div class="manage-user-info-content-value">' + student.averageScore + '</div>';
 			html += '		</div>';
-			html += '	</div>'; 
+			html += '	</div>';
 			html += '</div>';
 			return html;
 		}
@@ -89,7 +89,7 @@
 				success : function(data) {
 					if (data.information != null) {
 						var student = data.information;
-						$('#manage-user-student-information').append(makeStudentInformation(student));
+						$('.manage-user-modal-content').append(makeStudentInformation(student));
 					}
 				}
 			});
