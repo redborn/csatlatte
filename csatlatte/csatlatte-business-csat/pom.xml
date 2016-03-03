@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.redborn.csatlatte</groupId>
     <artifactId>csatlatte</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
   </parent>
   <artifactId>csatlatte-business-csat</artifactId>
   <dependencies>
@@ -25,7 +25,7 @@
   	<dependency>
   		<groupId>org.redborn.csatlatte</groupId>
   		<artifactId>csatlatte-dataaccess-csat</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>1.0.0</version>
   	</dependency>
   	<dependency>
   		<groupId>com.amazonaws</groupId>

@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.redborn.csatlatte</groupId>
     <artifactId>csatlatte</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
   </parent>
   <artifactId>csatlatte-application-web</artifactId>
   <packaging>war</packaging>
@@ -32,12 +32,12 @@
   	<dependency>
   		<groupId>org.redborn.csatlatte</groupId>
   		<artifactId>csatlatte-business-csat</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>1.0.0</version>
   	</dependency>
   	<dependency>
   		<groupId>org.redborn.csatlatte</groupId>
   		<artifactId>csatlatte-configuration-web</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>1.0.0</version>
   		<type>war</type>
   	</dependency>
   	<dependency>
