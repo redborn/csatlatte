@@ -32,8 +32,9 @@
 	<context:component-scan base-package="org.redborn.csatlatte.commons.servlet.http" name-generator="org.redborn.csatlatte.commons.spring.beans.factory.support.CsatBeanNameGenerator"/>
 	
 	<!-- mvc -->
+	<mvc:resources mapping="/robots.txt" location="/robots.txt" order="0"/>
+	<mvc:resources mapping="/resources/**" location="/resources/" order="0"/>
 	<mvc:annotation-driven/>
-	<mvc:resources mapping="/resources/**" location="/resources/"/>
 	
 	<!-- aop -->
 	<bean id="aop.uri" class="org.redborn.csatlatte.commons.spring.aop.Uri"/>

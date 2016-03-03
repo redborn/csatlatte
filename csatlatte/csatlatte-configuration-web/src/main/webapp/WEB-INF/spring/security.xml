@@ -7,9 +7,10 @@
 		http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security-4.0.xsd">
-		
+	
 	<http auto-config="true">
 	
+		<intercept-url pattern="/robots.txt" access="permitAll" method="GET"/>
 		<intercept-url pattern="/resources/**" access="permitAll" method="GET"/>
 		
 		<intercept-url pattern="/main" access="permitAll" method="GET"/>
