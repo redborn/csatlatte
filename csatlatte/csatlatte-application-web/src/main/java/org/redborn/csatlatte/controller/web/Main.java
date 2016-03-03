@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * 메인페이지입니다.
  */
 @Controller
-@RequestMapping("/main")
+@RequestMapping({"/main", "/"})
 public class Main {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -24,4 +24,5 @@ public class Main {
 		logger.info("Controller main GET.");
 		return TilesName.MAIN;
 	}
+	
 }
