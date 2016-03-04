@@ -8,12 +8,12 @@
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 	
-	<http pattern="/" security="none"/>
 	<http pattern="/robots.txt" security="none"/>
 	<http pattern="/sitemap.xml" security="none"/>
 	<http pattern="/resources/**" security="none"/>
 	
 	<http auto-config="true">
+		<intercept-url pattern="/" access="permitAll" method="GET"/>
 		<intercept-url pattern="/main" access="permitAll" method="GET"/>
 		<intercept-url pattern="/rating" access="permitAll" method="GET"/>
 		<intercept-url pattern="/grade" access="permitAll" method="GET"/>
