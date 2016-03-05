@@ -40,7 +40,7 @@ public class Student {
 			int beginIndex = photoName.lastIndexOf('.');
 			String extension = null;
 			if (beginIndex >= 0) {
-				extension = photoName.substring(beginIndex);
+				extension = photoName.substring(beginIndex + 1);
 			}
 			view = new FileOutputStreamView(studentService.getInputStream(studentSequence), extension, photoName);
 		} else {
