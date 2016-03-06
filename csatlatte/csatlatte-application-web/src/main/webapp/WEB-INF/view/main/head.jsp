@@ -20,7 +20,7 @@
 	.main-login .main-find-info {width:70%; display:inline-block; text-align:right;}
 	#main-maintain-login {text-align:left;}
 	.main-profile-photo {width:120px; height:120px; border-radius:4px; border:1px solid white;}
-	.main-link {color:white;}
+	.main-link {color:white; text-shadow:rgb(110,110,110) 0px 0px 6px;}
 	.main-link:hover {color:white;}
 	
 	@media (min-width: 992px) {
