@@ -15,6 +15,7 @@
 	.grade-btn {font-size:14px;}
 	.grade-nosection {display:none;}
 	.grade-nosection p {color:red;}
+	.grade-noexam {display:none;}
 </style>
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -131,58 +132,66 @@
 		
 		$("#grade-exam").on("change", function() {
 			var examSequence = $(this).val();
-			$.ajax(contextPath + "/data/exam/section/" + csatSequence + "/" + examSequence + ".json", {
-				success : function(data) {
-					$(".grade-transcript .grade-section").remove();
-					var sectionList = data.sectionList;
-					if (sectionList != null) {
-						var sectionListLength = sectionList.length;
-						for (var index = 0; index < sectionListLength; index++) {
-							$(".grade-transcript").append(makeSectionTable(sectionList[index]));
-						}
-						$.ajax(contextPath + "/data/exam/subject/" + csatSequence + "/" + examSequence + ".json", {
-							success : function(data) {
-								subjectList = data.subjectList;
-								$.ajax(contextPath + "/data/grade/" + examSequence + ".json", {
-									success : function(data) {
-										var gradeList = data.list;
-										if (gradeList != null) {
-											var gradeListLength = gradeList.length;
-											if (gradeListLength > 0) {
-												var ratingSum = 0;
-												var standardScore = 0;
-												for (var index = 0; index < gradeListLength; index++) {
-													var grade = gradeList[index];
-													standardScore += grade.standardScore;
-													ratingSum += parseInt(grade.ratingCode);
-													$("#grade-section-" + grade.sectionSequence + " tbody").append(makeGradeTr(grade));
-												}
-												$("#grade-rating").text("등급 평균 : " + Math.round(ratingSum / gradeListLength * 100) / 100 + "등급");
-												$("#grade-standardscore").text("표준 점수 : " + standardScore + "점");
-												for (var index = 0; index < sectionListLength; index++) {
-													if ($("#grade-section-" + sectionList[index].sectionSequence + " tbody tr").size() == $("#grade-section-" + sectionList[index].sectionSequence + " .grade-section-add-btn button").data("select-count")) {
-														$("#grade-section-" + sectionList[index].sectionSequence + " .grade-section-add-btn button").hide();
+			if (examSequence == null) {
+				$(".grade-nosection").hide();
+				$(".grade-transcript").hide();
+				$(".grade-noexam").show();
+			} else {
+				$.ajax(contextPath + "/data/exam/section/" + csatSequence + "/" + examSequence + ".json", {
+					success : function(data) {
+						$(".grade-transcript .grade-section").remove();
+						var sectionList = data.sectionList;
+						if (sectionList != null) {
+							var sectionListLength = sectionList.length;
+							for (var index = 0; index < sectionListLength; index++) {
+								$(".grade-transcript").append(makeSectionTable(sectionList[index]));
+							}
+							$.ajax(contextPath + "/data/exam/subject/" + csatSequence + "/" + examSequence + ".json", {
+								success : function(data) {
+									subjectList = data.subjectList;
+									$.ajax(contextPath + "/data/grade/" + examSequence + ".json", {
+										success : function(data) {
+											var gradeList = data.list;
+											if (gradeList != null) {
+												var gradeListLength = gradeList.length;
+												if (gradeListLength > 0) {
+													var ratingSum = 0;
+													var standardScore = 0;
+													for (var index = 0; index < gradeListLength; index++) {
+														var grade = gradeList[index];
+														standardScore += grade.standardScore;
+														ratingSum += parseInt(grade.ratingCode);
+														$("#grade-section-" + grade.sectionSequence + " tbody").append(makeGradeTr(grade));
 													}
+													$("#grade-rating").text("등급 평균 : " + Math.round(ratingSum / gradeListLength * 100) / 100 + "등급");
+													$("#grade-standardscore").text("표준 점수 : " + standardScore + "점");
+													for (var index = 0; index < sectionListLength; index++) {
+														if ($("#grade-section-" + sectionList[index].sectionSequence + " tbody tr").size() == $("#grade-section-" + sectionList[index].sectionSequence + " .grade-section-add-btn button").data("select-count")) {
+															$("#grade-section-" + sectionList[index].sectionSequence + " .grade-section-add-btn button").hide();
+														}
+													}
+												} else {
+													$("#grade-rating").text("등급 평균 : -");
+													$("#grade-standardscore").text("표준 점수 : -");
 												}
-											} else {
-												$("#grade-rating").text("등급 평균 : -");
-												$("#grade-standardscore").text("표준 점수 : -");
-											}
-											if (sectionListLength > 0) {
-												$(".grade-nosection").hide();
-												$(".grade-transcript").show();
-											} else {
-												$(".grade-transcript").hide();
-												$(".grade-nosection").show();
+												if (sectionListLength > 0) {
+													$(".grade-nosection").hide();
+													$(".grade-noexam").hide();
+													$(".grade-transcript").show();
+												} else {
+													$(".grade-transcript").hide();
+													$(".grade-noexam").hide();
+													$(".grade-nosection").show();
+												}
 											}
 										}
-									}
-								});
-							}
-						});
+									});
+								}
+							});
+						}
 					}
-				}
-			});
+				});
+			}
 			var addFormAction = $("#grade-add-form").attr("action");
 			addFormAction = addFormAction.substring(0, addFormAction.lastIndexOf("/"));
 			addFormAction = addFormAction.substring(0, addFormAction.lastIndexOf("/"));

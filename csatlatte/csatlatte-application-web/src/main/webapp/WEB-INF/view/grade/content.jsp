@@ -11,7 +11,7 @@
 			<div class="col-sm-3">
 				<select id="grade-yearstudent" class="form-control">
 				<c:forEach items="${yearStudentList}" var="yearStudent">
-					<option value="${yearStudent.yearStudentSequence}">${yearStudent.yearStudentName}</option>
+					<option value="${yearStudent.yearStudentSequence}" <c:if test="${yearStudent.yearStudentSequence == yearStudentSequence}">selected="true"</c:if>>${yearStudent.yearStudentName}</option>
 				</c:forEach>
 				</select>
 			</div>
@@ -26,8 +26,13 @@
 </div>
 <div class="grade-nosection">
 	<h4>이 시험은 성적과 관련된 정보가 부족합니다.</h4>
-	<h5>기관에서 자료 공개를 하지 않았거나 성적에 관련된 정보를 정리하는 중 입니다.</h5>
+	<h5>아직 시험이 실시되지 않은 경우 성적을 등록할 수 없습니다.</h5>
+	<h5>혹은 기관에서 자료 공개를 하지 않았거나 성적에 관련된 정보를 정리하는 중 입니다.</h5>
 	<p>한국교육평가원에서 주관하는 시험인 경우 해당 기관에서 성적과 관련된 자료를 공개하지 않아 수능라떼에서 성적 관리를 할 수 가 없습니다.</p>
+</div>
+<div class="grade-noexam">
+	<h4>아직 시험 예정이 없습니다.</h4>
+	<h5>시험 일정이 발표되지 않았거나 시험에 관련된 정보를 정리하는 중 입니다.</h5>
 </div>
 <div class="modal fade" id="grade-add" role="dialog">
 	<div class="modal-dialog" role="document">
