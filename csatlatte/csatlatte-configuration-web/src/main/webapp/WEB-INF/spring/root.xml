@@ -39,11 +39,16 @@
 	
 	<!-- aop -->
 	<bean id="aop.uri" class="org.redborn.csatlatte.commons.spring.aop.Uri"/>
+	<bean id="aop.browser" class="org.redborn.csatlatte.commons.spring.aop.Browser"/>
 	<bean id="aop.account" class="org.redborn.csatlatte.commons.spring.aop.Account"/>
 	<aop:config>
 		<aop:aspect id="uriAspect" ref="aop.uri">
 			<aop:pointcut id="uriPointCut" expression="execution(* org.redborn.csatlatte.controller.web..*.*(..))"/>
 			<aop:around pointcut-ref="uriPointCut" method="connection"/>
+		</aop:aspect>
+		<aop:aspect id="browserAspect" ref="aop.browser">
+			<aop:pointcut id="browserPointCut" expression="execution(* org.redborn.csatlatte.controller.web..*.*(..))"/>
+			<aop:around pointcut-ref="browserPointCut" method="supportBrowser"/>
 		</aop:aspect>
 		<aop:aspect id="accountAspect" ref="aop.account">
 			<aop:pointcut id="accountPointCut" expression="execution(* org.redborn.csatlatte.controller.account..*.*(..))"/>

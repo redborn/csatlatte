@@ -42,7 +42,7 @@ public class Question {
 			int beginIndex = filename.lastIndexOf('.');
 			String extension = null;
 			if (beginIndex >= 0) {
-				extension = filename.substring(beginIndex);
+				extension = filename.substring(beginIndex + 1);
 			}
 			view = new FileOutputStreamView(qnaService.getInputStream(qnaSequence, fileSequence), extension, filename);
 		}

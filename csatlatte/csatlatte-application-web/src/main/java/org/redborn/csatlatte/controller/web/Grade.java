@@ -46,7 +46,11 @@ public class Grade {
 				if (examYmd != null && examYmd.length() >= 4) {
 					int gap = Integer.parseInt(examYmd.substring(0, 4)) - Calendar.getInstance().get(Calendar.YEAR);
 					if (gap > 0) {
-						yearStudentSequence = 4 - gap;
+						if (gap > 2) {
+							yearStudentSequence = 1;
+						} else {
+							yearStudentSequence = 3 - gap;
+						}
 					}
 				}
 				model.addAttribute("yearStudentList", studentService.yearStudentList());
