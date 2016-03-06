@@ -6,13 +6,12 @@
 	html {height:100%;}
 	body {height:100%; margin:0;}
 	.main-picture {width:100%; height:100%;
-		background: url("${pageContext.request.contextPath}/resources/csatlatte/images/header/bg_main4.jpg") no-repeat center center fixed;
+		background: url("${pageContext.request.contextPath}/resources/csatlatte/images/header/bg_main4_smallest.jpg") no-repeat center center fixed;
 		-webkit-background-size: cover;
 		-moz-background-size: cover;
 		-o-background-size: cover;
 		background-size: cover;
 	}
-	
 	.main-title {font-size:40px; text-shadow:rgb(110,110,110) 0px 0px 8px; color:white; position: absolute; top: 50%; margin-top: -187px; width: 100%; text-align:center;}
 	.main-login {position:absolute; top:50%; width:270px; left:50%; margin-left:-135px; margin-top:-50px; color:white; text-align:center;}
 	.main-login .btn {background:#7a6253; width:100%; color:white; border-color:#7a6253;}
@@ -22,10 +21,34 @@
 	.main-profile-photo {width:120px; height:120px; border-radius:4px; border:1px solid white;}
 	.main-link {color:white; text-shadow:rgb(110,110,110) 0px 0px 6px;}
 	.main-link:hover {color:white;}
-	
+	@media (min-width: 768px) {
+		.main-picture {width:100%; height:100%;
+			background: url("${pageContext.request.contextPath}/resources/csatlatte/images/header/bg_main4_small.jpg") no-repeat center center fixed;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+		}
+	}
 	@media (min-width: 992px) {
 		.main-title {padding-right:65%; margin-top:-57px;}
 		.main-login {left:82%; margin-top:-81px;}
+		.main-picture {width:100%; height:100%;
+			background: url("${pageContext.request.contextPath}/resources/csatlatte/images/header/bg_main4_medium.jpg") no-repeat center center fixed;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+		}
+	}
+	@media (min-width: 1200px) {
+		.main-picture {width:100%; height:100%;
+			background: url("${pageContext.request.contextPath}/resources/csatlatte/images/header/bg_main4_large.jpg") no-repeat center center fixed;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+		}
 	}
 	
 </style>
