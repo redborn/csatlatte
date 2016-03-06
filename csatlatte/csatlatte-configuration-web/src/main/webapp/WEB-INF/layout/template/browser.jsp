@@ -9,21 +9,21 @@
 <title><tiles:getAsString name="title"/></title>
 <style type="text/css">
 	body {margin:0px; font-family:'Malgun Gothic';}
-	.browser {margin-top:200px;}
+	.browser {margin-top:180px;}
 	.browser-content-align {width:auto !important; margin-left:auto; margin-right:auto; text-align:center;}
-	.browser-content {width:960px; padding:0 !important; margin-left:auto; margin-right:auto; text-align:left; padding:auto;}
+	.browser-content {width:620px; padding:0 !important; margin-left:auto; margin-right:auto; text-align:left; padding:auto;}
 	.browser-content h3 {margin-bottom:3px;}
 	.browser-content-etc {margin-bottom:40px;}
 	.browser-content-etc a {color:#7a6253; text-decoration:none; margin-right:20px;}
-	.browser-ie {width:250px; float:left;}
+	.browser-ie {width:220px; float:left;}
 	.browser-ie p {float:left; margin:0;}
 	.browser-ie a {color:#7a6253; text-decoration:none;}
 	.browser-ie img {float:left;}
-	.browser-firefox {width:250px; float:left;}
+	.browser-firefox {width:200px; float:left;}
 	.browser-firefox a {color:#7a6253; text-decoration:none;}
 	.browser-firefox p {float:left; margin:0;}
 	.browser-firefox img {float:left;}
-	.browser-chrome {width:250px; float:left;}
+	.browser-chrome {width:200px; float:left;}
 	.browser-chrome a {color:#7a6253; text-decoration:none;}
 	.browser-chrome p {float:left; margin:0;}
 	.browser-chrome img {float:left;}
