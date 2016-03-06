@@ -11,7 +11,7 @@
 			<div class="col-sm-3">
 				<select id="grade-yearstudent" class="form-control">
 				<c:forEach items="${yearStudentList}" var="yearStudent">
-					<option value="${yearStudent.yearStudentSequence}">${yearStudent.yearStudentName}</option>
+					<option value="${yearStudent.yearStudentSequence}" <c:if test="${yearStudent.yearStudentSequence == yearStudentSequence}">selected="true"</c:if>>${yearStudent.yearStudentName}</option>
 				</c:forEach>
 				</select>
 			</div>
