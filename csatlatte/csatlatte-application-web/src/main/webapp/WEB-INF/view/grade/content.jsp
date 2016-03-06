@@ -33,7 +33,6 @@
 <div class="grade-noexam">
 	<h4>아직 시험 예정이 없습니다.</h4>
 	<h5>시험 일정이 발표되지 않았거나 시험에 관련된 정보를 정리하는 중 입니다.</h5>
-	<h5>혹시 학년을 잘못 선택하지 않았는지 확인해보세요.</h5>
 </div>
 <div class="modal fade" id="grade-add" role="dialog">
 	<div class="modal-dialog" role="document">
