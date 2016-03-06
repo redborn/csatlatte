@@ -15,6 +15,7 @@
 	.grade-btn {font-size:14px;}
 	.grade-nosection {display:none;}
 	.grade-nosection p {color:red;}
+	.grade-noexam {display:none;}
 </style>
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -131,6 +132,11 @@
 		
 		$("#grade-exam").on("change", function() {
 			var examSequence = $(this).val();
+			if (examSequence == null) {
+				$(".grade-nosection").hide();
+				$(".grade-transcript").hide();
+				$(".grade-noexam").show();
+			}
 			$.ajax(contextPath + "/data/exam/section/" + csatSequence + "/" + examSequence + ".json", {
 				success : function(data) {
 					$(".grade-transcript .grade-section").remove();
@@ -170,9 +176,11 @@
 											}
 											if (sectionListLength > 0) {
 												$(".grade-nosection").hide();
+												$(".grade-noexam").hide();
 												$(".grade-transcript").show();
 											} else {
 												$(".grade-transcript").hide();
+												$(".grade-noexam").hide();
 												$(".grade-nosection").show();
 											}
 										}
