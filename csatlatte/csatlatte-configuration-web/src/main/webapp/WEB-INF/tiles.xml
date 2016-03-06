@@ -3,8 +3,11 @@
 
 <tiles-definitions>
 
-	<definition name="csatlatte.layout.main" template="/WEB-INF/layout/template/main.jsp">
+	<definition name="csatlatte.layout.browser" template="/WEB-INF/layout/template/browser.jsp">
 		<put-attribute name="title" value="수능라떼"/>
+	</definition>
+
+	<definition name="csatlatte.layout.main" template="/WEB-INF/layout/template/main.jsp" extends="csatlatte.layout.browser">
 		<put-attribute name="header" value="/WEB-INF/layout/attribute/header.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/layout/attribute/footer.jsp"/>
 	</definition>
@@ -81,6 +84,8 @@
 		<put-attribute name="lnb" value="/WEB-INF/view/profile/security/authentication/fail/lnb.jsp"/>
 		<put-attribute name="content" value="/WEB-INF/view/profile/security/authentication/fail/content.jsp"/>
 	</definition>
+	
+	<definition name="/error/browser" extends="csatlatte.layout.browser"/>
 	
 	<definition name="/error/*" extends="csatlatte.layout.error">
 		<put-attribute name="content" value="/WEB-INF/view/error/{1}.jsp"/>
