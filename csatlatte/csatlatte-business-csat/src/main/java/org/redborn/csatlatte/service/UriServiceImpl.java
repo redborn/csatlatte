@@ -17,7 +17,11 @@ public class UriServiceImpl implements UriService {
 	public boolean connection(String uri, String userAgent, String sessionId,
 			String ip) {
 		logger.info("Business layer uri connection.");
-		return uriDao.insert(uri, userAgent, sessionId, ip) == 1;
+		boolean result = false;
+		if (!"ELB-HealthChecker/1.0".equals(userAgent)) {
+			result = uriDao.insert(uri, userAgent, sessionId, ip) == 1;
+		}
+		return result;
 	}
 
 }
