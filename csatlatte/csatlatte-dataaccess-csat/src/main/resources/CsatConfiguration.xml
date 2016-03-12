@@ -31,6 +31,7 @@
 		<typeAlias alias="AverageVo" type="org.redborn.csatlatte.domain.AverageVo"/>
 		<typeAlias alias="SectionVo" type="org.redborn.csatlatte.domain.SectionVo"/>
 		<typeAlias alias="SubjectVo" type="org.redborn.csatlatte.domain.SubjectVo"/> 
+		<typeAlias alias="ExamDDayVo" type="org.redborn.csatlatte.domain.ExamDDayVo"/>
 	</typeAliases>
 	
 	<mappers>

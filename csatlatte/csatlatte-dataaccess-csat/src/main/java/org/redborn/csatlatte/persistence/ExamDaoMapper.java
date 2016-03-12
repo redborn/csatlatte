@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.redborn.csatlatte.domain.ExamDDayVo;
 import org.redborn.csatlatte.domain.ExamVo;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,10 @@ public class ExamDaoMapper extends SqlSessionDaoSupport implements ExamDao {
 	
 	public int selectOneCountMax(int csatSequence) {
 		return getSqlSession().selectOne("exam.selectOneCountMax", csatSequence);
+	}
+	
+	public ExamDDayVo selectOneDDay(int csatSequence) {
+		return getSqlSession().selectOne("exam.selectOneDDay", csatSequence);
 	}
 	
 	public List<ExamVo> selectListDetailForManage(int csatSequence, int examSequence) {
