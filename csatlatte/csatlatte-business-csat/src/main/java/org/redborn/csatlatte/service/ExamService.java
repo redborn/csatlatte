@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.redborn.csatlatte.domain.AverageVo;
 import org.redborn.csatlatte.domain.CsatVo;
+import org.redborn.csatlatte.domain.ExamDDayVo;
 import org.redborn.csatlatte.domain.ExamVo;
 import org.redborn.csatlatte.domain.GradeVo;
 import org.redborn.csatlatte.domain.InstitutionVo;
@@ -147,5 +148,14 @@ public interface ExamService {
 	 * @return 모의고사 학생 성적 등록 리스트
 	 */
 	public List<GradeVo> examStudentList(int csatSequence, int examSequence);
+	
+	/**
+	 * 
+	 * 시험 디데이입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @return D-day
+	 */
+	public ExamDDayVo examDday(int csatSequence);
 	
 }

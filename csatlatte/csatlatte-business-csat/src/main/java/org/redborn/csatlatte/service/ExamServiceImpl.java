@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.redborn.csatlatte.domain.AverageVo;
 import org.redborn.csatlatte.domain.CsatVo;
+import org.redborn.csatlatte.domain.ExamDDayVo;
 import org.redborn.csatlatte.domain.ExamVo;
 import org.redborn.csatlatte.domain.GradeVo;
 import org.redborn.csatlatte.domain.InstitutionVo;
@@ -124,5 +125,9 @@ public class ExamServiceImpl implements ExamService {
 		logger.info("Business layer exam examStudentList.");
 		return scoreDao.selectListExamStudent(csatSequence, examSequence);
 	}
-
+	
+	public ExamDDayVo examDday(int csatSequence) {
+		logger.info("Business Layer exam examDday.");
+		return examDao.selectOneDDay(csatSequence);
+	}
 }
