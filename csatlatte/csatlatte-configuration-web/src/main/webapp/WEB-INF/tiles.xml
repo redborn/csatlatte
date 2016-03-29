@@ -23,6 +23,11 @@
 		<put-attribute name="content" value="/WEB-INF/view/main/content.jsp"/>
 	</definition>
 	
+	<definition name="/login" extends="csatlatte.layout.function3">
+		<put-attribute name="head" value="/WEB-INF/view/login/head.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/login/content.jsp"/>
+	</definition>
+	
 	<definition name="/rating" extends="csatlatte.layout.function2">
 		<put-attribute name="head" value="/WEB-INF/view/rating/head.jsp"/>
 		<put-attribute name="content" value="/WEB-INF/view/rating/content.jsp"/>
