@@ -16,10 +16,6 @@
 				<label for="main-input-password" class="sr-only">수능라떼 비밀번호</label>
 				<input type="password" name="password" class="form-control" placeholder="수능라떼 비밀번호" id="main-input-password"/>
 			</div>
-			<div class="form-group" id="main-maintain-login">
-				<input id="main-login-keep-status" type="checkbox"/>
-				<label for="main-login-keep-status">로그인 상태 유지</label>
-			</div>
 			<div class="form-group">
 				<input type="submit" class="btn btn-default" value="로그인"/>
 			</div>

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -25,12 +26,16 @@
 				<li><a href="<c:url value="/stats/join"/>">관리자 페이지</a></li>
 			</session:isManager>
 			</ul>
-		<session:isLogin>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="${pageContext.request.contextPath}/<session:id/>" class="btn btn-defaults btn-lg"><span class="glyphicon glyphicon-user"></span></a></li>
-				<li><a href="<c:url value="/logout"/>" class="btn btn-defaults btn-lg"><span class="glyphicon glyphicon-off"></span></a></li>
+			<session:isGuest>
+				<li><a href="<c:url value="/login"/>">로그인</a></li>
+			</session:isGuest>
+			<session:isLogin>
+				<li><a href="${pageContext.request.contextPath}/<session:id/>">마이페이지</a></li>
+				<li><a href="#" id="header-logout">로그아웃</a></li>
+				<li><form:form id="header-logout-form" servletRelativeAction="/logout" method="POST" class="navbar-form navbar-right"></form:form></li>
+			</session:isLogin>
 			</ul>
-		</session:isLogin>
 		</div>
 	</div>
 </nav>
