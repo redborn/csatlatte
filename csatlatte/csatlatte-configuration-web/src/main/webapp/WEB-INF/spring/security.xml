@@ -15,7 +15,6 @@
 	<http auto-config="true">
 		<intercept-url pattern="/" access="permitAll" method="GET"/>
 		<intercept-url pattern="/main" access="permitAll" method="GET"/>
-		<intercept-url pattern="/login" access="permitAll" method="GET"/>
 		<intercept-url pattern="/rating" access="permitAll" method="GET"/>
 		<intercept-url pattern="/grade" access="permitAll" method="GET"/>
 		<intercept-url pattern="/grade/analysis" access="hasRole('ROLE_USER')" method="GET"/>
@@ -49,8 +48,11 @@
 		<intercept-url pattern="/password" access="anonymous" method="GET"/>
 		<intercept-url pattern="/password" access="anonymous" method="POST"/>
 		<intercept-url pattern="/password/security" access="anonymous" method="POST"/>
+		<intercept-url pattern="/login" access="anonymous" method="GET"/>
 		<intercept-url pattern="/login" access="anonymous" method="POST"/>
+		<intercept-url pattern="/login/fail" access="anonymous" method="GET"/>
 		<intercept-url pattern="/logout" access="hasRole('ROLE_USER')" method="GET"/>
+		<intercept-url pattern="/logout/success" access="anonymous" method="GET"/>
 		
 		<intercept-url pattern="/data/grade/*" access="hasRole('ROLE_USER')" method="GET"/>
 		<intercept-url pattern="/data/grade/*/*" access="hasRole('ROLE_USER')" method="POST"/>
