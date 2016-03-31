@@ -22,8 +22,8 @@ public class Fail {
 	@RequestMapping(method=RequestMethod.GET)
 	public String get(RedirectAttributes redirectAttributes) {
 		logger.info("Controller login fail GET.");
-		redirectAttributes.addFlashAttribute("fail", true);
-		return "redirect:/main";
+		redirectAttributes.addFlashAttribute("loginFail", true);
+		return "redirect:/login";
 	}
 
 }

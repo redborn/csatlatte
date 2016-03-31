@@ -55,12 +55,17 @@
 	</select>
 	
 	<select id="selectListYear" parameterType="int" resultType="String">
-		SELECT SUBSTRING(exam_ymd, 1, 4) as year
-		  FROM csat_exam
-		 WHERE rating_cut_public_yn = 'Y'
-		   AND ys_seq = #{yearStudentSequence}
+		 SELECT SUBSTRING(exam_ymd, 1, 4) AS year
+		  FROM csat_exam ce
+		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS count
+		                          FROM csat_exam_rating_cut
+		                         GROUP BY csat_seq,exam_seq) cerc
+		                    ON ( cerc.csat_seq = ce.csat_seq
+		                         AND cerc.exam_seq = ce.exam_seq )
+		 WHERE ys_seq = #{yearStudentSequence}
+		   AND cerc.count IS NOT NULL
 		 GROUP BY year
-		 ORDER BY exam_ymd desc
+		 ORDER BY exam_ymd DESC
 	</select>
 	
 	<select id="selectListExamForManage" parameterType="int" resultMap="ExamVoForManageMap">

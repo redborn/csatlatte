@@ -48,8 +48,11 @@
 		<intercept-url pattern="/password" access="anonymous" method="GET"/>
 		<intercept-url pattern="/password" access="anonymous" method="POST"/>
 		<intercept-url pattern="/password/security" access="anonymous" method="POST"/>
+		<intercept-url pattern="/login" access="anonymous" method="GET"/>
 		<intercept-url pattern="/login" access="anonymous" method="POST"/>
+		<intercept-url pattern="/login/fail" access="anonymous" method="GET"/>
 		<intercept-url pattern="/logout" access="hasRole('ROLE_USER')" method="GET"/>
+		<intercept-url pattern="/logout/success" access="anonymous" method="GET"/>
 		
 		<intercept-url pattern="/data/grade/*" access="hasRole('ROLE_USER')" method="GET"/>
 		<intercept-url pattern="/data/grade/*/*" access="hasRole('ROLE_USER')" method="POST"/>
@@ -119,13 +122,14 @@
 		<intercept-url pattern="/*/data/grade/standardscore" access="hasRole('ROLE_USER')" method="GET"/>
 		<intercept-url pattern="/*/data/community" access="hasRole('ROLE_USER')" method="GET"/>
 		
-		<form-login login-page="/main"
+		<form-login login-page="/login"
 					login-processing-url="/login"
 					username-parameter="id"
 					password-parameter="password"
 					default-target-url="/main"
 					authentication-failure-url="/login/fail" />
 					
+		<logout logout-url="/logout" logout-success-url="/logout/success" invalidate-session="true"/>
 		<csrf/>
 	</http>
 	
