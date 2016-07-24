@@ -23,15 +23,15 @@ public class ExamDaoMapper extends SqlSessionDaoSupport implements ExamDao {
 		return getSqlSession().selectList("exam.selectListDetailForManage", params);
 	}
 	
-	public List<ExamVo> selectListExam(String year, int yearStudentSequence) {
+	public List<ExamVo> selectListExamForRating(String year, int yearStudentSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("year", year);
 		params.put("yearStudentSequence", yearStudentSequence);
-		return getSqlSession().selectList("exam.selectListExam", params);
+		return getSqlSession().selectList("exam.selectListExamForRating", params);
 	}
 	
-	public List<String> selectListYear(int yearStudentSequence) {
-		return getSqlSession().selectList("exam.selectListYear", yearStudentSequence);
+	public List<String> selectListYearForRating(int yearStudentSequence) {
+		return getSqlSession().selectList("exam.selectListYearForRating", yearStudentSequence);
 	}
 
 	public List<ExamVo> selectListExamForManage(int csatSequence) {

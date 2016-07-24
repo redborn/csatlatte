@@ -46,7 +46,7 @@
 		   AND ce.isttt_seq = ci.isttt_seq 
 	</select>
 
-	<select id="selectListExam" parameterType="Map" resultMap="ExamVoMap">
+	<select id="selectListExamForRating" parameterType="Map" resultMap="ExamVoMap">
 		SELECT csat_seq,exam_seq,exam_name,rating_cut_public_yn
 		  FROM csat_exam
 		 WHERE SUBSTRING(exam_ymd,1,4) = #{year}
@@ -54,7 +54,7 @@
 		 ORDER BY exam_seq ASC 
 	</select>
 	
-	<select id="selectListYear" parameterType="int" resultType="String">
+	<select id="selectListYearForRating" parameterType="int" resultType="String">
 		 SELECT SUBSTRING(exam_ymd, 1, 4) AS year
 		  FROM csat_exam ce
 		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS count
