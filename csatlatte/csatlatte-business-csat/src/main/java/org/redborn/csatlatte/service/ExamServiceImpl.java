@@ -54,14 +54,14 @@ public class ExamServiceImpl implements ExamService {
 		return csatDao.selectListYear();
 	}
 	
-	public List<String> yearList(int yearStudentSequence) {
+	public List<String> yearListForRating(int yearStudentSequence) {
 		logger.info("Business layer exam yearList.");
-		return examDao.selectListYear(yearStudentSequence);
+		return examDao.selectListYearForRating(yearStudentSequence);
 	}
 	
-	public List<ExamVo> list(String year, int yearStudentSequence) {
+	public List<ExamVo> listForRating(String year, int yearStudentSequence) {
 		logger.info("Business layer exam list.");
-		return examDao.selectListExam(year, yearStudentSequence);
+		return examDao.selectListExamForRating(year, yearStudentSequence);
 	}
 	
 	public List<ExamVo> listForManage(int csatSequence) {

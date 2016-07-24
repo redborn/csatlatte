@@ -31,21 +31,21 @@ public interface ExamService {
 	public List<CsatVo> csatList();
 	
 	/**
-	 * 모의고사 리스트입니다.
+	 * 등급컷 모의고사 리스트입니다.
 	 * 
 	 * @param year 연도
 	 * @param yearStudentSequence 학년 일련번호
 	 * @return 모의고사 리스트
 	 */
-	public Object list(String year, int yearStudentSequence);
+	public List<ExamVo> listForRating(String year, int yearStudentSequence);
 	
 	/**
-	 * 모의고사 연도 리스트입니다.
+	 * 등급컷 모의고사 연도 리스트입니다.
 	 * 
 	 * @param yearStudentSequence 학년 일련번호
 	 * @return 모의고사 연도 리스트
 	 */
-	public List<String> yearList(int yearStudentSequence);
+	public List<String> yearListForRating(int yearStudentSequence);
 	
 	/**
 	 * 모의고사 관리 리스트입니다.
