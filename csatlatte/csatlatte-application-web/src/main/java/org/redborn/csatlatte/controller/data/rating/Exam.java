@@ -30,7 +30,7 @@ public class Exam {
 	@RequestMapping(value="{yearStudentSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="yearStudentSequence") int yearStudentSequence) {
 		logger.info("Controller data rating exam GET.");
-		model.addAttribute("yearList", examService.yearList(yearStudentSequence));
+		model.addAttribute("yearList", examService.yearListForRating(yearStudentSequence));
 	}
 	
 	/**
@@ -44,7 +44,7 @@ public class Exam {
 	public void get(Model model, @PathVariable(value="yearStudentSequence") int yearStudentSequence,
 			@PathVariable(value="year") String year) {
 		logger.info("Controller data rating exam GET.");
-		model.addAttribute("list", examService.list(year, yearStudentSequence));
+		model.addAttribute("list", examService.listForRating(year, yearStudentSequence));
 	}
 	
 }
