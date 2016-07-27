@@ -13,10 +13,11 @@
 		<result column="subject_seq" property="subjectSequence"/>
 		<result column="subject_name" property="subjectName"/>
 		<result column="max_score" property="maxScore"/>
+		<result column="exam_time" property="examTime"/>
 	</resultMap>
 
 	<select id="selectList" parameterType="Map" resultMap="SubjectVoMap">
-		SELECT ces.csat_seq, ces.exam_seq, ces.section_seq, ces.subject_seq, ces.subject_name, ces.max_score
+		SELECT ces.csat_seq, ces.exam_seq, ces.section_seq, ces.subject_seq, ces.subject_name, ces.max_score, ces.exam_time
 		  FROM csat_exam_subject ces
 		 WHERE ces.csat_seq = #{csatSequence}
 		   AND ces.exam_seq = #{examSequence}
