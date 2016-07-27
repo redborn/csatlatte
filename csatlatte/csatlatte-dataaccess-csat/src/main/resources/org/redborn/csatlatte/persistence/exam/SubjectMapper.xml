@@ -23,9 +23,9 @@
 	</select>
 
 	<insert id="insert" parameterType="SubjectVo">
-		INSERT INTO csat_exam_subject
+		INSERT INTO csat_exam_subject(csat_seq, exam_seq, section_seq, subject_seq, subject_name, max_score, exam_time)
 		VALUES (#{csatSequence}, #{examSequence}, #{sectionSequence}, #{subjectSequence},
-				#{subjectName}, #{maxScore}) 
+				#{subjectName}, #{maxScore}, #{examTime}) 
 	</insert>
 	
 	<delete id="delete" parameterType="Map">
