@@ -80,6 +80,7 @@ public class RatingCutReader {
 				subjectVo.setSubjectSequence((int) subjectAndRatingCutRow.getCell(1).getNumericCellValue());
 				subjectVo.setSubjectName(subjectAndRatingCutRow.getCell(2).getStringCellValue());
 				subjectVo.setMaxScore((int) subjectAndRatingCutRow.getCell(3).getNumericCellValue());
+				subjectVo.setExamTime((int) subjectAndRatingCutRow.getCell(6).getNumericCellValue());
 				subjectVos.add(subjectVo);
 
 				averageVo = new AverageVo();
@@ -90,6 +91,8 @@ public class RatingCutReader {
 				averageVo.setAverage((float) subjectAndRatingCutRow.getCell(4).getNumericCellValue());
 				averageVo.setStandardDeviation((float) subjectAndRatingCutRow.getCell(5).getNumericCellValue());
 				averageVos.add(averageVo);
+				
+				
 			}
 		}
 	}
