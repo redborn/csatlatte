@@ -127,8 +127,15 @@
 											success : function (data) {
 												if (data.averageList != null) {
 													var averageList = data.averageList;
-													$('.manage-rating-cut-info').remove();
-													$('#manage-rating-detail-view-detail').append(makeRatingCutView(averageList, ratingCutList));
+													$.ajax(contextPath + "/data/exam/subject/" + csatSequence + "/" + examSequence + ".json", {
+														dataType : "json",
+														type : "GET",
+														success : function (data) {
+															var subjectList = data.subjectList;
+															$('.manage-rating-cut-info').remove();
+															$('#manage-rating-detail-view-detail').append(makeRatingCutView(averageList, ratingCutList, subjectList));
+														}
+													});
 												}
 											}
 										});
@@ -324,7 +331,7 @@
 			return html;
 		}
 		
-		var makeRatingCutView = function (averageList, ratingCutList) {
+		var makeRatingCutView = function (averageList, ratingCutList, subjectList) {
 			var ratingCut1 = makeRatingCutList(ratingCutList, 1);
 			var ratingCut2 = makeRatingCutList(ratingCutList, 4);
 			var ratingCut3 = makeRatingCutList(ratingCutList, 7);
@@ -334,6 +341,7 @@
 			html += '		<li data-target="#carousel-example-generic" data-slide-to="1"></li>';
 			html += '		<li data-target="#carousel-example-generic" data-slide-to="2"></li>';
 			html += '		<li data-target="#carousel-example-generic" data-slide-to="3"></li>';
+			html += '		<li data-target="#carousel-example-generic" data-slide-to="4"></li>';
 			html += '	</ol>';
 			html += '	<div class="carousel-inner manage-rating-detail-carousel-inner" role="listbox">';		
 			html += '		<div class="item active">';
@@ -344,6 +352,7 @@
 			html += makeRatingCut(ratingCut1, 1);
 			html += makeRatingCut(ratingCut2, 4);
 			html += makeRatingCut(ratingCut3, 7);
+			html += makeSubjectTime(subjectList);
 			html += '	</div>';
 			html += '	<a class="manage-rating-carousel-left-button carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">';
 			html += '		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>';
@@ -354,6 +363,34 @@
 			html += '		<span class="sr-only">Next</span>';
 			html += '	</a>';
 			html += '</div>';
+			return html;
+		}
+		
+		var makeSubjectTime = function (subjectList) {
+			var html = '';
+			html += '		<div class="item">';
+			html += '			<div class="carousel-caption manage-rating-carousel-caption">';
+			html += '				<table class="table table-bordered table-hover manage-rating-detail-table">';
+			html += '					<thead>';
+			html += '						<tr>';
+			html += '							<th rowspan="2">과목</th>';
+			html += '							<th rowspan="2">시험시간</th>';
+			html += '						</tr>';
+			html += '					</thead>';
+			html += '					<tbody>';
+			if (subjectList != null) {
+				var subjectListLength = subjectList.length;
+				for (var index = 0; index < subjectListLength; index++) {
+					html += '<tr>';
+					html += '	<td>' + subjectList[index].subjectName + '</td>';
+					html += '	<td>' + subjectList[index].examTime + '</td>';
+					html += '</tr>';
+				}
+			}
+			html += '					</tbody>';
+			html += '				</table>';
+			html += '			</div>';
+			html += '		</div>';
 			return html;
 		}
 	});
