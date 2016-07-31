@@ -99,6 +99,13 @@
 		 ORDER BY ce.exam_seq desc
 	</select>
 	
+	<select id="selectExamName" parameterType="Map" resultType="String">
+		SELECT exam_name
+		  FROM csat_exam
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</select>
+	
 	<insert id="insert" parameterType="ExamVo">
 		INSERT INTO csat_exam
 		     VALUES (#{csatSequence},

@@ -19,7 +19,6 @@ public class ExamDaoMapper extends SqlSessionDaoSupport implements ExamDao {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);
 		params.put("examSequence", examSequence);
-		
 		return getSqlSession().selectList("exam.selectListDetailForManage", params);
 	}
 	
@@ -48,6 +47,13 @@ public class ExamDaoMapper extends SqlSessionDaoSupport implements ExamDao {
 
 	public List<ExamVo> selectListExamForManage(int csatSequence) {
 		return getSqlSession().selectList("exam.selectListExamForManage", csatSequence);
+	}
+
+	public String selectExamName(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		return getSqlSession().selectOne("exam.selectExamName", params);
 	}
 	
 	public int insert(ExamVo examVo) {

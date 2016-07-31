@@ -13,6 +13,7 @@ public interface ExamDao {
 	public List<String> selectListYearForRating(int yearStudentSequence);
 	public List<String> selectListYearForSolving(int yearStudentSequence);
 	public List<ExamVo> selectListExamForManage(int csatSequence);
+	public String selectExamName(int csatSequence, int examSequence);
 	public int insert(ExamVo examVo);
 	public int update(ExamVo examVo);
 	public int delete(int csatSequence, int examSequence);
