@@ -45,6 +45,17 @@ public interface ExamService {
 	public String getName(int csatSequence, int examSequence);
 	
 	/**
+	 * 과목 명 입니다.
+	 *
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 과목 명
+	 */
+	public String getSubjectName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
 	 * 수능 리스트입니다.
 	 * 
 	 * @return 수능 리스트

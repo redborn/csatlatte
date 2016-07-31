@@ -63,6 +63,12 @@ public class ExamServiceImpl implements ExamService {
 		logger.info("Business layer exam getName.");
 		return examDao.selectExamName(csatSequence, examSequence);
 	}
+
+	public String getSubjectName(int csatSequence, int examSequence,
+			int sectionSequence, int subjectSequence) {
+		logger.info("Business layer exam getSubjectName.");
+		return subjectDao.selectSubjectName(csatSequence, examSequence, sectionSequence, subjectSequence);
+	}
 	
 	public List<CsatVo> csatList() {
 		logger.info("Business layer exam csatList.");
