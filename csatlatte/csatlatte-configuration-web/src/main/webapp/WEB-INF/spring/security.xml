@@ -19,6 +19,9 @@
 		<intercept-url pattern="/grade" access="permitAll" method="GET"/>
 		<intercept-url pattern="/grade/analysis" access="hasRole('ROLE_USER')" method="GET"/>
 		<intercept-url pattern="/community" access="permitAll" method="GET"/>
+		<intercept-url pattern="/solving/select" access="permitAll" method="GET"/>
+		<intercept-url pattern="/solving/*/*" access="permitAll" method="GET"/>
+		<intercept-url pattern="/solving" access="permitAll" method="POST"/>
 		<intercept-url pattern="/support" access="permitAll" method="GET"/>
 		<intercept-url pattern="/support/question" access="hasRole('ROLE_USER')" method="GET"/>
 		<intercept-url pattern="/support/question" access="hasRole('ROLE_USER')" method="POST"/>
