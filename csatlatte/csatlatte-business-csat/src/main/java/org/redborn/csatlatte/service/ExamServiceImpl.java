@@ -7,11 +7,13 @@ import org.redborn.csatlatte.domain.CsatVo;
 import org.redborn.csatlatte.domain.ExamVo;
 import org.redborn.csatlatte.domain.GradeVo;
 import org.redborn.csatlatte.domain.InstitutionVo;
+import org.redborn.csatlatte.domain.QuestionVo;
 import org.redborn.csatlatte.domain.SectionVo;
 import org.redborn.csatlatte.domain.SubjectVo;
 import org.redborn.csatlatte.persistence.CsatDao;
 import org.redborn.csatlatte.persistence.ExamDao;
 import org.redborn.csatlatte.persistence.InstitutionDao;
+import org.redborn.csatlatte.persistence.QuestionDao;
 import org.redborn.csatlatte.persistence.exam.AverageDao;
 import org.redborn.csatlatte.persistence.exam.RatingCutDao;
 import org.redborn.csatlatte.persistence.exam.SectionDao;
@@ -43,10 +45,18 @@ public class ExamServiceImpl implements ExamService {
 	private SubjectDao subjectDao;
 	@Autowired
 	private ScoreDao scoreDao;
+	@Autowired
+	private QuestionDao questionDao;
 
 	public CsatVo getCsat(int csatSequence) {
 		logger.info("Business layer exam getCsat.");
 		return csatDao.selectOne(csatSequence);
+	}
+
+	public int getExamTime(int csatSequence, int examSequence,
+			int sectionSequence, int subjectSequence) {
+		logger.info("Business layer exam getExamTime.");
+		return subjectDao.selectExamTime(csatSequence, examSequence, sectionSequence, subjectSequence);
 	}
 	
 	public List<CsatVo> csatList() {
@@ -55,13 +65,23 @@ public class ExamServiceImpl implements ExamService {
 	}
 	
 	public List<String> yearListForRating(int yearStudentSequence) {
-		logger.info("Business layer exam yearList.");
+		logger.info("Business layer exam yearListForRating.");
 		return examDao.selectListYearForRating(yearStudentSequence);
+	}
+
+	public List<String> yearListForSolving(int yearStudentSequence) {
+		logger.info("Business layer exam yearListForSolving.");
+		return examDao.selectListYearForSolving(yearStudentSequence);
 	}
 	
 	public List<ExamVo> listForRating(String year, int yearStudentSequence) {
-		logger.info("Business layer exam list.");
+		logger.info("Business layer exam listForRating.");
 		return examDao.selectListExamForRating(year, yearStudentSequence);
+	}
+
+	public List<ExamVo> listForSolving(String year, int yearStudentSequence) {
+		logger.info("Business layer exam listForSolving.");
+		return examDao.selectListExamForSolving(year, yearStudentSequence);
 	}
 	
 	public List<ExamVo> listForManage(int csatSequence) {
@@ -84,6 +104,12 @@ public class ExamServiceImpl implements ExamService {
 		return subjectDao.selectList(csatSequence, examSequence);
 	}
 
+	public List<SubjectVo> subjectListForSolving(int csatSequence,
+			int examSequence) {
+		logger.info("Business layer exam subjectListForSolving.");
+		return subjectDao.selectListForSolving(csatSequence, examSequence);
+	}
+
 	public boolean register(ExamVo examVo) {
 		logger.info("Business layer exam register.");
 		examVo.setExamSequence(examDao.selectOneCountMax(examVo.getCsatSequence()));
@@ -103,6 +129,11 @@ public class ExamServiceImpl implements ExamService {
 	public List<InstitutionVo> institutionList() {
 		logger.info("Business layer exam institutionList.");
 		return institutionDao.selectList();
+	}
+
+	public List<QuestionVo> questionList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		logger.info("Business layer exam questionList.");
+		return questionDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
 	}
 	
 	public List<ExamVo> detail(int csatSequence, int examSequence) {
@@ -124,5 +155,6 @@ public class ExamServiceImpl implements ExamService {
 		logger.info("Business layer exam examStudentList.");
 		return scoreDao.selectListExamStudent(csatSequence, examSequence);
 	}
+
 
 }
