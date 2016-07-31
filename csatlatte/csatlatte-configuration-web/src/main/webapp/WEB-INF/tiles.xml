@@ -73,6 +73,11 @@
 		<put-attribute name="content" value="/WEB-INF/view/manage/question/answer/info/content.jsp"/>
 	</definition>
 	
+	<definition name="/solving/*" extends="csatlatte.layout.function2">
+		<put-attribute name="head" value="/WEB-INF/view/solving/{1}/head.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/view/solving/{1}/content.jsp"/>
+	</definition>
+	
 	<definition name="/profile/question/detail" extends="csatlatte.layout.function2">
 		<put-attribute name="head" value="/WEB-INF/view/profile/question/detail/head.jsp"/>
 		<put-attribute name="content" value="/WEB-INF/view/profile/question/detail/content.jsp"/>
