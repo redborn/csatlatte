@@ -46,6 +46,15 @@
 		   AND section_seq = #{sectionSequence}
 		   AND subject_seq = #{subjectSequence}
 	</select>
+	
+	<select id="selectSubjectName" parameterType="Map" resultType="String">
+		SELECT subject_name
+		  FROM csat_exam_subject
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+	</select>
 
 	<insert id="insert" parameterType="SubjectVo">
 		INSERT INTO csat_exam_subject
