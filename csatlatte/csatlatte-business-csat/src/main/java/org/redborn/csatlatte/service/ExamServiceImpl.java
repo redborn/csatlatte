@@ -58,6 +58,11 @@ public class ExamServiceImpl implements ExamService {
 		logger.info("Business layer exam getExamTime.");
 		return subjectDao.selectExamTime(csatSequence, examSequence, sectionSequence, subjectSequence);
 	}
+
+	public String getName(int csatSequence, int examSequence) {
+		logger.info("Business layer exam getName.");
+		return examDao.selectExamName(csatSequence, examSequence);
+	}
 	
 	public List<CsatVo> csatList() {
 		logger.info("Business layer exam csatList.");
@@ -155,6 +160,5 @@ public class ExamServiceImpl implements ExamService {
 		logger.info("Business layer exam examStudentList.");
 		return scoreDao.selectListExamStudent(csatSequence, examSequence);
 	}
-
 
 }
