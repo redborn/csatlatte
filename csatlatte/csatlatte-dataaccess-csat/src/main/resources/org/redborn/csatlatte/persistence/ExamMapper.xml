@@ -54,6 +54,18 @@
 		 ORDER BY exam_seq ASC 
 	</select>
 	
+	<select id="selectListExamForSolving" parameterType="Map" resultMap="ExamVoMap">
+		SELECT csat_seq,exam_seq,exam_name,rating_cut_public_yn
+		  FROM csat_exam ce
+		 WHERE EXISTS (SELECT *
+		                 FROM csat_qst
+		                WHERE csat_seq = ce.csat_seq
+		                  AND exam_seq = ce.exam_seq)
+		   AND SUBSTRING(exam_ymd, 1, 4) = #{year}
+		   AND ys_seq = #{yearStudentSequence}
+		 ORDER BY exam_seq ASC
+	</select>
+	
 	<select id="selectListYearForRating" parameterType="int" resultType="String">
 		 SELECT SUBSTRING(exam_ymd, 1, 4) AS year
 		  FROM csat_exam ce
@@ -66,6 +78,17 @@
 		   AND cerc.count IS NOT NULL
 		 GROUP BY year
 		 ORDER BY exam_ymd DESC
+	</select>
+	
+	<select id="selectListYearForSolving" parameterType="int" resultType="String">
+		SELECT DISTINCT(SUBSTRING(exam_ymd, 1, 4)) AS year
+		  FROM csat_exam ce
+		 WHERE EXISTS (SELECT *
+		                 FROM csat_qst
+		                WHERE csat_seq = ce.csat_seq
+		                  AND exam_seq = ce.exam_seq)
+		   AND ys_seq = #{yearStudentSequence}
+ 		 ORDER BY exam_ymd DESC
 	</select>
 	
 	<select id="selectListExamForManage" parameterType="int" resultMap="ExamVoForManageMap">
