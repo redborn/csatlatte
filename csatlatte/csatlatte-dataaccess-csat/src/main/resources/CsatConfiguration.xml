@@ -21,6 +21,8 @@
 		<typeAlias alias="QnaContentVo" type="org.redborn.csatlatte.domain.QnaContentVo"/>
 		<typeAlias alias="QnaForManageVo" type="org.redborn.csatlatte.domain.QnaForManageVo"/>
 		<typeAlias alias="QnaVo" type="org.redborn.csatlatte.domain.QnaVo"/>
+		<typeAlias alias="QuestionVo" type="org.redborn.csatlatte.domain.QuestionVo"/>
+		<typeAlias alias="ObjectiveItemVo" type="org.redborn.csatlatte.domain.ObjectiveItemVo"/>
 		<typeAlias alias="StudentSecurityQuestionVo" type="org.redborn.csatlatte.domain.StudentSecurityQuestionVo"/>
 		<typeAlias alias="StudentVo" type="org.redborn.csatlatte.domain.StudentVo"/>
 		<typeAlias alias="TypeVo" type="org.redborn.csatlatte.domain.TypeVo"/>
@@ -61,6 +63,8 @@
 		<mapper resource="org/redborn/csatlatte/persistence/exam/RatingCutMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/exam/SectionMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/exam/SubjectMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/question/ObjectiveItemMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/QuestionMapper.xml"/>
 	</mappers>
 	
 </configuration>
