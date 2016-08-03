@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="question">
+
+	<resultMap type="QuestionVo" id="QuestionVoMap">
+		<result column="csat_seq" property="csatSequence"/>
+		<result column="exam_seq" property="examSequence"/>
+		<result column="section_seq" property="sectionSequence"/>
+		<result column="subject_seq" property="subjectSequence"/>
+		<result column="qst_seq" property="questionSequence"/>
+		<result column="qst_type_seq" property="questionTypeSequence"/>
+		<result column="score" property="score"/>
+		<result column="content" property="content"/>
+	</resultMap>
+	
+	<select id="selectList" parameterType="Map" resultMap="QuestionVoMap">
+		SELECT csat_seq, exam_seq, section_seq, subject_seq, qst_seq, qst_type_seq, score, content
+		  FROM csat_qst
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</select>
+
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_qst 
+ 		 WHERE csat_seq = #{csatSequence} 
+   		   AND exam_seq = #{examSequence} 
+	</delete>
+
+</mapper>

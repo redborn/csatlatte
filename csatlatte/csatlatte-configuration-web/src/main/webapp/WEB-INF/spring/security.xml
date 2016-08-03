@@ -68,7 +68,7 @@
 		<intercept-url pattern="/data/community/comment/report/*/*" access="hasRole('ROLE_USER')" method="POST"/>
 		<intercept-url pattern="/data/community/comment/blind/*/*" access="hasRole('ROLE_ADMIN')" method="POST"/>
 		<intercept-url pattern="/data/community/*" access="hasRole('ROLE_USER')" method="DELETE"/>
-		<intercept-url pattern="/data/question/*" access="hasRole('ROLE_ADMIN')" method="GET"/>
+		<intercept-url pattern="/data/qna/*" access="hasRole('ROLE_ADMIN')" method="GET"/>
 		<intercept-url pattern="/data/exam/*" access="permitAll" method="GET"/>
 		<intercept-url pattern="/data/exam/*/*" access="permitAll" method="GET"/>
 		<intercept-url pattern="/data/exam/*" access="hasRole('ROLE_ADMIN')" method="POST"/>
@@ -92,7 +92,7 @@
 		<intercept-url pattern="/data/student/lock/*" access="hasRole('ROLE_ADMIN')" method="POST"/>
 		<intercept-url pattern="/data/student/lock/*" access="hasRole('ROLE_ADMIN')" method="DELETE"/>
 		<intercept-url pattern="/data/yearstudent" access="permitAll" method="GET"/>
-		<intercept-url pattern="/data/question/answer/*" access="hasRole('ROLE_ADMIN')" method="POST"/>
+		<intercept-url pattern="/data/qna/answer/*" access="hasRole('ROLE_ADMIN')" method="POST"/>
 		<intercept-url pattern="/data/community/stats/daily/*" access="hasRole('ROLE_ADMIN')" method="GET"/>
 		<intercept-url pattern="/data/community/stats/monthly/*" access="hasRole('ROLE_ADMIN')" method="GET"/>
 		<intercept-url pattern="/data/community/stats/annual/*" access="hasRole('ROLE_ADMIN')" method="GET"/>

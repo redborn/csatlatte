@@ -1,4 +1,4 @@
-package org.redborn.csatlatte.controller.data.question;
+package org.redborn.csatlatte.controller.data.qna;
 
 import org.redborn.csatlatte.domain.QnaAnswerVo;
 import org.redborn.csatlatte.service.QnaService;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * 문의답변입니다.
  */
 @Controller
-@RequestMapping("/data/question/answer")
+@RequestMapping("/data/qna/answer")
 public class Answer {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -33,7 +33,7 @@ public class Answer {
 	@RequestMapping(value="{qnaSequence}",method=RequestMethod.POST)
 	public void post(Model model, @PathVariable(value="qnaSequence") int qnaSequence, 
 			@RequestParam(value="answerContent",required=true) String answerContent) {
-		logger.info("Controller data question answer POST.");
+		logger.info("Controller data qna answer POST.");
 		
 		QnaAnswerVo qnaAnswerVo = new QnaAnswerVo();
 		

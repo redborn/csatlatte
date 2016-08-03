@@ -104,7 +104,7 @@
 		
 		$('.manage-question-answer-view').on("click", function () {
 			target = $(this).attr("id");
-			$.ajax(contextPath + "/data/question/" + target + ".json", {
+			$.ajax(contextPath + "/data/qna/" + target + ".json", {
 				dataType : "json",
 				type : "GET",
 				success : function(data) {
@@ -128,7 +128,7 @@
 						});
 						$('.manage-question-answer-accept').on("click", function () {
 							var answerContent = $('.manage-question-answer-textarea').val();
-							$.ajax(contextPath + "/data/question/answer/" + target + ".json", {
+							$.ajax(contextPath + "/data/qna/answer/" + target + ".json", {
 								dataType : "json",
 								type : "POST",
 								data : {answerContent : answerContent},
@@ -138,7 +138,7 @@
 										$('#manage-question-answer-button-' + target).append(changeToViewButton());
 										$('.manage-question-detail').remove();
 										$('.manage-question-detail-footer').remove();
-										$.ajax(contextPath + "/data/question/" + target + ".json", {
+										$.ajax(contextPath + "/data/qna/" + target + ".json", {
 											dataType : "json",
 											type : "GET",
 											success : function(data) {
@@ -151,7 +151,7 @@
 										});
 										$('#' + target).on("click", function () {
 											target = $(this).attr("id");
-											$.ajax(contextPath + "/data/question/" + target + ".json", {
+											$.ajax(contextPath + "/data/qna/" + target + ".json", {
 												dataType : "json",
 												type : "GET",
 												success : function(data) {
