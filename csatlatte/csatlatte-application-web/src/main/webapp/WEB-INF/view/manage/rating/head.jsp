@@ -93,20 +93,38 @@
 								success : function (data) {
 									if (data.examStudentList != null) {
 										var count = data.examStudentList.length;
-										$('.manage-rating-delete-view').remove();
-										$('#manage-rating-delete-view-detail').append(makeDeleteMessage(count));
-										$('.manage-rating-delete-accept').on("click", function() {
-											$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
-												dataType : "json",
-												type : "DELETE",
-												data : {_method : "DELETE"},
-												success : function (data) {
-													if (data.result) {
-														$('#manage-rating-delete-view').modal("hide");
-														$('#manage-rating-csat-list').trigger("change");
-													}
+										$.ajax(contextPath + "/data/question/" + csatSequence + "/" + examSequence + ".json", {
+											dataType : "json",
+											type : "GET",
+											success : function (data) {
+												if (data.list != null) {
+													var count2 = data.list.length;
+													$('.manage-rating-delete-view').remove();
+													$('#manage-rating-delete-view-detail').append(makeDeleteMessage(count, count2));
+													$('.manage-rating-delete-accept').on("click", function() {
+														$.ajax(contextPath + "/data/question/" + csatSequence + "/" + examSequence + ".json", {
+															dataType : "json",
+															type : "DELETE",
+															data : {_method : "DELETE"},
+															success : function (data) {
+																if (data.result) {
+																	$.ajax(contextPath + "/data/rating/" + csatSequence + "/" + examSequence + ".json", {
+																		dataType : "json",
+																		type : "DELETE",
+																		data : {_method : "DELETE"},
+																		success : function (data) {
+																			if (data.result) {
+																				$('#manage-rating-delete-view').modal("hide");
+																				$('#manage-rating-csat-list').trigger("change");
+																			}
+																		}
+																	});
+																}
+															}
+														});
+													});
 												}
-											});
+											}
 										});
 									}
 								}
@@ -224,11 +242,14 @@
 			return html;
 		}
 		
-		var makeDeleteMessage = function (count) {
+		var makeDeleteMessage = function (count, count2) {
 			var html = '';
 			html += '<div class="manage-rating-delete-view">';
 			if (count > 0) {
 				html += '<p class="manage-rating-delete-alert"><b>이 등급컷은 ' + count + '명의 학생이 성적을 등록했습니다.</b></p>';
+			}
+			if (count2 > 0) {
+				html += '<p class="manage-rating-delete-alert"><b>주의하세요. 문제 데이터가 포함되어 있습니다.</b></p>';
 			}
 			html += '	<p>정말로 이 등급컷을 삭제하시겠습니까?</p>';
 			html += '</div>';
