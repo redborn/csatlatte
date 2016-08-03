@@ -9,6 +9,7 @@ import org.redborn.csatlatte.domain.RatingCutVo;
 import org.redborn.csatlatte.domain.SectionVo;
 import org.redborn.csatlatte.domain.SubjectVo;
 import org.redborn.csatlatte.service.ExamService;
+import org.redborn.csatlatte.service.QuestionService;
 import org.redborn.csatlatte.service.RatingCutService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,8 @@ public class Rating {
 	private ExamService examService;
 	@Autowired
 	private RatingCutService ratingCutService;
+	@Autowired
+	private QuestionService questionService;
 	
 	/**
 	 * 등급컷 목록입니다.
@@ -105,6 +108,7 @@ public class Rating {
 		logger.info("Controller data rating PUT.");
 		if (file != null) {
 			RatingCutReader ratingCutReader = new RatingCutReader(file.getInputStream(), csatSequence, examSequence);
+			questionService.delete(csatSequence, examSequence);
 			ratingCutService.delete(csatSequence, examSequence);
 			List<SectionVo> sectionList = ratingCutReader.sectionList();
 			List<SubjectVo> subjectList = ratingCutReader.subjectList();
