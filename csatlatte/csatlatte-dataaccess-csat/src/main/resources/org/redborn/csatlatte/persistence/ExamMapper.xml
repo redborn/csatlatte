@@ -46,7 +46,7 @@
 		   AND ce.isttt_seq = ci.isttt_seq 
 	</select>
 
-	<select id="selectListExam" parameterType="Map" resultMap="ExamVoMap">
+	<select id="selectListExamForRating" parameterType="Map" resultMap="ExamVoMap">
 		SELECT csat_seq,exam_seq,exam_name,rating_cut_public_yn
 		  FROM csat_exam
 		 WHERE SUBSTRING(exam_ymd,1,4) = #{year}
@@ -54,7 +54,19 @@
 		 ORDER BY exam_seq ASC 
 	</select>
 	
-	<select id="selectListYear" parameterType="int" resultType="String">
+	<select id="selectListExamForSolving" parameterType="Map" resultMap="ExamVoMap">
+		SELECT csat_seq,exam_seq,exam_name,rating_cut_public_yn
+		  FROM csat_exam ce
+		 WHERE EXISTS (SELECT *
+		                 FROM csat_qst
+		                WHERE csat_seq = ce.csat_seq
+		                  AND exam_seq = ce.exam_seq)
+		   AND SUBSTRING(exam_ymd, 1, 4) = #{year}
+		   AND ys_seq = #{yearStudentSequence}
+		 ORDER BY exam_seq ASC
+	</select>
+	
+	<select id="selectListYearForRating" parameterType="int" resultType="String">
 		 SELECT SUBSTRING(exam_ymd, 1, 4) AS year
 		  FROM csat_exam ce
 		       LEFT OUTER JOIN (SELECT csat_seq,exam_seq,COUNT(*) AS count
@@ -68,12 +80,30 @@
 		 ORDER BY exam_ymd DESC
 	</select>
 	
+	<select id="selectListYearForSolving" parameterType="int" resultType="String">
+		SELECT DISTINCT(SUBSTRING(exam_ymd, 1, 4)) AS year
+		  FROM csat_exam ce
+		 WHERE EXISTS (SELECT *
+		                 FROM csat_qst
+		                WHERE csat_seq = ce.csat_seq
+		                  AND exam_seq = ce.exam_seq)
+		   AND ys_seq = #{yearStudentSequence}
+ 		 ORDER BY exam_ymd DESC
+	</select>
+	
 	<select id="selectListExamForManage" parameterType="int" resultMap="ExamVoForManageMap">
 		SELECT ce.exam_seq, DATE_FORMAT(ce.exam_ymd, '%Y') AS year,ce.exam_name,ci.isttt_name,ce.ys_seq
 		  FROM csat_exam ce,csat_isttt ci
 		 WHERE ce.isttt_seq = ci.isttt_seq
 		   AND ce.csat_seq = #{csatSequence}
 		 ORDER BY ce.exam_seq desc
+	</select>
+	
+	<select id="selectExamName" parameterType="Map" resultType="String">
+		SELECT exam_name
+		  FROM csat_exam
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
 	</select>
 	
 	<insert id="insert" parameterType="ExamVo">

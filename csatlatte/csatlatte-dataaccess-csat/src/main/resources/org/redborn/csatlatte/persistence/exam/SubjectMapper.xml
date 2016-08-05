@@ -22,6 +22,40 @@
 		 WHERE ces.csat_seq = #{csatSequence}
 		   AND ces.exam_seq = #{examSequence}
 	</select>
+	
+	<select id="selectListForSolving" parameterType="Map" resultMap="SubjectVoMap">
+		SELECT ces.csat_seq,ces.exam_seq,ces.section_seq,ces.subject_seq,
+		       ces.subject_name,
+		       ces.max_score
+		  FROM csat_exam_subject ces
+		 WHERE EXISTS (SELECT *
+		                 FROM csat_qst
+		                WHERE csat_seq = ces.csat_seq
+		                  AND exam_seq = ces.exam_seq
+		                  AND section_seq = ces.section_seq
+		                  AND subject_seq = ces.subject_seq)
+		   AND ces.csat_seq = #{csatSequence}
+		   AND ces.exam_seq = #{examSequence}
+		 ORDER BY ces.section_seq ASC,ces.subject_seq ASC
+	</select>
+	
+	<select id="selectExamTime" parameterType="Map" resultType="int">
+		SELECT exam_time
+		  FROM csat_exam_subject
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+	</select>
+	
+	<select id="selectSubjectName" parameterType="Map" resultType="String">
+		SELECT subject_name
+		  FROM csat_exam_subject
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+	</select>
 
 	<insert id="insert" parameterType="SubjectVo">
 		INSERT INTO csat_exam_subject(csat_seq, exam_seq, section_seq, subject_seq, subject_name, max_score, exam_time)

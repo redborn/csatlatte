@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="question.objectiveitem">
+	
+	<resultMap type="ObjectiveItemVo" id="ObjectiveItemVoMap">
+		<result column="objtitem_seq" property="objectiveItemSequence"/>
+		<result column="content" property="content"/>
+	</resultMap>
+	
+	<select id="selectList" parameterType="QuestionVo" resultMap="ObjectiveItemVoMap">
+		SELECT objtitem_seq,content
+		  FROM csat_qst_objtitem
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+		   AND qst_seq = #{questionSequence}
+		 ORDER BY objtitem_seq ASC 
+	</select>
+	
+</mapper>

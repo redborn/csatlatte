@@ -19,23 +19,41 @@ public class ExamDaoMapper extends SqlSessionDaoSupport implements ExamDao {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);
 		params.put("examSequence", examSequence);
-		
 		return getSqlSession().selectList("exam.selectListDetailForManage", params);
 	}
 	
-	public List<ExamVo> selectListExam(String year, int yearStudentSequence) {
+	public List<ExamVo> selectListExamForRating(String year, int yearStudentSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("year", year);
 		params.put("yearStudentSequence", yearStudentSequence);
-		return getSqlSession().selectList("exam.selectListExam", params);
+		return getSqlSession().selectList("exam.selectListExamForRating", params);
+	}
+
+	public List<ExamVo> selectListExamForSolving(String year,
+			int yearStudentSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("year", year);
+		params.put("yearStudentSequence", yearStudentSequence);
+		return getSqlSession().selectList("exam.selectListExamForSolving", params);
 	}
 	
-	public List<String> selectListYear(int yearStudentSequence) {
-		return getSqlSession().selectList("exam.selectListYear", yearStudentSequence);
+	public List<String> selectListYearForRating(int yearStudentSequence) {
+		return getSqlSession().selectList("exam.selectListYearForRating", yearStudentSequence);
+	}
+
+	public List<String> selectListYearForSolving(int yearStudentSequence) {
+		return getSqlSession().selectList("exam.selectListYearForSolving", yearStudentSequence);
 	}
 
 	public List<ExamVo> selectListExamForManage(int csatSequence) {
 		return getSqlSession().selectList("exam.selectListExamForManage", csatSequence);
+	}
+
+	public String selectExamName(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		return getSqlSession().selectOne("exam.selectExamName", params);
 	}
 	
 	public int insert(ExamVo examVo) {
