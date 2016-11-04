@@ -224,8 +224,44 @@ public interface ExamService {
 	 * @param examSequence 모의고사 일련번호
 	 * @param sectionSequence 영역 일련번호
 	 * @param subjectSequence 과목 일련번호
-	 * @return 채점 결과 점수
+	 * @return 채점 결과
 	 */
-	public int calculateScore(List<String> questionNumber, int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	public List<Boolean> marking(List<Integer> questionNumber, int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
 	
+	/**
+	 * 모의고사 풀기 채점 점수입니다.
+	 * 
+	 * @param resultMarking 정답 여부
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 모의고사 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 모의고사 점수
+	 */
+	public int calculateScore(List<Boolean> resultMarking, int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
+	 * 점수에 해당하는 등급을 구합니다.
+	 * 
+	 * @param score 원점수
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 등급
+	 */
+	public int calculateRating(int score, int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
+	 * 점수에 해당하는 표준점수를 구합니다.
+	 * 
+	 * @param score 원점수
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 표준점수
+	 */
+	public int calculateStandardScore(int score, int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+
 }

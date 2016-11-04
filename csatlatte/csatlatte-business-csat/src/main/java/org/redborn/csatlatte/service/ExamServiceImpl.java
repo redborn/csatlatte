@@ -1,5 +1,6 @@
 package org.redborn.csatlatte.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.redborn.csatlatte.domain.AverageVo;
@@ -9,6 +10,7 @@ import org.redborn.csatlatte.domain.ExamVo;
 import org.redborn.csatlatte.domain.GradeVo;
 import org.redborn.csatlatte.domain.InstitutionVo;
 import org.redborn.csatlatte.domain.QuestionVo;
+import org.redborn.csatlatte.domain.RatingCutVo;
 import org.redborn.csatlatte.domain.SectionVo;
 import org.redborn.csatlatte.domain.SubjectVo;
 import org.redborn.csatlatte.persistence.CsatDao;
@@ -171,17 +173,53 @@ public class ExamServiceImpl implements ExamService {
 		return scoreDao.selectListExamStudent(csatSequence, examSequence);
 	}
 
-	public int calculateScore(List<String> questionNumber, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+	public List<Boolean> marking(List<Integer> questionNumber, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		logger.info("Business layer exam calculateScore.");
 		List<CorrectAnswerVo> answerList = correctAnswerDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
-		List<QuestionVo> scoreList = questionDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
 		int questionSize = questionNumber.size();
-		int resultScore = 0;
+		List<Boolean> resultMarking = new ArrayList<Boolean>();
+		
 		for (int index = 0; index < questionSize; index++) {
-			if (Integer.parseInt(questionNumber.get(index)) == answerList.get(index).getObjectItemSequence()) {
+			if (questionNumber.get(index) == answerList.get(index).getObjectItemSequence()) {
+				resultMarking.add(true);
+			} else {
+				resultMarking.add(false);
+			}
+		}
+		return resultMarking;
+	}
+
+	public int calculateScore(List<Boolean> resultMarking, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		List<QuestionVo> scoreList = questionDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
+		int resultMarkingSize = resultMarking.size();
+		int resultScore = 0;
+		for (int index = 0; index < resultMarkingSize; index++) {
+			if (resultMarking.get(index)) {
 				resultScore += scoreList.get(index).getScore();
 			}
 		}
 		return resultScore;
+	}
+	
+	public int calculateRating(int score, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		List<RatingCutVo> list = ratingCutDao.selectListDetailForSolving(csatSequence, examSequence, sectionSequence, subjectSequence);
+		int listSize = list.size();
+		int resultRating = 0;
+		for (int index = 0; index < listSize; index++) {
+			if (score >= list.get(index).getRawScore()) {
+				resultRating = list.get(index).getRatingCode();
+			}
+		}
+		return resultRating;
+	}
+	
+	public int calculateStandardScore(int score, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		int resultStandardScore = 0;
+		AverageVo averageVo = new AverageVo();
+		averageVo = averageDao.selectOneDetail(csatSequence, examSequence, sectionSequence, subjectSequence);
+		int maxScore = subjectDao.selectOneMaxScore(csatSequence, examSequence, sectionSequence, subjectSequence);
+		resultStandardScore = (int) (((score - averageVo.getAverage()) / averageVo.getStandardDeviation()) * (maxScore / 5) + maxScore);
+		return resultStandardScore;
 	}
 
 }
