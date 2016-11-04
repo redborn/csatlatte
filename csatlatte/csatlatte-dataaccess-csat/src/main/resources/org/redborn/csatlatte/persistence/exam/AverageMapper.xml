@@ -15,6 +15,20 @@
 		<result column="standard_deviation" property="standardDeviation"/>
 		<result column="subject_name" property="subjectName"/>
 	</resultMap>
+	
+	<resultMap type="AverageVo" id="AverageVoDetailMap">
+		<result column="avg" property="average"/>
+		<result column="standard_deviation" property="standardDeviation"/>
+	</resultMap>
+	
+	<select id="selectOneDetail" parameterType="Map" resultMap="AverageVoDetailMap">
+		SELECT avg,standard_deviation 
+		  FROM csat_exam_avg 
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+	</select>
 
 	<select id="selectList" parameterType="Map" resultMap="AverageVoMap">
 		SELECT cea.csat_seq,cea.exam_seq,cea.section_seq,cea.subject_seq,cea.avg,

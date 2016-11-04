@@ -11,6 +11,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AverageDaoMapper extends SqlSessionDaoSupport implements AverageDao {
 
+	public AverageVo selectOneDetail(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		params.put("sectionSequence", sectionSequence);
+		params.put("subjectSequence", subjectSequence);
+		
+		return getSqlSession().selectOne("exam.average.selectOneDetail", params);
+	}
+	
 	public List<AverageVo> selectList(int csatSequence, int examSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);

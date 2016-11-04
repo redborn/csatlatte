@@ -25,6 +25,16 @@ public class RatingCutDaoMapper extends SqlSessionDaoSupport implements
 		return getSqlSession().selectList("exam.ratingcut.selectListDetail", params);
 	}
 	
+	public List<RatingCutVo> selectListDetailForSolving(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		params.put("sectionSequence", sectionSequence);
+		params.put("subjectSequence", subjectSequence);
+		return getSqlSession().selectList("exam.ratingcut.selectListDetailForSolving", params);
+	}
+
+	
 	public List<ExamVo> selectListForCreate(int csatSequence) {
 		return getSqlSession().selectList("exam.ratingcut.selectListForCreate", csatSequence);
 	}

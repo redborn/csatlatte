@@ -6,6 +6,7 @@ import org.redborn.csatlatte.domain.SubjectVo;
 
 public interface SubjectDao {
 
+	public int selectOneMaxScore(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
 	public List<SubjectVo> selectList(int csatSequence, int examSequence);
 	public List<SubjectVo> selectListForSolving(int csatSequence, int examSequence);
 	public int selectExamTime(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
