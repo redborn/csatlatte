@@ -1,5 +1,7 @@
 package org.redborn.csatlatte.controller.web;
 
+import java.util.List;
+
 import org.redborn.csatlatte.commons.tiles.TilesName;
 import org.redborn.csatlatte.service.ExamService;
 import org.slf4j.Logger;
@@ -23,18 +25,24 @@ public class Solving {
 	@RequestMapping(value="{csatSequence}/{examSequence}/{sectionSequence}/{subjectSequence}",method=RequestMethod.GET)
 	public String get(Model model, @PathVariable(value="csatSequence") int csatSequence, @PathVariable(value="examSequence") int examSequence, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence, @RequestParam(value="examTime",required=false,defaultValue="false") boolean examTime) {
 		logger.info("Controller solving GET.");
+		model.addAttribute("csatSequence", csatSequence);
+		model.addAttribute("examSequence", examSequence);
+		model.addAttribute("sectionSequence", sectionSequence);
+		model.addAttribute("subjectSequence", subjectSequence);
 		model.addAttribute("examName", examService.getName(csatSequence, examSequence));
 		model.addAttribute("subjectName", examService.getSubjectName(csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("questionList", examService.questionList(csatSequence, examSequence, sectionSequence, subjectSequence));
+		model.addAttribute("questionListSize", examService.questionList(csatSequence, examSequence, sectionSequence, subjectSequence).size());
 		if (examTime) {
 			model.addAttribute("examTime", examService.getExamTime(csatSequence, examSequence, sectionSequence, subjectSequence));
 		}
 		return TilesName.SOLVING_LIST;
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
-	public String post() {
+	@RequestMapping(value="{csatSequence}/{examSequence}/{sectionSequence}/{subjectSequence}",method=RequestMethod.POST)
+	public String post(Model model, @PathVariable(value="csatSequence") int csatSequence, @PathVariable(value="examSequence") int examSequence, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence, @RequestParam(value="result", required=true) List<String> questionNumber) {
 		logger.info("Controller solving POST.");
+		model.addAttribute("resultScore", examService.calculateScore(questionNumber, csatSequence, examSequence, sectionSequence, subjectSequence));
 		return TilesName.SOLVING_RESULT;
 	}
 
