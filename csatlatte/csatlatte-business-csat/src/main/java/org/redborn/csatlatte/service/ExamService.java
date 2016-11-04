@@ -216,4 +216,16 @@ public interface ExamService {
 	 */
 	public List<GradeVo> examStudentList(int csatSequence, int examSequence);
 	
+	/**
+	 * 모의고사 풀기 채점입니다.
+	 * 
+	 * @param questionNumber 사용자가 선택한 답안
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 모의고사 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 채점 결과 점수
+	 */
+	public int calculateScore(List<String> questionNumber, int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
 }

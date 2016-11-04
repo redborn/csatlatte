@@ -3,6 +3,7 @@ package org.redborn.csatlatte.service;
 import java.util.List;
 
 import org.redborn.csatlatte.domain.AverageVo;
+import org.redborn.csatlatte.domain.CorrectAnswerVo;
 import org.redborn.csatlatte.domain.CsatVo;
 import org.redborn.csatlatte.domain.ExamVo;
 import org.redborn.csatlatte.domain.GradeVo;
@@ -19,6 +20,7 @@ import org.redborn.csatlatte.persistence.exam.RatingCutDao;
 import org.redborn.csatlatte.persistence.exam.SectionDao;
 import org.redborn.csatlatte.persistence.exam.SubjectDao;
 import org.redborn.csatlatte.persistence.exam.student.ScoreDao;
+import org.redborn.csatlatte.persistence.question.object.CorrectAnswerDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,8 @@ public class ExamServiceImpl implements ExamService {
 	private ScoreDao scoreDao;
 	@Autowired
 	private QuestionDao questionDao;
+	@Autowired
+	private CorrectAnswerDao correctAnswerDao;
 
 	public CsatVo getCsat(int csatSequence) {
 		logger.info("Business layer exam getCsat.");
@@ -165,6 +169,19 @@ public class ExamServiceImpl implements ExamService {
 	public List<GradeVo> examStudentList(int csatSequence, int examSequence) {
 		logger.info("Business layer exam examStudentList.");
 		return scoreDao.selectListExamStudent(csatSequence, examSequence);
+	}
+
+	public int calculateScore(List<String> questionNumber, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		List<CorrectAnswerVo> answerList = correctAnswerDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
+		List<QuestionVo> scoreList = questionDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
+		int questionSize = questionNumber.size();
+		int resultScore = 0;
+		for (int index = 0; index < questionSize; index++) {
+			if (Integer.parseInt(questionNumber.get(index)) == answerList.get(index).getObjectItemSequence()) {
+				resultScore += scoreList.get(index).getScore();
+			}
+		}
+		return resultScore;
 	}
 
 }
