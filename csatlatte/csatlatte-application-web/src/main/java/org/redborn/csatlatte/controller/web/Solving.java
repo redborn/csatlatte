@@ -1,5 +1,6 @@
 package org.redborn.csatlatte.controller.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.redborn.csatlatte.commons.tiles.TilesName;
@@ -40,9 +41,15 @@ public class Solving {
 	}
 	
 	@RequestMapping(value="{csatSequence}/{examSequence}/{sectionSequence}/{subjectSequence}",method=RequestMethod.POST)
-	public String post(Model model, @PathVariable(value="csatSequence") int csatSequence, @PathVariable(value="examSequence") int examSequence, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence, @RequestParam(value="result", required=true) List<String> questionNumber) {
+	public String post(Model model, @PathVariable(value="csatSequence") int csatSequence, @PathVariable(value="examSequence") int examSequence, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence, @RequestParam(value="result", required=true) List<Integer> questionNumber) {
 		logger.info("Controller solving POST.");
-		model.addAttribute("resultScore", examService.calculateScore(questionNumber, csatSequence, examSequence, sectionSequence, subjectSequence));
+		List<Boolean> marking = new ArrayList<Boolean>();
+		marking = examService.marking(questionNumber, csatSequence, examSequence, sectionSequence, subjectSequence);
+		int score = examService.calculateScore(marking, csatSequence, examSequence, sectionSequence, subjectSequence);
+		model.addAttribute("marking", marking);
+		model.addAttribute("rating", examService.calculateRating(score, csatSequence, examSequence, sectionSequence, subjectSequence));
+		model.addAttribute("standardScore", examService.calculateStandardScore(score, csatSequence, examSequence, sectionSequence, subjectSequence));
+		model.addAttribute("score", score);
 		return TilesName.SOLVING_RESULT;
 	}
 
