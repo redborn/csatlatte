@@ -12,7 +12,7 @@
 		<result column="description" property="description"/>
 	</resultMap>
 	
-	<select id="selectList" parameterType="CorrectAnswerVo" resultMap="CorrectAnswerVoMap">
+	<select id="selectList" parameterType="Map" resultMap="CorrectAnswerVoMap">
 		SELECT qst_seq,objtitem_seq,description 
   		  FROM csat_qst_objtqst_crtans 
  		 WHERE csat_seq = #{csatSequence} 

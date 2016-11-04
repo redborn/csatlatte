@@ -6,6 +6,6 @@ import org.redborn.csatlatte.domain.CorrectAnswerVo;
 
 public interface CorrectAnswerDao {
 
-	public List<CorrectAnswerVo> selectList(CorrectAnswerVo correctAnswerVo);
+	public List<CorrectAnswerVo> selectList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
 	
 }
