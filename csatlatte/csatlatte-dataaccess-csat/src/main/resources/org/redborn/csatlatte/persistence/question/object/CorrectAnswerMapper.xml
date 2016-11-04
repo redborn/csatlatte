@@ -19,7 +19,7 @@
    		   AND exam_seq = #{examSequence}
    		   AND section_seq = #{sectionSequence}
    		   AND subject_seq = #{subjectSequence}
-   	  ORDER BY qst_seq 
+   	  ORDER BY qst_seq ASC
 	</select>
 
 </mapper>
