@@ -9,7 +9,7 @@
 $(document).ready(function() {
 	var answer = new Array();
 	for (var index = 0; index < $("#question-list-size").attr("value"); index++) {
-		answer[index] = "";
+		answer[index] = 0;
 	}
 	$(".answer").on("click", function() {
 		answer[$(this).attr("name") - 1] = $(this).attr("value");
