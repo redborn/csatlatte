@@ -46,6 +46,9 @@ public class Solving {
 		List<Boolean> marking = new ArrayList<Boolean>();
 		marking = examService.marking(questionNumber, csatSequence, examSequence, sectionSequence, subjectSequence);
 		int score = examService.calculateScore(marking, csatSequence, examSequence, sectionSequence, subjectSequence);
+		model.addAttribute("questionNumber", questionNumber);
+		model.addAttribute("correctAnswerList", examService.objectQuestionCorrectAnswerList(csatSequence, examSequence, sectionSequence, subjectSequence));
+		model.addAttribute("questionList", examService.questionList(csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("marking", marking);
 		model.addAttribute("rating", examService.calculateRating(score, csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("standardScore", examService.calculateStandardScore(score, csatSequence, examSequence, sectionSequence, subjectSequence));
