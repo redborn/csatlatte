@@ -30,6 +30,7 @@ public class Solving {
 		model.addAttribute("examSequence", examSequence);
 		model.addAttribute("sectionSequence", sectionSequence);
 		model.addAttribute("subjectSequence", subjectSequence);
+		model.addAttribute("textList", examService.textList(csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("examName", examService.getName(csatSequence, examSequence));
 		model.addAttribute("subjectName", examService.getSubjectName(csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("questionList", examService.questionList(csatSequence, examSequence, sectionSequence, subjectSequence));
