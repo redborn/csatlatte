@@ -34,6 +34,7 @@
 		<typeAlias alias="SectionVo" type="org.redborn.csatlatte.domain.SectionVo"/>
 		<typeAlias alias="SubjectVo" type="org.redborn.csatlatte.domain.SubjectVo"/> 
 		<typeAlias alias="CorrectAnswerVo" type="org.redborn.csatlatte.domain.CorrectAnswerVo"/>
+		<typeAlias alias="TextVo" type="org.redborn.csatlatte.domain.TextVo"/>
 	</typeAliases>
 	
 	<mappers>
@@ -64,6 +65,7 @@
 		<mapper resource="org/redborn/csatlatte/persistence/exam/RatingCutMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/exam/SectionMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/exam/SubjectMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/question/TextMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/question/ObjectiveItemMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/question/object/CorrectAnswerMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/QuestionMapper.xml"/>
