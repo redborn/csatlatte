@@ -11,6 +11,7 @@ import org.redborn.csatlatte.domain.InstitutionVo;
 import org.redborn.csatlatte.domain.QuestionVo;
 import org.redborn.csatlatte.domain.SectionVo;
 import org.redborn.csatlatte.domain.SubjectVo;
+import org.redborn.csatlatte.domain.TextVo;
 
 /**
  * 시험 서비스입니다.
@@ -275,5 +276,16 @@ public interface ExamService {
 	 * @return 객관식 정답, 해설 목록
 	 */
 	public List<CorrectAnswerVo> objectQuestionCorrectAnswerList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
+	 * 지문 목록입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 지문 목록
+	 */
+	public List<TextVo> textList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
 
 }

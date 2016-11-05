@@ -13,6 +13,7 @@ import org.redborn.csatlatte.domain.QuestionVo;
 import org.redborn.csatlatte.domain.RatingCutVo;
 import org.redborn.csatlatte.domain.SectionVo;
 import org.redborn.csatlatte.domain.SubjectVo;
+import org.redborn.csatlatte.domain.TextVo;
 import org.redborn.csatlatte.persistence.CsatDao;
 import org.redborn.csatlatte.persistence.ExamDao;
 import org.redborn.csatlatte.persistence.InstitutionDao;
@@ -22,6 +23,7 @@ import org.redborn.csatlatte.persistence.exam.RatingCutDao;
 import org.redborn.csatlatte.persistence.exam.SectionDao;
 import org.redborn.csatlatte.persistence.exam.SubjectDao;
 import org.redborn.csatlatte.persistence.exam.student.ScoreDao;
+import org.redborn.csatlatte.persistence.question.TextDao;
 import org.redborn.csatlatte.persistence.question.object.CorrectAnswerDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +55,8 @@ public class ExamServiceImpl implements ExamService {
 	private QuestionDao questionDao;
 	@Autowired
 	private CorrectAnswerDao correctAnswerDao;
+	@Autowired
+	private TextDao textDao;
 
 	public CsatVo getCsat(int csatSequence) {
 		logger.info("Business layer exam getCsat.");
@@ -224,6 +228,10 @@ public class ExamServiceImpl implements ExamService {
 	
 	public List<CorrectAnswerVo> objectQuestionCorrectAnswerList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
 		return correctAnswerDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
+	}
+	
+	public List<TextVo> textList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		return textDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
 	}
 
 }
