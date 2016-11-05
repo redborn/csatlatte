@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="question.text">
+
+	<resultMap type="TextVo" id="TextVoMap">
+		<result column="text_seq" property="textSequence"/>
+		<result column="begin_qst_seq" property="beginQuestionSequence"/>
+		<result column="end_qst_seq" property="endQuestionSequence"/>
+		<result column="content" property="content"/>
+		<result column="description" property="description"/>
+	</resultMap>
+	
+	<select id="selectList" parameterType="Map" resultMap="TextVoMap">
+		SELECT text_seq,begin_qst_seq,end_qst_seq,content,description 
+		  FROM csat_qst_text 
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+		 ORDER BY text_seq ASC
+	</select>
+
+</mapper>
