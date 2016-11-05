@@ -221,5 +221,9 @@ public class ExamServiceImpl implements ExamService {
 		resultStandardScore = (int) (((score - averageVo.getAverage()) / averageVo.getStandardDeviation()) * (maxScore / 5) + maxScore);
 		return resultStandardScore;
 	}
+	
+	public List<CorrectAnswerVo> objectQuestionCorrectAnswerList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		return correctAnswerDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
+	}
 
 }

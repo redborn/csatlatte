@@ -3,6 +3,7 @@ package org.redborn.csatlatte.service;
 import java.util.List;
 
 import org.redborn.csatlatte.domain.AverageVo;
+import org.redborn.csatlatte.domain.CorrectAnswerVo;
 import org.redborn.csatlatte.domain.CsatVo;
 import org.redborn.csatlatte.domain.ExamVo;
 import org.redborn.csatlatte.domain.GradeVo;
@@ -263,5 +264,16 @@ public interface ExamService {
 	 * @return 표준점수
 	 */
 	public int calculateStandardScore(int score, int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
+	 * 객관식 정답 및 해설 목록입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 객관식 정답, 해설 목록
+	 */
+	public List<CorrectAnswerVo> objectQuestionCorrectAnswerList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
 
 }
