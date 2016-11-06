@@ -19,6 +19,7 @@
 		   AND exam_seq = #{examSequence}
 		   AND section_seq = #{sectionSequence}
 		   AND subject_seq = #{subjectSequence}
+		   AND text_seq = #{textSequence}
 	</select>
 
 </mapper>

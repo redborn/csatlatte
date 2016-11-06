@@ -9,12 +9,13 @@ import org.redborn.csatlatte.domain.TextVo;
 
 public class ContentDaoMapper extends SqlSessionDaoSupport implements ContentDao {
 
-	public List<TextVo> selectList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+	public List<TextVo> selectList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);
 		params.put("examSequence", examSequence);
 		params.put("sectionSequence", sectionSequence);
 		params.put("subjectSequence", subjectSequence);
+		params.put("textSequence", textSequence);
 		return getSqlSession().selectList("question.text.content.selectList", params);
 	}
 
