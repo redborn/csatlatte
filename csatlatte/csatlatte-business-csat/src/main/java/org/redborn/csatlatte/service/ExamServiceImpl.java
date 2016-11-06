@@ -183,14 +183,15 @@ public class ExamServiceImpl implements ExamService {
 	public List<Boolean> marking(List<Integer> questionNumber, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
 		logger.info("Business layer exam calculateScore.");
 		List<CorrectAnswerVo> answerList = correctAnswerDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
-		int questionSize = questionNumber.size();
 		List<Boolean> resultMarking = new ArrayList<Boolean>();
-		
-		for (int index = 0; index < questionSize; index++) {
-			if (questionNumber.get(index) == answerList.get(index).getObjectItemSequence()) {
-				resultMarking.add(true);
-			} else {
-				resultMarking.add(false);
+		if (questionNumber != null) {
+			int questionSize = questionNumber.size();
+			for (int index = 0; index < questionSize; index++) {
+				if (questionNumber.get(index) == answerList.get(index).getObjectItemSequence()) {
+					resultMarking.add(true);
+				} else {
+					resultMarking.add(false);
+				}
 			}
 		}
 		return resultMarking;
@@ -198,11 +199,13 @@ public class ExamServiceImpl implements ExamService {
 
 	public int calculateScore(List<Boolean> resultMarking, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
 		List<QuestionVo> scoreList = questionDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
-		int resultMarkingSize = resultMarking.size();
 		int resultScore = 0;
-		for (int index = 0; index < resultMarkingSize; index++) {
-			if (resultMarking.get(index)) {
-				resultScore += scoreList.get(index).getScore();
+		if (resultMarking != null && scoreList != null) {
+			int resultMarkingSize = resultMarking.size();
+			for (int index = 0; index < resultMarkingSize; index++) {
+				if (resultMarking.get(index)) {
+					resultScore += scoreList.get(index).getScore();
+				}
 			}
 		}
 		return resultScore;
@@ -210,11 +213,13 @@ public class ExamServiceImpl implements ExamService {
 	
 	public int calculateRating(int score, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
 		List<RatingCutVo> list = ratingCutDao.selectListDetailForSolving(csatSequence, examSequence, sectionSequence, subjectSequence);
-		int listSize = list.size();
 		int resultRating = 0;
-		for (int index = 0; index < listSize; index++) {
-			if (score >= list.get(index).getRawScore()) {
-				resultRating = list.get(index).getRatingCode();
+		if (list != null) {
+			int listSize = list.size();
+			for (int index = 0; index < listSize; index++) {
+				if (score >= list.get(index).getRawScore()) {
+					resultRating = list.get(index).getRatingCode();
+				}
 			}
 		}
 		return resultRating;
