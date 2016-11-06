@@ -54,6 +54,7 @@ public class Solving {
 		model.addAttribute("rating", examService.calculateRating(score, csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("standardScore", examService.calculateStandardScore(score, csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("score", score);
+		model.addAttribute("textList", examService.textList(csatSequence, examSequence, sectionSequence, subjectSequence));
 		return TilesName.SOLVING_RESULT;
 	}
 
