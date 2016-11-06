@@ -10,4 +10,5 @@
 	.solving-result-reply {margin-top:5px; margin-bottom:5px;}
 	.solving-result-reply-select {color:#337ab7;}
 	.solving-result-reply-correct-answer {color:#a94442;}
+	.solving-result-text {margin-top:30px;}
 </style>

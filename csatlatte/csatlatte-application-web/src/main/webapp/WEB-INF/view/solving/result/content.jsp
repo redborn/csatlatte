@@ -41,7 +41,10 @@
 	<p>당신이 선택한 답은 문항에 파란색으로 표시되며, 틀린 문제의 경우 정답 문항이 빨간색으로 표시됩니다.</p>
 	<p>문제 하단에는 해설이 적혀 있으니 참고하실 수 있습니다.</p>
 </div>
+<c:set value="0" var="textIndex"/>
 <c:forEach items="${questionList}" var="question" varStatus="status">
+	<c:if test="${textList[textIndex].beginQuestionSequence eq (status.index + 1)}"><div class="solving-result-text">${textList[textIndex].content} ${textList[textIndex].description}</div></c:if>
+	<c:if test="${textList[textIndex].endQuestionSequence eq (status.index + 1)}"><c:set var="textIndex" value="${textIndex + 1}"/></c:if>
 	<div class="solving-result-question">
 	<c:choose>
 		<c:when test="${!marking[status.index]}">
