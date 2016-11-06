@@ -6,7 +6,9 @@ import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.TextVo;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ContentDaoMapper extends SqlSessionDaoSupport implements ContentDao {
 
 	public List<TextVo> selectList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence) {
