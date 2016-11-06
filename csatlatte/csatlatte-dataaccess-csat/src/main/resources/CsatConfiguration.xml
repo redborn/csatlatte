@@ -68,6 +68,7 @@
 		<mapper resource="org/redborn/csatlatte/persistence/question/TextMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/question/ObjectiveItemMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/question/object/CorrectAnswerMapper.xml"/>
+		<mapper resource="org/redborn/csatlatte/persistence/question/text/ContentMapper.xml"/>
 		<mapper resource="org/redborn/csatlatte/persistence/QuestionMapper.xml"/>
 	</mappers>
 	
