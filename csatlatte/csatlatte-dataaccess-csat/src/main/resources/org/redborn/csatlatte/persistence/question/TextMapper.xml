@@ -10,12 +10,11 @@
 		<result column="text_seq" property="textSequence"/>
 		<result column="begin_qst_seq" property="beginQuestionSequence"/>
 		<result column="end_qst_seq" property="endQuestionSequence"/>
-		<result column="content" property="content"/>
 		<result column="description" property="description"/>
 	</resultMap>
 	
 	<select id="selectList" parameterType="Map" resultMap="TextVoMap">
-		SELECT text_seq,begin_qst_seq,end_qst_seq,content,description 
+		SELECT text_seq,begin_qst_seq,end_qst_seq,description 
 		  FROM csat_qst_text 
 		 WHERE csat_seq = #{csatSequence}
 		   AND exam_seq = #{examSequence}
