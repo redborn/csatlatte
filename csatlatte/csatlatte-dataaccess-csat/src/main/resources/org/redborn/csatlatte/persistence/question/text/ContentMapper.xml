@@ -20,6 +20,7 @@
 		   AND section_seq = #{sectionSequence}
 		   AND subject_seq = #{subjectSequence}
 		   AND text_seq = #{textSequence}
+	  ORDER BY content_seq ASC 
 	</select>
 
 </mapper>
