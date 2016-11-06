@@ -25,6 +25,7 @@ import org.redborn.csatlatte.persistence.exam.SubjectDao;
 import org.redborn.csatlatte.persistence.exam.student.ScoreDao;
 import org.redborn.csatlatte.persistence.question.TextDao;
 import org.redborn.csatlatte.persistence.question.object.CorrectAnswerDao;
+import org.redborn.csatlatte.persistence.question.text.ContentDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,8 @@ public class ExamServiceImpl implements ExamService {
 	private CorrectAnswerDao correctAnswerDao;
 	@Autowired
 	private TextDao textDao;
+	@Autowired
+	private ContentDao contentDao;
 
 	public CsatVo getCsat(int csatSequence) {
 		logger.info("Business layer exam getCsat.");
@@ -231,7 +234,24 @@ public class ExamServiceImpl implements ExamService {
 	}
 	
 	public List<TextVo> textList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
-		return textDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
+		List<TextVo> textList = new ArrayList<TextVo>();
+		textList = textDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
+		if (textList != null) {
+			int textListSize = textList.size();
+			for (int index = 0; index < textListSize; index++) {
+				String content = "";
+				int textSequence = textList.get(index).getTextSequence();
+				List<TextVo> contentList = contentDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence, textSequence);
+				if (contentList != null) {
+					int contentListSize = contentList.size();
+					for (int index2 = 0; index2 < contentListSize; index2++) {
+						content += contentList.get(index2).getContent();
+					}
+				}
+				textList.get(index).setContent(content);
+			}
+		}
+		return textList;
 	}
 
 }
