@@ -5,6 +5,7 @@ public class TextVo {
 	private int textSequence;
 	private int beginQuestionSequence;
 	private int endQuestionSequence;
+	private int contentSequence;
 	private String content;
 	private String description;
 	
@@ -32,6 +33,14 @@ public class TextVo {
 		this.endQuestionSequence = endQuestionSequence;
 	}
 	
+	public int getContentSequence() {
+		return contentSequence;
+	}
+	
+	public void setContentSequence(int contentSequence) {
+		this.contentSequence = contentSequence;
+	}
+	
 	public String getContent() {
 		return content;
 	}
@@ -52,7 +61,8 @@ public class TextVo {
 	public String toString() {
 		return "TextVo [textSequence=" + textSequence
 				+ ", beginQuestionSequence=" + beginQuestionSequence
-				+ ", endQuestionSequence=" + endQuestionSequence + ", content="
+				+ ", endQuestionSequence=" + endQuestionSequence
+				+ ", contentSequence=" + contentSequence + ", content="
 				+ content + ", description=" + description + "]";
 	}
 	
