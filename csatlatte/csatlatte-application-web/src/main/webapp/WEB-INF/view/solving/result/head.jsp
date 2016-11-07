@@ -12,3 +12,14 @@
 	.solving-result-reply-correct-answer {color:#a94442;}
 	.solving-result-text {margin-top:30px;}
 </style>
+<script>
+$(document).ready(function() {
+	if ($("#solving-result-exam-time").val != undefined) {
+		var examTime = $("#solving-result-exam-time").val();
+		var resultExamTime = $("#solving-result-result-exam-time").val();
+		var costTime = examTime * 60 - resultExamTime;
+		$("#solving-result-cost-time").text("소요시간 / 시험시간 : " + (Math.floor(costTime / 60)) + "분 " + (costTime % 60) + "초 / " + examTime + "분");
+		$("#solving-result-remain-time").text("잔여시간 : " + (Math.floor(resultExamTime / 60)) + "분 " + (resultExamTime % 60) + "초");
+	}
+});
+</script>

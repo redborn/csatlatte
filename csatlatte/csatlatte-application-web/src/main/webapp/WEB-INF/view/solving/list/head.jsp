@@ -21,6 +21,7 @@ $(document).ready(function() {
 				if (examTimeSecond > 0) {
 					updateExamTime(--examTimeSecond); 
 					$("#solving-list-exam-time-text").text("남은 시험 시간 : " + (Math.floor(examTimeSecond / 60)) + "분 " + (examTimeSecond % 60) + "초");
+					$("#solving-list-result-exam-time").val(examTimeSecond);
 				} else {
 					$("#solving-list-form").submit();
 				}
