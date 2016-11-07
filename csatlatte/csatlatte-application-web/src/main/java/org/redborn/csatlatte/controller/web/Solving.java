@@ -42,11 +42,21 @@ public class Solving {
 	}
 	
 	@RequestMapping(value="{csatSequence}/{examSequence}/{sectionSequence}/{subjectSequence}",method=RequestMethod.POST)
-	public String post(Model model, @PathVariable(value="csatSequence") int csatSequence, @PathVariable(value="examSequence") int examSequence, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence, @RequestParam(value="result", required=true) List<Integer> questionNumber) {
+	public String post(Model model, @PathVariable(value="csatSequence") int csatSequence, @PathVariable(value="examSequence") int examSequence, 
+			@PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence, 
+			@RequestParam(value="result", required=true) List<Integer> questionNumber,
+			@RequestParam(value="examTime", required=false, defaultValue="0") int examTime,
+			@RequestParam(value="resultExamTime", required=false, defaultValue="0") int resultExamTime,
+			@RequestParam(value="examTimeUse", required=false, defaultValue="false") boolean examTimeUse) {
 		logger.info("Controller solving POST.");
 		List<Boolean> marking = new ArrayList<Boolean>();
 		marking = examService.marking(questionNumber, csatSequence, examSequence, sectionSequence, subjectSequence);
 		int score = examService.calculateScore(marking, csatSequence, examSequence, sectionSequence, subjectSequence);
+		model.addAttribute("examTimeUse", examTimeUse);
+		if (examTimeUse) {
+			model.addAttribute("examTime", examTime);
+			model.addAttribute("resultExamTime", resultExamTime);
+		}
 		model.addAttribute("questionNumber", questionNumber);
 		model.addAttribute("correctAnswerList", examService.objectQuestionCorrectAnswerList(csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("questionList", examService.questionList(csatSequence, examSequence, sectionSequence, subjectSequence));
