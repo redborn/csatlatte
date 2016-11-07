@@ -21,5 +21,15 @@ $(document).ready(function() {
 		$("#solving-result-cost-time").text("소요시간 / 시험시간 : " + (Math.floor(costTime / 60)) + "분 " + (costTime % 60) + "초 / " + examTime + "분");
 		$("#solving-result-remain-time").text("잔여시간 : " + (Math.floor(resultExamTime / 60)) + "분 " + (resultExamTime % 60) + "초");
 	}
+	
+	$("a").on("click", function (event) {
+		event.stopPropagation();
+		event.preventDefault();
+		var link = $(this).attr("href");
+		$("#solving-result-modal").modal('show');
+		$("#solving-result-modal-accept").on("click", function () {
+			$(location).attr("href", link);
+		});
+	});
 });
 </script>

@@ -78,3 +78,21 @@
 		${correctAnswerList[status.index].description}
 	</div>
 </c:forEach>
+<div class="modal fade" id="solving-result-modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">경고</h4>
+			</div>
+			<div class="modal-body">
+				<p class="text-danger">다른 페이지로 이동하면 이 시험 결과 페이지를 다시 볼 수 없습니다.</p> 
+				페이지 이동 후 시험 결과를 다시 보기 위해선 시험 문제를 다시 풀어야 합니다. 계속하시겠습니까?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+				<button type="button" class="btn btn-primary" id="solving-result-modal-accept">계속</button>
+			</div>
+		</div>
+	</div>
+</div>
