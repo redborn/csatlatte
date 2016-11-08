@@ -185,12 +185,15 @@ public class ExamServiceImpl implements ExamService {
 		List<CorrectAnswerVo> answerList = correctAnswerDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
 		List<Boolean> resultMarking = new ArrayList<Boolean>();
 		if (questionNumber != null) {
-			int questionSize = questionNumber.size();
-			for (int index = 0; index < questionSize; index++) {
-				if (questionNumber.get(index) == answerList.get(index).getObjectItemSequence()) {
-					resultMarking.add(true);
-				} else {
-					resultMarking.add(false);
+			int questionNumberSize = questionNumber.size();
+			int answerListSize = answerList.size();
+			if (questionNumberSize == answerListSize) {
+				for (int index = 0; index < questionNumberSize; index++) {
+					if (questionNumber.get(index) == answerList.get(index).getObjectItemSequence()) {
+						resultMarking.add(true);
+					} else {
+						resultMarking.add(false);
+					}
 				}
 			}
 		}
