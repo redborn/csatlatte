@@ -49,11 +49,6 @@ public class Solving {
 			@RequestParam(value="examTimeUse", required=false, defaultValue="false") boolean examTimeUse) {
 		logger.info("Controller solving POST.");
 		int score = examService.calculateScore(questionNumber, csatSequence, examSequence, sectionSequence, subjectSequence);
-		model.addAttribute("examTimeUse", examTimeUse);
-		if (examTimeUse) {
-			model.addAttribute("examTime", examTime);
-			model.addAttribute("resultExamTime", resultExamTime);
-		}
 		model.addAttribute("questionNumber", questionNumber);
 		model.addAttribute("correctAnswerList", examService.objectQuestionCorrectAnswerList(csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("questionList", examService.questionList(csatSequence, examSequence, sectionSequence, subjectSequence));
