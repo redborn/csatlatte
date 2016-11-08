@@ -21,13 +21,20 @@
 		<result column="standard_deviation" property="standardDeviation"/>
 	</resultMap>
 	
-	<select id="selectOneDetail" parameterType="Map" resultMap="AverageVoDetailMap">
-		SELECT avg,standard_deviation 
-		  FROM csat_exam_avg 
-		 WHERE csat_seq = #{csatSequence}
-		   AND exam_seq = #{examSequence}
-		   AND section_seq = #{sectionSequence}
-		   AND subject_seq = #{subjectSequence}
+	<select id="selectOneStandardScore" parameterType="Map" resultMap="int">
+		SELECT TRUNCATE(( ( 100 - cea.avg ) / cea.standard_deviation ) * ( 
+		                ces.max_score / 5 ) 
+		                       + 
+		                       ces.max_score, 0) AS standard_score 
+		  FROM csat_exam_avg cea,csat_exam_subject ces 
+		 WHERE cea.csat_seq = 25 
+		   AND cea.exam_seq = 9 
+		   AND cea.section_seq = 1 
+		   AND cea.subject_seq = 1 
+		   AND cea.csat_seq = ces.csat_seq 
+		   AND cea.exam_seq = ces.exam_seq 
+		   AND cea.section_seq = ces.section_seq 
+		   AND cea.subject_seq = ces.subject_seq 
 	</select>
 
 	<select id="selectList" parameterType="Map" resultMap="AverageVoMap">
