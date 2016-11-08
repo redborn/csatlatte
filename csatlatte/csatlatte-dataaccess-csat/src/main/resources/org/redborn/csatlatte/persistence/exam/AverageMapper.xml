@@ -22,15 +22,15 @@
 	</resultMap>
 	
 	<select id="selectOneStandardScore" parameterType="Map" resultType="int">
-		SELECT TRUNCATE(( ( 100 - cea.avg ) / cea.standard_deviation ) * ( 
+		SELECT TRUNCATE(( ( #{score} - cea.avg ) / cea.standard_deviation ) * ( 
 		                ces.max_score / 5 ) 
 		                       + 
 		                       ces.max_score, 0) AS standard_score 
 		  FROM csat_exam_avg cea,csat_exam_subject ces 
-		 WHERE cea.csat_seq = 25 
-		   AND cea.exam_seq = 9 
-		   AND cea.section_seq = 1 
-		   AND cea.subject_seq = 1 
+		 WHERE cea.csat_seq = #{csatSequence}
+		   AND cea.exam_seq = #{examSequence}
+		   AND cea.section_seq = #{sectionSequence}
+		   AND cea.subject_seq = #{subjectSequence}
 		   AND cea.csat_seq = ces.csat_seq 
 		   AND cea.exam_seq = ces.exam_seq 
 		   AND cea.section_seq = ces.section_seq 
