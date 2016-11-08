@@ -181,7 +181,7 @@ public class ExamServiceImpl implements ExamService {
 	}
 
 	public List<Boolean> marking(List<Integer> questionNumber, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
-		logger.info("Business layer exam calculateScore.");
+		logger.info("Business layer exam marking.");
 		List<CorrectAnswerVo> answerList = correctAnswerDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
 		List<Boolean> resultMarking = new ArrayList<Boolean>();
 		if (questionNumber != null) {
@@ -201,6 +201,7 @@ public class ExamServiceImpl implements ExamService {
 	}
 
 	public int calculateScore(List<Integer> questionNumber, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		logger.info("Business layer exam calculateScore.");
 		List<QuestionVo> scoreList = questionDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
 		List<CorrectAnswerVo> answerList = correctAnswerDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
 		int resultScore = 0;
@@ -220,6 +221,7 @@ public class ExamServiceImpl implements ExamService {
 	}
 	
 	public int calculateRating(int score, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		logger.info("Business layer exam calculateRating.");
 		List<RatingCutVo> list = ratingCutDao.selectListDetailForSolving(csatSequence, examSequence, sectionSequence, subjectSequence);
 		int resultRating = 0;
 		if (list != null) {
@@ -234,6 +236,7 @@ public class ExamServiceImpl implements ExamService {
 	}
 	
 	public int calculateStandardScore(int score, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		logger.info("Business layer exam calculateStandardScore.");
 		int resultStandardScore = 0;
 		AverageVo averageVo = new AverageVo();
 		averageVo = averageDao.selectOneDetail(csatSequence, examSequence, sectionSequence, subjectSequence);
@@ -243,10 +246,12 @@ public class ExamServiceImpl implements ExamService {
 	}
 	
 	public List<CorrectAnswerVo> objectQuestionCorrectAnswerList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		logger.info("Business layer exam objectQuestionCorrectAnswerList.");
 		return correctAnswerDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
 	}
 	
 	public List<TextVo> textList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		logger.info("Business layer exam textList.");
 		List<TextVo> textList = new ArrayList<TextVo>();
 		textList = textDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
 		if (textList != null) {
