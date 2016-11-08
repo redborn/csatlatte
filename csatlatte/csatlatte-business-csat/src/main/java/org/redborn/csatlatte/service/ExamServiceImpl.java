@@ -226,12 +226,7 @@ public class ExamServiceImpl implements ExamService {
 	
 	public int calculateStandardScore(int score, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
 		logger.info("Business layer exam calculateStandardScore.");
-		int resultStandardScore = 0;
-		AverageVo averageVo = new AverageVo();
-		averageVo = averageDao.selectOneDetail(csatSequence, examSequence, sectionSequence, subjectSequence);
-		int maxScore = subjectDao.selectOneMaxScore(csatSequence, examSequence, sectionSequence, subjectSequence);
-		resultStandardScore = (int) (((score - averageVo.getAverage()) / averageVo.getStandardDeviation()) * (maxScore / 5) + maxScore);
-		return resultStandardScore;
+		return averageDao.selectOneStandardScore(score, csatSequence, examSequence, sectionSequence, subjectSequence);
 	}
 	
 	public List<CorrectAnswerVo> objectQuestionCorrectAnswerList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
