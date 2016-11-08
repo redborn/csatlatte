@@ -10,16 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class SubjectDaoMapper extends SqlSessionDaoSupport implements SubjectDao {
-
-	public int selectOneMaxScore(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("csatSequence", csatSequence);
-		params.put("examSequence", examSequence);
-		params.put("sectionSequence", sectionSequence);
-		params.put("subjectSequence", subjectSequence);
-		
-		return getSqlSession().selectOne("exam.subject.selectOneMaxScore", params);
-	}
 	
 	public List<SubjectVo> selectList(int csatSequence, int examSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
