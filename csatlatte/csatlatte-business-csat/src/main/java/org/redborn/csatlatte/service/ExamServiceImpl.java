@@ -10,7 +10,6 @@ import org.redborn.csatlatte.domain.ExamVo;
 import org.redborn.csatlatte.domain.GradeVo;
 import org.redborn.csatlatte.domain.InstitutionVo;
 import org.redborn.csatlatte.domain.QuestionVo;
-import org.redborn.csatlatte.domain.RatingCutVo;
 import org.redborn.csatlatte.domain.SectionVo;
 import org.redborn.csatlatte.domain.SubjectVo;
 import org.redborn.csatlatte.domain.TextVo;
@@ -222,17 +221,7 @@ public class ExamServiceImpl implements ExamService {
 	
 	public int calculateRating(int score, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
 		logger.info("Business layer exam calculateRating.");
-		List<RatingCutVo> list = ratingCutDao.selectListDetailForSolving(csatSequence, examSequence, sectionSequence, subjectSequence);
-		int resultRating = 0;
-		if (list != null) {
-			int listSize = list.size();
-			for (int index = 0; index < listSize; index++) {
-				if (score >= list.get(index).getRawScore()) {
-					resultRating = list.get(index).getRatingCode();
-				}
-			}
-		}
-		return resultRating;
+		return ratingCutDao.selectOneRatingByScore(score, csatSequence, examSequence, sectionSequence, subjectSequence);
 	}
 	
 	public int calculateStandardScore(int score, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
