@@ -13,6 +13,16 @@ import org.springframework.stereotype.Repository;
 public class RatingCutDaoMapper extends SqlSessionDaoSupport implements
 		RatingCutDao {
 
+	public int selectOneRatingByScore(int score, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		params.put("sectionSequence", sectionSequence);
+		params.put("subjectSequence", subjectSequence);
+		params.put("score", score);
+		return getSqlSession().selectOne("exam.ratingcut.selectOneRatingByScore", params);
+	}
+	
 	public List<ExamVo> selectList(int csatSequence) {
 		return getSqlSession().selectList("exam.ratingcut.selectList", csatSequence);
 	}
@@ -24,16 +34,6 @@ public class RatingCutDaoMapper extends SqlSessionDaoSupport implements
 		
 		return getSqlSession().selectList("exam.ratingcut.selectListDetail", params);
 	}
-	
-	public List<RatingCutVo> selectListDetailForSolving(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("csatSequence", csatSequence);
-		params.put("examSequence", examSequence);
-		params.put("sectionSequence", sectionSequence);
-		params.put("subjectSequence", subjectSequence);
-		return getSqlSession().selectList("exam.ratingcut.selectListDetailForSolving", params);
-	}
-
 	
 	public List<ExamVo> selectListForCreate(int csatSequence) {
 		return getSqlSession().selectList("exam.ratingcut.selectListForCreate", csatSequence);
