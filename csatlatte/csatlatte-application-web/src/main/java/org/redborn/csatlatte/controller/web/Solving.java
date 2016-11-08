@@ -1,6 +1,5 @@
 package org.redborn.csatlatte.controller.web;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.redborn.csatlatte.commons.tiles.TilesName;
@@ -49,9 +48,7 @@ public class Solving {
 			@RequestParam(value="resultExamTime", required=false, defaultValue="0") int resultExamTime,
 			@RequestParam(value="examTimeUse", required=false, defaultValue="false") boolean examTimeUse) {
 		logger.info("Controller solving POST.");
-		List<Boolean> marking = new ArrayList<Boolean>();
-		marking = examService.marking(questionNumber, csatSequence, examSequence, sectionSequence, subjectSequence);
-		int score = examService.calculateScore(marking, csatSequence, examSequence, sectionSequence, subjectSequence);
+		int score = examService.calculateScore(questionNumber, csatSequence, examSequence, sectionSequence, subjectSequence);
 		model.addAttribute("examTimeUse", examTimeUse);
 		if (examTimeUse) {
 			model.addAttribute("examTime", examTime);
@@ -60,7 +57,7 @@ public class Solving {
 		model.addAttribute("questionNumber", questionNumber);
 		model.addAttribute("correctAnswerList", examService.objectQuestionCorrectAnswerList(csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("questionList", examService.questionList(csatSequence, examSequence, sectionSequence, subjectSequence));
-		model.addAttribute("marking", marking);
+		model.addAttribute("marking", examService.marking(questionNumber, csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("rating", examService.calculateRating(score, csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("standardScore", examService.calculateStandardScore(score, csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("score", score);
