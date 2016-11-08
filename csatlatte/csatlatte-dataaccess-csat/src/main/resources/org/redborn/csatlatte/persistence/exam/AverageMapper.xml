@@ -21,7 +21,7 @@
 		<result column="standard_deviation" property="standardDeviation"/>
 	</resultMap>
 	
-	<select id="selectOneStandardScore" parameterType="Map" resultMap="int">
+	<select id="selectOneStandardScore" parameterType="Map" resultType="int">
 		SELECT TRUNCATE(( ( 100 - cea.avg ) / cea.standard_deviation ) * ( 
 		                ces.max_score / 5 ) 
 		                       + 
