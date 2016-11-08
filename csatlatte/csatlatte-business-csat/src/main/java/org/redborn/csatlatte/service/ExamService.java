@@ -233,14 +233,14 @@ public interface ExamService {
 	/**
 	 * 모의고사 풀기 채점 점수입니다.
 	 * 
-	 * @param resultMarking 정답 여부
+	 * @param questionNumber 사용자가 선택한 답안
 	 * @param csatSequence 수능 일련번호
 	 * @param examSequence 모의고사 일련번호
 	 * @param sectionSequence 영역 일련번호
 	 * @param subjectSequence 과목 일련번호
 	 * @return 모의고사 점수
 	 */
-	public int calculateScore(List<Boolean> resultMarking, int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	public int calculateScore(List<Integer> questionNumber, int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
 	
 	/**
 	 * 점수에 해당하는 등급을 구합니다.

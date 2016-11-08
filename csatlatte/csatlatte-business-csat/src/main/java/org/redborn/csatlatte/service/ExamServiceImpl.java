@@ -197,14 +197,19 @@ public class ExamServiceImpl implements ExamService {
 		return resultMarking;
 	}
 
-	public int calculateScore(List<Boolean> resultMarking, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+	public int calculateScore(List<Integer> questionNumber, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
 		List<QuestionVo> scoreList = questionDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
+		List<CorrectAnswerVo> answerList = correctAnswerDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
 		int resultScore = 0;
-		if (resultMarking != null && scoreList != null) {
-			int resultMarkingSize = resultMarking.size();
-			for (int index = 0; index < resultMarkingSize; index++) {
-				if (resultMarking.get(index)) {
-					resultScore += scoreList.get(index).getScore();
+		if (questionNumber != null && scoreList != null && answerList != null) {
+			int questionNumberSize = questionNumber.size();
+			int answerListSize = answerList.size();
+			int scoreListSize = scoreList.size();
+			if (questionNumberSize == answerListSize && questionNumberSize == scoreListSize) {
+				for (int index = 0; index < questionNumberSize; index++) {
+					if (questionNumber.get(index) == answerList.get(index).getObjectItemSequence()) {
+						resultScore += scoreList.get(index).getScore();
+					}
 				}
 			}
 		}
