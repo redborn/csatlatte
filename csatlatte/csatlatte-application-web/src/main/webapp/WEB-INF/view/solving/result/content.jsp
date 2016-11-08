@@ -9,9 +9,9 @@
 		<p>이 결과는 시험 주관 교육청에서 발표한 자료에 근거했습니다.</p>
 	</div>
 	<div class="panel-body">
-		<c:if test="${examTimeUse}">
-			<input type="hidden" id="solving-result-exam-time" value="${examTime}"/>
-			<input type="hidden" id="solving-result-result-exam-time" value="${resultExamTime}"/>
+		<c:if test="${param.examTimeUse}">
+			<input type="hidden" id="solving-result-exam-time" value="${param.examTime}"/>
+			<input type="hidden" id="solving-result-result-exam-time" value="${param.resultExamTime}"/>
 			<div id="solving-result-cost-time">소요시간 / 시험시간 :</div> 
 			<div id="solving-result-remain-time">잔여시간 : </div>
 		</c:if>
