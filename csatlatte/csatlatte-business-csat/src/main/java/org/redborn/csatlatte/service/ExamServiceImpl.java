@@ -241,16 +241,16 @@ public class ExamServiceImpl implements ExamService {
 		if (textList != null) {
 			int textListSize = textList.size();
 			for (int index = 0; index < textListSize; index++) {
-				String content = "";
+				StringBuilder builder = new StringBuilder();
 				int textSequence = textList.get(index).getTextSequence();
-				List<TextVo> contentList = contentDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence, textSequence);
+				List<String> contentList = contentDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence, textSequence);
 				if (contentList != null) {
 					int contentListSize = contentList.size();
 					for (int index2 = 0; index2 < contentListSize; index2++) {
-						content += contentList.get(index2).getContent();
+						builder.append(contentList.get(index2));
 					}
 				}
-				textList.get(index).setContent(content);
+				textList.get(index).setContent(builder.toString());
 			}
 		}
 		return textList;
