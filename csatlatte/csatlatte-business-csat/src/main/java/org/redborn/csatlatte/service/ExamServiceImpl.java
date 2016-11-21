@@ -1,8 +1,11 @@
 package org.redborn.csatlatte.service;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3;
+import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3Prefix;
 import org.redborn.csatlatte.domain.AverageVo;
 import org.redborn.csatlatte.domain.CorrectAnswerVo;
 import org.redborn.csatlatte.domain.CsatVo;
@@ -22,6 +25,7 @@ import org.redborn.csatlatte.persistence.exam.RatingCutDao;
 import org.redborn.csatlatte.persistence.exam.SectionDao;
 import org.redborn.csatlatte.persistence.exam.SubjectDao;
 import org.redborn.csatlatte.persistence.exam.student.ScoreDao;
+import org.redborn.csatlatte.persistence.exam.subject.ListeningDao;
 import org.redborn.csatlatte.persistence.question.TextDao;
 import org.redborn.csatlatte.persistence.question.object.CorrectAnswerDao;
 import org.redborn.csatlatte.persistence.question.text.ContentDao;
@@ -59,6 +63,10 @@ public class ExamServiceImpl implements ExamService {
 	private TextDao textDao;
 	@Autowired
 	private ContentDao contentDao;
+	@Autowired
+	private ListeningDao listenDao;
+	@Autowired
+	private CsatAmazonS3 csatAmazonS3;
 
 	public CsatVo getCsat(int csatSequence) {
 		logger.info("Business layer exam getCsat.");
@@ -254,6 +262,19 @@ public class ExamServiceImpl implements ExamService {
 			}
 		}
 		return textList;
+	}
+	
+	public InputStream getInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		String fileCode = listenDao.selectOneFileCode(csatSequence, examSequence, sectionSequence, subjectSequence);
+		return csatAmazonS3.getInputStream(CsatAmazonS3Prefix.EXAM_LISTENING, fileCode);
+	}
+	
+	public boolean checkListeningFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		return listenDao.selectOneCount(csatSequence, examSequence, sectionSequence, subjectSequence) == 1;
+	}
+	
+	public String getFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		return listenDao.selectOneFileName(csatSequence, examSequence, sectionSequence, subjectSequence);
 	}
 
 }

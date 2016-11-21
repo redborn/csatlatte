@@ -1,5 +1,6 @@
 package org.redborn.csatlatte.service;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.redborn.csatlatte.domain.AverageVo;
@@ -287,5 +288,38 @@ public interface ExamService {
 	 * @return 지문 목록
 	 */
 	public List<TextVo> textList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
+	 * 듣기 파일입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 듣기 파일 코드
+	 */
+	public InputStream getInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
+	 * 듣기 파일이 있는지 검사합니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 듣기 파일 유무
+	 */
+	public boolean checkListeningFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
+	 * 듣기 파일 이름입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 듣기 파일 이름
+	 */
+	public String getFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
 
 }
