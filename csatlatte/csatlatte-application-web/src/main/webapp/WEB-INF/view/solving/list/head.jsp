@@ -3,10 +3,16 @@
 <style>
 #solving-list-exam-time-text {text-align:right;}
 .solving-list-question {margin:20px 0;}
-.solving-list-question label {font-weight: normal;}
+.solving-list-question label {font-weight:normal;}
+#solving-list-listening-button {background:transparent; border:0; -webkit-appearance:none;}
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
+	$("#solving-list-listening-button").on("click", function() {
+		$("#solving-list-listening").get(0).play();
+		$(this).attr("disabled", true);
+	});
+	
 	var answer = new Array();
 	for (var index = 0; index < $("#question-list-size").attr("value"); index++) {
 		answer[index] = 0;
