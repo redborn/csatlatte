@@ -21,7 +21,7 @@ public class Solving {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private ExamService examService;
-
+	
 	@RequestMapping(value="{csatSequence}/{examSequence}/{sectionSequence}/{subjectSequence}",method=RequestMethod.GET)
 	public String get(Model model, @PathVariable(value="csatSequence") int csatSequence, @PathVariable(value="examSequence") int examSequence, @PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence, @RequestParam(value="examTime",required=false,defaultValue="false") boolean examTime) {
 		logger.info("Controller solving GET.");
@@ -29,6 +29,7 @@ public class Solving {
 		model.addAttribute("examSequence", examSequence);
 		model.addAttribute("sectionSequence", sectionSequence);
 		model.addAttribute("subjectSequence", subjectSequence);
+		model.addAttribute("checkListenFile", examService.checkListeningFile(csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("textList", examService.textList(csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("examName", examService.getName(csatSequence, examSequence));
 		model.addAttribute("subjectName", examService.getSubjectName(csatSequence, examSequence, sectionSequence, subjectSequence));
@@ -57,6 +58,7 @@ public class Solving {
 		model.addAttribute("standardScore", examService.calculateStandardScore(score, csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("score", score);
 		model.addAttribute("textList", examService.textList(csatSequence, examSequence, sectionSequence, subjectSequence));
+		
 		return TilesName.SOLVING_RESULT;
 	}
 
