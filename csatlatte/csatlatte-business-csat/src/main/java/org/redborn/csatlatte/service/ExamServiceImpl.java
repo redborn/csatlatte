@@ -265,15 +265,18 @@ public class ExamServiceImpl implements ExamService {
 	}
 	
 	public InputStream getInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		logger.info("Business layer exam getInputStream.");
 		String fileCode = listenDao.selectOneFileCode(csatSequence, examSequence, sectionSequence, subjectSequence);
 		return csatAmazonS3.getInputStream(CsatAmazonS3Prefix.EXAM_LISTENING, fileCode);
 	}
 	
 	public boolean checkListeningFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		logger.info("Business layer exam checkListeningFile.");
 		return listenDao.selectOneCount(csatSequence, examSequence, sectionSequence, subjectSequence) == 1;
 	}
 	
 	public String getFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		logger.info("Business layer exam getFileName.");
 		return listenDao.selectOneFileName(csatSequence, examSequence, sectionSequence, subjectSequence);
 	}
 
