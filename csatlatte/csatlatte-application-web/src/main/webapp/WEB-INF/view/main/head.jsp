@@ -12,7 +12,11 @@
 		-o-background-size: cover;
 		background-size: cover;
 	}
-	.main-title {font-size:40px; text-shadow:rgb(110,110,110) 0px 0px 8px; color:white; position: absolute; top: 50%; margin-top: -187px; width: 100%; text-align:center;}
+	.main-title {text-shadow:rgb(110,110,110) 0px 0px 8px; color:white; position: absolute; top: 50%; margin-top: -187px; width: 100%; text-align:center;}
+	.main-title-dday {font-size:40px; color:#d9534f;}
+	.main-title-dday a {color:white; font-size:25px;}
+	.main-title-dday a:hover {color:white;}
+	.main-title-exam-name {font-size:20px;}
 	.main-login {position:absolute; top:50%; width:270px; left:50%; margin-left:-135px; margin-top:-50px; color:white; text-align:center;}
 	.main-login .btn {background:#7a6253; width:100%; color:white; border-color:#7a6253;}
 	.main-login .main-join {width:28%; display:inline-block;}

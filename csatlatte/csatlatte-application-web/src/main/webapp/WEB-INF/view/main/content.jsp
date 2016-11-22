@@ -3,8 +3,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
+<div class="main-title">
+		<div class="main-title-dday">
+			<c:choose>
+				<c:when test="${dDay.dDay eq null}">
+					예정된 시험이 없습니다.
+				</c:when>
+				<c:when test="${dDay.dDay eq 0}">
+					시험 당일입니다!
+					<p><a href="<c:url value="/rating"/>">등급컷 확인하기</a></p>
+				</c:when>
+				<c:when test="${dDay.dDay < 0}">
+					시험이 종료되었습니다.
+					<p><a href="<c:url value="/rating"/>">등급컷 확인하기</a></p>
+				</c:when>
+				<c:otherwise>
+					D-${dDay.dDay}
+				</c:otherwise>
+			</c:choose>
+		</div>
+		<div class="main-title-exam-name">
+			${dDay.examName}
+		</div>
+	</div>
 <div class="main-picture">
-	<div class="main-title">"미래를 위한&nbsp;&nbsp;<br/>&nbsp;&nbsp;현명한 준비"</div>
 	<session:isGuest>
 	<div class="main-login">
 		<form:form id="main-form" method="post" servletRelativeAction="/login"> 

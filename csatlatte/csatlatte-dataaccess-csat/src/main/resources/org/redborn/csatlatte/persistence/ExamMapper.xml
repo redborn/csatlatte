@@ -32,10 +32,24 @@
 		<result column="year" property="year"/>
 	</resultMap>
 	
+	<resultMap type="ExamDDayVo" id="ExamDDayVoMap">
+		<result column="d_day" property="dDay"/>
+		<result column="exam_name" property="examName"/>
+	</resultMap>
+	
 	<select id="selectOneCountMax" parameterType="int" resultType="int">
 		SELECT IFNULL(MAX(exam_seq),0) + 1 as exam_seq
 		  FROM csat_exam ce
 		 WHERE ce.csat_seq = #{csatSequence}
+	</select>
+	
+	<select id="selectOneDDay" parameterType="int" resultMap="ExamDDayVoMap">
+		SELECT exam_ymd - CURDATE() as d_day, exam_name
+		  FROM csat_exam
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = (SELECT MAX(exam_seq)
+		                     FROM csat_exam
+		                    WHERE csat_seq = #{csatSequence})
 	</select>
 	
 	<select id="selectListDetailForManage" parameterType="Map" resultMap="ExamVoForManageOneMap">

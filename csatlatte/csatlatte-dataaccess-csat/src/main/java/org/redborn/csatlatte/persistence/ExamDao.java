@@ -2,11 +2,13 @@ package org.redborn.csatlatte.persistence;
 
 import java.util.List;
 
+import org.redborn.csatlatte.domain.ExamDDayVo;
 import org.redborn.csatlatte.domain.ExamVo;
 
 public interface ExamDao {
 	
 	public int selectOneCountMax(int csatSequence);
+	public ExamDDayVo selectOneDDay(int csatSequence);
 	public List<ExamVo> selectListDetailForManage(int csatSequence, int examSequence);
 	public List<ExamVo> selectListExamForRating(String year, int yearStudedntSequence);
 	public List<ExamVo> selectListExamForSolving(String year, int yearStudentSequence);
