@@ -9,11 +9,6 @@
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#solving-list-listening-button").on("click", function() {
-		$("#solving-list-listening").get(0).play();
-		$(this).attr("disabled", true);
-	});
-	
 	var answer = new Array();
 	for (var index = 0; index < $("#question-list-size").attr("value"); index++) {
 		answer[index] = 0;
@@ -21,6 +16,15 @@ $(document).ready(function() {
 	$(".answer").on("click", function() {
 		answer[$(this).attr("name") - 1] = $(this).attr("value");
 	});
+	
+	if ($("#solving-list-listening-file-size").val() != undefined) {
+		var fileSize = $("#solving-list-listening-file-size").val();
+		$("#solving-list-listening-file-size-view").text("파일 크기 : " + Math.round((fileSize / 1048576) * 100) / 100 + " MB (" + fileSize + " byte)");
+		$("#solving-list-listening-button").on("click", function() {
+			$("#solving-list-listening").get(0).play();
+			$(this).attr("disabled", true);
+		});
+	}
 	
 	if ($("#solving-list-exam-time").val() != undefined) {
 		var updateExamTime = function(examTimeSecond) {

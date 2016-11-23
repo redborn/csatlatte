@@ -6,6 +6,7 @@
 <h2 style="color:#7a6253;">${subjectName}</h2>
 <input type="hidden" id="question-list-size" value="${questionListSize}"/>
 <c:if test="${checkListenFile}">
+<input type="hidden" id="solving-list-listening-file-size" value="${listeningFileSize}"/>
 <div class="alert alert-info">	
 	<div class="media">
 		<div class="media-left media-middle">
@@ -17,6 +18,7 @@
 			</button>
 		</div>
 		<div class="media-body">
+			<p id="solving-list-listening-file-size-view"></p>
 			<p>통신사 데이터를 사용하는 경우 데이터가 될 수 있습니다.</p>
 			<p>좌측 아이콘을 누르면 듣기 평가가 시작됩니다. 1회만 재생 가능하니 이 점 유의하시기 바랍니다.</p>
 			<p>듣기 평가를 재생 중에는 재생을 중지할 수 없습니다.</p>
