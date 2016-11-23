@@ -296,7 +296,7 @@ public interface ExamService {
 	 * @param examSequence 시험 일련번호
 	 * @param sectionSequence 영역 일련번호
 	 * @param subjectSequence 과목 일련번호
-	 * @return 듣기 파일 코드
+	 * @return 듣기 파일 InputStream
 	 */
 	public InputStream getInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
 	
