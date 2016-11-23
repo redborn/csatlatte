@@ -1,5 +1,6 @@
 package org.redborn.csatlatte.controller.web;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.redborn.csatlatte.commons.tiles.TilesName;
@@ -29,7 +30,15 @@ public class Solving {
 		model.addAttribute("examSequence", examSequence);
 		model.addAttribute("sectionSequence", sectionSequence);
 		model.addAttribute("subjectSequence", subjectSequence);
-		model.addAttribute("checkListenFile", examService.checkListeningFile(csatSequence, examSequence, sectionSequence, subjectSequence));
+		boolean checkListenFile = examService.checkListeningFile(csatSequence, examSequence, sectionSequence, subjectSequence);
+		if (checkListenFile) {
+			model.addAttribute("checkListenFile", checkListenFile);
+			try {
+				model.addAttribute("listeningFileSize", examService.getInputStream(csatSequence, examSequence, sectionSequence, subjectSequence).available());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		model.addAttribute("textList", examService.textList(csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("examName", examService.getName(csatSequence, examSequence));
 		model.addAttribute("subjectName", examService.getSubjectName(csatSequence, examSequence, sectionSequence, subjectSequence));
