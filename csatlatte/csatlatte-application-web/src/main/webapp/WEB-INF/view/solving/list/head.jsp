@@ -5,6 +5,7 @@
 .solving-list-question {margin:20px 0;}
 .solving-list-question label {font-weight:normal;}
 #solving-list-listening-button {background:transparent; border:0; -webkit-appearance:none;}
+#solving-list-exam-time-alert {display:none; position:fixed; left:0; width:100%; text-align:center; top:65px; z-index:10;}
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -28,6 +29,25 @@ $(document).ready(function() {
 					updateExamTime(--examTimeSecond); 
 					$("#solving-list-exam-time-text").text("남은 시험 시간 : " + (Math.floor(examTimeSecond / 60)) + "분 " + (examTimeSecond % 60) + "초");
 					$("#solving-list-result-exam-time").val(examTimeSecond);
+					if (examTimeSecond == 600) {
+						$("#solving-list-exam-time-alert").text("시험 종료까지 10분 남았습니다.");
+						$("#solving-list-exam-time-alert").fadeIn(600);
+						setTimeout(function () {
+							$("#solving-list-exam-time-alert").fadeOut(600);
+						}, 5000);
+					} else if (examTimeSecond == 300) {
+						$("#solving-list-exam-time-alert").text("시험 종료까지 5분 남았습니다.");
+						$("#solving-list-exam-time-alert").fadeIn(600);
+						setTimeout(function () {
+							$("#solving-list-exam-time-alert").fadeOut(600);
+						}, 5000);
+					} else if (examTimeSecond == 60) {
+						$("#solving-list-exam-time-alert").text("시험 종료까지 1분 남았습니다.");
+						$("#solving-list-exam-time-alert").fadeIn(600);
+						setTimeout(function () {
+							$("#solving-list-exam-time-alert").fadeOut(600);
+						}, 5000);
+					}
 				} else {
 					$("#solving-list-form").submit();
 				}

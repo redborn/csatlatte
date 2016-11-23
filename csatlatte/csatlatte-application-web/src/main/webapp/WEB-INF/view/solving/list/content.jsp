@@ -27,6 +27,7 @@
 <c:set value="0" var="textIndex"/>
 <form:form id="solving-list-form" method="post" servletRelativeAction="/solving/${csatSequence}/${examSequence}/${sectionSequence}/${subjectSequence}">
 <c:if test="${param.examTime eq 'on'}">
+	<div class="alert alert-danger" role="alert" id="solving-list-exam-time-alert"></div>
 	<div id="solving-list-exam-time-text">남은 시험 시간 : ${examTime}분 0초</div>
 	<input name="examTime" id="solving-list-exam-time" type="hidden" value="${examTime}"/>
 	<input name="examTimeUse" type="hidden" value="${param.examTime eq 'on'}"/>
