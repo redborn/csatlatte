@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="session" uri="/WEB-INF/tld/session.tld" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="solving-result-title">수고하셨습니다!</h3>
@@ -10,10 +11,8 @@
 	</div>
 	<div class="panel-body">
 		<c:if test="${param.examTimeUse}">
-			<input type="hidden" id="solving-result-exam-time" value="${param.examTime}"/>
-			<input type="hidden" id="solving-result-result-exam-time" value="${param.resultExamTime}"/>
-			<div id="solving-result-cost-time">소요시간 / 시험시간 :</div> 
-			<div id="solving-result-remain-time">잔여시간 : </div>
+			<div id="solving-result-cost-time">소요시간 / 시험시간 : <fmt:parseNumber integerOnly="true" value="${(param.examTime * 60 - param.resultExamTime) / 60}"/>분 ${(param.examTime * 60 - param.resultExamTime) % 60}초 / ${param.examTime}분</div> 
+			<div id="solving-result-remain-time">잔여시간 : <fmt:parseNumber integerOnly="true" value="${param.resultExamTime / 60}"/>분 ${param.resultExamTime % 60}초</div>
 		</c:if>
 		<p>점수 : ${score}점</p>
 		<p>등급 : ${rating}등급</p>
@@ -52,18 +51,13 @@
 	<div class="solving-result-question">
 	<c:choose>
 		<c:when test="${!marking[status.index]}">
-		<div>
 			<img class="solving-result-wrong-answer" alt="wrong-answer" src="<c:url value="/resources/csatlatte/images/img/img_wronganswer.png"/>"/>
-			${question.questionSequence}. ${question.content}
-		</div>
 		</c:when>
 		<c:otherwise>
-		<div>
 			<img class="solving-result-correct-answer" alt="correct-answer" src="<c:url value="/resources/csatlatte/images/img/img_correctanswer.png"/>"/>
-			${question.questionSequence}. ${question.content}
-		</div>
 		</c:otherwise>
 	</c:choose>
+	${question.questionSequence}. ${question.content}
 	<c:forEach items="${question.objectiveItemVos}" var="objectiveItem">
 		<div class="solving-result-reply">
 		<c:choose>
