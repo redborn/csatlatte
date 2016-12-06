@@ -30,9 +30,9 @@ public class Solving {
 		model.addAttribute("examSequence", examSequence);
 		model.addAttribute("sectionSequence", sectionSequence);
 		model.addAttribute("subjectSequence", subjectSequence);
-		boolean checkListenFile = examService.checkListeningFile(csatSequence, examSequence, sectionSequence, subjectSequence);
-		if (checkListenFile) {
-			model.addAttribute("checkListenFile", checkListenFile);
+		boolean isListeningFile = examService.checkListeningFile(csatSequence, examSequence, sectionSequence, subjectSequence);
+		model.addAttribute("isListeningFile", isListeningFile);
+		if (isListeningFile) {
 			try {
 				model.addAttribute("listeningFileSize", examService.getInputStream(csatSequence, examSequence, sectionSequence, subjectSequence).available());
 			} catch (IOException e) {
@@ -43,7 +43,6 @@ public class Solving {
 		model.addAttribute("examName", examService.getName(csatSequence, examSequence));
 		model.addAttribute("subjectName", examService.getSubjectName(csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("questionList", examService.questionList(csatSequence, examSequence, sectionSequence, subjectSequence));
-		model.addAttribute("questionListSize", examService.questionList(csatSequence, examSequence, sectionSequence, subjectSequence).size());
 		if (examTime) {
 			model.addAttribute("examTime", examService.getExamTime(csatSequence, examSequence, sectionSequence, subjectSequence));
 		}
@@ -53,10 +52,7 @@ public class Solving {
 	@RequestMapping(value="{csatSequence}/{examSequence}/{sectionSequence}/{subjectSequence}",method=RequestMethod.POST)
 	public String post(Model model, @PathVariable(value="csatSequence") int csatSequence, @PathVariable(value="examSequence") int examSequence, 
 			@PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence, 
-			@RequestParam(value="result", required=true) List<Integer> questionNumber,
-			@RequestParam(value="examTime", required=false, defaultValue="0") int examTime,
-			@RequestParam(value="resultExamTime", required=false, defaultValue="0") int resultExamTime,
-			@RequestParam(value="examTimeUse", required=false, defaultValue="false") boolean examTimeUse) {
+			@RequestParam(value="result", required=true) List<Integer> questionNumber) {
 		logger.info("Controller solving POST.");
 		int score = examService.calculateScore(questionNumber, csatSequence, examSequence, sectionSequence, subjectSequence);
 		model.addAttribute("questionNumber", questionNumber);
