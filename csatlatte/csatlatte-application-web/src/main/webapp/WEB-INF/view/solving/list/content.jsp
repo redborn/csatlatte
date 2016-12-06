@@ -4,8 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <h2 style="color:#7a6253;">${examName}</h2>
 <h2 style="color:#7a6253;">${subjectName}</h2>
-<input type="hidden" id="question-list-size" value="${questionListSize}"/>
-<c:if test="${checkListenFile}">
+<c:if test="${isListeningFile}">
 <input type="hidden" id="solving-list-listening-file-size" value="${listeningFileSize}"/>
 <div class="alert alert-info">	
 	<div class="media">
