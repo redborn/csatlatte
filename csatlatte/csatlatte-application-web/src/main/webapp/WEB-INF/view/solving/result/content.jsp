@@ -11,8 +11,8 @@
 	</div>
 	<div class="panel-body">
 		<c:if test="${param.examTimeUse}">
-			<div id="solving-result-cost-time">소요시간 / 시험시간 : <fmt:parseNumber integerOnly="true" value="${(param.examTime * 60 - param.resultExamTime) / 60}"/>분 ${(param.examTime * 60 - param.resultExamTime) % 60}초 / ${param.examTime}분</div> 
-			<div id="solving-result-remain-time">잔여시간 : <fmt:parseNumber integerOnly="true" value="${param.resultExamTime / 60}"/>분 ${param.resultExamTime % 60}초</div>
+			<div id="solving-result-cost-time">소요시간 / 시험시간 : <fmt:parseNumber integerOnly="true" value="${(param.examTime * 60 - param.resultExamSecond) / 60}"/>분 ${(param.examTime * 60 - param.resultExamSecond) % 60}초 / ${param.examTime}분</div> 
+			<div id="solving-result-remain-time">잔여시간 : <fmt:parseNumber integerOnly="true" value="${param.resultExamSecond / 60}"/>분 ${param.resultExamSecond % 60}초</div>
 		</c:if>
 		<p>점수 : ${score}점</p>
 		<p>등급 : ${rating}등급</p>

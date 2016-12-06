@@ -32,7 +32,7 @@
 	<div id="solving-list-exam-time-text">남은 시험 시간 : ${examTime}분 0초</div>
 	<input name="examTime" id="solving-list-exam-time" type="hidden" value="${examTime}"/>
 	<input name="examTimeUse" type="hidden" value="${param.examTime eq 'on'}"/>
-	<input name="resultExamTime" id="solving-list-result-exam-time" type="hidden" value="${examTime * 60}"/>
+	<input name="resultExamSecond" id="solving-list-result-exam-second" type="hidden" value="${examTime * 60}"/>
 </c:if>
 <c:forEach items="${questionList}" var="question" varStatus="status">
 	<c:if test="${textList[textIndex].beginQuestionSequence eq (status.index + 1)}">${textList[textIndex].content}</c:if>
@@ -44,6 +44,5 @@
 	</c:forEach>
 	</div>
 </c:forEach>
-	<input type="hidden" id="question-answer-result" name="result" value=""/>
 	<input type="submit" class="btn btn-primary btn-lg btn-block" value="제출" id="submit"/>
 </form:form>
