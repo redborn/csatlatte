@@ -25,8 +25,8 @@ $(document).ready(function() {
 					updateExamTime(--examTimeSecond); 
 					$("#solving-list-exam-time-text").text("남은 시험 시간 : " + (Math.floor(examTimeSecond / 60)) + "분 " + (examTimeSecond % 60) + "초");
 					$("#solving-list-result-exam-time").val(examTimeSecond);
-					if (examTimeSecond == 600 || examTimeSecond == 300 || examTimeSecond == 60) {
-						$("#solving-list-exam-time-alert").text("시험 종료까지 " + examTimeSecond / 60 + "분 남았습니다.");
+					if (examTimeSecond === 600 || examTimeSecond === 300 || examTimeSecond === 60) {
+						$("#solving-list-exam-time-alert").text("시험 종료까지 " + parseInt(examTimeSecond / 60) + "분 남았습니다.");
 						$("#solving-list-exam-time-alert").fadeIn(600);
 						setTimeout(function () {
 							$("#solving-list-exam-time-alert").fadeOut(600);
