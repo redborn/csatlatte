@@ -9,6 +9,11 @@
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
+	var imageCount = $(".solving-list-image").length;
+	for (var index = 0; index < imageCount; index++) {
+		$(".solving-list-image").eq(index).attr("src", contextPath + $(".solving-list-image").eq(index).attr("src"));
+	}
+	
 	if ($("#solving-list-listening-file-size").size() != 0) {
 		var fileSize = $("#solving-list-listening-file-size").val();
 		$("#solving-list-listening-file-size-view").text("파일 크기 : " + Math.round((fileSize / 1048576) * 100) / 100 + " MB (" + fileSize + " byte)");
