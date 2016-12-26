@@ -322,4 +322,31 @@ public interface ExamService {
 	 */
 	public String getFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
 
+	/**
+	 * @param csatSequence
+	 * @param examSequence
+	 * @param sectionSequence
+	 * @param subjectSequence
+	 * @param textSequence
+	 * @param imageSequence
+	 * @return
+	 */
+	public InputStream getTextImageInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence, int imageSequence);
+	
+	public boolean checkTextImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence, int imageSequence);
+	
+	public String getTextImageFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence, int imageSequence);
+	
+	public InputStream getQuestionImageInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int imageSequence);
+	
+	public boolean checkQuestionImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int imageSequence);
+	
+	public String getQuestionImageFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int imageSequence);
+	
+	public InputStream getObjectItemImageInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence);
+	
+	public boolean checkObjectItemImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence);
+	
+	public String getObjectItemImageFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence);
+	
 }

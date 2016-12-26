@@ -29,6 +29,7 @@ import org.redborn.csatlatte.persistence.exam.subject.ListeningDao;
 import org.redborn.csatlatte.persistence.question.TextDao;
 import org.redborn.csatlatte.persistence.question.object.CorrectAnswerDao;
 import org.redborn.csatlatte.persistence.question.text.ContentDao;
+import org.redborn.csatlatte.persistence.question.text.ImageDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,12 @@ public class ExamServiceImpl implements ExamService {
 	private ContentDao contentDao;
 	@Autowired
 	private ListeningDao listenDao;
+	@Autowired
+	private ImageDao textImageDao;
+	@Autowired
+	private org.redborn.csatlatte.persistence.question.ImageDao questionImageDao;
+	@Autowired
+	private org.redborn.csatlatte.persistence.question.object.ImageDao objectItemImageDao;
 	@Autowired
 	private CsatAmazonS3 csatAmazonS3;
 
@@ -278,6 +285,54 @@ public class ExamServiceImpl implements ExamService {
 	public String getFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
 		logger.info("Business layer exam getFileName.");
 		return listenDao.selectOneFileName(csatSequence, examSequence, sectionSequence, subjectSequence);
+	}
+	
+	public InputStream getTextImageInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence, int imageSequence) {
+		logger.info("Business layer exam getTextImageInputStream.");
+		String fileCode = textImageDao.selectOneFileCode(csatSequence, examSequence, sectionSequence, subjectSequence, textSequence, imageSequence);
+		return csatAmazonS3.getInputStream(CsatAmazonS3Prefix.EXAM_TEXT, fileCode);
+	}
+	
+	public boolean checkTextImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence, int imageSequence) {
+		logger.info("Business layer exam checkTextImageFile.");
+		return textImageDao.selectOneCount(csatSequence, examSequence, sectionSequence, subjectSequence, textSequence, imageSequence) == 1;
+	}
+	
+	public String getTextImageFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence, int imageSequence) {
+		logger.info("Business layer exam getTextImageFileName.");
+		return textImageDao.selectOneFileName(csatSequence, examSequence, sectionSequence, subjectSequence, textSequence, imageSequence);
+	}
+	
+	public InputStream getQuestionImageInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int imageSequence) {
+		logger.info("Business layer exam getQuestionImageInputStream.");
+		String fileCode = questionImageDao.selectOneFileCode(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence, imageSequence);
+		return csatAmazonS3.getInputStream(CsatAmazonS3Prefix.EXAM_QUESTION, fileCode);
+	}
+	
+	public boolean checkQuestionImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int imageSequence) {
+		logger.info("Business layer exam checkQuestionImageFile.");
+		return questionImageDao.selectOneCount(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence, imageSequence) == 1;		
+	}
+	
+	public String getQuestionImageFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int imageSequence) {
+		logger.info("Business layer exam getQuestionImageFileName.");
+		return questionImageDao.selectOneFileName(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence, imageSequence);
+	}
+	
+	public InputStream getObjectItemImageInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence) {
+		logger.info("Business layer exam getObjectItemImageInputStream.");
+		String fileCode = objectItemImageDao.selectOneFileCode(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence, objectItemSequence, imageSequence);
+		return csatAmazonS3.getInputStream(CsatAmazonS3Prefix.EXAM_OBJECTIVE_ITEM, fileCode);
+	}
+	
+	public boolean checkObjectItemImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence) {
+		logger.info("Business layer exam checkObjectItemImageFile.");
+		return objectItemImageDao.selectOneCount(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence, objectItemSequence, imageSequence) == 1;
+	}
+	
+	public String getObjectItemImageFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence) {
+		logger.info("Business layer exam getObjectItemFileName");
+		return objectItemImageDao.selectOneFileName(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence, objectItemSequence, imageSequence);
 	}
 
 }
