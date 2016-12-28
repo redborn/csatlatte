@@ -277,8 +277,8 @@ public class ExamServiceImpl implements ExamService {
 		return csatAmazonS3.getInputStream(CsatAmazonS3Prefix.EXAM_LISTENING, fileCode);
 	}
 	
-	public boolean checkListeningFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
-		logger.info("Business layer exam checkListeningFile.");
+	public boolean isListeningFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		logger.info("Business layer exam isListeningFile.");
 		return listenDao.selectOneCount(csatSequence, examSequence, sectionSequence, subjectSequence) == 1;
 	}
 	
@@ -293,8 +293,8 @@ public class ExamServiceImpl implements ExamService {
 		return csatAmazonS3.getInputStream(CsatAmazonS3Prefix.EXAM_TEXT, fileCode);
 	}
 	
-	public boolean checkTextImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence, int imageSequence) {
-		logger.info("Business layer exam checkTextImageFile.");
+	public boolean isTextImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence, int imageSequence) {
+		logger.info("Business layer exam isTextImageFile.");
 		return textImageDao.selectOneCount(csatSequence, examSequence, sectionSequence, subjectSequence, textSequence, imageSequence) == 1;
 	}
 	
@@ -309,8 +309,8 @@ public class ExamServiceImpl implements ExamService {
 		return csatAmazonS3.getInputStream(CsatAmazonS3Prefix.EXAM_QUESTION, fileCode);
 	}
 	
-	public boolean checkQuestionImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int imageSequence) {
-		logger.info("Business layer exam checkQuestionImageFile.");
+	public boolean isQuestionImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int imageSequence) {
+		logger.info("Business layer exam isQuestionImageFile.");
 		return questionImageDao.selectOneCount(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence, imageSequence) == 1;		
 	}
 	
@@ -325,8 +325,8 @@ public class ExamServiceImpl implements ExamService {
 		return csatAmazonS3.getInputStream(CsatAmazonS3Prefix.EXAM_OBJECTIVE_ITEM, fileCode);
 	}
 	
-	public boolean checkObjectItemImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence) {
-		logger.info("Business layer exam checkObjectItemImageFile.");
+	public boolean isObjectItemImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence) {
+		logger.info("Business layer exam isObjectItemImageFile.");
 		return objectItemImageDao.selectOneCount(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence, objectItemSequence, imageSequence) == 1;
 	}
 	

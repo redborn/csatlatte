@@ -309,7 +309,7 @@ public interface ExamService {
 	 * @param subjectSequence 과목 일련번호
 	 * @return 듣기 파일 유무
 	 */
-	public boolean checkListeningFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	public boolean isListeningFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
 	
 	/**
 	 * 듣기 파일 이름입니다.
@@ -323,30 +323,123 @@ public interface ExamService {
 	public String getFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
 
 	/**
-	 * @param csatSequence
-	 * @param examSequence
-	 * @param sectionSequence
-	 * @param subjectSequence
-	 * @param textSequence
-	 * @param imageSequence
-	 * @return
+	 * 지문 이미지 파일입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param textSequence 지문 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 지문 이미지 파일 InputStream
 	 */
 	public InputStream getTextImageInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence, int imageSequence);
 	
-	public boolean checkTextImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence, int imageSequence);
+	/**
+	 * 지문 이미지 파일이 있는지 검사합니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param textSequence 지문 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 지문 이미지 파일 유무
+	 */
+	public boolean isTextImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence, int imageSequence);
 	
+	/**
+	 * 지문 이미지 파일 이름입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param textSequence 지문 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 지문 이미지 파일 이름
+	 */
 	public String getTextImageFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence, int imageSequence);
 	
+	/**
+	 * 문제 이미지 파일입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param questionSequence 문제 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 문제 이미지 파일 InputStream
+	 */
 	public InputStream getQuestionImageInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int imageSequence);
 	
-	public boolean checkQuestionImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int imageSequence);
+	/**
+	 * 문제 이미지 파일이 있는지 검사합니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param questionSequence 문제 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 문제 이미지 파일 유무
+	 */
+	public boolean isQuestionImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int imageSequence);
 	
+	/**
+	 * 문제 이미지 파일 이름입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param questionSequence 문제 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 문제 이미지 파일 이름
+	 */
 	public String getQuestionImageFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int imageSequence);
 	
+	/**
+	 * 문항 이미지 파일입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param questionSequence 문제 일련번호
+	 * @param objectItemSequence 문항 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 문제 이미지 파일 InputStream
+	 */
 	public InputStream getObjectItemImageInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence);
 	
-	public boolean checkObjectItemImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence);
+	/**
+	 * 문항 이미지 파일이 있는지 검사합니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param questionSequence 문제 일련번호
+	 * @param objectItemSequence 문항 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 문항 이미지 파일 유무
+	 */
+	public boolean isObjectItemImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence);
 	
+	/**
+	 * 문항 이미지 파일 이름입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param questionSequence 문제 일련번호
+	 * @param objectItemSequence 문항 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 문항 이미지 파일 이름
+	 */
 	public String getObjectItemImageFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence);
 	
 }
