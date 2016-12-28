@@ -28,7 +28,7 @@ public class Listening {
 			@PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence) {
 		logger.info("Controller file Listening GET.");
 		View view = null;
-		if (examService.checkListeningFile(csatSequence, examSequence, sectionSequence, subjectSequence)) {
+		if (examService.isListeningFile(csatSequence, examSequence, sectionSequence, subjectSequence)) {
 			String fileName =  examService.getFileName(csatSequence, examSequence, sectionSequence, subjectSequence);
 			String extension = null;
 			int beginIndex = fileName.lastIndexOf('.');

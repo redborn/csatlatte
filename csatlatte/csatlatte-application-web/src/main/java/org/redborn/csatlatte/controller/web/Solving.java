@@ -34,7 +34,7 @@ public class Solving {
 		model.addAttribute("examSequence", examSequence);
 		model.addAttribute("sectionSequence", sectionSequence);
 		model.addAttribute("subjectSequence", subjectSequence);
-		boolean isListeningFile = examService.checkListeningFile(csatSequence, examSequence, sectionSequence, subjectSequence);
+		boolean isListeningFile = examService.isListeningFile(csatSequence, examSequence, sectionSequence, subjectSequence);
 		model.addAttribute("isListeningFile", isListeningFile);
 		if (isListeningFile) {
 			try {

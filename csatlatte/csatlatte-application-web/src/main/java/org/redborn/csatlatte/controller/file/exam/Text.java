@@ -29,7 +29,7 @@ public class Text {
 			@PathVariable(value="textSequence") int textSequence, @PathVariable(value="imageSequence") int imageSequence) {
 		logger.info("Controller file Text GET.");
 		View view = null;
-		if (examService.checkTextImageFile(csatSequence, examSequence, sectionSequence, subjectSequence, textSequence, imageSequence)) {
+		if (examService.isTextImageFile(csatSequence, examSequence, sectionSequence, subjectSequence, textSequence, imageSequence)) {
 			String fileName =  examService.getTextImageFileName(csatSequence, examSequence, sectionSequence, subjectSequence, textSequence, imageSequence);
 			String extension = null;
 			int beginIndex = fileName.lastIndexOf('.');

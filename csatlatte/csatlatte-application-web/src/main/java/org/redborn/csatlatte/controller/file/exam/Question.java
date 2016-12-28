@@ -29,7 +29,7 @@ public class Question {
 			@PathVariable(value="questionSequence") int questionSequence, @PathVariable(value="imageSequence") int imageSequence) {
 		logger.info("Controller file Question GET.");
 		View view = null;
-		if (examService.checkQuestionImageFile(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence, imageSequence)) {
+		if (examService.isQuestionImageFile(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence, imageSequence)) {
 			String fileName =  examService.getQuestionImageFileName(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence, imageSequence);
 			String extension = null;
 			int beginIndex = fileName.lastIndexOf('.');
