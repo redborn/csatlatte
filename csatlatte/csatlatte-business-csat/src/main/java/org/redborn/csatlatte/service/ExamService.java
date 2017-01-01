@@ -301,7 +301,7 @@ public interface ExamService {
 	public InputStream getInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
 	
 	/**
-	 * 듣기 파일이 있는지 검사합니다.
+	 * 듣기 파일 존재 여부입니다.
 	 * 
 	 * @param csatSequence 수능 일련번호
 	 * @param examSequence 시험 일련번호
@@ -336,7 +336,7 @@ public interface ExamService {
 	public InputStream getTextImageInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence, int imageSequence);
 	
 	/**
-	 * 지문 이미지 파일이 있는지 검사합니다.
+	 * 지문 이미지 파일 존재 여부입니다.
 	 * 
 	 * @param csatSequence 수능 일련번호
 	 * @param examSequence 시험 일련번호
@@ -375,7 +375,7 @@ public interface ExamService {
 	public InputStream getQuestionImageInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int imageSequence);
 	
 	/**
-	 * 문제 이미지 파일이 있는지 검사합니다.
+	 * 문제 이미지 파일 존재 여부입니다.
 	 * 
 	 * @param csatSequence 수능 일련번호
 	 * @param examSequence 시험 일련번호
@@ -415,7 +415,7 @@ public interface ExamService {
 	public InputStream getObjectItemImageInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence);
 	
 	/**
-	 * 문항 이미지 파일이 있는지 검사합니다.
+	 * 문항 이미지 파일 존재 여부입니다.
 	 * 
 	 * @param csatSequence 수능 일련번호
 	 * @param examSequence 시험 일련번호
