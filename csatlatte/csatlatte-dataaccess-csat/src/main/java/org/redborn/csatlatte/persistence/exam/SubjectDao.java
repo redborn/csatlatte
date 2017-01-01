@@ -12,4 +12,5 @@ public interface SubjectDao {
 	public String selectSubjectName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
 	public int insert(SubjectVo subjectVo);
 	public int delete(int csatSequence, int examSequence);
+	
 }

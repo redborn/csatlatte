@@ -20,6 +20,16 @@
 		<result column="standard_score" property="standardScore"/>
 	</resultMap>
 	
+	<select id="selectOneRatingByScore" parameterType="Map" resultType="int">
+		SELECT MIN(rating_code) AS rating_code 
+		  FROM csat_exam_rating_cut 
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+		   AND raw_score &lt;= #{score} 
+	</select>
+	
 	<select id="selectList" parameterType="int" resultMap="ExamVoMap">
 		SELECT ce.exam_seq,ce.exam_name
 		  FROM csat_exam ce

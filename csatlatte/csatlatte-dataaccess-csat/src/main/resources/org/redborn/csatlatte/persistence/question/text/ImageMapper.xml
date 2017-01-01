@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="question.text.image">
+	
+	<select id="selectOneCount" parameterType="Map" resultType="int">
+		SELECT COUNT(*) 
+		  FROM csat_qst_text_img 
+		 WHERE csat_seq = #{csatSequence} 
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+		   AND text_seq = #{textSequence}
+		   AND img_seq = #{imageSequence}
+	</select>
+	
+	<select id="selectOneFileName" parameterType="Map" resultType="String">
+		SELECT file_name 
+		  FROM csat_qst_text_img 
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+		   AND text_seq = #{textSequence}
+		   AND img_seq = #{imageSequence}
+	</select>
+	
+	<select id="selectOneFileCode" parameterType="Map" resultType="String">
+		SELECT file_code 
+		  FROM csat_qst_text_img 
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+		   AND text_seq = #{textSequence}
+		   AND img_seq = #{imageSequence}
+	</select>
+	
+</mapper>

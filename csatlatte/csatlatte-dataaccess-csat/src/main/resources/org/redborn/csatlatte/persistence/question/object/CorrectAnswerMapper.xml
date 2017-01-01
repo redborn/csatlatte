@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="question.object.correctanswer">
+
+	<resultMap type="CorrectAnswerVo" id="CorrectAnswerVoMap">
+		<result column="qst_seq" property="questionSequence"/>
+		<result column="objtitem_seq" property="objectItemSequence"/>
+		<result column="description" property="description"/>
+	</resultMap>
+	
+	<select id="selectList" parameterType="Map" resultMap="CorrectAnswerVoMap">
+		SELECT qst_seq,objtitem_seq,description 
+  		  FROM csat_qst_objtqst_crtans 
+ 		 WHERE csat_seq = #{csatSequence} 
+   		   AND exam_seq = #{examSequence}
+   		   AND section_seq = #{sectionSequence}
+   		   AND subject_seq = #{subjectSequence}
+   	  ORDER BY qst_seq ASC
+	</select>
+
+</mapper>

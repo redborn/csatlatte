@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class SubjectDaoMapper extends SqlSessionDaoSupport implements SubjectDao {
-
+	
 	public List<SubjectVo> selectList(int csatSequence, int examSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);

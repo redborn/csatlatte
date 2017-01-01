@@ -1,8 +1,10 @@
 package org.redborn.csatlatte.service;
 
+import java.io.InputStream;
 import java.util.List;
 
 import org.redborn.csatlatte.domain.AverageVo;
+import org.redborn.csatlatte.domain.CorrectAnswerVo;
 import org.redborn.csatlatte.domain.CsatVo;
 import org.redborn.csatlatte.domain.ExamVo;
 import org.redborn.csatlatte.domain.GradeVo;
@@ -10,6 +12,7 @@ import org.redborn.csatlatte.domain.InstitutionVo;
 import org.redborn.csatlatte.domain.QuestionVo;
 import org.redborn.csatlatte.domain.SectionVo;
 import org.redborn.csatlatte.domain.SubjectVo;
+import org.redborn.csatlatte.domain.TextVo;
 
 /**
  * 시험 서비스입니다.
@@ -215,5 +218,228 @@ public interface ExamService {
 	 * @return 모의고사 학생 성적 등록 리스트
 	 */
 	public List<GradeVo> examStudentList(int csatSequence, int examSequence);
+	
+	/**
+	 * 모의고사 풀기 채점입니다.
+	 * 
+	 * @param questionNumber 사용자가 선택한 답안
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 모의고사 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 채점 결과
+	 */
+	public List<Boolean> marking(List<Integer> questionNumber, int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
+	 * 모의고사 풀기 채점 점수입니다.
+	 * 
+	 * @param questionNumber 사용자가 선택한 답안
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 모의고사 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 모의고사 점수
+	 */
+	public int calculateScore(List<Integer> questionNumber, int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
+	 * 점수에 해당하는 등급을 구합니다.
+	 * 
+	 * @param score 원점수
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 등급
+	 */
+	public int calculateRating(int score, int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
+	 * 점수에 해당하는 표준점수를 구합니다.
+	 * 
+	 * @param score 원점수
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 표준점수
+	 */
+	public int calculateStandardScore(int score, int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
+	 * 객관식 정답 및 해설 목록입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 객관식 정답, 해설 목록
+	 */
+	public List<CorrectAnswerVo> objectQuestionCorrectAnswerList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
+	 * 지문 목록입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 지문 목록
+	 */
+	public List<TextVo> textList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
+	 * 듣기 파일입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 듣기 파일 InputStream
+	 */
+	public InputStream getInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
+	 * 듣기 파일 존재 여부입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 듣기 파일 유무
+	 */
+	public boolean isListeningFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
+	 * 듣기 파일 이름입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @return 듣기 파일 이름
+	 */
+	public String getFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+
+	/**
+	 * 지문 이미지 파일입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param textSequence 지문 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 지문 이미지 파일 InputStream
+	 */
+	public InputStream getTextImageInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence, int imageSequence);
+	
+	/**
+	 * 지문 이미지 파일 존재 여부입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param textSequence 지문 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 지문 이미지 파일 유무
+	 */
+	public boolean isTextImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence, int imageSequence);
+	
+	/**
+	 * 지문 이미지 파일 이름입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param textSequence 지문 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 지문 이미지 파일 이름
+	 */
+	public String getTextImageFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int textSequence, int imageSequence);
+	
+	/**
+	 * 문제 이미지 파일입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param questionSequence 문제 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 문제 이미지 파일 InputStream
+	 */
+	public InputStream getQuestionImageInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int imageSequence);
+	
+	/**
+	 * 문제 이미지 파일 존재 여부입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param questionSequence 문제 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 문제 이미지 파일 유무
+	 */
+	public boolean isQuestionImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int imageSequence);
+	
+	/**
+	 * 문제 이미지 파일 이름입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param questionSequence 문제 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 문제 이미지 파일 이름
+	 */
+	public String getQuestionImageFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int imageSequence);
+	
+	/**
+	 * 문항 이미지 파일입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param questionSequence 문제 일련번호
+	 * @param objectItemSequence 문항 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 문제 이미지 파일 InputStream
+	 */
+	public InputStream getObjectItemImageInputStream(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence);
+	
+	/**
+	 * 문항 이미지 파일 존재 여부입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param questionSequence 문제 일련번호
+	 * @param objectItemSequence 문항 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 문항 이미지 파일 유무
+	 */
+	public boolean isObjectItemImageFile(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence);
+	
+	/**
+	 * 문항 이미지 파일 이름입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param questionSequence 문제 일련번호
+	 * @param objectItemSequence 문항 일련번호
+	 * @param imageSequence 이미지 일린변호
+	 * @return 문항 이미지 파일 이름
+	 */
+	public String getObjectItemImageFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence);
 	
 }
