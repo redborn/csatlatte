@@ -175,6 +175,18 @@ public interface ExamService {
 	public List<InstitutionVo> institutionList();
 	
 	/**
+	 * 문제 입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 모의고사 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param questionSequence 문제 일련번호
+	 * @return 문제 정보
+	 */
+	public QuestionVo question(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence);
+	
+	/**
 	 * 문제 리스트 입니다.
 	 * 
 	 * @param csatSequence 수능 일련번호
@@ -232,6 +244,19 @@ public interface ExamService {
 	public List<Boolean> marking(List<Integer> questionNumber, int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
 	
 	/**
+	 * 문제 채점입니다.
+	 * 
+	 * @param answer 사용자가 선택한 답안
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 모의고사 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param questionSequence 문제 일련번호
+	 * @return 채점 결과
+	 */
+	public Boolean marking(int answer, int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence);
+	
+	/**
 	 * 모의고사 풀기 채점 점수입니다.
 	 * 
 	 * @param questionNumber 사용자가 선택한 답안
@@ -277,6 +302,18 @@ public interface ExamService {
 	 * @return 객관식 정답, 해설 목록
 	 */
 	public List<CorrectAnswerVo> objectQuestionCorrectAnswerList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	
+	/**
+	 * 객관식 정답 및 해설입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param questionSequence 문제 일련번호
+	 * @return 객관식 정답, 해설
+	 */
+	public CorrectAnswerVo objectQuestionCorrectAnswer(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence);
 	
 	/**
 	 * 지문 목록입니다.
@@ -441,5 +478,26 @@ public interface ExamService {
 	 * @return 문항 이미지 파일 이름
 	 */
 	public String getObjectItemImageFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence);
+	
+	/**
+	 * 임의의 문제 입니다.
+	 * 
+	 * @param yearStudentSequenceList 학년 일련번호 목록
+	 * @param subjectSequenceList 과목 일련번호 목록
+	 * @return 임의의 문제 정보
+	 */
+	public QuestionVo randomQuestion(List<Integer> yearStudentSequenceList, List<Integer> subjectSequenceList);
+	
+	/**
+	 * 지문입니다.
+	 * 
+	 * @param csatSequence 수능 일련번호
+	 * @param examSequence 시험 일련번호
+	 * @param sectionSequence 영역 일련번호
+	 * @param subjectSequence 과목 일련번호
+	 * @param questionSequence 문제 일련번호
+	 * @return 지문 정보
+	 */
+	public TextVo text(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence);
 	
 }
