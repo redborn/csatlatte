@@ -12,6 +12,16 @@
 		<result column="description" property="description"/>
 	</resultMap>
 	
+	<select id="selectOne" parameterType="Map" resultMap="CorrectAnswerVoMap">
+		SELECT objtitem_seq,description 
+		  FROM csat_qst_objtqst_crtans 
+		 WHERE csat_seq = #{csatSequence} 
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+		   AND qst_seq = #{questionSequence}
+	</select>
+	
 	<select id="selectList" parameterType="Map" resultMap="CorrectAnswerVoMap">
 		SELECT qst_seq,objtitem_seq,description 
   		  FROM csat_qst_objtqst_crtans 

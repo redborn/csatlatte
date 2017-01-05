@@ -11,7 +11,18 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class CorrectAnswerDaoMapper extends SqlSessionDaoSupport implements
 		CorrectAnswerDao {
-
+	
+	public CorrectAnswerVo selectOne(int csatSequence, int examSequence,
+			int sectionSequence, int subjectSequence, int questionSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		params.put("sectionSequence", sectionSequence);
+		params.put("subjectSequence", subjectSequence);
+		params.put("questionSequence", questionSequence);
+		return getSqlSession().selectOne("question.object.correctanswer.selectOne", params);
+	}
+	
 	public List<CorrectAnswerVo> selectList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);
