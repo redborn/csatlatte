@@ -51,7 +51,7 @@
 		 ORDER BY qst_seq ASC 
 	</select>
 	
-	<select id="selectListForRandomsolving" parameterType="Map" resultMap="QuestionVoMapForRandomsolving">
+	<select id="selectOneForRandomsolving" parameterType="Map" resultMap="QuestionVoMapForRandomsolving">
 		SELECT cq.csat_seq,cq.exam_seq,cq.section_seq,cq.subject_seq,cq.qst_seq,cq.content,ce.exam_name 
 		  FROM csat_qst cq,csat_exam ce 
 		 WHERE cq.csat_seq = ce.csat_seq 
@@ -64,6 +64,7 @@
 		   <foreach collection="subjectSequenceList" item="subjectSequence" open="(" close=")" separator=",">
 		   		#{subjectSequence.value}
 		   </foreach> 
+		 ORDER BY rand() limit 1 
 	</select>
 	
 </mapper>

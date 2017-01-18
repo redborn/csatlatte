@@ -32,12 +32,12 @@ public class QuestionDaoMapper extends SqlSessionDaoSupport implements QuestionD
 		return getSqlSession().selectList("question.selectList", params);
 	}
 	
-	public List<QuestionVo> selectListForRandomsolving(List<Integer> yearStudentSequenceList,
+	public QuestionVo selectOneForRandomsolving(List<Integer> yearStudentSequenceList,
 			List<Integer> subjectSequenceList) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("yearStudentSequenceList", yearStudentSequenceList);
 		params.put("subjectSequenceList", subjectSequenceList);
-		return getSqlSession().selectList("question.selectListForRandomsolving", params);
+		return getSqlSession().selectOne("question.selectOneForRandomsolving", params);
 	}
 
 }
