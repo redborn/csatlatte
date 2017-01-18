@@ -40,10 +40,14 @@ public class Randomsolving {
 	}
 	
 	@RequestMapping(value="{csatSequence}/{examSequence}/{sectionSequence}/{subjectSequence}/{questionSequence}",method=RequestMethod.POST)
-	public String get(Model model, @PathVariable(value="csatSequence") int csatSequence, @PathVariable(value="examSequence") int examSequence,
+	public String post(Model model, @PathVariable(value="csatSequence") int csatSequence, @PathVariable(value="examSequence") int examSequence,
 			@PathVariable(value="sectionSequence") int sectionSequence, @PathVariable(value="subjectSequence") int subjectSequence, @PathVariable(value="questionSequence") int questionSequence,
-			@RequestParam(value="answer", required=false, defaultValue="0") int answer) {
+			@RequestParam(value="answer", required=false, defaultValue="0") int answer,
+			@RequestParam(value="yearStudentSequenceList", required=true) List<Integer> yearStudentSequenceList,
+			@RequestParam(value="subjectSequenceList", required=true) List<Integer> subjectSequenceList) {
 		logger.info("Controller randomsolving POST.");
+		model.addAttribute("yearStudentSequenceList", yearStudentSequenceList);
+		model.addAttribute("subjectSequenceList", subjectSequenceList);
 		model.addAttribute("randomQuestion", examService.question(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence));
 		model.addAttribute("marking", examService.marking(answer, csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence));
 		model.addAttribute("correctAnswer", examService.objectQuestionCorrectAnswer(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence));
