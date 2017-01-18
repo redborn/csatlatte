@@ -15,9 +15,5 @@ $(document).ready(function() {
 	for (var index = 0; index < imageCount; index++) {
 		$(".solving-list-image").eq(index).attr("src", contextPath + $(".solving-list-image").eq(index).attr("src"));
 	}
-	
-	$("#randomsolving-result-other-question").on("click", function () {
-		history.back(1);
-	});
 });
 </script>

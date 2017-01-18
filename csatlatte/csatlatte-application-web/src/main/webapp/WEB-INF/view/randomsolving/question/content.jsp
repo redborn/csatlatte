@@ -4,6 +4,12 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <h2 style="color:#7a6253;">임의 문제 풀기</h2>
 <form:form id="randomsolving-question-form" method="POST" servletRelativeAction="/randomsolving/${randomQuestion.csatSequence}/${randomQuestion.examSequence}/${randomQuestion.sectionSequence}/${randomQuestion.subjectSequence}/${randomQuestion.questionSequence}">
+<c:forEach items="${yearStudentSequenceList}" var="yearStudentSequence">
+	<input type="hidden" name="yearStudentSequenceList" value="${yearStudentSequence}"/>
+</c:forEach>
+<c:forEach items="${subjectSequenceList}" var="subjectSequence">
+	<input type="hidden" name="subjectSequenceList" value="${subjectSequence}"/>
+</c:forEach>
 <p>${randomQuestion.examName}</p>
 <c:if test="${randomQuestionText ne null}">
 <div class="randomsolving-question-text">${randomQuestionText.content}</div>
@@ -13,7 +19,15 @@ ${randomQuestion.questionSequence}. ${randomQuestion.content}
 	<div class="radio"><label><input type="radio" class="answer" name="answer" value="${objectiveItem.objectiveItemSequence}">&nbsp;&#${objectiveItem.objectiveItemSequence + 10111};. ${objectiveItem.content}</label></div>
 </c:forEach>
 <div class="text-right">
-	<a class="btn btn-default" href="<c:url value="/randomsolving/select"/>">문제 재설정</a>
+	<a id="randomsolving-question-resetting" class="btn btn-default" href="
+	<c:url value="/randomsolving/select">
+		<c:forEach items="${yearStudentSequenceList}" var="yearStudentSequence">
+			<c:param name="yearStudentSequenceList" value="${yearStudentSequence}"/>
+		</c:forEach>
+		<c:forEach items="${subjectSequenceList}" var="subjectSequence">
+			<c:param name="subjectSequenceList" value="${subjectSequence}"/>
+		</c:forEach>
+	</c:url>">문제 재설정</a>
 	<a class="btn btn-default" id="randomsolving-question-refresh">다른 문제 풀기</a>
 	<button class="btn btn-primary">제출</button>
 </div>

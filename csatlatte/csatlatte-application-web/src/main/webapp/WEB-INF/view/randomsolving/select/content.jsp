@@ -12,12 +12,12 @@
 		</div>
 		<div class="panel-body">
 			<h5><strong>학년 선택</strong></h5>
-			<div class="checkbox"><label><input class="randomsolving-year-student" type="checkbox" name="yearStudentSequence" value="3"/>3학년</label></div>
-			<div class="checkbox"><label><input class="randomsolving-year-student" type="checkbox" name="yearStudentSequence" value="2"/>2학년</label></div>
-			<div class="checkbox"><label><input class="randomsolving-year-student" type="checkbox" name="yearStudentSequence" value="1"/>1학년</label></div>
+			<div class="checkbox"><label><input class="randomsolving-year-student" type="checkbox" name="yearStudentSequenceList" value="3" <c:forEach items="${yearStudentSequenceList}" var="yearStudentSequence"><c:if test="${yearStudentSequence eq 3}">checked</c:if></c:forEach>/>3학년</label></div>
+			<div class="checkbox"><label><input class="randomsolving-year-student" type="checkbox" name="yearStudentSequenceList" value="2" <c:forEach items="${yearStudentSequenceList}" var="yearStudentSequence"><c:if test="${yearStudentSequence eq 2}">checked</c:if></c:forEach>/>2학년</label></div>
+			<div class="checkbox"><label><input class="randomsolving-year-student" type="checkbox" name="yearStudentSequenceList" value="1" <c:forEach items="${yearStudentSequenceList}" var="yearStudentSequence"><c:if test="${yearStudentSequence eq 1}">checked</c:if></c:forEach>/>1학년</label></div>
 			<h5><strong>과목 선택</strong></h5>
-			<div class="checkbox"><label><input type="checkbox" name="subjectSequence" value="1"/>국어</label></div>
-			<div class="checkbox"><label><input type="checkbox" name="subjectSequence" value="5"/>영어</label></div>
+			<div class="checkbox"><label><input type="checkbox" name="subjectSequenceList" value="1" <c:forEach items="${subjectSequenceList}" var="subjectSequence"><c:if test="${subjectSequence eq 1}">checked</c:if></c:forEach>/>국어</label></div>
+			<div class="checkbox"><label><input type="checkbox" name="subjectSequenceList" value="5" <c:forEach items="${subjectSequenceList}" var="subjectSequence"><c:if test="${subjectSequence eq 5}">checked</c:if></c:forEach>/>영어</label></div>
 		</div>
 		<div class="panel-footer text-right">
 			<input class="btn btn-primary" type="submit" value="시작"/>
