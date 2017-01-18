@@ -25,10 +25,12 @@ public class Randomsolving {
 	private ExamService examService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String get(Model model, @RequestParam(value="yearStudentSequence", required=true) List<Integer> yearStudentSequenceList,
-			@RequestParam(value="subjectSequence", required=true) List<Integer> subjectSequenceList) {
+	public String get(Model model, @RequestParam(value="yearStudentSequenceList", required=true) List<Integer> yearStudentSequenceList,
+			@RequestParam(value="subjectSequenceList", required=true) List<Integer> subjectSequenceList) {
 		logger.info("Controller randomsolving GET.");
 		QuestionVo randomQuestion = examService.randomQuestion(yearStudentSequenceList, subjectSequenceList);
+		model.addAttribute("yearStudentSequenceList", yearStudentSequenceList);
+		model.addAttribute("subjectSequenceList", subjectSequenceList);
 		model.addAttribute("randomQuestion", randomQuestion);
 		TextVo randomQuestionText = examService.text(randomQuestion.getCsatSequence(), randomQuestion.getExamSequence(), randomQuestion.getSectionSequence(), randomQuestion.getSubjectSequence(), randomQuestion.getQuestionSequence());
 		if (randomQuestionText != null) {
