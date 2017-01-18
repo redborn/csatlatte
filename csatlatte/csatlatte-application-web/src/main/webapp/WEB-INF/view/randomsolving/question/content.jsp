@@ -10,7 +10,7 @@
 <c:forEach items="${subjectSequenceList}" var="subjectSequence">
 	<input type="hidden" name="subjectSequenceList" value="${subjectSequence}"/>
 </c:forEach>
-<p>${randomQuestion.examName}</p>
+<p>${randomQuestion.examName}&nbsp;-&nbsp;${subjectName}</p>
 <c:if test="${randomQuestionText ne null}">
 <div class="randomsolving-question-text">${randomQuestionText.content}</div>
 </c:if>

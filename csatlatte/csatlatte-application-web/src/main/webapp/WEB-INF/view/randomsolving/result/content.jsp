@@ -8,7 +8,7 @@
 	<p>당신이 선택한 답은 문항에 파란색으로 표시되며, 틀린 문제의 경우 정답 문항이 빨간색으로 표시됩니다.</p>
 	<p>문제 하단에는 해설이 적혀 있으니 참고하실 수 있습니다.</p>
 </div>
-<p>${randomQuestion.examName}</p>
+<p>${randomQuestion.examName}&nbsp;-&nbsp;${subjectName}</p>
 <c:if test="${randomQuestionText ne null}">
 <div class="randomsolving-result-text">${randomQuestionText.content}<br/>
 ${randomQuestionText.description}</div>
