@@ -32,6 +32,7 @@ public class Randomsolving {
 		model.addAttribute("yearStudentSequenceList", yearStudentSequenceList);
 		model.addAttribute("subjectSequenceList", subjectSequenceList);
 		model.addAttribute("randomQuestion", randomQuestion);
+		model.addAttribute("subjectName", examService.getSubjectName(randomQuestion.getCsatSequence(), randomQuestion.getExamSequence(), randomQuestion.getSectionSequence(), randomQuestion.getSubjectSequence()));
 		TextVo randomQuestionText = examService.text(randomQuestion.getCsatSequence(), randomQuestion.getExamSequence(), randomQuestion.getSectionSequence(), randomQuestion.getSubjectSequence(), randomQuestion.getQuestionSequence());
 		if (randomQuestionText != null) {
 			model.addAttribute("randomQuestionText", randomQuestionText);
@@ -46,6 +47,7 @@ public class Randomsolving {
 			@RequestParam(value="yearStudentSequenceList", required=true) List<Integer> yearStudentSequenceList,
 			@RequestParam(value="subjectSequenceList", required=true) List<Integer> subjectSequenceList) {
 		logger.info("Controller randomsolving POST.");
+		model.addAttribute("subjectName", examService.getSubjectName(csatSequence, examSequence, sectionSequence, subjectSequence));
 		model.addAttribute("yearStudentSequenceList", yearStudentSequenceList);
 		model.addAttribute("subjectSequenceList", subjectSequenceList);
 		model.addAttribute("randomQuestion", examService.question(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence));
