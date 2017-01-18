@@ -3,7 +3,6 @@ package org.redborn.csatlatte.service;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3;
 import org.redborn.csatlatte.commons.amazonaws.services.s3.CsatAmazonS3Prefix;
@@ -359,23 +358,11 @@ public class ExamServiceImpl implements ExamService {
 	public QuestionVo randomQuestion(List<Integer> yearStudentSequenceList, List<Integer> subjectSequenceList) {
 		logger.info("Business layer exam randomQuestion.");
 		QuestionVo randomQuestion = new QuestionVo();
-		List<QuestionVo> questionList = questionDao.selectListForRandomsolving(yearStudentSequenceList, subjectSequenceList);
-		if (questionList != null) {
-			Random random = new Random();
-			int questionListSize = questionList.size();
-			int randomNumber;
-			do {
-				randomNumber = random.nextInt(questionListSize);
-			} while (questionList.get(randomNumber).getSectionSequence() == 1 && questionList.get(randomNumber).getSubjectSequence() == 5 &&
-					questionList.get(randomNumber).getQuestionSequence() <= 17);
-			randomQuestion.setCsatSequence(questionList.get(randomNumber).getCsatSequence());
-			randomQuestion.setExamSequence(questionList.get(randomNumber).getExamSequence());
-			randomQuestion.setSectionSequence(questionList.get(randomNumber).getSectionSequence());
-			randomQuestion.setSubjectSequence(questionList.get(randomNumber).getSubjectSequence());
-			randomQuestion.setQuestionSequence(questionList.get(randomNumber).getQuestionSequence());
-			randomQuestion.setContent(questionList.get(randomNumber).getContent());
-			randomQuestion.setExamName(questionList.get(randomNumber).getExamName());
-		}
+		logger.info("randomQuestion Information : " + randomQuestion.getCsatSequence());
+		do {
+			randomQuestion = questionDao.selectOneForRandomsolving(yearStudentSequenceList, subjectSequenceList);
+		} while (randomQuestion.getSectionSequence() == 1 && randomQuestion.getSubjectSequence() == 5 &&
+				randomQuestion.getQuestionSequence() <= 17);
 		randomQuestion.setObjectiveItemVos(objectiveItemDao.selectList(randomQuestion));
 		return randomQuestion;
 	}
