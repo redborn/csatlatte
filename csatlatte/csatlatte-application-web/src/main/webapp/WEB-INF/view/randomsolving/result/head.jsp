@@ -8,6 +8,7 @@
 	.randomsolving-result-reply-select {color:#337ab7;}
 	.randomsolving-result-reply-correct-answer {color:#a94442;}
 	.randomsolving-result-solution {border:1px solid black; padding:10px; margin-bottom:15px;}
+	#randomsolving-result-form {display:inline-block;}
 </style>
 <script type="text/javascript">
 $(document).ready(function() {

@@ -16,7 +16,7 @@
 </c:if>
 ${randomQuestion.questionSequence}. ${randomQuestion.content}
 <c:forEach items="${randomQuestion.objectiveItemVos}" var="objectiveItem">
-	<div class="radio"><label><input type="radio" class="answer" name="answer" value="${objectiveItem.objectiveItemSequence}">&nbsp;&#${objectiveItem.objectiveItemSequence + 10111};. ${objectiveItem.content}</label></div>
+	<div class="radio"><label><input type="radio" class="answer randomsolving-question-answer" name="answer" value="${objectiveItem.objectiveItemSequence}">&nbsp;&#${objectiveItem.objectiveItemSequence + 10111};. ${objectiveItem.content}</label></div>
 </c:forEach>
 <div class="text-right">
 	<a id="randomsolving-question-resetting" class="btn btn-default" href="
@@ -29,6 +29,6 @@ ${randomQuestion.questionSequence}. ${randomQuestion.content}
 		</c:forEach>
 	</c:url>">문제 재설정</a>
 	<a class="btn btn-default" id="randomsolving-question-refresh">다른 문제 풀기</a>
-	<button class="btn btn-primary">제출</button>
+	<button id="randomsolving-question-submit" class="btn btn-primary" disabled>제출</button>
 </div>
 </form:form>

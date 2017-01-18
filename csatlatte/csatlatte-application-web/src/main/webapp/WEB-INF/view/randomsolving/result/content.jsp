@@ -44,7 +44,7 @@ ${randomQuestion.questionSequence}. ${randomQuestion.content}
 			<c:param name="subjectSequenceList" value="${subjectSequence}"/>
 		</c:forEach>
 	</c:url>">문제 재설정</a>
-	<form:form method="GET" servletRelativeAction="/randomsolving">
+	<form:form id="randomsolving-result-form" method="GET" servletRelativeAction="/randomsolving">
 		<c:forEach items="${yearStudentSequenceList}" var="yearStudentSequence">
 			<input type="hidden" name="yearStudentSequenceList" value="${yearStudentSequence}"/>
 		</c:forEach>

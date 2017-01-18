@@ -12,15 +12,15 @@
 		</div>
 		<div class="panel-body">
 			<h5><strong>학년 선택</strong></h5>
-			<div class="checkbox"><label><input class="randomsolving-year-student" type="checkbox" name="yearStudentSequenceList" value="3" <c:forEach items="${yearStudentSequenceList}" var="yearStudentSequence"><c:if test="${yearStudentSequence eq 3}">checked</c:if></c:forEach>/>3학년</label></div>
-			<div class="checkbox"><label><input class="randomsolving-year-student" type="checkbox" name="yearStudentSequenceList" value="2" <c:forEach items="${yearStudentSequenceList}" var="yearStudentSequence"><c:if test="${yearStudentSequence eq 2}">checked</c:if></c:forEach>/>2학년</label></div>
-			<div class="checkbox"><label><input class="randomsolving-year-student" type="checkbox" name="yearStudentSequenceList" value="1" <c:forEach items="${yearStudentSequenceList}" var="yearStudentSequence"><c:if test="${yearStudentSequence eq 1}">checked</c:if></c:forEach>/>1학년</label></div>
+			<div class="checkbox"><label><input class="randomsolving-select-year-student" type="checkbox" name="yearStudentSequenceList" value="3" <c:forEach items="${yearStudentSequenceList}" var="yearStudentSequence"><c:if test="${yearStudentSequence eq 3}">checked</c:if></c:forEach>/>3학년</label></div>
+			<div class="checkbox"><label><input class="randomsolving-select-year-student" type="checkbox" name="yearStudentSequenceList" value="2" <c:forEach items="${yearStudentSequenceList}" var="yearStudentSequence"><c:if test="${yearStudentSequence eq 2}">checked</c:if></c:forEach>/>2학년</label></div>
+			<div class="checkbox"><label><input class="randomsolving-select-year-student" type="checkbox" name="yearStudentSequenceList" value="1" <c:forEach items="${yearStudentSequenceList}" var="yearStudentSequence"><c:if test="${yearStudentSequence eq 1}">checked</c:if></c:forEach>/>1학년</label></div>
 			<h5><strong>과목 선택</strong></h5>
-			<div class="checkbox"><label><input type="checkbox" name="subjectSequenceList" value="1" <c:forEach items="${subjectSequenceList}" var="subjectSequence"><c:if test="${subjectSequence eq 1}">checked</c:if></c:forEach>/>국어</label></div>
-			<div class="checkbox"><label><input type="checkbox" name="subjectSequenceList" value="5" <c:forEach items="${subjectSequenceList}" var="subjectSequence"><c:if test="${subjectSequence eq 5}">checked</c:if></c:forEach>/>영어</label></div>
+			<div class="checkbox"><label><input class="randomsolving-select-subject" type="checkbox" name="subjectSequenceList" value="1" <c:forEach items="${subjectSequenceList}" var="subjectSequence"><c:if test="${subjectSequence eq 1}">checked</c:if></c:forEach>/>국어</label></div>
+			<div class="checkbox"><label><input class="randomsolving-select-subject" type="checkbox" name="subjectSequenceList" value="5" <c:forEach items="${subjectSequenceList}" var="subjectSequence"><c:if test="${subjectSequence eq 5}">checked</c:if></c:forEach>/>영어</label></div>
 		</div>
 		<div class="panel-footer text-right">
-			<input class="btn btn-primary" type="submit" value="시작"/>
+			<input id="randomsolving-select-start" class="btn btn-primary" type="submit" value="시작"/>
 		</div>
 	</div>
 </form:form>

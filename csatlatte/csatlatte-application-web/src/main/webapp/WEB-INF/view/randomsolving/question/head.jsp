@@ -10,6 +10,10 @@ $(document).ready(function() {
 		$(".solving-list-image").eq(index).attr("src", contextPath + $(".solving-list-image").eq(index).attr("src"));
 	}
 	
+	$(".randomsolving-question-answer").on("click", function () {
+		$("#randomsolving-question-submit").attr("disabled", false);
+	});
+	
 	$("#randomsolving-question-refresh").on("click", function () {
 		location.reload();
 	});
