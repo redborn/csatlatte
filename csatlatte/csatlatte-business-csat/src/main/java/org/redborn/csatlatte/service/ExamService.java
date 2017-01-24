@@ -486,7 +486,7 @@ public interface ExamService {
 	 * @param subjectSequenceList 과목 일련번호 목록
 	 * @return 임의의 문제 정보
 	 */
-	public QuestionVo randomQuestion(List<Integer> yearStudentSequenceList, List<Integer> subjectSequenceList);
+	public QuestionVo getRandomQuestion(List<Integer> yearStudentSequenceList, List<Integer> subjectSequenceList);
 	
 	/**
 	 * 지문입니다.
@@ -498,6 +498,6 @@ public interface ExamService {
 	 * @param questionSequence 문제 일련번호
 	 * @return 지문 정보
 	 */
-	public TextVo text(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence);
+	public TextVo getText(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence);
 	
 }
