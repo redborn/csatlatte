@@ -68,7 +68,7 @@
 		   </foreach>)
 		   <foreach collection="subjectSequenceList" item="subjectSequence">
 		   		<if test="subjectSequence == 5">
-		   			OR (cq.subject_seq = 5 AND cq.qst_seq NOT BETWEEN 1 AND 17)
+		   			OR (cq.subject_seq = 5 AND cq.qst_seq > 17)
 		   		</if>
 		   </foreach>)
 		 ORDER BY rand() limit 1 
