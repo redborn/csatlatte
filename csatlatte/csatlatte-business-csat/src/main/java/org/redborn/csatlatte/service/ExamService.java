@@ -486,7 +486,7 @@ public interface ExamService {
 	 * @param subjectSequenceList 과목 일련번호 목록
 	 * @return 임의의 문제 정보
 	 */
-	public QuestionVo getRandomQuestion(List<Integer> yearStudentSequenceList, List<Integer> subjectSequenceList);
+	public QuestionVo getRandomQuestion(List<Integer> yearStudentSequence, List<Integer> subjectSequence);
 	
 	/**
 	 * 지문입니다.

@@ -355,14 +355,9 @@ public class ExamServiceImpl implements ExamService {
 		return objectItemImageDao.selectOneFileName(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence, objectItemSequence, imageSequence);
 	}
 	
-	public QuestionVo getRandomQuestion(List<Integer> yearStudentSequenceList, List<Integer> subjectSequenceList) {
+	public QuestionVo getRandomQuestion(List<Integer> yearStudentSequence, List<Integer> subjectSequence) {
 		logger.info("Business layer exam randomQuestion.");
-		QuestionVo randomQuestion = new QuestionVo();
-		logger.info("randomQuestion Information : " + randomQuestion.getCsatSequence());
-		do {
-			randomQuestion = questionDao.selectOneForRandomsolving(yearStudentSequenceList, subjectSequenceList);
-		} while (randomQuestion.getSectionSequence() == 1 && randomQuestion.getSubjectSequence() == 5 &&
-				randomQuestion.getQuestionSequence() <= 17);
+		QuestionVo randomQuestion = questionDao.selectOneForRandomsolving(yearStudentSequence, subjectSequence);
 		randomQuestion.setObjectiveItemVos(objectiveItemDao.selectList(randomQuestion));
 		return randomQuestion;
 	}
