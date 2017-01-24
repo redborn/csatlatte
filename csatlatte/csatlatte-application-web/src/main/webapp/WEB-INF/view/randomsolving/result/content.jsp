@@ -37,19 +37,19 @@ ${randomQuestion.questionSequence}. ${randomQuestion.content}
 <div class="text-right">
 	<a id="randomsolving-question-resetting" class="btn btn-default" href="
 	<c:url value="/randomsolving/select">
-		<c:forEach items="${yearStudentSequenceList}" var="yearStudentSequence">
-			<c:param name="yearStudentSequenceList" value="${yearStudentSequence}"/>
+		<c:forEach items="${paramValues.yearStudentSequence}" var="yearStudentSequence">
+			<c:param name="yearStudentSequence" value="${yearStudentSequence}"/>
 		</c:forEach>
-		<c:forEach items="${subjectSequenceList}" var="subjectSequence">
-			<c:param name="subjectSequenceList" value="${subjectSequence}"/>
+		<c:forEach items="${paramValues.subjectSequence}" var="subjectSequence">
+			<c:param name="subjectSequence" value="${subjectSequence}"/>
 		</c:forEach>
 	</c:url>">문제 재설정</a>
 	<form:form id="randomsolving-result-form" method="GET" servletRelativeAction="/randomsolving">
-		<c:forEach items="${yearStudentSequenceList}" var="yearStudentSequence">
-			<input type="hidden" name="yearStudentSequenceList" value="${yearStudentSequence}"/>
+		<c:forEach items="${paramValues.yearStudentSequence}" var="yearStudentSequence">
+			<input type="hidden" name="yearStudentSequence" value="${yearStudentSequence}"/>
 		</c:forEach>
-		<c:forEach items="${subjectSequenceList}" var="subjectSequence">
-			<input type="hidden" name="subjectSequenceList" value="${subjectSequence}"/>
+		<c:forEach items="${paramValues.subjectSequence}" var="subjectSequence">
+			<input type="hidden" name="subjectSequence" value="${subjectSequence}"/>
 		</c:forEach>
 		<button id="randomsolving-result-other-question" class="btn btn-default">다른 문제 풀기</button>
 	</form:form>
