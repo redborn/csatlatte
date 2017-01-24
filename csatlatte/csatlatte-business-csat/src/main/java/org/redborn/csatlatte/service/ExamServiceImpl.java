@@ -26,6 +26,7 @@ import org.redborn.csatlatte.persistence.exam.SectionDao;
 import org.redborn.csatlatte.persistence.exam.SubjectDao;
 import org.redborn.csatlatte.persistence.exam.student.ScoreDao;
 import org.redborn.csatlatte.persistence.exam.subject.ListeningDao;
+import org.redborn.csatlatte.persistence.question.ObjectiveItemDao;
 import org.redborn.csatlatte.persistence.question.TextDao;
 import org.redborn.csatlatte.persistence.question.object.CorrectAnswerDao;
 import org.redborn.csatlatte.persistence.question.text.ContentDao;
@@ -72,6 +73,8 @@ public class ExamServiceImpl implements ExamService {
 	private org.redborn.csatlatte.persistence.question.ImageDao questionImageDao;
 	@Autowired
 	private org.redborn.csatlatte.persistence.question.object.ImageDao objectItemImageDao;
+	@Autowired
+	private ObjectiveItemDao objectiveItemDao;
 	@Autowired
 	private CsatAmazonS3 csatAmazonS3;
 
@@ -168,6 +171,13 @@ public class ExamServiceImpl implements ExamService {
 		logger.info("Business layer exam institutionList.");
 		return institutionDao.selectList();
 	}
+	
+	public QuestionVo question(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence) {
+		logger.info("Business layer exam question.");
+		QuestionVo result = questionDao.selectOne(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence);
+		result.setObjectiveItemVos(objectiveItemDao.selectList(result));
+		return result;
+	}
 
 	public List<QuestionVo> questionList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
 		logger.info("Business layer exam questionList.");
@@ -213,6 +223,11 @@ public class ExamServiceImpl implements ExamService {
 		}
 		return resultMarking;
 	}
+	
+	public Boolean marking(int answer, int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence) {
+		logger.info("Business layer exam marking(For Randomsolving).");
+		return correctAnswerDao.selectOne(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence).getObjectItemSequence() == answer;
+	}
 
 	public int calculateScore(List<Integer> questionNumber, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
 		logger.info("Business layer exam calculateScore.");
@@ -247,6 +262,11 @@ public class ExamServiceImpl implements ExamService {
 	public List<CorrectAnswerVo> objectQuestionCorrectAnswerList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
 		logger.info("Business layer exam objectQuestionCorrectAnswerList.");
 		return correctAnswerDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence);
+	}
+	
+	public CorrectAnswerVo objectQuestionCorrectAnswer(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence) {
+		logger.info("Business layer exam objectQuestionCorrectAnswer.");
+		return correctAnswerDao.selectOne(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence);
 	}
 	
 	public List<TextVo> textList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
@@ -331,8 +351,35 @@ public class ExamServiceImpl implements ExamService {
 	}
 	
 	public String getObjectItemImageFileName(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence, int objectItemSequence, int imageSequence) {
-		logger.info("Business layer exam getObjectItemFileName");
+		logger.info("Business layer exam getObjectItemFileName.");
 		return objectItemImageDao.selectOneFileName(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence, objectItemSequence, imageSequence);
 	}
-
+	
+	public QuestionVo getRandomQuestion(List<Integer> yearStudentSequence, List<Integer> subjectSequence) {
+		logger.info("Business layer exam randomQuestion.");
+		QuestionVo randomQuestion = questionDao.selectOneForRandomsolving(yearStudentSequence, subjectSequence);
+		randomQuestion.setObjectiveItemVos(objectiveItemDao.selectList(randomQuestion));
+		return randomQuestion;
+	}
+	
+	public TextVo getText(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence) {
+		logger.info("Business layer exam randomQuestionText.");
+		TextVo text = textDao.selectOne(csatSequence, examSequence, sectionSequence, subjectSequence, questionSequence);
+		if (text != null) {
+			List<String> contentList = contentDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence, text.getTextSequence());
+			if (contentList != null) {
+				int contentListSize = contentList.size();
+				logger.info("contentListSize :: " + contentListSize);
+				StringBuilder builder = new StringBuilder();
+				for (int index = 0; index < contentListSize; index++) {
+					logger.info("content :: " + contentList.get(index));
+					builder.append(contentList.get(index));
+				}
+				text.setContent(builder.toString());
+				logger.info("text :: " + text.getContent());
+			}
+		}
+		return text;
+	}
+	
 }

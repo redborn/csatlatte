@@ -7,12 +7,39 @@
 <mapper namespace="question">
 	
 	<resultMap type="QuestionVo" id="QuestionVoMap">
+		<result column="csat_seq" property="csatSequence"/>
+		<result column="exam_seq" property="examSequence"/>
+		<result column="section_seq" property="sectionSequence"/>
+		<result column="subject_seq" property="subjectSequence"/>
 		<result column="qst_seq" property="questionSequence"/>
 		<result column="qst_type_seq" property="questionTypeSequence"/>
 		<result column="score" property="score"/>
 		<result column="content" property="content"/>
+		<result column="exam_name" property="examName"/>
 		<collection property="objectiveItemVos" select="question.objectiveitem.selectList" ofType="QuestionVo" column="{csatSequence=csat_seq,examSequence=exam_seq,sectionSequence=section_seq,subjectSequence=subject_seq,questionSequence=qst_seq}"/>
 	</resultMap>
+	
+	<resultMap type="QuestionVo" id="QuestionVoMapForRandomsolving">
+		<result column="csat_seq" property="csatSequence"/>
+		<result column="exam_seq" property="examSequence"/>
+		<result column="section_seq" property="sectionSequence"/>
+		<result column="subject_seq" property="subjectSequence"/>
+		<result column="qst_seq" property="questionSequence"/>
+		<result column="content" property="content"/>
+		<result column="exam_name" property="examName"/>
+	</resultMap>
+	
+	<select id="selectOne" parameterType="Map" resultMap="QuestionVoMap">
+		SELECT cq.csat_seq,cq.exam_seq,cq.section_seq,cq.subject_seq,cq.qst_seq,cq.qst_type_seq,cq.score,cq.content,ce.exam_name
+		  FROM csat_qst cq, csat_exam ce
+		 WHERE cq.csat_seq = ce.csat_seq
+		   AND cq.exam_seq = ce.exam_seq 
+		   AND cq.csat_seq = #{csatSequence}
+		   AND cq.exam_seq = #{examSequence}
+		   AND cq.section_seq = #{sectionSequence}
+		   AND cq.subject_seq = #{subjectSequence}
+		   AND cq.qst_seq = #{questionSequence}
+	</select>
 	
 	<select id="selectList" parameterType="Map" resultMap="QuestionVoMap">
 		SELECT csat_seq,exam_seq,section_seq,subject_seq,qst_seq,qst_type_seq,score,content
@@ -22,6 +49,29 @@
 		   AND section_seq = #{sectionSequence}
 		   AND subject_seq = #{subjectSequence}
 		 ORDER BY qst_seq ASC 
+	</select>
+	
+	<select id="selectOneForRandomsolving" parameterType="Map" resultMap="QuestionVoMapForRandomsolving">
+		SELECT cq.csat_seq,cq.exam_seq,cq.section_seq,cq.subject_seq,cq.qst_seq,cq.content,ce.exam_name 
+		  FROM csat_qst cq,csat_exam ce 
+		 WHERE cq.csat_seq = ce.csat_seq 
+		   AND cq.exam_seq = ce.exam_seq 
+		   AND ce.ys_seq IN
+		   <foreach collection="yearStudentSequenceList" item="yearStudentSequence" open="(" close=")" separator=",">
+		   		#{yearStudentSequence.value}
+		   </foreach>
+		   AND (cq.subject_seq IN (0
+		   <foreach collection="subjectSequenceList" item="subjectSequence">
+		   		<if test="subjectSequence != 5">
+		   			,#{subjectSequence.value}
+		   		</if>
+		   </foreach>)
+		   <foreach collection="subjectSequenceList" item="subjectSequence">
+		   		<if test="subjectSequence == 5">
+		   			OR (cq.subject_seq = 5 AND cq.qst_seq &gt; 17)
+		   		</if>
+		   </foreach>)
+		 ORDER BY rand() limit 1 
 	</select>
 	
 </mapper>

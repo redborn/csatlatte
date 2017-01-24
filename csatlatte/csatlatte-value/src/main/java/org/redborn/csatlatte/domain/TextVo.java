@@ -2,11 +2,47 @@ package org.redborn.csatlatte.domain;
 
 public class TextVo {
 
+	private int csatSequence;
+	private int examSequence;
+	private int sectionSequence;
+	private int subjectSequence;
 	private int textSequence;
 	private int beginQuestionSequence;
 	private int endQuestionSequence;
 	private String content;
 	private String description;
+	
+	public int getCsatSequence() {
+		return csatSequence;
+	}
+	
+	public void setCsatSequence(int csatSequence) {
+		this.csatSequence = csatSequence;
+	}
+	
+	public int getExamSequence() {
+		return examSequence;
+	}
+	
+	public void setExamSequence(int examSequence) {
+		this.examSequence = examSequence;
+	}
+	
+	public int getSectionSequence() {
+		return sectionSequence;
+	}
+	
+	public void setSectionSequence(int sectionSequence) {
+		this.sectionSequence = sectionSequence;
+	}
+	
+	public int getSubjectSequence() {
+		return subjectSequence;
+	}
+	
+	public void setSubjectSequence(int subjectSequence) {
+		this.subjectSequence = subjectSequence;
+	}
 	
 	public int getTextSequence() {
 		return textSequence;
@@ -47,13 +83,18 @@ public class TextVo {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "TextVo [textSequence=" + textSequence
-				+ ", beginQuestionSequence=" + beginQuestionSequence
-				+ ", endQuestionSequence=" + endQuestionSequence + ", content="
-				+ content + ", description=" + description + "]";
+		return "TextVo [csatSequence=" + csatSequence + ", examSequence="
+				+ examSequence + ", sectionSequence=" + sectionSequence
+				+ ", subjectSequence=" + subjectSequence + ", textSequence="
+				+ textSequence + ", beginQuestionSequence="
+				+ beginQuestionSequence + ", endQuestionSequence="
+				+ endQuestionSequence + ", content=" + content
+				+ ", description=" + description + "]";
 	}
+	
+	
 
 }

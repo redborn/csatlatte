@@ -13,6 +13,26 @@
 		<result column="description" property="description"/>
 	</resultMap>
 	
+	<resultMap type="TextVo" id="TextVoMapForRandomsolving">
+		<result column="csat_seq" property="csatSequence"/>
+		<result column="exam_seq" property="examSequence"/>
+		<result column="section_seq" property="sectionSequence"/>
+		<result column="subject_seq" property="subjectSequence"/>
+		<result column="text_seq" property="textSequence"/>
+		<result column="description" property="description"/>
+	</resultMap>
+	
+	<select id="selectOne" parameterType="Map" resultMap="TextVoMapForRandomsolving">
+		SELECT csat_seq,exam_seq,section_seq,subject_seq,text_seq,description 
+		  FROM csat_qst_text 
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+		   AND begin_qst_seq &lt;= #{questionSequence}
+		   AND end_qst_seq &gt;= #{questionSequence}
+	</select>
+	
 	<select id="selectList" parameterType="Map" resultMap="TextVoMap">
 		SELECT text_seq,begin_qst_seq,end_qst_seq,description 
 		  FROM csat_qst_text 

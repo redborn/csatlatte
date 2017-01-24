@@ -59,6 +59,10 @@ public class TilesName {
 	public static final String SOLVING_LIST = "/solving/list";
 	public static final String SOLVING_RESULT = "/solving/result";
 	
+	public static final String RANDOMSOLVING_RESULT = "/randomsolving/result";
+	public static final String RANDOMSOLVING_QUESTION = "/randomsolving/question";
+	public static final String RANDOMSOLVING_SELECT = "/randomsolving/select";
+	
 	public static final String MANAGE_USER = "/manage/user";
 	public static final String MANAGE_EXAM = "/manage/exam";
 	public static final String MANAGE_COMMUNITY = "/manage/community";

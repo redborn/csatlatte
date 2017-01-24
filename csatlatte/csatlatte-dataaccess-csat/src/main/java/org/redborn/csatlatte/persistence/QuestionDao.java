@@ -6,6 +6,8 @@ import org.redborn.csatlatte.domain.QuestionVo;
 
 public interface QuestionDao {
 	
+	public QuestionVo selectOne(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence);
 	public List<QuestionVo> selectList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	public QuestionVo selectOneForRandomsolving(List<Integer> yearStudentSequence, List<Integer> subjectSequence);
 
 }

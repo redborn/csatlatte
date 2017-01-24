@@ -12,6 +12,7 @@ public class QuestionVo {
 	private int questionTypeSequence;
 	private int score;
 	private String content;
+	private String examName;
 	private List<ObjectiveItemVo> objectiveItemVos;
 
 	public int getCsatSequence() {
@@ -77,6 +78,14 @@ public class QuestionVo {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+	public void setExamName(String examName) {
+		this.examName = examName;
+	}
+	
+	public String getExamName() {
+		return examName;
+	}
 
 	public List<ObjectiveItemVo> getObjectiveItemVos() {
 		return objectiveItemVos;
@@ -105,6 +114,8 @@ public class QuestionVo {
 		builder.append(score);
 		builder.append(", content=");
 		builder.append(content);
+		builder.append(", examName=");
+		builder.append(examName);
 		builder.append(", objectiveItemVos=");
 		builder.append(objectiveItemVos);
 		builder.append("]");
