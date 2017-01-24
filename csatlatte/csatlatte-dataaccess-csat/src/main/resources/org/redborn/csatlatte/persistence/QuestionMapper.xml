@@ -60,10 +60,17 @@
 		   <foreach collection="yearStudentSequenceList" item="yearStudentSequence" open="(" close=")" separator=",">
 		   		#{yearStudentSequence.value}
 		   </foreach>
-		   AND cq.subject_seq IN
-		   <foreach collection="subjectSequenceList" item="subjectSequence" open="(" close=")" separator=",">
-		   		#{subjectSequence.value}
-		   </foreach> 
+		   AND (cq.subject_seq IN (0
+		   <foreach collection="subjectSequenceList" item="subjectSequence">
+		   		<if test="subjectSequence != 5">
+		   			,#{subjectSequence.value}
+		   		</if>
+		   </foreach>)
+		   <foreach collection="subjectSequenceList" item="subjectSequence">
+		   		<if test="subjectSequence == 5">
+		   			OR cq.subject_seq = 5 AND cq.qst_seq NOT BETWEEN 1 AND 17
+		   		</if>
+		   </foreach>)
 		 ORDER BY rand() limit 1 
 	</select>
 	
