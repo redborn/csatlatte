@@ -20,7 +20,7 @@
 			</c:forEach>
 			<h5><strong>과목 선택</strong></h5>
 			<div class="checkbox"><label><input class="randomsolving-select-subject" type="checkbox" name="subjectSequence" value="1" <c:if test="${paramValues.subjectSequence[selectedSubjectSequenceIndex] eq 1}">checked<c:set var="selectedSubjectSequenceIndex" value="${selectedSubjectSequenceIndex + 1}"/></c:if>/>국어</label></div>
-			<div class="checkbox"><label><input class="randomsolving-select-subject" type="checkbox" name="subjectSequence" value="5" <c:if test="${paramValues.subjectSequence[selectedSubjectSequenceIndex] eq 5}">checked<c:set var="selectedSubjectSequenceIndex" value="${selectedSubjectSequenceIndex + 1}"/></c:if>/>영어</label></div>
+			<div class="checkbox"><label><input class="randomsolving-select-subject" type="checkbox" name="subjectSequence" value="5" <c:if test="${paramValues.subjectSequence[selectedSubjectSequenceIndex] eq 5}">checked<c:set var="selectedSubjectSequenceIndex" value="${selectedSubjectSequenceIndex}"/></c:if>/>영어</label></div>
 		</div>
 		<div class="panel-footer text-right">
 			<input id="randomsolving-select-start" class="btn btn-primary" type="submit" value="시작"/>
