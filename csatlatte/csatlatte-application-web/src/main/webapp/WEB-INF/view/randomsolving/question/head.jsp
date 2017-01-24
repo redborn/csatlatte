@@ -13,9 +13,5 @@ $(document).ready(function() {
 	$(".randomsolving-question-answer").on("click", function () {
 		$("#randomsolving-question-submit").attr("disabled", false);
 	});
-	
-	$("#randomsolving-question-refresh").on("click", function () {
-		location.reload();
-	});
 });
 </script>

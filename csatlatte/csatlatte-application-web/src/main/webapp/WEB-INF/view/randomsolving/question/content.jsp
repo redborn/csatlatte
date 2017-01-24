@@ -33,7 +33,15 @@ ${randomQuestion.questionSequence}. ${randomQuestion.content}
 			<c:param name="subjectSequence" value="${subjectSequence}"/>
 		</c:forEach>
 	</c:url>">문제 재설정</a>
-	<a class="btn btn-default" id="randomsolving-question-refresh">다른 문제 풀기</a>
+	<a class="btn btn-default" href="
+	<c:url value="/randomsolving">
+		<c:forEach items="${paramValues.yearStudentSequence}" var="yearStudentSequence">
+			<c:param name="yearStudentSequence" value="${yearStudentSequence}"/>
+		</c:forEach>
+		<c:forEach items="${paramValues.subjectSequence}" var="subjectSequence">
+			<c:param name="subjectSequence" value="${subjectSequence}"/>
+		</c:forEach>
+	</c:url>">다른 문제 풀기</a>
 	<button id="randomsolving-question-submit" class="btn btn-primary" disabled>제출</button>
 </div>
 </form:form>
