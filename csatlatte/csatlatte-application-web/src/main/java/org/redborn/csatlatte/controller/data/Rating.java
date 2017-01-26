@@ -105,14 +105,12 @@ public class Rating {
 		logger.info("Controller data rating PUT.");
 		if (file != null) {
 			RatingCutReader ratingCutReader = new RatingCutReader(file.getInputStream(), csatSequence, examSequence);
-			ratingCutService.delete(csatSequence, examSequence);
 			List<SectionVo> sectionList = ratingCutReader.sectionList();
 			List<SubjectVo> subjectList = ratingCutReader.subjectList();
 			List<RatingCutVo> ratingCutList = ratingCutReader.ratingCutList();
 			List<AverageVo> averageList = ratingCutReader.averageList();
 			if (sectionList != null && subjectList != null && ratingCutList != null && averageList != null) {
-				model.addAttribute("result", ratingCutService.register(sectionList, subjectList, ratingCutList, averageList));
-				logger.info("success register ratingcut");
+				model.addAttribute("result", ratingCutService.modify(sectionList, subjectList, ratingCutList, averageList));
 			}
 		}
 	}
