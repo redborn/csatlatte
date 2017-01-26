@@ -22,4 +22,25 @@
 		 ORDER BY objtitem_seq ASC 
 	</select>
 	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_qst_objtitem
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</delete>
+	
+	<delete id="delete2" parameterType="Map">
+		DELETE FROM csat_qst_objtitem
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+	</delete>
+	
+	<delete id="delete3" parameterType="Map">
+		DELETE FROM csat_qst_objtitem
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+	</delete>
+
 </mapper>
