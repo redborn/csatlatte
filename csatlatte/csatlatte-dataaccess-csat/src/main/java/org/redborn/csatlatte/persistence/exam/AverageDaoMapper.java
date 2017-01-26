@@ -11,6 +11,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AverageDaoMapper extends SqlSessionDaoSupport implements AverageDao {
 
+	public int selectOneCount(AverageVo averageVo) {
+		return getSqlSession().selectOne("exam.average.selectOneCount", averageVo);
+	}
+	
 	public int selectOneStandardScore(int score, int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);
@@ -29,16 +33,42 @@ public class AverageDaoMapper extends SqlSessionDaoSupport implements AverageDao
 		return getSqlSession().selectList("exam.average.selectList", params);
 	}
 	
+	public List<AverageVo> selectListForModifyRatingCut(List<AverageVo> averageList) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("averageList", averageList);
+		return getSqlSession().selectList("exam.average.selectListForModifyRatingCut", params);
+	}
+	
 	public int insert(AverageVo averageVo) {
 		return getSqlSession().insert("exam.average.insert", averageVo);
+	}
+	
+	public int update(AverageVo averageVo) {
+		return getSqlSession().update("exam.average.update", averageVo);
 	}
 	
 	public int delete(int csatSequence, int examSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);
 		params.put("examSequence", examSequence);
-		
 		return getSqlSession().delete("exam.average.delete", params);
+	}
+	
+	public int delete(int csatSequence, int examSequence, int sectionSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		params.put("sectionSequence", sectionSequence);
+		return getSqlSession().delete("exam.average.delete2", params);
+	}
+	
+	public int delete(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		params.put("sectionSequence", sectionSequence);
+		params.put("subjectSequence", subjectSequence);
+		return getSqlSession().delete("exam.average.delete3", params);
 	}
 
 }

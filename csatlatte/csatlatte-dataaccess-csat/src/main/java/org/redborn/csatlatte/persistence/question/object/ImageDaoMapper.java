@@ -34,7 +34,7 @@ public class ImageDaoMapper extends SqlSessionDaoSupport implements ImageDao {
 		params.put("questionSequence", questionSequence);
 		params.put("objectItemSequence", objectItemSequence);
 		params.put("imageSequence", imageSequence);
-		return getSqlSession().selectOne("question.object.item.selectOneFileName", params);
+		return getSqlSession().selectOne("question.object.image.selectOneFileName", params);
 	}
 
 	public String selectOneFileCode(int csatSequence, int examSequence,
@@ -48,7 +48,31 @@ public class ImageDaoMapper extends SqlSessionDaoSupport implements ImageDao {
 		params.put("questionSequence", questionSequence);
 		params.put("objectItemSequence", objectItemSequence);
 		params.put("imageSequence", imageSequence);
-		return getSqlSession().selectOne("question.object.item.selectOneFileCode", params);
+		return getSqlSession().selectOne("question.object.image.selectOneFileCode", params);
+	}
+	
+	public int delete(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		return getSqlSession().delete("question.object.image.delete", params);
+	}
+	
+	public int delete(int csatSequence, int examSequence, int sectionSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		params.put("sectionSequence", sectionSequence);
+		return getSqlSession().delete("question.object.image.delete2", params);
+	}
+	
+	public int delete(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		params.put("sectionSequence", sectionSequence);
+		params.put("subjectSequence", subjectSequence);
+		return getSqlSession().delete("question.object.image.delete3", params);
 	}
 
 }

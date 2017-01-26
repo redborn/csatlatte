@@ -1,6 +1,8 @@
 package org.redborn.csatlatte.persistence.question;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.ObjectiveItemVo;
@@ -13,6 +15,30 @@ public class ObjectiveItemDaoMapper extends SqlSessionDaoSupport implements
 
 	public List<ObjectiveItemVo> selectList(QuestionVo questionVo) {
 		return getSqlSession().selectList("question.objectiveitem.selectList", questionVo);
+	}
+
+	public int delete(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		return getSqlSession().delete("question.objectiveitem.delete", params);
+	}
+	
+	public int delete(int csatSequence, int examSequence, int sectionSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		params.put("sectionSequence", sectionSequence);
+		return getSqlSession().delete("question.objectiveitem.delete2", params);
+	}
+	
+	public int delete(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		params.put("sectionSequence", sectionSequence);
+		params.put("subjectSequence", subjectSequence);
+		return getSqlSession().delete("question.objectiveitem.delete3", params);
 	}
 
 }

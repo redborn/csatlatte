@@ -35,5 +35,12 @@ public class ListeningDaoMapper extends SqlSessionDaoSupport implements Listenin
 		params.put("subjectSequence", subjectSequence);
 		return getSqlSession().selectOne("exam.subject.listening.selectOneFileCode", params);
 	}
+	
+	public int delete(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		return getSqlSession().delete("exam.subject.listening.delete", params);
+	}
 
 }

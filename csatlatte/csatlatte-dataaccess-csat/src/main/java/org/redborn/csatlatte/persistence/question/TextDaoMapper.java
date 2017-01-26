@@ -29,5 +29,29 @@ public class TextDaoMapper extends SqlSessionDaoSupport implements TextDao {
 		params.put("subjectSequence", subjectSequence);
 		return getSqlSession().selectList("question.text.selectList", params);
 	}
-
+	
+	public int delete(int csatSequence, int examSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		return getSqlSession().delete("question.text.delete", params);
+	}
+	
+	public int delete(int csatSequence, int examSequence, int sectionSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		params.put("sectionSequence", sectionSequence);
+		return getSqlSession().delete("question.text.delete2", params);
+	}
+	
+	public int delete(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		params.put("sectionSequence", sectionSequence);
+		params.put("subjectSequence", subjectSequence);
+		return getSqlSession().delete("question.text.delete3", params);
+	}
+	
 }
