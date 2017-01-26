@@ -21,6 +21,15 @@
 		<result column="standard_deviation" property="standardDeviation"/>
 	</resultMap>
 	
+	<select id="selectOneCount" parameterType="AverageVo" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_exam_avg
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+	</select>
+	
 	<select id="selectOneStandardScore" parameterType="Map" resultType="int">
 		SELECT TRUNCATE(( ( #{score} - cea.avg ) / cea.standard_deviation ) * ( 
 		                ces.max_score / 5 ) 
@@ -52,6 +61,23 @@
 		 WHERE cea.csat_seq = #{csatSequence}
 		   AND cea.exam_seq = #{examSequence} 
 	</select>
+	
+	<select id="selectListForModifyRatingCut" parameterType="Map" resultMap="AverageVoMap">
+		SELECT csat_seq, exam_seq, section_seq, subject_seq, avg, standard_deviation
+		  FROM csat_exam_avg 
+		 WHERE csat_seq IN  
+			<foreach collection="averageList" item="list" open="(" close=")" separator=",">
+				#{list.csatSequence}
+			</foreach>
+		   AND exam_seq IN 
+		    <foreach collection="averageList" item="list" open="(" close=")" separator=",">
+		    	#{list.examSequence}
+			</foreach>
+		   AND !(
+		   	<foreach collection="averageList" item="list" separator="OR">
+		   		(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
+		   	</foreach>)
+	</select>
 
 	<insert id="insert" parameterType="AverageVo">
 		INSERT INTO csat_exam_avg
@@ -59,10 +85,33 @@
 				#{average}, #{standardDeviation}) 
 	</insert>
 	
+	<update id="update" parameterType="AverageVo">
+		UPDATE csat_exam_avg SET avg = #{average}, standard_deviation = #{standardDeviation}
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+	</update>
+	
 	<delete id="delete" parameterType="Map">
 		DELETE FROM csat_exam_avg
 		 WHERE csat_seq = #{csatSequence}
 		   AND exam_seq = #{examSequence}
+	</delete>
+	
+	<delete id="delete2" parameterType="Map">
+		DELETE FROM csat_exam_avg
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+	</delete>
+	
+	<delete id="delete3" parameterType="Map">
+		DELETE FROM csat_exam_avg
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
 	</delete>
 	
 </mapper>

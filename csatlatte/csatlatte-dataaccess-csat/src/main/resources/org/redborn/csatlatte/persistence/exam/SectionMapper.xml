@@ -13,6 +13,14 @@
 		<result column="section_name" property="sectionName"/>
 		<result column="select_count" property="selectCount"/>
 	</resultMap>
+	
+	<select id="selectOneCount" parameterType="SectionVo" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_exam_section
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+	</select>
 
 	<select id="selectList" parameterType="Map" resultMap="SectionVoMap">
 		SELECT ces.csat_seq, ces.exam_seq, ces.section_seq, ces.section_name, ces.select_count
@@ -20,16 +28,55 @@
 		 WHERE ces.csat_seq = #{csatSequence}
 		   AND ces.exam_seq = #{examSequence}
 	</select>
+	
+	<select id="selectListForModifyRatingCut" parameterType="Map" resultMap="SectionVoMap">
+		SELECT csat_seq, exam_seq, section_seq, section_name, select_count
+		  FROM csat_exam_section 
+		 WHERE csat_seq IN  
+			<foreach collection="sectionList" item="list" open="(" close=")" separator=",">
+				#{list.csatSequence}
+			</foreach>
+		   AND exam_seq IN 
+		    <foreach collection="sectionList" item="list" open="(" close=")" separator=",">
+		    	#{list.examSequence}
+			</foreach>
+		   AND !(section_seq IN
+		   	<foreach collection="sectionList" item="list" open="(" close=")" separator=",">
+		   		#{list.sectionSequence}
+		   	</foreach>)
+	</select>
 
 	<insert id="insert" parameterType="SectionVo">
 		INSERT INTO csat_exam_section
 		VALUES (#{csatSequence}, #{examSequence}, #{sectionSequence}, #{sectionName}, #{selectCount}) 
 	</insert>
 	
+	<update id="update" parameterType="SectionVo">
+		UPDATE csat_exam_section SET section_name = #{sectionName}, select_count = #{selectCount}
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+	</update>
+	
 	<delete id="delete" parameterType="Map">
 		DELETE FROM csat_exam_section
 		 WHERE csat_seq = #{csatSequence}
 		   AND exam_seq = #{examSequence}
+	</delete>
+	
+	<delete id="delete2" parameterType="Map">
+		DELETE FROM csat_exam_section
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+	</delete>
+	
+	<delete id="delete3" parameterType="Map">
+		DELETE FROM csat_exam_section
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
 	</delete>
 	
 </mapper>
