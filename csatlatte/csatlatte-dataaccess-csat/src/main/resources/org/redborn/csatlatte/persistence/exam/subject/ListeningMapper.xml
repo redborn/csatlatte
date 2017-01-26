@@ -33,4 +33,10 @@
 		   AND subject_seq = #{subjectSequence}
 	</select>
 	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_exam_subject_lstn
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+	</delete>
+	
 </mapper>
