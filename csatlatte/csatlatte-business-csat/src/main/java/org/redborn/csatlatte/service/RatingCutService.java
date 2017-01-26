@@ -41,4 +41,15 @@ public interface RatingCutService {
 	 */
 	public boolean register(List<SectionVo> sectionList, List<SubjectVo> subjectList, List<RatingCutVo> ratingCutList, List<AverageVo> averageList);
 	
+	/**
+	 * 모의고사 등급컷을 수정합니다.
+	 * 
+	 * @param sectionList 영역 리스트
+	 * @param subjectList 과목 리스트
+	 * @param ratingCutList 등급컷 리스트
+	 * @param averageList 평균 리스트
+	 * @return 등급컷 수정 성공 여부
+	 */
+	public boolean modify(List<SectionVo> sectionList, List<SubjectVo> subjectList, List<RatingCutVo> ratingCutList, List<AverageVo> averageList);
+	
 }
