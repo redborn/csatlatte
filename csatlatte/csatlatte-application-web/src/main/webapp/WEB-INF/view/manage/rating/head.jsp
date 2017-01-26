@@ -231,6 +231,7 @@
 				html += '<p class="manage-rating-delete-alert"><b>이 등급컷은 ' + count + '명의 학생이 성적을 등록했습니다.</b></p>';
 			}
 			html += '	<p>정말로 이 등급컷을 삭제하시겠습니까?</p>';
+			html += '	<p style="color:red;"><b>모의고사 문제가 포함되어 있는 등급컷 정보는 모의고사 문제 데이터도 같이 삭제됩니다.</b></p>';
 			html += '</div>';
 			return html;
 		}
