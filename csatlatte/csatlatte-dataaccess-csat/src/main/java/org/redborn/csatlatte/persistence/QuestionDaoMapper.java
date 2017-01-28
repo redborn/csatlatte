@@ -52,7 +52,7 @@ public class QuestionDaoMapper extends SqlSessionDaoSupport implements QuestionD
 		params.put("csatSequence", csatSequence);
 		params.put("examSequence", examSequence);
 		params.put("sectionSequence", sectionSequence);
-		return getSqlSession().selectOne("question.selectOneCount2", params);
+		return getSqlSession().selectOne("question.selectOneCount", params);
 	}
 
 	public int selectOneCount(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
@@ -61,7 +61,7 @@ public class QuestionDaoMapper extends SqlSessionDaoSupport implements QuestionD
 		params.put("examSequence", examSequence);
 		params.put("sectionSequence", sectionSequence);
 		params.put("subjectSequence", subjectSequence);
-		return getSqlSession().selectOne("question.selectOneCount3", params);
+		return getSqlSession().selectOne("question.selectOneCount", params);
 	}
 	
 	public int delete(int csatSequence, int examSequence) {
@@ -76,7 +76,7 @@ public class QuestionDaoMapper extends SqlSessionDaoSupport implements QuestionD
 		params.put("csatSequence", csatSequence);
 		params.put("examSequence", examSequence);
 		params.put("sectionSequence", sectionSequence);
-		return getSqlSession().delete("question.delete2", params);
+		return getSqlSession().delete("question.delete", params);
 	}
 
 	public int delete(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
@@ -85,7 +85,7 @@ public class QuestionDaoMapper extends SqlSessionDaoSupport implements QuestionD
 		params.put("examSequence", examSequence);
 		params.put("sectionSequence", sectionSequence);
 		params.put("subjectSequence", subjectSequence);
-		return getSqlSession().delete("question.delete3", params);
+		return getSqlSession().delete("question.delete", params);
 	}
 
 }

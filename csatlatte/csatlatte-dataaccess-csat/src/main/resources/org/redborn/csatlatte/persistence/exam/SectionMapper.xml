@@ -62,21 +62,12 @@
 		DELETE FROM csat_exam_section
 		 WHERE csat_seq = #{csatSequence}
 		   AND exam_seq = #{examSequence}
-	</delete>
-	
-	<delete id="delete2" parameterType="Map">
-		DELETE FROM csat_exam_section
-		 WHERE csat_seq = #{csatSequence}
-		   AND exam_seq = #{examSequence}
-		   AND section_seq = #{sectionSequence}
-	</delete>
-	
-	<delete id="delete3" parameterType="Map">
-		DELETE FROM csat_exam_section
-		 WHERE csat_seq = #{csatSequence}
-		   AND exam_seq = #{examSequence}
-		   AND section_seq = #{sectionSequence}
-		   AND subject_seq = #{subjectSequence}
+		   <if test="sectionSequence != null">
+		   		AND section_seq = #{sectionSequence}
+		   </if>
+		   <if test="subjectSequence != null">
+		   		AND subject_seq = #{subjectSequence}
+		   </if>
 	</delete>
 	
 </mapper>

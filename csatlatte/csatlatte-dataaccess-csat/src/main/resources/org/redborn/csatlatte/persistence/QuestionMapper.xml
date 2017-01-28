@@ -79,44 +79,24 @@
 		  FROM csat_qst
 		 WHERE csat_seq = #{csatSequence}
 		   AND exam_seq = #{examSequence}
-	</select>
-	
-	<select id="selectOneCount2" parameterType="Map" resultType="int">
-		SELECT COUNT(*)
-		  FROM csat_qst
-		 WHERE csat_seq = #{csatSequence}
-		   AND exam_seq = #{examSequence}
-		   AND section_seq = #{sectionSequence}
-	</select>
-	
-	<select id="selectOneCount3" parameterType="Map" resultType="int">
-		SELECT COUNT(*)
-		  FROM csat_qst
-		 WHERE csat_seq = #{csatSequence}
-		   AND exam_seq = #{examSequence}
-		   AND section_seq = #{sectionSequence}
-		   AND subject_seq = #{subjectSequence}
+		   <if test="sectionSequence != null">
+		   		AND section_seq = #{sectionSequence}
+		   </if>
+		   <if test="subjectSequence != null">
+		   		AND subject_seq = #{subjectSequence}
+		   </if>
 	</select>
 	
 	<delete id="delete" parameterType="Map">
 		DELETE FROM csat_qst
 		 WHERE csat_seq = #{csatSequence}
 		   AND exam_seq = #{examSequence}
-	</delete>
-	
-	<delete id="delete2" parameterType="Map">
-		DELETE FROM csat_qst
-		 WHERE csat_seq = #{csatSequence}
-		   AND exam_seq = #{examSequence}
-		   AND section_seq = #{sectionSequence}
-	</delete>
-	
-	<delete id="delete3" parameterType="Map">
-		DELETE FROM csat_qst
-		 WHERE csat_seq = #{csatSequence}
-		   AND exam_seq = #{examSequence}
-		   AND section_seq = #{sectionSequence}
-		   AND subject_seq = #{subjectSequence}
+		   <if test="sectionSequence != null">
+		   		AND section_seq = #{sectionSequence}
+		   </if>
+		   <if test="subjectSequence != null">
+		   		AND subject_seq = #{subjectSequence}
+		   </if>
 	</delete>
 	
 </mapper>

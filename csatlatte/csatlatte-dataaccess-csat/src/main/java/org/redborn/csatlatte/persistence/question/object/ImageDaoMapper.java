@@ -63,7 +63,7 @@ public class ImageDaoMapper extends SqlSessionDaoSupport implements ImageDao {
 		params.put("csatSequence", csatSequence);
 		params.put("examSequence", examSequence);
 		params.put("sectionSequence", sectionSequence);
-		return getSqlSession().delete("question.object.image.delete2", params);
+		return getSqlSession().delete("question.object.image.delete", params);
 	}
 	
 	public int delete(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
@@ -72,7 +72,7 @@ public class ImageDaoMapper extends SqlSessionDaoSupport implements ImageDao {
 		params.put("examSequence", examSequence);
 		params.put("sectionSequence", sectionSequence);
 		params.put("subjectSequence", subjectSequence);
-		return getSqlSession().delete("question.object.image.delete3", params);
+		return getSqlSession().delete("question.object.image.delete", params);
 	}
 
 }

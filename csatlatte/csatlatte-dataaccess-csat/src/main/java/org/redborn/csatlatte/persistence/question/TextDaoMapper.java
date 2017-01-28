@@ -42,7 +42,7 @@ public class TextDaoMapper extends SqlSessionDaoSupport implements TextDao {
 		params.put("csatSequence", csatSequence);
 		params.put("examSequence", examSequence);
 		params.put("sectionSequence", sectionSequence);
-		return getSqlSession().delete("question.text.delete2", params);
+		return getSqlSession().delete("question.text.delete", params);
 	}
 	
 	public int delete(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
@@ -51,7 +51,7 @@ public class TextDaoMapper extends SqlSessionDaoSupport implements TextDao {
 		params.put("examSequence", examSequence);
 		params.put("sectionSequence", sectionSequence);
 		params.put("subjectSequence", subjectSequence);
-		return getSqlSession().delete("question.text.delete3", params);
+		return getSqlSession().delete("question.text.delete", params);
 	}
 	
 }

@@ -32,7 +32,7 @@ public class ContentDaoMapper extends SqlSessionDaoSupport implements ContentDao
 		params.put("csatSequence", csatSequence);
 		params.put("examSequence", examSequence);
 		params.put("sectionSequence", sectionSequence);
-		return getSqlSession().delete("question.text.content.delete2", params);
+		return getSqlSession().delete("question.text.content.delete", params);
 	}
 	
 	public int delete(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
@@ -41,7 +41,7 @@ public class ContentDaoMapper extends SqlSessionDaoSupport implements ContentDao
 		params.put("examSequence", examSequence);
 		params.put("sectionSequence", sectionSequence);
 		params.put("subjectSequence", subjectSequence);
-		return getSqlSession().delete("question.text.content.delete3", params);
+		return getSqlSession().delete("question.text.content.delete", params);
 	}
 
 }

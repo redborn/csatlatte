@@ -77,7 +77,7 @@ public class SubjectDaoMapper extends SqlSessionDaoSupport implements SubjectDao
 		params.put("csatSequence", csatSequence);
 		params.put("examSequence", examSequence);
 		params.put("sectionSequence", sectionSequence);
-		return getSqlSession().delete("exam.subject.delete2", params);
+		return getSqlSession().delete("exam.subject.delete", params);
 	}
 	
 	public int delete(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
@@ -86,7 +86,7 @@ public class SubjectDaoMapper extends SqlSessionDaoSupport implements SubjectDao
 		params.put("examSequence", examSequence);
 		params.put("sectionSequence", sectionSequence);
 		params.put("subjectSequence", subjectSequence);
-		return getSqlSession().delete("exam.subject.delete3", params);
+		return getSqlSession().delete("exam.subject.delete", params);
 	}
 	
 }
