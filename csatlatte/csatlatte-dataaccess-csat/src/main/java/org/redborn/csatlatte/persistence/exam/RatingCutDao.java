@@ -15,6 +15,6 @@ public interface RatingCutDao {
 	public List<RatingCutVo> selectListForModifyRatingCut(List<RatingCutVo> ratingCutList);
 	public int insert(RatingCutVo ratingCutVo);
 	public int update(RatingCutVo ratingCutVo);
-	public int delete(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	public int delete(int csatSequence, int examSequence, Integer sectionSequence, Integer subjectSequence);
 	
 }

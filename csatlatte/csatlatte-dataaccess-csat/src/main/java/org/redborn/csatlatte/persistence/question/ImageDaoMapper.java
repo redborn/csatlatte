@@ -48,7 +48,7 @@ public class ImageDaoMapper extends SqlSessionDaoSupport implements ImageDao {
 		return getSqlSession().selectOne("question.image.selectOneFileCode", params);
 	}
 	
-	public int delete(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+	public int delete(int csatSequence, int examSequence, Integer sectionSequence, Integer subjectSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);
 		params.put("examSequence", examSequence);

@@ -8,6 +8,6 @@ public interface TextDao {
 
 	public TextVo selectOne(int csatSequence, int examSequence, int sectionSequence, int subjectSequence, int questionSequence);
 	public List<TextVo> selectList(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
-	public int delete(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	public int delete(int csatSequence, int examSequence, Integer sectionSequence, Integer subjectSequence);
 	
 }

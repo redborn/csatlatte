@@ -12,6 +12,6 @@ public interface AverageDao {
 	public List<AverageVo> selectListForModifyRatingCut(List<AverageVo> averageList);
 	public int insert(AverageVo averageVo);
 	public int update(AverageVo averageVo);
-	public int delete(int csatSequence, int examSequence, int sectionSequence, int subjectSequence);
+	public int delete(int csatSequence, int examSequence, Integer sectionSequence, Integer subjectSequence);
 	
 }

@@ -40,16 +40,20 @@ public class QuestionDaoMapper extends SqlSessionDaoSupport implements QuestionD
 		return getSqlSession().selectOne("question.selectOneForRandomsolving", params);
 	}
 	
-	public int selectOneCount(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+	public int selectOneCount(int csatSequence, int examSequence, Integer sectionSequence, Integer subjectSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);
+		logger.info("test1 : " + csatSequence);
 		params.put("examSequence", examSequence);
+		logger.info("test2 : " + examSequence);
 		params.put("sectionSequence", sectionSequence);
+		logger.info("test3 : " + sectionSequence);
 		params.put("subjectSequence", subjectSequence);
+		logger.info("test4 : " + subjectSequence);
 		return getSqlSession().selectOne("question.selectOneCount", params);
 	}
 
-	public int delete(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
+	public int delete(int csatSequence, int examSequence, Integer sectionSequence, Integer subjectSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);
 		params.put("examSequence", examSequence);
