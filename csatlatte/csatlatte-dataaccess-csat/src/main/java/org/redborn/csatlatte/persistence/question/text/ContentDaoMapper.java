@@ -20,21 +20,6 @@ public class ContentDaoMapper extends SqlSessionDaoSupport implements ContentDao
 		return getSqlSession().selectList("question.text.content.selectList", params);
 	}
 	
-	public int delete(int csatSequence, int examSequence) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("csatSequence", csatSequence);
-		params.put("examSequence", examSequence);
-		return getSqlSession().delete("question.text.content.delete", params);
-	}
-	
-	public int delete(int csatSequence, int examSequence, int sectionSequence) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("csatSequence", csatSequence);
-		params.put("examSequence", examSequence);
-		params.put("sectionSequence", sectionSequence);
-		return getSqlSession().delete("question.text.content.delete", params);
-	}
-	
 	public int delete(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);

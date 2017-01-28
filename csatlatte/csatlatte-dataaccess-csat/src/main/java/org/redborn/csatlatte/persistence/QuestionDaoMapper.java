@@ -40,21 +40,6 @@ public class QuestionDaoMapper extends SqlSessionDaoSupport implements QuestionD
 		return getSqlSession().selectOne("question.selectOneForRandomsolving", params);
 	}
 	
-	public int selectOneCount(int csatSequence, int examSequence) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("csatSequence", csatSequence);
-		params.put("examSequence", examSequence);
-		return getSqlSession().selectOne("question.selectOneCount", params);
-	}
-
-	public int selectOneCount(int csatSequence, int examSequence, int sectionSequence) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("csatSequence", csatSequence);
-		params.put("examSequence", examSequence);
-		params.put("sectionSequence", sectionSequence);
-		return getSqlSession().selectOne("question.selectOneCount", params);
-	}
-
 	public int selectOneCount(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);
@@ -62,21 +47,6 @@ public class QuestionDaoMapper extends SqlSessionDaoSupport implements QuestionD
 		params.put("sectionSequence", sectionSequence);
 		params.put("subjectSequence", subjectSequence);
 		return getSqlSession().selectOne("question.selectOneCount", params);
-	}
-	
-	public int delete(int csatSequence, int examSequence) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("csatSequence", csatSequence);
-		params.put("examSequence", examSequence);
-		return getSqlSession().delete("question.delete", params);
-	}
-
-	public int delete(int csatSequence, int examSequence, int sectionSequence) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("csatSequence", csatSequence);
-		params.put("examSequence", examSequence);
-		params.put("sectionSequence", sectionSequence);
-		return getSqlSession().delete("question.delete", params);
 	}
 
 	public int delete(int csatSequence, int examSequence, int sectionSequence, int subjectSequence) {
