@@ -120,23 +120,6 @@
 		         AND IFNULL(ces.section, 0) = 0
 		         AND IFNULL(cerc.ratingcut, 0) = 0 ) 
 	</select>
-	
-	<select id="selectListForModifyRatingCut" parameterType="Map" resultMap="RatingCutVoMap">
-		SELECT csat_seq, exam_seq, section_seq, subject_seq, rating_code, raw_score, standard_score
-		  FROM csat_exam_rating_cut 
-		 WHERE csat_seq IN  
-			<foreach collection="ratingCutList" item="list" open="(" close=")" separator=",">
-				#{list.csatSequence}
-			</foreach>
-		   AND exam_seq IN 
-		    <foreach collection="ratingCutList" item="list" open="(" close=")" separator=",">
-		    	#{list.examSequence}
-			</foreach>
-		   AND !(
-		   	<foreach collection="ratingCutList" item="list" separator="OR">
-		   		(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence} AND rating_code = #{list.ratingCode})
-		   	</foreach>)
-	</select>
 
 	<insert id="insert" parameterType="RatingCutVo">
 		INSERT INTO csat_exam_rating_cut
@@ -163,6 +146,38 @@
 		   <if test="subjectSequence != null">
 		   		AND subject_seq = #{subjectSequence}
 		   </if>
+	</delete>
+	
+	<delete id="deleteForModifyRatingCut" parameterType="Map">
+		DELETE FROM csat_exam_rating_cut 
+		 WHERE csat_seq IN  
+			<foreach collection="ratingCutList" item="list" open="(" close=")" separator=",">
+				#{list.csatSequence}
+			</foreach>
+		   AND exam_seq IN 
+		    <foreach collection="ratingCutList" item="list" open="(" close=")" separator=",">
+		    	#{list.examSequence}
+			</foreach>
+		   AND !(
+		   	<foreach collection="ratingCutList" item="list" separator="OR">
+		   		(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence} AND rating_code = #{list.ratingCode})
+		   	</foreach>)
+	</delete>
+	
+	<delete id="deleteForModifyRatingCutBySubject" parameterType="Map">
+		DELETE FROM csat_exam_rating_cut
+			 WHERE 
+			   	<foreach collection="subjectList" item="list" separator="OR">
+			   		(csat_seq = #{list.csatSequence} AND exam_seq = #{list.examSequence} AND section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
+			   	</foreach>
+	</delete>
+	
+	<delete id="deleteForModifyRatingCutBySection" parameterType="Map">
+		DELETE FROM csat_exam_rating_cut
+			 WHERE 
+			   	<foreach collection="sectionList" item="list" separator="OR">
+			   		(csat_seq = #{list.csatSequence} AND exam_seq = #{list.examSequence} AND section_seq = #{list.sectionSequence})
+			   	</foreach>
 	</delete>
 	
 </mapper>

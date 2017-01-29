@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.AverageVo;
+import org.redborn.csatlatte.domain.SectionVo;
+import org.redborn.csatlatte.domain.SubjectVo;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -33,12 +35,6 @@ public class AverageDaoMapper extends SqlSessionDaoSupport implements AverageDao
 		return getSqlSession().selectList("exam.average.selectList", params);
 	}
 	
-	public List<AverageVo> selectListForModifyRatingCut(List<AverageVo> averageList) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("averageList", averageList);
-		return getSqlSession().selectList("exam.average.selectListForModifyRatingCut", params);
-	}
-	
 	public int insert(AverageVo averageVo) {
 		return getSqlSession().insert("exam.average.insert", averageVo);
 	}
@@ -54,6 +50,24 @@ public class AverageDaoMapper extends SqlSessionDaoSupport implements AverageDao
 		params.put("sectionSequence", sectionSequence);
 		params.put("subjectSequence", subjectSequence);
 		return getSqlSession().delete("exam.average.delete", params);
+	}
+	
+	public int deleteForModifyRatingCut(List<AverageVo> averageList) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("averageList", averageList);
+		return getSqlSession().delete("exam.average.deleteForModifyRatingCut", params);
+	}
+	
+	public int deleteForModifyRatingCutBySubject(List<SubjectVo> subjectList) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("subjectList", subjectList);
+		return getSqlSession().delete("exam.average.deleteForModifyRatingCutBySubject", params);
+	}
+	
+	public int deleteForModifyRatingCutBySection(List<SectionVo> sectionList) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("sectionList", sectionList);
+		return getSqlSession().delete("exam.average.deleteForModifyRatingCutBySection", params);
 	}
 
 }

@@ -33,5 +33,21 @@
 		   		AND subject_seq = #{subjectSequence}
 		   </if>
 	</delete>
+	
+	<delete id="deleteForModifyRatingCutBySubject" parameterType="Map">
+		DELETE FROM csat_qst_objtitem
+			 WHERE 
+			   	<foreach collection="subjectList" item="list" separator="OR">
+			   		(csat_seq = #{list.csatSequence} AND exam_seq = #{list.examSequence} AND section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
+			   	</foreach>
+	</delete>
+	
+	<delete id="deleteForModifyRatingCutBySection" parameterType="Map">
+		DELETE FROM csat_qst_objtitem
+			 WHERE 
+			   	<foreach collection="sectionList" item="list" separator="OR">
+			   		(csat_seq = #{list.csatSequence} AND exam_seq = #{list.examSequence} AND section_seq = #{list.sectionSequence})
+			   	</foreach>
+	</delete>
 
 </mapper>

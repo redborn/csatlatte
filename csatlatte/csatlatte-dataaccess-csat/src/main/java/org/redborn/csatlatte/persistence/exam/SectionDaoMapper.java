@@ -44,5 +44,11 @@ public class SectionDaoMapper extends SqlSessionDaoSupport implements SectionDao
 		params.put("subjectSequence", subjectSequence);
 		return getSqlSession().delete("exam.section.delete", params);
 	}
+	
+	public int deleteForModifyRatingCutBySection(List<SectionVo> sectionList) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("sectionList", sectionList);
+		return getSqlSession().delete("exam.section.deleteForModifyRatingCutBySection", params);
+	}
 
 }

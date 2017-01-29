@@ -70,4 +70,12 @@
 		   </if>
 	</delete>
 	
+	<delete id="deleteForModifyRatingCutBySection" parameterType="Map">
+		DELETE FROM csat_exam_section
+			 WHERE 
+			   	<foreach collection="sectionList" item="list" separator="OR">
+			   		(csat_seq = #{list.csatSequence} AND exam_seq = #{list.examSequence} AND section_seq = #{list.sectionSequence})
+			   	</foreach>
+	</delete>
+	
 </mapper>

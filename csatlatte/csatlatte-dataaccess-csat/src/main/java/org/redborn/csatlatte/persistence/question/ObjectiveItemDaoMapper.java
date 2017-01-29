@@ -7,6 +7,8 @@ import java.util.Map;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.ObjectiveItemVo;
 import org.redborn.csatlatte.domain.QuestionVo;
+import org.redborn.csatlatte.domain.SectionVo;
+import org.redborn.csatlatte.domain.SubjectVo;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -24,6 +26,18 @@ public class ObjectiveItemDaoMapper extends SqlSessionDaoSupport implements
 		params.put("sectionSequence", sectionSequence);
 		params.put("subjectSequence", subjectSequence);
 		return getSqlSession().delete("question.objectiveitem.delete", params);
+	}
+	
+	public int deleteForModifyRatingCutBySubject(List<SubjectVo> subjectList) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("subjectList", subjectList);
+		return getSqlSession().delete("question.objectiveitem.deleteForModifyRatingCutBySubject", params);
+	}
+	
+	public int deleteForModifyRatingCutBySection(List<SectionVo> sectionList) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("sectionList", sectionList);
+		return getSqlSession().delete("question.objectiveitem.deleteForModifyRatingCutBySection", params);
 	}
 
 }

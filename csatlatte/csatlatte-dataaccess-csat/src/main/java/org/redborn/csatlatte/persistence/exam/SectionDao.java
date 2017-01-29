@@ -12,5 +12,6 @@ public interface SectionDao {
 	public int insert(SectionVo sectionVo);
 	public int update(SectionVo sectionVo);
 	public int delete(int csatSequence, int examSequence, Integer sectionSequence, Integer subjectSequence);
+	public int deleteForModifyRatingCutBySection(List<SectionVo> sectionList);
 	
 }
