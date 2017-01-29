@@ -179,9 +179,7 @@ public class RatingCutServiceImpl implements RatingCutService {
 				int sectionListSize = sectionList.size();
 				for (int index = 0; index < sectionListSize; index++) {
 					SectionVo sectionVo = sectionList.get(index);
-					if (sectionDao.selectOneCount(sectionVo) == 1) {
-						sectionDao.update(sectionVo);
-					} else {
+					if (sectionDao.update(sectionVo) != 1) {
 						sectionDao.insert(sectionVo);
 					}
 				}
@@ -191,9 +189,7 @@ public class RatingCutServiceImpl implements RatingCutService {
 				int subjectListSize = subjectList.size();
 				for (int index = 0; index < subjectListSize; index++) {
 					SubjectVo subjectVo = subjectList.get(index);
-					if (subjectDao.selectOneCount(subjectVo) == 1) {
-						subjectDao.update(subjectVo);
-					} else {
+					if (subjectDao.update(subjectVo) != 1) {
 						subjectDao.insert(subjectVo);
 					}
 				}
@@ -203,9 +199,7 @@ public class RatingCutServiceImpl implements RatingCutService {
 				int ratingCutListSize = ratingCutList.size();
 				for (int index = 0; index < ratingCutListSize; index++) {
 					RatingCutVo ratingCutVo = ratingCutList.get(index);
-					if (ratingCutDao.selectOneCount(ratingCutVo) == 1) {
-						ratingCutDao.update(ratingCutVo);
-					} else {
+					if (ratingCutDao.update(ratingCutVo) != 1) {
 						ratingCutDao.insert(ratingCutVo);
 					}
 				}
@@ -215,78 +209,46 @@ public class RatingCutServiceImpl implements RatingCutService {
 				int averageListSize = averageList.size();
 				for (int index = 0; index < averageListSize; index++) {
 					AverageVo averageVo = averageList.get(index);
-					if (averageDao.selectOneCount(averageVo) == 1) {
-						averageDao.update(averageVo);
-					} else {
+					if (averageDao.update(averageVo) != 1) {
 						averageDao.insert(averageVo);
 					}
 				}
 			}
 			
-			List<AverageVo> deleteAverageList = averageDao.selectListForModifyRatingCut(averageList);
-			if (deleteAverageList != null) {
-				int deleteAverageListSize = deleteAverageList.size();
-				for (int index = 0; index < deleteAverageListSize; index++) {
-					averageDao.delete(deleteAverageList.get(index).getCsatSequence(), deleteAverageList.get(index).getExamSequence(), deleteAverageList.get(index).getSectionSequence(), deleteAverageList.get(index).getSubjectSequence());
-				}
-			}
-			
-			List<RatingCutVo> deleteRatingCutList = ratingCutDao.selectListForModifyRatingCut(ratingCutList);
-			if (deleteRatingCutList != null) {
-				int deleteRatingCutListSize = deleteRatingCutList.size();
-				for (int index = 0; index < deleteRatingCutListSize; index++) {
-					ratingCutDao.delete(deleteRatingCutList.get(index).getCsatSequence(), deleteRatingCutList.get(index).getExamSequence(), deleteRatingCutList.get(index).getSectionSequence(), deleteRatingCutList.get(index).getSubjectSequence());
-				}
-			}
+			averageDao.deleteForModifyRatingCut(averageList);
+			ratingCutDao.deleteForModifyRatingCut(ratingCutList);
 			
 			List<SubjectVo> deleteSubjectList = subjectDao.selectListForModifyRatingCut(subjectList);
-			if (deleteSubjectList != null) {
-				int deleteSubjectListSize = deleteSubjectList.size();
-				for (int index = 0; index < deleteSubjectListSize; index++) {
-					int csatSequence = deleteSubjectList.get(index).getCsatSequence();
-					int examSequence = deleteSubjectList.get(index).getExamSequence();
-					int sectionSequence = deleteSubjectList.get(index).getSectionSequence();
-					int subjectSequence = deleteSubjectList.get(index).getSubjectSequence();
-					if (questionDao.selectOneCount(csatSequence, examSequence, sectionSequence, subjectSequence) > 0) {
-						correctAnswerDao.delete(csatSequence, examSequence, sectionSequence, subjectSequence);
-						textImageDao.delete(csatSequence, examSequence, sectionSequence, subjectSequence);
-						contentDao.delete(csatSequence, examSequence, sectionSequence, subjectSequence);
-						textDao.delete(csatSequence, examSequence, sectionSequence, subjectSequence);
-						objectiveItemImageDao.delete(csatSequence, examSequence, sectionSequence, subjectSequence);
-						objectiveItemDao.delete(csatSequence, examSequence, sectionSequence, subjectSequence);
-						imageDao.delete(csatSequence, examSequence, sectionSequence, subjectSequence);
-						questionDao.delete(csatSequence, examSequence, sectionSequence, subjectSequence);
-					}
-					averageDao.delete(csatSequence, examSequence, sectionSequence, subjectSequence);
-					ratingCutDao.delete(csatSequence, examSequence, sectionSequence, subjectSequence);
-					subjectDao.delete(csatSequence, examSequence, sectionSequence, subjectSequence);
-				}
+			if (deleteSubjectList != null && deleteSubjectList.size() > 0) {
+				correctAnswerDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
+				textImageDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
+				contentDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
+				textDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
+				objectiveItemImageDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
+				objectiveItemDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
+				imageDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
+				questionDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
+				averageDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
+				ratingCutDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
+				subjectDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
 			}
 			
 			List<SectionVo> deleteSectionList = sectionDao.selectListForModifyRatingCut(sectionList);
-			if (deleteSectionList != null) {
-				int deleteSectionListSize = deleteSectionList.size();
-				for (int index = 0; index < deleteSectionListSize; index++) {
-					int csatSequence = deleteSectionList.get(index).getCsatSequence();
-					int examSequence = deleteSectionList.get(index).getExamSequence();
-					int sectionSequence = deleteSectionList.get(index).getSectionSequence();
-					if (questionDao.selectOneCount(csatSequence, examSequence, sectionSequence, null) > 0) {
-						correctAnswerDao.delete(csatSequence, examSequence, sectionSequence, null);
-						textImageDao.delete(csatSequence, examSequence, sectionSequence, null);
-						contentDao.delete(csatSequence, examSequence, sectionSequence, null);
-						textDao.delete(csatSequence, examSequence, sectionSequence, null);
-						objectiveItemImageDao.delete(csatSequence, examSequence, sectionSequence, null);
-						objectiveItemDao.delete(csatSequence, examSequence, sectionSequence, null);
-						imageDao.delete(csatSequence, examSequence, sectionSequence, null);
-						questionDao.delete(csatSequence, examSequence, sectionSequence, null);
-					}
-					averageDao.delete(csatSequence, examSequence, sectionSequence, null);
-					ratingCutDao.delete(csatSequence, examSequence, sectionSequence, null);
-					subjectDao.delete(csatSequence, examSequence, sectionSequence, null);
-					sectionDao.delete(csatSequence, examSequence, sectionSequence, null);
-				}
+			if (deleteSectionList != null && deleteSectionList.size() > 0) {
+				correctAnswerDao.deleteForModifyRatingCutBySection(deleteSectionList);
+				textImageDao.deleteForModifyRatingCutBySection(deleteSectionList);
+				contentDao.deleteForModifyRatingCutBySection(deleteSectionList);
+				textDao.deleteForModifyRatingCutBySection(deleteSectionList);
+				objectiveItemImageDao.deleteForModifyRatingCutBySection(deleteSectionList);
+				objectiveItemDao.deleteForModifyRatingCutBySection(deleteSectionList);
+				imageDao.deleteForModifyRatingCutBySection(deleteSectionList);
+				questionDao.deleteForModifyRatingCutBySection(deleteSectionList);
+				averageDao.deleteForModifyRatingCutBySection(deleteSectionList);
+				ratingCutDao.deleteForModifyRatingCutBySection(deleteSectionList);
+				subjectDao.deleteForModifyRatingCutBySection(deleteSectionList);
+				sectionDao.deleteForModifyRatingCutBySection(deleteSectionList);
 			}
-		
+				
 			transactionManager.commit(transactionStatus);
 			result = true;
 			logger.info(new StringBuilder("Business layer ratingCut modify success. transaction rollback.").toString());
