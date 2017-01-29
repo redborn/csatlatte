@@ -120,9 +120,6 @@ public class RatingCutServiceImpl implements RatingCutService {
 	public boolean register(List<SectionVo> sectionList, List<SubjectVo> subjectList, List<RatingCutVo> ratingCutList, List<AverageVo> averageList) {
 		logger.info("Business layer ratingcut register.");
 		boolean result = false;
-		boolean sectionSuccess = false;
-		boolean subjectSuccess = false;
-		boolean ratingCutSuccess = false;
 		
 		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
 		defaultTransactionDefinition.setName("ratingCut register transaction");
@@ -135,33 +132,30 @@ public class RatingCutServiceImpl implements RatingCutService {
 				for (int index = 0; index < sectionListSize; index++) {
 					sectionDao.insert(sectionList.get(index));
 				}
-				sectionSuccess = true;
 			}
 				
-			if (subjectList != null && sectionSuccess) {
+			if (subjectList != null) {
 				int subjectListSize = subjectList.size();
 				for (int index = 0; index < subjectListSize; index++) {
 					subjectDao.insert(subjectList.get(index));
 				}
-				subjectSuccess = true;
 			}
 				
-			if (ratingCutList != null && sectionSuccess && subjectSuccess) {
+			if (ratingCutList != null) {
 				int ratingCutListSize = ratingCutList.size();
 				for (int index = 0; index < ratingCutListSize; index++) {
 					ratingCutDao.insert(ratingCutList.get(index));
 				}
-				ratingCutSuccess = true;
 			}
 			
-			if (averageList != null && sectionSuccess && subjectSuccess && ratingCutSuccess) {
+			if (averageList != null) {
 				int averageListSize = averageList.size();
 				for (int index = 0; index < averageListSize; index++) {
 					averageDao.insert(averageList.get(index));
 				}
-				result = true;
 			}
 			transactionManager.commit(transactionStatus);
+			result = true;
 			logger.info(new StringBuilder("Business layer RatingCut register success. transaction rollback.").toString());
 		} catch (RuntimeException e) {
 			transactionManager.rollback(transactionStatus);
@@ -174,9 +168,6 @@ public class RatingCutServiceImpl implements RatingCutService {
 	public boolean modify(List<SectionVo> sectionList, List<SubjectVo> subjectList, List<RatingCutVo> ratingCutList, List<AverageVo> averageList) {
 		logger.info("Business layer ratingcut modify.");
 		boolean result = false;
-		boolean sectionSuccess = false;
-		boolean subjectSuccess = false;
-		boolean ratingCutSuccess = false;
 		
 		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
 		defaultTransactionDefinition.setName("ratingCut modify transaction");
@@ -194,11 +185,9 @@ public class RatingCutServiceImpl implements RatingCutService {
 						sectionDao.insert(sectionVo);
 					}
 				}
-				sectionSuccess = true;
-				logger.info("asdasd : " + sectionSuccess);
 			}
 				
-			if (subjectList != null && sectionSuccess) {
+			if (subjectList != null) {
 				int subjectListSize = subjectList.size();
 				for (int index = 0; index < subjectListSize; index++) {
 					SubjectVo subjectVo = subjectList.get(index);
@@ -208,11 +197,9 @@ public class RatingCutServiceImpl implements RatingCutService {
 						subjectDao.insert(subjectVo);
 					}
 				}
-				subjectSuccess = true;
-				logger.info("asdasd2 : " + subjectSuccess);
 			}
 				
-			if (ratingCutList != null && sectionSuccess && subjectSuccess) {
+			if (ratingCutList != null) {
 				int ratingCutListSize = ratingCutList.size();
 				for (int index = 0; index < ratingCutListSize; index++) {
 					RatingCutVo ratingCutVo = ratingCutList.get(index);
@@ -222,11 +209,9 @@ public class RatingCutServiceImpl implements RatingCutService {
 						ratingCutDao.insert(ratingCutVo);
 					}
 				}
-				ratingCutSuccess = true;
-				logger.info("asdasd3 : " + ratingCutSuccess);
 			}
 			
-			if (averageList != null && sectionSuccess && subjectSuccess && ratingCutSuccess) {
+			if (averageList != null) {
 				int averageListSize = averageList.size();
 				for (int index = 0; index < averageListSize; index++) {
 					AverageVo averageVo = averageList.get(index);
@@ -236,7 +221,6 @@ public class RatingCutServiceImpl implements RatingCutService {
 						averageDao.insert(averageVo);
 					}
 				}
-				logger.info("asdasd4 : " + result);
 			}
 			
 			List<AverageVo> deleteAverageList = averageDao.selectListForModifyRatingCut(averageList);
