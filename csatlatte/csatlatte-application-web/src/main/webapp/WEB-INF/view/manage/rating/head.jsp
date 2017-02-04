@@ -67,10 +67,18 @@
 										});
 										$('.manage-rating-modify-form').ajaxForm({
 											type : "PUT",
-											success : function () {
+											success : function (data) {
 												$btn.button('reset');
-												$('#manage-rating-modify-view').modal('hide');
-												$('#manage-rating-csat-list').trigger("change");
+												if (!data.result) {
+													$('.manage-rating-modify-cancel').attr("disabled", false);
+													$('#manage-rating-modify-file').tooltip("show");
+													setTimeout(function () {
+														$('#manage-rating-modify-file').tooltip("destroy");
+													}, 1200);
+												} else {
+													$('#manage-rating-modify-view').modal('hide');
+													$('#manage-rating-csat-list').trigger("change");
+												}
 											},
 											error : function () {
 												$btn.button('reset');
