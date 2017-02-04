@@ -218,36 +218,30 @@ public class RatingCutServiceImpl implements RatingCutService {
 			averageDao.deleteForModifyRatingCut(averageList);
 			ratingCutDao.deleteForModifyRatingCut(ratingCutList);
 			
-			List<SubjectVo> deleteSubjectList = subjectDao.selectListForModifyRatingCut(subjectList);
-			if (deleteSubjectList != null && deleteSubjectList.size() > 0) {
-				correctAnswerDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
-				textImageDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
-				contentDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
-				textDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
-				objectiveItemImageDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
-				objectiveItemDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
-				imageDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
-				questionDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
-				averageDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
-				ratingCutDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
-				subjectDao.deleteForModifyRatingCutBySubject(deleteSubjectList);
-			}
+			correctAnswerDao.deleteForModifyRatingCutBySubject(subjectList);
+			textImageDao.deleteForModifyRatingCutBySubject(subjectList);
+			contentDao.deleteForModifyRatingCutBySubject(subjectList);
+			textDao.deleteForModifyRatingCutBySubject(subjectList);
+			objectiveItemImageDao.deleteForModifyRatingCutBySubject(subjectList);
+			objectiveItemDao.deleteForModifyRatingCutBySubject(subjectList);
+			imageDao.deleteForModifyRatingCutBySubject(subjectList);
+			questionDao.deleteForModifyRatingCutBySubject(subjectList);
+			averageDao.deleteForModifyRatingCutBySubject(subjectList);
+			ratingCutDao.deleteForModifyRatingCutBySubject(subjectList);
+			subjectDao.deleteForModifyRatingCutBySubject(subjectList);
 			
-			List<SectionVo> deleteSectionList = sectionDao.selectListForModifyRatingCut(sectionList);
-			if (deleteSectionList != null && deleteSectionList.size() > 0) {
-				correctAnswerDao.deleteForModifyRatingCutBySection(deleteSectionList);
-				textImageDao.deleteForModifyRatingCutBySection(deleteSectionList);
-				contentDao.deleteForModifyRatingCutBySection(deleteSectionList);
-				textDao.deleteForModifyRatingCutBySection(deleteSectionList);
-				objectiveItemImageDao.deleteForModifyRatingCutBySection(deleteSectionList);
-				objectiveItemDao.deleteForModifyRatingCutBySection(deleteSectionList);
-				imageDao.deleteForModifyRatingCutBySection(deleteSectionList);
-				questionDao.deleteForModifyRatingCutBySection(deleteSectionList);
-				averageDao.deleteForModifyRatingCutBySection(deleteSectionList);
-				ratingCutDao.deleteForModifyRatingCutBySection(deleteSectionList);
-				subjectDao.deleteForModifyRatingCutBySection(deleteSectionList);
-				sectionDao.deleteForModifyRatingCutBySection(deleteSectionList);
-			}
+			correctAnswerDao.deleteForModifyRatingCutBySection(sectionList);
+			textImageDao.deleteForModifyRatingCutBySection(sectionList);
+			contentDao.deleteForModifyRatingCutBySection(sectionList);
+			textDao.deleteForModifyRatingCutBySection(sectionList);
+			objectiveItemImageDao.deleteForModifyRatingCutBySection(sectionList);
+			objectiveItemDao.deleteForModifyRatingCutBySection(sectionList);
+			imageDao.deleteForModifyRatingCutBySection(sectionList);
+			questionDao.deleteForModifyRatingCutBySection(sectionList);
+			averageDao.deleteForModifyRatingCutBySection(sectionList);
+			ratingCutDao.deleteForModifyRatingCutBySection(sectionList);
+			subjectDao.deleteForModifyRatingCutBySection(sectionList);
+			sectionDao.deleteForModifyRatingCut(sectionList);
 				
 			transactionManager.commit(transactionStatus);
 			result = true;
