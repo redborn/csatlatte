@@ -41,7 +41,7 @@ public class Password {
 	public String post(@RequestParam(value="beforePassword",required=true) String beforePassword,
 			@RequestParam(value="newPassword",required=true) String newPassword,
 			@RequestParam(value="newPasswordCheck",required=true) String newPasswordCheck) {
-		logger.info("myinfo password modify");
+		logger.info("Controller account password POST.");
 		String result = TilesName.PROFILE_PASSWORD_FAIL;
 		if (newPassword.equals(newPasswordCheck)) {
 			if (studentService.changePassword(httpSessionValue.getStudentSequence(), beforePassword, newPassword)) {
