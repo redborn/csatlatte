@@ -11,6 +11,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class SubjectDaoMapper extends SqlSessionDaoSupport implements SubjectDao {
 	
+	public int selectOneCount(SubjectVo subjectVo) {
+		return getSqlSession().selectOne("exam.subject.selectOneCount", subjectVo);
+	}
+	
 	public List<SubjectVo> selectList(int csatSequence, int examSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);
@@ -51,12 +55,23 @@ public class SubjectDaoMapper extends SqlSessionDaoSupport implements SubjectDao
 		return getSqlSession().insert("exam.subject.insert", subjectVo);
 	}
 	
-	public int delete(int csatSequence, int examSequence) {
+	public int update(SubjectVo subjectVo) {
+		return getSqlSession().update("exam.subject.update", subjectVo);
+	}
+	
+	public int delete(int csatSequence, int examSequence, Integer sectionSequence, Integer subjectSequence) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("csatSequence", csatSequence);
 		params.put("examSequence", examSequence);
-		
+		params.put("sectionSequence", sectionSequence);
+		params.put("subjectSequence", subjectSequence);
 		return getSqlSession().delete("exam.subject.delete", params);
 	}
-
+	
+	public int deleteForModifyRatingCutBySubject(List<SubjectVo> subjectList) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("subjectList", subjectList);
+		return getSqlSession().delete("exam.subject.deleteForModifyRatingCutBySubject", params);
+	}
+	
 }

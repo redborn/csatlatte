@@ -16,5 +16,40 @@
 		   AND text_seq = #{textSequence}
 	  ORDER BY content_seq ASC 
 	</select>
+	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_qst_text_content
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   <if test="sectionSequence != null">
+		   		AND section_seq = #{sectionSequence}
+		   </if>
+		   <if test="subjectSequence != null">
+		   		AND subject_seq = #{subjectSequence}
+		   </if>
+	</delete>
+	
+	<delete id="deleteForModifyRatingCutBySubject" parameterType="Map">
+		DELETE cqtc 
+		  FROM csat_qst_text_content cqtc 
+		       , (SELECT csat_seq,exam_seq,section_seq,subject_seq 
+		            FROM csat_exam_subject 
+		           WHERE csat_seq IN
+		           	<foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+						#{list.csatSequence}
+					</foreach> 
+		             AND exam_seq IN
+		            <foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+		    			#{list.examSequence}
+					</foreach> 
+		             AND ! (
+		            <foreach collection="subjectList" item="list" separator="OR">
+		   				(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
+		   			</foreach>)) ces 
+		 WHERE cqtc.csat_seq = ces.csat_seq 
+		   AND cqtc.exam_seq = ces.exam_seq 
+		   AND cqtc.section_seq = ces.section_seq 
+		   AND cqtc.subject_seq = ces.subject_seq
+	</delete>
 
 </mapper>

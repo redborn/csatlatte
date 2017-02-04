@@ -67,10 +67,18 @@
 										});
 										$('.manage-rating-modify-form').ajaxForm({
 											type : "PUT",
-											success : function () {
+											success : function (data) {
 												$btn.button('reset');
-												$('#manage-rating-modify-view').modal('hide');
-												$('#manage-rating-csat-list').trigger("change");
+												if (!data.result) {
+													$('.manage-rating-modify-cancel').attr("disabled", false);
+													$('#manage-rating-modify-file').tooltip("show");
+													setTimeout(function () {
+														$('#manage-rating-modify-file').tooltip("destroy");
+													}, 1200);
+												} else {
+													$('#manage-rating-modify-view').modal('hide');
+													$('#manage-rating-csat-list').trigger("change");
+												}
 											},
 											error : function () {
 												$btn.button('reset');
@@ -231,6 +239,7 @@
 				html += '<p class="manage-rating-delete-alert"><b>이 등급컷은 ' + count + '명의 학생이 성적을 등록했습니다.</b></p>';
 			}
 			html += '	<p>정말로 이 등급컷을 삭제하시겠습니까?</p>';
+			html += '	<p style="color:red;"><b>모의고사 문제가 포함되어 있는 등급컷 정보는 모의고사 문제 데이터도 같이 삭제됩니다.</b></p>';
 			html += '</div>';
 			return html;
 		}

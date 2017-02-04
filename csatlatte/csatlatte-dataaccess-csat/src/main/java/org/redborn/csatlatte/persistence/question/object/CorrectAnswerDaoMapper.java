@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.CorrectAnswerVo;
+import org.redborn.csatlatte.domain.SubjectVo;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -30,6 +31,21 @@ public class CorrectAnswerDaoMapper extends SqlSessionDaoSupport implements
 		params.put("sectionSequence", sectionSequence);
 		params.put("subjectSequence", subjectSequence);
 		return getSqlSession().selectList("question.object.correctanswer.selectList", params);
+	}
+	
+	public int delete(int csatSequence, int examSequence, Integer sectionSequence, Integer subjectSequence) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("csatSequence", csatSequence);
+		params.put("examSequence", examSequence);
+		params.put("sectionSequence", sectionSequence);
+		params.put("subjectSequence", subjectSequence);
+		return getSqlSession().delete("question.object.correctanswer.delete", params);
+	}
+	
+	public int deleteForModifyRatingCutBySubject(List<SubjectVo> subjectList) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("subjectList", subjectList);
+		return getSqlSession().delete("question.object.correctanswer.deleteForModifyRatingCutBySubject", params);
 	}
 
 }

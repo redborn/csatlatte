@@ -6,6 +6,7 @@ import org.redborn.csatlatte.domain.GradeListVo;
 import org.redborn.csatlatte.domain.GradeRatingVo;
 import org.redborn.csatlatte.domain.GradeStandardScoreVo;
 import org.redborn.csatlatte.domain.GradeVo;
+import org.redborn.csatlatte.domain.SubjectVo;
 
 public interface ScoreDao {
 
@@ -17,5 +18,6 @@ public interface ScoreDao {
 	public List<GradeVo> selectListExamStudent(int csatSequence, int examSequence);
 	public List<GradeRatingVo> selectListRating(int csatSequence, int studentSequence);
 	public List<GradeStandardScoreVo> selectListStandardScore(int csatSequence, int studentSequence);
+	public int deleteForModifyRatingCutBySubject(List<SubjectVo> subjectList);
 	
 }

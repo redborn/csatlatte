@@ -15,6 +15,15 @@
 		<result column="max_score" property="maxScore"/>
 		<result column="exam_time" property="examTime"/>
 	</resultMap>
+	
+	<select id="selectOneCount" parameterType="SubjectVo" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_exam_subject
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+	</select>
 
 	<select id="selectList" parameterType="Map" resultMap="SubjectVoMap">
 		SELECT ces.csat_seq, ces.exam_seq, ces.section_seq, ces.subject_seq, ces.subject_name, ces.max_score, ces.exam_time
@@ -63,10 +72,40 @@
 				#{subjectName}, #{maxScore}, #{examTime}) 
 	</insert>
 	
+	<update id="update" parameterType="SubjectVo">
+		UPDATE csat_exam_subject SET subject_name = #{subjectName}, max_score = #{maxScore}, exam_time = #{examTime}
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+	</update>
+	
 	<delete id="delete" parameterType="Map">
 		DELETE FROM csat_exam_subject
 		 WHERE csat_seq = #{csatSequence}
 		   AND exam_seq = #{examSequence}
+		   <if test="sectionSequence != null">
+		   		AND section_seq = #{sectionSequence}
+		   </if>
+		   <if test="subjectSequence != null">
+		   		AND subject_seq = #{subjectSequence}
+		   </if>
+	</delete>
+	
+	<delete id="deleteForModifyRatingCutBySubject" parameterType="Map">
+		DELETE FROM csat_exam_subject 
+		 WHERE csat_seq IN  
+			<foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+				#{list.csatSequence}
+			</foreach>
+		   AND exam_seq IN 
+		    <foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+		    	#{list.examSequence}
+			</foreach>
+		   AND !(
+		   	<foreach collection="subjectList" item="list" separator="OR">
+		   		(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
+		   	</foreach>)
 	</delete>
 	
 </mapper>

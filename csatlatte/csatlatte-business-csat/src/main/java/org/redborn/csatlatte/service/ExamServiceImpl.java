@@ -369,14 +369,11 @@ public class ExamServiceImpl implements ExamService {
 			List<String> contentList = contentDao.selectList(csatSequence, examSequence, sectionSequence, subjectSequence, text.getTextSequence());
 			if (contentList != null) {
 				int contentListSize = contentList.size();
-				logger.info("contentListSize :: " + contentListSize);
 				StringBuilder builder = new StringBuilder();
 				for (int index = 0; index < contentListSize; index++) {
-					logger.info("content :: " + contentList.get(index));
 					builder.append(contentList.get(index));
 				}
 				text.setContent(builder.toString());
-				logger.info("text :: " + text.getContent());
 			}
 		}
 		return text;

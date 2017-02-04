@@ -61,7 +61,6 @@ public class Solving {
 		List<QuestionVo> questionList = examService.questionList(csatSequence, examSequence, sectionSequence, subjectSequence);
 		if (questionList != null) {
 			int questionListSize = questionList.size();
-			logger.info("questionListSize : " + questionListSize);
 			for (int index = 1; index <= questionListSize; index++) {
 				String parameterValue = request.getParameter(String.valueOf(index));
 				if (parameterValue != null) {

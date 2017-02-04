@@ -32,4 +32,39 @@
    	  ORDER BY qst_seq ASC
 	</select>
 
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_qst_objtqst_crtans 
+		 WHERE csat_seq = #{csatSequence} 
+		   AND exam_seq = #{examSequence}
+		   <if test="sectionSequence != null">
+		   		AND section_seq = #{sectionSequence}
+		   </if>
+		   <if test="subjectSequence != null">
+		   		AND subject_seq = #{subjectSequence}
+		   </if>
+	</delete>
+	
+	<delete id="deleteForModifyRatingCutBySubject" parameterType="Map">
+		DELETE cqoc 
+		  FROM csat_qst_objtqst_crtans cqoc 
+		       , (SELECT csat_seq,exam_seq,section_seq,subject_seq 
+		            FROM csat_exam_subject 
+		           WHERE csat_seq IN
+		           	<foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+						#{list.csatSequence}
+					</foreach> 
+		             AND exam_seq IN
+		            <foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+		    			#{list.examSequence}
+					</foreach> 
+		             AND ! (
+		            <foreach collection="subjectList" item="list" separator="OR">
+		   				(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
+		   			</foreach>)) ces 
+		 WHERE cqoc.csat_seq = ces.csat_seq 
+		   AND cqoc.exam_seq = ces.exam_seq 
+		   AND cqoc.section_seq = ces.section_seq 
+		   AND cqoc.subject_seq = ces.subject_seq
+	</delete>
+
 </mapper>

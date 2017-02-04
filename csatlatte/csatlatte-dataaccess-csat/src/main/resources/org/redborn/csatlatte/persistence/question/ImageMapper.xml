@@ -39,4 +39,39 @@
 		   AND img_seq = #{imageSequence}
 	</select>
 	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_qst_img
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   <if test="sectionSequence != null">
+		   		AND section_seq = #{sectionSequence}
+		   </if>
+		   <if test="subjectSequence != null">
+		   		AND subject_seq = #{subjectSequence}
+		   </if>
+	</delete>
+	
+	<delete id="deleteForModifyRatingCutBySubject" parameterType="Map">
+		DELETE cqi 
+		  FROM csat_qst_img cqi 
+		       , (SELECT csat_seq,exam_seq,section_seq,subject_seq 
+		            FROM csat_exam_subject 
+		           WHERE csat_seq IN
+		           	<foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+						#{list.csatSequence}
+					</foreach> 
+		             AND exam_seq IN
+		            <foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+		    			#{list.examSequence}
+					</foreach> 
+		             AND ! (
+		            <foreach collection="subjectList" item="list" separator="OR">
+		   				(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
+		   			</foreach>)) ces 
+		 WHERE cqi.csat_seq = ces.csat_seq 
+		   AND cqi.exam_seq = ces.exam_seq 
+		   AND cqi.section_seq = ces.section_seq 
+		   AND cqi.subject_seq = ces.subject_seq
+	</delete>
+	
 </mapper>

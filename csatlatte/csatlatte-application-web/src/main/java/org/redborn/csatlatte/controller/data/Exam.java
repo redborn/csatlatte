@@ -34,7 +34,7 @@ public class Exam {
 	 */
 	@RequestMapping(value="{csatSequence}",method=RequestMethod.GET)
 	public void get(Model model, @PathVariable(value="csatSequence") int csatSequence) {
-		logger.info("data exam GET.");
+		logger.info("Controller data exam GET.");
 		
 		model.addAttribute("list", examService.listForManage(csatSequence));
 	}
