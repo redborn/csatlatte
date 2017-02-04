@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.redborn.csatlatte.domain.ExamVo;
 import org.redborn.csatlatte.domain.RatingCutVo;
-import org.redborn.csatlatte.domain.SectionVo;
 import org.redborn.csatlatte.domain.SubjectVo;
 
 public interface RatingCutDao {
@@ -19,6 +18,5 @@ public interface RatingCutDao {
 	public int delete(int csatSequence, int examSequence, Integer sectionSequence, Integer subjectSequence);
 	public int deleteForModifyRatingCut(List<RatingCutVo> ratingCutList);
 	public int deleteForModifyRatingCutBySubject(List<SubjectVo> subjectList);
-	public int deleteForModifyRatingCutBySection(List<SectionVo> sectionList);
 	
 }

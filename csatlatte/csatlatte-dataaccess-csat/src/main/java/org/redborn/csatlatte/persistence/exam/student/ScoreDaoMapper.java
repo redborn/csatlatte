@@ -9,6 +9,7 @@ import org.redborn.csatlatte.domain.GradeListVo;
 import org.redborn.csatlatte.domain.GradeRatingVo;
 import org.redborn.csatlatte.domain.GradeStandardScoreVo;
 import org.redborn.csatlatte.domain.GradeVo;
+import org.redborn.csatlatte.domain.SubjectVo;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -73,6 +74,12 @@ public class ScoreDaoMapper extends SqlSessionDaoSupport implements ScoreDao {
 		params.put("studentSequence", studentSequence);
 		
 		return getSqlSession().selectList("exam.student.score.selectListStandardScore", params);
+	}
+	
+	public int deleteForModifyRatingCutBySubject(List<SubjectVo> subjectList) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("subjectList", subjectList);
+		return getSqlSession().delete("exam.student.score.deleteForModifyRatingCutBySubject", params);
 	}
 
 }

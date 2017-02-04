@@ -33,10 +33,27 @@
 		   AND subject_seq = #{subjectSequence}
 	</select>
 	
-	<delete id="delete" parameterType="Map">
-		DELETE FROM csat_exam_subject_lstn
-		 WHERE csat_seq = #{csatSequence}
-		   AND exam_seq = #{examSequence}
+	<delete id="deleteForModifyRatingCutBySubject" parameterType="Map">
+		DELETE cesl 
+		  FROM csat_exam_subject_lstn cesl 
+		       , (SELECT csat_seq,exam_seq,section_seq,subject_seq 
+		            FROM csat_exam_subject 
+		           WHERE csat_seq IN
+		           	<foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+						#{list.csatSequence}
+					</foreach> 
+		             AND exam_seq IN
+		            <foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+		    			#{list.examSequence}
+					</foreach> 
+		             AND ! (
+		            <foreach collection="subjectList" item="list" separator="OR">
+		   				(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
+		   			</foreach>)) ces 
+		 WHERE cesl.csat_seq = ces.csat_seq 
+		   AND cesl.exam_seq = ces.exam_seq 
+		   AND cesl.section_seq = ces.section_seq 
+		   AND cesl.subject_seq = ces.subject_seq
 	</delete>
 	
 </mapper>

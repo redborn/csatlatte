@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.redborn.csatlatte.domain.SectionVo;
 import org.redborn.csatlatte.domain.SubjectVo;
 import org.springframework.stereotype.Repository;
 
@@ -73,12 +72,6 @@ public class SubjectDaoMapper extends SqlSessionDaoSupport implements SubjectDao
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("subjectList", subjectList);
 		return getSqlSession().delete("exam.subject.deleteForModifyRatingCutBySubject", params);
-	}
-	
-	public int deleteForModifyRatingCutBySection(List<SectionVo> sectionList) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("sectionList", sectionList);
-		return getSqlSession().delete("exam.subject.deleteForModifyRatingCutBySection", params);
 	}
 	
 }

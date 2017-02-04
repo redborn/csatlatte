@@ -3,7 +3,6 @@ package org.redborn.csatlatte.persistence.exam;
 import java.util.List;
 
 import org.redborn.csatlatte.domain.AverageVo;
-import org.redborn.csatlatte.domain.SectionVo;
 import org.redborn.csatlatte.domain.SubjectVo;
 
 public interface AverageDao {
@@ -16,6 +15,5 @@ public interface AverageDao {
 	public int delete(int csatSequence, int examSequence, Integer sectionSequence, Integer subjectSequence);
 	public int deleteForModifyRatingCut(List<AverageVo> averageList);
 	public int deleteForModifyRatingCutBySubject(List<SubjectVo> subjectList);
-	public int deleteForModifyRatingCutBySection(List<SectionVo> sectionList);
 	
 }

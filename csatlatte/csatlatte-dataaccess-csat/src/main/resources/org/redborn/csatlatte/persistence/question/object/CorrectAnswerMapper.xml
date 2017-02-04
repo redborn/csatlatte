@@ -66,27 +66,5 @@
 		   AND cqoc.section_seq = ces.section_seq 
 		   AND cqoc.subject_seq = ces.subject_seq
 	</delete>
-	
-	<delete id="deleteForModifyRatingCutBySection" parameterType="Map">
-		DELETE cqoc 
-		  FROM csat_qst_objtqst_crtans cqoc 
-		       , (SELECT csat_seq,exam_seq,section_seq 
-		            FROM csat_exam_section 
-		           WHERE csat_seq IN
-		           	<foreach collection="sectionList" item="list" open="(" close=")" separator=",">
-						#{list.csatSequence}
-					</foreach> 
-		             AND exam_seq IN
-		            <foreach collection="sectionList" item="list" open="(" close=")" separator=",">
-		    			#{list.examSequence}
-					</foreach> 
-		             AND ! (
-		            <foreach collection="sectionList" item="list" separator="OR">
-		   				(section_seq = #{list.sectionSequence})
-		   			</foreach>)) ces 
-		 WHERE cqoc.csat_seq = ces.csat_seq 
-		   AND cqoc.exam_seq = ces.exam_seq 
-		   AND cqoc.section_seq = ces.section_seq 
-	</delete>
 
 </mapper>

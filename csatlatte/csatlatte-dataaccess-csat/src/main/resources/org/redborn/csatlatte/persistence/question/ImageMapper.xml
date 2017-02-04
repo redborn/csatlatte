@@ -74,26 +74,4 @@
 		   AND cqi.subject_seq = ces.subject_seq
 	</delete>
 	
-	<delete id="deleteForModifyRatingCutBySection" parameterType="Map">
-		DELETE cqi 
-		  FROM csat_qst_img cqi 
-		       , (SELECT csat_seq,exam_seq,section_seq 
-		            FROM csat_exam_section 
-		           WHERE csat_seq IN
-		           	<foreach collection="sectionList" item="list" open="(" close=")" separator=",">
-						#{list.csatSequence}
-					</foreach> 
-		             AND exam_seq IN
-		            <foreach collection="sectionList" item="list" open="(" close=")" separator=",">
-		    			#{list.examSequence}
-					</foreach> 
-		             AND ! (
-		            <foreach collection="sectionList" item="list" separator="OR">
-		   				(section_seq = #{list.sectionSequence})
-		   			</foreach>)) ces 
-		 WHERE cqi.csat_seq = ces.csat_seq 
-		   AND cqi.exam_seq = ces.exam_seq 
-		   AND cqi.section_seq = ces.section_seq 
-	</delete>
-	
 </mapper>

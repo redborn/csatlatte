@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.redborn.csatlatte.domain.AverageVo;
-import org.redborn.csatlatte.domain.SectionVo;
 import org.redborn.csatlatte.domain.SubjectVo;
 import org.springframework.stereotype.Repository;
 
@@ -62,12 +61,6 @@ public class AverageDaoMapper extends SqlSessionDaoSupport implements AverageDao
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("subjectList", subjectList);
 		return getSqlSession().delete("exam.average.deleteForModifyRatingCutBySubject", params);
-	}
-	
-	public int deleteForModifyRatingCutBySection(List<SectionVo> sectionList) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("sectionList", sectionList);
-		return getSqlSession().delete("exam.average.deleteForModifyRatingCutBySection", params);
 	}
 
 }
