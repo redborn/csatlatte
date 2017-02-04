@@ -83,7 +83,6 @@ public class RatingCutServiceImpl implements RatingCutService {
 		logger.info("Business layer ratingcut delete.");
 		boolean result = false;
 		boolean isQuestion = questionDao.selectOneCount(csatSequence, examSequence, null, null) > 0;
-		logger.info("test : " + isQuestion);
 		DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
 		defaultTransactionDefinition.setName("ratingCut delete transaction");
 		defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
