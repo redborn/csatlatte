@@ -161,7 +161,6 @@ public class RatingCutServiceImpl implements RatingCutService {
 			transactionManager.rollback(transactionStatus);
 			logger.warn(new StringBuilder("Business layer RatingCut register exception. Transaction rollback.").toString());
 		}
-		logger.info("test : " + result);
 		return result;
 	}
 	
