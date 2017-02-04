@@ -84,7 +84,6 @@ public class Rating {
 			List<AverageVo> averageList = ratingCutReader.averageList();
 			if (sectionList != null && subjectList != null && ratingCutList != null && averageList != null) {
 				model.addAttribute("result", ratingCutService.register(sectionList, subjectList, ratingCutList, averageList));
-				logger.info("success register ratingcut");
 			}
 		}
 	}
