@@ -161,7 +161,7 @@ public class RatingCutServiceImpl implements RatingCutService {
 			transactionManager.rollback(transactionStatus);
 			logger.warn(new StringBuilder("Business layer RatingCut register exception. Transaction rollback.").toString());
 		}
-		
+		logger.info("test : " + result);
 		return result;
 	}
 	
@@ -218,6 +218,8 @@ public class RatingCutServiceImpl implements RatingCutService {
 			averageDao.deleteForModifyRatingCut(averageList);
 			ratingCutDao.deleteForModifyRatingCut(ratingCutList);
 			
+			scoreDao.deleteForModifyRatingCutBySubject(subjectList);
+			listeningDao.deleteForModifyRatingCutBySubject(subjectList);
 			correctAnswerDao.deleteForModifyRatingCutBySubject(subjectList);
 			textImageDao.deleteForModifyRatingCutBySubject(subjectList);
 			contentDao.deleteForModifyRatingCutBySubject(subjectList);
@@ -230,19 +232,8 @@ public class RatingCutServiceImpl implements RatingCutService {
 			ratingCutDao.deleteForModifyRatingCutBySubject(subjectList);
 			subjectDao.deleteForModifyRatingCutBySubject(subjectList);
 			
-			correctAnswerDao.deleteForModifyRatingCutBySection(sectionList);
-			textImageDao.deleteForModifyRatingCutBySection(sectionList);
-			contentDao.deleteForModifyRatingCutBySection(sectionList);
-			textDao.deleteForModifyRatingCutBySection(sectionList);
-			objectiveItemImageDao.deleteForModifyRatingCutBySection(sectionList);
-			objectiveItemDao.deleteForModifyRatingCutBySection(sectionList);
-			imageDao.deleteForModifyRatingCutBySection(sectionList);
-			questionDao.deleteForModifyRatingCutBySection(sectionList);
-			averageDao.deleteForModifyRatingCutBySection(sectionList);
-			ratingCutDao.deleteForModifyRatingCutBySection(sectionList);
-			subjectDao.deleteForModifyRatingCutBySection(sectionList);
 			sectionDao.deleteForModifyRatingCut(sectionList);
-				
+			
 			transactionManager.commit(transactionStatus);
 			result = true;
 			logger.info(new StringBuilder("Business layer ratingCut modify success. transaction rollback.").toString());
