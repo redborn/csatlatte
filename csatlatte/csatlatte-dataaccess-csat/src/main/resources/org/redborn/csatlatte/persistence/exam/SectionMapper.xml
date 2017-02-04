@@ -28,23 +28,6 @@
 		 WHERE ces.csat_seq = #{csatSequence}
 		   AND ces.exam_seq = #{examSequence}
 	</select>
-	
-	<select id="selectListForModifyRatingCut" parameterType="Map" resultMap="SectionVoMap">
-		SELECT csat_seq, exam_seq, section_seq, section_name, select_count
-		  FROM csat_exam_section 
-		 WHERE csat_seq IN  
-			<foreach collection="sectionList" item="list" open="(" close=")" separator=",">
-				#{list.csatSequence}
-			</foreach>
-		   AND exam_seq IN 
-		    <foreach collection="sectionList" item="list" open="(" close=")" separator=",">
-		    	#{list.examSequence}
-			</foreach>
-		   AND !(section_seq IN
-		   	<foreach collection="sectionList" item="list" open="(" close=")" separator=",">
-		   		#{list.sectionSequence}
-		   	</foreach>)
-	</select>
 
 	<insert id="insert" parameterType="SectionVo">
 		INSERT INTO csat_exam_section
@@ -70,12 +53,20 @@
 		   </if>
 	</delete>
 	
-	<delete id="deleteForModifyRatingCutBySection" parameterType="Map">
-		DELETE FROM csat_exam_section
-			 WHERE 
-			   	<foreach collection="sectionList" item="list" separator="OR">
-			   		(csat_seq = #{list.csatSequence} AND exam_seq = #{list.examSequence} AND section_seq = #{list.sectionSequence})
-			   	</foreach>
+	<delete id="deleteForModifyRatingCut" parameterType="Map">
+		DELETE FROM csat_exam_section 
+		 WHERE csat_seq IN  
+			<foreach collection="sectionList" item="list" open="(" close=")" separator=",">
+				#{list.csatSequence}
+			</foreach>
+		   AND exam_seq IN 
+		    <foreach collection="sectionList" item="list" open="(" close=")" separator=",">
+		    	#{list.examSequence}
+			</foreach>
+		   AND !(section_seq IN
+		   	<foreach collection="sectionList" item="list" open="(" close=")" separator=",">
+		   		#{list.sectionSequence}
+		   	</foreach>)
 	</delete>
 	
 </mapper>

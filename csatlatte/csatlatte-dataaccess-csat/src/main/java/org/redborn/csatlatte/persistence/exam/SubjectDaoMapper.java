@@ -30,12 +30,6 @@ public class SubjectDaoMapper extends SqlSessionDaoSupport implements SubjectDao
 		params.put("examSequence", examSequence);
 		return getSqlSession().selectList("exam.subject.selectListForSolving", params);
 	}
-	
-	public List<SubjectVo> selectListForModifyRatingCut(List<SubjectVo> subjectList) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("subjectList", subjectList);
-		return getSqlSession().selectList("exam.subject.selectListForModifyRatingCut", params);
-	}
 
 	public int selectExamTime(int csatSequence, int examSequence,
 			int sectionSequence, int subjectSequence) {

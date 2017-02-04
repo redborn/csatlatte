@@ -30,19 +30,48 @@
 	</delete>
 	
 	<delete id="deleteForModifyRatingCutBySubject" parameterType="Map">
-		DELETE FROM csat_qst_text_content
-			 WHERE 
-			   	<foreach collection="subjectList" item="list" separator="OR">
-			   		(csat_seq = #{list.csatSequence} AND exam_seq = #{list.examSequence} AND section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
-			   	</foreach>
+		DELETE cqtc 
+		  FROM csat_qst_text_content cqtc 
+		       , (SELECT csat_seq,exam_seq,section_seq,subject_seq 
+		            FROM csat_exam_subject 
+		           WHERE csat_seq IN
+		           	<foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+						#{list.csatSequence}
+					</foreach> 
+		             AND exam_seq IN
+		            <foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+		    			#{list.examSequence}
+					</foreach> 
+		             AND ! (
+		            <foreach collection="subjectList" item="list" separator="OR">
+		   				(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
+		   			</foreach>)) ces 
+		 WHERE cqtc.csat_seq = ces.csat_seq 
+		   AND cqtc.exam_seq = ces.exam_seq 
+		   AND cqtc.section_seq = ces.section_seq 
+		   AND cqtc.subject_seq = ces.subject_seq
 	</delete>
 	
 	<delete id="deleteForModifyRatingCutBySection" parameterType="Map">
-		DELETE FROM csat_qst_text_content
-			 WHERE 
-			   	<foreach collection="sectionList" item="list" separator="OR">
-			   		(csat_seq = #{list.csatSequence} AND exam_seq = #{list.examSequence} AND section_seq = #{list.sectionSequence})
-			   	</foreach>
+		DELETE cqtc 
+		  FROM csat_qst_text_content cqtc 
+		       , (SELECT csat_seq,exam_seq,section_seq 
+		            FROM csat_exam_section 
+		           WHERE csat_seq IN
+		           	<foreach collection="sectionList" item="list" open="(" close=")" separator=",">
+						#{list.csatSequence}
+					</foreach> 
+		             AND exam_seq IN
+		            <foreach collection="sectionList" item="list" open="(" close=")" separator=",">
+		    			#{list.examSequence}
+					</foreach> 
+		             AND ! (
+		            <foreach collection="sectionList" item="list" separator="OR">
+		   				(section_seq = #{list.sectionSequence})
+		   			</foreach>)) ces 
+		 WHERE cqtc.csat_seq = ces.csat_seq 
+		   AND cqtc.exam_seq = ces.exam_seq 
+		   AND cqtc.section_seq = ces.section_seq 
 	</delete>
 
 </mapper>

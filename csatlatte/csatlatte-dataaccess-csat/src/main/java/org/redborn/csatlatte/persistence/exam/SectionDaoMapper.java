@@ -22,12 +22,6 @@ public class SectionDaoMapper extends SqlSessionDaoSupport implements SectionDao
 		return getSqlSession().selectList("exam.section.selectList", params);
 	}
 	
-	public List<SectionVo> selectListForModifyRatingCut(List<SectionVo> sectionList) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("sectionList", sectionList);
-		return getSqlSession().selectList("exam.section.selectListForModifyRatingCut", params);
-	}
-	
 	public int insert(SectionVo sectionVo) {
 		return getSqlSession().insert("exam.section.insert", sectionVo);
 	}
@@ -45,10 +39,10 @@ public class SectionDaoMapper extends SqlSessionDaoSupport implements SectionDao
 		return getSqlSession().delete("exam.section.delete", params);
 	}
 	
-	public int deleteForModifyRatingCutBySection(List<SectionVo> sectionList) {
+	public int deleteForModifyRatingCut(List<SectionVo> sectionList) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("sectionList", sectionList);
-		return getSqlSession().delete("exam.section.deleteForModifyRatingCutBySection", params);
+		return getSqlSession().delete("exam.section.deleteForModifyRatingCut", params);
 	}
 
 }
