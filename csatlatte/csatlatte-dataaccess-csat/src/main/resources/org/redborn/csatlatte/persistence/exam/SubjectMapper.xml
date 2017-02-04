@@ -13,25 +13,99 @@
 		<result column="subject_seq" property="subjectSequence"/>
 		<result column="subject_name" property="subjectName"/>
 		<result column="max_score" property="maxScore"/>
+		<result column="exam_time" property="examTime"/>
 	</resultMap>
+	
+	<select id="selectOneCount" parameterType="SubjectVo" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_exam_subject
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+	</select>
 
 	<select id="selectList" parameterType="Map" resultMap="SubjectVoMap">
-		SELECT ces.csat_seq, ces.exam_seq, ces.section_seq, ces.subject_seq, ces.subject_name, ces.max_score
+		SELECT ces.csat_seq, ces.exam_seq, ces.section_seq, ces.subject_seq, ces.subject_name, ces.max_score, ces.exam_time
 		  FROM csat_exam_subject ces
 		 WHERE ces.csat_seq = #{csatSequence}
 		   AND ces.exam_seq = #{examSequence}
 	</select>
+	
+	<select id="selectListForSolving" parameterType="Map" resultMap="SubjectVoMap">
+		SELECT ces.csat_seq,ces.exam_seq,ces.section_seq,ces.subject_seq,
+		       ces.subject_name,
+		       ces.max_score
+		  FROM csat_exam_subject ces
+		 WHERE EXISTS (SELECT *
+		                 FROM csat_qst
+		                WHERE csat_seq = ces.csat_seq
+		                  AND exam_seq = ces.exam_seq
+		                  AND section_seq = ces.section_seq
+		                  AND subject_seq = ces.subject_seq)
+		   AND ces.csat_seq = #{csatSequence}
+		   AND ces.exam_seq = #{examSequence}
+		 ORDER BY ces.section_seq ASC,ces.subject_seq ASC
+	</select>
+	
+	<select id="selectExamTime" parameterType="Map" resultType="int">
+		SELECT exam_time
+		  FROM csat_exam_subject
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+	</select>
+	
+	<select id="selectSubjectName" parameterType="Map" resultType="String">
+		SELECT subject_name
+		  FROM csat_exam_subject
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+	</select>
 
 	<insert id="insert" parameterType="SubjectVo">
-		INSERT INTO csat_exam_subject
+		INSERT INTO csat_exam_subject(csat_seq, exam_seq, section_seq, subject_seq, subject_name, max_score, exam_time)
 		VALUES (#{csatSequence}, #{examSequence}, #{sectionSequence}, #{subjectSequence},
-				#{subjectName}, #{maxScore}) 
+				#{subjectName}, #{maxScore}, #{examTime}) 
 	</insert>
+	
+	<update id="update" parameterType="SubjectVo">
+		UPDATE csat_exam_subject SET subject_name = #{subjectName}, max_score = #{maxScore}, exam_time = #{examTime}
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+	</update>
 	
 	<delete id="delete" parameterType="Map">
 		DELETE FROM csat_exam_subject
 		 WHERE csat_seq = #{csatSequence}
 		   AND exam_seq = #{examSequence}
+		   <if test="sectionSequence != null">
+		   		AND section_seq = #{sectionSequence}
+		   </if>
+		   <if test="subjectSequence != null">
+		   		AND subject_seq = #{subjectSequence}
+		   </if>
+	</delete>
+	
+	<delete id="deleteForModifyRatingCutBySubject" parameterType="Map">
+		DELETE FROM csat_exam_subject 
+		 WHERE csat_seq IN  
+			<foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+				#{list.csatSequence}
+			</foreach>
+		   AND exam_seq IN 
+		    <foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+		    	#{list.examSequence}
+			</foreach>
+		   AND !(
+		   	<foreach collection="subjectList" item="list" separator="OR">
+		   		(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
+		   	</foreach>)
 	</delete>
 	
 </mapper>

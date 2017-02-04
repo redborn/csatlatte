@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="question.objectiveitem">
+	
+	<resultMap type="ObjectiveItemVo" id="ObjectiveItemVoMap">
+		<result column="objtitem_seq" property="objectiveItemSequence"/>
+		<result column="content" property="content"/>
+	</resultMap>
+	
+	<select id="selectList" parameterType="QuestionVo" resultMap="ObjectiveItemVoMap">
+		SELECT objtitem_seq,content
+		  FROM csat_qst_objtitem
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+		   AND qst_seq = #{questionSequence}
+		 ORDER BY objtitem_seq ASC 
+	</select>
+	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_qst_objtitem
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   <if test="sectionSequence != null">
+		   		AND section_seq = #{sectionSequence}
+		   </if>
+		   <if test="subjectSequence != null">
+		   		AND subject_seq = #{subjectSequence}
+		   </if>
+	</delete>
+	
+	<delete id="deleteForModifyRatingCutBySubject" parameterType="Map">
+		DELETE cqo 
+		  FROM csat_qst_objtitem cqo 
+		       , (SELECT csat_seq,exam_seq,section_seq,subject_seq 
+		            FROM csat_exam_subject 
+		           WHERE csat_seq IN
+		           	<foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+						#{list.csatSequence}
+					</foreach> 
+		             AND exam_seq IN
+		            <foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+		    			#{list.examSequence}
+					</foreach> 
+		             AND ! (
+		            <foreach collection="subjectList" item="list" separator="OR">
+		   				(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
+		   			</foreach>)) ces 
+		 WHERE cqo.csat_seq = ces.csat_seq 
+		   AND cqo.exam_seq = ces.exam_seq 
+		   AND cqo.section_seq = ces.section_seq 
+		   AND cqo.subject_seq = ces.subject_seq
+	</delete>
+
+</mapper>

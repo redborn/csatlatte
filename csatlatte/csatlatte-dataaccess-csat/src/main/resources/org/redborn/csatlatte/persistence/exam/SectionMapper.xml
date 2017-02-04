@@ -13,6 +13,14 @@
 		<result column="section_name" property="sectionName"/>
 		<result column="select_count" property="selectCount"/>
 	</resultMap>
+	
+	<select id="selectOneCount" parameterType="SectionVo" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_exam_section
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+	</select>
 
 	<select id="selectList" parameterType="Map" resultMap="SectionVoMap">
 		SELECT ces.csat_seq, ces.exam_seq, ces.section_seq, ces.section_name, ces.select_count
@@ -26,10 +34,39 @@
 		VALUES (#{csatSequence}, #{examSequence}, #{sectionSequence}, #{sectionName}, #{selectCount}) 
 	</insert>
 	
+	<update id="update" parameterType="SectionVo">
+		UPDATE csat_exam_section SET section_name = #{sectionName}, select_count = #{selectCount}
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+	</update>
+	
 	<delete id="delete" parameterType="Map">
 		DELETE FROM csat_exam_section
 		 WHERE csat_seq = #{csatSequence}
 		   AND exam_seq = #{examSequence}
+		   <if test="sectionSequence != null">
+		   		AND section_seq = #{sectionSequence}
+		   </if>
+		   <if test="subjectSequence != null">
+		   		AND subject_seq = #{subjectSequence}
+		   </if>
+	</delete>
+	
+	<delete id="deleteForModifyRatingCut" parameterType="Map">
+		DELETE FROM csat_exam_section 
+		 WHERE csat_seq IN  
+			<foreach collection="sectionList" item="list" open="(" close=")" separator=",">
+				#{list.csatSequence}
+			</foreach>
+		   AND exam_seq IN 
+		    <foreach collection="sectionList" item="list" open="(" close=")" separator=",">
+		    	#{list.examSequence}
+			</foreach>
+		   AND !(section_seq IN
+		   	<foreach collection="sectionList" item="list" open="(" close=")" separator=",">
+		   		#{list.sectionSequence}
+		   	</foreach>)
 	</delete>
 	
 </mapper>

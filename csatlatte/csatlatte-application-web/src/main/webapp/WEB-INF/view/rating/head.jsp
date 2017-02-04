@@ -261,7 +261,6 @@
 			var ratingCut2 = makeRatingCutList(ratingCutList, 4);
 			var ratingCut3 = makeRatingCutList(ratingCutList, 7);
 			var html = '';
-			console.log(ratingCutList);
 			if (ratingCutList.length == 0) {
 				html += '<div class="alert alert-danger rating-alert-danger" role="alert">';
 				html += '	<h4><strong>이 시험은 등급컷과 관련된 정보가 부족합니다.</strong></h4>';

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="exam.subject.listening">
+	
+	<select id="selectOneCount" parameterType="Map" resultType="int">
+		SELECT COUNT(*) 
+		  FROM csat_exam_subject_lstn 
+		 WHERE csat_seq = #{csatSequence} 
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+	</select>
+	
+	<select id="selectOneFileName" parameterType="Map" resultType="String">
+		SELECT file_name 
+		  FROM csat_exam_subject_lstn 
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+	</select>
+	
+	<select id="selectOneFileCode" parameterType="Map" resultType="String">
+		SELECT file_code 
+		  FROM csat_exam_subject_lstn 
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+	</select>
+	
+	<delete id="deleteForModifyRatingCutBySubject" parameterType="Map">
+		DELETE cesl 
+		  FROM csat_exam_subject_lstn cesl 
+		       , (SELECT csat_seq,exam_seq,section_seq,subject_seq 
+		            FROM csat_exam_subject 
+		           WHERE csat_seq IN
+		           	<foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+						#{list.csatSequence}
+					</foreach> 
+		             AND exam_seq IN
+		            <foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+		    			#{list.examSequence}
+					</foreach> 
+		             AND ! (
+		            <foreach collection="subjectList" item="list" separator="OR">
+		   				(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
+		   			</foreach>)) ces 
+		 WHERE cesl.csat_seq = ces.csat_seq 
+		   AND cesl.exam_seq = ces.exam_seq 
+		   AND cesl.section_seq = ces.section_seq 
+		   AND cesl.subject_seq = ces.subject_seq
+	</delete>
+	
+</mapper>

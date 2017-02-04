@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="question.text.content">
+	
+	<select id="selectList" parameterType="Map" resultType="String">
+		SELECT content 
+		  FROM csat_qst_text_content 
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+		   AND text_seq = #{textSequence}
+	  ORDER BY content_seq ASC 
+	</select>
+	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_qst_text_content
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   <if test="sectionSequence != null">
+		   		AND section_seq = #{sectionSequence}
+		   </if>
+		   <if test="subjectSequence != null">
+		   		AND subject_seq = #{subjectSequence}
+		   </if>
+	</delete>
+	
+	<delete id="deleteForModifyRatingCutBySubject" parameterType="Map">
+		DELETE cqtc 
+		  FROM csat_qst_text_content cqtc 
+		       , (SELECT csat_seq,exam_seq,section_seq,subject_seq 
+		            FROM csat_exam_subject 
+		           WHERE csat_seq IN
+		           	<foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+						#{list.csatSequence}
+					</foreach> 
+		             AND exam_seq IN
+		            <foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+		    			#{list.examSequence}
+					</foreach> 
+		             AND ! (
+		            <foreach collection="subjectList" item="list" separator="OR">
+		   				(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
+		   			</foreach>)) ces 
+		 WHERE cqtc.csat_seq = ces.csat_seq 
+		   AND cqtc.exam_seq = ces.exam_seq 
+		   AND cqtc.section_seq = ces.section_seq 
+		   AND cqtc.subject_seq = ces.subject_seq
+	</delete>
+
+</mapper>

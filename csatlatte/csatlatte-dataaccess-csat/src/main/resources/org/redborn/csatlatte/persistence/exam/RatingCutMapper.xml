@@ -14,11 +14,33 @@
 	<resultMap type="RatingCutVo" id="RatingCutVoMap">
 		<result column="csat_seq" property="csatSequence"/>
 		<result column="exam_seq" property="examSequence"/>
+		<result column="section_seq" property="sectionSequence"/>
+		<result column="subject_seq" property="subjectSequence"/>
 		<result column="rating_code" property="ratingCode"/>
 		<result column="subject_name" property="subjectName"/>
 		<result column="raw_score" property="rawScore"/>
 		<result column="standard_score" property="standardScore"/>
 	</resultMap>
+	
+	<select id="selectOneCount" parameterType="RatingCutVo" resultType="int">
+		SELECT COUNT(*)
+		  FROM csat_exam_rating_cut
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+		   AND rating_code = #{ratingCode}
+	</select>
+	
+	<select id="selectOneRatingByScore" parameterType="Map" resultType="int">
+		SELECT MIN(rating_code) AS rating_code 
+		  FROM csat_exam_rating_cut 
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+		   AND raw_score &lt;= #{score} 
+	</select>
 	
 	<select id="selectList" parameterType="int" resultMap="ExamVoMap">
 		SELECT ce.exam_seq,ce.exam_name
@@ -98,17 +120,71 @@
 		         AND IFNULL(ces.section, 0) = 0
 		         AND IFNULL(cerc.ratingcut, 0) = 0 ) 
 	</select>
-	
-	<delete id="delete" parameterType="Map">
-		DELETE FROM csat_exam_rating_cut
-		 WHERE csat_seq = #{csatSequence}
-		   AND exam_seq = #{examSequence}
-	</delete>
 
 	<insert id="insert" parameterType="RatingCutVo">
 		INSERT INTO csat_exam_rating_cut
 		VALUES (#{csatSequence}, #{ratingCode}, #{examSequence}, 
 				#{sectionSequence}, #{subjectSequence}, #{rawScore}, #{standardScore}) 
 	</insert>
+	
+	<update id="update" parameterType="RatingCutVo">
+		UPDATE csat_exam_rating_cut SET raw_score = #{rawScore}, standard_score = #{standardScore}
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+		   AND rating_code = #{ratingCode}
+	</update>
+	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_exam_rating_cut
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   <if test="sectionSequence != null">
+		   		AND section_seq = #{sectionSequence}
+		   </if>
+		   <if test="subjectSequence != null">
+		   		AND subject_seq = #{subjectSequence}
+		   </if>
+	</delete>
+	
+	<delete id="deleteForModifyRatingCut" parameterType="Map">
+		DELETE FROM csat_exam_rating_cut 
+		 WHERE csat_seq IN  
+			<foreach collection="ratingCutList" item="list" open="(" close=")" separator=",">
+				#{list.csatSequence}
+			</foreach>
+		   AND exam_seq IN 
+		    <foreach collection="ratingCutList" item="list" open="(" close=")" separator=",">
+		    	#{list.examSequence}
+			</foreach>
+		   AND !(
+		   	<foreach collection="ratingCutList" item="list" separator="OR">
+		   		(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence} AND rating_code = #{list.ratingCode})
+		   	</foreach>)
+	</delete>
+	
+	<delete id="deleteForModifyRatingCutBySubject" parameterType="Map">
+		DELETE cerc 
+		  FROM csat_exam_rating_cut cerc 
+		       , (SELECT csat_seq,exam_seq,section_seq,subject_seq 
+		            FROM csat_exam_subject 
+		           WHERE csat_seq IN
+		           	<foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+						#{list.csatSequence}
+					</foreach> 
+		             AND exam_seq IN
+		            <foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+		    			#{list.examSequence}
+					</foreach> 
+		             AND ! (
+		            <foreach collection="subjectList" item="list" separator="OR">
+		   				(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
+		   			</foreach>)) ces 
+		 WHERE cerc.csat_seq = ces.csat_seq 
+		   AND cerc.exam_seq = ces.exam_seq 
+		   AND cerc.section_seq = ces.section_seq 
+		   AND cerc.subject_seq = ces.subject_seq
+	</delete>
 	
 </mapper>

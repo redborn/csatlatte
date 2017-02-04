@@ -67,10 +67,18 @@
 										});
 										$('.manage-rating-modify-form').ajaxForm({
 											type : "PUT",
-											success : function () {
+											success : function (data) {
 												$btn.button('reset');
-												$('#manage-rating-modify-view').modal('hide');
-												$('#manage-rating-csat-list').trigger("change");
+												if (!data.result) {
+													$('.manage-rating-modify-cancel').attr("disabled", false);
+													$('#manage-rating-modify-file').tooltip("show");
+													setTimeout(function () {
+														$('#manage-rating-modify-file').tooltip("destroy");
+													}, 1200);
+												} else {
+													$('#manage-rating-modify-view').modal('hide');
+													$('#manage-rating-csat-list').trigger("change");
+												}
 											},
 											error : function () {
 												$btn.button('reset');
@@ -127,8 +135,15 @@
 											success : function (data) {
 												if (data.averageList != null) {
 													var averageList = data.averageList;
-													$('.manage-rating-cut-info').remove();
-													$('#manage-rating-detail-view-detail').append(makeRatingCutView(averageList, ratingCutList));
+													$.ajax(contextPath + "/data/exam/subject/" + csatSequence + "/" + examSequence + ".json", {
+														dataType : "json",
+														type : "GET",
+														success : function (data) {
+															var subjectList = data.subjectList;
+															$('.manage-rating-cut-info').remove();
+															$('#manage-rating-detail-view-detail').append(makeRatingCutView(averageList, ratingCutList, subjectList));
+														}
+													});
 												}
 											}
 										});
@@ -224,6 +239,7 @@
 				html += '<p class="manage-rating-delete-alert"><b>이 등급컷은 ' + count + '명의 학생이 성적을 등록했습니다.</b></p>';
 			}
 			html += '	<p>정말로 이 등급컷을 삭제하시겠습니까?</p>';
+			html += '	<p style="color:red;"><b>모의고사 문제가 포함되어 있는 등급컷 정보는 모의고사 문제 데이터도 같이 삭제됩니다.</b></p>';
 			html += '</div>';
 			return html;
 		}
@@ -324,7 +340,7 @@
 			return html;
 		}
 		
-		var makeRatingCutView = function (averageList, ratingCutList) {
+		var makeRatingCutView = function (averageList, ratingCutList, subjectList) {
 			var ratingCut1 = makeRatingCutList(ratingCutList, 1);
 			var ratingCut2 = makeRatingCutList(ratingCutList, 4);
 			var ratingCut3 = makeRatingCutList(ratingCutList, 7);
@@ -334,6 +350,7 @@
 			html += '		<li data-target="#carousel-example-generic" data-slide-to="1"></li>';
 			html += '		<li data-target="#carousel-example-generic" data-slide-to="2"></li>';
 			html += '		<li data-target="#carousel-example-generic" data-slide-to="3"></li>';
+			html += '		<li data-target="#carousel-example-generic" data-slide-to="4"></li>';
 			html += '	</ol>';
 			html += '	<div class="carousel-inner manage-rating-detail-carousel-inner" role="listbox">';		
 			html += '		<div class="item active">';
@@ -344,6 +361,7 @@
 			html += makeRatingCut(ratingCut1, 1);
 			html += makeRatingCut(ratingCut2, 4);
 			html += makeRatingCut(ratingCut3, 7);
+			html += makeSubjectTime(subjectList);
 			html += '	</div>';
 			html += '	<a class="manage-rating-carousel-left-button carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">';
 			html += '		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>';
@@ -354,6 +372,34 @@
 			html += '		<span class="sr-only">Next</span>';
 			html += '	</a>';
 			html += '</div>';
+			return html;
+		}
+		
+		var makeSubjectTime = function (subjectList) {
+			var html = '';
+			html += '		<div class="item">';
+			html += '			<div class="carousel-caption manage-rating-carousel-caption">';
+			html += '				<table class="table table-bordered table-hover manage-rating-detail-table">';
+			html += '					<thead>';
+			html += '						<tr>';
+			html += '							<th rowspan="2">과목</th>';
+			html += '							<th rowspan="2">시험시간</th>';
+			html += '						</tr>';
+			html += '					</thead>';
+			html += '					<tbody>';
+			if (subjectList != null) {
+				var subjectListLength = subjectList.length;
+				for (var index = 0; index < subjectListLength; index++) {
+					html += '<tr>';
+					html += '	<td>' + subjectList[index].subjectName + '</td>';
+					html += '	<td>' + subjectList[index].examTime + '</td>';
+					html += '</tr>';
+				}
+			}
+			html += '					</tbody>';
+			html += '				</table>';
+			html += '			</div>';
+			html += '		</div>';
 			return html;
 		}
 	});

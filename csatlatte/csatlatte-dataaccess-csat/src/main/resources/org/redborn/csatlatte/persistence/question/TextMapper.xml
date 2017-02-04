@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="question.text">
+
+	<resultMap type="TextVo" id="TextVoMap">
+		<result column="text_seq" property="textSequence"/>
+		<result column="begin_qst_seq" property="beginQuestionSequence"/>
+		<result column="end_qst_seq" property="endQuestionSequence"/>
+		<result column="description" property="description"/>
+	</resultMap>
+	
+	<resultMap type="TextVo" id="TextVoMapForRandomsolving">
+		<result column="csat_seq" property="csatSequence"/>
+		<result column="exam_seq" property="examSequence"/>
+		<result column="section_seq" property="sectionSequence"/>
+		<result column="subject_seq" property="subjectSequence"/>
+		<result column="text_seq" property="textSequence"/>
+		<result column="description" property="description"/>
+	</resultMap>
+	
+	<select id="selectOne" parameterType="Map" resultMap="TextVoMapForRandomsolving">
+		SELECT csat_seq,exam_seq,section_seq,subject_seq,text_seq,description 
+		  FROM csat_qst_text 
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+		   AND begin_qst_seq &lt;= #{questionSequence}
+		   AND end_qst_seq &gt;= #{questionSequence}
+	</select>
+	
+	<select id="selectList" parameterType="Map" resultMap="TextVoMap">
+		SELECT text_seq,begin_qst_seq,end_qst_seq,description 
+		  FROM csat_qst_text 
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   AND section_seq = #{sectionSequence}
+		   AND subject_seq = #{subjectSequence}
+		 ORDER BY text_seq ASC
+	</select>
+	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM csat_qst_text 
+		 WHERE csat_seq = #{csatSequence}
+		   AND exam_seq = #{examSequence}
+		   <if test="sectionSequence != null">
+		   		AND section_seq = #{sectionSequence}
+		   </if>
+		   <if test="subjectSequence != null">
+		   		AND subject_seq = #{subjectSequence}
+		   </if>
+	</delete>
+	
+	<delete id="deleteForModifyRatingCutBySubject" parameterType="Map">
+		DELETE cqt 
+		  FROM csat_qst_text cqt 
+		       , (SELECT csat_seq,exam_seq,section_seq,subject_seq 
+		            FROM csat_exam_subject 
+		           WHERE csat_seq IN
+		           	<foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+						#{list.csatSequence}
+					</foreach> 
+		             AND exam_seq IN
+		            <foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+		    			#{list.examSequence}
+					</foreach> 
+		             AND ! (
+		            <foreach collection="subjectList" item="list" separator="OR">
+		   				(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
+		   			</foreach>)) ces 
+		 WHERE cqt.csat_seq = ces.csat_seq 
+		   AND cqt.exam_seq = ces.exam_seq 
+		   AND cqt.section_seq = ces.section_seq 
+		   AND cqt.subject_seq = ces.subject_seq
+	</delete>
+
+</mapper>

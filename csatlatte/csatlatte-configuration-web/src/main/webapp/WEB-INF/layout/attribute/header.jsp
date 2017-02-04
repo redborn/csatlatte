@@ -20,6 +20,8 @@
 			<ul class="nav navbar-nav">
 				<li><a href="<c:url value="/rating"/>">모의고사 등급컷</a></li>
 				<li><a href="<c:url value="/grade"/>">내 성적 관리</a></li>
+				<li><a href="<c:url value="/solving/select"/>">모의고사 풀기</a></li>
+				<li><a href="<c:url value="/randomsolving/select"/>">임의 문제 풀기</a>
 				<li><a href="<c:url value="/community"/>">커뮤니티</a></li>
 				<li><a href="<c:url value="/support"/>">고객지원</a></li>
 			<session:isManager>

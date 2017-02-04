@@ -181,4 +181,27 @@
 		   AND exam_seq = #{examSequence}
 	</delete>
 	
+	<delete id="deleteForModifyRatingCutBySubject" parameterType="Map">
+		DELETE cess 
+		  FROM csat_exam_student_score cess 
+		       , (SELECT csat_seq,exam_seq,section_seq,subject_seq 
+		            FROM csat_exam_subject 
+		           WHERE csat_seq IN
+		           	<foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+						#{list.csatSequence}
+					</foreach> 
+		             AND exam_seq IN
+		            <foreach collection="subjectList" item="list" open="(" close=")" separator=",">
+		    			#{list.examSequence}
+					</foreach> 
+		             AND ! (
+		            <foreach collection="subjectList" item="list" separator="OR">
+		   				(section_seq = #{list.sectionSequence} AND subject_seq = #{list.subjectSequence})
+		   			</foreach>)) ces 
+		 WHERE cess.csat_seq = ces.csat_seq 
+		   AND cess.exam_seq = ces.exam_seq 
+		   AND cess.section_seq = ces.section_seq 
+		   AND cess.subject_seq = ces.subject_seq
+	</delete>
+	
 </mapper>

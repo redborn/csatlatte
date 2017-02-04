@@ -16,5 +16,24 @@ public class CsatAmazonS3Prefix {
 	 * 학생 Profile Prefix 입니다.
 	 */
 	public static final String STUDENT_PROFILE = "student";
+	/**
+	 * 시험 듣기 Prefix 입니다.
+	 */
+	public static final String EXAM_LISTENING = "exam/listening";
+	
+	/**
+	 * 시험 문제 Prefix 입니다.
+	 */
+	public static final String EXAM_QUESTION = "exam/question";
+	
+	/**
+	 * 시험 문항 Prefix 입니다.
+	 */
+	public static final String EXAM_OBJECTIVE_ITEM = "exam/objective-item";
+	
+	/**
+	 * 시험 지문 Prefix 입니다.
+	 */
+	public static final String EXAM_TEXT = "exam/text";
 
 }

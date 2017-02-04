@@ -8,6 +8,7 @@ public class SubjectVo {
 	private int subjectSequence;
 	private String subjectName;
 	private int maxScore;
+	private int examTime;
 	
 	public int getCsatSequence() {
 		return csatSequence;
@@ -56,13 +57,22 @@ public class SubjectVo {
 	public void setMaxScore(int maxScore) {
 		this.maxScore = maxScore;
 	}
+	
+	public int getExamTime() {
+		return examTime;
+	}
+	
+	public void setExamTime(int examTime) {
+		this.examTime = examTime;
+	}
 
 	@Override
 	public String toString() {
 		return "SubjectVo [csatSequence=" + csatSequence + ", examSequence="
 				+ examSequence + ", sectionSequence=" + sectionSequence
 				+ ", subjectSequence=" + subjectSequence + ", subjectName="
-				+ subjectName + ", maxScore=" + maxScore + "]";
+				+ subjectName + ", maxScore=" + maxScore + ", examTime="
+				+ examTime + "]";
 	}
 	
 }
