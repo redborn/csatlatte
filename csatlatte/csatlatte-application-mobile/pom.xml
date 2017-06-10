@@ -17,6 +17,7 @@
   		<groupId>org.redborn.csatlatte</groupId>
   		<artifactId>csatlatte-configuration-mobile</artifactId>
   		<version>1.0.0</version>
+  		<type>war</type>
   	</dependency>
   	<dependency>
   		<groupId>org.springframework</groupId>
