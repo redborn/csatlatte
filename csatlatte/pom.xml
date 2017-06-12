@@ -10,5 +10,7 @@
   	<module>csatlatte-business-csat</module>
   	<module>csatlatte-value</module>
   	<module>csatlatte-application-web</module>
+  	<module>csatlatte-configuration-mobile</module>
+  	<module>csatlatte-application-mobile</module>
   </modules>
 </project>
